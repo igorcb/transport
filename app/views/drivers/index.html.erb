@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Motoristas</div>
+  <div class="panel-body">
+    <%= link_to 'Novo Motoristas', new_driver_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Cpf</th>
+            <th>Nome</th>
+            <th>Fantasia</th>
+            <th>Rg</th>
+            <th>Cnh</th>
+            <th>Categoria</th>
+            <th>Validade CNH</th>
+            <th>Data emissao</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @drivers.each do |driver| %>
+            <tr>
+              <td><%= driver.cpf %></td>
+              <td><%= driver.nome %></td>
+              <td><%= driver.fantasia %></td>
+              <td><%= driver.rg %></td>
+              <td><%= driver.cnh %></td>
+              <td><%= driver.categoria_nome %></td>
+              <td><%= driver.validade_cnh %></td>
+              <td><%= driver.data_emissao %></td>
+              <td><%= link_to 'Show', driver, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_driver_path(driver), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', driver, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

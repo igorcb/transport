@@ -1,0 +1,31 @@
+class Employee < ActiveRecord::Base
+  validates :tipo, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..1 }
+  validates :cpf, presence: true, uniqueness: true, length: { maximum: 14 }
+  validates :nome, presence: true, length: { maximum: 100 } 
+  validates :apelido, presence: true, length: { maximum: 100 } 
+  validates :cep, presence: true, length: { maximum: 10 }
+  validates :endereco, presence: true, length: { maximum: 100 }
+  validates :numero, presence: true, length: { maximum: 15 } 
+  validates :complemento, length: { maximum: 100 }
+  validates :bairro, presence: true, length: { maximum: 100 }
+  validates :cidade, presence: true, length: { maximum: 100 }
+  validates :estado, presence: true, length: { maximum: 2 }
+
+  #has_one :address
+	#accepts_nested_attributes_for :address
+
+  module TipoEmployee
+  	FIXO = 0
+  	DIARISTA = 1
+  end
+
+  def tipo_funcionario
+    case self.tipo
+    when 0 then "Fixo"
+    when 1 then "Diarista"
+      
+    end
+    
+  end
+
+end

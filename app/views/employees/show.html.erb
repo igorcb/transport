@@ -1,0 +1,59 @@
+<p>
+  <strong>Cpf:</strong>
+  <%= @employee.cpf %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @employee.nome %>
+</p>
+
+<p>
+  <strong>Apelido:</strong>
+  <%= @employee.apelido %>
+</p>
+
+<p>
+  <strong>Endereco:</strong>
+  <%= @employee.endereco %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @employee.numero %>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <%= @employee.complemento %>
+</p>
+
+<p>
+  <strong>Bairro:</strong>
+  <%= @employee.bairro %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @employee.cidade %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @employee.estado %>
+</p>
+
+<p>
+  <strong>Cep:</strong>
+  <%= @employee.cep %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @employee.tipo_funcionario %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_employee_path(@employee), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', employees_path, class: "btn btn-default" %>
+</div>

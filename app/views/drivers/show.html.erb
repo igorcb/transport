@@ -1,0 +1,79 @@
+<p>
+  <strong>Cpf:</strong>
+  <%= @driver.cpf %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @driver.nome %>
+</p>
+
+<p>
+  <strong>Fantasia:</strong>
+  <%= @driver.fantasia %>
+</p>
+
+<p>
+  <strong>Endereco:</strong>
+  <%= @driver.endereco %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @driver.numero %>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <%= @driver.complemento %>
+</p>
+
+<p>
+  <strong>Bairro:</strong>
+  <%= @driver.bairro %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @driver.cidade %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @driver.estado %>
+</p>
+
+<p>
+  <strong>Cep:</strong>
+  <%= @driver.cep %>
+</p>
+
+<p>
+  <strong>Rg:</strong>
+  <%= @driver.rg %>
+</p>
+
+<p>
+  <strong>Cnh:</strong>
+  <%= @driver.cnh %>
+</p>
+
+<p>
+  <strong>Categoria:</strong>
+  <%= @driver.categoria_nome %>
+</p>
+
+<p>
+  <strong>Validade cnh:</strong>
+  <%= @driver.validade_cnh %>
+</p>
+
+<p>
+  <strong>Data emissao:</strong>
+  <%= @driver.data_emissao %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_driver_path(@driver), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', drivers_path, class: "btn btn-default" %>
+</div>

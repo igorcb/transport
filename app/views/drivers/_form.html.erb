@@ -1,0 +1,71 @@
+<%= form_for(@driver) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :cpf %><br>
+    <%= f.text_field :cpf, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :nome %><br>
+    <%= f.text_field :nome, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :fantasia, "Apelido" %><br>
+    <%= f.text_field :fantasia, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :endereco %><br>
+    <%= f.text_field :endereco, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :numero %><br>
+    <%= f.text_field :numero, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :complemento %><br>
+    <%= f.text_field :complemento, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :bairro %><br>
+    <%= f.text_field :bairro, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cidade %><br>
+    <%= f.text_field :cidade, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :estado  %>
+    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :cep %><br>
+    <%= f.text_field :cep, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :rg %><br>
+    <%= f.text_field :rg , class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cnh %><br>
+    <%= f.text_field :cnh, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :categoria  %>
+    <%= f.select( :categoria, select_categoria, {include_blank: :false}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :validade_cnh %><br>
+    <%= f.date_select :validade_cnh, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :data_emissao %><br>
+    <%= f.date_select :data_emissao, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  drivers_path(@driver), class: "btn btn-info" if !@driver.new_record? %>
+    <%= link_to "Listar Todos", drivers_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>

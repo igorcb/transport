@@ -1,0 +1,59 @@
+<p>
+  <strong>Marca:</strong>
+  <%= @vehicle.marca %>
+</p>
+
+<p>
+  <strong>Modelo:</strong>
+  <%= @vehicle.modelo %>
+</p>
+
+<p>
+  <strong>Ano:</strong>
+  <%= @vehicle.ano %>
+</p>
+
+<p>
+  <strong>Cor:</strong>
+  <%= @vehicle.cor %>
+</p>
+
+<p>
+  <strong>Tipo veiculo:</strong>
+  <%= @vehicle.tipo_veiculo_nome %>
+</p>
+
+<p>
+  <strong>Municipio emplacamento:</strong>
+  <%= @vehicle.municipio_emplacamento %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @vehicle.estado %>
+</p>
+
+<p>
+  <strong>Renavan:</strong>
+  <%= @vehicle.renavan %>
+</p>
+
+<p>
+  <strong>Chassi:</strong>
+  <%= @vehicle.chassi %>
+</p>
+
+<p>
+  <strong>Capacidade:</strong>
+  <%= @vehicle.capacidade %>
+</p>
+
+<p>
+  <strong>Placa:</strong>
+  <%= @vehicle.placa %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_vehicle_path(@vehicle), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', vehicle_path, class: "btn btn-default" %>
+</div>

@@ -1,0 +1,70 @@
+<p>
+  <strong>Tipo pessoa:</strong>
+  <%= @client.tipo_pessoa %>
+</p>
+
+<p>
+  <strong>Cpf cnpj:</strong>
+  <%= @client.cpf_cnpj %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @client.nome %>
+</p>
+
+<p>
+  <strong>Fantasia:</strong>
+  <%= @client.fantasia %>
+</p>
+
+<p>
+  <strong>Inscricao estadual:</strong>
+  <%= @client.inscricao_estadual %>
+</p>
+
+<p>
+  <strong>Inscricao municipal:</strong>
+  <%= @client.inscricao_municipal %>
+</p>
+
+<p>
+  <strong>Endereco:</strong>
+  <%= @client.endereco %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @client.numero %>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <%= @client.complemento %>
+</p>
+
+<p>
+  <strong>Bairro:</strong>
+  <%= @client.bairro %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @client.cidade %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @client.estado %>
+</p>
+
+<p>
+  <strong>Cep:</strong>
+  <%= @client.cep %>
+</p>
+
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_client_path(@client), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos',  clients_path, class: "btn btn-default" %>
+</div>

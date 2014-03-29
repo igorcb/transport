@@ -1,0 +1,69 @@
+<p>
+  <strong>Tipo Pessoa:</strong>
+  <%= @supplier.tipo_pessoa %>
+</p>
+
+<p>
+  <strong>Cpf cnpj:</strong>
+  <%= @supplier.cpf_cnpj %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @supplier.nome %>
+</p>
+
+<p>
+  <strong>Fantasia:</strong>
+  <%= @supplier.fantasia %>
+</p>
+
+<p>
+  <strong>Inscricao estadual:</strong>
+  <%= @supplier.inscricao_estadual %>
+</p>
+
+<p>
+  <strong>Inscricao municipal:</strong>
+  <%= @supplier.inscricao_municipal %>
+</p>
+
+<p>
+  <strong>Endereco:</strong>
+  <%= @supplier.endereco %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @supplier.numero %>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <%= @supplier.complemento %>
+</p>
+
+<p>
+  <strong>Bairro:</strong>
+  <%= @supplier.bairro %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @supplier.cidade %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @supplier.estado %>
+</p>
+
+<p>
+  <strong>Cep:</strong>
+  <%= @supplier.cep %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_supplier_path(@supplier), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos',  suppliers_path, class: "btn btn-default" %>
+</div>

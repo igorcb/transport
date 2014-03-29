@@ -1,0 +1,57 @@
+<%= form_for(@vehicle) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :marca %><br>
+    <%= f.text_field :marca, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :modelo %><br>
+    <%= f.text_field :modelo, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :ano %><br>
+    <%= f.number_field :ano, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cor %><br>
+    <%= f.text_field :cor, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :tipo_veiculo %><br>
+    <%= f.select( :tipo_veiculo, select_tipo_veiculo, {include_blank: :true}, {class: "form-control"} ) %>      
+  </div>
+
+  <div class="form-group">
+    <%= f.label :municipio_emplacamento %><br>
+    <%= f.text_field :municipio_emplacamento, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :estado  %>
+    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :renavan %><br>
+    <%= f.text_field :renavan, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :chassi %><br>
+    <%= f.text_field :chassi, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :capacidade %><br>
+    <%= f.text_field :capacidade, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :placa %><br>
+    <%= f.text_field :placa, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  vehicle_path(@client), class: "btn btn-info" if !@vehicle.new_record? %>
+    <%= link_to "Listar Todos", vehicles_path, class: "btn btn-default" %>
+  </div>
+
+
+<% end %>
