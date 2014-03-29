@@ -1,0 +1,59 @@
+<p>
+  <strong>Cnpj:</strong>
+  <%= @carrier.cnpj %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @carrier.nome %>
+</p>
+
+<p>
+  <strong>Fantasia:</strong>
+  <%= @carrier.fantasia %>
+</p>
+
+<p>
+  <strong>Inscricao estadual:</strong>
+  <%= @carrier.inscricao_estadual %>
+</p>
+
+<p>
+  <strong>Instricao municipal:</strong>
+  <%= @carrier.inscricao_municipal %>
+</p>
+
+<p>
+  <strong>Endereco:</strong>
+  <%= @carrier.endereco %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @carrier.numero %>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <%= @carrier.complemento %>
+</p>
+
+<p>
+  <strong>Bairro:</strong>
+  <%= @carrier.bairro %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @carrier.cidade %>
+</p>
+
+<p>
+  <strong>Cep:</strong>
+  <%= @carrier.cep %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_carrier_path(@carrier), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos',  carriers_path, class: "btn btn-default" %>
+</div>

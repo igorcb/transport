@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :carriers
+
   resources :employees
 
   resources :vehicles
