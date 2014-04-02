@@ -60,6 +60,54 @@
     <%= f.label :cep %>
     <%= f.text_field :cep, class: "form-control" %>
   </div>
+  
+  <h4>Phones</h4>
+  <div class="items">
+    <%= f.nested_fields_for :contacts do |f| %>
+      <fieldset class="item">
+        <%= f.label :tipo %>
+        <%= f.select :tipo, [['FIXO', '0'], ['CELULAR', '1'], ['E-MAIL', '2'], ['TWITTER', '3'], ['FACEBOOK', '4']]  %>
+
+        <%= f.label :nome %>
+        <%= f.text_field :nome %>
+
+        <%= f.label :fone %>
+        <%= f.text_field :fone %>
+
+        <%= f.label :complemento %>
+        <%= f.text_field :complemento %>
+
+        <a href="#" class="remove">remove</a>
+
+        <%= f.hidden_field :id %>
+        <%= f.hidden_field :_destroy %>
+      </fieldset>
+    <% end %>
+  </div>
+  <a href="#" class="add">Adicionar Contato</a>
+
+
+    <div class="control-group">
+      <%= f.label :image, "Imagem", class: 'control-label' %>
+      <div class="controls">
+        <%= f.fields_for :assets do |asset_field| %>
+          <% if asset_field.object.new_record? %>
+            <p><%= asset_field.file_field :asset %></p>
+          <% end %>
+        <% end %>
+
+        <%= f.fields_for :assets do |asset_field| %>
+          <% unless asset_field.object.new_record? %>
+            <p>
+              <%= link_to image_tag(asset_field.object.asset.url(:thumb))%> 
+              <%= asset_field.check_box :_destroy, :label => "Delete"  %>
+            </p>
+          <% end %>
+          
+        <% end %>
+      </div>
+    </div>
+
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>

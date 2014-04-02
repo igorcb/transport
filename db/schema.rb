@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140329164221) do
+ActiveRecord::Schema.define(version: 20140331125543) do
 
   create_table "addresses", force: true do |t|
     t.string   "tipo",       limit: 5,   null: false
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20140329164221) do
   end
 
   add_index "addresses", ["cep"], name: "index_addresses_on_cep", unique: true
+
+  create_table "assets", force: true do |t|
+    t.integer  "asset_id"
+    t.string   "asset_type"
+    t.string   "asset_file_name"
+    t.string   "asset_content_type"
+    t.string   "asset_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "carriers", force: true do |t|
     t.string   "cnpj",                limit: 18,  null: false
@@ -62,11 +72,12 @@ ActiveRecord::Schema.define(version: 20140329164221) do
   end
 
   create_table "contacts", force: true do |t|
-    t.string   "nome",        limit: 30,  null: false
-    t.integer  "tipo",                    null: false
-    t.string   "fone",        limit: 15
-    t.string   "complemento", limit: 100
-    t.integer  "person_id",               null: false
+    t.integer  "tipo",                     null: false
+    t.string   "nome",         limit: 30,  null: false
+    t.string   "fone",         limit: 15
+    t.string   "complemento",  limit: 100
+    t.integer  "contact_id"
+    t.string   "contact_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -6,10 +6,14 @@
 
 # Ignore bundler config.
 /.bundle
-
+/Gemfile.lock
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
+/db/schema.rb
+
+# Ignore the default assets.
+/public/system/assets/*
 
 # Ignore all logfiles and tempfiles.
 /log/*.log

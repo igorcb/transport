@@ -35,6 +35,9 @@ describe Client do
   it { should respond_to(:bairro) }
   it { should respond_to(:cidade) }
   it { should respond_to(:estado) }
+  it { should respond_to(:contacts) }
+  it { should accept_nested_attributes_for :assets }
+  it { should accept_nested_attributes_for :contacts }
 
   describe "when tipo pessoa is not present" do
     before { @client.tipo_pessoa = '' }
