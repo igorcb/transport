@@ -15,6 +15,10 @@ class Driver < ActiveRecord::Base
   validates :validade_cnh, presence: true
   validates :data_emissao, presence: true
 
+  has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy
+  accepts_nested_attributes_for :contacts, allow_destroy: true
+
+
   module Categoria
   	A = 0
   	B = 1

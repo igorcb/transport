@@ -73,6 +73,35 @@
   <%= @driver.data_emissao %>
 </p>
 
+<h2>Contatos</h2>
+<% if @driver.contacts.any? %>
+  <table class="table table-striped">
+    <thead>
+      <th>Tipo</th>
+      <th>Nome</th>
+      <th>Fone</th>
+      <th>Complemento</th>
+    </thead>
+
+    <tbody>
+      <% @driver.contacts.each do |contact| %>
+        <tr>
+          <td><%= contact.tipo_contato %></td>
+          <td><%= contact.nome %></td>
+          <td><%= contact.fone %></td>
+          <td><%= contact.complemento %></td>
+      
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no phones yet.</p>
+<% end %>
+
+
 <div class="form-group">
   <%= link_to 'Editar', edit_driver_path(@driver), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', drivers_path, class: "btn btn-default" %>
