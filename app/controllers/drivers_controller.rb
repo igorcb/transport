@@ -15,6 +15,8 @@ class DriversController < ApplicationController
   # GET /drivers/new
   def new
     @driver = Driver.new
+    #@driver.contatcs.build
+    6.times { @driver.price_drivers.build }
   end
 
   # GET /drivers/1/edit
@@ -70,6 +72,8 @@ class DriversController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def driver_params
       params.require(:driver).permit(:cpf, :nome, :fantasia, :inscricao_estadual, :instricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :rg, :cnh, :categoria, :validade_cnh, :data_emissao,
-        contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy])
+        contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
+        price_drivers_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy]
+        )
     end
 end

@@ -75,6 +75,34 @@
 
 <%= render 'shared/show_contacts', object: @driver %>
 
+<h2>Tabela de Preços</h2>
+<% if @driver.price_drivers.any? %>
+  <table class="table table-striped">
+<!--     <thead>
+      <th>Tipo</th>
+      <th>Nome</th>
+      <th>Fone</th>
+      <th>Complemento</th>
+    </thead>
+ -->
+    <tbody>
+      <% @driver.price_drivers.each do |price| %>
+        <tr>
+          <td><%= price.uf_tipo_nome %></td>
+          <td><%= price.tipo_nome %></td>
+          <td><%= price.valor.to_f %></td>
+      
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no table price yet.</p>
+<% end %>
+
+
 <div class="form-group">
   <%= link_to 'Editar', edit_driver_path(@driver), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', drivers_path, class: "btn btn-default" %>

@@ -18,6 +18,8 @@ class Driver < ActiveRecord::Base
   has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :contacts, allow_destroy: true
 
+  has_many :price_drivers
+  accepts_nested_attributes_for :price_drivers, allow_destroy: true
 
   module Categoria
   	A = 0
@@ -44,6 +46,5 @@ class Driver < ActiveRecord::Base
       when 8 then "AE"
     end
   end
-
 
 end
