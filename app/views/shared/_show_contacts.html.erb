@@ -1,0 +1,27 @@
+<h2>Contatos</h2>
+<% if object.contacts.any? %>
+  <table class="table table-striped">
+    <thead>
+      <th>Tipo</th>
+      <th>Nome</th>
+      <th>Fone</th>
+      <th>Complemento</th>
+    </thead>
+
+    <tbody>
+      <% object.contacts.each do |contact| %>
+        <tr>
+          <td><%= contact.tipo_contato %></td>
+          <td><%= contact.nome %></td>
+          <td><%= contact.fone %></td>
+          <td><%= contact.complemento %></td>
+      
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no phones yet.</p>
+<% end %>
