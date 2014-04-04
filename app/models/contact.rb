@@ -9,6 +9,7 @@ class Contact < ActiveRecord::Base
   belongs_to :driver, class_name: "Driver", foreign_key: "contact_id", polymorphic: true, dependent: :destroy
   belongs_to :employee, class_name: "Employee", foreign_key: "contact_id", polymorphic: true, dependent: :destroy
   belongs_to :supplier, class_name: "Supplier", foreign_key: "contact_id", polymorphic: true, dependent: :destroy
+  belongs_to :carrier, class_name: "Carrier", foreign_key: "contact_id", polymorphic: true, dependent: :destroy
   
 	module TipoContato
 		FIXO     = 0
