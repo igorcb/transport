@@ -5,8 +5,8 @@ class CreateContacts < ActiveRecord::Migration
       t.string :nome, limit: 30, null: false
       t.string :fone, limit: 15
       t.string :complemento, limit: 100
-      t.integer :contact_id, null: false
-      t.string :contact_type, null: false
+      t.integer :contact_id
+      t.string :contact_type
       
       t.timestamps
     end

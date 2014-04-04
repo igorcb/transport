@@ -2,8 +2,8 @@ class Contact < ActiveRecord::Base
   validates :tipo, presence: true
   validates :nome, presence: true,  length: { maximum: 30 }
   #validates :fone, presence: true
-  validates :contact_id, presence: true
-  validates :contact_type, presence: true
+  #validates :contact_id, presence: true
+  #validates :contact_type, presence: true
 
   belongs_to :client, class_name: "Client", foreign_key: "contact_id", polymorphic: true, dependent: :destroy
   
