@@ -11,8 +11,8 @@ class Employee < ActiveRecord::Base
   validates :cidade, presence: true, length: { maximum: 100 }
   validates :estado, presence: true, length: { maximum: 2 }
 
-  #has_one :address
-	#accepts_nested_attributes_for :address
+  has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy
+  accepts_nested_attributes_for :contacts, allow_destroy: true
 
   module TipoEmployee
   	FIXO = 0

@@ -46,6 +46,33 @@
     <%= f.select( :tipo, select_tipo, {include_blank: :true}, {class: "form-control"} ) %>      
   </div>
   
+  <h2>Contatos</h2>
+  <div id="phones">
+    <div class="items">
+      <%= f.nested_fields_for :contacts do |f| %>
+        <fieldset class="item">
+          <%= f.label :tipo %>
+          <%= f.select :tipo, [['FIXO', '0'], ['CELULAR', '1'], ['E-MAIL', '2'], ['TWITTER', '3'], ['FACEBOOK', '4']]  %>
+
+          <%= f.label :nome %>
+          <%= f.text_field :nome %>
+
+          <%= f.label :fone %>
+          <%= f.text_field :fone %>
+
+          <%= f.label :complemento %>
+          <%= f.text_field :complemento %>
+
+          <a href="#" class="remove">remove</a>
+
+          <%= f.hidden_field :id %>
+          <%= f.hidden_field :_destroy %>
+        </fieldset>
+      <% end %>
+    </div>
+    <a href="#" class="add">add phone</a>
+  </div>
+
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  employees_path(@client), class: "btn btn-info" if !@employee.new_record? %>
