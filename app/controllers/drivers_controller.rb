@@ -15,7 +15,7 @@ class DriversController < ApplicationController
   # GET /drivers/new
   def new
     @driver = Driver.new
-    #@driver.contatcs.build
+    @driver.contacts.build
     6.times { @driver.price_drivers.build }
   end
 

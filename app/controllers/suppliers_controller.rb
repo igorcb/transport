@@ -15,6 +15,7 @@ class SuppliersController < ApplicationController
   # GET /suppliers/new
   def new
     @supplier = Supplier.new
+    @supplier.contacts.build
   end
 
   # GET /suppliers/1/edit
