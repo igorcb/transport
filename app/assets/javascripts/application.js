@@ -16,8 +16,8 @@
 //= require jquery.nested-fields
 //= require_tree .
 
-  $(document).ready(function(e) {
-    $('FORM').nestedFields();
-  });
+   $(document).ready(function(e) {
+     $('#phones, #accounts').nestedFields();
+   });
 
-// $('#phones').nestedFields();
+// $('#items').nestedFields();

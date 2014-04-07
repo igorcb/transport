@@ -86,8 +86,41 @@
         </fieldset>
       <% end %>
     </div>
-    <a href="#" class="add">add phone</a>
+    <a href="#" class="add">add contact</a>
   </div>
+
+  <h2>Contas Bancarias</h2>
+  <div id="accounts">
+    <div class="items">
+      <%= f.nested_fields_for :account_banks do |f| %>
+        <fieldset class="item">
+          <%= f.label :banco %>
+          <%= f.text_field :banco %>
+
+          <%= f.label :agencia %>
+          <%= f.text_field :agencia %>
+
+          <%= f.label :conta_corrente %>
+          <%= f.text_field :conta_corrente %>
+
+          <%= f.label :favorecido %>
+          <%= f.text_field :favorecido %>
+
+          <%= f.label :cpf_cnpj %>
+          <%= f.text_field :cpf_cnpj %>
+
+          <a href="#" class="remove">remove</a>
+
+          <%= f.hidden_field :id %>
+          <%= f.hidden_field :_destroy %>
+        </fieldset>
+      <% end %>
+    </div>
+    <a href="#" class="add">add account bank</a>
+  </div>
+
+
+
 
   <h2>Tabela de Preços</h2>
   <div id="prices">
