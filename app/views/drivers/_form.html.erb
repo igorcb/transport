@@ -122,7 +122,7 @@
   <h2>Tabela de Preços</h2>
   <div id="prices">
     <div class="items">
-      <%= f.nested_fields_for :price_drivers do |f| %>
+      <%= f.nested_fields_for :table_prices do |f| %>
         <fieldset class="item">
           <%= f.label :uf_tipo %>
           <%= f.select :uf_tipo, [['Dentro Do Estado', '0'], ['Fora do Estado', '1']]  %>

@@ -17,7 +17,7 @@ class DriversController < ApplicationController
     @driver = Driver.new
     @driver.contacts.build
     @driver.account_banks.build
-    @driver.price_drivers.build
+    @driver.table_prices.build
   end
 
   # GET /drivers/1/edit
@@ -75,7 +75,7 @@ class DriversController < ApplicationController
       params.require(:driver).permit(:cpf, :nome, :fantasia, :inscricao_estadual, :instricao_municipal, :endereco, :numero, :complemento, 
         :bairro, :cidade, :estado, :cep, :rg, :cnh, :categoria, :validade_cnh, :data_emissao,
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
-        price_drivers_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
+        table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
         account_banks_attributes: [:banco, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy]
         )
     end
