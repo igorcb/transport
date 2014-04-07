@@ -17,7 +17,7 @@
 //= require_tree .
 
    $(document).ready(function(e) {
-     $('#phones, #accounts').nestedFields();
+     $('#phones, #accounts, #prices').nestedFields();
    });
 
 // $('#items').nestedFields();

@@ -95,13 +95,13 @@
       <%= f.nested_fields_for :account_banks do |f| %>
         <fieldset class="item">
           <%= f.label :banco %>
-          <%= f.text_field :banco %>
+          <%= f.text_field :banco, size: 10 %>
 
           <%= f.label :agencia %>
-          <%= f.text_field :agencia %>
+          <%= f.text_field :agencia, size: 10 %>
 
           <%= f.label :conta_corrente %>
-          <%= f.text_field :conta_corrente %>
+          <%= f.text_field :conta_corrente, size: 10 %>
 
           <%= f.label :favorecido %>
           <%= f.text_field :favorecido %>
@@ -119,14 +119,11 @@
     <a href="#" class="add">add account bank</a>
   </div>
 
-
-
-
   <h2>Tabela de Preços</h2>
   <div id="prices">
-    <div class="items_price">
+    <div class="items">
       <%= f.nested_fields_for :price_drivers do |f| %>
-        <fieldset class="items_price">
+        <fieldset class="item">
           <%= f.label :uf_tipo %>
           <%= f.select :uf_tipo, [['Dentro Do Estado', '0'], ['Fora do Estado', '1']]  %>
 
@@ -143,7 +140,7 @@
         </fieldset>
       <% end %>
     </div>
-    <!-- <a href="#" class="add">add phone</a> -->
+    <a href="#" class="add">add price</a>
   </div>
 
   <div class="form-group">
