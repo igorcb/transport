@@ -11,6 +11,9 @@ class Vehicle < ActiveRecord::Base
   validates :capacidade, presence: true
   validates :placa, presence: true, length: { maximum: 7 }
 
+  has_many :table_prices, class_name: "TablePrice", foreign_key: "table_price_id", :as => :table_price, dependent: :destroy
+  accepts_nested_attributes_for :table_prices, allow_destroy: true
+
 	module TipoVeiculo
 		STANDARD = 0
 		LS = 1

@@ -47,6 +47,31 @@
     <%= f.text_field :placa, class: "form-control" %>
   </div>
 
+  <h2>Tabela de Preços</h2>
+  <div id="prices">
+    <div class="items">
+      <%= f.nested_fields_for :table_prices do |f| %>
+        <fieldset class="item">
+          <%= f.label :uf_tipo %>
+          <%= f.select :uf_tipo, [['Dentro Do Estado', '0'], ['Fora do Estado', '1']]  %>
+
+          <%= f.label :tipo %>
+          <%= f.select :tipo, [['p/ KM', '0'], ['p/ Hora', '1'], ['p/ Diária', '2']] %>
+
+          <%= f.label :valor %>
+          <%= f.text_field :valor %>
+
+          <a href="#" class="remove">remove</a>
+
+          <%= f.hidden_field :id %>
+          <%= f.hidden_field :_destroy %>
+        </fieldset>
+      <% end %>
+    </div>
+    <a href="#" class="add">add price</a>
+  </div>
+  
+
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  vehicle_path(@client), class: "btn btn-info" if !@vehicle.new_record? %>

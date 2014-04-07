@@ -53,6 +53,35 @@
   <%= @vehicle.placa %>
 </p>
 
+<h2>Tabela de Preços</h2>
+<% if @vehicle.table_prices.any? %>
+  <table class="table table-striped">
+<!--     <thead>
+      <th>Tipo</th>
+      <th>Nome</th>
+      <th>Fone</th>
+      <th>Complemento</th>
+    </thead>
+ -->
+    <tbody>
+      <% @vehicle.table_prices.each do |price| %>
+        <tr>
+          <td><%= price.uf_tipo_nome %></td>
+          <td><%= price.tipo_nome %></td>
+          <td><%= price.valor.to_f %></td>
+      
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no table price yet.</p>
+<% end %>
+
+
+
 <div class="form-group">
   <%= link_to 'Editar', edit_vehicle_path(@vehicle), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', vehicle_path, class: "btn btn-default" %>
