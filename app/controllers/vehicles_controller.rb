@@ -16,6 +16,7 @@ class VehiclesController < ApplicationController
   def new
     @vehicle = Vehicle.new
     @vehicle.table_prices.build
+    @vehicle.assets.build
   end
 
   # GET /vehicles/1/edit
@@ -71,6 +72,8 @@ class VehiclesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def vehicle_params
       params.require(:vehicle).permit(:marca, :modelo, :ano, :cor, :tipo_veiculo, :municipio_emplacamento, :estado, :renavan, :chassi, :capacidade, :placa,
-        table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy])
+        table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
+        assets_attributes: [:asset, :id, :_destroy]
+        )
     end
 end
