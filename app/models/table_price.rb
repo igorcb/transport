@@ -4,6 +4,7 @@ class TablePrice < ActiveRecord::Base
   validates :valor, presence: true
 
 	belongs_to :driver, class_name: "Driver", foreign_key: "table_price_id", polymorphic: true, dependent: :destroy
+	belongs_to :veichle, class_name: "Veichle", foreign_key: "table_price_id", polymorphic: true, dependent: :destroy
 
 
   def uf_tipo_nome

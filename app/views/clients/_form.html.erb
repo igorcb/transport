@@ -1,4 +1,4 @@
-<%= form_for @client, html: {role: "form" } do |f| %>
+<%= form_for @client, html: {multipart: true, role: "form" } do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="form-group">
@@ -89,27 +89,22 @@
   </div>
 
 
-<!--     <div class="control-group">
-      <%#= f.label :image, "Imagem", class: 'control-label' %>
-      <div class="controls">
-        <%#= f.fields_for :assets do |asset_field| %>
-          <%# if asset_field.object.new_record? %>
-            <p><%#= asset_field.file_field :asset %></p>
-          <%# end %>
-        <% #end %>
+  <h2>Documentos</h2> 
+  <div id="documents">
+    <div class="items">
+      <%= f.nested_fields_for :assets do |f| %>
+        <%= f.file_field :asset %>
 
-        <%#= f.fields_for :assets do |asset_field| %>
-          <%# unless asset_field.object.new_record? %>
-            <p>
-              <%#= link_to image_tag(asset_field.object.asset.url(:thumb))%> 
-              <%#= asset_field.check_box :_destroy, :label => "Delete"  %>
-            </p>
-          <%# end %>
-          
-        <%# end %>
-      </div>
+        <a href="#" class="remove">remove</a>
+
+        <%= f.hidden_field :id %>
+        <%= f.hidden_field :_destroy %>
+
+      <% end  %>
     </div>
- -->
+    <a href="#" class="add">add document</a>
+  </div>
+
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>

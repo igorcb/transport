@@ -24,7 +24,6 @@ class ClientsController < ApplicationController
 
   # GET /clients/1/edit
   def edit
-    #1.times { @client.assets.build }
   end
 
   # POST /clients
@@ -76,11 +75,15 @@ class ClientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params.require(:client).permit(:cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :tipo_pessoa,
-      contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy], assets_attributes: [:asset_id, :asset_type, :asset_file_name, :asset_content_type, :asset_file_size, :id, :_destroy])
-      #assets_attributes: [:asset, :id, :_destroy])
-      #:asset_id, :asset_type, :asset_file_name, :asset_content_type, :asset_file_size
+      params.require(:client).permit(:cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, 
+      :bairro, :cidade, :estado, :cep, :tipo_pessoa, 
+      contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
+      assets_attributes: [:asset, :id, :_destroy])
             
 
     end
 end
+
+
+      #assets_attributes: [:asset, :id, :_destroy])
+      #:asset_id, :asset_type, :asset_file_name, :asset_content_type, :asset_file_size

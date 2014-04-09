@@ -10,6 +10,7 @@ gem 'brazilian-rails'
 #gem 'bootstrap-sass', '2.3.2.0'
 #gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'bootstrap-addons-rails'
 #gem 'twitter-bootswatch-rails', '~> 3.1.1'
 #gem 'twitter-bootswatch-rails-helpers'
 #gem 'bcrypt-ruby', '3.1.2'
@@ -25,7 +26,8 @@ gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.0.4'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
-gem 'paperclip'
+#gem 'paperclip'
+gem "paperclip", "3.5.0"
 gem 'awesome_nested_fields'
 
 
@@ -38,6 +40,8 @@ group :development, :test do
   gem 'spork-rails', '4.0.0'
   gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.3.6'
+  gem 'thin'
+  gem 'quiet_assets'
 end
 
 group :test do
