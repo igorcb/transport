@@ -14,6 +14,10 @@ class Employee < ActiveRecord::Base
   has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :contacts, allow_destroy: true
 
+  has_many :assets, as: :asset, dependent: :destroy
+  accepts_nested_attributes_for :assets, allow_destroy: true
+  
+
   module TipoEmployee
   	FIXO = 0
   	DIARISTA = 1

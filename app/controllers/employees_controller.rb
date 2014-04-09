@@ -16,6 +16,7 @@ class EmployeesController < ApplicationController
   def new
     @employee = Employee.new
     @employee.contacts.build
+    @employee.assets.build
   end
 
   # GET /employees/1/edit
@@ -71,6 +72,7 @@ class EmployeesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:cpf, :nome, :apelido, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :tipo,
-        contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy])
+        contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
+        assets_attributes: [:asset, :id, :_destroy])
     end
 end

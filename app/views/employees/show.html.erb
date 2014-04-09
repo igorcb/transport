@@ -55,6 +55,12 @@
 
 <%= render 'shared/show_contacts', object: @employee %>
 
+<h2>Documentos</h2>
+  <% @employee.assets.each do |asset| %>
+    <p> <%= image_tag asset.asset.url(:thumb) if asset.present? %> </p>
+  <% end %>
+
+
 <div class="form-group">
   <%= link_to 'Editar', edit_employee_path(@employee), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', employees_path, class: "btn btn-default" %>
