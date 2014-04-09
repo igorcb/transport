@@ -143,7 +143,24 @@
     <a href="#" class="add">add price</a>
   </div>
 
-  <div class="form-group">
+  <h2>Documentos</h2> 
+  <div id="documents">
+    <div class="items">
+      <%= f.nested_fields_for :assets do |f| %>
+        <%= f.file_field :asset %>
+
+        <a href="#" class="remove">remove</a>
+
+        <%= f.hidden_field :id %>
+        <%= f.hidden_field :_destroy %>
+
+      <% end  %>
+    </div>
+    <a href="#" class="add">add document</a>
+  </div>
+  
+
+  <div class="form-actions">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  drivers_path(@driver), class: "btn btn-info" if !@driver.new_record? %>
     <%= link_to "Listar Todos", drivers_path, class: "btn btn-default" %>

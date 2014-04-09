@@ -18,6 +18,7 @@ class DriversController < ApplicationController
     @driver.contacts.build
     @driver.account_banks.build
     @driver.table_prices.build
+    @driver.assets.build
   end
 
   # GET /drivers/1/edit
@@ -76,7 +77,8 @@ class DriversController < ApplicationController
         :bairro, :cidade, :estado, :cep, :rg, :cnh, :categoria, :validade_cnh, :data_emissao,
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
-        account_banks_attributes: [:banco, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy]
+        account_banks_attributes: [:banco, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
+        assets_attributes: [:asset, :id, :_destroy]
         )
     end
 end

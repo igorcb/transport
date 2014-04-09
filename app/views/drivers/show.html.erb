@@ -130,8 +130,13 @@
   <p>This person has no table price yet.</p>
 <% end %>
 
+<h2>Documentos</h2>
+  <% @driver.assets.each do |asset| %>
+    <p> <%= image_tag asset.asset.url(:thumb) if asset.present? %> </p>
+  <% end %>
 
-<div class="form-group">
+  
+<div class="form-actions">
   <%= link_to 'Editar', edit_driver_path(@driver), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', drivers_path, class: "btn btn-default" %>
 </div>
