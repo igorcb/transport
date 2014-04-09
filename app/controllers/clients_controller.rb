@@ -78,7 +78,8 @@ class ClientsController < ApplicationController
       params.require(:client).permit(:cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, 
       :bairro, :cidade, :estado, :cep, :tipo_pessoa, 
       contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
-      assets_attributes: [:asset, :id, :_destroy])
+      assets_attributes: [:asset, :id, :_destroy]
+      )
             
 
     end

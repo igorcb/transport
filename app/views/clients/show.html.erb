@@ -66,13 +66,9 @@
 <%= render 'shared/show_contacts', object: @client %>
 
 <h2>Documentos</h2>
-
-<!-- <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery"> -->
   <% @client.assets.each do |asset| %>
-     <%= image_tag(asset.asset.url(:thumb)) if asset.present? %>
+    <p> <%= image_tag asset.asset.url(:thumb) if asset.present? %> </p>
   <% end %>
-<!-- </div> -->
-
 
 <div class="form-group">
   <%= link_to 'Editar', edit_client_path(@client), class: "btn btn-primary" %>
