@@ -47,6 +47,47 @@
     <%= f.text_field :placa, class: "form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= f.label :especie %><br>
+    <%= f.text_field :especie, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :numero_eixos %><br>
+    <%= f.text_field :numero_eixos, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :numero_loks %><br>
+    <%= f.text_field :numero_loks, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :grade %><br>
+    <%= f.select( :grade, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+    
+  </div>
+
+  <div class="form-group">
+    <%= f.label :cordas %><br>
+    <%= f.select( :cordas, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+  </div>
+
+  <div class="form-group">
+    <%= f.label :lonas %><br>
+    <%= f.select( :lonas, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+  </div>
+
+  <div class="form-group">
+    <%= f.label :kit_quimico %><br>
+    <%= f.select( :kit_quimico, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+  </div>
+
+  <div class="form-group">
+    <%= f.label :capcacitacao %><br>
+    <%= f.select( :capacitacao, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+  </div>
+
   <h2>Tabela de Preços</h2>
   <div id="prices">
     <div class="items">
@@ -75,21 +116,30 @@
   <div id="documents">
     <div class="items">
       <%= f.nested_fields_for :assets do |f| %>
-        <%= f.file_field :asset %>
+        <% if f.object.new_record? %>
+          <%= f.file_field :asset %>
+          
 
-        <a href="#" class="remove">remove</a>
+          <%= f.hidden_field :id %>
+          <%= f.hidden_field :_destroy %>
 
-        <%= f.hidden_field :id %>
-        <%= f.hidden_field :_destroy %>
-
+        <% end %>
       <% end  %>
+
+      <%= f.nested_fields_for :assets do |f| %>
+        <% unless f.object.new_record? %>
+           <%= link_to image_tag(f.object.asset.url(:thumb)), "#modalcar", data: {:toggle=>"modal"} %> 
+           <a href="#" class="remove">remove</a>
+           <%= f.check_box :_destroy, :label => "Delete"  %>
+        <% end %>
+      <% end %>
     </div>
     <a href="#" class="add">add document</a>
   </div>
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
-    <%= link_to "Exibir",  vehicle_path(@client), class: "btn btn-info" if !@vehicle.new_record? %>
+    <%= link_to "Exibir",  vehicle_path(@vehicle), class: "btn btn-info" if !@vehicle.new_record? %>
     <%= link_to "Listar Todos", vehicles_path, class: "btn btn-default" %>
   </div>
 

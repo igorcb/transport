@@ -10,12 +10,21 @@ class Vehicle < ActiveRecord::Base
   validates :chassi, presence: true, length: { maximum: 20 }
   validates :capacidade, presence: true
   validates :placa, presence: true, length: { maximum: 7 }
+  validates :especie, presence: true
+  validates :numero_eixos, presence: true
+  validates :numero_loks, presence: true
+  #validates :grade, presence: true
+  #validates :cordas, presence: true
+  #validates :lonas, presence: true
+  #validates :capacitacao, presence: true
+  #validates :kit_quimico, presence: true
+
 
   has_many :table_prices, class_name: "TablePrice", foreign_key: "table_price_id", :as => :table_price, dependent: :destroy
   accepts_nested_attributes_for :table_prices, allow_destroy: true
 
   has_many :assets, as: :asset, dependent: :destroy
-  accepts_nested_attributes_for :assets, allow_destroy: true
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
 	module TipoVeiculo
 		STANDARD = 0
@@ -23,6 +32,7 @@ class Vehicle < ActiveRecord::Base
 		BAU = 2
 		TRUK = 3
 		TROCO = 4
+    CARRETA = 5
 	end
 
   def tipo_veiculo_nome
@@ -32,7 +42,8 @@ class Vehicle < ActiveRecord::Base
       when 2 then "BAU"
       when 3 then "TRUK"
       when 4 then "TROCO"
-      
+      when 4 then "CARRETA"
     end
   end
+
 end

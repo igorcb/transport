@@ -14,4 +14,15 @@ module ApplicationHelper
     ["RJ","RJ"],["RN","RN"],["RO","RO"],["RR","RR"],["RS","RS"],["SC","SC"],["SE","SE"],["SP","SP"],["TO","TO"]])
   end
 
+  def select_sim_nao
+    ([['Não', false], ['Sim', true]])
+  end
+
+  def extenso_boolean(params)
+    case params 
+      when false then "Não"
+      when true  then "Sim"
+    end
+  end
+
 end

@@ -53,16 +53,50 @@
   <%= @vehicle.placa %>
 </p>
 
+<p>
+  <strong>Espécie:</strong>
+  <%= @vehicle.especie %>
+</p>
+
+<p>
+  <strong>Numero de Eixos:</strong>
+  <%= @vehicle.numero_eixos %>
+</p>
+
+<p>
+  <strong>Numero de Loks:</strong>
+  <%= @vehicle.numero_loks %>
+</p>
+
+<p>
+  <strong>Grade:</strong>
+  <%= extenso_boolean(@vehicle.grade) %>
+</p>
+
+<p>
+  <strong>Cordas:</strong>
+  <%= extenso_boolean(@vehicle.cordas) %>
+</p>
+
+<p>
+  <strong>Lonas:</strong>
+  <%= extenso_boolean(@vehicle.lonas) %>
+</p>
+
+<p>
+  <strong>Capacitação:</strong>
+  <%= extenso_boolean(@vehicle.capacitacao) %>
+</p>
+
+<p>
+  <strong>Kit Quimico</strong>
+  <%= extenso_boolean(@vehicle.kit_quimico) %>
+</p>
+
+
 <h2>Tabela de Preços</h2>
 <% if @vehicle.table_prices.any? %>
   <table class="table table-striped">
-<!--     <thead>
-      <th>Tipo</th>
-      <th>Nome</th>
-      <th>Fone</th>
-      <th>Complemento</th>
-    </thead>
- -->
     <tbody>
       <% @vehicle.table_prices.each do |price| %>
         <tr>
@@ -81,7 +115,7 @@
 <% end %>
 
 <h2>Documentos</h2>
-  <% @vehicle.assets.each do |asset| %>
+      <% @vehicle.assets.each do |asset| %>
     <p> <%= image_tag asset.asset.url(:thumb) if asset.present? %> </p>
   <% end %>
 

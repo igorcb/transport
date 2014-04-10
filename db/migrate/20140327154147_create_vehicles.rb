@@ -12,6 +12,15 @@ class CreateVehicles < ActiveRecord::Migration
       t.string :chassi, limit: 20, null: false
       t.string :capacidade, null: false
       t.string :placa, limit: 8, null: false
+      t.string :especie, limit: 20, null: false
+      t.integer :numero_eixos, null: false
+      t.integer :numero_loks, null: false
+      t.boolean :grade, null: false
+      t.boolean :cordas, null: false
+      t.boolean :lonas, null: false
+      t.boolean :capacitacao, null: false
+      t.boolean :kit_quimico, null: false
+
 
       t.timestamps
     end

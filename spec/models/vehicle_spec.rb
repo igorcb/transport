@@ -12,7 +12,15 @@ describe Vehicle do
   		                      renavan: "00009987",
   		                       chassi: "9BGRD08X04G117974",
   		                   capacidade: "10",
-  		                        placa: "HXQ3666"
+  		                        placa: "HXQ3666",
+                            especie: "s/n",
+                       numero_eixos: 1,
+                        numero_loks: 1,
+                              grade: false,
+                             cordas: false,
+                              lonas: false,
+                        capacitacao: false,
+                        kit_quimico: false
   		                      	)
   end
 
@@ -28,6 +36,14 @@ describe Vehicle do
   it { should respond_to(:chassi) }
   it { should respond_to(:capacidade) }
   it { should respond_to(:placa) }
+  it { should respond_to(:especie) }
+  it { should respond_to(:numero_eixos) }
+  it { should respond_to(:numero_loks) }
+  it { should respond_to(:grade) }
+  it { should respond_to(:cordas) }
+  it { should respond_to(:lonas) }
+  it { should respond_to(:capacitacao) }
+  it { should respond_to(:kit_quimico) }
 
   describe "when marca is not present" do
     before { @vehicle.marca = '' }
@@ -76,6 +92,46 @@ describe Vehicle do
 
   describe "when placa is not present" do
     before { @vehicle.placa = '' }
+    it { should_not be_valid }
+  end  
+
+  describe "when especie is not present" do
+    before { @vehicle.especie = '' }
+    it { should_not be_valid }
+  end  
+
+  describe "when numero_eixos is not present" do
+    before { @vehicle.numero_eixos = '' }
+    it { should_not be_valid }
+  end  
+
+  describe "when numero_loks is not present" do
+    before { @vehicle.numero_loks = '' }
+    it { should_not be_valid }
+  end  
+
+  describe "when grade is not present" do
+    before { @vehicle.grade = '' }
+    it { should_not be_valid }
+  end  
+
+  describe "when corda is not present" do
+    before { @vehicle.cordas = '' }
+    it { should_not be_valid }
+  end  
+
+  describe "when lonas is not present" do
+    before { @vehicle.lonas = '' }
+    it { should_not be_valid }
+  end  
+
+  describe "when capacitacao is not present" do
+    before { @vehicle.capacitacao = '' }
+    it { should_not be_valid }
+  end  
+
+  describe "when kit_quimico is not present" do
+    before { @vehicle.kit_quimico = '' }
     it { should_not be_valid }
   end  
 
