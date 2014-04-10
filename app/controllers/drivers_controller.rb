@@ -18,7 +18,7 @@ class DriversController < ApplicationController
     @driver.contacts.build
     @driver.account_banks.build
     @driver.table_prices.build
-    @driver.assets.build
+    #@driver.assets.build
   end
 
   # GET /drivers/1/edit
