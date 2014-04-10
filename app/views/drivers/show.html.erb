@@ -54,8 +54,38 @@
 </p>
 
 <p>
+  <strong>Orgão Expeditor:</strong>
+  <%= @driver.orgao_expeditor %>
+</p>
+
+<p>
+  <strong>Data de Emissão:</strong>
+  <%= @driver.data_emissao_rg %>
+</p>
+
+<p>
+  <strong>Data de Nascimento:</strong>
+  <%= @driver.data_nascimento %>
+</p> 
+
+<p>
+  <strong>Municipio Nascimento:</strong>
+  <%= @driver.municipio_nascimento %> - <strong>Estado:</strong> <%= @driver.estado_nascimento %>
+</p> 
+
+<p>
+  <strong>Inss:</strong>
+  <%= @driver.inss %>
+</p> 
+
+<p>
   <strong>Cnh:</strong>
   <%= @driver.cnh %>
+</p>
+
+<p>
+  <strong>Registro Cnh:</strong>
+  <%= @driver.registro_cnh %>
 </p>
 
 <p>
@@ -69,8 +99,13 @@
 </p>
 
 <p>
-  <strong>Data emissao:</strong>
-  <%= @driver.data_emissao %>
+  <strong>Nome do Pai:</strong>
+  <%= @driver.nome_do_pai %>
+</p>
+
+<p>
+  <strong>Nome da Mãe:</strong>
+  <%= @driver.nome_da_mae %>
 </p>
 
 <%= render 'shared/show_contacts', object: @driver %>

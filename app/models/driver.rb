@@ -10,10 +10,19 @@ class Driver < ActiveRecord::Base
   validates :cidade, presence: true, length: { maximum: 100 }
   validates :estado, presence: true, length: { maximum: 2 }
   validates :rg, presence: true, length: { maximum: 20 }
+  validates :orgao_expeditor, presence: true, length: { maximum: 20 }
+  validates :data_emissao_rg, presence: true
+  validates :data_nascimento, presence: true
+  validates :municipio_nascimento, presence: true, length: { maximum: 100 }
+  validates :estado_nascimento, presence: true, length: { maximum: 2 }
+  validates :inss, presence: true, length: { maximum: 20 }
   validates :cnh, presence: true, length: { maximum: 20 }
-  validates :categoria, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..8 }
+  validates :registro_cnh, presence: true,length: { maximum: 20 }
   validates :validade_cnh, presence: true
-  validates :data_emissao, presence: true
+  validates :nome_do_pai, presence: true, length: { maximum: 100 }
+  validates :nome_da_mae, presence: true, length: { maximum: 100 }
+
+  validates :categoria, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..8 }
 
   has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :contacts, allow_destroy: true
