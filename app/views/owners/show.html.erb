@@ -1,0 +1,76 @@
+<p>
+  <strong>Cpf cnpj:</strong>
+  <%= @owner.cpf_cnpj %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @owner.nome %>
+</p>
+
+<p>
+  <strong>Fantasia:</strong>
+  <%= @owner.fantasia %>
+</p>
+
+<p>
+  <strong>Inscricao estadual:</strong>
+  <%= @owner.inscricao_estadual %>
+</p>
+
+<p>
+  <strong>Instricao municipal:</strong>
+  <%= @owner.inscricao_municipal %>
+</p>
+
+<p>
+  <strong>Endereco:</strong>
+  <%= @owner.endereco %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @owner.numero %>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <%= @owner.complemento %>
+</p>
+
+<p>
+  <strong>Bairro:</strong>
+  <%= @owner.bairro %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @owner.cidade %>
+</p>
+
+<p>
+  <strong>Cep:</strong>
+  <%= @owner.cep %>
+</p>
+
+<p>
+  <strong>Rg:</strong>
+  <%= @owner.rg %>
+</p>
+
+<p>
+  <strong>Data emissao:</strong>
+  <%= @owner.data_emissao_rg %>
+</p>
+
+<p>
+  <strong>Orgao emissor:</strong>
+  <%= @owner.orgao_emissor %>
+</p>
+
+<%= render 'shared/show_contacts', object: @owner %>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_client_path(@owner), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', owners_path, class: "btn btn-default" %>
+</div>
