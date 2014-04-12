@@ -14,6 +14,13 @@ describe Employee do
                                  cidade: 'Fortaleza',
                                  estado: 'CE',
                                    tipo: Employee::TipoEmployee::FIXO
+                         #        carrega: true,
+                         #         embala: true,
+                         #       desmonta: false,
+                         #       icamento: false,  
+                         #         arruma: false,
+                         #    iventarista: false,
+                         # confere_carga: false
                                  ) 
 
   end
@@ -31,6 +38,13 @@ describe Employee do
   it { should respond_to(:cidade) }
   it { should respond_to(:estado) }
   it { should respond_to(:tipo) }
+  it { should respond_to(:carrega) }
+  it { should respond_to(:embala) }
+  it { should respond_to(:desmonta) }
+  it { should respond_to(:icamento) }
+  it { should respond_to(:arruma) }
+  it { should respond_to(:iventarista) }
+  it { should respond_to(:confere_carga) }
 
   describe "when tipo is not present" do
     before { @employee.tipo = '' }
