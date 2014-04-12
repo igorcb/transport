@@ -17,6 +17,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.new
     @employee.contacts.build
     @employee.assets.build
+    @employee.table_prices.build
   end
 
   # GET /employees/1/edit
@@ -74,6 +75,7 @@ class EmployeesController < ApplicationController
       params.require(:employee).permit(:cpf, :nome, :apelido, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :tipo,
         :carrega, :embala, :desmonta, :icamento, :arruma, :iventarista, :confere_carga,
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
+        table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy])
     end
 end

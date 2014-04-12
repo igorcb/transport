@@ -90,6 +90,26 @@
 
 <%= render 'shared/show_contacts', object: @employee %>
 
+<h2>Tabela de Preços</h2>
+<% if @employee.table_prices.any? %>
+  <table class="table table-striped">
+    <tbody>
+      <% @employee.table_prices.each do |price| %>
+        <tr>
+          <td><%= price.uf_tipo_nome %></td>
+          <td><%= price.tipo_nome %></td>
+          <td><%= price.valor.to_f %></td>
+      
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no table price yet.</p>
+<% end %>
+
 <h2>Documentos</h2>
   <% @employee.assets.each do |asset| %>
     <p> <%= image_tag asset.asset.url(:thumb) if asset.present? %> </p>

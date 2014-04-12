@@ -14,6 +14,9 @@ class Employee < ActiveRecord::Base
   has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :contacts, allow_destroy: true
 
+  has_many :table_prices, class_name: "TablePrice", foreign_key: "table_price_id", :as => :table_price, dependent: :destroy
+  accepts_nested_attributes_for :table_prices, allow_destroy: true
+
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
   
