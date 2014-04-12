@@ -34,7 +34,7 @@ class Driver < ActiveRecord::Base
   accepts_nested_attributes_for :table_prices, allow_destroy: true
 
   has_many :assets, as: :asset, dependent: :destroy
-  accepts_nested_attributes_for :assets, allow_destroy: true
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
 
   module Categoria

@@ -15,7 +15,7 @@ class Client < ActiveRecord::Base
   validates :inscricao_municipal, length: { maximum: 20 }
 
   has_many :assets, as: :asset, dependent: :destroy
-  accepts_nested_attributes_for :assets, allow_destroy: true
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
   has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :contacts, allow_destroy: true

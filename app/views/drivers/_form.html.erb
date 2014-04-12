@@ -130,20 +130,32 @@
     <div class="items">
       <%= f.nested_fields_for :assets do |f| %>
         <% if f.object.new_record? %>
-          <%= f.file_field :asset %>
-          
+          <fieldset class="item">
+           
+            <%= f.file_field :asset %>
 
-          <%= f.hidden_field :id %>
-          <%= f.hidden_field :_destroy %>
+            <a href="#" class="remove">remove</a>
 
+            <%= f.hidden_field :id %>
+            <%= f.hidden_field :_destroy %>
+          </fieldset>
         <% end %>
       <% end  %>
 
       <%= f.nested_fields_for :assets do |f| %>
         <% unless f.object.new_record? %>
-           <%= link_to image_tag(f.object.asset.url(:thumb)), "#modalcar", data: {:toggle=>"modal"} %> 
-           <a href="#" class="remove">remove</a>
-           <%= f.check_box :_destroy, :label => "Delete"  %>
+          <fieldset class="item">
+             
+             <%= link_to image_tag(f.object.asset.url(:thumb)), "#modalcar", data: {:toggle=>"modal"} %> 
+             
+             <a href="#" class="remove">remove</a>
+
+             <%= f.hidden_field :id %>
+             <%= f.hidden_field :_destroy %>
+             
+             <%#= f.check_box :_destroy, :label => "Delete"  %>
+          </fieldset>
+
         <% end %>
       <% end %>
     </div>
