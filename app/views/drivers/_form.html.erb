@@ -51,11 +51,11 @@
   </div>
   <div class="form-group">
     <%= f.label :data_emissao_rg %><br>
-    <%= f.date_select :data_emissao_rg, class: "form-control"  %>
+    <%= f.date_select :data_emissao_rg, class: "form-control", start_year: 1920  %>
   </div>
   <div class="form-group">
     <%= f.label :data_nascimento %><br>
-    <%= f.date_select :data_nascimento, class: "form-control"  %>
+    <%= f.date_select :data_nascimento, class: "form-control", start_year: 1920  %>
   </div>
   <div class="form-group">
     <%= f.label :municipio_nascimento %><br>
