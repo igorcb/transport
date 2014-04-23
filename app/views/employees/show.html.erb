@@ -112,6 +112,22 @@
   <p>This person has no table price yet.</p>
 <% end %>
 
+<h2>Tabela de Preços Especialidades</h2>
+<% if @employee.specialty_employees.any? %>
+  <table class="table table-striped">
+    <tbody>
+      <% @employee.specialty_employees.each do |price| %>
+        <tr>
+          <td><%= price.specialty.descricao if !price.specialty.nil? %></td>
+          <td><%= price.valor.to_f %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>This person has no table price yet.</p>
+<% end %>
+
 <h2>Documentos</h2>
   <% @employee.assets.each do |asset| %>
     <p> <%= image_tag asset.asset.url(:thumb) if asset.present? %> </p>

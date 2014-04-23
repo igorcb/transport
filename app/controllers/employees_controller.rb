@@ -18,6 +18,7 @@ class EmployeesController < ApplicationController
     @employee.contacts.build
     @employee.assets.build
     @employee.table_prices.build
+    @employee.specialty_employees.build
   end
 
   # GET /employees/1/edit
@@ -76,6 +77,7 @@ class EmployeesController < ApplicationController
         #:carrega, :embala, :desmonta, :icamento, :arruma, :iventarista, :confere_carga,
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
+        specialty_employees_attributes: [:specialty_id, :valor, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy])
     end
 end

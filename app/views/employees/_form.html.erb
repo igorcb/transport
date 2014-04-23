@@ -129,6 +129,29 @@
     <a href="#" class="add">add price</a>
   </div>
 
+  <h2>Tabela de Preços de Especialidades</h2>
+  <div id="prices">
+    <div class="items">
+      <%= f.nested_fields_for :specialty_employees do |f| %>
+        <fieldset class="item">
+          <%= f.label :specialty %>
+          <%#= f.select :specialty_id, Specialty.order(:descricao).collection  %>
+          <%= f.select(:specialty_id, Specialty.order(:descricao).collect {|s| [s.descricao, s.id]}, include_blank: true)  %>
+          
+
+          <%= f.label :valor %>
+          <%= f.text_field :valor %>
+
+          <a href="#" class="remove">remove</a>
+
+          <%= f.hidden_field :id %>
+          <%= f.hidden_field :_destroy %>
+        </fieldset>
+      <% end %>
+    </div>
+    <a href="#" class="add">add price</a>
+  </div>
+
   <h2>Documentos</h2> 
   <div id="documents">
     <div class="items">
