@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Links</div>
+  <div class="panel-body">
+    <%= link_to 'Novo Link', new_link_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th>Descrição</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @links.each do |link| %>
+            <tr>
+              <% url_link = link.url %>
+              <td><a href="<%= link.url %>" target="_blank"> <%= link.url  %> </a></td>
+              <td><%= link.descricao %></td>
+              <td><%= link_to 'Show', link, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_link_path(link), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', link, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

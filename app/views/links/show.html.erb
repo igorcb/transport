@@ -1,0 +1,14 @@
+<p>
+  <strong>Url:</strong> <%= @link.url  %> |
+  <a href="<%= @link.url %>" target="_blank"> <%= @link.url  %> </a> 
+</p>	
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @link.descricao %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_link_path(@link), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', links_path, class: "btn btn-default" %>
+</div>
