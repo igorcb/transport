@@ -15,7 +15,10 @@ describe Client do
                             complemento: nil,
                                  bairro: 'Serrinha',
                                  cidade: 'Fortaleza',
-                                 estado: 'CE'
+                                 estado: 'CE',
+                                     rg: '200209200618',
+                          orgao_emissor: 'SSP/CE',
+                        data_emissao_rg: '2002/09/02'
                                  ) 
 
   end
@@ -35,6 +38,9 @@ describe Client do
   it { should respond_to(:bairro) }
   it { should respond_to(:cidade) }
   it { should respond_to(:estado) }
+  it { should respond_to(:rg) }
+  it { should respond_to(:orgao_emissor) }
+  it { should respond_to(:data_emissao_rg) }
   it { should respond_to(:contacts) }
   it { should accept_nested_attributes_for :assets }
   it { should accept_nested_attributes_for :contacts }

@@ -60,6 +60,18 @@
     <%= f.label :cep %>
     <%= f.text_field :cep, class: "form-control" %>
   </div>
+  <div class="form-group">
+    <%= f.label :rg %>
+    <%= f.text_field :rg, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :data_emissao_rg  %><br />
+    <%= f.date_select :data_emissao_rg, class: "form-control", start_year: 1920  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :orgao_emissor %>
+    <%= f.text_field :orgao_emissor, class: "form-control"  %>
+  </div>
 
   <h2>Contatos</h2>
   <div id="phones">
