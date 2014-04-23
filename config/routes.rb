@@ -1,4 +1,9 @@
 Transport::Application.routes.draw do
+  
+  resources :specialties
+
+  resources :links
+
   resources :owners
 
   resources :carriers
@@ -12,5 +17,7 @@ Transport::Application.routes.draw do
   resources :suppliers
 
   resources :clients
-  root 'clients#index'
+  
+  root 'links#index'
+
 end

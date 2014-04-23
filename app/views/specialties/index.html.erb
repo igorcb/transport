@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Especialidades</div>
+  <div class="panel-body">
+    <%= link_to 'Nova Especialidade', new_specialty_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Descricao</th>
+            <th>Valor</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @specialties.each do |specialty| %>
+            <tr>
+              <td><%= specialty.descricao %></td>
+              <td><%= specialty.valor %></td>
+              <td><%= link_to 'Show', specialty, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_specialty_path(specialty), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', specialty, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

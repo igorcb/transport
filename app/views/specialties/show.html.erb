@@ -1,0 +1,14 @@
+<p>
+  <strong>Descricao:</strong>
+  <%= @specialty.descricao %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @specialty.valor %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_specialty_path(@specialty), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', specialties_path, class: "btn btn-default" %>
+</div>
