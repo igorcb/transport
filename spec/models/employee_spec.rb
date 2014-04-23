@@ -13,7 +13,10 @@ describe Employee do
                                  bairro: 'Serrinha',
                                  cidade: 'Fortaleza',
                                  estado: 'CE',
-                                   tipo: Employee::TipoEmployee::FIXO
+                                   tipo: Employee::TipoEmployee::FIXO,
+                                     rg: '200209200618',
+                          orgao_emissor: 'SSP/CE',
+                        data_emissao_rg: '2002/09/02'
                          #        carrega: true,
                          #         embala: true,
                          #       desmonta: false,
@@ -38,6 +41,9 @@ describe Employee do
   it { should respond_to(:cidade) }
   it { should respond_to(:estado) }
   it { should respond_to(:tipo) }
+  it { should respond_to(:rg) }
+  it { should respond_to(:orgao_emissor) }
+  it { should respond_to(:data_emissao_rg) }
   # it { should respond_to(:carrega) }
   # it { should respond_to(:embala) }
   # it { should respond_to(:desmonta) }
