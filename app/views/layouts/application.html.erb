@@ -19,7 +19,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/" class="navbar-brand"><%= full_title(yield(:title)) %></a>
+        <a href="/links" class="navbar-brand"><%= full_title(yield(:title)) %></a>
       </div>
       <!-- Collection of nav links and other content for toggling -->
       <%# if signed_in? %>
@@ -34,6 +34,8 @@
               <li><%= link_to "Transportadoras", carriers_path %></li>
               <li><%= link_to "Veículos", vehicles_path %></li>
               <li><%= link_to "Proprietários", owners_path %></li>
+              <li><%= link_to "Links", links_path %></li>
+              <li><%= link_to "Especialidades", specialties_path %></li>
             <%# end %>
             <li><%#= link_to "Sair", signout_path, method: "delete" %> </li>
           </ul>
