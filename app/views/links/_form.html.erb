@@ -11,7 +11,10 @@
     <%= f.text_area :descricao, class: "form-control"  %>
   </div>
   
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  link_path(@link), class: "btn btn-info" if !@link.new_record? %>
+    <%= link_to "Listar Todos", links_path, class: "btn btn-default" %>
   </div>
+
 <% end %>
