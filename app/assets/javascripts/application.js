@@ -12,16 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require jquery.nested-fields
-
-//= require bootstrap/load-image.min
-//= require bootstrap/image-gallery.min
-
 //= require_tree .
-
-   $(document).ready(function(e) {
-     $('#phones, #accounts, #prices, #documents').nestedFields();
-   });
-
-// $('#items').nestedFields();

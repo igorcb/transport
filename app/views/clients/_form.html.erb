@@ -73,69 +73,45 @@
     <%= f.text_field :orgao_emissor, class: "form-control"  %>
   </div>
 
+
   <h2>Contatos</h2>
   <div id="phones">
     <div class="items">
-      <%= f.nested_fields_for :contacts do |f| %>
-        <fieldset class="item">
-          <%= f.label :tipo %>
-          <%= f.select :tipo, [['FIXO', '0'], ['CELULAR', '1'], ['E-MAIL', '2'], ['TWITTER', '3'], ['FACEBOOK', '4']]  %>
-
-          <%= f.label :nome %>
-          <%= f.text_field :nome %>
-
-          <%= f.label :fone %>
-          <%= f.text_field :fone %>
-
-          <%= f.label :complemento %>
-          <%= f.text_field :complemento %>
-
-          <a href="#" class="remove">remove</a>
-
-          <%= f.hidden_field :id %>
-          <%= f.hidden_field :_destroy %>
-        </fieldset>
-      <% end %>
+      <%= f.nested_fields_for :contacts do |f| 
+        render 'contact', f: f
+      end -%>
     </div>
-    <a href="#" class="add">add phone</a>
+    <a href="#" class="add">add contact</a>
   </div>
 
   <h2>Documentos</h2> 
   <div id="documents">
     <div class="items">
-      <%= f.nested_fields_for :assets do |f| %>
-        <% if f.object.new_record? %>
-          <fieldset class="item">
-           
-            <%= f.file_field :asset %>
+      <%= f.nested_fields_for :assets do |f| 
+        render 'asset', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">add documento</a>
+  </div>
 
-            <a href="#" class="remove">remove</a>
-
-            <%= f.hidden_field :id %>
-            <%= f.hidden_field :_destroy %>
-          </fieldset>
-        <% end %>
-      <% end  %>
-
-      <%= f.nested_fields_for :assets do |f| %>
-        <% unless f.object.new_record? %>
+<!--       
+    <%#= f.nested_fields_for :assets do |f| %>
+        <%# unless f.object.new_record? %>
           <fieldset class="item">
              
-             <%= link_to image_tag(f.object.asset.url(:thumb)), "#modalcar", data: {:toggle=>"modal"} %> 
+             <%#= link_to image_tag(f.object.asset.url(:thumb)), "#modalcar", data: {:toggle=>"modal"} %> 
              
              <a href="#" class="remove">remove</a>
 
-             <%= f.hidden_field :id %>
-             <%= f.hidden_field :_destroy %>
+             <%#= f.hidden_field :id %>
+             <%#= f.hidden_field :_destroy %>
              
              <%#= f.check_box :_destroy, :label => "Delete"  %>
           </fieldset>
 
-        <% end %>
-      <% end %>
-    </div>
-    <a href="#" class="add">add document</a>
-  </div>
+        <%# end %>
+      <%# end %>
+ -->
 
 
 
