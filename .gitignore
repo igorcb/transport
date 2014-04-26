@@ -11,6 +11,7 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /db/schema.rb
+/config/database.yml
 
 # Ignore the default assets.
 /public/system/assets/*
