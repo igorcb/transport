@@ -2,14 +2,12 @@ source 'https://rubygems.org'
 #ruby '2.0.0'
 #ruby-gemset=railstutorial_rails_4_0
 
-source 'https://rubygems.org'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
-
+gem 'foreigner'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -34,6 +32,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'awesome_nested_fields', '0.6.4'
 gem "paperclip", "3.5.0"
+gem 'bootstrap-sass'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
