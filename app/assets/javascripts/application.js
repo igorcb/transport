@@ -14,4 +14,8 @@
 //= require jquery_ujs
 //= require jquery.nested-fields
 //= require bootstrap
+
+//= require bootstrap/load-image.min
+//= require bootstrap/image-gallery.min
+
 //= require_tree .

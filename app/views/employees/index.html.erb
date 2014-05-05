@@ -6,6 +6,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th></th>
             <th>Cpf cnpj</th>
             <th>Nome</th>
             <th>Apelido</th>
@@ -17,6 +18,7 @@
         <tbody>
           <% @employees.each do |employee| %>
             <tr>
+              <td><%= image_tag employee.avatar.url(:mini) %> </td>
               <td><%= employee.cpf %></td>
               <td><%= employee.nome %></td>
               <td><%= employee.apelido %></td>

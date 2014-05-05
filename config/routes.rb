@@ -8,7 +8,9 @@ Transport::Application.routes.draw do
 
   resources :carriers
 
-  resources :employees
+  resources :employees do
+    get 'gallery'
+  end
 
   resources :vehicles
 

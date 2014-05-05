@@ -1,0 +1,33 @@
+<div id="well">
+  <div id="myCarousel_<%= @employee.id %>" class="carousel slide">
+
+	  <!-- Carousel items -->
+	  <div class="carousel-inner">
+
+	      <div class="item active">
+	          <div class="">
+	            <div class="">
+	              <!-- <a href="ligue-1212x180-cinza" class="thumbnail"><img src="<%#= asset_path( 'ligue-1212x180-cinza.jpg' ) %>" alt="Oil Barrons" style="max-width:100%;" /></a></div> -->
+	              <%= image_tag @employee.assets.first.asset.url(:original) if @employee.assets.present? %> 
+	            </div>
+	          </div>
+	      </div>
+
+	  <% @employee.assets.each do |asset|  %>
+	      <div class="item">
+	          <div class="">
+	            <div class="">
+	              <!-- <a href="ligue-1212x180-cinza" class="thumbnail"><img src="<%#= asset_path( 'ligue-1212x180-cinza.jpg' ) %>" alt="Oil Barrons" style="max-width:100%;" /></a></div> -->
+	              <%= image_tag (asset.asset.url(:original)), alt: "Oil Barrons", style:"max-width:100%; vertical-align: middle;" if @employee.assets.present? %>
+	            </div>
+	          </div>
+	      </div>
+	    <% end  %>
+
+	  </div><!--/carousel-inner-->
+
+	  <a class="left carousel-control" href="#myCarousel_<%= @employee.id %>" data-slide="prev">‹</a>
+	  <a class="right carousel-control" href="#myCarousel_<%= @employee.id %>" data-slide="next">›</a>
+  </div><!--/myCarousel-->
+
+</div><!--/well-->

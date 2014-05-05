@@ -1,5 +1,12 @@
-<%= form_for(@employee) do |f| %>
+<%= form_for @employee, html: { multipart: true } do |f| %>
+ 
   <%= render 'shared/error_messages', object: f.object %>
+
+ 
+  <div class="form-group">
+    <label for="exampleInputFile">Escolha uma imagem 3x4 </label>
+    <%= f.file_field :avatar %>
+  </div>  
 
   <div class="form-group">
     <%= f.label :cpf %><br>
