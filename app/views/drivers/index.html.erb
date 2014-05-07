@@ -6,6 +6,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>Imagem 3x4</th>
             <th>Cpf</th>
             <th>Nome</th>
             <th>Fantasia</th>
@@ -20,6 +21,7 @@
         <tbody>
           <% @drivers.each do |driver| %>
             <tr>
+              <td><%= image_tag driver.avatar.url(:mini) %> </td>
               <td><%= driver.cpf %></td>
               <td><%= driver.nome %></td>
               <td><%= driver.fantasia %></td>

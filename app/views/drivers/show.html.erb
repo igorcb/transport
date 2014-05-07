@@ -1,4 +1,8 @@
 <p>
+  <%= image_tag @driver.avatar.url(:mini)  %>
+</p>
+
+<p>
   <strong>Cpf:</strong>
   <%= @driver.cpf %>
 </p>
@@ -166,9 +170,67 @@
 <% end %>
 
 <h2>Documentos</h2>
+
+<div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
   <% @driver.assets.each do |asset| %>
-    <p> <%= image_tag asset.asset.url(:thumb) if asset.present? %> </p>
+  <p>
+    <%= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"} %> 
+  </p>
   <% end %>
+</div>    
+    
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Documentos</h4>
+      </div>
+      <div class="modal-body">
+      <!-- Carousel -->
+
+      <div id="well">
+        <div id="myCarousel_<%= @driver.id %>" class="carousel slide">
+
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+
+              <div class="item active">
+                  <div class="">
+                    <div class="">
+                      <%= image_tag @driver.assets.first.asset.url(:original) if @driver.assets.present? %> 
+                    </div>
+                  </div>
+              </div>
+
+          <% @driver.assets.each do |asset|  %>
+              <div class="item">
+                  <div class="">
+                    <div class="">
+                      <!-- <a href="ligue-1212x180-cinza" class="thumbnail"><img src="<%#= asset_path( 'ligue-1212x180-cinza.jpg' ) %>" alt="Oil Barrons" style="max-width:100%;" /></a></div> -->
+                      <%= image_tag (asset.asset.url(:original)), alt: "Oil Barrons", style:"max-width:100%; vertical-align: middle;" if @driver.assets.present? %>
+                    </div>
+                  </div>
+              </div>
+            <% end  %>
+
+          </div><!--/carousel-inner-->
+
+          <a class="left carousel-control" href="#myCarousel_<%= @driver.id %>" data-slide="prev">‹</a>
+          <a class="right carousel-control" href="#myCarousel_<%= @driver.id %>" data-slide="next">›</a>
+        </div><!--/myCarousel-->
+
+      </div><!--/well-->
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   
 <div class="form-actions">
