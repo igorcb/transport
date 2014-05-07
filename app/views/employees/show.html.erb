@@ -151,22 +151,64 @@
 
 <div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
   <% @employee.assets.each do |asset| %>
-    <p>
-    <%= link_to image_tag( asset.asset.url(:thumb)), employee_gallery_path(@employee.id),  data: {:toggle=>"modal", :target=> "#modalProduct_#{asset.id} "} %> 
+  <p>
+    <%#= link_to image_tag( asset.asset.url(:thumb)), employee_gallery_path(@employee.id) ,  data: {:toggle=>"modal", :target=> "#myModal"} %> 
+    <%= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"} %> 
   </p>
+  <% end %>
+</div>    
     
-<!--
-    <div id="modalProduct_<%#= asset.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby=<%#= @employee.nome %> aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel_<%#= asset.id %>"><%#= @employee.nome.upcase %></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Documentos</h4>
       </div>
       <div class="modal-body">
-          <%#= render 'admin/cars/car_gallery', object: car, :layouts => 'false' %>    
+      <!-- Carousel -->
+
+      <div id="well">
+        <div id="myCarousel_<%= @employee.id %>" class="carousel slide">
+
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+
+              <div class="item active">
+                  <div class="">
+                    <div class="">
+                      <%= image_tag @employee.assets.first.asset.url(:original) if @employee.assets.present? %> 
+                    </div>
+                  </div>
+              </div>
+
+          <% @employee.assets.each do |asset|  %>
+              <div class="item">
+                  <div class="">
+                    <div class="">
+                      <!-- <a href="ligue-1212x180-cinza" class="thumbnail"><img src="<%#= asset_path( 'ligue-1212x180-cinza.jpg' ) %>" alt="Oil Barrons" style="max-width:100%;" /></a></div> -->
+                      <%= image_tag (asset.asset.url(:original)), alt: "Oil Barrons", style:"max-width:100%; vertical-align: middle;" if @employee.assets.present? %>
+                    </div>
+                  </div>
+              </div>
+            <% end  %>
+
+          </div><!--/carousel-inner-->
+
+          <a class="left carousel-control" href="#myCarousel_<%= @employee.id %>" data-slide="prev">‹</a>
+          <a class="right carousel-control" href="#myCarousel_<%= @employee.id %>" data-slide="next">›</a>
+        </div><!--/myCarousel-->
+
+      </div><!--/well-->
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
--->
-  <% end %>
+  </div>
 </div>
 
 

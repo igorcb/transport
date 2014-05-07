@@ -1,6 +1,10 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
+  def gallery
+    @employee = Employee.find(params[:employee_id])
+  end
+
   # GET /employees
   # GET /employees.json
   def index
