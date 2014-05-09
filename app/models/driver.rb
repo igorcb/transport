@@ -37,7 +37,7 @@ class Driver < ActiveRecord::Base
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
   has_attached_file :avatar, styles: lambda { |a| a.instance.avatar_content_type =~ %r(image) ? { mini: "64x64>"} : {} }
-  validates_attachment_presence :avatar
+  #validates_attachment_presence :avatar
 
   module Categoria
   	A = 0
