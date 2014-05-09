@@ -1,5 +1,6 @@
 <p>
-  <%= image_tag @employee.avatar.url(:mini)  %>
+  <% image_avatar = @employee.avatar.present? ? @employee.avatar.url(:mini) : "image_not_found.jpg"  %>
+  <%= image_tag image_avatar, size: "144x90"  %>
 </p>
 
 <p>

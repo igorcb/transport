@@ -21,7 +21,8 @@
         <tbody>
           <% @drivers.each do |driver| %>
             <tr>
-              <td><%= image_tag driver.avatar.url(:mini) %> </td>
+              <% image_avatar = driver.avatar.present? ? driver.avatar.url(:mini) : "image_not_found.jpg"  %>
+              <td><%= image_tag image_avatar, size: "144x90"    %> </td>
               <td><%= driver.cpf %></td>
               <td><%= driver.nome %></td>
               <td><%= driver.fantasia %></td>

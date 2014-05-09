@@ -18,7 +18,8 @@
         <tbody>
           <% @employees.each do |employee| %>
             <tr>
-              <td><%= image_tag employee.avatar.url(:mini) %> </td>
+              <% image_avatar = employee.avatar.present? ? employee.avatar.url(:mini) : "image_not_found.jpg"  %>
+              <td><%= image_tag image_avatar, size: "144x90"    %> </td>
               <td><%= employee.cpf %></td>
               <td><%= employee.nome %></td>
               <td><%= employee.apelido %></td>

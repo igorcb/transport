@@ -1,5 +1,6 @@
 <p>
-  <%= image_tag @driver.avatar.url(:mini)  %>
+  <% image_avatar = @driver.avatar.present? ? @driver.avatar.url(:mini) : "image_not_found.jpg"  %>
+  <%= image_tag image_avatar, size: "144x90"  %>
 </p>
 
 <p>
