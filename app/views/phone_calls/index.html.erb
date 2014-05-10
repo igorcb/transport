@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Atendimento</div>
+  <div class="panel-body">
+    <%= link_to 'Novo Atendimento', new_phone_call_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Valor</th>
+            <th>Tipo de Serviço</th>
+            <th>Assunto</th>
+            <th colspan="3">Opções</th>
+         </tr>
+        </thead>
+
+        <tbody>
+          <% @phone_calls.each do |phone_call| %>
+            <tr>
+              <td><%= phone_call.nome %></td>
+              <td><%= phone_call.telefone %></td>
+              <td><%= phone_call.email %></td>
+              <td><%= phone_call.valor.to_f %></td>
+              <td><%= phone_call.type_service.descricao if phone_call.type_service.present? %></td>
+              <td><%= truncate phone_call.assunto, length: 20 %></td>
+              <td><%= link_to 'Show', phone_call, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_phone_call_path(phone_call), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', phone_call, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

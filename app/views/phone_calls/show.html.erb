@@ -1,0 +1,34 @@
+<p>
+  <strong>Nome:</strong>
+  <%= @phone_call.nome %>
+</p>
+
+<p>
+  <strong>Telefone:</strong>
+  <%= @phone_call.telefone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @phone_call.email %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @phone_call.valor %>
+</p>
+
+<p>
+  <strong>Tipo de Seriço:</strong>
+  <%= @phone_call.type_service.descricao if @phone_call.type_service.present? %>
+</p>
+
+<p>
+  <strong>Assunto:</strong>
+  <%= @phone_call.assunto %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_phone_call_path(@phone_call), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos',  phone_calls_path, class: "btn btn-default" %>
+</div>

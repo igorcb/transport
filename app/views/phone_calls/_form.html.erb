@@ -1,0 +1,35 @@
+<%= form_for(@phone_call) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :nome %><br>
+    <%= f.text_field :nome, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :telefone %><br>
+    <%= f.text_field :telefone, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :email %><br>
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :valor %><br>
+    <%= f.text_field :valor, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :type_service_id %><br>
+    <%= f.select(:type_service_id, TypeService.order(:descricao).collect {|t| [t.descricao, t.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :assunto %><br>
+    <%= f.text_area :assunto, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  phone_call_path(@phone_call), class: "btn btn-info" if !@phone_call.new_record? %>
+    <%= link_to "Listar Todos", phone_calls_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>

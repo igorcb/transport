@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
   
+  resources :phone_calls
+
   resources :type_services
 
   resources :specialties
