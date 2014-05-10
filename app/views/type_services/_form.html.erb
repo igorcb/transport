@@ -1,0 +1,14 @@
+<%= form_for(@type_service) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :descricao %><br>
+    <%= f.text_field :descricao, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  type_service_path(@type_service), class: "btn btn-info" if !@type_service.new_record? %>
+    <%= link_to "Listar Todos", type_services_path, class: "btn btn-default" %>
+  </div>
+<% end %>

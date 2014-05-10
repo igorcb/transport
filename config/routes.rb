@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
   
+  resources :type_services
+
   resources :specialties
 
   resources :links
