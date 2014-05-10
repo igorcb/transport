@@ -114,11 +114,7 @@
   <p>This person has no table price yet.</p>
 <% end %>
 
-<h2>Documentos</h2>
-      <% @vehicle.assets.each do |asset| %>
-    <p> <%= image_tag asset.asset.url(:thumb) if asset.present? %> </p>
-  <% end %>
-
+<%= render 'shared/document', object: @vehicle %>
 
 <div class="form-group">
   <%= link_to 'Editar', edit_vehicle_path(@vehicle), class: "btn btn-primary" %>

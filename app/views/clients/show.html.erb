@@ -78,13 +78,9 @@
   <%= @client.orgao_emissor %>
 </p>
 
-
 <%= render 'shared/show_contacts', object: @client %>
 
-<h2>Documentos</h2>
-  <% @client.assets.each do |asset| %>
-    <p> <%= image_tag asset.asset.url(:thumb) if asset.present? %> </p>
-  <% end %>
+<%= render 'shared/document', object: @client %>
 
 <div class="form-group">
   <%= link_to 'Editar', edit_client_path(@client), class: "btn btn-primary" %>
