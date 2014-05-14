@@ -24,6 +24,11 @@
 </p>
 
 <p>
+  <strong>Status:</strong>
+  <%= @phone_call.status_descricao if @phone_call.status.present? %>
+</p>
+
+<p>
   <strong>Assunto:</strong>
   <%= @phone_call.assunto %>
 </p>

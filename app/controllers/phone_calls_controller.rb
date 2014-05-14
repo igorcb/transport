@@ -4,7 +4,7 @@ class PhoneCallsController < ApplicationController
   # GET /phone_calls
   # GET /phone_calls.json
   def index
-    @phone_calls = PhoneCall.all
+    @phone_calls = PhoneCall.order('created_at desc')
   end
 
   # GET /phone_calls/1
@@ -69,6 +69,6 @@ class PhoneCallsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def phone_call_params
-      params.require(:phone_call).permit(:nome, :telefone, :email, :valor, :type_service_id, :assunto)
+      params.require(:phone_call).permit(:nome, :telefone, :email, :valor, :type_service_id, :assunto, :status)
     end
 end
