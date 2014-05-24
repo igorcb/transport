@@ -89,10 +89,23 @@
 </p>
 
 <p>
-  <strong>Kit Quimico</strong>
+  <strong>Kit Quimico:</strong>
   <%= extenso_boolean(@vehicle.kit_quimico) %>
 </p>
 
+<p>
+  <strong>Altura:</strong>
+  <%= @vehicle.altura %>
+  <strong>Largura:</strong>
+  <%= @vehicle.largura %>
+  <strong>Comprimento:</strong>
+  <%= @vehicle.comprimento %>
+</p>
+
+<p>
+  <strong>Cubagem:</strong>
+  <%= @vehicle.cubagem %>
+</p>
 
 <h2>Tabela de Preços</h2>
 <% if @vehicle.table_prices.any? %>

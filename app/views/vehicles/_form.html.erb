@@ -88,6 +88,21 @@
     <%= f.select( :capacitacao, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
   </div>
 
+  <div class="form-group">
+    <%= f.label :largura %><br>
+    <%= f.text_field :largura, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :comprimento %><br>
+    <%= f.text_field :comprimento, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :altura %><br>
+    <%= f.text_field :altura, class: "form-control" %>
+  </div>
+
   <h2>Tabela de Preços</h2>
   <div id="prices">
     <div class="items">

@@ -35,6 +35,10 @@ class Vehicle < ActiveRecord::Base
     CARRETA = 5
 	end
 
+  def cubagem
+    largura * altura * comprimento
+  end
+
   def tipo_veiculo_nome
     case self.tipo_veiculo
       when 0 then "STANDARD"
