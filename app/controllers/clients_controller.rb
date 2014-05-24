@@ -19,6 +19,7 @@ class ClientsController < ApplicationController
   def new
     @client = Client.new
     @client.contacts.build
+    @client.emails.build
     @client.assets.build 
   end
 
@@ -78,13 +79,10 @@ class ClientsController < ApplicationController
       params.require(:client).permit(:cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, 
       :bairro, :cidade, :estado, :cep, :tipo_pessoa, :rg, :orgao_emissor, :data_emissao_rg,
       contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
+      emails_attributes: [:setor, :contato, :email, :id, :_destroy],
       assets_attributes: [:asset, :id, :_destroy]
       )
             
 
     end
 end
-
-
-      #assets_attributes: [:asset, :id, :_destroy])
-      #:asset_id, :asset_type, :asset_file_name, :asset_content_type, :asset_file_size

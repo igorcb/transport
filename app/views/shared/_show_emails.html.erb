@@ -1,0 +1,24 @@
+<h2>E-mail</h2>
+<% if object.emails.any? %>
+  <table class="table table-striped">
+    <thead>
+      <th>Setor</th>
+      <th>Contato</th>
+      <th>E-mail</th>
+    </thead>
+
+    <tbody>
+      <% object.emails.each do |e| %>
+        <tr>
+          <td><%= e.setor %></td>
+          <td><%= e.contato %></td>
+          <td><%= e.email %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no e-mails yet.</p>
+<% end %>
