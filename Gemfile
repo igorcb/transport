@@ -34,6 +34,7 @@ gem 'awesome_nested_fields', '0.6.4'
 gem "paperclip", "3.5.0"
 gem 'bootstrap-sass'
 gem 'bootstrap-addons-rails'
+gem 'devise'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
