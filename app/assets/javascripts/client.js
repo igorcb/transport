@@ -3,5 +3,5 @@
 //});
 
 $(document).ready(function(e) {
-   $('#phones, #accounts, #prices, #documents').nestedFields();
+   $('#phones, #accounts, #prices, #documents, #emails').nestedFields();
 });
