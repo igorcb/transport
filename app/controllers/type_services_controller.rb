@@ -1,4 +1,5 @@
 class TypeServicesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_type_service, only: [:show, :edit, :update, :destroy]
 
   # GET /type_services

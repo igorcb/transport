@@ -1,4 +1,5 @@
 class CarriersController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_carrier, only: [:show, :edit, :update, :destroy]
 
   # GET /carriers

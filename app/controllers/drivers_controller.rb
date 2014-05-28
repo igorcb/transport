@@ -1,4 +1,5 @@
 class DriversController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_driver, only: [:show, :edit, :update, :destroy]
 
   # GET /drivers

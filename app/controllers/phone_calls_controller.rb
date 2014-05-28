@@ -1,4 +1,5 @@
 class PhoneCallsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_phone_call, only: [:show, :edit, :update, :destroy]
 
   # GET /phone_calls
