@@ -1,5 +1,8 @@
 Transport::Application.routes.draw do
   
+  #resources :sessions#, only: [:new, :create, :destroy]
+
+  devise_for :users
   resources :phone_calls
 
   resources :type_services
