@@ -16,7 +16,15 @@
 <% unless f.object.new_record? %>
   <fieldset class="item">
      
-    <%= link_to image_tag(f.object.asset.url(:thumb)), "#modalcar", data: {:toggle=>"modal"} %> 
+      <%#= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"} %> 
+    <%# else %>
+      <%#= link_to image_tag("image_pdf.png", size: "120x90"), asset.asset.url(:original, false) %>
+
+    <% if f.object.is_image? %>
+      <%= link_to image_tag(f.object.asset.url(:thumb)), "#modalcar", data: {:toggle=>"modal"} %> 
+    <% else %>
+      <%= link_to image_tag("image_pdf.png", size: "120x90"), f.object.asset.url(:thumb, false) %>
+    <% end  %>
      
  	  <a href="#" class="remove" data-confirm="Are you sure?">remove</a>
 
