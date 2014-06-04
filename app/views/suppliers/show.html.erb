@@ -63,6 +63,12 @@
   <%= @supplier.cep %>
 </p>
 
+<p>
+  <strong>Observação:</strong>
+  <pre><%= @supplier.obs %></pre>
+</p>
+
+
 <%= render 'shared/show_contacts', object: @supplier %>
 
 <div class="form-group">

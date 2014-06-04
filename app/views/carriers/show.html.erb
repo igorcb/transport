@@ -53,6 +53,11 @@
   <%= @carrier.cep %>
 </p>
 
+<p>
+  <strong>Observação:</strong>
+  <pre><%= @carrier.obs %></pre>
+</p>
+
 <%= render 'shared/show_contacts', object: @carrier %>
 
 <div class="form-group">

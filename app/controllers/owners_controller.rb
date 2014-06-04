@@ -72,7 +72,7 @@ class OwnersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def owner_params
       params.require(:owner).permit(:cpf_cnpj, :rg, :data_emissao, :orgao_emissor, :nome, :fantasia, :inscricao_estadual, :instricao_municipal,
-        :endereco, :numero, :complemento, :bairro, :cidade, :estado,:cep,
+        :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :obs, 
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy])
     end
 end

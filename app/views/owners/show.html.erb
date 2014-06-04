@@ -68,6 +68,13 @@
   <%= @owner.orgao_emissor %>
 </p>
 
+<p>
+  <strong>Observação:</strong>
+  <pre><%= @owner.obs %></pre>
+</p>
+
+
+
 <%= render 'shared/show_contacts', object: @owner %>
 
 <div class="form-group">

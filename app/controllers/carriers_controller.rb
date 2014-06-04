@@ -71,7 +71,7 @@ class CarriersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def carrier_params
-      params.require(:carrier).permit(:cnpj, :nome, :fantasia, :inscricao_estadual, :instricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep,
+      params.require(:carrier).permit(:cnpj, :nome, :fantasia, :inscricao_estadual, :instricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :obs,
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy])
     end
 end
