@@ -26,6 +26,10 @@ class Vehicle < ActiveRecord::Base
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
+  has_many :drivings
+  has_many :drivers, :through => :drivings
+  accepts_nested_attributes_for :drivings, allow_destroy: true, reject_if: :all_blank
+
 	module TipoVeiculo
 		STANDARD = 0
 		LS = 1

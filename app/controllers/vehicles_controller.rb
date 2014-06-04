@@ -18,6 +18,7 @@ class VehiclesController < ApplicationController
     @vehicle = Vehicle.new
     @vehicle.table_prices.build
     @vehicle.assets.build
+    @vehicle.drivings.build
   end
 
   # GET /vehicles/1/edit
@@ -75,7 +76,8 @@ class VehiclesController < ApplicationController
       params.require(:vehicle).permit(:marca, :modelo, :ano, :cor, :tipo_veiculo, :municipio_emplacamento, :estado, :renavan, :chassi, :capacidade, :placa,
         :especie, :numero_eixos, :numero_loks, :grade, :cordas, :lonas, :capacitacao, :kit_quimico, :largura, :altura, :comprimento,
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
-        assets_attributes: [:asset, :id, :_destroy]
+        assets_attributes: [:asset, :id, :_destroy],
+        drivings_attributes: [:driver_id, :id, :_destroy]
         )
     end
 end

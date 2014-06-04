@@ -129,6 +129,26 @@
 
 <%= render 'shared/document', object: @vehicle %>
 
+<h2>Motoristas</h2>
+<% if @vehicle.drivers.any? %>
+  <table class="table table-striped">
+    <tbody>
+      <% @vehicle.drivers.each do |driver| %>
+        <tr>
+          <td><%= driver.nome %></td>
+          <td><%= driver.fantasia %></td>
+          <td><%= driver.cpf %></td>
+      
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no driver yet.</p>
+<% end %>
+
 <div class="form-group">
   <%= link_to 'Editar', edit_vehicle_path(@vehicle), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', vehicles_path, class: "btn btn-default" %>
