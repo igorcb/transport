@@ -19,6 +19,7 @@ class DriversController < ApplicationController
     @driver.contacts.build
     @driver.account_banks.build
     @driver.table_prices.build
+    @driver.drivings.build
     #@driver.assets.build
   end
 
@@ -81,7 +82,8 @@ class DriversController < ApplicationController
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
         account_banks_attributes: [:banco, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
-        assets_attributes: [:asset, :id, :_destroy]
+        assets_attributes: [:asset, :id, :_destroy],
+        drivings_attributes: [:vehicle_id, :id, :_destroy]
         )
     end
 end

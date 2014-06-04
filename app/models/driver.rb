@@ -39,6 +39,10 @@ class Driver < ActiveRecord::Base
   has_attached_file :avatar, styles: lambda { |a| a.instance.avatar_content_type =~ %r(image) ? { mini: "144x>90"} : {} }
   #validates_attachment_presence :avatar
 
+  has_many :drivings
+  has_many :vehicles, :through => :drivings
+  accepts_nested_attributes_for :drivings, allow_destroy: true, reject_if: :all_blank
+
   module Categoria
   	A = 0
   	B = 1

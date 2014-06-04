@@ -139,6 +139,16 @@
     <a href="#" class="add">add documento</a>
   </div>
 
+  <h2>Veículos</h2> 
+  <div id="drivers">
+    <div class="items">
+      <%= f.nested_fields_for :drivings do |f| 
+        render 'vehicle', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">add veiculo</a> 
+  </div>
+
   <div class="form-actions">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  drivers_path(@driver), class: "btn btn-info" if !@driver.new_record? %>
