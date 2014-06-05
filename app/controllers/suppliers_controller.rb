@@ -17,6 +17,7 @@ class SuppliersController < ApplicationController
   def new
     @supplier = Supplier.new
     @supplier.contacts.build
+    @supplier.emails.build
   end
 
   # GET /suppliers/1/edit
@@ -72,6 +73,7 @@ class SuppliersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def supplier_params
       params.require(:supplier).permit(:cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :instricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :tipo_pessoa, :obs,
+        emails_attributes: [:setor, :contato, :email, :id, :_destroy],
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy])
     end
 end
