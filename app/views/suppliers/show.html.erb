@@ -73,6 +73,8 @@
 
 <%= render 'shared/show_emails', object: @supplier %>
 
+<%= render 'shared/document', object: @supplier %>
+
 <div class="form-group">
   <%= link_to 'Editar', edit_supplier_path(@supplier), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos',  suppliers_path, class: "btn btn-default" %>
