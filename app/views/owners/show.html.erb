@@ -73,9 +73,9 @@
   <pre><%= @owner.obs %></pre>
 </p>
 
-
-
 <%= render 'shared/show_contacts', object: @owner %>
+
+<%= render 'shared/show_emails', object: @owner %>
 
 <div class="form-group">
   <%= link_to 'Editar', edit_owner_path(@owner), class: "btn btn-primary" %>

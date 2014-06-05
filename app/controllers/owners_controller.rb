@@ -17,6 +17,7 @@ class OwnersController < ApplicationController
   def new
     @owner = Owner.new
     @owner.contacts.build
+    @owner.emails.build
   end
 
   # GET /owners/1/edit
@@ -73,6 +74,7 @@ class OwnersController < ApplicationController
     def owner_params
       params.require(:owner).permit(:cpf_cnpj, :rg, :data_emissao, :orgao_emissor, :nome, :fantasia, :inscricao_estadual, :instricao_municipal,
         :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :obs, 
+        emails_attributes: [:setor, :contato, :email, :id, :_destroy],
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy])
     end
 end
