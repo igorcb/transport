@@ -3,6 +3,24 @@
   <%= @activity.descricao %>
 </p>
 
+<h2>Fornecedore</h2>
+<% if @activity.suppliers.any? %>
+  <table class="table table-striped">
+    <tbody>
+      <% @activity.suppliers.each do |supplier| %>
+        <tr>
+          <td><%= supplier.nome %></td>
+          <td><%= supplier.cidade %> - <%= supplier.estado %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no supplier yet.</p>
+<% end %>
+
 <div class="form-group">
   <%= link_to 'Editar', edit_activity_path(@activity), class: "btn btn-primary" %> 
   <%= link_to 'Voltar', activities_path, class: "btn btn-default" %>

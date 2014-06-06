@@ -75,6 +75,23 @@
 
 <%= render 'shared/document', object: @supplier %>
 
+<h2>Atividades</h2>
+<% if @supplier.activities.any? %>
+  <table class="table table-striped">
+    <tbody>
+      <% @supplier.activities.each do |activity| %>
+        <tr>
+          <td><%= activity.descricao %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no activity yet.</p>
+<% end %>
+
 <div class="form-group">
   <%= link_to 'Editar', edit_supplier_path(@supplier), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos',  suppliers_path, class: "btn btn-default" %>

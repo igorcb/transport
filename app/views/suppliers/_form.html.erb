@@ -93,7 +93,17 @@
       end  -%>
     </div>
     <a href="#" class="add">add documento</a>
-  </div>  
+  </div>
+
+  <h2>Atividades</h2> 
+  <div id="activities">
+    <div class="items">
+      <%= f.nested_fields_for :movement_activities do |f| 
+        render 'activity', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">add atividades</a>
+  </div>      
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>

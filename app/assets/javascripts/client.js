@@ -3,7 +3,7 @@
 //});
 
 $(document).ready(function(e) {
-   $('#phones, #accounts, #prices, #documents, #emails, #vehicles, #drivers, #owners').nestedFields();
+   $('#phones, #accounts, #prices, #documents, #emails, #vehicles, #drivers, #owners, #activities').nestedFields();
 });
 
 // comentario
