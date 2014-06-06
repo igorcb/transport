@@ -19,6 +19,7 @@ class VehiclesController < ApplicationController
     @vehicle.table_prices.build
     @vehicle.assets.build
     @vehicle.drivings.build
+    @vehicle.ownerships.build
   end
 
   # GET /vehicles/1/edit
@@ -77,7 +78,8 @@ class VehiclesController < ApplicationController
         :especie, :numero_eixos, :numero_loks, :grade, :cordas, :lonas, :capacitacao, :kit_quimico, :largura, :altura, :comprimento, :obs,
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy],
-        drivings_attributes: [:driver_id, :id, :_destroy]
+        drivings_attributes: [:driver_id, :id, :_destroy],
+        ownerships_attributes: [:owner_id, :id, :_destroy]
         )
     end
 end

@@ -30,6 +30,10 @@ class Vehicle < ActiveRecord::Base
   has_many :drivers, :through => :drivings
   accepts_nested_attributes_for :drivings, allow_destroy: true, reject_if: :all_blank
 
+  has_many :ownerships
+  has_many :owners, :through => :ownerships
+  accepts_nested_attributes_for :ownerships, allow_destroy: true, reject_if: :all_blank
+
 	module TipoVeiculo
 		STANDARD = 0
 		LS = 1

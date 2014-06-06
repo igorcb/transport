@@ -155,6 +155,26 @@
   <p>This person has no driver yet.</p>
 <% end %>
 
+<h2>Proprietários</h2>
+<% if @vehicle.ownerships.any? %>
+  <table class="table table-striped">
+    <tbody>
+      <% @vehicle.owners.each do |owner| %>
+        <tr>
+          <td><%= owner.nome %></td>
+          <td><%= owner.fantasia %></td>
+          <td><%= owner.cpf_cnpj %></td>
+      
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no owner yet.</p>
+<% end %>
+
 <div class="form-group">
   <%= link_to 'Editar', edit_vehicle_path(@vehicle), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', vehicles_path, class: "btn btn-default" %>

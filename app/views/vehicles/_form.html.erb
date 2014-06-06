@@ -150,7 +150,16 @@
     </div>
     <a href="#" class="add">add motorista</a>
   </div>
-
+  
+  <h2>Proprietários</h2> 
+  <div id="owners">
+    <div class="items">
+      <%= f.nested_fields_for :ownerships do |f| 
+        render 'owner', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">add proprietario</a>
+  </div>
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>

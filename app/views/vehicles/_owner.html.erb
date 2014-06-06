@@ -1,0 +1,10 @@
+<fieldset class="item">
+
+  <%#= f.label :driver_id, "Motorista" %>
+  <%= f.collection_select :owner_id, Owner.all, :id, :nome,  {:prompt => 'Select'} %>
+
+  <a href="#" class="remove">remove</a>
+
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :_destroy %>
+</fieldset>
