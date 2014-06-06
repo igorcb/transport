@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Atividades</div>
+  <div class="panel-body">
+    <%= link_to 'Novo Atividade', new_activity_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @activities.each do |activity| %>
+            <tr>
+              <td><%= activity.descricao %></td>
+              <td><%= link_to 'Show', activity, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_activity_path(activity), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

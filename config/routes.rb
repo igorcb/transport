@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
   
+  resources :activities
+
   #resources :sessions#, only: [:new, :create, :destroy]
 
   devise_for :users
