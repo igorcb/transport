@@ -77,6 +77,26 @@
 
 <%= render 'shared/show_emails', object: @owner %>
 
+<h2>Veiculos</h2>
+<% if @owner.vehicles.any? %>
+  <table class="table table-striped">
+    <tbody>
+      <% @owner.vehicles.each do |vehicle| %>
+        <tr>
+          <td><%= vehicle.marca %></td>
+          <td><%= vehicle.modelo %></td>
+          <td><%= vehicle.placa %></td>
+      
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no vehicle yet.</p>
+<% end %>
+
 <div class="form-group">
   <%= link_to 'Editar', edit_owner_path(@owner), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', owners_path, class: "btn btn-default" %>

@@ -19,5 +19,9 @@ class Owner < ActiveRecord::Base
 
   has_many :emails, class_name: "Email", foreign_key: "email_id", :as => :email, dependent: :destroy
   accepts_nested_attributes_for :emails, allow_destroy: true  
+
+  has_many :ownerships
+  has_many :vehicles, :through => :ownerships
+  accepts_nested_attributes_for :ownerships, allow_destroy: true, reject_if: :all_blank  
   
 end
