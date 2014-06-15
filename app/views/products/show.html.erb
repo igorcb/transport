@@ -1,0 +1,14 @@
+<p>
+  <strong>Descricao:</strong>
+  <%= @product.descricao %>
+</p>
+
+<p>
+  <strong>Cubagem:</strong>
+  <%= @product.cubagem %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_product_path(@product), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos',  products_path, class: "btn btn-default" %>
+</div>
