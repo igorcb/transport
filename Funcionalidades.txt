@@ -1,0 +1,20 @@
+Funcionalidade
+	1 - Orcamento ou Pre Orcamento via web
+		1.1 O Cliente entra com os dados 
+			1.1.1 - Nome, email, estado origem, municipio origem, estado destino e
+			    municipio destino.
+				Motivo, o cliente não precisa preencher todos os dados, pois é apenas
+				uma consulta
+				1.1.1.1 - Seleciona os produtos
+				1.1.1.2 - O Sistema deve calcular o total da cubagem de acordo com os
+					     produtos selecionados pelo o cliente
+					     1.1.1.2.1 - Se o cliente não tiver o produto da listagem
+					     			 O cliente deve informar os novos produtos.
+				1.1.1.3 - Grava esses dados no banco de dados
+		1.2 Deve ter uma tela para que o admistrador ou um funcionario verifique o 
+			orçamento para da um retorno ao cliente.
+	1-1 Se o Orcamento for por telefone 
+		O Funcionario deve entrar com os dados basicos do cliente
+		seguir os passos 1.1.1
+	2. Deve ter uma opção para saber se é via web ou telefone
+	3. Deve ter um status para saber se foi não foi atendido, em atendimento, aprovado pelo o cliente ou não aprovado pelo o cliente.
