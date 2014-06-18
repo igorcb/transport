@@ -1,5 +1,9 @@
 Transport::Application.routes.draw do
   
+  resources :categories
+
+  #resources :cubages
+
   resources :products
 
   resources :activities
