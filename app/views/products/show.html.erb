@@ -4,6 +4,11 @@
 </p>
 
 <p>
+  <strong>Categoria:</strong>
+  <%= @product.category.descricao if @product.category.present? %>
+</p>
+
+<p>
   <strong>Cubagem:</strong>
   <%= @product.cubagem %>
 </p>
