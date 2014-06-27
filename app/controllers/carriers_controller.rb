@@ -18,6 +18,7 @@ class CarriersController < ApplicationController
     @carrier = Carrier.new
     @carrier.contacts.build
     @carrier.emails.build
+    @carrier.assets.build 
   end
 
   # GET /carriers/1/edit
@@ -74,6 +75,9 @@ class CarriersController < ApplicationController
     def carrier_params
       params.require(:carrier).permit(:cnpj, :nome, :fantasia, :inscricao_estadual, :instricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :obs,
       emails_attributes: [:setor, :contato, :email, :id, :_destroy],
-        contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy])
+      contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
+      assets_attributes: [:asset, :id, :_destroy]
+      )
+        
     end
 end
