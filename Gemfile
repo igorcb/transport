@@ -36,6 +36,19 @@ gem 'bootstrap-sass'
 gem 'bootstrap-addons-rails'
 gem 'devise'
 
+group :development, :test do
+  # gem 'sqlite3', '1.3.5'
+  # gem 'rspec-rails', '2.11.0'
+  # gem 'guard-rspec', '0.5.5'
+  # gem 'cpf_faker'
+  # gem 'faker'
+  # gem 'annotate', '2.5.0'  
+
+  gem 'thin'
+  gem 'quiet_assets'
+
+end
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
