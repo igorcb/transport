@@ -5,3 +5,15 @@ body {
   padding-top: 60px;
   margin: 10px;
 }
+
+select {
+  width: 220px;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+}
+
+select.date-select {
+    width:auto;
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+}

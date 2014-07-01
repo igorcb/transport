@@ -1,0 +1,65 @@
+<%= form_for(@budget) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :data %>
+    <%= f.date_select :data, {:class => 'date-select'}  %>
+    
+  </div>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :nome %>
+    <%= f.text_field :nome, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :fone %>
+    <%= f.text_field :fone, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :estado_origem %>
+    <%= f.select( :estado_origem, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :municipio_origem %>
+    <%= f.text_field :municipio_origem, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :estado_destino %>
+   <%= f.select( :estado_destino, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :municipio_destino %>
+    <%= f.text_field :municipio_destino, class: "form-control" %>
+  </div>
+
+<!--   <h2>Items</h2> 
+    <div id="budget_items">
+    <div class="items">
+      <%#= f.nested_fields_for :budget_items do |f| 
+        render 'budget_items', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">itens</a>
+  </div>
+ -->
+    <% Product.all.each do |p| %>
+      <div class="form-group">
+        <%#= check_box_tag  "todos_checkbox[][#{p.id}]", p.id %> <%= p.descricao %>
+        <%= text_field_tag "budget_items[qtde][#{p.id}]"%>
+        <%#=  categories[name][] number_field_tag :qtde, "itens[product_id][#{p.id}]", size: 10 %>
+      </div>
+      <br/>
+    <% end %>
+
+
+
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  budget_path(@budget), class: "btn btn-info" if !@budget.new_record? %>
+    <%= link_to "Listar Todos", budgets_path, class: "btn btn-default" %>
+  </div>
+<% end %>

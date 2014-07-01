@@ -1,0 +1,77 @@
+<p>
+  <strong>Data:</strong>
+  <%= @budget.data %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @budget.email %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @budget.nome %>
+</p>
+
+<p>
+  <strong>Fone:</strong>
+  <%= @budget.fone %>
+</p>
+
+<p>
+  <strong>Estado origem:</strong>
+  <%= @budget.estado_origem %>
+</p>
+
+<p>
+  <strong>Municipio origem:</strong>
+  <%= @budget.municipio_origem %>
+</p>
+
+<p>
+  <strong>Estado destino:</strong>
+  <%= @budget.estado_destino %>
+</p>
+
+<p>
+  <strong>Municipio destino:</strong>
+  <%= @budget.municipio_destino %>
+</p>
+
+<h2>Items</h2>
+<% if @budget.budget_items.any? %>
+  <table class="table table-striped">
+    <thead>
+      <th>Produto</th>
+      <th>Qtde</th>
+      <th>Cubagem</th>
+      <th>Cubagem Total</th>
+    </thead>
+
+    <tbody>
+      <% @budget.budget_items.each do |item| %>
+        <tr>
+          <td><%= item.product.descricao %></td>
+          <td><%= item.qtde %></td>
+          <td><%= item.product.cubagem %></td>
+          <td><%= item.cubagem_total %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Total</td>
+        <td><%= @budget.cubagem_total %></td>
+      </tr>
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This budget has no items yet.</p>
+<% end %>
+
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_budget_path(@budget), class: "btn btn-primary" %> 
+  <%= link_to 'Voltar', budgets_path, class: "btn btn-default" %>
+</div>
