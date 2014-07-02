@@ -49,16 +49,12 @@ class BudgetsController < ApplicationController
   # PATCH/PUT /budgets/1.json
   def update
     budget_items = params[:budget_items][:qtde]
-    budget_items.each do |item|
-      puts ">>>>>>>>>>>>>>>>>>>> item product_id: #{item[0]}"
-      puts ">>>>>>>>>>>>>>>>>>>> item       qtde: #{item[1]}"
-    end
     respond_to do |format|
       if @budget.update(budget_params)
         budget_items.each do |item|
           if item[1].blank?
             item_budget = @budget.budget_items.find_by_product_id(item[0])
-            item_budget.destroy
+            item_budget.destroy if !item_budget.nil?
           else
             item_budget = @budget.budget_items.find_by_product_id(item[0])
             if item_budget.nil?
