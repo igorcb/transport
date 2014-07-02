@@ -45,17 +45,34 @@
     <a href="#" class="add">itens</a>
   </div>
  -->
-    <% Product.all.each do |p| %>
-      <div class="form-group">
-        <%#= check_box_tag  "todos_checkbox[][#{p.id}]", p.id %> <%= p.descricao %>
-        <%= text_field_tag "budget_items[qtde][#{p.id}]"%>
-        <%#=  categories[name][] number_field_tag :qtde, "itens[product_id][#{p.id}]", size: 10 %>
-      </div>
-      <br/>
+    <h2>Items</h2>
+    <% if @budget.new_record? %>
+      <% Product.order(:descricao).each do |p| %>
+        <div class="form-group">
+          <%#= check_box_tag  "todos_checkbox[][#{p.id}]", p.id %> 
+          <%= p.descricao %>
+          <%= text_field_tag "budget_items[qtde][#{p.id}]"%>
+          <%#=  categories[name][] number_field_tag :qtde, "itens[product_id][#{p.id}]", size: 10 %>
+        </div>
+        <br/>
+      <% end %>
+    <% else %>
+      <% Product.order(:descricao).each do |p| %>
+        <div class="form-group">
+          <% item = @budget.budget_items.find_by_product_id (p.id) %>
+          <% if item.nil? %>
+            <%= p.descricao %>
+            <%= text_field_tag "budget_items[qtde][#{p.id}]"%>
+          <% else %>
+            <%#= item.product.descricao %>
+            <%= p.descricao %>
+            <%= text_field_tag "budget_items[qtde][#{item.product_id}]", item.qtde %>
+          <% end %>
+
+        </div>
+        <br/>
+      <% end %>
     <% end %>
-
-
-
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
