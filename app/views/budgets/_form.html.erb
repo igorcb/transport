@@ -1,4 +1,6 @@
 <%= form_for(@budget) do |f| %>
+
+
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="form-group">
@@ -35,44 +37,71 @@
     <%= f.text_field :municipio_destino, class: "form-control" %>
   </div>
 
-<!--   <h2>Items</h2> 
-    <div id="budget_items">
-    <div class="items">
-      <%#= f.nested_fields_for :budget_items do |f| 
-        render 'budget_items', f: f
-      end  -%>
-    </div>
-    <a href="#" class="add">itens</a>
-  </div>
- -->
-    <h2>Items</h2>
-    <% if @budget.new_record? %>
-      <% Product.order(:descricao).each do |p| %>
-        <div class="form-group">
-          <%#= check_box_tag  "todos_checkbox[][#{p.id}]", p.id %> 
-          <%= p.descricao %>
-          <%= text_field_tag "budget_items[qtde][#{p.id}]"%>
-          <%#=  categories[name][] number_field_tag :qtde, "itens[product_id][#{p.id}]", size: 10 %>
-        </div>
-        <br/>
-      <% end %>
-    <% else %>
-      <% Product.order(:descricao).each do |p| %>
-        <div class="form-group">
-          <% item = @budget.budget_items.find_by_product_id (p.id) %>
-          <% if item.nil? %>
-            <%= p.descricao %>
-            <%= text_field_tag "budget_items[qtde][#{p.id}]"%>
-          <% else %>
-            <%#= item.product.descricao %>
-            <%= p.descricao %>
-            <%= text_field_tag "budget_items[qtde][#{item.product_id}]", item.qtde %>
-          <% end %>
+  <h2>Items</h2>
+  <% if @budget.new_record? %>
+   
+    <table width="40%">
+      <thead>
+        <th >Produto</th>
+        <th >Qtde</th>
+      </thead>
 
-        </div>
-        <br/>
-      <% end %>
-    <% end %>
+      <tbody>
+        <% Product.order(:descricao).each do |p| %>
+          <tr>
+            <td ><%= p.descricao %></td>
+            <td ><%#= text_field_tag "budget_items[qtde][#{p.id}]", "", maxlength: 5, size: 5 %>
+               <div data-trigger="spinner" id="spinner">
+                <a href="javascript:;" data-spin="down">-</a>
+                <%= text_field_tag "budget_items[qtde][#{p.id}]", "", maxlength: 5, size: 5, :data => {:rule => 'quantity' } %>
+                <a href="javascript:;" data-spin="up">+</a>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+
+  <% else %>
+
+    <table width="40%">
+      <thead>
+        <th >Produto</th>
+        <th >Qtde</th>
+      </thead>
+
+      <tbody>
+        <% Product.order(:descricao).each do |p| %>
+          <tr>
+            <% item = @budget.budget_items.find_by_product_id (p.id) %>
+            <% if item.nil? %>
+              <td ><%= p.descricao %>  <%#= p.cubagem %> </td>
+              <td ><%#= text_field_tag "budget_items[qtde][#{p.id}]", "", maxlength: 5, size: 5 %>
+                <div data-trigger="spinner" id="spinner">
+                  <a href="javascript:;" data-spin="down">-</a>
+                  <%= text_field_tag "budget_items[qtde][#{p.id}]", "", maxlength: 5, size: 5, :data => {:rule => 'quantity' } %>
+                  <a href="javascript:;" data-spin="up">+</a>
+                </div>
+              </td>
+            <% else %>
+              <td ><%= p.descricao %></td>
+              <td ><%#= text_field_tag "budget_items[qtde][#{p.id}]", "", maxlength: 5, size: 5 %>
+                <div data-trigger="spinner" id="spinner">
+                  <a href="javascript:;" data-spin="down">-</a>
+                  <%= text_field_tag "budget_items[qtde][#{item.product_id}]", item.qtde, maxlength: 5, size: 5, :data => {:rule => 'quantity' } %>
+                  <a href="javascript:;" data-spin="up">+</a>
+                </div>
+              </td>
+
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+
+  <% end %>
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
@@ -80,3 +109,4 @@
     <%= link_to "Listar Todos", budgets_path, class: "btn btn-default" %>
   </div>
 <% end %>
+

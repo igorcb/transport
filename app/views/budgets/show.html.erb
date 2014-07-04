@@ -1,3 +1,4 @@
+
 <p>
   <strong>Data:</strong>
   <%= @budget.data %>
@@ -49,7 +50,7 @@
     </thead>
 
     <tbody>
-      <% @budget.budget_items.each do |item| %>
+      <% @budget.budget_items.joins(:product).order("products.descricao").each do |item| %>
         <tr>
           <td><%= item.product.descricao %></td>
           <td><%= item.qtde %></td>
@@ -75,3 +76,4 @@
   <%= link_to 'Editar', edit_budget_path(@budget), class: "btn btn-primary" %> 
   <%= link_to 'Voltar', budgets_path, class: "btn btn-default" %>
 </div>
+
