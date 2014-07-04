@@ -51,10 +51,11 @@
           <tr>
             <td ><%= p.descricao %></td>
             <td ><%#= text_field_tag "budget_items[qtde][#{p.id}]", "", maxlength: 5, size: 5 %>
-               <div data-trigger="spinner" id="spinner">
-                <a href="javascript:;" data-spin="down">-</a>
+              <div data-trigger="spinner" id="spinner">
+                <a href="javascript:;" data-spin="up" class="glyphicon glyphicon-plus"></a>
                 <%= text_field_tag "budget_items[qtde][#{p.id}]", "", maxlength: 5, size: 5, :data => {:rule => 'quantity' } %>
-                <a href="javascript:;" data-spin="up">+</a>
+                <a href="javascript:;" data-spin="down" class="glyphicon glyphicon-minus"></a>
+                
               </div>
             </td>
           </tr>
@@ -74,27 +75,29 @@
       <tbody>
         <% Product.order(:descricao).each do |p| %>
           <tr>
+          
             <% item = @budget.budget_items.find_by_product_id (p.id) %>
             <% if item.nil? %>
               <td ><%= p.descricao %>  <%#= p.cubagem %> </td>
               <td ><%#= text_field_tag "budget_items[qtde][#{p.id}]", "", maxlength: 5, size: 5 %>
                 <div data-trigger="spinner" id="spinner">
-                  <a href="javascript:;" data-spin="down">-</a>
+                  <a href="javascript:;" data-spin="up" class="glyphicon glyphicon-plus"></a>
                   <%= text_field_tag "budget_items[qtde][#{p.id}]", "", maxlength: 5, size: 5, :data => {:rule => 'quantity' } %>
-                  <a href="javascript:;" data-spin="up">+</a>
+                  <a href="javascript:;" data-spin="down" class="glyphicon glyphicon-minus"></a>
                 </div>
               </td>
             <% else %>
               <td ><%= p.descricao %></td>
               <td ><%#= text_field_tag "budget_items[qtde][#{p.id}]", "", maxlength: 5, size: 5 %>
                 <div data-trigger="spinner" id="spinner">
-                  <a href="javascript:;" data-spin="down">-</a>
+                  <a href="javascript:;" data-spin="up" class="glyphicon glyphicon-plus"></a>
                   <%= text_field_tag "budget_items[qtde][#{item.product_id}]", item.qtde, maxlength: 5, size: 5, :data => {:rule => 'quantity' } %>
-                  <a href="javascript:;" data-spin="up">+</a>
+                  <a href="javascript:;" data-spin="down" class="glyphicon glyphicon-minus"></a>
                 </div>
               </td>
-
+              
             <% end %>
+          
           </tr>
         <% end %>
       </tbody>
