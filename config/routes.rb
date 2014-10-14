@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
-  
+  resources :operatings
+
+  match "/nome_banco" => "drivers#nome_banco",  via: [:get]
   resources :budgets
 
   resources :categories

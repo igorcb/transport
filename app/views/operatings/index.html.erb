@@ -1,0 +1,46 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Controle de CT-e</div>
+  <div class="panel-body">
+    <%= link_to 'Novo Controle', new_operating_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Placa</th>
+            <th>Motorista</th>
+            <th>Cliente</th>
+            <th>CTE</th>
+            <th>DANFE</th>
+            <th>Fpgto</th>
+            <th>Avaria</th>
+            <th>Valor</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @operatings.each do |operating| %>
+            <tr>
+              <td><%= operating.data_chegada %></td>
+              <td><%= operating.placa %></td>
+              <td><%= operating.driver.nome %></td>
+              <td><%= operating.client.nome %></td>
+              <td><%= operating.cte %></td>
+              <td><%= operating.danfe %></td>
+              <td><%= operating.fpgto_nome %></td>
+              <td><%= operating.avaria %></td>
+              <td><%= operating.valor %></td>
+              <td><%= link_to 'Show', operating, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_operating_path(operating), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', operating, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+     </table>
+    </div>    
+  </div>
+</div>
+
+<br>
+

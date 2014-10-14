@@ -1,0 +1,89 @@
+<%= form_for(@operating) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :driver_id, "Motorista" %><br>
+    <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :client_id, "Cliente" %><br>
+    <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :data_chegada %><br>
+    <%= f.date_select :data_chegada, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :placa %><br>
+    <%= f.text_field :placa, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cte, "CT-e" %><br>
+    <%= f.text_field :cte, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :danfe %><br>
+    <%= f.text_field :danfe, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :qtde_volume %><br>
+    <%= f.text_field :qtde_volume, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :peso %><br>
+    <%= f.text_field :peso, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :observacao %><br>
+    <%= f.text_area :observacao, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :chave_cte %><br>
+    <%= f.text_field :chave_cte, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :responsavel_recebimento %><br>
+    <%= f.text_field :responsavel_recebimento, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :informacao_agendamento %><br>
+    <%= f.text_area :informacao_agendamento, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :informacao_operacional %><br>
+    <%= f.text_area :informacao_operacional, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :responsavel_descarga %><br>
+    <%= f.text_field :responsavel_descarga, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :valor %><br>
+    <%= f.text_field :valor, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :fpgto %><br>
+    <%= f.select( :fpgto, select_fpgto, {include_blank: :true}, {class: "form-control"} ) %> 
+  </div>
+  <div class="form-group">
+    <%= f.label :avaria %><br>
+    <%= f.check_box :avaria %>
+  </div>
+  <div class="form-group">
+    <%= f.label :motivo_devolucao %><br>
+    <%= f.text_area :motivo_devolucao, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :danfe_devolucao %><br>
+    <%= f.text_field :danfe_devolucao, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :observacao_edvolucao %><br>
+    <%= f.text_area :observacao_edvolucao, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  operating_path(@operating), class: "btn btn-info" if !@operating.new_record? %>
+    <%= link_to "Listar Todos", operatings_path, class: "btn btn-default" %>
+  </div>
+<% end %>

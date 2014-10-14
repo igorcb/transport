@@ -1,0 +1,155 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Controle Individual por CT-e </h2>
+  </div>
+  <div class="panel-body">
+    <p>
+      <strong>Driver:</strong>
+      <%= @operating.driver.nome %>
+      <strong>CPF:</strong>
+       <%= @operating.driver.cpf %>
+    </p>
+
+    <p>
+      <strong>Data chegada:</strong>
+      <%= @operating.data_chegada %>
+    </p>
+
+    <p>
+      <strong>Placa:</strong>
+      <%= @operating.placa %>
+    </p>
+
+    <p>
+      <strong>Cte:</strong>
+      <%= @operating.cte %>
+      <strong>Danfe:</strong>
+      <%= @operating.danfe %>
+    </p>
+
+    <p>
+      <strong>Qtde volume:</strong>
+      <%= @operating.qtde_volume %>
+      <strong>Peso:</strong>
+      <%= @operating.peso %>
+    </p>
+
+    <p>
+      <strong>Chave cte:</strong>
+      <%= @operating.chave_cte %>
+    </p>
+
+    <p>
+      <strong>Observacao:</strong>
+      <pre><%= @operating.observacao %></pre>
+    </p>
+  </div>
+</div>
+
+  
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Dados do Destinatário </h2>
+  </div>
+  <div class="panel-body">
+
+    <p>
+      <strong>Nome:</strong>
+      <%= @operating.client.nome %>
+      <strong>CPF/CNPJ:</strong>
+      <%= @operating.client.cpf_cnpj %>
+    </p>
+    
+    <p>
+      <strong>Endereco:</strong>
+      <%= @operating.client.endereco %>, <%= @operating.client.numero %>
+    </p>
+
+    <p>
+      <strong>Complemento:</strong>
+      <%= @operating.client.complemento %>
+    </p>
+
+    <p>
+      <strong>Bairro:</strong>
+      <%= @operating.client.bairro %> - 
+      <strong>Municipio:</strong>
+      <%= @operating.client.cidade %>
+    </p>
+
+    <p>
+      <strong>Responsavel recebimento:</strong>
+      <%= @operating.responsavel_recebimento %>
+    </p>
+
+    <p>
+      <strong>Informacao agendamento:</strong>
+      <pre> <%= @operating.informacao_agendamento %> </pre>
+    </p>
+
+    <p>
+      <strong>Informacao operacional:</strong>
+      <pre><%= @operating.informacao_operacional %></pre>
+    </p>
+
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Operacional </h2>
+  </div>
+  <div class="panel-body">
+
+  <p>
+    <strong>Responsavel descarga:</strong>
+    <%= @operating.responsavel_descarga %>
+  </p>
+
+  <p>
+    <strong>Valor:</strong>
+    <%= @operating.valor %>
+  </p>
+
+  <p>
+    <strong>Fpgto:</strong>
+    <%= @operating.fpgto_nome %>
+  </p>
+
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"><strong>Avaria:&nbsp;</strong><%= extenso_boolean @operating.avaria %></h2>
+  </div>
+  <div class="panel-body">
+
+
+  <p>
+    <strong>Data devolucao:</strong>
+    <%= @operating.data_devolucao %>
+  </p>
+
+  <p>
+    <strong>Danfe devolucao:</strong>
+    <%= @operating.danfe_devolucao %>
+  </p>
+
+  <p>
+    <strong>Motivo devolucao:</strong>
+    <pre><%= @operating.motivo_devolucao %></pre> 
+  </p>
+
+  <p>
+    <strong>Observacao edvolucao:</strong>
+    <pre><%= @operating.observacao_edvolucao %></pre>
+  </p>
+
+  </div>
+</div>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_operating_path(@operating), class: "btn btn-primary" %> 
+  <%= link_to 'Voltar', operatings_path, class: "btn btn-default" %>
+</div>
