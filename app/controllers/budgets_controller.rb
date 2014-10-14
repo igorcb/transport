@@ -1,10 +1,11 @@
 class BudgetsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
 
   # GET /budgets
   # GET /budgets.json
   def index
-    @budgets = Budget.all
+    @budgets = Budget.order('created_at desc')
   end
 
   # GET /budgets/1
@@ -32,7 +33,10 @@ class BudgetsController < ApplicationController
     respond_to do |format|
       if @budget.save
         budget_items.each do |item|
-          if !item[1].blank?
+          item_quantidade = ""
+          item_quantidade = item[1]
+            #if !item[1].blank? or !item[1] == "0" 
+          if item_quantidade.to_s == 0
             @budget.budget_items.create!(product_id: item[0], qtde: item[1] )
           end
         end
@@ -48,8 +52,24 @@ class BudgetsController < ApplicationController
   # PATCH/PUT /budgets/1
   # PATCH/PUT /budgets/1.json
   def update
+    budget_items = params[:budget_items][:qtde]
     respond_to do |format|
       if @budget.update(budget_params)
+        budget_items.each do |item|
+
+          if item[1].blank? or item[1] == "0" 
+            item_budget = @budget.budget_items.find_by_product_id(item[0])
+            item_budget.destroy if !item_budget.nil?
+          else
+            item_budget = @budget.budget_items.find_by_product_id(item[0])
+            if item_budget.nil?
+              @budget.budget_items.create!(product_id: item[0], qtde: item[1] ) 
+            else
+              item_budget.qtde = item[1]
+              item_budget.save
+            end
+           end
+        end
         format.html { redirect_to @budget, flash: { success: "Budget was successfully updated." } }
         format.json { head :no_content }
       else
