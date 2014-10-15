@@ -8,6 +8,7 @@ class Operating < ActiveRecord::Base
   validates :cte, presence: true
   validates :danfe, presence: true
   validates :chave_cte, presence: true
+  validates :chave_nfe, presence: true
 
   def fpgto_nome
     case self.fpgto
