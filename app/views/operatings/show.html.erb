@@ -154,6 +154,45 @@
   </div>
 </div>
 
+
+
+
+ <div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Itens </h2>
+  </div>
+
+  <div class="panel-body">  
+     <% if @operating.operating_items.any? %>
+
+
+      <table class="table table-striped">
+        <thead>
+          <th>Produto</th>
+          <th>Qtde</th>
+          <th>Und.</th>
+        </thead>
+
+        <tbody>
+          <% @operating.operating_items.each do |item| %>
+            <tr>
+              <td><%= item.product.descricao %></td>
+              <td><%= item.qtde %></td>
+              <td><%= item.unidade %></td>
+            </tr>
+          <% end %>
+
+        </tbody>
+
+      </table>
+    <% else %>
+      <h2 class="panel-title"> ---- </h2>
+    <% end %>
+
+  </div>
+</div>
+
+
 <div class="form-group">
   <%= link_to 'Editar', edit_operating_path(@operating), class: "btn btn-primary" %> 
   <%= link_to 'Voltar', operatings_path, class: "btn btn-default" %>

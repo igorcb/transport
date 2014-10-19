@@ -85,6 +85,17 @@
     <%= f.label :observacao_edvolucao %><br>
     <%= f.text_area :observacao_edvolucao, class: "form-control"  %>
   </div>
+
+  <h2>Itens</h2> 
+  <div id="operating_items">
+    <div class="items">
+      <%= f.nested_fields_for :operating_items do |f| 
+        render 'operating_items', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">add itens</a> 
+  </div>
+
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  operating_path(@operating), class: "btn btn-info" if !@operating.new_record? %>

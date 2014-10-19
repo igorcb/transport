@@ -18,6 +18,10 @@ module ApplicationHelper
     ([['Não', false], ['Sim', true]])
   end
 
+  def select_unidade_medida
+    ([['UN', 'UN'], ['CX', 'CX'],['LT', 'LT']])
+  end
+
   def extenso_boolean(params)
     case params 
       when false then "Não"

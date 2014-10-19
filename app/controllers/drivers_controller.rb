@@ -2,6 +2,20 @@ class DriversController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_driver, only: [:show, :edit, :update, :destroy]
 
+
+  def nome_banco
+    bank_id = params[:id].to_i
+    # banks = Bank.where(:id => bank_id)
+    # bnk = []
+    # banks.each do |b|
+    #   bnk << {:id => b.id, :nome => b.nome}
+    # end
+    # render :json => {:bnk => bnk.compact}.as_json  
+    bnk = Bank.find(bank_id)
+    #render :json => {:bnk => bnk.compact}.as_json  
+    render :json => bnk.as_json  
+  end
+
   # GET /drivers
   # GET /drivers.json
   def index
@@ -81,7 +95,7 @@ class DriversController < ApplicationController
         :cnh, :registro_cnh, :categoria, :validade_cnh, :nome_do_pai, :nome_da_mae, :avatar,
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
-        account_banks_attributes: [:banco, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
+        account_banks_attributes: [:banco, :nome_banco, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy],
         drivings_attributes: [:vehicle_id, :id, :_destroy]
         )
