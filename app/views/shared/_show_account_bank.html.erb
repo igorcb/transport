@@ -1,0 +1,29 @@
+<h2>Contas Bancarias</h2>
+<% if object.account_banks.any? %>
+  <table class="table table-striped">
+    
+    <thead>
+      <th>Banco</th>
+      <th>Nome Banco</th>
+      <th>Agencia</th>
+      <th>Conta Corrente</th>
+      <th>Favorecido</th>
+      <th>CPF/CNPJ</th>
+    </thead>
+
+    <tbody>
+      <% object.account_banks.each do |account| %>
+        <tr>
+          <td><%= account.cod_banco %></td>
+          <td><%= account.nome_banco %></td>
+          <td><%= account.agencia %></td>
+          <td><%= account.conta_corrente %></td>
+          <td><%= account.favorecido %></td>
+          <td><%= account.cpf_cnpj %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>This person has no account bank yet.</p>
+<% end %>

@@ -1,0 +1,41 @@
+<fieldset class="item">
+  <%= f.label :banco, "Banco" %>
+  <%= f.collection_select :banco, Bank.order('banco'), :id, :banco, {include_blank: "Selecione o Banco"}, :style => "width:60px" %>
+
+  <%= f.label :nome_banco %>
+  <%= f.text_field :nome_banco, size: 30, disabled: true, :style => "width:100px" %>
+
+  <%= f.label :agencia %>
+  <%= f.text_field :agencia, size: 10, :style => "width:40px" %>
+
+  <%= f.label :conta_corrente %>
+  <%= f.text_field :conta_corrente, size: 10, :style => "width:80px" %>
+
+  <%= f.label :favorecido %>
+  <%= f.text_field :favorecido, :style => "width:100px" %>
+
+  <%= f.label :cpf_cnpj %>
+  <%= f.text_field :cpf_cnpj, :style => "width:100px" %>
+
+  <a href="#" class="remove">remove</a>
+
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :_destroy %>
+</fieldset>
+
+<script type="text/javascript">    
+  $(document).ready(function() {
+   $("#driver_account_banks_attributes_0_banco").change(function() {
+      getNomeBanco("id="+$("#driver_account_banks_attributes_0_banco").val());
+    });
+ });
+
+  function getNomeBanco(id) {
+    $.getJSON("/nome_banco", id, function(j) {
+      var options = '';
+        options += 'value="' + item.nome;
+     $("#driver_account_banks_attributes_0_nome_banco").val(options);
+    });
+  }
+
+</script>
