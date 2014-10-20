@@ -4,6 +4,7 @@
     <thead>
       <th>Setor</th>
       <th>Contato</th>
+      <th>Responsavel pela carga</th>
       <th>E-mail</th>
     </thead>
 
@@ -12,6 +13,7 @@
         <tr>
           <td><%= e.setor %></td>
           <td><%= e.contato %></td>
+          <td><%= extenso_boolean (e.responsavel_carga) %></td>
           <td><%= e.email %></td>
         </tr>
       <% end %>
