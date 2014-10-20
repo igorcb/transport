@@ -117,7 +117,7 @@
   <div id="accounts">
     <div class="items">
       <%= f.nested_fields_for :account_banks do |f| %>
-        <%= render "form_account_bank", f: f %> 
+        <%= render "shared/form_account_bank", f: f %> 
       <% end %>
     </div>
     <a href="#" class="add">add account bank</a>
