@@ -18,6 +18,7 @@ class Contact < ActiveRecord::Base
 		EMAIL    = 2
 		TWITTER  = 3
 		FACEBOOK = 4
+		RESPONSAVEL_CARGA = 5
 	end
 
 	def tipo_contato
@@ -27,6 +28,7 @@ class Contact < ActiveRecord::Base
 		  when 2 then "Email"
 			when 3 then "Twitter"
 			when 4 then "Facebook"
+			when 5 then "Responsavel pela Carga"
 		end
 		
 	end
