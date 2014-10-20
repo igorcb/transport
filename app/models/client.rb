@@ -23,6 +23,9 @@ class Client < ActiveRecord::Base
   has_many :emails, class_name: "Email", foreign_key: "email_id", :as => :email, dependent: :destroy
   accepts_nested_attributes_for :emails, allow_destroy: true
 
+  has_many :account_banks, class_name: "AccountBank", foreign_key: "account_id", :as => :contact, dependent: :destroy
+  accepts_nested_attributes_for :account_banks, allow_destroy: true
+
   module TipoPessoa
   	FISICA = 0
   	JURIDICA = 1

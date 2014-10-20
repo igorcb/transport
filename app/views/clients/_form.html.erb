@@ -98,6 +98,16 @@
     <a href="#" class="add">add e-mail</a>
   </div>
 
+  <h2>Contas Bancarias</h2>
+  <div id="accounts">
+    <div class="items">
+      <%= f.nested_fields_for :account_banks do |f| %>
+        <%= render "shared/form_account_bank", f: f %> 
+      <% end %>
+    </div>
+    <a href="#" class="add">add account bank</a>
+  </div>  
+
   <h2>Documentos</h2> 
   <div id="documents">
     <div class="items">
