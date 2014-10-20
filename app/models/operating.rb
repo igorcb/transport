@@ -15,6 +15,9 @@ class Operating < ActiveRecord::Base
   has_many :operating_items, dependent: :destroy
   accepts_nested_attributes_for :operating_items, allow_destroy: true  
 
+  has_many :assets, as: :asset, dependent: :destroy
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank  
+
   def fpgto_nome
     case self.fpgto
       when 0 then "A Vista"
