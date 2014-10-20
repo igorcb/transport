@@ -76,7 +76,18 @@
     <%= f.label :obs, "Observação" %>
     <%= f.text_area :obs, class: "form-control"  %>
   </div>
-
+  <div class="form-group">
+    <%= f.label :tipo_cliente, "Horário para descarregar" %>
+    <%= f.text_field :tipo_cliente, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :hora_descarga, "Horário para descarregar" %>
+    <%= f.text_field :hora_descarga, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :condicao_recebimento, "Condições para descarregar" %>
+    <%= f.text_area :condicao_recebimento, class: "form-control"  %>
+  </div>
 
   <h2>Contatos</h2>
   <div id="phones">

@@ -83,6 +83,16 @@
   <pre><%= @client.obs %></pre>
 </p>
 
+<p>
+  <strong>Horário para descarregar:</strong>
+  <%= @client.hora_descarga %>
+</p>
+
+<p>
+  <strong>Condições para descarregar:</strong>
+  <pre><%= @client.condicao_recebimento %></pre>
+</p>
+
 
 <%= render 'shared/show_contacts', object: @client %>
 
