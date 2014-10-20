@@ -4,6 +4,11 @@
 </p>
 
 <p>
+  <strong>Grupo de Cliente:</strong>
+  <%= @client.group_client.descricao if !@client.group_client.nil? %>
+</p>
+
+<p>
   <strong>Cpf cnpj:</strong>
   <%= @client.cpf_cnpj %>
 </p>

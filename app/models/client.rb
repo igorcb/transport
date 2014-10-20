@@ -1,6 +1,7 @@
 class Client < ActiveRecord::Base
   validates :tipo_pessoa, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..1 }
   validates :cpf_cnpj, presence: true, uniqueness: true, length: { maximum: 18 }
+  validates :group_client_id, presence: true
   validates :nome, presence: true, length: { maximum: 100 } 
   validates :fantasia, presence: true, length: { maximum: 100 } 
   validates :cep, presence: true, length: { maximum: 10 }
@@ -13,6 +14,8 @@ class Client < ActiveRecord::Base
 
   validates :inscricao_estadual, length: { maximum: 20 }
   validates :inscricao_municipal, length: { maximum: 20 }
+
+  belongs_to :group_client
 
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
