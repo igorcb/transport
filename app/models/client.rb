@@ -35,7 +35,14 @@ class Client < ActiveRecord::Base
     self.contacts.where(tipo: Contact::TipoContato::RESPONSAVEL_CARGA ).each do |contact|
       fone +=  "#{contact.fone}, "
     end
-    email = self.emails.first
-    fone = fone += email.email
+    #email = self.emails.first
+    #fone = fone += email.email
+
+    email = ""
+    self.emails.where(resposavel_carga: true) do |email|
+      email += "#{email.email}, "
+    end
+
+    fone = fone += email
   end
 end
