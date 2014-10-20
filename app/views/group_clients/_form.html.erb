@@ -1,0 +1,15 @@
+<%= form_for(@group_client) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :descricao %><br>
+    <%= f.text_field :descricao, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  group_client_path(@group_client), class: "btn btn-info" if !@group_client.new_record? %>
+    <%= link_to "Listar Todos", group_clients_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>

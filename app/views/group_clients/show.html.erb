@@ -1,0 +1,10 @@
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @group_client.descricao %>
+</p>
+
+<div class="form-group">
+	 <%= link_to 'Editar', edit_group_client_path(@group_client), class: "btn btn-primary" %> 
+   <%= link_to 'Voltar', group_clients_path, class: "btn btn-default" %>
+</div>

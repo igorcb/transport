@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :group_clients
+
   resources :operatings
 
   match "/nome_banco" => "drivers#nome_banco",  via: [:get]
