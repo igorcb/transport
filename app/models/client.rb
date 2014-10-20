@@ -28,4 +28,14 @@ class Client < ActiveRecord::Base
   	JURIDICA = 1
   end
 
+  def telefone_completo
+    # seperar por virgula os contatos, somente o telefone
+    contato = self.contacts.first
+    fone = contato.nome + ": "
+    self.contacts.where(tipo: Contact::TipoContato::RESPONSAVEL_CARGA ).each do |contact|
+      fone +=  "#{contact.fone}, "
+    end
+    email = self.emails.first
+    fone = fone += email.email
+  end
 end
