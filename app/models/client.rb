@@ -51,4 +51,23 @@ class Client < ActiveRecord::Base
 
     fone = fone += email
   end
+
+  def telefone_completo_palete
+    # seperar por virgula os contatos, somente o telefone
+    contato = self.contacts.first
+    fone = contato.nome + ": "
+    self.contacts.where(tipo: Contact::TipoContato::RESPONSAVEL_PALETE ).each do |contact|
+      fone +=  "#{contact.fone}, "
+    end
+    #email = self.emails.first
+    #fone = fone += email.email
+
+    email = ""
+    self.emails.where(resposavel_carga: true) do |email|
+      email += "#{email.email}, "
+    end
+
+    fone = fone += email
+  end
+
 end
