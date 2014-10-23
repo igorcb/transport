@@ -88,6 +88,16 @@
     </p>
 
     <p>
+      <strong>Horário para descarregar:</strong>
+      <%= @operating.client.hora_descarga %>
+    </p>
+
+    <p>
+      <strong>Condições para descarregar:</strong>
+      <pre><%= @operating.client.condicao_recebimento %></pre>
+    </p>
+
+    <p>
       <strong>Informacao agendamento:</strong>
       <pre> <%= @operating.informacao_agendamento %> </pre>
     </p>
