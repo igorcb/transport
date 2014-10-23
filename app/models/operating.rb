@@ -3,11 +3,12 @@ class Operating < ActiveRecord::Base
   validates :driver_id, presence: true
   validates :client_id, presence: true
   validates :placa, presence: true
-  validates :cte, presence: true
-  validates :danfe, presence: true
-  validates :chave_cte, presence: true, length: { maximum: 44 }, uniqueness: true
-  validates :chave_nfe, presence: true, length: { maximum: 44 }, uniqueness: true
-  validates :chave_danfe_devolucao, presence: true, length: { maximum: 44 }, uniqueness: true
+  validates :cte, presence: true#, numericality: { only_integer: true }
+  validates :danfe, presence: true#, numericality: { only_integer: true }
+  #validates :danfe_devolucao, numericality: { only_integer: true }
+  validates :chave_cte, presence: true, length: { is: 44 }, numericality: { only_integer: true }, uniqueness: true
+  validates :chave_nfe, presence: true, length: { is: 44 }, numericality: { only_integer: true }, uniqueness: true
+  validates :chave_danfe_devolucao, length: { is: 44 }, uniqueness: true, numericality: { only_integer: true }, allow_blank: true
 
   belongs_to :driver
   belongs_to :client
