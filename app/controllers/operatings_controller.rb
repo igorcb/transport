@@ -73,7 +73,7 @@ class OperatingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def operating_params
       params.require(:operating).permit(:driver_id, :client_id, :data_chegada, :placa, :cte, :danfe, :qtde_volume, :peso, :observacao, :chave_cte, :chave_nfe, :responsavel_recebimento, :informacao_agendamento, :informacao_operacional, :responsavel_descarga, :valor, :fpgto, :avaria, :data_devolucao, :motivo_devolucao, :danfe_devolucao, 
-        :observacao_edvolucao,
+        :observacao_edvolucao, :chave_danfe_devolucao,
         operating_items_attributes: [:operating_id, :product_id, :qtde, :unidade, :valor, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )
