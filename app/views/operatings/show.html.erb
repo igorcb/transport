@@ -175,8 +175,7 @@
   </div>
 
   <div class="panel-body">  
-     <% if @operating.operating_items.any? %>
-
+     <% if @operating.operating_items.present? %>
 
       <table class="table table-striped">
         <thead>
@@ -188,9 +187,9 @@
         <tbody>
           <% @operating.operating_items.each do |item| %>
             <tr>
-              <td><%= item.product.descricao %></td>
-              <td><%= item.qtde %></td>
-              <td><%= item.unidade %></td>
+              <td><%= item.product.descricao if !item.product.nil? %></td>
+              <td><%= item.qtde if !item.product.nil? %> </td>
+              <td><%= item.unidade if !item.product.nil? %> </td>
             </tr>
           <% end %>
 
@@ -215,8 +214,6 @@
 
   </div>
 </div>
-
-
 
 
 <div class="form-group">
