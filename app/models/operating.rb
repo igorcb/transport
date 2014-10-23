@@ -5,8 +5,9 @@ class Operating < ActiveRecord::Base
   validates :placa, presence: true
   validates :cte, presence: true
   validates :danfe, presence: true
-  validates :chave_cte, presence: true
-  validates :chave_nfe, presence: true
+  validates :chave_cte, presence: true, length: { maximum: 44 }, uniqueness: true
+  validates :chave_nfe, presence: true, length: { maximum: 44 }, uniqueness: true
+  validates :chave_danfe_devolucao, presence: true, length: { maximum: 44 }, uniqueness: true
 
   belongs_to :driver
   belongs_to :client
