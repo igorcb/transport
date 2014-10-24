@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h2 class="panel-title">Controle Individual por CT-e </h2>
+    <h2 class="panel-title">Controle Individual por CT-e No: <%= @operating.id %> - <%= @operating.status_name %></h2>
   </div>
   <div class="panel-body">
     <p>
@@ -174,40 +174,35 @@
   </div>
 </div>
 
- <div class="panel panel-default">
+<div class="panel panel-default">
   <div class="panel-heading">
-    <h2 class="panel-title"> Itens </h2>
+    <h2 class="panel-title"> Items </h2>
   </div>
 
   <div class="panel-body">  
-     <% if @operating.operating_items.present? %>
-
-      <table class="table table-striped">
-        <thead>
-          <th>Produto</th>
-          <th>Qtde</th>
-          <th>Und.</th>
-        </thead>
-
-        <tbody>
-          <% @operating.operating_items.each do |item| %>
-            <tr>
-              <td><%= item.product.descricao if !item.product.nil? %></td>
-              <td><%= item.qtde if !item.product.nil? %> </td>
-              <td><%= item.unidade if !item.product.nil? %> </td>
-            </tr>
-          <% end %>
-
-        </tbody>
-
-      </table>
-    <% else %>
-      <h2 class="panel-title"> ---- </h2>
-    <% end %>
-
+    <%= render 'show_itens', object: @operating %>
   </div>
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Funcionarios </h2>
+  </div>
+
+  <div class="panel-body">  
+    <%= render 'show_employees', object: @operating %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Services </h2>
+  </div>
+
+  <div class="panel-body">  
+    <%= render 'show_services', object: @operating %>
+  </div>
+</div>
 
 <div class="panel panel-default">
   <div class="panel-heading">

@@ -1,0 +1,22 @@
+<fieldset class="item">
+  <%= f.label :employee_id %>
+  <%#= collection_select(:f, :product_id, Product.all, :id, :descricao, {include_blank: true}) %>
+  <%= f.select( :employee_id, Employee.all.collect {|p| [ p.nome, p.id ] }, {include_blank: true} ) %>
+
+  <%= f.label :valor_diaria %>
+  <%= f.text_field :valor_diaria, :style => "width:80px" %>
+
+  <%= f.label :valor_almoco %>
+  <%= f.text_field :valor_almoco, :style => "width:80px" %>
+
+  <%= f.label :valor_transporte %>
+  <%= f.text_field :valor_transporte, :style => "width:80px" %>
+
+  <%= f.label :valor_extra %>
+  <%= f.text_field :valor_extra, :style => "width:80px" %>
+
+  <a href="#" class="remove" data-confirm="Are you sure?">remove</a>
+
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :_destroy %>
+</fieldset>

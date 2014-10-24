@@ -1,0 +1,30 @@
+<% if object.operating_employees.present? %>
+
+<table class="table table-striped">
+  <thead>
+    <th>Funcionario</th>
+    <th>Vr Diaria</th>
+    <th>Vr Almoco</th>
+    <th>Vr Transp</th>
+    <th>Vr Extra</th>
+    <th>Vr Total</th>
+  </thead>
+
+  <tbody>
+    <% object.operating_employees.each do |item| %>
+      <tr>
+        <td><%= item.employee.nome if !item.employee.nil? %></td>
+        <td><%= item.valor_diaria if !item.employee.nil? %> </td>
+        <td><%= item.valor_almoco if !item.employee.nil? %> </td>
+        <td><%= item.valor_transporte if !item.employee.nil? %> </td>
+        <td><%= item.valor_extra if !item.employee.nil? %> </td>
+        <td><%= item.valor_total if !item.employee.nil? %> </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+
+</table>
+<% else %>
+  <h2 class="panel-title"> ---- </h2>
+<% end %>

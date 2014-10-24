@@ -1,0 +1,24 @@
+<% if object.operating_items.present? %>
+
+<table class="table table-striped">
+  <thead>
+    <th>Produto</th>
+    <th>Qtde</th>
+    <th>Und.</th>
+  </thead>
+
+  <tbody>
+    <% object.operating_items.each do |item| %>
+      <tr>
+        <td><%= item.product.descricao if !item.product.nil? %></td>
+        <td><%= item.qtde if !item.product.nil? %> </td>
+        <td><%= item.unidade if !item.product.nil? %> </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+
+</table>
+<% else %>
+  <h2 class="panel-title"> ---- </h2>
+<% end %>

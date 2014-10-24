@@ -12,13 +12,21 @@ class Operating < ActiveRecord::Base
 
   belongs_to :driver
   belongs_to :client
-  has_many :operating_items
+  #has_many :operating_items
 
   has_many :operating_items, dependent: :destroy
   accepts_nested_attributes_for :operating_items, allow_destroy: true  
 
+  has_many :operating_services, dependent: :destroy
+  accepts_nested_attributes_for :operating_services, allow_destroy: true  
+
+  has_many :operating_employees 
+  accepts_nested_attributes_for :operating_employees, allow_destroy: true  
+
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank  
+
+
 
   def fpgto_nome
     case self.fpgto
@@ -26,4 +34,12 @@ class Operating < ActiveRecord::Base
       when 1 then "A Prazo"
     end
   end  
+
+  def status_name
+    case self.status
+      when 0 then "Pedente"
+      when 1 then "Concluido"
+    else "Nao Definido"
+    end
+  end
 end
