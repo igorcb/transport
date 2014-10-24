@@ -1,0 +1,13 @@
+<fieldset class="item">
+  <%= f.label :type_service %>
+  <%#= collection_select(:f, :product_id, Product.all, :id, :descricao, {include_blank: true}) %>
+  <%= f.select( :type_service_id, TypeService.all.collect {|p| [ p.descricao, p.id ] }, {include_blank: true} ) %>
+
+  <%= f.label :valor %>
+  <%= f.text_field :valor %>
+
+  <a href="#" class="remove" data-confirm="Are you sure?">remove</a>
+
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :_destroy %>
+</fieldset>
