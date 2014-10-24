@@ -100,6 +100,16 @@
     <a href="#" class="add">add itens</a> 
   </div>
 
+  <h2>Funcionarios</h2> 
+  <div id="operating_employees">
+    <div class="items">
+      <%= f.nested_fields_for :operating_employees do |f| 
+        render 'operating_employees', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">add funcionarios</a> 
+  </div>
+
   <h2>Serviços</h2> 
   <div id="operating_services">
     <div class="items">

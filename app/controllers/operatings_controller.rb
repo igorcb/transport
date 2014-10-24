@@ -18,6 +18,7 @@ class OperatingsController < ApplicationController
     @operating = Operating.new
     @operating.operating_items.build
     @operating.operating_services.build
+    @operating.operating_employees.build
     @operating.assets.build
   end
 
@@ -77,6 +78,7 @@ class OperatingsController < ApplicationController
         :observacao_edvolucao, :chave_danfe_devolucao, :status,
         operating_items_attributes: [:operating_id, :product_id, :qtde, :unidade, :valor, :id, :_destroy],
         operating_services_attributes: [:operating_id, :type_service_id, :valor, :id, :_destroy],
+        operating_employees_attributes: [:operating_id, :employee_id, :valor_diaria, :valor_almoco, :valor_transporte, :valor_extra, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )
     end
