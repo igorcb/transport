@@ -26,4 +26,12 @@ class Operating < ActiveRecord::Base
       when 1 then "A Prazo"
     end
   end  
+
+  def status_name
+    case self.status
+      when 0 then "Pedente"
+      when 1 then "Concluido"
+    else "Nao Definido"
+    end
+  end
 end

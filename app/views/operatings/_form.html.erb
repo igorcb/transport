@@ -85,6 +85,10 @@
     <%= f.label :observacao_edvolucao %><br>
     <%= f.text_area :observacao_edvolucao, class: "form-control"  %>
   </div>
+  <div class="form-group">
+    <%= f.label :status %><br>
+    <%= f.select( :status, select_status_operatings, {include_blank: :true}, {class: "form-control"} ) %> 
+  </div>
 
   <h2>Itens</h2> 
   <div id="operating_items">
