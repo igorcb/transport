@@ -69,4 +69,22 @@ class Driver < ActiveRecord::Base
     end
   end
 
+  def telefone_completo
+    # seperar por virgula os contatos, somente o telefone
+    fone = ''
+    contato = self.contacts.first if self.contacts.exists?
+    fone = contato.nome + ": " if self.contacts.exists?
+    self.contacts.each do |contact|
+      fone +=  " #{contact.fone}, "
+    end
+
+    #email = ""
+    #self.emails.each do |email|
+    #  email += "#{email.email}, "
+    #end
+
+    #fone = fone += email
+    fone
+  end
+
 end

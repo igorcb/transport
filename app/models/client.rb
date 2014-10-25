@@ -36,10 +36,11 @@ class Client < ActiveRecord::Base
 
   def telefone_completo
     # seperar por virgula os contatos, somente o telefone
-    contato = self.contacts.first
-    fone = contato.nome + ": "
+    #contato = self.contacts.first
+    #fone = contato.nome + ": "
+    fone = ''
     self.contacts.where(tipo: Contact::TipoContato::RESPONSAVEL_CARGA ).each do |contact|
-      fone +=  "#{contact.fone}, "
+      fone +=  "#{contact.nome}: #{contact.fone}, "
     end
     #email = self.emails.first
     #fone = fone += email.email
@@ -54,10 +55,11 @@ class Client < ActiveRecord::Base
 
   def telefone_completo_palete
     # seperar por virgula os contatos, somente o telefone
-    contato = self.contacts.first
-    fone = contato.nome + ": "
+    #contato = self.contacts.first
+    #fone = contato.nome + ": "
+    fone = ''
     self.contacts.where(tipo: Contact::TipoContato::RESPONSAVEL_PALETE ).each do |contact|
-      fone +=  "#{contact.fone}, "
+      fone +=  "#{contact.nome}: #{contact.fone}, "
     end
     #email = self.emails.first
     #fone = fone += email.email
