@@ -6,13 +6,12 @@ class Operating < ActiveRecord::Base
   validates :cte, presence: true#, numericality: { only_integer: true }
   validates :danfe, presence: true#, numericality: { only_integer: true }
   #validates :danfe_devolucao, numericality: { only_integer: true }
-  validates :chave_cte, presence: true, length: { is: 44 }, numericality: { only_integer: true }, uniqueness: true
+  validates :chave_cte, presence: true, length: { is: 44 }, numericality: { only_integer: true }
   validates :chave_nfe, presence: true, length: { is: 44 }, numericality: { only_integer: true }, uniqueness: true
   validates :chave_danfe_devolucao, length: { is: 44 }, uniqueness: true, numericality: { only_integer: true }, allow_blank: true
 
   belongs_to :driver
   belongs_to :client
-  #has_many :operating_items
 
   has_many :operating_items, dependent: :destroy
   accepts_nested_attributes_for :operating_items, allow_destroy: true  
