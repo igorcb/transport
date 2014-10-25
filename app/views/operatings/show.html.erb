@@ -1,3 +1,25 @@
+<!-- marcação HTML do documento -->
+<div class="minha-classe">
+
+    <style rel="stylesheet" type="text/css" scoped="scoped">
+        {background: #lightgray; }
+    </style>
+
+<!-- marcação HTML dentro do div.minha-classe 
+As regras CSS serão aplicadas somente aqui -->
+      <p>
+        <strong>Nome:</strong>
+        <%= @operating.client.nome %>
+        <strong>CPF/CNPJ:</strong>
+        <%= @operating.client.cpf_cnpj %>
+      </p>
+</div>
+<!-- mais marcação HTML do documento -->
+
+
+
+
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <h2 class="panel-title">Controle Individual por CT-e No: <%= @operating.id %> - <%= @operating.status_name %></h2>
@@ -5,7 +27,7 @@
   <div class="panel-body">
     <p>
       <strong>Driver:</strong>
-      <%= @operating.driver.nome %>
+      <%= link_to "#{ @operating.driver.nome }", @operating.driver %> 
       <strong>CPF:</strong>
        <%= @operating.driver.cpf %>
     </p>
@@ -63,50 +85,56 @@
   </div>
   <div class="panel-body">
 
-    <p>
-      <strong>Nome:</strong>
-      <%= @operating.client.nome %>
-      <strong>CPF/CNPJ:</strong>
-      <%= @operating.client.cpf_cnpj %>
-    </p>
+  <div class="operatings-client-show">
+        
+        <p>
+          <strong>Nome:</strong>
+          <label class="fields"> 
+            <%= link_to "#{ @operating.client.nome }", @operating.client %> 
+          </label>
+          <strong>CPF/CNPJ:</strong>
+          <label class="fields"><%= @operating.client.cpf_cnpj %></label>
+        </p>
+        
+        <p>
+          <strong>Endereco:</strong>
+          <label class="fields"><%= @operating.client.endereco %>, <%= @operating.client.numero %></label>
+        </p>
+
+        <p>
+          <strong>Complemento:</strong>
+          <label class="fields"><%= @operating.client.complemento %></label>
+        </p>
+
+        <p>
+          <strong>Bairro:</strong>
+          <label class="fields"><%= @operating.client.bairro %></label> - 
+          <strong>Municipio:</strong>
+          <label class="fields"><%= @operating.client.cidade %></label>
+        </p>
+
+        <p>
+          <strong>Responsavel recebimento:</strong>
+          <label class="fields"><%= @operating.client.telefone_completo  %></label>
+        </p>
+
+        <p>
+          <strong>Responsavel palete:</strong>
+          <label class="fields"><%= @operating.client.telefone_completo_palete  %></label>
+        </p>
+
+        <p>
+          <strong>Horário para descarregar:</strong>
+          <label class="fields"><%= @operating.client.hora_descarga %></label>
+        </p>
+
+        <p>
+          <strong>Condições para descarregar:</strong>
+          <pre><%= @operating.client.condicao_recebimento %></pre>
+        </p>
+
+  </div>
     
-    <p>
-      <strong>Endereco:</strong>
-      <%= @operating.client.endereco %>, <%= @operating.client.numero %>
-    </p>
-
-    <p>
-      <strong>Complemento:</strong>
-      <%= @operating.client.complemento %>
-    </p>
-
-    <p>
-      <strong>Bairro:</strong>
-      <%= @operating.client.bairro %> - 
-      <strong>Municipio:</strong>
-      <%= @operating.client.cidade %>
-    </p>
-
-    <p>
-      <strong>Responsavel recebimento:</strong>
-      <%= @operating.client.telefone_completo  %>
-    </p>
-
-    <p>
-      <strong>Responsavel palete:</strong>
-      <%= @operating.client.telefone_completo_palete  %>
-    </p>
-
-    <p>
-      <strong>Horário para descarregar:</strong>
-      <%= @operating.client.hora_descarga %>
-    </p>
-
-    <p>
-      <strong>Condições para descarregar:</strong>
-      <pre><%= @operating.client.condicao_recebimento %></pre>
-    </p>
-
     <p>
       <strong>Informacao agendamento:</strong>
       <pre> <%= @operating.informacao_agendamento %> </pre>
