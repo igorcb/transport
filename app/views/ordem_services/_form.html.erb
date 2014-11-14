@@ -1,0 +1,65 @@
+<%= form_for(@ordem_service) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :driver_id, "Motorista" %><br>
+    <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :client_id, "Cliente" %><br>
+    <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :data %><br>
+    <%= f.date_select :data, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :placa %><br>
+    <%= f.text_field :placa, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :estado %><br>
+    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :cidade %><br>
+    <%= f.text_field :cidade, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cte %><br>
+    <%= f.text_field :cte, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :danfe_cte %><br>
+    <%= f.text_field :danfe_cte, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :nfe %><br>
+    <%= f.text_field :nfe, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :danfe_nfe %><br>
+    <%= f.text_field :danfe_nfe, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :observacao %><br>
+    <%= f.text_area :observacao, class: "form-control" %>
+  </div>
+
+  <h2>Serviços</h2> 
+  <div id="ordem_service_type_service">
+    <div class="items">
+      <%= f.nested_fields_for :ordem_service_type_service do |f| 
+        render 'ordem_service_type_services', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">add service</a> 
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  operating_path(@ordem_service), class: "btn btn-info" if !@ordem_service.new_record? %>
+    <%= link_to "Listar Todos", ordem_services_path, class: "btn btn-default" %>
+  </div>  
+
+<% end %>

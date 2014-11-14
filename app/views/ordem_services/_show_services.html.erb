@@ -1,0 +1,24 @@
+<% if object.ordem_service_type_service.present? %>
+
+<table class="table table-striped">
+  <thead>
+    <th>Type Service</th>
+    <th>valor</th>
+  </thead>
+
+  <tbody>
+    <% object.ordem_service_type_service.each do |item| %>
+      <tr>
+        <td><%= item.type_service.descricao if !item.type_service.nil? %></td>
+        <td><%= item.valor if !item.type_service.nil? %> </td>
+      </tr>
+    <% end %>
+    <td> <strong>Total</strong> </td>
+    <td><strong><%= object.ordem_service_type_service.sum(:valor) %></strong> </td>
+
+  </tbody>
+
+</table>
+<% else %>
+  <h2 class="panel-title"> ---- </h2>
+<% end %>
