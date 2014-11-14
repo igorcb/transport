@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :ordem_services
+
   resources :group_clients
 
   resources :operatings
