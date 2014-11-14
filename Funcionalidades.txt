@@ -18,3 +18,59 @@ Funcionalidade
 		seguir os passos 1.1.1
 	2. Deve ter uma opção para saber se é via web ou telefone
 	3. Deve ter um status para saber se foi não foi atendido, em atendimento, aprovado pelo o cliente ou não aprovado pelo o cliente.
+
+
+Controle de CTE
+	  20/10/2014
+	1 - Adicionar no show os telefones separado por virgula, pegando o nome do primeiro contato. - OK
+	2 - Aumentar o campo das chaves cte - OK
+	3 - Observacao por Informação sobre a carga - OK
+	4 - Cadastro de cliente - Horario_Carga - String tam - 50r - OK
+														Condição de Recebimento - Text - OK
+	6 - Contas Bancarias Clientes - OK
+	7 - Criar cadastro Grupos de Clientes - OK
+	8 - Relacionar Grupo de clientes a clientes - OK
+  9 - Associar Document a Ct-e - OK
+    22/10/2014 
+ 10 - Retirar o campo responsavel pelo recebimento - OK
+ 11 - Controle de Ct-e Informar o grupo para depois informar apenas os clientes do grupo
+ 12 - Horario_Carga - String tam - 50r - OK
+														Condição de Recebimento - Text - OK 
+ 13 - Adicionar o campo Chave_Danfe_Devolucao - OK
+ 14 - Fazer a Validacao das chaves - OK
+ 15 - Fazer a Validacao das chaves somente numeros - OK
+    24/10/2014
+ 16 - Colocar Status Controle-CTE - OK
+ 17 - Tabela de valor de servico - OK
+ 18 - Criar Tabela para informar quem trabalhou na descarga da mercadoria
+ 			Funcionario, Valor Diaria, Valor Almoço, Valor Transporte, Valor Extra, Total - OK
+ 		25/10/2014
+ 20 - todos os contatos do motorista - OK
+ 20 - Retirar a validacao do cte obrigacao - OK 
+ 20 - responsvel pelo palete ajustar o nome do contato - ok
+ 20 - Add Links - Cliente e Motoristas
+ 19 - Tabela de Ocorrrencias
+
+
+Motorista
+Placa
+Cliente
+Nota-CTE
+Nota-DANFE
+DataServico
+ValorDoServiço: ItemsServicos - ItemsDespesas
+Status
+Items Serviço - Receitas
+  Logistica Integrada, Descargas e ou Pagto Descarga
+
+Item Despesas Operacionais
+	  Pgto o Descarregamento, 
+
+  Despesas com Funcionarios - Controle Interno
+	  Diaria, Almoço, transporte e etc...
+  
+  Despesas Materiais Diversos
+    Sacos Plascitos, Fitas, etc..
+	
+
+

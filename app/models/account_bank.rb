@@ -8,6 +8,7 @@ class AccountBank < ActiveRecord::Base
   
 
   def select_bank
+    puts ">>>>>>>>>>>>>>>>>>>>>>> #{self.banco}"
   	bank = Bank.find (self.banco)
   	self.nome_banco = bank.nome
   end

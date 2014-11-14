@@ -99,7 +99,7 @@ namespace :db do
     Bank.create!(banco:"073", nome: "Banco BB Banco Popular do Brasil S.A.")
     Bank.create!(banco:"074", nome: "Banco J. Safra S.A.")
     Bank.create!(banco:"075", nome: "Banco ABN AMRO S.A.")
-    Bank.create!(banco:"078", nome: "Banco BES Investimento do Brasil S.A. - Banco de Investimento")
+    Bank.create!(banco:"078", nome: "Banco BES Investimento do Brasil S.A.-Banco de Investimento")
     Bank.create!(banco:"079", nome: "Banco Original do Agronegócio S.A.")
     Bank.create!(banco:"095", nome: "Banco Confidence de Câmbio S.A.")
     Bank.create!(banco:"096", nome: "Banco BM&FBOVESPA de Serviços de Liquidação e Custódia S.A")
