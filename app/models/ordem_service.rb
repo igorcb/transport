@@ -8,9 +8,7 @@ class OrdemService < ActiveRecord::Base
   validates :cidade, presence: true, length: { in: 3..100 }
   validates :cte, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }
   validates :danfe_cte, presence: true, length: { is: 44 }, numericality: { only_integer: true }
-  validates :nfe, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }
-  validates :danfe_nfe, presence: true, length: { is: 44 }, numericality: { only_integer: true }
-
+  
   belongs_to :driver
   belongs_to :client
 
