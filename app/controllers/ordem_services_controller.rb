@@ -1,5 +1,5 @@
 class OrdemServicesController < ApplicationController
-  before_action :set_ordem_service, only: [:show, :edit, :update, :destroy]
+  before_action :set_ordem_service, only: [:show, :edit, :update, :destroy, :close_os]
 
   respond_to :html
 
@@ -51,6 +51,22 @@ class OrdemServicesController < ApplicationController
   def destroy
     @ordem_service.destroy
     respond_with(@ordem_service)
+  end
+
+  def close_os
+    puts ">>>>>>>>>>>>>>>>>>>. Fechando OS: #{@ordem_service.id}"
+    @ordem_service.data_fechamento = Time.now.strftime('%Y-%m-%d')
+    @ordem_service.status = OrdemService::TipoStatus::FECHADO
+
+    respond_to do |format|
+      if @ordem_service.save
+        format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully closed." } }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @ordem_service, flash: { danger: "An error occurred when closing work order." } }
+        format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

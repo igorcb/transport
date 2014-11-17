@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
-  resources :ordem_services
+  resources :ordem_services do
+    get 'close_os' , on: :member
+  end
 
   resources :group_clients
 
