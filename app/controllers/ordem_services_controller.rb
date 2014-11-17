@@ -58,7 +58,8 @@ class OrdemServicesController < ApplicationController
     end
 
     def ordem_service_params
-      params.require(:ordem_service).permit(:driver_id, :client_id, :data, :placa, :estado, :cidade, :cte, :danfe_cte, :nfe, :danfe_nfe, :valor_receita, :valor_despesas, :valor_liquido, :observacao, :status,
+      params.require(:ordem_service).permit(:driver_id, :client_id, :data, :placa, :estado, :cidade, :cte, :danfe_cte, :nfe, :danfe_nfe, :valor_receita, :valor_despesas, :valor_liquido, 
+        :observacao, :status, :qtde_volume, :peso, 
         ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :id, :_destroy]
         )
     end
