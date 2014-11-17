@@ -54,6 +54,16 @@
     <%= f.text_area :observacao, class: "form-control" %>
   </div>
 
+  <h2>Dados da Nfe </h2> 
+  <div id="ordem_service_nfe">
+    <div class="items">
+      <%= f.nested_fields_for :nfe_keys do |f| 
+        render 'nfe_keys', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">add keys</a> 
+  </div>
+
   <h2>Serviços</h2> 
   <div id="ordem_service_type_service">
     <div class="items">
@@ -63,7 +73,7 @@
     </div>
     <a href="#" class="add">add service</a> 
   </div>
-
+  <hr />
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  operating_path(@ordem_service), class: "btn btn-info" if !@ordem_service.new_record? %>

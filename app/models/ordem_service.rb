@@ -14,6 +14,9 @@ class OrdemService < ActiveRecord::Base
   belongs_to :driver
   belongs_to :client
 
+  has_many :nfe_keys, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
+  accepts_nested_attributes_for :nfe_keys, allow_destroy: true, :reject_if => :all_blank
+
   has_many :ordem_service_type_service, dependent: :destroy
   accepts_nested_attributes_for :ordem_service_type_service, allow_destroy: true, :reject_if => :all_blank
 

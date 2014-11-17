@@ -29,7 +29,7 @@
     <p>
       <strong>Cte:</strong>
       <%= @ordem_service.cte %> -  
-      <strong>Danfe:</strong>  
+      <strong>Chave Cte:</strong>  
       <%= @ordem_service.danfe_cte %>
     </p>
 
@@ -43,7 +43,7 @@
     <p>
       <strong>Nfe:</strong>
       <%= @ordem_service.nfe %> - 
-      <strong>Nfe:</strong>
+      <strong>Chave Nfe:</strong>
       <%= @ordem_service.danfe_nfe %>
     </p>
 
@@ -146,6 +146,17 @@
   </div>
 
 </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Dados NFE</h2>
+  </div>
+
+  <div class="panel-body">  
+    <%= render 'show_nfe_keys', object: @ordem_service %>
+  </div>
+</div>
+
 
 <div class="panel panel-default">
   <div class="panel-heading">
