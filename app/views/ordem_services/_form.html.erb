@@ -30,7 +30,7 @@
     <%= f.text_field :cte, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :danfe_cte %><br>
+    <%= f.label :danfe_cte, "Chave CTE" %><br>
     <%= f.text_field :danfe_cte, class: "form-control" %>
   </div>
   <div class="form-group">
@@ -38,8 +38,16 @@
     <%= f.text_field :nfe, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :danfe_nfe %><br>
+    <%= f.label :danfe_nfe, "Chave NFE" %><br>
     <%= f.text_field :danfe_nfe, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :qtde_volume %><br>
+    <%= f.text_field :qtde_volume, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :peso %><br>
+    <%= f.text_field :peso, class: "form-control"  %>
   </div>
   <div class="form-group">
     <%= f.label :observacao %><br>

@@ -1,77 +1,151 @@
-<p>
-  <strong>Driver:</strong>
-  <%= @ordem_service.driver.nome %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Ordem de Serviço No: <%= @ordem_service.id %> - <%= @ordem_service.status_name %></h2>
+  </div>
 
-<p>
-  <strong>Client:</strong>
-  <%= @ordem_service.client.nome %>
-</p>
+  <div class="panel-body">
+    <p>
+      <strong>Driver:</strong>
+      <%= link_to "#{ @ordem_service.driver.nome }", @ordem_service.driver %> 
+      <strong>CPF:</strong>
+       <%= @ordem_service.driver.cpf %>
+    </p>
 
-<p>
-  <strong>Data:</strong>
-  <%= @ordem_service.data %>
-</p>
+    <p>
+      <strong>Contatos:</strong>
+      <%= @ordem_service.driver.telefone_completo %>
+    </p>
 
-<p>
-  <strong>Placa:</strong>
-  <%= @ordem_service.placa %>
-</p>
+    <p>
+      <strong>Data Serviço:</strong>
+      <%= @ordem_service.data %>
+    </p>
 
-<p>
-  <strong>Estado:</strong>
-  <%= @ordem_service.estado %>
-</p>
+    <p>
+      <strong>Placa:</strong>
+      <%= @ordem_service.placa %>
+    </p>
 
-<p>
-  <strong>Cidade:</strong>
-  <%= @ordem_service.cidade %>
-</p>
+    <p>
+      <strong>Cte:</strong>
+      <%= @ordem_service.cte %> -  
+      <strong>Danfe:</strong>  
+      <%= @ordem_service.danfe_cte %>
+    </p>
 
-<p>
-  <strong>Cte:</strong>
-  <%= @ordem_service.cte %>
-</p>
+    <p>
+      <strong>Qtde volume:</strong>
+      <%= @ordem_service.qtde_volume %>
+      <strong>Peso:</strong>
+      <%= @ordem_service.peso %>
+    </p>
+ 
+    <p>
+      <strong>Nfe:</strong>
+      <%= @ordem_service.nfe %> - 
+      <strong>Nfe:</strong>
+      <%= @ordem_service.danfe_nfe %>
+    </p>
 
-<p>
-  <strong>Danfe cte:</strong>
-  <%= @ordem_service.danfe_cte %>
-</p>
+    <p>
+      <strong>Informação sobre a carga:</strong>
+      <pre><%= @ordem_service.observacao %></pre>
+    </p>
+  </div>
 
-<p>
-  <strong>Nfe:</strong>
-  <%= @ordem_service.nfe %>
-</p>
+</div>
 
-<p>
-  <strong>Danfe nfe:</strong>
-  <%= @ordem_service.danfe_nfe %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Dados do Destinatário </h2>
+  </div>
+  <div class="panel-body">
 
-<p>
-  <strong>Valor receita:</strong>
-  <%= @ordem_service.valor_receita %>
-</p>
+  <div class="operatings-client-show">
+        
+        <p>
+          <strong>Nome:</strong>
+          <label class="fields"> 
+            <%= link_to "#{ @ordem_service.client.nome }", @ordem_service.client %> 
+          </label>
+          <strong>CPF/CNPJ:</strong>
+          <label class="fields"><%= @ordem_service.client.cpf_cnpj %></label>
+        </p>
+        
+        <p>
+          <strong>Endereco:</strong>
+          <label class="fields"><%= @ordem_service.client.endereco %>, <%= @ordem_service.client.numero %></label>
+        </p>
 
-<p>
-  <strong>Valor despesas:</strong>
-  <%= @ordem_service.valor_despesas %>
-</p>
+        <p>
+          <strong>Complemento:</strong>
+          <label class="fields"><%= @ordem_service.client.complemento %></label>
+        </p>
 
-<p>
-  <strong>Valor liquido:</strong>
-  <%= @ordem_service.valor_liquido %>
-</p>
+        <p>
+          <strong>Bairro:</strong>
+          <label class="fields"><%= @ordem_service.client.bairro %></label> - 
+          <strong>Municipio:</strong>
+          <label class="fields"><%= @ordem_service.client.cidade %></label>
+        </p>
 
-<p>
-  <strong>Observacao:</strong>
-  <%= @ordem_service.observacao %>
-</p>
+        <p>
+          <strong>Responsavel recebimento:</strong>
+          <label class="fields"><%= @ordem_service.client.telefone_completo  %></label>
+        </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @ordem_service.status_name %>
-</p>
+        <p>
+          <strong>Responsavel palete:</strong>
+          <label class="fields"><%= @ordem_service.client.telefone_completo_palete  %></label>
+        </p>
+
+        <p>
+          <strong>Horário para descarregar:</strong>
+          <label class="fields"><%= @ordem_service.client.hora_descarga %></label>
+        </p>
+
+        <p>
+          <strong>Condições para descarregar:</strong>
+          <pre><%= @ordem_service.client.condicao_recebimento %></pre>
+        </p>
+  </div>
+
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Valores e observações </h2>
+  </div>
+  
+  <div class="panel-body">
+
+    <p>
+      <strong>Valor receita:</strong>
+      <%= @ordem_service.valor_receita %>
+    </p>
+
+    <p>
+      <strong>Valor despesas:</strong>
+      <%= @ordem_service.valor_despesas %>
+    </p>
+
+    <p>
+      <strong>Valor liquido:</strong>
+      <%= @ordem_service.valor_liquido %>
+    </p>
+
+    <p>
+      <strong>Observacao:</strong>
+      <%= @ordem_service.observacao %>
+    </p>
+
+    <p>
+      <strong>Status:</strong>
+      <%= @ordem_service.status_name %>
+    </p>
+  </div>
+
+</div>
 
 <div class="panel panel-default">
   <div class="panel-heading">
