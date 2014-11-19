@@ -161,6 +161,24 @@
   </div>
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Documentos </h2>
+  </div>
+
+
+    <div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
+      <% @ordem_service.assets.each do |asset| %>
+      <p>
+        <%= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"} %> 
+      </p>
+      <% end %>
+    </div>    
+        
+    <%= render 'shared/document', object: @ordem_service %>
+
+</div>    
+
 
 <div class="form-group">
   <%= link_to 'Editar', edit_ordem_service_path(@ordem_service), class: "btn btn-primary" %>

@@ -3,8 +3,21 @@ class OrdemServicesController < ApplicationController
 
   respond_to :html
 
+  def faturamento
+    @ordem_service = OrdemService.new
+    @ordem_services = OrdemService.where(status: OrdemService::TipoStatus::FECHADO).order('id')
+    respond_with(@ordem_services)
+  end
+
+  def billing
+     
+    params[:os][:ids].each do |i|
+      puts ">>>>>>>>>>>>>>>>>> OrdemService Id: #{i}"
+    end
+  end
+
   def index
-    @ordem_services = OrdemService.all
+    @ordem_services = OrdemService.order('id')
     respond_with(@ordem_services)
   end
 
@@ -54,7 +67,6 @@ class OrdemServicesController < ApplicationController
   end
 
   def close_os
-    puts ">>>>>>>>>>>>>>>>>>>. Fechando OS: #{@ordem_service.id}"
     @ordem_service.data_fechamento = Time.now.strftime('%Y-%m-%d')
     @ordem_service.status = OrdemService::TipoStatus::FECHADO
 
@@ -78,7 +90,8 @@ class OrdemServicesController < ApplicationController
       params.require(:ordem_service).permit(:driver_id, :client_id, :data, :placa, :estado, :cidade, :cte, :danfe_cte, :valor_receita, :valor_despesas, :valor_liquido, 
         :observacao, :status, :qtde_volume, :peso, 
         nfe_keys_attributes: [:nfe, :chave, :id, :_destroy],
-        ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :id, :_destroy]
+        ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :id, :_destroy],
+        assets_attributes: [:asset, :id, :_destroy]
         )
     end
 end

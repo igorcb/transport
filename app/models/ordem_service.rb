@@ -18,6 +18,9 @@ class OrdemService < ActiveRecord::Base
   has_many :ordem_service_type_service, dependent: :destroy
   accepts_nested_attributes_for :ordem_service_type_service, allow_destroy: true, :reject_if => :all_blank
 
+  has_many :assets, as: :asset, dependent: :destroy
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
+
   before_save :set_values
 
   module TipoStatus

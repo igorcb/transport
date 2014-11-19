@@ -65,10 +65,20 @@
     </div>
     <a href="#" class="add">add service</a> 
   </div>
-  <hr />
+
+  <h2>Documentos</h2> 
+  <div id="documents">
+    <div class="items">
+      <%= f.nested_fields_for :assets do |f| 
+        render 'shared/asset', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">add documento</a>
+  </div>
+
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
-    <%= link_to "Exibir",  operating_path(@ordem_service), class: "btn btn-info" if !@ordem_service.new_record? %>
+    <%= link_to "Exibir",  ordem_service_path(@ordem_service), class: "btn btn-info" if !@ordem_service.new_record? %>
     <%= link_to "Listar Todos", ordem_services_path, class: "btn btn-default" %>
   </div>  
 
