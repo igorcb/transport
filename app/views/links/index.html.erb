@@ -16,7 +16,7 @@
           <% @links.each do |link| %>
             <tr>
               <% url_link = link.url %>
-              <td><a href="<%= link.url %>" target="_blank"> <%= link.url  %> </a></td>
+              <td style="word-wrap: break-word"><a href="<%= link.url %>" target="_blank"> <%= truncate link.url  %> </a></td>
               <td><%= link.descricao %></td>
               <td><%= link_to 'Show', link, class: "btn btn-info btn-sm" %></td>
               <td><%= link_to 'Edit', edit_link_path(link), class: "btn btn-primary btn-sm" %></td>
