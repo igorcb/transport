@@ -6,7 +6,7 @@ class OrdemService < ActiveRecord::Base
   validates :placa, presence: true, length: { maximum: 10 }
   validates :estado, presence: true, length: { maximum: 2 } 
   validates :cidade, presence: true, length: { in: 3..100 }
-  validates :cte, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }
+  validates :cte, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }, uniqueness: true
   validates :danfe_cte, presence: true, length: { is: 44 }, numericality: { only_integer: true }
   
   belongs_to :driver
