@@ -10,11 +10,11 @@
     <% object.ordem_service_type_service.each do |item| %>
       <tr>
         <td><%= item.type_service.descricao if !item.type_service.nil? %></td>
-        <td><%= item.valor if !item.type_service.nil? %> </td>
+        <td><%= number_to_currency(item.valor, unit: "R$", separator: ",", delimiter: ".")  if !item.type_service.nil? %> </td>
       </tr>
     <% end %>
     <td> <strong>Total</strong> </td>
-    <td><strong><%= object.ordem_service_type_service.sum(:valor) %></strong> </td>
+    <td><strong><%= number_to_currency( object.ordem_service_type_service.sum(:valor), unit: "R$", separator: ",", delimiter: ".")  %></strong> </td>
 
   </tbody>
 
