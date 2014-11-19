@@ -40,6 +40,22 @@ class OrdemService < ActiveRecord::Base
       when 1 then "Fechado"
     else "Nao Definido"
     end
-  end  
+  end 
+
+  def valor_volume 
+    #if self.qtde_volume && self.client.valor_volume
+    #  self.qtde_volume.exists * self.client.valor_volume
+    #else
+    #  0
+    valor = 0.00
+    valor = self.qtde_volume * self.client.valor_volume if !self.qtde_volume.nil? && !self.client.valor_volume.nil?
+    return valor  
+  end
+  
+  def valor_peso
+    valor = 0.00
+    valor = self.peso * self.client.valor_peso if !self.peso.nil? && !self.client.valor_peso.nil?
+    return valor  
+  end 
 
 end
