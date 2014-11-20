@@ -3,6 +3,11 @@
   <%= @type_service.descricao %>
 </p>
 
+<p>
+  <strong>Tipo:</strong>
+  <%= @type_service.tipo_nome %>
+</p>
+
 <div class="form-group">
   <%= link_to 'Editar', edit_type_service_path(@type_service), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos',  type_services_path, class: "btn btn-default" %>
