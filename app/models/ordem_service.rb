@@ -26,6 +26,7 @@ class OrdemService < ActiveRecord::Base
   module TipoStatus
   	ABERTO = 0
   	FECHADO = 1
+    FATURADO = 2
   end
   
   def set_values
@@ -38,15 +39,16 @@ class OrdemService < ActiveRecord::Base
     case self.status
       when 0 then "Aberto"
       when 1 then "Fechado"
+      when 2 then "Faturado"
     else "Nao Definido"
     end
   end 
 
+  def valor_os
+    self.ordem_service_type_service.sum(:valor)
+  end
+
   def valor_volume 
-    #if self.qtde_volume && self.client.valor_volume
-    #  self.qtde_volume.exists * self.client.valor_volume
-    #else
-    #  0
     valor = 0.00
     valor = self.qtde_volume * self.client.valor_volume if !self.qtde_volume.nil? && !self.client.valor_volume.nil?
     return valor  
@@ -57,5 +59,20 @@ class OrdemService < ActiveRecord::Base
     valor = self.peso * self.client.valor_peso if !self.peso.nil? && !self.client.valor_peso.nil?
     return valor  
   end 
+
+  def self.invoice(ids, value)
+    valor_total = 0
+    hash_ids = []
+    ids.each do |i|
+      hash_ids << i[0].to_i
+      valor_total += i[1].to_f
+    end
+    # Efetuar Faturamento
+    data = Time.now.strftime('%Y-%m-%d')
+    ActiveRecord::Base.transaction do
+      billing = Billing.create(data: data, valor: valor_total, status: Billing::TipoStatus::ABERTO , obs: hash_ids.to_s)
+      OrdemService.where(id: hash_ids).update_all(status: TipoStatus::FATURADO, billing_id: billing.id)
+    end
+  end
 
 end

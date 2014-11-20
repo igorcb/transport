@@ -3,19 +3,6 @@ class OrdemServicesController < ApplicationController
 
   respond_to :html
 
-  def faturamento
-    @ordem_service = OrdemService.new
-    @ordem_services = OrdemService.where(status: OrdemService::TipoStatus::FECHADO).order('id')
-    respond_with(@ordem_services)
-  end
-
-  def billing
-     
-    params[:os][:ids].each do |i|
-      puts ">>>>>>>>>>>>>>>>>> OrdemService Id: #{i}"
-    end
-  end
-
   def index
     @ordem_services = OrdemService.order('id')
     respond_with(@ordem_services)
@@ -67,6 +54,12 @@ class OrdemServicesController < ApplicationController
   end
 
   def close_os
+    if !@ordem_service.ordem_service_type_service.present? 
+      flash[:danger] = "Can not close without an Order of Seriviço associated service"
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    end
+
     @ordem_service.data_fechamento = Time.now.strftime('%Y-%m-%d')
     @ordem_service.status = OrdemService::TipoStatus::FECHADO
 
@@ -80,6 +73,17 @@ class OrdemServicesController < ApplicationController
       end
     end
   end
+
+  def faturamento
+    @ordem_service = OrdemService.new
+    @ordem_services = OrdemService.where(status: OrdemService::TipoStatus::FECHADO).order('id')
+    respond_with(@ordem_services)
+  end
+
+  def billing
+    OrdemService.invoice(params[:os][:ids], params[:valor_total])
+  end
+
 
   private
     def set_ordem_service
