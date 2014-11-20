@@ -1,4 +1,5 @@
 class BillingsController < ApplicationController
+  before_filter :authenticate_user!
   #before_action :set_billing, only: [:show, :edit, :update, :destroy]
   before_action :set_billing, only: [:show]
 

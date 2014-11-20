@@ -1,4 +1,5 @@
 class OrdemServicesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_ordem_service, only: [:show, :edit, :update, :destroy, :close_os]
 
   respond_to :html
