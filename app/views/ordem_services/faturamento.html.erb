@@ -1,8 +1,27 @@
-<div id="tab_contas">
-  <div id="dom_id">
-    <%= select_tag "dominio_id", options_from_collection_for_select(@dominios, "dom_id", "dom_descricao"), :prompt => "Selecione um Dominio" %>
+<div id="tab_ordemservices">
+  <div id="typeserv_id">
+  	<%= label_tag "type_service_id", "Tipo de Serivço" %> <br>
+    <%= select_tag "type_service_id", options_from_collection_for_select(@type_services, "id", "descricao"), :prompt => "Selecione um Tipo de Servico" %>
   </div>
-  <div id="dominio_contas_id">
+  <br>
+  <div id="ordem_service_type_service_id">
     
   </div>
 </div>
+
+<br>
+
+<script type="text/javascript">
+jQuery(function($) {
+  // when the #country field changes
+  $("#type_service_id").change(function() {
+    // make a POST call and replace the content
+    var conta = $('select#type_service_id :selected').val();
+    if(conta == "") conta="0";
+    jQuery.get('/ordem_service_to_type_service/' + conta, function(data){
+        $("#ordem_service_type_service_id").html(data);
+    })
+    return false;
+  });
+})
+</script>

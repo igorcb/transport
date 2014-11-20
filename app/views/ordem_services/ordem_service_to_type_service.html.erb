@@ -1,0 +1,68 @@
+<script type="text/javascript">
+  function checkTotal() {
+    document.billingForm.valor_total.value = '';
+    var sum = 0;
+    for (i=0;i<document.getElementsByClassName('escolha').length;i++) {
+      if (document.getElementsByClassName('escolha')[i].checked) {
+        sum = sum + parseInt(document.getElementsByClassName('escolha')[i].value);
+      }
+    }
+    document.billingForm.valor_total.value = sum;
+  }
+</script>
+
+<%= form_tag({:controller => "ordem_services", :action => "invoice"}, :method => "post", :name => "billingForm") do %>
+  <%= hidden_field_tag 'id_service', @type_service.id %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Ordem de Serviço</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Placa</th>
+            <th>Driver</th>
+            <th>Client</th>
+            <th>Data</th>
+            <th>Estado</th>
+            <th>Cidade</th>
+            <th>Cte</th>
+            <th>Status</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @ordem_service_type_services.each do |ordem_service_type_service| %>
+            <tr>
+              <td>
+                <%= check_box_tag "os[ids][#{ordem_service_type_service.ordem_service_id}]", ordem_service_type_service.ordem_service_id, false, value: ordem_service_type_service.valor, onchange:"checkTotal()", class: "escolha" %>
+              </td>
+              <td><%= ordem_service_type_service.ordem_service.placa %></td>
+              <td><%= truncate ordem_service_type_service.ordem_service.driver.nome %></td>
+              <td><%= truncate ordem_service_type_service.ordem_service.client.nome %></td>
+              <td><%= ordem_service_type_service.ordem_service.data %></td>
+              <td><%= ordem_service_type_service.ordem_service.estado %></td>
+              <td><%= ordem_service_type_service.ordem_service.cidade %></td>
+              <td><%= ordem_service_type_service.ordem_service.cte %></td>
+              <td><%= ordem_service_type_service.ordem_service.status_name %></td>
+              <td><%= ordem_service_type_service.valor %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td colspan="9"><strong>Total Selecionado</strong></td>
+            <td><%= text_field_tag :valor_total, "", value: 0 %></td>
+          </tr>          
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
+
+<%= submit_tag("Faturar", class: "btn btn-primary") %> 
+
+<% end %>
+
+<hr>

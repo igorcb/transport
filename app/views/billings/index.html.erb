@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Faturamento</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Tipo Serviço</th>
+            <th>Data</th>
+            <th>Valor</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+            <% @billings.each do |billing| %>
+            <tr>
+              <td><%= link_to billing.type_service.descricao, billing %></td>
+              <td><%= link_to billing.data, billing %></td>
+              <td><%= link_to billing.valor, billing %></td>
+              <td><%= link_to billing.status_name, billing %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

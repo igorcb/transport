@@ -1,0 +1,65 @@
+<p>
+  <strong>Data:</strong>
+  <%= @billing.data %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @billing.valor %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @billing.status_name %>
+</p>
+
+<p>
+  <strong>Obs:</strong>
+  <%= @billing.obs %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Listar Todos',  billings_path, class: "btn btn-default" %>
+</div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+       <h3 class="panel-title" style="text-align:center;">Listagem de Ordem de Serviço</h3>
+  </div>
+  <div class="panel-body ">
+    <p><strong>Tipo de Serviço: <%= @billing.type_service.descricao %></strong></p>
+  </div>
+
+  <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Placa</th>
+            <th>Motorista</th>
+            <th>Cliente</th>
+            <th>Cte</th>
+            <th>Nfe</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @billing.ordem_services.each do |ordem_service| %>
+            <tr>
+              <td><%= ordem_service.placa %></td>
+              <td><%= ordem_service.driver.nome %></td>
+              <td><%= ordem_service.client.nome %></td>
+              <td><%= ordem_service.cte %></td>
+              <td><%#= ordem_service.nfe %></td>
+              <td><%= link_to 'Show', ordem_service, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_ordem_service_path(ordem_service), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', ordem_service, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+</div>
+

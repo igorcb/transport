@@ -1,9 +1,13 @@
 Transport::Application.routes.draw do
+  match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
   match 'faturamento' => "ordem_services#faturamento",  via: [:get]
-  match 'billing' => "ordem_services#billing",  via: [:post]
+  match 'invoice' => "ordem_services#invoice",  via: [:post]
   
+  resources :billings
+
   resources :ordem_services do
     get 'close_os' , on: :member
+    #get 'ordem_service_type_service/:id', on: :member
   end
 
   resources :group_clients

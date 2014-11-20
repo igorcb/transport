@@ -2,6 +2,12 @@ class TypeService < ActiveRecord::Base
 	validates :descricao, presence: true, length: { maximum: 100 } 
 	validates :tipo, presence:true
 
+  #scope :red, -> { where(color: 'red') }
+  scope :mudanca, -> { where(tipo: 0) }
+  scope :logistica, -> { where(tipo: 1) }
+
+  has_one :billing
+
   module Tipo
   	MUDANCA = 0
    	LOGISTICA = 1

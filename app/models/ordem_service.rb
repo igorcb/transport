@@ -60,7 +60,7 @@ class OrdemService < ActiveRecord::Base
     return valor  
   end 
 
-  def self.invoice(ids, value)
+  def self.invoice(ids, type_service, value)
     valor_total = 0
     hash_ids = []
     ids.each do |i|
@@ -70,7 +70,7 @@ class OrdemService < ActiveRecord::Base
     # Efetuar Faturamento
     data = Time.now.strftime('%Y-%m-%d')
     ActiveRecord::Base.transaction do
-      billing = Billing.create(data: data, valor: valor_total, status: Billing::TipoStatus::ABERTO , obs: hash_ids.to_s)
+      billing = Billing.create(data: data, valor: valor_total, type_service_id: type_service, status: Billing::TipoStatus::ABERTO , obs: hash_ids.to_s)
       OrdemService.where(id: hash_ids).update_all(status: TipoStatus::FATURADO, billing_id: billing.id)
     end
   end

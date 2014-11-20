@@ -75,13 +75,23 @@ class OrdemServicesController < ApplicationController
   end
 
   def faturamento
-    @ordem_service = OrdemService.new
+    @type_services = TypeService.logistica
+    #@ordem_service = OrdemService.new
     @ordem_services = OrdemService.where(status: OrdemService::TipoStatus::FECHADO).order('id')
     respond_with(@ordem_services)
   end
 
-  def billing
-    OrdemService.invoice(params[:os][:ids], params[:valor_total])
+  def ordem_service_to_type_service
+    @type_service = TypeService.find(params[:id])
+    @ordem_service_type_services = OrdemServiceTypeService.joins(:ordem_service).where(type_service: @type_service, ordem_services: { status: OrdemService::TipoStatus::FECHADO } )
+    respond_with(@ordem_service_type_service) do |format|
+      format.html { render :layout => !request.xhr? }
+    end
+  end
+
+  def invoice
+    OrdemService.invoice(params[:os][:ids], params[:id_service], params[:valor_total])
+    redirect_to billings_path
   end
 
 
