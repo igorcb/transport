@@ -1,5 +1,5 @@
 class Billing < ActiveRecord::Base
- belongs_to  :type_service
+ belongs_to :type_service
  has_many :ordem_services
 
  module TipoStatus
