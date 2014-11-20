@@ -1,4 +1,7 @@
 Transport::Application.routes.draw do
+  match 'faturamento' => "ordem_services#faturamento",  via: [:get]
+  match 'billing' => "ordem_services#billing",  via: [:post]
+  
   resources :ordem_services do
     get 'close_os' , on: :member
   end
