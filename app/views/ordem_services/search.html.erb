@@ -1,0 +1,39 @@
+<%#= form_tag search_path, method: :post, html: {class: "navbar-form navbar-left", role: "search"} do %>
+<%= search_form_for(@q) do |f| %>
+  <div class="form-group">
+    <%= f.label :cte_eq, "CTE" %>
+    <%= f.search_field :cte_eq, class: "form-control", placeholder: "Informe o No CTE ex: 187212" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :placa_eq, "Placa" %>
+    <%= f.search_field :placa_eq, class: "form-control placa", placeholder: "Informe a placa do veículo ex: AAU-3289" %>
+  </div>
+   <div class="form-group">
+    <%= f.label :data_eq, "Data do Agendamento" %>
+    <%= f.search_field :data_eq, class: "form-control", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>  
+  </div>
+  <div class="form-group">
+    <%= f.label :data_entrega_servico_eq, "Data da Entrega do Serviço" %>
+    <%= f.search_field :data_entrega_servico_eq, class: "form-control", placeholder: "Informe a Data da entrega do Serviço ex: 05-12-2014" %>  
+  </div>
+  <div class="form-group">
+    <%= f.label :nfe_keys_nfe_eq, "NF-e" %>
+    <%= f.search_field :nfe_keys_nfe_eq, class: "form-control", placeholder: "Informe a placa do veículo ex: AAU-3289" %>  
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
+
+<!-- 
+</div>roup">
+  	<%#= text_field_tag :cte, params[:search], class: "form-control", placeholder: "Informe o No CTE ex: 187212" %>
+  </div>
+  <div class="form-group">
+  	<%#= text_field_tag :placa, params[:search], class: "form-control", placeholder: "Informe a placa do veículo ex: AAU-3289" %>
+  </div>
+  <div class="form-group">
+  	<%#= text_field_tag :data_agendamento, params[:search], class: "form-control", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>
+  </div>
+  <div class="form-group">
+  	<%#= text_field_tag :data_servico, params[:search], class: "form-control", placeholder: "Informe a Data da entrega do Serviço ex: 05-12-2014" %>
+  </div>
+ -->

@@ -35,6 +35,7 @@ gem "paperclip", "3.5.0"
 gem 'bootstrap-sass'
 gem 'bootstrap-addons-rails'
 gem 'devise'
+gem 'ransack'
 
 group :development, :test do
   # gem 'sqlite3', '1.3.5'

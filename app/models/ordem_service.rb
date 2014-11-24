@@ -44,6 +44,14 @@ class OrdemService < ActiveRecord::Base
     end
   end 
 
+  def self.locate(query)
+    where("con_email ilike ?", "%#{query}%" )
+  end  
+
+  def self.ransackable_attributes(auth_object = nil)
+    ['data', 'data_entrega_servico', 'placa', 'cte', 'estado', 'cidade' ]
+  end
+
   def valor_os
     self.ordem_service_type_service.sum(:valor)
   end

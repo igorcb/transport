@@ -5,8 +5,8 @@ class OrdemServicesController < ApplicationController
   respond_to :html
 
   def index
-    @ordem_services = OrdemService.order('id desc')
-    respond_with(@ordem_services)
+    @q = OrdemService.order('id desc').search(params[:q])
+    @ordem_services = @q.result
   end
 
   def show
@@ -52,6 +52,10 @@ class OrdemServicesController < ApplicationController
   def destroy
     @ordem_service.destroy
     respond_with(@ordem_service)
+  end
+
+  def search
+    @q = OrdemService.search(params[:q])
   end
 
   def close_os
