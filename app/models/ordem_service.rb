@@ -48,6 +48,10 @@ class OrdemService < ActiveRecord::Base
     self.ordem_service_type_service.sum(:valor)
   end
 
+  def valor_os(type_service)
+    self.ordem_service_type_service.where(type_service_id: type_service).sum(:valor)
+  end
+
   def valor_volume 
     valor = 0.00
     valor = self.qtde_volume * self.client.valor_volume if !self.qtde_volume.nil? && !self.client.valor_volume.nil?

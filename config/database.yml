@@ -24,28 +24,28 @@
 #  pool: 5
 #  timeout: 5000
 
-# development:
+development:
+  adapter: postgresql
+  database: transport
+  username: i4
+  password: q2w3e4
+  host: localhost
+  encoding: UTF8    
+
+test:
+  adapter: postgresql
+  database: transport_test
+  username: i4
+  password: q2w3e4
+  host: localhost
+  encoding: UTF8    
+
+# production:
 #   adapter: postgresql
-#   database: transport_dev
+#   database: transport
 #   username: i4
 #   password: q2w3e4
 #   host: localhost
 #   encoding: UTF8    
-
-# test:
-#   adapter: postgresql
-#   database: transport_test
-#   username: i4
-#   password: q2w3e4
-#   host: localhost
-#   encoding: UTF8    
-
- production:
-   adapter: postgresql
-   database: transport
-   username: i4
-   password: q2w3e4
-   host: localhost
-   encoding: UTF8    
 
 
