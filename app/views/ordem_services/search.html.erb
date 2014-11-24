@@ -24,6 +24,10 @@
     <%= f.label :nfe_keys_nfe_eq, "NF-e" %>
     <%= f.search_field :nfe_keys_nfe_eq, class: "form-control", placeholder: "Informe a placa do veículo ex: AAU-3289" %>  
   </div>
+  <div class="form-group">
+    <%= f.label :status_eq, "NF-e" %>
+    <%= f.search_field :status_eq, class: "form-control" %>  
+  </div>
   <div class="actions"><%= f.submit "Search" %></div>
 <% end %>
 

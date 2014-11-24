@@ -2,6 +2,12 @@
   <%= f.label :type_service %>
   <%= f.select( :type_service_id, TypeService.all.collect {|p| [ p.descricao, p.id ] }, {include_blank: true} ) %>
 
+  <%= f.label :qtde %>
+  <%= f.text_field :qtde, size: 5 %>
+
+  <%= f.label :qtde_recebida %>
+  <%= f.text_field :qtde_recebida, size: 5 %>
+
   <%= f.label :valor %>
   <%= f.text_field :valor %>
 
