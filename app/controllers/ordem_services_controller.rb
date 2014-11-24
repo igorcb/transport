@@ -5,7 +5,7 @@ class OrdemServicesController < ApplicationController
   respond_to :html
 
   def index
-    @ordem_services = OrdemService.order('id')
+    @ordem_services = OrdemService.order('id desc')
     respond_with(@ordem_services)
   end
 
