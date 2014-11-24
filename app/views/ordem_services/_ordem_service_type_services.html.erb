@@ -1,6 +1,6 @@
 <fieldset class="item">
   <%= f.label :type_service %>
-  <%= f.select( :type_service_id, TypeService.all.collect {|p| [ p.descricao, p.id ] }, {include_blank: true} ) %>
+  <%= f.select( :type_service_id, TypeService.logistica.collect {|p| [ p.descricao, p.id ] }, {include_blank: true} ) %>
 
   <%= f.label :qtde %>
   <%= f.text_field :qtde, size: 5 %>
