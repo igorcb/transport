@@ -2,7 +2,7 @@ class OrdemService < ActiveRecord::Base
   
   validates :driver_id, presence: true
   validates :client_id, presence: true
-  validates :data, presence: true
+  #validates :data, presence: true
   validates :placa, presence: true, length: { maximum: 10 }
   validates :estado, presence: true, length: { maximum: 2 } 
   validates :cidade, presence: true, length: { in: 3..100 }

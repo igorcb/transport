@@ -56,7 +56,15 @@ class OrdemServicesController < ApplicationController
 
   def close_os
     if !@ordem_service.ordem_service_type_service.present? 
-      flash[:danger] = "Can not close without an Order of Seriviço associated service"
+      flash[:danger] = "Can not close without an Order of Seriviço associated service."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    elsif !@ordem_service.data.present? 
+      flash[:danger] = "Data Agendamento can't be blank."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    elsif !@ordem_service.data_entrega_servico.present? 
+      flash[:danger] = "Data Entrega Servico can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return
     end
@@ -103,7 +111,7 @@ class OrdemServicesController < ApplicationController
 
     def ordem_service_params
       params.require(:ordem_service).permit(:driver_id, :client_id, :data, :placa, :estado, :cidade, :cte, :danfe_cte, :valor_receita, :valor_despesas, :valor_liquido, 
-        :observacao, :status, :qtde_volume, :peso, 
+        :observacao, :status, :qtde_volume, :peso, :data_entrega_servico,
         nfe_keys_attributes: [:nfe, :chave, :id, :_destroy],
         ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
