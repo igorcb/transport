@@ -23,6 +23,10 @@
     <%= f.text_field :placa, class: "form-control placa" %>
   </div>
   <div class="form-group">
+    <%= f.label :senha_sefaz %><br>
+    <%= f.text_field :senha_sefaz, class: "form-control" %>
+  </div>
+  <div class="form-group">
     <%= f.label :estado %><br>
     <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
   </div>
