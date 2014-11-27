@@ -29,4 +29,9 @@ module ApplicationHelper
     end
   end
 
+  def date_br(date)
+    # formatting date: dd-mm-yyyy
+    date.strftime("%d-%m%Y")
+  end
+
 end
