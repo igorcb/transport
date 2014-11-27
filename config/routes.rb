@@ -1,8 +1,6 @@
 Transport::Application.routes.draw do
   resources :pallets do
-    #get 'driver_select' , on: :member
-    #match 'create_os' => 'pallet#create_os', via: [:post]
-    #post 'create_os', on: :member
+
     member do
       get 'driver_select'
       post 'create_os'
@@ -18,7 +16,6 @@ Transport::Application.routes.draw do
 
   resources :ordem_services do
     get 'close_os' , on: :member
-    #get 'ordem_service_type_service/:id', on: :member
     match 'search' => 'people#search', via: [:get, :post], as: :search
   end
 
