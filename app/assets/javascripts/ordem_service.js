@@ -4,7 +4,7 @@ $(document).ready(function(e) {
 
 $(document).ready(function(e) {
   $(".placa").mask("aaa-9999");
-//$(".data").mask("99/99/9999",{placeholder:"mm/dd/yyyy"});
+  $(".data").mask("99/99/9999",{placeholder:"mm/dd/yyyy"});
 //$(".phone").mask("(999) 999-9999");  
 });
 

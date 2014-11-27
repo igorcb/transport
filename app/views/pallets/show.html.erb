@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Controle Palete No: <%= @pallet.id %></h2>
+  </div>
+
+  <div class="panel-body">
+	  <p>
+	    <strong>Cnpj:</strong>
+	    <%= @pallet.client.cpf_cnpj %>
+	  </p>
+
+		<p>
+		  <strong>Client:</strong>
+		  <%= @pallet.client.nome %>
+		</p>
+
+		<p>
+		  <strong>Data agendamento:</strong>
+		  <%= @pallet.data_agendamento %>
+		</p>
+
+		<p>
+		  <strong>Qtde:</strong>
+		  <%= @pallet.qtde %>
+		</p>
+
+		<p>
+		  <strong>Status:</strong>
+		  <%= @pallet.status_name %>
+		</p>
+	</div>
+</div>
+
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_pallet_path(@pallet), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', pallets_path, class: "btn btn-default" %>
+</div>

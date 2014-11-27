@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :pallets
+
   match '/search', :controller => 'ordem_services', :action => 'search', via: [:get, :post]
   match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
   match 'faturamento' => "ordem_services#faturamento",  via: [:get]

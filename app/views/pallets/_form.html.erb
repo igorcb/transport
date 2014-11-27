@@ -1,0 +1,22 @@
+<%= form_for(@pallet) do |f| %>
+ 
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="form-group">
+    <%= f.label :client_id %><br>
+    <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :data_agendamento %><br>
+    <%= f.text_field :data_agendamento, class: "form-control data" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :qtde %><br>
+    <%= f.number_field :qtde, class: "form-control" %>
+  </div>
+  <hr />
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  pallet_path(@pallet), class: "btn btn-info" if !@pallet.new_record? %>
+    <%= link_to "Listar Todos", pallets_path, class: "btn btn-default" %>
+  </div>  
+<% end %>

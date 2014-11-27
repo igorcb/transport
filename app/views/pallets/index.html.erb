@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Proprietários</div>
+  <div class="panel-body">
+    <%= link_to 'Novo Controle Palete', new_pallet_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Cnpj</th>
+            <th>Client</th>
+            <th>Data agendamento</th>
+            <th>Qtde</th>
+            <th>Status</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @pallets.each do |pallet| %>
+            <tr>
+              <td><%= pallet.client.cpf_cnpj %></td>
+              <td><%= pallet.client.nome %></td>
+              <td><%= pallet.data_agendamento %></td>
+              <td><%= pallet.qtde %></td>
+              <td><%= pallet.status_name %></td>
+              <td><%= link_to 'Show', pallet, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_pallet_path(pallet), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', pallet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
+
