@@ -14,4 +14,28 @@ class Pallet < ActiveRecord::Base
 	    when 2 then "OS Criada"
     end
   end
+
+  def create_os(*args)
+
+    ActiveRecord::Base.transaction do
+      os = OrdemService.create!(tipo: OrdemService::TipoOS::PALETE,
+                               driver_id: args[0],
+                               client_id: self.client_id,
+                               data: self.data_agendamento,
+                               placa: args[1],
+                               estado: args[2],
+                               cidade: args[3]
+                               )
+      valor = self.qtde * 9
+      OrdemServiceTypeService.create!(ordem_service_id: os.id, 
+                                      type_service_id: 22, 
+                                      qtde: qtde,
+                                      valor: valor
+                                      )
+      self.status = 2
+      self.save!      
+    end
+  end
+
 end
+

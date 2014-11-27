@@ -6,8 +6,8 @@ class OrdemService < ActiveRecord::Base
   validates :placa, presence: true, length: { maximum: 10 }
   validates :estado, presence: true, length: { maximum: 2 } 
   validates :cidade, presence: true, length: { in: 3..100 }
-  validates :cte, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }, uniqueness: true
-  validates :danfe_cte, presence: true, length: { is: 44 }, numericality: { only_integer: true }
+  validates :cte, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }, uniqueness: true, if: "tipo != 2"
+  validates :danfe_cte, presence: true, length: { is: 44 }, numericality: { only_integer: true }, if: "tipo != 2"
   
   belongs_to :driver
   belongs_to :client
@@ -24,9 +24,15 @@ class OrdemService < ActiveRecord::Base
   before_save :set_values
 
   module TipoStatus
-  	ABERTO = 0
-  	FECHADO = 1
+    ABERTO = 0
+    FECHADO = 1
     FATURADO = 2
+  end
+
+  module TipoOS
+    MUDANCA = 0
+    LOGISTICA = 1
+    PALETE = 2
   end
   
   def set_values
@@ -43,6 +49,16 @@ class OrdemService < ActiveRecord::Base
     else "Nao Definido"
     end
   end 
+
+  def tipo_os_name
+    case self.tipo
+      when 0 then "Mudanca"
+      when 1 then "Logistica"
+      when 2 then "Palete"
+    else "Nao Definido"
+    end
+  end 
+
 
   def self.locate(query)
     where("con_email ilike ?", "%#{query}%" )

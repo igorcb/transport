@@ -1,6 +1,6 @@
 class PalletsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_pallet, only: [:show, :edit, :update, :destroy]
+  before_action :set_pallet, only: [:show, :edit, :update, :destroy, :driver_select]
 
   # GET /pallets
   # GET /pallets.json
@@ -60,6 +60,34 @@ class PalletsController < ApplicationController
       format.html { redirect_to pallets_url }
       format.json { head :no_content }
     end
+  end
+
+  def driver_select
+    @drivers = Driver.order('nome')
+  end
+  
+  def create_os
+    if params[:driver_id].blank? 
+      flash[:danger] = "Driver can not be blank."
+      redirect_to driver_select_pallet_path(params[:pallet_id])
+      return
+    elsif params[:placa].blank? 
+      flash[:danger] = "Placa can not be blank."
+      redirect_to driver_select_pallet_path(params[:pallet_id])
+      return
+    elsif params[:estado].blank? 
+      flash[:danger] = "Estado can not be blank."
+      redirect_to driver_select_pallet_path(params[:pallet_id])
+      return
+    elsif params[:cidade].blank? 
+      flash[:danger] = "Cidade can not be blank."
+      redirect_to driver_select_pallet_path(params[:pallet_id])
+      return
+    end
+
+    @pallet = Pallet.find(params[:pallet_id])
+    @pallet.create_os(params[:driver_id], params[:placa], params[:estado], params[:cidade])
+    redirect_to ordem_services_path
   end
 
   private

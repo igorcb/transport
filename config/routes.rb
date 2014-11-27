@@ -1,5 +1,13 @@
 Transport::Application.routes.draw do
-  resources :pallets
+  resources :pallets do
+    #get 'driver_select' , on: :member
+    #match 'create_os' => 'pallet#create_os', via: [:post]
+    #post 'create_os', on: :member
+    member do
+      get 'driver_select'
+      post 'create_os'
+    end
+  end
 
   match '/search', :controller => 'ordem_services', :action => 'search', via: [:get, :post]
   match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
