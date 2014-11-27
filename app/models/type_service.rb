@@ -6,8 +6,8 @@ class TypeService < ActiveRecord::Base
 
   scope :mudanca, -> { where(tipo: 0) }
   scope :only_logistica, -> { where(tipo: 1) }
-  scope :logistica, -> { where(tipo: [1, 2] ) }
   scope :only_paletes, -> { where(tipo: 2) }
+  scope :logistica, -> { where(tipo: [1,2] ) }
 
   has_one :billing
 
