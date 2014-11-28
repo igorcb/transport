@@ -43,9 +43,10 @@ class OrdemService < ActiveRecord::Base
 
   def status_name
     case self.status
-      when 0 then "Aberto"
-      when 1 then "Fechado"
-      when 2 then "Faturado"
+      when 0  then "Aberto"
+      when 1  then "Fechado"
+      when 2  then "Faturado"
+      when 99 then "Pago***"
     else "Nao Definido"
     end
   end 
