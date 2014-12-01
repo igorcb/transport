@@ -1,27 +1,85 @@
-<div id="tab_ordemservices">
-  <div id="typeserv_id">
-  	<%= label_tag "type_service_id", "Tipo de Serviço" %> <br>
-    <%= select_tag "type_service_id", options_from_collection_for_select(@type_services, "id", "descricao"), :prompt => "Selecione um Tipo de Servico" %>
-  </div>
-  <br>
-  <div id="ordem_service_type_service_id">
-    
+<script type="text/javascript">
+  // function checkTotal() {
+  //   document.billingForm.valor_total.value = '';
+  //   var sum = 0;
+  //   for (i=0;i<document.getElementsByClassName('escolha').length;i++) {
+  //     if (document.getElementsByClassName('escolha')[i].checked) {
+  //       sum = sum + parseInt(document.getElementsByClassName('escolha')[i].value);
+  //     }
+  //   }
+  //   document.billingForm.valor_total.value = sum;
+  // }
+</script>
+
+<script type="text/javascript">
+  function checkTotal() {
+    var elements = document.getElementsByClassName('escolha');
+    var sum = 0;
+    for (i=0;i< elements.length;i++) {
+      if (elements[i].checked) {
+        sum = sum + parseInt(elements[i].value);
+      }
+    }
+    document.getElementById('valor_total').value = sum;
+  }
+</script>
+
+<%= form_tag({:controller => "ordem_services", :action => "invoice"}, :method => "post", :name => "billingForm") do %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Selecione as OS para Faturamento</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Placa</th>
+            <th>Driver</th>
+            <th>Client</th>
+            <th>Data</th>
+            <th>Estado</th>
+            <th>Cidade</th>
+            <th>Cte</th>
+            <th>Status</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% i = 1 %>
+          <% @ordem_services.each do |ordem_service| %>
+            <tr>
+              <td>
+                <%#= check_box_tag "choise", ordem_service.id, false, value: 10, onchange:"checkTotal()", class: "escolha" %>
+                <%= check_box_tag "os[ids][#{ordem_service.id}]", ordem_service.id, false, value: ordem_service.valor_ordem_service, onchange:"checkTotal()", class: "escolha" %>
+                <!-- <input type="checkbox" name="choice" value="2" onchange="checkTotal()"/> -->
+              </td>
+              <td><%= ordem_service.placa %></td>
+              <td><%= ordem_service.driver.nome %></td>
+              <td><%= ordem_service.client.nome %></td>
+              <td><%= ordem_service.data %></td>
+              <td><%= ordem_service.estado %></td>
+              <td><%= ordem_service.cidade %></td>
+              <td><%= ordem_service.cte %></td>
+              <td><%= ordem_service.status_name %></td>
+              <td><%= link_to 'Show', ordem_service, class: "btn btn-info btn-sm" %></td>
+            </tr>
+            <% i = i +1 %>
+          <% end %>
+ 
+          <tr>
+            <td colspan="9"><strong>Total Selecionado</strong></td>
+            <td><%= text_field_tag :valor_total, "", value: 0 %></td>
+          </tr>
+ 
+      </table>
+    </div>    
   </div>
 </div>
 
-<br>
+<%= submit_tag("Faturar", class: "btn btn-primary") %> 
 
-<script type="text/javascript">
-jQuery(function($) {
-  // when the #country field changes
-  $("#type_service_id").change(function() {
-    // make a POST call and replace the content
-    var conta = $('select#type_service_id :selected').val();
-    if(conta == "") conta="0";
-    jQuery.get('/ordem_service_to_type_service/' + conta, function(data){
-        $("#ordem_service_type_service_id").html(data);
-    })
-    return false;
-  });
-})
-</script>
+<% end %>
+
+<hr>

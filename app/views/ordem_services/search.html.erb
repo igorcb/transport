@@ -21,7 +21,11 @@
   </div>
   <div class="form-group">
     <%= f.label :nfe_keys_nfe_eq, "NF-e" %>
-    <%= f.search_field :nfe_keys_nfe_eq, class: "form-control", placeholder: "Informe a placa do veículo ex: AAU-3289" %>  
+    <%= f.search_field :nfe_keys_nfe_eq, class: "form-control", placeholder: "Informe a placa do veículo ex: 123456" %>  
+  </div>
+  <div class="form-group">
+    <%= f.label :billing_id_eq, "Faturamento" %>
+    <%= f.search_field :billing_id_eq, class: "form-control", placeholder: "Informe a placa do veículo ex: 100" %>  
   </div>
 
   <div class="actions"><%= f.submit "Search" %></div>

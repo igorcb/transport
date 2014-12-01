@@ -88,8 +88,8 @@ class OrdemServicesController < ApplicationController
   end
 
   def faturamento
-    @type_services = TypeService.logistica
-    #@ordem_service = OrdemService.new
+    #@type_services = TypeService.logistica
+    @ordem_service = OrdemService.new
     @ordem_services = OrdemService.where(status: OrdemService::TipoStatus::FECHADO).order('id')
     respond_with(@ordem_services)
   end
