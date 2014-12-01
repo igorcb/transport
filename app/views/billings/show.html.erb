@@ -1,4 +1,8 @@
 <style type="text/css">
+  
+</style>
+
+<style type="text/css">
 @media print {
       * {
       
@@ -13,10 +17,28 @@
 
       body { 
         font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; 
-        margin: 10 0 10 0px; 
+        margin: 100px 0 10px 0px; 
         text-align: center; 
         background-color: blue; 
       }      
+
+      .img {
+        visibility: visible;   
+        position: fixed;
+        margin: 10px 10px 10px 1px;
+      }
+
+      .header_print {
+        visibility: visible;   
+        font-family: Arial, sans-serif;
+        font-size: 16 pt;
+        font-color: blue;
+        color: red;
+        content: normal;
+        position: fixed;
+        margin: 10px 10px 10px 190px;
+
+      }
 
       .notprinter {
         display: none;
@@ -42,6 +64,21 @@
       .total {
         font-weight: 20px;
       }
+      
+      .panel {
+        visibility: visible;   
+        position: absolute;
+        width: 100%;
+        margin: 70px 0 0 0;
+
+      }
+
+      .table {
+        visibility: visible;   
+        position: fixed;
+        margin: 130px 0 0 0;
+      }
+
       #demo-table > caption {
          background-color: yellow;
          font-size: 30px;
@@ -78,7 +115,7 @@
 
 <p class="notprinter">
   <strong>Obs:</strong>
-  <%= @billing.obs %>
+  <%= JSON.parse(@billing.obs).sort %>
 </p>
 
 <div class="form-group">
@@ -113,7 +150,7 @@
               <td ><%= truncate(ordem_service.driver.nome, length: 25) %></td>
               <td ><%= truncate(ordem_service.client.nome, length: 25) %></td>
               <td ><%= ordem_service.cte %></td>
-              <td ><%= ordem_service.valor_os(@billing.type_service_id) %></td>
+              <td ><%= ordem_service.valor_ordem_service %></td>
               <td class="action"><%= link_to 'Show', ordem_service, class: "btn btn-info btn-sm" %></td>
               <td class="action"><%= link_to 'Edit', edit_ordem_service_path(ordem_service), class: "btn btn-primary btn-sm" %></td>
               <td class="action"><%= link_to 'Destroy', ordem_service, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
@@ -131,6 +168,15 @@
                 <% end %>
                 ]
                 </td>
+                <% ordem_service.ordem_service_type_service.each do |os_type_service| %>
+                  <tr>
+                    <td class="type_service" colspan="8"> 
+                    <%= os_type_service.type_service.descricao %> - <%= os_type_service.valor %>
+                    </td>
+                  </tr>
+                <% end %>
+                <td>
+              </td>
               </tr>
             </tr>
           <% end %>
@@ -145,3 +191,17 @@
       </table>
     </div>    
 </div>
+
+<p class="img">
+  <%= image_tag("l7-logo.png", title: "L7 Logistica", alt:"logo da L7 Logistica", width: 150) %>
+</p>
+
+<p class="header_print">
+
+  <strong>L7 Logistica</strong>
+  <strong>Razão social:</strong> A. MOURA DO NASCIMENTO - ME <br />
+  <strong>Endereço:</strong>  Av. Alberto craveiro, 536 Bairro: Dias macedo <br />
+          Cidade: FORTALEZA  Cep: 60.860-012
+  <strong>Contato: </strong> 085 30656041  
+
+</p>
