@@ -31,7 +31,7 @@ module ApplicationHelper
 
   def date_br(date)
     # formatting date: dd-mm-yyyy
-    date.strftime("%d-%m%Y")
+    date.nil? ? "" : date.strftime("%d-%m-%Y")
   end
 
 end
