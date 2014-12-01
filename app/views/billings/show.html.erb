@@ -63,7 +63,7 @@
 
 <p class="notprinter">
   <strong>Data:</strong>
-  <%= @billing.data %>
+  <%= date_br @billing.data %>
 </p>
 
 <p class="notprinter">
@@ -90,14 +90,10 @@
   <div class="panel-heading">
        <h3 class="panel-title" style="text-align:center;">Listagem de Ordem de Serviço</h3>
   </div>
-  <div class="panel-body ">
-    <p><strong>Tipo de Serviço: <%= @billing.type_service.descricao %></strong></p>
-  </div>
 
   <!-- Table -->
     <div class="table-responsive">
       <table id="demo-tables" class="table table-striped">
-        <caption>Relatorio de Faturamento</caption>
 
         <thead>
           <tr>
