@@ -22,7 +22,7 @@
         background-color: blue; 
       }      
 
-      .img {
+      .img_not_printer {
         visibility: visible;   
         position: fixed;
         margin: 10px 10px 10px 1px;
@@ -115,7 +115,7 @@
 
 <p class="notprinter">
   <strong>Obs:</strong>
-  <%= JSON.parse(@billing.obs).sort %>
+  <%= JSON.parse(@billing.obs).sort! %>
 </p>
 
 <div class="form-group">
@@ -144,7 +144,7 @@
         </thead>
 
         <tbody>
-          <% @billing.ordem_services.each do |ordem_service| %>
+          <% @billing.ordem_services.order('id desc').each do |ordem_service| %>
             <tr>
               <td ><%= ordem_service.placa %></td>
               <td ><%= truncate(ordem_service.driver.nome, length: 25) %></td>
@@ -168,7 +168,7 @@
                 <% end %>
                 ]
                 </td>
-                <% ordem_service.ordem_service_type_service.each do |os_type_service| %>
+                <% ordem_service.ordem_service_type_service.order('id desc').each do |os_type_service| %>
                   <tr>
                     <td class="type_service" colspan="8"> 
                     <%= os_type_service.type_service.descricao %> - <%= os_type_service.valor %>
@@ -192,7 +192,7 @@
     </div>    
 </div>
 
-<p class="img">
+<p class="img_not_printer">
   <%= image_tag("l7-logo.png", title: "L7 Logistica", alt:"logo da L7 Logistica", width: 150) %>
 </p>
 
