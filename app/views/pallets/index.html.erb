@@ -10,7 +10,7 @@
             <th>Client</th>
             <th>Data Ype</th>
             <th>Qtde Ype</th>
-            <th>Data Agendada</th>
+            <th>Data Agen</th>
             <th>Qtde</th>
             <th>Status</th>
             <th colspan="3">Opções</th>
@@ -21,8 +21,10 @@
           <% @pallets.each do |pallet| %>
             <tr>
               <td><%= pallet.client.cpf_cnpj %></td>
-              <td><%= pallet.client.nome %></td>
-              <td><%= pallet.data_agendamento %></td>
+              <td><%= truncate(pallet.client.nome, lenght: 20) %></td>
+              <td><%= date_br(pallet.data_informada) %></td>
+              <td><%= pallet.qtde_informada %></td>
+              <td><%= date_br(pallet.data_agendamento) %></td>
               <td><%= pallet.qtde %></td>
               <td><%= pallet.status_name %></td>
               <td><%= link_to 'Show', pallet, class: "btn btn-info btn-sm" %></td>
