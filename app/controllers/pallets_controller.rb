@@ -63,6 +63,15 @@ class PalletsController < ApplicationController
   end
 
   def driver_select
+    if @pallet.data_agendamento.nil?
+      flash[:danger] = "Data Agendamento can not be blank."
+      redirect_to pallet_path(@pallet)
+      return
+    elsif @pallet.qtde.to_i <= 0
+      flash[:danger] = "Qtde informed must be greater than zero."
+      redirect_to pallet_path(@pallet)
+      return
+    end
     @drivers = Driver.order('nome')
   end
   

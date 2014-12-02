@@ -1,6 +1,6 @@
 class Pallet < ActiveRecord::Base
+  validates :qtde, presence: true, numericality: { greater_than: 0 }, if: :data_agendamento?
   belongs_to :client
-
   before_create :set_status
 
   def set_status
