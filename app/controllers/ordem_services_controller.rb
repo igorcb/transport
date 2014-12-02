@@ -88,7 +88,7 @@ class OrdemServicesController < ApplicationController
   end
 
   def faturamento
-    #@type_services = TypeService.logistica
+    @type_services = TypeService.logistica
     @ordem_service = OrdemService.new
     @ordem_services = OrdemService.where(status: OrdemService::TipoStatus::FECHADO).order('id')
     respond_with(@ordem_services)
@@ -96,8 +96,8 @@ class OrdemServicesController < ApplicationController
 
   def ordem_service_to_type_service
     @type_service = TypeService.find(params[:id])
-    @ordem_service_type_services = OrdemServiceTypeService.joins(:ordem_service).where(type_service: @type_service, ordem_services: { status: OrdemService::TipoStatus::FECHADO } )
-    respond_with(@ordem_service_type_service) do |format|
+    @ordem_services = OrdemServiceTypeService.joins(:ordem_service).where(type_service: @type_service, ordem_services: { status: OrdemService::TipoStatus::FECHADO } )
+    respond_with(@ordem_services) do |format|
       format.html { render :layout => !request.xhr? }
     end
   end
