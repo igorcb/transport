@@ -15,8 +15,18 @@
 		</p>
 
 		<p>
-		  <strong>Data agendamento:</strong>
-		  <%= @pallet.data_agendamento %>
+		  <strong>Data Agenda Ype:</strong>
+		  <%= date_br(@pallet.data_informada) %>
+		</p>
+
+		<p>
+		  <strong>Qtde Ype:</strong>
+		  <%= @pallet.qtde_informada %>
+		</p>
+
+		<p>
+		  <strong>Data agendada:</strong>
+		  <%= date_br(@pallet.data_agendamento) %>
 		</p>
 
 		<p>
@@ -30,7 +40,6 @@
 		</p>
 	</div>
 </div>
-
 
 <div class="form-group">
   <%= link_to 'Editar', edit_pallet_path(@pallet), class: "btn btn-primary" %>

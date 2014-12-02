@@ -98,6 +98,6 @@ class PalletsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pallet_params
-      params.require(:pallet).permit(:client_id, :data_agendamento, :qtde, :status)
+      params.require(:pallet).permit(:client_id, :data_agendamento, :qtde, :data_informada, :qtde_informada, :status)
     end
 end
