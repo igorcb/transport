@@ -175,7 +175,7 @@
         </thead>
 
         <tbody>
-          <% @billing.ordem_services.each do |ordem_service| %>
+          <% @billing.ordem_services.order(:placa).each do |ordem_service| %>
             <tr>
               <td ><%= ordem_service.placa %></td>
               <td ><%= truncate(ordem_service.driver.nome, length: 25) %></td>
