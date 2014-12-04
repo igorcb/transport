@@ -1,17 +1,23 @@
 class BillingsController < ApplicationController
   before_filter :authenticate_user!
-  #before_action :set_billing, only: [:show, :edit, :update, :destroy]
   before_action :set_billing, only: [:show]
 
-  respond_to :html
+  respond_to :html, :xls
 
   def index
     @billings = Billing.order('id desc')
-    respond_with(@billings)
+    respond_with(@billing)
+    # respond_to do |format|
+    #   format.html
+    # end
   end
 
   def show
     respond_with(@billing)
+    # respond_to do |format|
+    #   format.html
+    #   format.xls { send_data @billing.to_csv, type: "application/xls",filename: "Fatura_#{@billing.id}_L7-Logistica.xls" }
+    # end 
   end
 
   # def new
@@ -47,3 +53,4 @@ class BillingsController < ApplicationController
     #   params.require(:billing).permit(:data, :valor, :status, :obs)
     # end
 end
+

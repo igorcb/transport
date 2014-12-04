@@ -17,7 +17,7 @@
             <tr>
               <td><%= link_to billing.id, billing %></td>
               <td><%= link_to date_br(billing.data), billing %></td>
-              <td><%= link_to billing.valor, billing %></td>
+              <td><%= link_to number_with_precision(billing.valor, precision: 2, separator: '.'), billing %></td>
               <td><%= link_to billing.status_name, billing %></td>
             </tr>
           <% end %>

@@ -151,6 +151,7 @@
 
 <div class="form-group">
   <%= link_to 'Listar Todos',  billings_path, class: "btn btn-default" %>
+  <%= link_to "Download Excel", billing_path(@billing, format: "xls"), class: "btn btn-default" %>
 </div>
 
 <div class="panel panel-info">

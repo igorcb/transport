@@ -89,6 +89,22 @@ class OrdemService < ActiveRecord::Base
     return valor  
   end 
 
+  def danfes
+    nfes = []
+    self.nfe_keys.each do |n|
+      nfes << n.nfe
+    end
+    nfes
+  end
+
+  def type_services
+    services = []
+    self.ordem_service_type_service.each do |t|
+      services << "Serviço: #{t.type_service.descricao} || Valor: #{t.valor.to_f}"
+    end
+    services
+  end
+
   def self.invoice(ids, type_service, value)
     valor_total = 0
     hash_ids = []
