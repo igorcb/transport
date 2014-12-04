@@ -27,6 +27,9 @@ class Supplier < ActiveRecord::Base
   has_many :activities, :through => :movement_activities
   accepts_nested_attributes_for :movement_activities, allow_destroy: true, reject_if: :all_blank  
 
+  has_many :account_banks, class_name: "AccountBank", foreign_key: "account_id", :as => :contact, dependent: :destroy
+  accepts_nested_attributes_for :account_banks, allow_destroy: true
+
   module TipoPessoa
   	FISICA = 0
   	JURIDICA = 1

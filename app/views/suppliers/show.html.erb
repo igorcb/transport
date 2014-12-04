@@ -73,7 +73,7 @@
 
 <%= render 'shared/show_emails', object: @supplier %>
 
-<%= render 'shared/document', object: @supplier %>
+<%= render 'shared/show_account_bank', object: @supplier %>
 
 <h2>Atividades</h2>
 <% if @supplier.activities.any? %>
@@ -91,6 +91,8 @@
 <% else %>
   <p>This person has no activity yet.</p>
 <% end %>
+
+<%= render 'shared/document', object: @supplier %>
 
 <div class="form-group">
   <%= link_to 'Editar', edit_supplier_path(@supplier), class: "btn btn-primary" %>
