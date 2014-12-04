@@ -1,7 +1,6 @@
 <%= form_for @employee, html: { multipart: true } do |f| %>
  
   <%= render 'shared/error_messages', object: f.object %>
-
  
   <div class="form-group">
     <label for="exampleInputFile">Escolha uma imagem 3x4 </label>
@@ -174,6 +173,16 @@
     </div>
     <a href="#" class="add">add price</a>
   </div>
+
+  <h2>Contas Bancarias</h2>
+  <div id="accounts">
+    <div class="items">
+      <%= f.nested_fields_for :account_banks do |f| %>
+        <%= render "shared/form_account_bank", f: f %> 
+      <% end %>
+    </div>
+    <a href="#" class="add">add account bank</a>
+  </div>  
 
   <h2>Documentos</h2> 
   <div id="documents">

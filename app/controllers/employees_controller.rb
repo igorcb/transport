@@ -83,6 +83,7 @@ class EmployeesController < ApplicationController
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
         specialty_employees_attributes: [:specialty_id, :valor, :id, :_destroy],
+        account_banks_attributes: [:banco, :nome_banco, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy])
     end
 end

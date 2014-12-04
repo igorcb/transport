@@ -23,9 +23,12 @@ class Employee < ActiveRecord::Base
   has_many :specialty_employees#, as: :specialty_employee, dependent: :destroy
   accepts_nested_attributes_for :specialty_employees, allow_destroy: true, reject_if: :all_blank
 
+  has_many :account_banks, class_name: "AccountBank", foreign_key: "account_id", :as => :contact, dependent: :destroy
+  accepts_nested_attributes_for :account_banks, allow_destroy: true
+
   has_attached_file :avatar, styles: lambda { |a| a.instance.avatar_content_type =~ %r(image) ? { mini: "144x90>"} : {} }
   #validates_attachment_presence :avatar
-  
+ 
 
   module TipoEmployee
   	FIXO = 0
