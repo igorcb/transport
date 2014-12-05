@@ -11,6 +11,7 @@ Transport::Application.routes.draw do
   match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
   match 'faturamento' => "ordem_services#faturamento",  via: [:get]
   match 'invoice' => "ordem_services#invoice",  via: [:post]
+  match '/stocks', :controller => 'pallets', :action => 'estoque', via: [:get]
   
   resources :billings
 

@@ -61,7 +61,11 @@ class PalletsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def estoque
 
+  end
+  
   def driver_select
     if @pallet.data_agendamento.nil?
       flash[:danger] = "Data Agendamento can not be blank."

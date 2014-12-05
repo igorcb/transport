@@ -40,5 +40,15 @@ class Pallet < ActiveRecord::Base
     end
   end
 
+  def self.entrada
+    type_service = 22
+    OrdemService.includes(:ordem_service_type_service).where("ordem_services.status = ? and ordem_service_type_services.type_service_id = ?", 1, type_service).references(:ordem_service_type_service).sum("ordem_service_type_services.qtde")
+  end
+
+  def self.saida
+    type_service = 23
+    OrdemService.includes(:ordem_service_type_service).where("ordem_services.status = ? and ordem_service_type_services.type_service_id = ?", 1, type_service).references(:ordem_service_type_service).sum("ordem_service_type_services.qtde")
+  end
+
 end
 
