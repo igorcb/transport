@@ -1,0 +1,15 @@
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @historic.descricao %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @historic.tipo %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Edit', edit_historic_path(@historic), class: "btn btn-primary"  %> 
+  <%= link_to 'Back', historics_path, class: "btn btn-default" %>
+</div>

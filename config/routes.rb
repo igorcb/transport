@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :historics
+
   resources :pallets do
 
     member do
