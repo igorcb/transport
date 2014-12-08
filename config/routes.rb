@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :payment_methods
+
   resources :sub_cost_centers
 
   resources :cost_centers

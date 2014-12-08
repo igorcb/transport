@@ -1,0 +1,10 @@
+<p>
+  <strong>Descricao:</strong>
+  <%= @payment_method.descricao %>
+</p>
+
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_payment_method_path(@payment_method), class: "btn btn-primary"  %> |
+  <%= link_to 'Listagem', payment_methods_path, class: "btn btn-default" %>
+</div>
