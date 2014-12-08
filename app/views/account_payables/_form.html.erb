@@ -2,26 +2,26 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="form-group">
-    <%= f.label :supplier_id %>
+    <%= f.label :supplier_id, "Fornecedor" %>
     <%= f.select(:supplier_id, Supplier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
-    <%= f.label :cost_center_id %>
+    <%= f.label :cost_center_id, "Centro de Custo" %>
     <%= f.select(:cost_center_id, CostCenter.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
-    <%= f.label :sub_cost_center_id %>
+    <%= f.label :sub_cost_center_id, "Sub Centro de Custo" %>
     <% if @account_payable.cost_center_id.present? %>
-      <%= f.collection_select :sub_cost_center_id, sub_center(@account_payable.cost_center_id), :id, :descricao, {prompt: "SELECT SUB COST CENTER"}, {class: "form-control"} %>
+      <%= f.collection_select :sub_cost_center_id, sub_center(@account_payable.cost_center_id), :id, :descricao, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control"} %>
     <% else %>
-      <%= f.collection_select :sub_cost_center_id, [], :id, :descricao,  {prompt: "SELECT FIRST COST CENTER"}, {class: "form-control"}  %>
+      <%= f.collection_select :sub_cost_center_id, [], :id, :descricao,  {prompt: "SELECT PRIMEIRO CENTRO DE CUSTO"}, {class: "form-control"}  %>
     <% end %>
   </div>
 
   <div class="form-group">
-    <%= f.label :historic_id %>
+    <%= f.label :historic_id, "Historico" %>
     <%= f.select(:historic_id, Historic.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
 
@@ -61,6 +61,13 @@
   $(document).ready(function() {
    $("#account_payable_cost_center_id").change(function() {
       getSubCostCenter("id="+$("#account_payable_cost_center_id").val());
+    });
+  });
+
+  $(document).ready(function() {
+   $("#account_payable_historic_id").change(function() {
+      var texto = $('select#account_payable_historic_id :selected').text();
+      document.getElementById("account_payable_observacao").value = texto;
     });
   });
 
