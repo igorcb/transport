@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :cost_centers
+
   resources :historics
 
   resources :pallets do
