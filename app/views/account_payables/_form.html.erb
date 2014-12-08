@@ -1,0 +1,76 @@
+<%= form_for(@account_payable) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :supplier_id %>
+    <%= f.select(:supplier_id, Supplier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :cost_center_id %>
+    <%= f.select(:cost_center_id, CostCenter.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :sub_cost_center_id %>
+    <% if @account_payable.cost_center_id.present? %>
+      <%= f.collection_select :sub_cost_center_id, sub_center(@account_payable.cost_center_id), :id, :descricao, {prompt: "SELECT SUB COST CENTER"}, {class: "form-control"} %>
+    <% else %>
+      <%= f.collection_select :sub_cost_center_id, [], :id, :descricao,  {prompt: "SELECT FIRST COST CENTER"}, {class: "form-control"}  %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :historic_id %>
+    <%= f.select(:historic_id, Historic.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :data_vencimento %><br>
+    <% if @account_payable.new_record? %>
+      <%= f.text_field :data_vencimento, class: "form-control data" %>
+    <% else %>
+      <%= f.text_field :data_vencimento, class: "form-control data", value: date_br(@account_payable.data_vencimento) %>
+    <% end %>
+  </div>  
+
+  <div class="form-group">
+    <%= f.label :documento %>
+    <%= f.text_field :documento, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :valor %>
+    <%= f.text_field :valor, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :observacao %>
+    <%= f.text_area :observacao, class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  account_payable_path(@account_payable), class: "btn btn-info" if !@account_payable.new_record? %>
+    <%= link_to "Listar Todos", account_payables_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#account_payable_cost_center_id").change(function() {
+      getSubCostCenter("id="+$("#account_payable_cost_center_id").val());
+    });
+  });
+
+  function getSubCostCenter(id) {
+    $.getJSON("/sub_centro_custo_by_custo", id, function(j) {
+      var options = '<option value="">SELECT SUB COST CENTER</option>';
+      $.each(j.sub, function(i, item) {
+        options += '<option value="' + item.id + '">' + item.n + '</option>';
+      });
+      $("#account_payable_sub_cost_center_id").html(options);
+    });
+  }
+</script>

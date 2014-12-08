@@ -1,0 +1,51 @@
+
+<p>
+  <strong>Supplier:</strong>
+  <%= @account_payable.supplier.nome %>
+</p>
+
+<p>
+  <strong>Cost center:</strong>
+  <%= @account_payable.cost_center.descricao %>
+</p>
+
+<p>
+  <strong>Sub cost center:</strong>
+  <%= @account_payable.sub_cost_center.descricao %>
+</p>
+
+<p>
+  <strong>Historic:</strong>
+  <%= @account_payable.historic.descricao %>
+</p>
+
+<p>
+  <strong>Data vencimento:</strong>
+  <%= date_br(@account_payable.data_vencimento) %>
+</p>
+
+<p>
+  <strong>Documento:</strong>
+  <%= @account_payable.documento %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= number_to_currency(@account_payable.valor, unit: "R$", separator: ",", delimiter: ".")  %>
+</p>
+
+<p>
+  <strong>Observacao:</strong>
+  <pre><%= @account_payable.observacao %></pre>
+  
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @account_payable.status %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar',edit_account_payable_path(@account_payable), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', account_payables_path, class: "btn btn-default" %>
+</div>
