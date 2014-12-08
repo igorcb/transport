@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Sub Centro de Custo</div>
+  <div class="panel-body">
+    <%= link_to 'Novo Centro de Custo', new_sub_cost_center_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Centro de Custo</th>
+            <th>Descrição</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @sub_cost_centers.each do |sub_cost_center| %>
+            <tr>
+              <td><%= sub_cost_center.cost_center.descricao if !sub_cost_center.cost_center.nil? %></td>
+              <td><%= sub_cost_center.descricao %></td>
+              <td><%= link_to 'Show', sub_cost_center, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_sub_cost_center_path(sub_cost_center), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', sub_cost_center, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
+
+
+

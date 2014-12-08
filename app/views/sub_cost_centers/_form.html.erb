@@ -1,0 +1,20 @@
+<%= form_for(@sub_cost_center) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+  <div class="form-group">
+    <%= f.label :cost_center_id, "Centro de Custo" %>
+    <%= f.select(:cost_center_id, CostCenter.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :descricao %>
+    <%= f.text_field :descricao, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  sub_cost_center_path(@sub_cost_center), class: "btn btn-info" if !@sub_cost_center.new_record? %>
+    <%= link_to "Listar Todos", sub_cost_centers_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>

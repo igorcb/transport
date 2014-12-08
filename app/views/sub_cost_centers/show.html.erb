@@ -1,0 +1,14 @@
+<p>
+  <strong>Cost center:</strong>
+  <%= @sub_cost_center.cost_center.descricao %>
+</p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @sub_cost_center.descricao %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_sub_cost_center_path(@sub_cost_center), class: "btn btn-primary" %> 
+  <%= link_to 'Listagem', sub_cost_centers_path, class: "btn btn-default" %>
+</div>
