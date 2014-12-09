@@ -29,7 +29,7 @@
               <td><%= account_payable.historic.descricao %></td>
               <td><%= date_br(account_payable.data_vencimento )%></td>
               <td><%= account_payable.documento %></td>
-              <td><%= number_to_currency(account_payable.valor, unit: "R$", separator: ",", delimiter: ".")  %></td>
+              <td><%= number_to_currency(account_payable.valor, unit: "R$ ", separator: ",", delimiter: ".")  %></td>
               <td><%= account_payable.observacao %></td>
               <td><%= account_payable.status %></td>
               <td><%= link_to 'Show', account_payable, class: "btn btn-info btn-sm" %></td>
