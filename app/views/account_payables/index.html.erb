@@ -7,9 +7,6 @@
         <thead>
           <tr>
             <th>Fornecedor</th>
-            <th>Centro Custo</th>
-            <th>Sub CC</th>
-            <th>Historico</th>
             <th>Data vencimento</th>
             <th>Documento</th>
             <th>Valor</th>
@@ -23,18 +20,15 @@
         <tbody>
           <% @account_payables.each do |account_payable| %>
             <tr>
-              <td><%= account_payable.supplier.nome %></td>
-              <td><%= account_payable.cost_center.descricao %></td>
-              <td><%= account_payable.sub_cost_center.descricao %></td>
-              <td><%= account_payable.historic.descricao %></td>
+              <td><%= truncate(account_payable.supplier.nome, length: 25 ) %></td>
               <td><%= date_br(account_payable.data_vencimento )%></td>
               <td><%= account_payable.documento %></td>
               <td><%= number_to_currency(account_payable.valor, unit: "R$ ", separator: ",", delimiter: ".")  %></td>
-              <td><%= account_payable.observacao %></td>
-              <td><%= account_payable.status %></td>
-              <td><%= link_to 'Show', account_payable, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_account_payable_path(account_payable), class: "btn btn-primary btn-sm" %></td>
-              <td><%= link_to 'Destroy', account_payable, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+              <td><%= truncate(account_payable.observacao, length: 20) %></td>
+              <td><%= account_payable.status_name %></td>
+              <td><%= link_to 'Show', account_payable, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_account_payable_path(account_payable), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Destroy', account_payable, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
             </tr>
          <% end %>
         </tbody>

@@ -18,4 +18,13 @@ class AccountPayable < ActiveRecord::Base
     ['data_vencimento', 'documento', 'supplier_id' ]
   end  
 
+  def status_name
+    case self.status
+      when 0  then "Aberto"
+      when 1  then "Pago Parcial"
+      when 2  then "Pago"
+    else "Nao Definido"
+    end
+  end 
+
 end
