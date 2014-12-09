@@ -15,7 +15,7 @@ class AccountPayablesController < ApplicationController
   end
 
   def index
-    @account_payables = AccountPayable.all
+    @account_payables = AccountPayable.order('id desc')
     respond_with(@account_payables)
   end
 
