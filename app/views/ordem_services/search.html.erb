@@ -17,15 +17,23 @@
   </div>
   <div class="form-group">
     <%= f.label :data_entrega_servico_eq, "Data da Entrega do Serviço" %>
-    <%= f.search_field :data_entrega_servico_eq, class: "form-control", placeholder: "Informe a Data da entrega do Serviço ex: 05-12-2014" %>  
+    <%= f.search_field :data_entrega_servico_eq, class: "form-control data", placeholder: "Informe a Data da entrega do Serviço ex: 05-12-2014" %>  
   </div>
   <div class="form-group">
     <%= f.label :nfe_keys_nfe_eq, "NF-e" %>
     <%= f.search_field :nfe_keys_nfe_eq, class: "form-control", placeholder: "Informe a placa do veículo ex: 123456" %>  
   </div>
   <div class="form-group">
+    <%= f.label :ordem_service_type_service_type_service_id_eq, "Tipo de Serviço" %>
+    <%= f.collection_select :ordem_service_type_service_type_service_id_eq, TypeService.order('descricao'), :id, :descricao, {include_blank: true}, {class: "form-control"} %>
+  </div>
+  <div class="form-group">
     <%= f.label :billing_id_eq, "Faturamento" %>
     <%= f.search_field :billing_id_eq, class: "form-control", placeholder: "Informe a placa do veículo ex: 100" %>  
+  </div>
+  <div class="form-group">
+    <%= f.label :status_eq, "Status" %>
+    <%= f.select( :status_eq, select_status_os, {},  {class: "form-control"} ) %> 
   </div>
 
   <div class="actions"><%= f.submit "Search" %></div>

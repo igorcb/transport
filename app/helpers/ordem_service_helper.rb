@@ -1,7 +1,7 @@
 module OrdemServiceHelper
  
-  def select_status
-    ([["ABERTO", 0],["FECHADO", 1]])
+  def select_status_os
+    ([["ABERTO", 0],["FECHADO", 1], ["FATURADO", 2], ["PAGO***", 99]])
   end
 
   def year_now
