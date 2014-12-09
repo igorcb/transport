@@ -14,11 +14,11 @@
         <td><%= item.type_service.descricao if !item.type_service.nil? %></td>
         <td><%= item.qtde %></td>
         <td><%= item.qtde_recebida %></td>
-        <td><%= number_to_currency(item.valor, unit: "R$", separator: ",", delimiter: ".")  if !item.type_service.nil? %> </td>
+        <td><%= number_to_currency(item.valor, unit: "R$ ", separator: ",", delimiter: ".")  if !item.type_service.nil? %> </td>
       </tr>
     <% end %>
     <td colspan="3"> <strong>Total</strong> </td>
-    <td><strong><%= number_to_currency( object.ordem_service_type_service.sum(:valor), unit: "R$", separator: ",", delimiter: ".")  %></strong> </td>
+    <td><strong><%= number_to_currency( object.ordem_service_type_service.sum(:valor), unit: "R$ ", separator: ",", delimiter: ".")  %></strong> </td>
 
   </tbody>
 

@@ -169,11 +169,11 @@
       <tbody>
         <tr>
           <td><%= number_with_precision(@ordem_service.qtde_volume, precision: 2, separator: ',', delimiter: '.') %></td>  
-          <td><%= number_to_currency(@ordem_service.client.valor_volume, precision: 3, unit: "R$", separator: ",", delimiter: ".")   %></td>  
+          <td><%= number_to_currency(@ordem_service.client.valor_volume, precision: 3, unit: "R$ ", separator: ",", delimiter: ".")   %></td>  
           <td><%= number_with_precision(@ordem_service.peso, precision: 2, separator: ',', delimiter: '.') %></td>  
-          <td><%= number_to_currency(@ordem_service.client.valor_peso, precision: 3, unit: "R$", separator: ",", delimiter: ".") %></td>  
-          <td><%= number_to_currency(@ordem_service.valor_volume, unit: "R$", separator: ",", delimiter: ".") %></td>  
-          <td><%= number_to_currency(@ordem_service.valor_peso, unit: "R$", separator: ",", delimiter: ".") %></td>  
+          <td><%= number_to_currency(@ordem_service.client.valor_peso, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
+          <td><%= number_to_currency(@ordem_service.valor_volume, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
+          <td><%= number_to_currency(@ordem_service.valor_peso, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
         </tr> 
       </tbody>
 
