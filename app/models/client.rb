@@ -34,6 +34,11 @@ class Client < ActiveRecord::Base
   	JURIDICA = 1
   end
 
+  def self.search_numero(numero)
+    #desacentualize(pla_descricao)
+    consultar_numero(numero)
+  end
+
   def telefone_completo
     # seperar por virgula os contatos, somente o telefone
     #contato = self.contacts.first
