@@ -3,7 +3,7 @@ $(document).ready(function(e) {
 });
 
 $(document).ready(function(e) {
-  $(".placa").mask("AAA-0000");
+  $(".placa").mask("AAA-0000", {placeholder: "___-____"})
   $('.data').mask('00/00/0000');
   $('.time').mask('00:00:00');
   $('.date_time').mask('00/00/0000 00:00:00');
