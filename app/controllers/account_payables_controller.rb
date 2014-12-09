@@ -1,8 +1,8 @@
 class AccountPayablesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_account_payable, only: [:show, :edit, :update, :destroy]
+  before_action :set_account_payable, only: [:show, :edit, :update, :destroy, :lower_payables]
 
-  respond_to :html
+  respond_to :html, :js
 
   def sub_centro_custo_by_custo
     sub_cost_center_id = params[:id].to_i
@@ -61,6 +61,17 @@ class AccountPayablesController < ApplicationController
     @account_payable.destroy
     respond_with(@account_payable)
   end
+
+  def lower_payables
+    @q = AccountPayable.search(params[:q])
+    @employees = Employee.order('nome')
+  end
+  
+  def search
+    @q = AccountPayable.order('id desc').search(params[:q])
+    @account_payables = @q.result
+  end
+
 
   private
     def set_account_payable
