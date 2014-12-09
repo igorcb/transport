@@ -1,6 +1,13 @@
 Transport::Application.routes.draw do
   match "/sub_centro_custo_by_custo" => "account_payables#sub_centro_custo_by_custo", via: [:get]
-  resources :account_payables
+  match "/account_payables_search" => "account_payables#search", via: [:get]
+
+  resources :account_payables do 
+  member do
+      get "lower_payables"
+
+      end    
+  end
 
   resources :payment_methods
 

@@ -1,0 +1,33 @@
+<% if @account_payables.present? %>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Fornecedor</th>
+            <th>Data vencimento</th>
+            <th>Documento</th>
+            <th>Valor</th>
+            <th>Observacao</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @account_payables.each do |account_payable| %>
+            <tr>
+              <td><%= account_payable.supplier.nome %></td>
+              <td><%= date_br(account_payable.data_vencimento )%></td>
+              <td><%= account_payable.documento %></td>
+              <td><%= number_to_currency(account_payable.valor, unit: "R$ ", separator: ",", delimiter: ".")  %></td>
+              <td><%= account_payable.observacao %></td>
+            </tr>
+         <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
+  
+<% end %>

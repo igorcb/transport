@@ -14,4 +14,8 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :sub_cost_center
   belongs_to :historic
 
+  def self.ransackable_attributes(auth_object = nil)
+    ['data_vencimento', 'documento', 'supplier_id' ]
+  end  
+
 end
