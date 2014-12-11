@@ -35,6 +35,11 @@
   </div>  
 
   <div class="form-group">
+    <%= f.label :payment_method_id, "Forma de Pgto" %>
+    <%= f.select(:payment_method_id, PaymentMethod.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :documento %>
     <%= f.text_field :documento, class: "form-control" %>
   </div>

@@ -79,6 +79,7 @@ class AccountPayablesController < ApplicationController
     end
 
     def account_payable_params
-      params.require(:account_payable).permit(:supplier_id, :cost_center_id, :sub_cost_center_id, :historic_id, :data_vencimento, :documento, :valor, :observacao, :status)
+      params.require(:account_payable).permit(:supplier_id, :cost_center_id, :sub_cost_center_id, :historic_id, :data_vencimento, :documento, 
+        :valor, :observacao, :status, :payment_method_id)
     end
 end

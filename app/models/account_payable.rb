@@ -4,7 +4,7 @@ class AccountPayable < ActiveRecord::Base
   validates :cost_center_id, presence: true
   validates :sub_cost_center_id, presence: true
   validates :historic_id, presence: true
-  validates :documento, presence: true, length: { maximum: 10 }
+  validates :documento, presence: true, length: { maximum: 10 }, numericality: { only_integer: true }
   validates :data_vencimento, presence: true
   validates :valor, presence: true, numericality: { greater_than: 0 }
   validates :observacao, presence: true
@@ -13,6 +13,7 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :cost_center
   belongs_to :sub_cost_center
   belongs_to :historic
+  belongs_to :payment_method
 
   def self.ransackable_attributes(auth_object = nil)
     ['data_vencimento', 'documento', 'supplier_id' ]
