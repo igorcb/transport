@@ -10,30 +10,13 @@ class AccountPayable < ActiveRecord::Base
   validates :valor, presence: true, numericality: { greater_than: 0 }
   validates :observacao, presence: true
 
+  belongs_to :supplier, class_name: "Supplier", foreign_key: "supplier_id", polymorphic: true, dependent: :destroy  
   belongs_to :cost_center
   belongs_to :sub_cost_center
   belongs_to :historic
   belongs_to :payment_method
 
-  belongs_to :supplier, class_name: "Supplier", foreign_key: "supplier_id", polymorphic: true, dependent: :destroy  
-#  belongs_to :driver, class_name: "Driver", foreign_key: "supplier_id", polymorphic: true, dependent: :destroy
-#  belongs_to :client, class_name: "Client", foreign_key: "supplier_id", polymorphic: true, dependent: :destroy
-
   before_save :set_supplier_type
-  # before_save do |account| 
-    
-  #   case account.type_account
-  #     when 0 then 
-  #       puts  ">>>>>>>>>> Supplier: #{account.type_account}"
-  #       supplier_type = "Supplier"
-  #     when 1 then 
-  #       puts  ">>>>>>>>>> Driver: #{account.type_account}"
-  #       supplier_type = "Driver"
-  #     when 2 then 
-  #       puts  ">>>>>>>>>> Client: #{account.type_account}"
-  #       supplier_type = "Client"
-  #   end
-  # end
 
   def self.ransackable_attributes(auth_object = nil)
     ['data_vencimento', 'documento', 'supplier_id' ]
@@ -60,17 +43,10 @@ class AccountPayable < ActiveRecord::Base
   
   def set_supplier_type
     case self.type_account
-      when 0 then 
-        #puts  ">>>>>>>>>> Supplier: #{account.type_account}"
-        self.supplier_type = "Supplier"
-      when 1 then 
-        #puts  ">>>>>>>>>> Driver: #{account.type_account}"
-        self.supplier_type = "Driver"
-      when 2 then 
-        #puts  ">>>>>>>>>> Client: #{account.type_account}"
-        self.supplier_type = "Client"
+      when 0 then self.supplier_type = "Supplier"
+      when 1 then self.supplier_type = "Driver"
+      when 2 then self.supplier_type = "Client"
     end
-
   end
 
 
