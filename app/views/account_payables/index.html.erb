@@ -6,6 +6,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>Tipo</th>
             <th>Fornecedor</th>
             <th>Data vencimento</th>
             <th>Fgto</th>
@@ -14,14 +15,14 @@
             <th>Observacao</th>
             <th>Status</th>
             <th colspan="3">Opções</th>
-
           </tr>
         </thead>
 
         <tbody>
           <% @account_payables.each do |account_payable| %>
             <tr>
-              <td><%= truncate(account_payable.supplier.nome, length: 25 ) %></td>
+              <td><%= truncate(account_payable.type_account_name ) %></td>
+              <td><%= truncate(account_payable.supplier.nome, length: 20 ) %></td>
               <td><%= date_br(account_payable.data_vencimento )%></td>
               <td><%= account_payable.payment_method.descricao %></td>
               <td><%= account_payable.documento %></td>

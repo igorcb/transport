@@ -1,4 +1,5 @@
 Transport::Application.routes.draw do
+  match "type_account_select" => "account_payables#type_account_select", via: [:get]
   match "/sub_centro_custo_by_custo" => "account_payables#sub_centro_custo_by_custo", via: [:get]
   match "/account_payables_search" => "account_payables#search", via: [:get]
 

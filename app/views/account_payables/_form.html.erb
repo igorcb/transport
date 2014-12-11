@@ -1,9 +1,28 @@
 <%= form_for(@account_payable) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+  <div class="">
+    <%= f.label :type_account, "Tipo de Conta" %>
+  </div>
+
+  <div class="radio">
+    <label class="radio-inline"> 
+      <%= f.radio_button :type_account, "0" %> Fornecedor 
+    </label>
+
+    <label class="radio-inline"> 
+      <%= f.radio_button :type_account, "1" %> Motorista
+    </label>
+
+    <label class="radio-inline"> 
+      <%= f.radio_button :type_account, "2" %> Cliente
+    </label>
+  </div>
+
   <div class="form-group">
     <%= f.label :supplier_id, "Fornecedor" %>
-    <%= f.select(:supplier_id, Supplier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%#= f.select(:supplier_id, Supplier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%= f.collection_select :supplier_id, [], :id, :nome,  {prompt: "SELECT O TIPO DE CONTA"}, {class: "form-control"}  %>
   </div>
 
   <div class="form-group">
@@ -85,4 +104,23 @@
       $("#account_payable_sub_cost_center_id").html(options);
     });
   }
+</script>
+
+<script type="text/javascript">
+  $(function() {
+    $('input[name="account_payable[type_account]"]').change(function() {
+        getTypeAccount("id="+$(this).val());
+    });
+
+  function getTypeAccount(id) {
+    $.getJSON("/type_account_select", id, function(j) {
+      var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
+      $.each(j.sup, function(i, item) {
+        options += '<option value="' + item.id + '">' + item.n + '</option>';
+      });
+      $("#account_payable_supplier_id").html(options);
+    });
+  }  
+
+});
 </script>

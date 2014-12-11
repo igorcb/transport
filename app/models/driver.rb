@@ -43,6 +43,8 @@ class Driver < ActiveRecord::Base
   has_many :vehicles, :through => :drivings
   accepts_nested_attributes_for :drivings, allow_destroy: true, reject_if: :all_blank
 
+  has_many :account_payables, class_name: "AccountPayable", foreign_key: "supplier_id"
+
   module Categoria
   	A = 0
   	B = 1

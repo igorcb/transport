@@ -4,6 +4,20 @@ class AccountPayablesController < ApplicationController
 
   respond_to :html, :js
 
+  def type_account_select
+    type_id = params[:id].to_i
+    case type_id
+      when 0 then suppliers = Supplier.order('nome')
+      when 1 then suppliers = Driver.order('nome')
+      when 2 then suppliers = Client.order('nome')
+    end
+    sup = []
+    suppliers.each do |s|
+      sup << {:id => s.id, :n => s.nome}
+    end
+    render :json => {:sup => sup.compact}.as_json
+  end
+
   def sub_centro_custo_by_custo
     sub_cost_center_id = params[:id].to_i
     subs = SubCostCenter.where(:cost_center_id => sub_cost_center_id)
@@ -80,6 +94,6 @@ class AccountPayablesController < ApplicationController
 
     def account_payable_params
       params.require(:account_payable).permit(:supplier_id, :cost_center_id, :sub_cost_center_id, :historic_id, :data_vencimento, :documento, 
-        :valor, :observacao, :status, :payment_method_id)
+        :valor, :observacao, :status, :payment_method_id, :type_account)
     end
 end
