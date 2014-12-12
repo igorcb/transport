@@ -16,7 +16,9 @@
   </div>
 
 	<div class="form-group">
-	<%= submit_tag("Efetuar Baixar", class: "btn btn-primary") %> 
+  	<%= submit_tag("Efetuar Baixar", class: "btn btn-primary") %> 
+    <%= link_to "Voltar", @account_payable, class: "btn btn-default" %> 
+    <%= link_to "Listar Todos", account_payables_path, class: "btn btn-default" %> 
 	</div>
 	
 </fieldset>

@@ -87,7 +87,11 @@ class AccountPayablesController < ApplicationController
   end
 
   def lower
-    
+    if @account_payable.status == AccountPayable::TipoStatus::PAGO
+      flash[:danger] = "AccountPayable already made payment."
+      redirect_to account_payables_path #(params[:id])
+      return 
+    end
   end
 
   def lower_all
@@ -96,6 +100,16 @@ class AccountPayablesController < ApplicationController
   end
 
   def pay
+    if !params[:data_pagamento].present?
+      flash[:danger] = "Data Pagamento can't be blank."
+      redirect_to lower_account_payable_path(params[:id])
+      return 
+    elsif !params[:valor_pago].present?
+      flash[:danger] = "Valor do Pagamento can't be blank."
+      redirect_to lower_account_payable_path(params[:id])
+      return
+    end
+
     data = params[:data_pagamento]
     valor = params[:valor_pago].to_f
 
