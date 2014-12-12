@@ -1,0 +1,25 @@
+<%= render "data_account" %>
+
+<%= form_tag({:controller => "account_payables", action: :pay}, :method => "post", :name => "make_pay") do %>
+<fieldset>
+ 
+  <legend></legend>
+
+  <div class="form-group">
+    <%= label_tag :data_pagamento %><br>
+    <%= text_field_tag :data_pagamento, "", class: "form-control data" %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :valor_pago, "Valor Pago" %><br>
+    <%= text_field_tag :valor_pago, "", value: @account_payable.valor,  class: "form-control" %>
+  </div>
+
+	<div class="form-group">
+	<%= submit_tag("Efetuar Baixar", class: "btn btn-primary") %> 
+	</div>
+	
+</fieldset>
+
+
+<% end %>

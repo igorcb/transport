@@ -2,12 +2,20 @@ Transport::Application.routes.draw do
   match "type_account_select" => "account_payables#type_account_select", via: [:get]
   match "/sub_centro_custo_by_custo" => "account_payables#sub_centro_custo_by_custo", via: [:get]
   match "/account_payables_search" => "account_payables#search", via: [:get]
+  match "/lower_payables" => "account_payables#lower_payables", via: [:get]
+  match "lower_all" => "account_payables#lower_all", via: [:post]
+
+  match '/search', :controller => 'ordem_services', :action => 'search', via: [:get, :post]
+  match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
+  match 'faturamento' => "ordem_services#faturamento",  via: [:get]
+  match 'invoice' => "ordem_services#invoice",  via: [:post]
+  match '/stocks', :controller => 'pallets', :action => 'estoque', via: [:get]
 
   resources :account_payables do 
-  member do
-      get "lower_payables"
-
-      end    
+    member do
+      get 'lower'
+      post 'pay'
+    end    
   end
 
   resources :payment_methods
@@ -25,12 +33,6 @@ Transport::Application.routes.draw do
       post 'create_os'
     end
   end
-
-  match '/search', :controller => 'ordem_services', :action => 'search', via: [:get, :post]
-  match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
-  match 'faturamento' => "ordem_services#faturamento",  via: [:get]
-  match 'invoice' => "ordem_services#invoice",  via: [:post]
-  match '/stocks', :controller => 'pallets', :action => 'estoque', via: [:get]
   
   resources :billings
 

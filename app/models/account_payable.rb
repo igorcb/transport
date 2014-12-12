@@ -15,8 +15,15 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :sub_cost_center
   belongs_to :historic
   belongs_to :payment_method
+  has_many :lower_account_payable
 
   before_save :set_supplier_type
+
+  module TipoStatus
+    ABERTO = 0
+    PAGOPARCIAL = 1
+    PAGO = 2
+  end
 
   def self.ransackable_attributes(auth_object = nil)
     ['data_vencimento', 'documento', 'supplier_id' ]
@@ -36,6 +43,38 @@ class AccountPayable < ActiveRecord::Base
       when 0  then "Fornecedor"
       when 1  then "Motorista"
       when 2  then "Cliente"
+    end
+  end
+
+  def payament(data, valor, juros, desconto)
+    ActiveRecord::Base.transaction do
+      total = valor + juros - desconto
+
+      if total >= self.valor
+        self.status = TipoStatus::PAGO
+      elsif total < self.valor
+        self.status = TipoStatus::PAGOPARCIAL
+      end
+
+      self.lower_account_payable.create!(data_pagamento: data, valor_pago: valor, juros: juros, desconto: desconto, total_pago: total)
+      self.save
+    end
+  end
+
+  def self.payament_all(ids, value)
+    data = Time.now.strftime('%Y-%m-%d')
+    valor_total = 0
+    hash_ids = []
+    ids.each do |i|
+      hash_ids << i[0].to_i
+      valor_total += i[1].to_f
+      # Efetuar Faturamento
+      id = i[0].to_i
+      valor = i[1].to_f
+      ActiveRecord::Base.transaction do
+        account = AccountPayable.find(id)
+        account.payament(data, account.valor, 0, 0)
+      end
     end
   end
 

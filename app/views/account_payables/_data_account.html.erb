@@ -1,0 +1,50 @@
+<p>
+  <strong><%= @account_payable.type_account_name %> :</strong>
+  <%= @account_payable.supplier.nome %>
+</p>
+
+<p>
+  <strong>Centro de Custo:</strong>
+  <%= @account_payable.cost_center.descricao %>
+</p>
+
+<p>
+  <strong>Sub Centro de Custo:</strong>
+  <%= @account_payable.sub_cost_center.descricao %>
+</p>
+
+<p>
+  <strong>Historico:</strong>
+  <%= @account_payable.historic.descricao %>
+</p>
+
+<p>
+  <strong>Data vencimento:</strong>
+  <%= date_br(@account_payable.data_vencimento) %>
+</p>
+
+<p>
+  <strong>Forma de Pgto:</strong>
+  <%= @account_payable.payment_method.descricao %>
+</p>
+
+<p>
+  <strong>Documento:</strong>
+  <%= @account_payable.documento %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= number_to_currency(@account_payable.valor, unit: "R$ ", separator: ",", delimiter: ".")  %>
+</p>
+
+<p>
+  <strong>Observacao:</strong>
+  <pre><%= @account_payable.observacao %></pre>
+  
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @account_payable.status_name %>
+</p>

@@ -1,6 +1,6 @@
 class AccountPayablesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_account_payable, only: [:show, :edit, :update, :destroy, :lower_payables]
+  before_action :set_account_payable, only: [:show, :edit, :update, :destroy, :lower, :pay]
 
   respond_to :html, :js
 
@@ -82,10 +82,33 @@ class AccountPayablesController < ApplicationController
   end
   
   def search
-    @q = AccountPayable.order('id desc').search(params[:q])
+    @q = AccountPayable.where(status: AccountPayable::TipoStatus::ABERTO).order('id desc').search(params[:q])
     @account_payables = @q.result
   end
 
+  def lower
+    
+  end
+
+  def lower_all
+    AccountPayable.payament_all(params[:os][:ids], params[:valor_total])
+    redirect_to lower_payables_path    
+  end
+
+  def pay
+    data = params[:data_pagamento]
+    valor = params[:valor_pago].to_f
+
+    respond_to do |format|
+      if @account_payable.payament(data, valor,0,0)
+        format.html { redirect_to @account_payable, flash: { success: "Lower AccountsPayable was successful." } }
+        #format.json { render action: 'show', status: :created, location: @account_payable }
+      else
+        format.html { redirect_to @account_payable, flash: { danger: "Could not lower accounts payable was successful." }}
+        format.json { render json: @account_payable.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   private
     def set_account_payable

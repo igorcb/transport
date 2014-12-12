@@ -1,33 +1,81 @@
 <% if @account_payables.present? %>
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Fornecedor</th>
-            <th>Data vencimento</th>
-            <th>Documento</th>
-            <th>Valor</th>
-            <th>Observacao</th>
-          </tr>
-        </thead>
+  <div id="ordem_service_type_service_id">
+    <%= form_tag({:controller => "account_payables", :action => "lower_all"}, :method => "post", :name => "billingForm") do %>
 
-        <tbody>
-          <% @account_payables.each do |account_payable| %>
-            <tr>
-              <td><%= account_payable.supplier.nome %></td>
-              <td><%= date_br(account_payable.data_vencimento )%></td>
-              <td><%= account_payable.documento %></td>
-              <td><%= number_to_currency(account_payable.valor, unit: "R$ ", separator: ",", delimiter: ".")  %></td>
-              <td><%= account_payable.observacao %></td>
-            </tr>
-         <% end %>
-        </tbody>
-      </table>
-    </div>    
-  </div>
-</div>
-  
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Fornecedor</th>
+                  <th>Data vencimento</th>
+                  <th>Documento</th>
+                  <th>Valor</th>
+                  <th>Status</th>
+                  <th>Observacao</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @account_payables.each do |account_payable| %>
+                  <tr>
+                    <td><%= check_box_tag "os[ids][#{account_payable.id}]", account_payable.id, false, value: account_payable.valor, onchange:"checkTotal()", class: "escolha" %></td>    
+                    <td><%= link_to truncate(account_payable.supplier.nome, length: 25), account_payable %></td>
+                    <td><%= link_to date_br(account_payable.data_vencimento ), account_payable %></td>
+                    <td><%= link_to account_payable.documento, account_payable %></td>
+                    <td><%= link_to number_to_currency(account_payable.valor, unit: "R$ ", separator: ",", delimiter: "."), account_payable %></td>
+                    <td><%= account_payable.status_name %></td>
+                    <td><%= link_to truncate(account_payable.observacao, length: 50), account_payable, title: account_payable.observacao  %></td>
+                  </tr>
+                <% end %>
+        
+                <tr>
+                  <td colspan="4"><strong>Total Selecionado</strong></td>
+                  <td><%= text_field_tag :valor_total, "", value: 0, disabled: true, size: 10, style: "text-align: Right"  %></td>
+                  <td colspan="2"><strong></strong></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>    
+        </div>
+      </div>
+    
+    <%= submit_tag("Efetuar Baixa", class: "btn btn-primary") %> 
+
+  <% end %>
+
 <% end %>
+
+
+<script type="text/javascript">
+Number.prototype.formatMoney = function(c, d, t){
+var n = this, 
+    c = isNaN(c = Math.abs(c)) ? 2 : c, 
+    d = d == undefined ? "." : d, 
+    t = t == undefined ? "," : t, 
+    s = n < 0 ? "-" : "", 
+    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+    j = (j = i.length) > 3 ? j % 3 : 0;
+   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ };
+
+
+
+  function checkTotal() {
+    var elements = document.getElementsByClassName('escolha');
+    var label = document.getElementById('valor_total');
+    var sum = 0;
+    for (i=0;i< elements.length;i++) {
+      if (elements[i].checked) {
+        sum = sum + parseInt(elements[i].value);
+      }
+    }
+    document.getElementById('valor_total').value = 'R$ ' + sum.formatMoney(2, ',', '.');
+
+  }
+</script>
+
