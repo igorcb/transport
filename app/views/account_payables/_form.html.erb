@@ -76,6 +76,16 @@
     <%= f.text_area :observacao, class: "form-control" %>
   </div>
   
+  <h2>Documentos</h2> 
+  <div id="documents">
+    <div class="items">
+      <%= f.nested_fields_for :assets do |f| 
+        render 'shared/asset', f: f
+      end  -%>
+    </div>
+    <a href="#" class="add">add documento</a>
+  </div>
+
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  account_payable_path(@account_payable), class: "btn btn-info" if !@account_payable.new_record? %>
@@ -90,14 +100,12 @@
       getSubCostCenter("id="+$("#account_payable_cost_center_id").val());
     });
   });
-
   $(document).ready(function() {
    $("#account_payable_historic_id").change(function() {
       var texto = $('select#account_payable_historic_id :selected').text();
       document.getElementById("account_payable_observacao").value = texto;
     });
   });
-
   function getSubCostCenter(id) {
     $.getJSON("/sub_centro_custo_by_custo", id, function(j) {
       var options = '<option value="">SELECT SUB COST CENTER</option>';
@@ -114,7 +122,6 @@
     $('input[name="account_payable[type_account]"]').change(function() {
         getTypeAccount("id="+$(this).val());
     });
-
   function getTypeAccount(id) {
     $.getJSON("/type_account_select", id, function(j) {
       var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
@@ -124,6 +131,5 @@
       $("#account_payable_supplier_id").html(options);
     });
   }  
-
 });
 </script>

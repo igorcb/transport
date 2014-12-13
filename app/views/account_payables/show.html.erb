@@ -1,5 +1,6 @@
 <%= render "data_account" %>
 
+<%= render 'shared/document', object: @account_payable %>
 
 <div class="form-group">
   <%= link_to 'Editar',edit_account_payable_path(@account_payable), class: "btn btn-primary" %>
