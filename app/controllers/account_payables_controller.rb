@@ -101,6 +101,7 @@ class AccountPayablesController < ApplicationController
   end
 
   def pay
+
     if !params[:data_pagamento].present?
       flash[:danger] = "Data Pagamento can't be blank."
       redirect_to lower_account_payable_path(params[:id])

@@ -1,6 +1,6 @@
 <%= render "data_account" %>
 
-<%= form_tag({:controller => "account_payables", action: :pay}, :method => "post", :name => "make_pay") do %>
+<%= form_tag({:controller => "account_payables", action: :pay}, :method => "post", :name => "make_pay") do |f| %>
 <fieldset>
  
   <legend></legend>
@@ -15,7 +15,9 @@
     <%= text_field_tag :valor_pago, "", value: @account_payable.valor,  class: "form-control" %>
   </div>
 
-	<div class="form-group">
+  <hr />
+	
+  <div class="form-group">
   	<%= submit_tag("Efetuar Baixar", class: "btn btn-primary") %> 
     <%= link_to "Voltar", @account_payable, class: "btn btn-default" %> 
     <%= link_to "Listar Todos", account_payables_path, class: "btn btn-default" %> 
