@@ -1,18 +1,25 @@
 <fieldset class="item">
-  <%= f.label :tipo %>
-  <%= f.select :tipo, [['FIXO', '0'], ['CELULAR', '1'], ['E-MAIL', '2'], ['TWITTER', '3'], ['FACEBOOK', '4'], 
-  ['RESPONSAVEL CARGA', '5'], ['RESPONSAVEL PALETE', '6']]  %>
+  <div class="row">
+    <div class="col-xs-2">  
+      <%= f.select :tipo, [['FIXO', '0'], ['CELULAR', '1'], ['E-MAIL', '2'], ['TWITTER', '3'], ['FACEBOOK', '4'], 
+          ['RESPONSAVEL CARGA', '5'], ['RESPONSAVEL PALETE', '6']], {include_blank: true}, {class: "form-control input-sm" }  %>
+    </div>
 
-  <%= f.label :nome %>
-  <%= f.text_field :nome %>
+    <div class="col-xs-2">  
+      <%= f.text_field :nome, class: "form-control input-sm", placeholder: "Nome do contato"  %>
+    </div>
 
-  <%= f.label :fone %>
-  <%= f.text_field :fone %>
+    <div class="col-xs-2">  
+      <%= f.text_field :fone, class: "form-control input-sm phone_with_ddd", placeholder: "Telefone"  %>
+    </div>
 
-  <%= f.label :complemento %>
-  <%= f.text_field :complemento %>
+    <div class="col-xs-4">  
+      <%= f.text_field :complemento, class: "form-control input-sm", placeholder: "complemento"  %>
+    </div>
 
-  <a href="#" class="remove" data-confirm="Are you sure?">remove</a>
+    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
+
+  </div>
 
   <%= f.hidden_field :id %>
   <%= f.hidden_field :_destroy %>
