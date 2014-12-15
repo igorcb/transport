@@ -95,7 +95,7 @@ class DriversController < ApplicationController
         :cnh, :registro_cnh, :categoria, :validade_cnh, :nome_do_pai, :nome_da_mae, :avatar,
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
-        account_banks_attributes: [:banco, :nome_banco, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
+        account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy],
         drivings_attributes: [:vehicle_id, :id, :_destroy]
         )

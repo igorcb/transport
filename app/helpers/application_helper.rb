@@ -34,4 +34,7 @@ module ApplicationHelper
     date.nil? ? "" : date.strftime("%d-%m-%Y")
   end
 
+  def select_tipo_operacao
+    ([['Conta Corrente', 0], ['Conta Poupança', 1],["Conta Salário", 2]])
+  end
 end

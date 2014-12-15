@@ -9,13 +9,32 @@ class AccountBank < ActiveRecord::Base
 
   before_save :select_bank
 
+  module TipoOperacao
+    CONTA_CORRENTE = 0
+    CONTA_POUPANCA = 1
+    CONTA_SALARIO  = 2
+  end
+
+  def nome_tipo_operacao
+    case self.tipo_operacao
+      when 0  then "Conta Corrente"
+      when 1  then "Conta Poupança"
+      when 2  then "Conta Salario"
+    else "Nao Definido"
+    end
+  end
+
   def select_bank
   	bank = Bank.find (self.banco)
   	self.nome_banco = bank.nome
   end
 
   def cod_banco
-  	bank = Bank.find (self.banco)
-  	bank.banco
+    if self.banco.to_i == 0
+      "Nao Definido"
+    else  
+  	  bank = Bank.find (self.banco)
+  	  bank.banco
+    end
   end
 end

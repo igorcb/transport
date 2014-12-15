@@ -83,7 +83,7 @@ class ClientsController < ApplicationController
       :valor_volume, :valor_peso,
       contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
       emails_attributes: [:setor, :contato, :email, :responsavel_carga, :id, :_destroy],
-      account_banks_attributes: [:banco, :nome_banco, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
+      account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
       assets_attributes: [:asset, :id, :_destroy]
       )
             
