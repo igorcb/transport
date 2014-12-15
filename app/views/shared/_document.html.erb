@@ -3,11 +3,12 @@
 <div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
   <% object.assets.each do |asset| %>
     <% if asset.is_image? %>
-      <%= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"} %> 
+      <%= label_tag :asset_file_name, asset.asset_file_name %> 
+      <%= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"}, title: asset.asset_file_name %> 
     <% else %>
       <%= link_to image_tag("image_pdf.png", size: "120x90"), asset.asset.url(:original, false) %>
     <% end  %>
-  
+    <br />
   <% end %>
 </div>    
 <br />    
@@ -17,7 +18,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Documentos</h4>
+        <h4 class="modal-title" id="myModalLabel">Documento: </h4>
       </div>
       <div class="modal-body">
       <!-- Carousel -->
@@ -43,7 +44,7 @@
                   <div class="">
                     <div class="">
                       <!-- <a href="ligue-1212x180-cinza" class="thumbnail"><img src="<%#= asset_path( 'ligue-1212x180-cinza.jpg' ) %>" alt="Oil Barrons" style="max-width:100%;" /></a></div> -->
-
+                      <h4 class="modal-title" id="myModalLabel"> <%= asset.asset_file_name %> </h4>
                       <%= image_tag (asset.asset.url(:original)), alt: "Oil Barrons", style:"max-width:100%; vertical-align: middle;" if object.assets.present? %>
                     </div>
                   </div>
