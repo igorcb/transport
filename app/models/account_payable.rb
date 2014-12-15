@@ -46,6 +46,7 @@ class AccountPayable < ActiveRecord::Base
       when 0  then "Fornecedor"
       when 1  then "Motorista"
       when 2  then "Cliente"
+      when 3  then "Funcionario"
     end
   end
 
@@ -88,6 +89,7 @@ class AccountPayable < ActiveRecord::Base
       when 0 then self.supplier_type = "Supplier"
       when 1 then self.supplier_type = "Driver"
       when 2 then self.supplier_type = "Client"
+      when 3 then self.supplier_type = "Employee"
     end
   end
 
