@@ -160,6 +160,8 @@
       <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
   </div>
 
+  <hr />
+
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  client_path(@client), class: "btn btn-info" if !@client.new_record? %>

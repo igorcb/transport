@@ -103,34 +103,54 @@
     <%= f.text_area :obs, class: "form-control"  %>
   </div>
 
-  <h2>Contatos</h2>
   <div id="phones">
-    <div class="items">
-      <%= f.nested_fields_for :contacts do |f| 
-        render 'shared/contact', f: f
-      end -%>
-    </div>
-    <a href="#" class="add">add contact</a>
+    <fieldset>
+      <legend>Contatos</legend>
+        <div class="items">
+          <%= f.nested_fields_for :contacts do |f| 
+            render 'shared/contact', f: f
+          end -%>
+        </div>
+        <div class="row">
+          <div class="col-xs-2">
+            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>  
+          </div>  
+        </div>
+    </fieldset>
   </div>
 
-  <h2>Contas Bancarias</h2>
   <div id="accounts">
-    <div class="items">
-      <%= f.nested_fields_for :account_banks do |f| %>
-        <%= render "shared/form_account_bank", f: f %> 
-      <% end %>
-    </div>
-    <a href="#" class="add">add account bank</a>
-  </div>
+    <fieldset>
+      <legend>Contas Bancarias</legend>
+      <div class="items">
+        <%= f.nested_fields_for :account_banks do |f| %>
+          <%= render "shared/form_account_bank", f: f %> 
+        <% end %>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-2">
+          <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>  
+        </div>  
+      </div>
+    
+    </fieldset>
+  </div>  
 
-  <h2>Tabela de Preços</h2>
   <div id="prices">
-    <div class="items">
-      <%= f.nested_fields_for :table_prices do |f| %>
-        <%= render "form_table_price", f: f %> 
-      <% end %>
-    </div>
-    <a href="#" class="add">add price</a>
+    <fieldset>
+      <legend>Tabela de Preços</legend>
+      <div class="items">
+        <%= f.nested_fields_for :table_prices do |f| %>
+          <%= render "form_table_price", f: f %> 
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="col-xs-2">
+          <a href="#" class="btn btn-success btn-sm add">[+] Tab. Preço</a>  
+        </div>  
+      </div>
+    </fieldset>
   </div>
 
   <h2>Documentos</h2> 
@@ -140,18 +160,25 @@
         render 'shared/asset', f: f
       end  -%>
     </div>
-    <a href="#" class="add">add documento</a>
+      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
   </div>
 
-  <h2>Veículos</h2> 
   <div id="drivers">
-    <div class="items">
-      <%= f.nested_fields_for :drivings do |f| 
-        render 'vehicle', f: f
-      end  -%>
-    </div>
-    <a href="#" class="add">add veiculo</a> 
+    <fieldset>
+      <legend>Veículos</legend>
+      <div class="items">
+        <%= f.nested_fields_for :drivings do |f| 
+          render 'vehicle', f: f
+        end  -%>
+      </div>
+      <div class="row">
+        <div class="col-xs-2">
+          <br /> <a href="#" class="btn btn-success btn-sm add">[+] Tab. Preço</a>  
+        </div>  
+      </div>
   </div>
+   
+  <hr />
 
   <div class="form-actions">
     <%= f.submit "Salvar", class: "btn btn-primary" %>

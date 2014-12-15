@@ -1,9 +1,12 @@
 <fieldset class="item">
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.collection_select :vehicle_id, Vehicle.all, :id, :placa,  {:prompt => 'Select'}, {class: "form-control input-sm" }  %>
+    </div>  
 
-  <%= f.label :vehicle_id, "Placa" %>
-  <%= f.collection_select :vehicle_id, Vehicle.all, :id, :placa,  {:prompt => 'Select'} %>
+    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
 
-  <a href="#" class="remove">remove</a>
+  </div>
 
   <%= f.hidden_field :id %>
   <%= f.hidden_field :_destroy %>

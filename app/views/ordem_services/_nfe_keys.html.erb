@@ -1,11 +1,14 @@
 <fieldset class="item">
-  <%= f.label :nfe %>
-  <%= f.text_field :nfe %>
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.text_field :nfe, class: "form-control input-sm", placeholder: "Nfe"  %>
+    </div>
 
-  <%= f.label :chave %>
-  <%= f.text_field :chave, maxlength: 44, size: 100 %>
-
-  <a href="#" class="remove" data-confirm="Are you sure?">remove</a>
+    <div class="col-xs-6">
+      <%= f.text_field :nfe, maxlength: 44, class: "form-control input-sm", placeholder: "Chave"  %>
+    </div>
+    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
+  </div>
 
   <%= f.hidden_field :id %>
   <%= f.hidden_field :_destroy %>
