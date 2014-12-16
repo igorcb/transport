@@ -19,67 +19,7 @@
 <body>
 
   <div class="container">
-    <nav role="navigation" class="navbar navbar-default">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a href="/links" class="navbar-brand"><%= full_title(yield(:title)) %></a>
-      </div>
-      <!-- Collection of nav links and other content for toggling -->
-      <% if signed_in? %>
-        <div id="navbarCollapse" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><%= link_to "Links", links_path %></li>
-
-            <li><%= link_to "Grupo de Cliente", group_clients_path %></li>
-            <li><%= link_to "Clientes", clients_path %></li>
-            <li><%= link_to "Motoristas", drivers_path %></li>
-            <li><%= link_to "Funcionarios", employees_path %></li>
-            <li><%= link_to "Fornecedores", suppliers_path %></li>
-            <li><%= link_to "Transportadoras", carriers_path %></li>
-            <li><%= link_to "Veículos", vehicles_path %></li>
-            <li><%= link_to "Tipos Servicos", type_services_path %></li>
-
-            <li><%= link_to "Proprietários", owners_path %></li>
-            <li><%= link_to "Especialidades", specialties_path %></li>
-            <li><%= link_to "Atividades", activities_path %></li>
-            <li><%= link_to "Atendimentos", phone_calls_path %></li>
-            <li><%= link_to "Categorias", categories_path %></li>
-            <li><%= link_to "Produtos", products_path %></li>
-            <li><%= link_to "Orçamentos", budgets_path %></li>
-            <li><%= link_to "Controle CT-e", operatings_path %></li>
-
-            <li><%= link_to "Ordem Serviço", ordem_services_path %></li>
-            <li><%= link_to "Agenda OS", search_path %></li>
-            <li><%= link_to "Paletes", pallets_path %></li>
-            <li><%= link_to "Estoque Paletes", stocks_path %></li>
-
-            <li><%= link_to "Faturar", faturamento_path %></li>
-            <li><%= link_to "Faturamentos", billings_path %></li>
-
-            <li><%= link_to "Historicos", historics_path %></li>
-            <li><%= link_to "Centro de Custo", cost_centers_path %></li>
-            <li><%= link_to "Sub Centro de Custo", sub_cost_centers_path %></li>
-            <li><%= link_to "Forma de Pagamento", payment_methods_path %></li>
-
-            <li><%= link_to "Contas a Pagar", account_payables_path %></li>
-            <li><%= link_to "Baixa de Pagamentos", lower_payables_path %></li>
-
-            <li><%= link_to "Sair", destroy_user_session_path, method: "delete" %> </li>
-          </ul>
-          <!--             
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Login</a></li>
-          </ul>
-          -->        
-        </div>
-      <% end %>
-    </nav>
+     <%= render 'layouts/menu' %>
   </div>
 
   <div class="container">
