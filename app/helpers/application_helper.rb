@@ -37,4 +37,12 @@ module ApplicationHelper
   def select_tipo_operacao
     ([['Conta Corrente', 0], ['Conta Poupança', 1],["Conta Salário", 2]])
   end
+
+  def to_real(number)
+     number_to_currency(number, :separator => ",", :delimiter => ".")
+  end
+
+  def to_decimal(decimal)
+     number_to_currency(decimal, :separator => ",", :delimiter => ".", :precision => 3 )
+  end
 end

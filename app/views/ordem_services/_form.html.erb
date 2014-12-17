@@ -48,7 +48,7 @@
   </div>
   <div class="form-group">
     <%= f.label :peso %><br>
-    <%= f.text_field :peso, class: "form-control money3"  %>
+    <%= f.text_field :peso, class: "form-control money3", value: to_decimal(@ordem_service.peso) %>
   </div>
   <div class="form-group">
     <%= f.label :observacao %><br>
