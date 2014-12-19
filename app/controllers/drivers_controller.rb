@@ -74,10 +74,14 @@ class DriversController < ApplicationController
   # DELETE /drivers/1
   # DELETE /drivers/1.json
   def destroy
-    @driver.destroy
-    respond_to do |format|
-      format.html { redirect_to drivers_url }
-      format.json { head :no_content }
+    if @driver.destroy
+      respond_to do |format|
+        format.html { redirect_to drivers_url }
+        format.json { head :no_content }
+      end
+    else
+      flash[:danger] = "The deletion failed because: " + @driver.errors.full_messages.to_sentence
+      redirect_to drivers_url
     end
   end
 

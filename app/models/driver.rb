@@ -44,6 +44,10 @@ class Driver < ActiveRecord::Base
   accepts_nested_attributes_for :drivings, allow_destroy: true, reject_if: :all_blank
 
   has_many :account_payables, class_name: "AccountPayable", foreign_key: "supplier_id"
+  has_many :ordem_services
+
+  before_destroy :can_destroy?
+
 
   module Categoria
   	A = 0
@@ -89,4 +93,11 @@ class Driver < ActiveRecord::Base
     fone
   end
 
+  private
+    def can_destroy?
+      if self.ordem_services.present? || self.account_payables.present?
+        errors.add(:base, "You can not delete record with relationship") 
+        return false
+      end
+    end
 end
