@@ -75,6 +75,11 @@ class AccountPayablesController < ApplicationController
   def destroy
     @account_payable.destroy
     respond_with(@account_payable)
+    # @account_payable.destroy
+    # respond_to do |format|
+    #   format.html { redirect_to account_payables_url }
+    #   format.json { head :no_content }
+    # end
   end
 
   def lower_payables
