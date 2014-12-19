@@ -63,10 +63,14 @@ class ClientsController < ApplicationController
   # DELETE /clients/1
   # DELETE /clients/1.json
   def destroy
-    @client.destroy
-    respond_to do |format|
-      format.html { redirect_to clients_url }
-      format.json { head :no_content }
+    if @client.destroy
+      respond_to do |format|
+        format.html { redirect_to clients_url }
+        format.json { head :no_content }
+      end
+    else
+      flash[:danger] = "The deletion failed because: " + @client.errors.full_messages.to_sentence
+      redirect_to clients_url
     end
   end
 
