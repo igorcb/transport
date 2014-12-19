@@ -55,11 +55,15 @@ class TypeServicesController < ApplicationController
   # DELETE /type_services/1
   # DELETE /type_services/1.json
   def destroy
-    @type_service.destroy
-    respond_to do |format|
-      format.html { redirect_to type_services_url }
-      format.json { head :no_content }
-    end
+    if @type_service.destroy
+      respond_to do |format|
+        format.html { redirect_to type_services_url }
+        format.json { head :no_content }
+      end
+    else
+      flash[:danger] = "The deletion failed because: " + @type_service.errors.full_messages.to_sentence
+      redirect_to type_services_url
+    end      
   end
 
   private

@@ -11,6 +11,10 @@ class TypeService < ActiveRecord::Base
 
   has_one :billing
 
+  has_many :ordem_service_type_services
+
+  before_destroy :can_destroy?
+
   module Tipo
   	MUDANCA = 0
    	LOGISTICA = 1
@@ -26,5 +30,13 @@ class TypeService < ActiveRecord::Base
     end
   end 
 
-  
+  private
+    def can_destroy?
+      if self.ordem_service_type_services.present? 
+        errors.add(:base, "You can not delete record with relationship") 
+        return false
+      end
+    end  
+ 
 end
+
