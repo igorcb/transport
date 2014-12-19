@@ -46,8 +46,12 @@ class PaymentMethodsController < ApplicationController
   end
 
   def destroy
-    @payment_method.destroy
-    respond_with(@payment_method)
+    if @payment_method.destroy
+      respond_with(@payment_method)
+    else
+      flash[:danger] = "The deletion failed because: " + @payment_method.errors.full_messages.to_sentence
+      redirect_to payment_methods_url
+    end        
   end
 
   private
