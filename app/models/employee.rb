@@ -28,7 +28,9 @@ class Employee < ActiveRecord::Base
 
   has_attached_file :avatar, styles: lambda { |a| a.instance.avatar_content_type =~ %r(image) ? { mini: "144x90>"} : {} }
   #validates_attachment_presence :avatar
- 
+
+  has_many :account_payables, class_name: "AccountPayable", foreign_key: "supplier_id"
+  before_destroy :can_destroy?
 
   module TipoEmployee
   	FIXO = 0
@@ -43,5 +45,13 @@ class Employee < ActiveRecord::Base
     end
     
   end
+
+  private
+    def can_destroy?
+      if self.account_payables.present? 
+        errors.add(:base, "You can not delete record with relationship") 
+        return false
+      end
+    end
 
 end
