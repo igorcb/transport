@@ -47,8 +47,12 @@ class HistoricsController < ApplicationController
   end
 
   def destroy
-    @historic.destroy
-    respond_with(@historic)
+    if @historic.destroy
+      respond_with(@historic)
+    else
+      flash[:danger] = "The deletion failed because: " + @historic.errors.full_messages.to_sentence
+      redirect_to historics_url
+    end      
   end
 
   private
