@@ -47,8 +47,14 @@ class CostCentersController < ApplicationController
   end
 
   def destroy
-    @cost_center.destroy
-    respond_with(@cost_center)
+    #@cost_center.destroy
+    #respond_with(@cost_center)
+    if @cost_center.destroy
+      respond_with(@cost_center)
+    else
+      flash[:danger] = "The deletion failed because: " + @cost_center.errors.full_messages.to_sentence
+      redirect_to cost_centers_url
+    end
   end
 
   private
