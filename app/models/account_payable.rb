@@ -10,7 +10,7 @@ class AccountPayable < ActiveRecord::Base
   validates :valor, presence: true, numericality: { greater_than: 0 }
   validates :observacao, presence: true
 
-  belongs_to :supplier, class_name: "Supplier", foreign_key: "supplier_id", polymorphic: true, dependent: :destroy  
+  belongs_to :supplier, class_name: "Supplier", foreign_key: "supplier_id", polymorphic: true
   belongs_to :cost_center
   belongs_to :sub_cost_center
   belongs_to :historic
