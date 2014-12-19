@@ -30,8 +30,21 @@ class Supplier < ActiveRecord::Base
   has_many :account_banks, class_name: "AccountBank", foreign_key: "account_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :account_banks, allow_destroy: true
 
+  has_many :account_payables, class_name: "AccountPayable", foreign_key: "supplier_id"
+
+  before_destroy :can_destroy?
+
   module TipoPessoa
   	FISICA = 0
   	JURIDICA = 1
   end	
+
+  private 
+    def can_destroy?
+      if self.account_payables.present?
+        errors.add(:base, "You can not delete record with relationship") 
+        return false
+      end
+    end
+
 end

@@ -59,11 +59,15 @@ class SuppliersController < ApplicationController
   # DELETE /suppliers/1
   # DELETE /suppliers/1.json
   def destroy
-    @supplier.destroy
-    respond_to do |format|
-      format.html { redirect_to suppliers_url }
-      format.json { head :no_content }
-    end
+    if @supplier.destroy
+      respond_to do |format|
+        format.html { redirect_to suppliers_url }
+        format.json { head :no_content }
+      end
+    else
+      flash[:danger] = "The deletion failed because: " + @supplier.errors.full_messages.to_sentence
+      redirect_to suppliers_url
+    end      
   end
 
   private
