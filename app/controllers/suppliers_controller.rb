@@ -1,6 +1,7 @@
 class SuppliersController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /suppliers
   # GET /suppliers.json

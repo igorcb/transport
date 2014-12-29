@@ -1,6 +1,7 @@
 class SpecialtiesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_specialty, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /specialties
   # GET /specialties.json

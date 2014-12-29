@@ -1,5 +1,6 @@
 class PaymentMethodsController < ApplicationController
   before_action :set_payment_method, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   respond_to :html
 

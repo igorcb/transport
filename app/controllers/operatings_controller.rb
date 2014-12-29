@@ -1,6 +1,7 @@
 class OperatingsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_operating, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /operatings
   # GET /operatings.json

@@ -1,5 +1,5 @@
 class OrdemService < ActiveRecord::Base
-  
+  resourcify
   validates :driver_id, presence: true
   validates :client_id, presence: true
   #validates :data, presence: true

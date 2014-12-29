@@ -1,7 +1,7 @@
 class DriversController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_driver, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
 
   def nome_banco
     bank_id = params[:id].to_i

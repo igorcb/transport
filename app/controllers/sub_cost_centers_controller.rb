@@ -1,5 +1,6 @@
 class SubCostCentersController < ApplicationController
   before_action :set_sub_cost_center, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   respond_to :html
 
