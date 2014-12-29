@@ -1,3 +1,8 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Home", dashboard_path %></li>
+  <li class="active">Pallet</li>
+</ol>
+
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Proprietários</div>
   <div class="panel-body">
@@ -27,9 +32,9 @@
               <td><%= date_br(pallet.data_agendamento) %></td>
               <td><%= pallet.qtde %></td>
               <td><%= pallet.status_name %></td>
-              <td><%= link_to 'Show', pallet, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_pallet_path(pallet), class: "btn btn-primary btn-sm" %></td>
-              <td><%= link_to 'Destroy', pallet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+              <td><%= link_to 'Show', pallet, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_pallet_path(pallet), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Destroy', pallet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>
