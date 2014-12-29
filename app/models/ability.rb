@@ -7,7 +7,7 @@ class Ability
     if user.has_role? :admin
       can :manage, :all
     elsif  user.has_role? :oper
-      can :manage, OrdemService
+      #can :manage, OrdemService
       # can :write, Forum if user.has_role?(:moderator, Forum)
       # can :write, Forum, :id => Forum.with_role(:moderator, user).pluck(:id)
     end
