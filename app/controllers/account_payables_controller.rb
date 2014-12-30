@@ -88,7 +88,8 @@ class AccountPayablesController < ApplicationController
   end
   
   def search
-    @q = AccountPayable.where(status: AccountPayable::TipoStatus::ABERTO).order('id desc').search(params[:q])
+    #@q = AccountPayable.where(status: AccountPayable::TipoStatus::ABERTO).order('id desc').search(params[:q])
+    @q = AccountPayable.where(status: AccountPayable::TipoStatus::ABERTO).order('data_vencimento desc').search(params[:q])
     @account_payables = @q.result
   end
 
