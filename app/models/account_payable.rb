@@ -47,6 +47,7 @@ class AccountPayable < ActiveRecord::Base
       when 1  then "Motorista"
       when 2  then "Cliente"
       when 3  then "Funcionario"
+      when 4  then "Transportadora"
     end
   end
 
@@ -82,6 +83,14 @@ class AccountPayable < ActiveRecord::Base
     end
   end
 
+  private 
+    def can_destroy?
+      if self.account_payables.present? ||
+        errors.add(:base, "You can not delete record with relationship") 
+        return false
+      end
+    end
+
   protected
   
   def set_supplier_type
@@ -90,6 +99,7 @@ class AccountPayable < ActiveRecord::Base
       when 1 then self.supplier_type = "Driver"
       when 2 then self.supplier_type = "Client"
       when 3 then self.supplier_type = "Employee"
+      when 4 then self.supplier_type = "Carrier"
     end
   end
 

@@ -11,6 +11,7 @@ class AccountPayablesController < ApplicationController
       when 1 then suppliers = Driver.order('nome')
       when 2 then suppliers = Client.order('nome')
       when 3 then suppliers = Employee.order('nome')
+      when 4 then suppliers = Carrier.order('nome')
     end
     sup = []
     suppliers.each do |s|
