@@ -12,6 +12,21 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, flash: { danger: exception.message }
+    redirect_to dashboard_path, flash: { danger: exception.message }
   end
+
+  def after_sign_in_path_for(resource_or_scope)
+    if current_user.has_role? :admin
+      links_path
+    else
+      dashboard_path
+    end
+  end
+
+  before_filter do
+    resource = controller_name.singularize.to_sym
+    method = "#{resource}_params"
+    params[resource] &&= send(method) if respond_to?(method, true)
+  end  
+  
 end
