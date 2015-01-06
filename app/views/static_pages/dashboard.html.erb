@@ -1,0 +1,34 @@
+<!-- 
+  <div class="row">
+  
+  <div class="col-xs-6 col-md-3">
+    <%#= link_to image_tag("pallet_option.png", {height: 115, width: 64, data: {src:"holder.js/64%115"} }), new_pallet_path, title: "Novo Pallet", class: "thumbnail" %>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <%#= link_to image_tag("pallets_home.png",  {height: 115, width: 64, data: {src:"holder.js/64%115"} }), index_visit_pallets_path, title: "Listagem Pallets", class: "thumbnail" %>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <%#= link_to image_tag("logout-button.png", {height: 115, width: 64, data: {src:"holder.js/64%115"} }), destroy_user_session_path, method: "delete", title: "Sair", class: "thumbnail" %>
+  </div>
+	
+  </div>
+-->
+
+<ul class="list-group">
+  <li class="list-group-item">
+    <%= link_to "Solicitar Coleta de Palletes", new_pallet_path, title: "Novo Pallet" %>
+    <span class="label label-success">novo</span>
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><%= Pallet.open.sum(:qtde_informada) %></span>
+    <%= link_to "Quantidade de Palletes para Coletadar", visit_open_pallets_path, title: "Listagem Pallets" %>
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><%= Pallet.complete.sum(:qtde) %></span>
+    <%= link_to "Quantidade de Palletes Coletados", visit_complete_pallets_path, title: "Listagem Pallets" %>
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><%= Pallet.sum(:qtde_informada) %></span>
+    <%= link_to "Total de Palletes Solicitados", visit_all_pallets_path, title: "Listagem Pallets" %>
+  </li>
+</ul>

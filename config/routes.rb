@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+
+  match '/dashboard', :controller => 'static_pages', :action => 'dashboard', via: [:get, :post]
   match "type_account_select" => "account_payables#type_account_select", via: [:get]
   match "/sub_centro_custo_by_custo" => "account_payables#sub_centro_custo_by_custo", via: [:get]
   match "/account_payables_search" => "account_payables#search", via: [:get]
@@ -10,6 +12,7 @@ Transport::Application.routes.draw do
   match 'faturamento' => "ordem_services#faturamento",  via: [:get]
   match 'invoice' => "ordem_services#invoice",  via: [:post]
   match '/stocks', :controller => 'pallets', :action => 'estoque', via: [:get]
+  match '/pallets/get_client_by_cnpj', :controller => 'pallets', :action => 'get_client_by_cnpj', via: [:get]
 
   resources :account_payables do 
     member do
@@ -27,7 +30,11 @@ Transport::Application.routes.draw do
   resources :historics
 
   resources :pallets do
-
+    collection do
+      get 'visit_all'
+      get 'visit_complete'
+      get 'visit_open'
+    end
     member do
       get 'driver_select'
       post 'create_os'

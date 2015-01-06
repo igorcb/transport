@@ -48,7 +48,12 @@
 </div>
 
 <div class="form-group">
-  <%= link_to 'Editar', edit_pallet_path(@pallet), class: "btn btn-primary" %>
-  <%= link_to 'Listar Todos', pallets_path, class: "btn btn-default" %>
-  <%= link_to 'Gerar Ordem Servico', driver_select_pallet_path, class: "btn btn-success" %>
+  <% if current_user.has_role? :admin %>
+    <%= link_to 'Editar', edit_pallet_path(@pallet), class: "btn btn-primary" %>
+    <%= link_to 'Listar Todos', pallets_path, class: "btn btn-default" %>
+    <%= link_to 'Gerar Ordem Servico', driver_select_pallet_path, class: "btn btn-success" if current_user.has_role? :admin %>
+  <% else %>
+    <%= link_to 'Listar Todos', index_visit_pallets_path, class: "btn btn-default" %>
+  <% end %>
+  
 </div>

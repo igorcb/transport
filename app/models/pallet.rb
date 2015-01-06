@@ -6,6 +6,13 @@ class Pallet < ActiveRecord::Base
   belongs_to :client
   before_create :set_status
 
+  scope :open, -> { where(status: 0) }
+  scope :complete, -> { where(status: 2) }
+  scope :state_all, -> { all.joins(:client).select("clients.estado as estado, sum(qtde_informada) as qtde").group("clients.estado").having("sum(qtde_informada) > 0") }
+  scope :state_open,  -> { open.joins(:client).select("clients.estado as estado, sum(qtde_informada) as qtde").group("clients.estado").having("sum(qtde_informada) > 0") }
+  scope :state_complete, -> { complete.joins(:client).select("clients.estado as estado, sum(qtde) as qtde").group("clients.estado").having("sum(qtde) > 0") }
+
+
   def set_status
   	self.status = 0
   end
@@ -15,6 +22,7 @@ class Pallet < ActiveRecord::Base
 	    when 0 then "Aberto"
 	    when 1 then "Agendado"
 	    when 2 then "OS Criada"
+      when 3 then "Concluido"
     end
   end
 

@@ -3,9 +3,19 @@
  
   <%= render 'shared/error_messages', object: f.object %>
   <div class="form-group">
-    <%= f.label :client_id %><br>
-    <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%= label_tag :client_cpf_cpnj %><br>
+    <% if @pallet.new_record? %>
+      <%= text_field_tag :client_cpf_cpnj, nil, class: "form-control cnpj" %>
+    <% else %>
+      <%= text_field_tag :client_cpf_cpnj, @pallet.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= render partial: "client", locals: { client: @pallet.client } %>
+    <% end %>
   </div>
+
+  <div id="client_cnpj_result">
+
+  </div>
+
   <div class="form-group">
     <%= f.label :data_informada, "Data Agenda Ype" %><br>
     <% if @pallet.new_record? %>
@@ -18,22 +28,45 @@
     <%= f.label :qtde_informada, "Qtde Ype" %><br>
     <%= f.number_field :qtde_informada, class: "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :data_agendamento %><br>
-    <% if @pallet.new_record? %>
-      <%= f.text_field :data_agendamento, class: "form-control data" %>
-    <% else %>
-      <%= f.text_field :data_agendamento, class: "form-control data", value: date_br(@pallet.data_agendamento) %>
-    <% end %>
-  </div>
-  <div class="form-group">
-    <%= f.label :qtde %><br>
-    <%= f.number_field :qtde, class: "form-control" %>
-  </div>
+  <% if current_user.has_role? :admin %>
+    <div class="form-group">
+      <%= f.label :data_agendamento %><br>
+      <% if @pallet.new_record? %>
+        <%= f.text_field :data_agendamento, class: "form-control data" %>
+      <% else %>
+        <%= f.text_field :data_agendamento, class: "form-control data", value: date_br(@pallet.data_agendamento) %>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= f.label :qtde %><br>
+      <%= f.number_field :qtde, class: "form-control" %>
+    </div>
+  <% end %>
   <hr />
+  <% if current_user.has_role? :admin %>
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  pallet_path(@pallet), class: "btn btn-info" if !@pallet.new_record? %>
     <%= link_to "Listar Todos", pallets_path, class: "btn btn-default" %>
   </div>  
+  <% else %>
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to 'Listar Todos', visit_all_pallets_path, class: "btn btn-default" %>
+  <% end %>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#client_cpf_cpnj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj},
+        url: 'get_client_by_cnpj'
+      });
+
+    });
+  });
+</script>
+

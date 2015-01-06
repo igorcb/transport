@@ -1,7 +1,17 @@
 class PalletsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_pallet, only: [:show, :edit, :update, :destroy, :driver_select]
+
   load_and_authorize_resource
+
+  #respond_to :html, :js, :json
+
+  def get_client_by_cnpj
+    @client = Client.find_by_cpf_cnpj(params[:cpf_cpnj])
+    respond_to do |format|
+      format.js
+    end
+  end
 
   # GET /pallets
   # GET /pallets.json
@@ -26,7 +36,9 @@ class PalletsController < ApplicationController
   # POST /pallets
   # POST /pallets.json
   def create
+    client = Client.find_by_cpf_cnpj(params[:client_cpf_cpnj])
     @pallet = Pallet.new(pallet_params)
+    @pallet.client_id = client.id
 
     respond_to do |format|
       if @pallet.save
@@ -104,6 +116,18 @@ class PalletsController < ApplicationController
     redirect_to ordem_services_path
   end
 
+  def visit_all
+    @pallets = Pallet.state_all
+  end
+
+  def visit_complete
+    @pallets = Pallet.state_complete
+  end
+
+  def visit_open
+    @pallets = Pallet.state_open
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pallet
@@ -114,4 +138,5 @@ class PalletsController < ApplicationController
     def pallet_params
       params.require(:pallet).permit(:client_id, :data_agendamento, :qtde, :data_informada, :qtde_informada, :status)
     end
+
 end
