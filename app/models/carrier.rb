@@ -26,7 +26,16 @@ class Carrier < ActiveRecord::Base
 
   has_many :account_payables, class_name: "AccountPayable", foreign_key: "supplier_id"
 
+  has_many :ordem_services
+
   before_destroy :can_destroy?
   
+  private 
+    def can_destroy?
+      if self.ordem_services.present? || self.account_payables.present?
+        errors.add(:base, "You can not delete record with relationship") 
+        return false
+      end
+    end
 
 end

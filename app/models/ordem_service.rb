@@ -8,9 +8,11 @@ class OrdemService < ActiveRecord::Base
   validates :cidade, presence: true, length: { in: 3..100 }
   validates :cte, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }, uniqueness: true, if: "tipo != 2"
   validates :danfe_cte, presence: true, length: { is: 44 }, numericality: { only_integer: true }, if: "tipo != 2"
+  validates :carrier_id, presence: true, if: "tipo == 2"
   
   belongs_to :driver
   belongs_to :client
+  belongs_to :carrier
 
   has_many :nfe_keys, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_keys, allow_destroy: true, :reject_if => :all_blank

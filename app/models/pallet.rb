@@ -30,12 +30,13 @@ class Pallet < ActiveRecord::Base
 
     ActiveRecord::Base.transaction do
       os = OrdemService.create!(tipo: OrdemService::TipoOS::PALETE,
-                               driver_id: args[0],
+                               carrier_id: args[0],
+                               driver_id: args[1],
                                client_id: self.client_id,
                                data: self.data_agendamento,
-                               placa: args[1],
-                               estado: args[2],
-                               cidade: args[3]
+                               placa: args[2],
+                               estado: args[3],
+                               cidade: args[4]
                                )
       valor = self.qtde * 9
       OrdemServiceTypeService.create!(ordem_service_id: os.id, 

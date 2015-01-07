@@ -11,6 +11,15 @@
        <%= @ordem_service.driver.cpf %>
     </p>
 
+    <% if @ordem_service.tipo == OrdemService::TipoOS::PALETE %>
+      <p>
+        <strong>Agente:</strong>
+        <%= link_to "#{ @ordem_service.carrier.nome }", @ordem_service.carrier %> 
+        <strong>CNPJ:</strong>
+         <%= @ordem_service.carrier.cnpj %>
+      </p>
+    <% end %>
+
     <p>
       <strong>Contatos:</strong>
       <%= @ordem_service.driver.telefone_completo %>

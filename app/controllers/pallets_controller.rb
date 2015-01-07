@@ -90,10 +90,15 @@ class PalletsController < ApplicationController
       return
     end
     @drivers = Driver.order('nome')
+    @carriers = Carrier.order('nome')
   end
   
   def create_os
-    if params[:driver_id].blank? 
+    if params[:carrier_id].blank? 
+      flash[:danger] = "Carrier can not be blank."
+      redirect_to driver_select_pallet_path(params[:pallet_id])
+      return
+    elsif params[:driver_id].blank? 
       flash[:danger] = "Driver can not be blank."
       redirect_to driver_select_pallet_path(params[:pallet_id])
       return
@@ -112,7 +117,7 @@ class PalletsController < ApplicationController
     end
 
     @pallet = Pallet.find(params[:pallet_id])
-    @pallet.create_os(params[:driver_id], params[:placa], params[:estado], params[:cidade])
+    @pallet.create_os(params[:carrier_id], params[:driver_id], params[:placa], params[:estado], params[:cidade])
     redirect_to ordem_services_path
   end
 

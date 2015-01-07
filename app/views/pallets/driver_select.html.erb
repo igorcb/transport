@@ -13,6 +13,10 @@
   <%= hidden_field_tag :pallet_id, @pallet.id %>
 
   <div class="form-group">
+    <%= label_tag :carrier_id, "Agente" %>
+    <%= select_tag :carrier_id, options_from_collection_for_select(@carriers, "id", "nome"), :prompt => "Selecione uma Transportadora", class: "form-control" %>
+  </div>
+  <div class="form-group">
     <%= label_tag :driver_id, "Motorista" %>
     <%= select_tag :driver_id, options_from_collection_for_select(@drivers, "id", "nome"), :prompt => "Selecione um Motorista", class: "form-control" %>
   </div>
