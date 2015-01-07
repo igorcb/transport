@@ -8,4 +8,8 @@
 	  <%= render 'layouts/menu_visit' %>
 	<% end %>
 	
+	<% if current_user.has_role? :agent %>
+	  <%= render 'layouts/menu_agent' %>
+	<% end %>
+
 <% end %>
