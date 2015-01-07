@@ -1,3 +1,8 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Home", dashboard_path %></li>
+  <li class="active">User change password</li>
+</ol>
+
 <%= form_for(@user, :url => { :action => "update_password" } ) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   
@@ -11,6 +16,7 @@
     <span class="help-block">(we need your current password to confirm your changes)</span>
   </div>
   <div class="form-action">
-    <%= f.submit %>
+     <%= f.submit "Update User", class: "btn btn-lg btn-primary" %>
+     <%= link_to "Back", dashboard_path , class: "btn btn-lg btn-default" %>
   </div>
 <% end %>
