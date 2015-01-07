@@ -10,6 +10,8 @@ class Ability
       #can :manage, OrdemService
     elsif  user.has_role? :visit
       can :manage, Pallet
+    elsif  user.has_role? :agent
+      can :manage, OrdemService
       #can :manage, OrdemService
       # can :write, Forum if user.has_role?(:moderator, Forum)
       # can :write, Forum, :id => Forum.with_role(:moderator, user).pluck(:id)

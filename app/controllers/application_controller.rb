@@ -12,14 +12,23 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to dashboard_path, flash: { danger: exception.message }
+    #redirect_to dashboard_agent_path, flash: { danger: exception.message}
+    if current_user.has_role? :admin
+      redirect_to root_path, flash: { danger: exception.message }
+    elsif current_user.has_role? :visit
+      redirect_to dashboard_visit_path, flash: { danger: exception.message }
+    else  
+      redirect_to dashboard_agent_path, flash: { danger: exception.message }
+    end
   end
 
   def after_sign_in_path_for(resource_or_scope)
     if current_user.has_role? :admin
       links_path
-    else
-      dashboard_path
+    elsif current_user.has_role? :visit
+      dashboard_visit_path
+    else  
+      dashboard_agent_path
     end
   end
 

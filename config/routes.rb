@@ -1,6 +1,7 @@
 Transport::Application.routes.draw do
 
-  match '/dashboard', :controller => 'static_pages', :action => 'dashboard', via: [:get, :post]
+  match '/dashboard_visit', :controller => 'static_pages', :action => 'dashboard_visit', via: [:get, :post]
+  match '/dashboard_agent', :controller => 'static_pages', :action => 'dashboard_agent', via: [:get, :post]
   match "type_account_select" => "account_payables#type_account_select", via: [:get]
   match "/sub_centro_custo_by_custo" => "account_payables#sub_centro_custo_by_custo", via: [:get]
   match "/account_payables_search" => "account_payables#search", via: [:get]
