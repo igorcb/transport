@@ -1,5 +1,7 @@
 <ol class="breadcrumb">
-  <% if current_user.has_role? :visit %>
+  <% if current_user.has_role? :admin %>
+    <li><%= link_to "Home", root_path %></li>
+  <% elsif current_user.has_role? :visit %>
     <li><%= link_to "Home", dashboard_visit_path %></li>
   <% else %>
     <li><%= link_to "Home", dashboard_agent_path %></li>
@@ -21,7 +23,9 @@
   </div>
   <div class="form-action">
     <%= f.submit "Update User", class: "btn btn-lg btn-primary" %>
-    <% if current_user.has_role? :visit %>
+    <% if current_user.has_role? :admin %>
+      <%= link_to "Back", root_path, class: "btn btn-lg btn-default" %>
+    <% elsif current_user.has_role? :visit %>
       <%= link_to "Back", dashboard_visit_path, class: "btn btn-lg btn-default" %>
     <% else %>
       <%= link_to "Back", dashboard_agent_path, class: "btn btn-lg btn-default" %>
