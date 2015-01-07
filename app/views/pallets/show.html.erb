@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-  <li><%= link_to "Home", dashboard_path %></li>
+  <li><%= link_to "Home", dashboard_visit_path %></li>
   <li><%= link_to "Pallet", pallets_path %></li>
   <li class="active">Show</li>
 </ol>
@@ -53,7 +53,7 @@
     <%= link_to 'Listar Todos', pallets_path, class: "btn btn-default" %>
     <%= link_to 'Gerar Ordem Servico', driver_select_pallet_path, class: "btn btn-success" if current_user.has_role? :admin %>
   <% else %>
-    <%= link_to 'Listar Todos', index_visit_pallets_path, class: "btn btn-default" %>
+    <%= link_to 'Listar Todos', visit_all_pallets_path, class: "btn btn-default" %>
   <% end %>
   
 </div>
