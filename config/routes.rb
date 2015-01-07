@@ -90,6 +90,11 @@ Transport::Application.routes.draw do
 
   resources :clients
   
+  resource :user, only: [:edit] do
+    collection do
+      patch 'update_password'
+    end
+  end  
   root 'links#index'
 
 end
