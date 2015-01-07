@@ -1,5 +1,9 @@
 <ol class="breadcrumb">
-  <li><%= link_to "Home", dashboard_path %></li>
+  <% if current_user.has_role? :visit %>
+    <li><%= link_to "Home", dashboard_visit_path %></li>
+  <% else %>
+    <li><%= link_to "Home", dashboard_agent_path %></li>
+  <% end %>
   <li class="active">User change password</li>
 </ol>
 
@@ -16,7 +20,11 @@
     <span class="help-block">(we need your current password to confirm your changes)</span>
   </div>
   <div class="form-action">
-     <%= f.submit "Update User", class: "btn btn-lg btn-primary" %>
-     <%= link_to "Back", dashboard_path , class: "btn btn-lg btn-default" %>
+    <%= f.submit "Update User", class: "btn btn-lg btn-primary" %>
+    <% if current_user.has_role? :visit %>
+      <%= link_to "Back", dashboard_visit_path, class: "btn btn-lg btn-default" %>
+    <% else %>
+      <%= link_to "Back", dashboard_agent_path, class: "btn btn-lg btn-default" %>
+    <% end %>
   </div>
 <% end %>

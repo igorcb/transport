@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       sign_in @user, :bypass => true
       if @user.has_role? :admin
       	redirect_to root_path, flash: { success: "You updated your account successfully" }
-      else @user.has_role? :visit
+      elsif @user.has_role? :visit
       	redirect_to dashboard_visit_path, flash: { success: "You updated your account successfully" }
       else
         redirect_to dashboard_agent_path, flash: { success: "You updated your account successfully" }
