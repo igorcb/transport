@@ -65,23 +65,21 @@
     <%= f.text_area :obs, class: "form-control"  %>
   </div>
 
-  <div id="accounts">
+  <div id="phones">
     <fieldset>
-      <legend>Contas Bancarias</legend>
-      <div class="items">
-        <%= f.nested_fields_for :account_banks do |f| %>
-          <%= render "shared/form_account_bank", f: f %> 
-        <% end %>
-      </div>
-      
-      <div class="row">
-        <div class="col-xs-2">
-          <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>  
-        </div>  
-      </div>
-    
+      <legend>Contatos</legend>
+        <div class="items">
+          <%= f.nested_fields_for :contacts do |f| 
+            render 'shared/contact', f: f
+          end -%>
+        </div>
+        <div class="row">
+          <div class="col-xs-2">
+            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>  
+          </div>  
+        </div>
     </fieldset>
-  </div>  
+  </div>
 
   <div id="emails">
     <fieldset>
