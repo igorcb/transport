@@ -45,8 +45,15 @@ Transport::Application.routes.draw do
   resources :billings
 
   resources :ordem_services do
-    get 'close_os' , on: :member
+    member do
+      get 'close_os'
+      get 'show_agent'
+      #get 'close_os_agent'
+    end
     match 'search' => 'people#search', via: [:get, :post], as: :search
+    collection do
+      get 'index_agent'
+    end
   end
 
   resources :group_clients
