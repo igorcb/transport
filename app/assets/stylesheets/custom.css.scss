@@ -66,6 +66,22 @@ select.date-select {
     visibility: hidden;        
   }
 
+.header_print_duplicate {
+    visibility: hidden;        
+  }
+
+.img_not_printer_duplicate {
+    visibility: hidden;        
+  }
+
+.duplicate_view {
+    visibility: hidden;        
+  }
+
+.signature_not_printer {
+   visibility: hidden;        
+}
+
 .thumb {
     margin-top: auto;
     margin-right: auto;
@@ -73,4 +89,8 @@ select.date-select {
 
 .client {
   background-color: #cccccc;
+}
+
+.jumbotron {
+  text-align: center;
 }

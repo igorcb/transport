@@ -1,6 +1,10 @@
 class StaticPagesController < ApplicationController
 	
-	def dashboard_agent
+  def home
+  	
+  end
+
+  def dashboard_agent
 
 	end
 
