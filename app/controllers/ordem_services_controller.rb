@@ -127,7 +127,8 @@ class OrdemServicesController < ApplicationController
 
   def index_agent
     #@q = OrdemService.order('id desc').search(params[:q])
-    @ordem_services = OrdemService.where(carrier_id: current_user.carrier_id, status: OrdemService::TipoStatus::ABERTO).order('id desc')
+    carrier = current_user.carrier_id.nil? ? -1 : current_user.carrier_id
+    @ordem_services = OrdemService.where(carrier_id: carrier, status: OrdemService::TipoStatus::ABERTO).order('id desc')
   end
 
   def show_agent
