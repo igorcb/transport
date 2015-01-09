@@ -1,5 +1,9 @@
 <ul class="list-group">
   <li class="list-group-item">
+    <%= link_to "Coleta de Palletes", index_agent_ordem_services_path, title: "Novo Pallet" %>
+    <span class="label label-success">novo</span>
+  </li>
+  <li class="list-group-item">
     <%= link_to "Sair", destroy_user_session_path, method: "delete", class: "label label-danger" %>
   </li>
 </ul>

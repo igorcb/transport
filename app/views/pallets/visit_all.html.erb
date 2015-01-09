@@ -28,6 +28,7 @@
 				            <th>Qtde Ype</th>
 				            <th>Data Agen</th>
 				            <th>Qtde</th>
+				            <th>Dt. Fecha</th>
 				            <th>Status</th>
 				            <th colspan="3">Opções</th>
 				          </tr>
@@ -42,6 +43,7 @@
 				              <td><%= p.qtde_informada %></td>
 				              <td><%= date_br(p.data_agendamento) %></td>
 				              <td><%= p.qtde %></td>
+				              <td><%= p.data_fechamento if p.data_fechamento.present? %></td>
 				              <td><%= p.status_name %></td>
 				              <td><%= link_to 'Show', p, class: "btn btn-info btn-xs" %></td>
 				            </tr>
