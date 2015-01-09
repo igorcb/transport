@@ -21,6 +21,11 @@ class OrdemServicesController < ApplicationController
   end
 
   def edit
+    if @ordem_service.status == OrdemService::TipoStatus::FECHADO
+      flash[:danger] = "Ordem Service already is closed."
+      redirect_to show_agent_ordem_service_path(@ordem_service)
+      return
+    end
   end
 
   def create
