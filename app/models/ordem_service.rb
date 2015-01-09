@@ -13,6 +13,7 @@ class OrdemService < ActiveRecord::Base
   belongs_to :driver
   belongs_to :client
   belongs_to :carrier
+  belongs_to :pallet
 
   has_many :nfe_keys, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_keys, allow_destroy: true, :reject_if => :all_blank
@@ -92,6 +93,10 @@ class OrdemService < ActiveRecord::Base
     return valor  
   end 
 
+  def qtde
+    self.ordem_service_type_service.sum(:qtde)
+  end
+
   def danfes
     nfes = []
     self.nfe_keys.each do |n|
@@ -120,6 +125,15 @@ class OrdemService < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       billing = Billing.create(data: data, valor: valor_total, type_service_id: type_service, status: Billing::TipoStatus::ABERTO , obs: hash_ids.to_s)
       OrdemService.where(id: hash_ids).update_all(status: TipoStatus::FATURADO, billing_id: billing.id)
+    end
+  end
+
+  def self.close_os_agent(ordem_service)
+    data = Time.now.strftime('%Y-%m-%d')
+    qtde = OrdemServiceTypeService.where(ordem_service_id: ordem_service).sum(:qtde_recebida)
+    ActiveRecord::Base.transaction do
+      Pallet.update(ordem_service.pallet, status: Pallet::TipoStatus::CONCLUIDO, qtde: qtde, data_fechamento: data)
+      OrdemService.update(ordem_service, status: TipoStatus::FECHADO)
     end
   end
 

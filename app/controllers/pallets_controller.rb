@@ -117,7 +117,7 @@ class PalletsController < ApplicationController
     end
 
     @pallet = Pallet.find(params[:pallet_id])
-    @pallet.create_os(params[:carrier_id], params[:driver_id], params[:placa], params[:estado], params[:cidade])
+    @pallet.create_os(params[:carrier_id], params[:driver_id], params[:placa], params[:estado], params[:cidade], params[:pallet_id])
     redirect_to ordem_services_path
   end
 

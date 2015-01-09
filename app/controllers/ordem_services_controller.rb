@@ -38,15 +38,28 @@ class OrdemServicesController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @ordem_service.update(ordem_service_params) 
-        format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully updated." } }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+    if current_user.has_role? :admin
+      respond_to do |format|
+        if @ordem_service.update(ordem_service_params) 
+          format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully updated." } }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+        end
       end
-    end
+    else
+      respond_to do |format|
+        if @ordem_service.update(ordem_service_params) 
+          OrdemService.close_os_agent(@ordem_service)
+          format.html { redirect_to show_agent_ordem_service_path(@ordem_service.id), flash: { success: "Ordem Service was successfully updated." } }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+        end
+      end
+    end  
   end
 
   def destroy
@@ -107,6 +120,15 @@ class OrdemServicesController < ApplicationController
     redirect_to billings_path
   end
 
+  def index_agent
+    #@q = OrdemService.order('id desc').search(params[:q])
+    @ordem_services = OrdemService.where(carrier_id: current_user.carrier_id, status: OrdemService::TipoStatus::ABERTO).order('id desc')
+  end
+
+  def show_agent
+    @ordem_services = OrdemService.where(id: params[:id], carrier_id: current_user.carrier_id)
+    respond_with(@ordem_service)
+  end
 
   private
     def set_ordem_service
@@ -116,7 +138,7 @@ class OrdemServicesController < ApplicationController
     def ordem_service_params
       params.require(:ordem_service).permit(:driver_id, :client_id, :data, :placa, :estado, :cidade, :cte, :danfe_cte, :valor_receita, :valor_despesas, :valor_liquido, 
         :observacao, :status, :qtde_volume, :peso, :data_entrega_servico, :senha_sefaz,
-        nfe_keys_attributes: [:nfe, :chave, :id, :_destroy],
+        nfe_keys_attributes: [:nfe, :chave, :qtde, :id, :_destroy],
         ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :qtde, :qtde_recebida, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )

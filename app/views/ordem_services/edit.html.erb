@@ -1,3 +1,7 @@
-<h1>Editing ordem_service</h1>
-
-<%= render 'form' %>
+<% if current_user.has_role? :admin %>
+	<h1>Editing ordem_service</h1>
+	<%= render 'form' %>
+<% else %>
+	<h2>Fechamento de ordem de coleta</h2>
+	<%= render 'form_agent' %>
+<% end %>

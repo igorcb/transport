@@ -4,14 +4,22 @@ class Pallet < ActiveRecord::Base
   validates :qtde_informada, presence: true, numericality: { greater_than: 0 }
   validates :qtde, presence: true, numericality: { greater_than: 0 }, if: :data_agendamento?
   belongs_to :client
+  has_one :ordem_service
   before_create :set_status
 
   scope :open, -> { where(status: 0) }
-  scope :complete, -> { where(status: 2) }
+  scope :complete, -> { where(status: 3) }
   scope :state_all, -> { all.joins(:client).select("clients.estado as estado, sum(qtde_informada) as qtde").group("clients.estado").having("sum(qtde_informada) > 0") }
   scope :state_open,  -> { open.joins(:client).select("clients.estado as estado, sum(qtde_informada) as qtde").group("clients.estado").having("sum(qtde_informada) > 0") }
   scope :state_complete, -> { complete.joins(:client).select("clients.estado as estado, sum(qtde) as qtde").group("clients.estado").having("sum(qtde) > 0") }
 
+
+  module TipoStatus
+    ABERTO    = 0
+    AGENDADO  = 1
+    OS_CRIADA = 2
+    CONCLUIDO = 3
+  end
 
   def set_status
   	self.status = 0
@@ -36,7 +44,8 @@ class Pallet < ActiveRecord::Base
                                data: self.data_agendamento,
                                placa: args[2],
                                estado: args[3],
-                               cidade: args[4]
+                               cidade: args[4],
+                               pallet_id: args[5]
                                )
       valor = self.qtde * 9
       OrdemServiceTypeService.create!(ordem_service_id: os.id, 
