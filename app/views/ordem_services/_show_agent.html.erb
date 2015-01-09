@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Coleta de Paletes: <%= ordem_service.id %> - <%= ordem_service.status_name %></h2>
+  </div>
+
+  <div class="panel-body">
+    <p style="text-align: center;">
+      <strong>Solicitante:</strong> QUÍMICA AMPARO–YPÊ
+    </p>
+    
+    <p>
+      <strong>Cliente:</strong>
+      <%= ordem_service.client.nome %>
+    </p>
+
+    <p>
+      <strong>Contato:</strong>
+      <%= ordem_service.client.telefone_completo_palete  %>
+    </p>
+
+    <p>
+      <strong>Endereço:</strong>
+      <%= ordem_service.client.endereco %>
+    </p>
+
+    <p>
+      <strong>Complemento:</strong>
+      <%= ordem_service.client.complemento %>
+    </p>
+
+    <p>
+      <strong>Bairro:</strong>
+      <%= ordem_service.client.bairro %> - 
+      <strong>Cidade:</strong>
+      <%= ordem_service.client.cidade %> - <%= ordem_service.client.estado %> 
+    </p>
+
+    <p>
+      <strong>Qtde:</strong>
+      <%= ordem_service.qtde %> PALETES
+    </p>
+
+  </div>
+
+</div>
