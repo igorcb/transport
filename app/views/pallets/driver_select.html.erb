@@ -26,12 +26,14 @@
   </div>
   <div class="form-group">
     <%= label_tag :estado, "Estado" %>
-    <%= select_tag "Estado", options_for_select(select_uf),:name=>"estado",:id=>"estado", prompt: "Selecione um Estado",class: "form-control " %>
-    
+    <%#= select_tag "Estado", options_for_select(select_uf), :name=>"estado", :id=>"estado", prompt: "Selecione um Estado", class: "form-control", disabled: true %>
+    <%= text_field_tag :estado, @pallet.client.estado, class: "form-control", disabled: true %>
+    <%= hidden_field_tag :estado, @pallet.client.estado %>
   </div>
   <div class="form-group">
     <%= label_tag :cidade, "Cidade" %>
-    <%= text_field_tag :cidade, nil, class: "form-control" %>
+    <%= text_field_tag :cidade, @pallet.client.cidade, class: "form-control", disabled: true %>
+    <%= hidden_field_tag :cidade, @pallet.client.cidade %>
   </div>
 
   <%= submit_tag("Criar OS", class: "btn btn-primary") %> 

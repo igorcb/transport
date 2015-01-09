@@ -3,11 +3,11 @@
 
   <div class="form-group">
     <%= f.label :cnpj %>
-    <%= f.text_field :cnpj, class: "form-control" %>
+    <%= f.text_field :cnpj, maxlength: 18, class: "form-control cnpj" %>
   </div>
   <div class="form-group">
     <%= f.label :nome %>
-    <%= f.text_field :nome, class: "form-control" %>
+    <%= f.text_field :nome, class: "form-control", style: "text-transform:uppercase" %>
   </div>
   <div class="form-group">
     <%= f.label :fantasia %>

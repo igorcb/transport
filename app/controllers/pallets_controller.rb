@@ -106,14 +106,6 @@ class PalletsController < ApplicationController
       flash[:danger] = "Placa can not be blank."
       redirect_to driver_select_pallet_path(params[:pallet_id])
       return
-    elsif params[:estado].blank? 
-      flash[:danger] = "Estado can not be blank."
-      redirect_to driver_select_pallet_path(params[:pallet_id])
-      return
-    elsif params[:cidade].blank? 
-      flash[:danger] = "Cidade can not be blank."
-      redirect_to driver_select_pallet_path(params[:pallet_id])
-      return
     end
 
     @pallet = Pallet.find(params[:pallet_id])
