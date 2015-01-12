@@ -33,6 +33,7 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     @client = Client.new(client_params)
+    #@client =
     respond_to do |format|
       if @client.save
         format.html { redirect_to @client, flash: { success: "Client was successfully created." } }
