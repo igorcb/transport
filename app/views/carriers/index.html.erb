@@ -18,9 +18,9 @@
         <tbody>
           <% @carriers.each do |carrier| %>
             <tr>
-              <td><%= carrier.cnpj %></td>
-              <td><%= carrier.nome %></td>
-              <td><%= carrier.fantasia %></td>
+              <td><%= link_to carrier.cnpj, carrier %></td>
+              <td><%= link_to truncate(carrier.nome, length: 25), title: carrier.nome %></td>
+              <td><%= link_to truncate(carrier.fantasia, length: 25), title: carrier.fantasia %></td>
               <td><%= carrier.estado %></td>
               <td><%= carrier.cidade %></td>
               <td><%= link_to 'Show', carrier, class: "btn btn-info btn-sm" %></td>
