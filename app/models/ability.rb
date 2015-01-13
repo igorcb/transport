@@ -11,7 +11,8 @@ class Ability
     elsif  user.has_role? :visit
       can :manage, Pallet
     elsif  user.has_role? :agent
-      can :manage, OrdemService, :carrier_id => user
+      can :manage, OrdemService, :carrier_id => user.carrier_id
+      #if user.has_role?(:agent, OrdemSerice.where(carrier_id: ?, user.carrier_id))
       #can :manage, OrdemService
       # can :write, Forum if user.has_role?(:moderator, Forum)
       # can :write, Forum, :id => Forum.with_role(:moderator, user).pluck(:id)
