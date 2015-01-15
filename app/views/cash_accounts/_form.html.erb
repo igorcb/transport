@@ -1,0 +1,36 @@
+<%= form_for(@cash_account) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :nome %>
+    <%= f.text_field :nome, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :bank_id, "Banco" %>
+    <%= f.select(:bank_id, Bank.order("banco").collect {|b| ["#{b.banco} - ""#{b.nome}", b.id ] }, {include_blank: "Selecione o Banco"}, {class: "form-control input-sm" }) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :agencia %>
+    <%= f.text_field :agencia, size: 6, maxlength: 6, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :conta_corrente %>
+    <%= f.text_field :conta_corrente, size: 10, maxlength: 10, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :ted_doc, "Ted/Doc" %><br>
+    <% if @cash_account.new_record? %>
+      <%= f.text_field :ted_doc, value: 0, class: "form-control money2" %>
+    <% else %>
+      <%= f.text_field :ted_doc, class: "form-control money2" %>
+    <% end %>
+  </div>
+
+  <hr />
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  cash_account_path(@cash_account), class: "btn btn-info" if !@cash_account.new_record? %>
+    <%= link_to "Listar Todos", cash_accounts_path, class: "btn btn-default" %>
+  </div>
+  
+<% end %>

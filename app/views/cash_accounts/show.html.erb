@@ -1,0 +1,29 @@
+<p>
+  <strong>Nome:</strong>
+  <%= @cash_account.nome %>
+</p>
+
+<p>
+  <strong>Banco:</strong>
+  <%= @cash_account.bank.nome_completo if @cash_account.bank.present? %>
+</p>
+
+<p>
+  <strong>Agencia:</strong>
+  <%= @cash_account.agencia %>
+</p>
+
+<p>
+  <strong>Conta corrente:</strong>
+  <%= @cash_account.conta_corrente %>
+</p>
+
+<p>
+  <strong>Ted doc:</strong>
+  <%= @cash_account.ted_doc %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_cash_account_path(@cash_account), class: "btn btn-primary" %>
+  <%= link_to 'Voltar', cash_accounts_path, class: "btn btn-default" %>
+</div>
