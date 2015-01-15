@@ -14,6 +14,7 @@ class OrdemService < ActiveRecord::Base
   belongs_to :client
   belongs_to :carrier
   belongs_to :pallet
+  #belongs_to :type_service, through: :ordem_service_type_service
 
   has_many :nfe_keys, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_keys, allow_destroy: true, :reject_if => :all_blank

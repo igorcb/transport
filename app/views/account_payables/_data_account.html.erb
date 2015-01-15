@@ -39,9 +39,18 @@
 </p>
 
 <p>
+  <strong>Saldo:</strong>
+  <%= number_to_currency(@account_payable.saldo, unit: "R$ ", separator: ",", delimiter: ".")  %>
+</p>
+
+<p>
+  <strong>Total Pago:</strong>
+  <%= number_to_currency(@account_payable.total_pago, unit: "R$ ", separator: ",", delimiter: ".")  %>
+</p>
+
+<p>
   <strong>Observacao:</strong>
   <pre><%= @account_payable.observacao %></pre>
-  
 </p>
 
 <p>

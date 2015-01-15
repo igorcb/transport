@@ -15,7 +15,7 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :sub_cost_center
   belongs_to :historic
   belongs_to :payment_method
-  has_many :lower_account_payable
+  has_many :lower_account_payables
 
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
@@ -51,9 +51,21 @@ class AccountPayable < ActiveRecord::Base
     end
   end
 
-  def payament(data, valor, juros, desconto)
+  def total_pago
+    self.lower_account_payables.sum(:total_pago)
+  end
+
+  def saldo
+    sld = self.valor - self.lower_account_payables.sum(:valor_pago)
+  end
+
+#  def payament(data, valor, juros, desconto)
+  def payament(options)
+    #options ||= {}
     ActiveRecord::Base.transaction do
-      total = valor + juros - desconto
+      total = options[:valor_pago].to_f + options[:juros].to_f - options[:desconto].to_f
+      options[:total_pago] = total
+      puts ">>>>>>>>>>>>>>>>>>> New options : #{options}"
 
       if total >= self.valor
         self.status = TipoStatus::PAGO
@@ -61,7 +73,11 @@ class AccountPayable < ActiveRecord::Base
         self.status = TipoStatus::PAGOPARCIAL
       end
 
-      self.lower_account_payable.create!(data_pagamento: data, valor_pago: valor, juros: juros, desconto: desconto, total_pago: total)
+      self.lower_account_payables.create!(data_pagamento: options[:data_pagamento],
+                                          valor_pago: options[:valor_pago],
+                                          juros: options[:juros],
+                                          desconto: options[:desconto],
+                                          total_pago: options[:total_pago])
       self.save
     end
   end

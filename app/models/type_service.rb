@@ -12,6 +12,7 @@ class TypeService < ActiveRecord::Base
   has_one :billing
 
   has_many :ordem_service_type_services
+  #has_many :ordem_service, through: :ordem_service_type_services
 
   before_destroy :can_destroy?
 

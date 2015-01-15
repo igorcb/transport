@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Pagamento</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Dt. Pgto</th>
+            <th>Valor Pago</th>
+            <th>Juros</th>
+            <th>Desconto</th>
+            <th>Total pg.</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @account_payable.lower_account_payables.each do |lower| %>
+            <tr>
+						  <%= render 'lower_account_payables', lower_account_payable: lower %>
+           </tr>
+         <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

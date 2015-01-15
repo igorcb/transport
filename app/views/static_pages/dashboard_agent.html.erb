@@ -1,6 +1,6 @@
 <ul class="list-group">
   <li class="list-group-item">
-    <span class="badge"><%= OrdemService.where(carrier_id: current_user, status: OrdemService::TipoStatus::ABERTO).count %></span>
+    <span class="badge"><%= OrdemService.where(carrier_id: current_user.carrier_id, status: OrdemService::TipoStatus::ABERTO).count %></span>
     <%= link_to "Coleta de Palletes", index_agent_ordem_services_path, title: "Listagem Pallets" %>    
   </li>
   <li class="list-group-item">

@@ -109,21 +109,18 @@ class AccountPayablesController < ApplicationController
 
   def pay
 
-    if !params[:data_pagamento].present?
+    if !params[:lower_payables][:data_pagamento].present?
       flash[:danger] = "Data Pagamento can't be blank."
       redirect_to lower_account_payable_path(params[:id])
       return 
-    elsif !params[:valor_pago].present?
+    elsif !params[:lower_payables][:valor_pago].present?
       flash[:danger] = "Valor do Pagamento can't be blank."
       redirect_to lower_account_payable_path(params[:id])
       return
     end
 
-    data = params[:data_pagamento]
-    valor = params[:valor_pago].to_f
-
     respond_to do |format|
-      if @account_payable.payament(data, valor,0,0)
+      if @account_payable.payament(params[:lower_payables])
         format.html { redirect_to @account_payable, flash: { success: "Lower AccountsPayable was successful." } }
         #format.json { render action: 'show', status: :created, location: @account_payable }
       else
@@ -141,6 +138,7 @@ class AccountPayablesController < ApplicationController
     def account_payable_params
       params.require(:account_payable).permit(:supplier_id, :cost_center_id, :sub_cost_center_id, :historic_id, :data_vencimento, :documento, 
         :valor, :observacao, :status, :payment_method_id, :type_account,
+        lower_payables: [:data_pagamento, :valor_pago, :juros, :desconto, :total_pago],
         assets_attributes: [:asset, :id, :_destroy]
         )
     end
