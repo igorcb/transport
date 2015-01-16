@@ -71,6 +71,13 @@ class SuppliersController < ApplicationController
     end      
   end
 
+  def get_supplier_by_id
+    @supplier = Supplier.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_supplier

@@ -1,0 +1,7 @@
+<% if @supplier.present? %>
+  $('#div_result_person').empty(); 
+  $('#div_result_person').append("<%= j( render(:partial => 'result_supplier', locals: {supplier: @supplier}) ) %>");
+<% else %>
+  $('#div_result_person').empty();
+  $("#div_result_person").append("<%= j(content_tag(:div, content_tag(:p, "Not found any supplier"), class: "alert alert-danger")) %> ");
+<% end %>

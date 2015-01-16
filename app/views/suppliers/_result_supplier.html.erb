@@ -1,0 +1,52 @@
+<% if supplier.present? %>
+<!-- <div style="background-color: #F5F5F5;border-radius: 5%; margin-top: 10px;">
+	
+</div>
+ -->
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h2 class="panel-title">Dados do Fornecedor </h2>
+	  </div>
+	  <div class="panel-body">
+
+	  <div class="operatings-supplier-show">
+	        
+	        <p>
+	          <strong>Nome:</strong>
+	          <label class="fields"> 
+	            <%= link_to "#{ supplier.nome }", supplier %> 
+	          </label>
+	        </p>
+
+	        <p>
+	          <strong>CPF/CNPJ:</strong>
+	          <label class="fields"><%= supplier.cpf_cnpj %></label>
+	        </p>
+	        
+	        <p>
+	          <strong>Endereco:</strong>
+	          <label class="fields"><%= supplier.endereco %>, <%= supplier.numero %></label>
+	        </p>
+
+	        <p>
+	          <strong>Complemento:</strong>
+	          <label class="fields"><%= supplier.complemento %></label>
+	        </p>
+
+	        <p>
+	          <strong>Bairro:</strong>
+	          <label class="fields"><%= supplier.bairro %></label> - 
+	          <strong>Municipio:</strong>
+	          <label class="fields"><%= supplier.cidade %></label>
+	        </p>
+
+	  </div>
+
+	</div>
+
+
+
+<% end %>
+
+
+
