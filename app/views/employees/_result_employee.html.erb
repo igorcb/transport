@@ -1,0 +1,52 @@
+<% if employee.present? %>
+<!-- <div style="background-color: #F5F5F5;border-radius: 5%; margin-top: 10px;">
+	
+</div>
+ -->
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h2 class="panel-title">Dados do Funcionario </h2>
+	  </div>
+	  <div class="panel-body">
+
+	  <div class="operatings-employee-show">
+	        
+	        <p>
+	          <strong>Nome:</strong>
+	          <label class="fields"> 
+	            <%= link_to "#{ employee.nome }", employee %> 
+	          </label>
+	        </p>
+
+	        <p>
+	          <strong>CPF/CNPJ:</strong>
+	          <label class="fields"><%= employee.cpf %></label>
+	        </p>
+	        
+	        <p>
+	          <strong>Endereco:</strong>
+	          <label class="fields"><%= employee.endereco %>, <%= employee.numero %></label>
+	        </p>
+
+	        <p>
+	          <strong>Complemento:</strong>
+	          <label class="fields"><%= employee.complemento %></label>
+	        </p>
+
+	        <p>
+	          <strong>Bairro:</strong>
+	          <label class="fields"><%= employee.bairro %></label> - 
+	          <strong>Municipio:</strong>
+	          <label class="fields"><%= employee.cidade %></label>
+	        </p>
+
+	  </div>
+
+	</div>
+
+
+
+<% end %>
+
+
+
