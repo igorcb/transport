@@ -7,23 +7,23 @@
 
   <div class="radio">
     <label class="radio-inline"> 
-      <%= f.radio_button :type_account, "0" %> Fornecedor 
+      <%= f.radio_button :type_account, "1" %> Fornecedor 
     </label>
 
     <label class="radio-inline"> 
-      <%= f.radio_button :type_account, "1" %> Motorista
+      <%= f.radio_button :type_account, "2" %> Motorista
     </label>
 
     <label class="radio-inline"> 
-      <%= f.radio_button :type_account, "2" %> Cliente
+      <%= f.radio_button :type_account, "3" %> Cliente
     </label>
 
     <label class="radio-inline"> 
-      <%= f.radio_button :type_account, "3" %> Funcionario
+      <%= f.radio_button :type_account, "4" %> Funcionario
     </label>
 
     <label class="radio-inline"> 
-      <%= f.radio_button :type_account, "4" %> Transportadora
+      <%= f.radio_button :type_account, "5" %> Transportadora
     </label>
   </div>
 
@@ -34,6 +34,10 @@
     <% else %>
       <%= f.collection_select :supplier_id, [], :id, :nome,  {prompt: "SELECT O TIPO DE CONTA"}, {class: "form-control"}  %>
     <% end %>  
+  </div>
+
+  <div id="div_result_person">
+    
   </div>
 
   <div class="form-group">
@@ -128,6 +132,7 @@
 <script type="text/javascript">
   $(function() {
     $('input[name="account_payable[type_account]"]').change(function() {
+        $('#div_result_person').empty(); 
         getTypeAccount("id="+$(this).val());
     });
   function getTypeAccount(id) {
@@ -140,4 +145,46 @@
     });
   }  
 });
+</script>
+
+<script type="text/javascript">
+jQuery(function($) {
+  // when the #country field changes
+  var type = -1;
+
+  $(function() {
+    $('input[name="account_payable[type_account]"]').change(function() {
+      type = ($(this).val());
+    });
+  });
+  
+  $("#account_payable_supplier_id").change(function() {
+    // make a POST call and replace the content
+    var url_name = "";
+    var id = $('select#account_payable_supplier_id :selected').val();
+    if(id == "") 
+      id="0";
+    //console.log("url:" + url_name + ' - type: ' + type)  ;
+    console.log("type:" + type);
+    if (type == 1)
+      url_name = "/suppliers/get_supplier_by_id";
+    else if (type == 2)
+      url_name = "/drivers/get_driver_by_id";
+    else if (type == 3)
+      url_name = "/clients/get_client_by_id";
+    else if (type == 4)
+      url_name = "/employees/get_employee_by_id";
+    else if (type == 5)
+      url_name = "/carriers/get_carrier_by_id";
+    else url_name = '/';
+     //"\""+url_name+"\""
+    console.log("url: " + url_name);
+    $.ajax({
+      type: "GET",
+      data: {id: id},
+      url: url_name
+    });
+    return false;
+  });
+})
 </script>

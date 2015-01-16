@@ -1,7 +1,7 @@
 <% if @client.present? %>
-  $('#result_client').empty(); 
-  $('#result_client').append("<%= j( render(:partial => 'result_client', locals: {client: @client}) ) %>");
+  $('#div_result_person').empty(); 
+  $('#div_result_person').append("<%= j( render(:partial => 'result_client', locals: {client: @client}) ) %>");
 <% else %>
-  $('#result_client').empty();
-  $("#result_client").append("<%= j(content_tag(:div, content_tag(:p, "Not found any client"), class: "alert alert-danger")) %> ");
+  $('#div_result_person').empty();
+  $("#div_result_person").append("<%= j(content_tag(:div, content_tag(:p, "Not found any client"), class: "alert alert-danger")) %> ");
 <% end %>

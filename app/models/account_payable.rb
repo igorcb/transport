@@ -44,11 +44,12 @@ class AccountPayable < ActiveRecord::Base
 
   def type_account_name
     case self.type_account
-      when 0  then "Fornecedor"
-      when 1  then "Motorista"
-      when 2  then "Cliente"
-      when 3  then "Funcionario"
-      when 4  then "Transportadora"
+      when 1  then "Fornecedor"
+      when 2  then "Motorista"
+      when 3  then "Cliente"
+      when 4  then "Funcionario"
+      when 5  then "Transportadora"
+      else "*"
     end
   end
 
@@ -126,11 +127,12 @@ class AccountPayable < ActiveRecord::Base
   
   def set_supplier_type
     case self.type_account
-      when 0 then self.supplier_type = "Supplier"
-      when 1 then self.supplier_type = "Driver"
-      when 2 then self.supplier_type = "Client"
-      when 3 then self.supplier_type = "Employee"
-      when 4 then self.supplier_type = "Carrier"
+      when 1 then self.supplier_type = "Supplier"
+      when 2 then self.supplier_type = "Driver"
+      when 3 then self.supplier_type = "Client"
+      when 4 then self.supplier_type = "Employee"
+      when 5 then self.supplier_type = "Carrier"
+      else self.supplier_type = "Supplier"
     end
   end
 
