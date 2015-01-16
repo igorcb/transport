@@ -16,6 +16,7 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :historic
   belongs_to :payment_method
   belongs_to :cash_account
+  belongs_to :current_account
   has_many :lower_account_payables
 
   has_many :assets, as: :asset, dependent: :destroy
@@ -93,7 +94,8 @@ class AccountPayable < ActiveRecord::Base
                             data: options[:data_pagamento],  
                             valor: vr_pago,
                             tipo: CurrentAccount::TipoLancamento::DEBITO,
-                            historico: "BAIXA CONTA A PAGAR: " + self.documento
+                            historico: "BAIXA CONTA A PAGAR: " + self.documento,
+                            account_payable_id: self.id
                             )
     end
   end

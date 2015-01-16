@@ -6,6 +6,7 @@ class CurrentAccount < ActiveRecord::Base
   validates :historico, presence: true
 
   belongs_to :cash_account
+  has_many :account_payables
 
   module TipoLancamento
     CREDITO = 1

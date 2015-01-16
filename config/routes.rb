@@ -19,6 +19,10 @@ Transport::Application.routes.draw do
   match '/stocks', :controller => 'pallets', :action => 'estoque', via: [:get]
   match '/clients/get_client_by_cnpj', :controller => 'clients', :action => 'get_client_by_cnpj', via: [:get]
   match '/clients/get_client_by_id', :controller => 'clients', :action => 'get_client_by_id', via: [:get]
+  match '/drivers/get_driver_by_id', :controller => 'drivers', :action => 'get_driver_by_id', via: [:get]
+  match '/suppliers/get_supplier_by_id', :controller => 'suppliers', :action => 'get_supplier_by_id', via: [:get]
+  match '/carriers/get_carrier_by_id', :controller => 'carriers', :action => 'get_carrier_by_id', via: [:get]
+  match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
 
   resources :account_payables do 
     member do
