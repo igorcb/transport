@@ -1,0 +1,52 @@
+<% if driver.present? %>
+<!-- <div style="background-color: #F5F5F5;border-radius: 5%; margin-top: 10px;">
+	
+</div>
+ -->
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h2 class="panel-title">Dados do Motorista </h2>
+	  </div>
+	  <div class="panel-body">
+
+	  <div class="operatings-driver-show">
+	        
+	        <p>
+	          <strong>Nome:</strong>
+	          <label class="fields"> 
+	            <%= link_to "#{ driver.nome }", driver %> 
+	          </label>
+	        </p>
+
+	        <p>
+	          <strong>CPF/CNPJ:</strong>
+	          <label class="fields"><%= driver.cpf %></label>
+	        </p>
+	        
+	        <p>
+	          <strong>Endereco:</strong>
+	          <label class="fields"><%= driver.endereco %>, <%= driver.numero %></label>
+	        </p>
+
+	        <p>
+	          <strong>Complemento:</strong>
+	          <label class="fields"><%= driver.complemento %></label>
+	        </p>
+
+	        <p>
+	          <strong>Bairro:</strong>
+	          <label class="fields"><%= driver.bairro %></label> - 
+	          <strong>Municipio:</strong>
+	          <label class="fields"><%= driver.cidade %></label>
+	        </p>
+
+	  </div>
+
+	</div>
+
+
+
+<% end %>
+
+
+
