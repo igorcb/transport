@@ -72,10 +72,9 @@ class AccountPayable < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       vr_pago = options[:valor_pago].to_f + options[:juros].to_f - options[:desconto].to_f
       options[:total_pago] = vr_pago
-      puts ">>>>>>>>>>>>>>>>>>> total: #{vr_pago}"
-      puts ">>>>>>>> valor_total_pago: #{valor_total_pago}"
+
       vr_total_pago = valor_total_pago + options[:valor_pago].to_f
-      #if valor_total_pago >= self.valor
+
       if vr_total_pago >= self.valor
         self.status = TipoStatus::PAGO
       elsif vr_total_pago < self.valor
