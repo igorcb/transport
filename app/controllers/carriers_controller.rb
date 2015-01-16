@@ -66,6 +66,13 @@ class CarriersController < ApplicationController
     end
   end
 
+  def get_carrier_by_id
+    @carrier = Carrier.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_carrier

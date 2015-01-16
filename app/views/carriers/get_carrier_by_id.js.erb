@@ -1,0 +1,7 @@
+<% if @carrier.present? %>
+  $('#div_result_person').empty(); 
+  $('#div_result_person').append("<%= j( render(:partial => 'result_carrier', locals: {carrier: @carrier}) ) %>");
+<% else %>
+  $('#div_result_person').empty();
+  $("#div_result_person").append("<%= j(content_tag(:div, content_tag(:p, "Not found any carrier"), class: "alert alert-danger")) %> ");
+<% end %>
