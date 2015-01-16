@@ -1,0 +1,30 @@
+
+<p>
+  <strong>Conta:</strong>
+  <%= @current_account.cash_account.nome %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @current_account.data %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @current_account.valor %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @current_account.credito_debito %>
+</p>
+
+<p>
+  <strong>Historico:</strong>
+  <%= @current_account.historico %>
+</p>
+
+<div class="form-actions">
+  <%= link_to 'Edit', edit_current_account_path(@current_account), class: "btn btn-primary" %>
+  <%= link_to 'Back', current_accounts_path, class: "btn btn-default" %>
+</div>

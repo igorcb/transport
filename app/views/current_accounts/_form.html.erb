@@ -1,0 +1,30 @@
+<%= form_for(@current_account) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :cash_account_id, "Conta" %><br>
+    <%= f.select(:cash_account_id, CashAccount.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :data %><br>
+    <%= f.text_field :data, class: "form-control data" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :valor %><br>
+    <%= f.text_field :valor, class: "form-control money2" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :tipo  %>
+    <%= f.select( :tipo, select_credito_debito, {include_blank: "Selecione Crédito/Débito"}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :historico %><br>
+    <%= f.text_field :historico , class: "form-control"%>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  current_account_path(@client), class: "btn btn-info" if !@current_account.new_record? %>
+    <%= link_to "Listar Todos", current_accounts_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>

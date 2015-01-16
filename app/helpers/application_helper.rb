@@ -45,4 +45,8 @@ module ApplicationHelper
   def to_decimal(decimal)
      number_to_currency(decimal, :separator => ",", :delimiter => ".", :precision => 3 )
   end
+
+  def select_credito_debito
+    ([['Crédito', 1], ['Débito', -1]])
+  end
 end

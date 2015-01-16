@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :current_accounts
+
   resources :cash_accounts
 
   match '/dashboard_visit', :controller => 'static_pages', :action => 'dashboard_visit', via: [:get, :post]
