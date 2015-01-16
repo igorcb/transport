@@ -10,7 +10,7 @@
     <%= f.label :client_id, "Cliente" %><br>
     <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
-  <div id="result_client">
+  <div id="div_result_person">
     
   </div>
   <div class="form-group">
