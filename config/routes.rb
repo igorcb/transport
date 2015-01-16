@@ -17,7 +17,7 @@ Transport::Application.routes.draw do
   match 'faturamento' => "ordem_services#faturamento",  via: [:get]
   match 'invoice' => "ordem_services#invoice",  via: [:post]
   match '/stocks', :controller => 'pallets', :action => 'estoque', via: [:get]
-  match '/pallets/get_client_by_cnpj', :controller => 'pallets', :action => 'get_client_by_cnpj', via: [:get]
+  match '/clients/get_client_by_cnpj', :controller => 'clients', :action => 'get_client_by_cnpj', via: [:get]
 
   resources :account_payables do 
     member do

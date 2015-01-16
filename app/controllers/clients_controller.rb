@@ -5,6 +5,14 @@ class ClientsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
+
+  def get_client_by_cnpj
+    @client = Client.find_by_cpf_cnpj(params[:cpf_cpnj])
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   # GET /clients
   # GET /clients.json
   def index

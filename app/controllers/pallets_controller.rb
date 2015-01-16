@@ -6,13 +6,6 @@ class PalletsController < ApplicationController
 
   #respond_to :html, :js, :json
 
-  def get_client_by_cnpj
-    @client = Client.find_by_cpf_cnpj(params[:cpf_cpnj])
-    respond_to do |format|
-      format.js
-    end
-  end
-
   # GET /pallets
   # GET /pallets.json
   def index
