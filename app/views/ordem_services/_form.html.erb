@@ -10,6 +10,9 @@
     <%= f.label :client_id, "Cliente" %><br>
     <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
+  <div id="result_client">
+    
+  </div>
   <div class="form-group">
     <%= f.label :carrier_id, "Agent" %><br>
     <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
@@ -112,3 +115,21 @@
   </div>  
 
 <% end %>
+
+<script type="text/javascript">
+jQuery(function($) {
+  // when the #country field changes
+  $("#ordem_service_client_id").change(function() {
+    // make a POST call and replace the content
+    var id = $('select#ordem_service_client_id :selected').val();
+    if(id == "") 
+      id="0";
+    $.ajax({
+      type: "GET",
+      data: {id: id},
+      url: '/clients/get_client_by_id'
+    });
+    return false;
+  });
+})
+</script>

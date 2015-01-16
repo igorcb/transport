@@ -6,13 +6,6 @@ class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
-  def get_client_by_cnpj
-    @client = Client.find_by_cpf_cnpj(params[:cpf_cpnj])
-    respond_to do |format|
-      format.js
-    end
-  end
-  
   # GET /clients
   # GET /clients.json
   def index
@@ -80,6 +73,21 @@ class ClientsController < ApplicationController
       redirect_to clients_url
     end
   end
+
+  def get_client_by_cnpj
+    @client = Client.find_by_cpf_cnpj(params[:cpf_cpnj])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_client_by_id
+    @client = Client.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
