@@ -6,23 +6,28 @@
   <legend></legend>
 
   <div class="form-group">
+    <%= label_tag :cash_account_id, "Conta Corrente" %><br>
+    <%= select_tag "lower_payables[cash_account_id]", options_from_collection_for_select(@cash_accounts, "id", "nome"), :prompt => "Selecione uma conta", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= label_tag :data_pagamento %><br>
     <%= text_field_tag "lower_payables[data_pagamento]", "", class: "form-control data" %>
   </div>
 
   <div class="form-group">
     <%= label_tag :valor_pago, "Valor Pago" %><br>
-    <%= text_field_tag "lower_payables[valor_pago]", "", value: number_to_currency(@account_payable.saldo, unit: "R$ ", separator: ",", delimiter: "."),  class: "form-control input-sm money2" %>
+    <%= text_field_tag "lower_payables[valor_pago]", "", value: number_to_currency(@account_payable.saldo, unit: "R$ ", separator: ",", delimiter: "."),  class: "form-control money2" %>
   </div>
 
   <div class="form-group">
     <%= label_tag :juros %><br>
-    <%= text_field_tag "lower_payables[juros]", nil, class: "form-control input-sm money2" %>
+    <%= text_field_tag "lower_payables[juros]", nil, class: "form-control money2" %>
   </div>
 
   <div class="form-group">
     <%= label_tag :desconto %><br>
-    <%= text_field_tag "lower_payables[desconto]", nil, class: "form-control input-sm money2" %>
+    <%= text_field_tag "lower_payables[desconto]", nil, class: "form-control money2" %>
   </div>
 
   <hr />

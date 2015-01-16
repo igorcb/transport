@@ -100,6 +100,7 @@ class AccountPayablesController < ApplicationController
       redirect_to account_payables_path #(params[:id])
       return 
     end
+    @cash_accounts = CashAccount.order('nome')
   end
 
   def lower_all
@@ -108,8 +109,11 @@ class AccountPayablesController < ApplicationController
   end
 
   def pay
-
-    if !params[:lower_payables][:data_pagamento].present?
+    if !params[:lower_payables][:cash_account_id].present?
+      flash[:danger] = "Conta Corrente can't be blank."
+      redirect_to lower_account_payable_path(params[:id])
+      return 
+    elsif !params[:lower_payables][:data_pagamento].present?
       flash[:danger] = "Data Pagamento can't be blank."
       redirect_to lower_account_payable_path(params[:id])
       return 

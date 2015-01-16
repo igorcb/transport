@@ -1,4 +1,4 @@
-
+<td><%= lower_account_payable.cash_account.nome if lower_account_payable.cash_account.present? %></td>
 <td><%= date_br(lower_account_payable.data_pagamento) %></td>
 <td><%= number_to_currency(lower_account_payable.valor_pago, unit: "R$ ", separator: ",", delimiter: ".") %></td>
 <td><%= number_to_currency(lower_account_payable.juros, unit: "R$ ", separator: ",", delimiter: ".") %></td>

@@ -15,6 +15,7 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :sub_cost_center
   belongs_to :historic
   belongs_to :payment_method
+  belongs_to :cash_account
   has_many :lower_account_payables
 
   has_many :assets, as: :asset, dependent: :destroy
@@ -56,20 +57,26 @@ class AccountPayable < ActiveRecord::Base
   end
 
   def saldo
-    sld = self.valor - self.lower_account_payables.sum(:valor_pago)
+    self.valor - self.lower_account_payables.sum(:valor_pago)
+  end
+
+  def valor_total_pago
+    self.lower_account_payables.sum(:valor_pago)
   end
 
 #  def payament(data, valor, juros, desconto)
   def payament(options)
     #options ||= {}
     ActiveRecord::Base.transaction do
-      total = options[:valor_pago].to_f + options[:juros].to_f - options[:desconto].to_f
-      options[:total_pago] = total
-      puts ">>>>>>>>>>>>>>>>>>> New options : #{options}"
-
-      if total >= self.valor
+      vr_pago = options[:valor_pago].to_f + options[:juros].to_f - options[:desconto].to_f
+      options[:total_pago] = vr_pago
+      puts ">>>>>>>>>>>>>>>>>>> total: #{vr_pago}"
+      puts ">>>>>>>> valor_total_pago: #{valor_total_pago}"
+      vr_total_pago = valor_total_pago + options[:valor_pago].to_f
+      #if valor_total_pago >= self.valor
+      if vr_total_pago >= self.valor
         self.status = TipoStatus::PAGO
-      elsif total < self.valor
+      elsif vr_total_pago < self.valor
         self.status = TipoStatus::PAGOPARCIAL
       end
 
@@ -77,7 +84,9 @@ class AccountPayable < ActiveRecord::Base
                                           valor_pago: options[:valor_pago],
                                           juros: options[:juros],
                                           desconto: options[:desconto],
-                                          total_pago: options[:total_pago])
+                                          total_pago: options[:total_pago],
+                                          cash_account_id: options[:cash_account_id]
+                                          )
       self.save
     end
   end
