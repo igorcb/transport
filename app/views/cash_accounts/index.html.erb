@@ -11,6 +11,7 @@
             <th>Agencia</th>
             <th>Conta corrente</th>
             <th>Ted doc</th>
+            <th>Saldo</th>
             <th colspan="3">Opções</th>
           </tr>
         </thead>
@@ -23,6 +24,7 @@
               <td><%= cash_account.agencia %></td>
               <td><%= cash_account.conta_corrente %></td>
               <td><%= cash_account.ted_doc %></td>
+              <td><%= number_to_currency(cash_account.saldo, unit: "R$ ", separator: ",", delimiter: ".")  %></td>
               <td><%= link_to 'Show', cash_account, class: "btn btn-info btn-sm" %></td>
               <td><%= link_to 'Edit', edit_cash_account_path(cash_account), class: "btn btn-primary btn-sm" %></td>
               <td><%= link_to 'Destroy', cash_account, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>

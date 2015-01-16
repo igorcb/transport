@@ -1,17 +1,19 @@
 
 <p>
   <strong>Conta:</strong>
-  <%= @current_account.cash_account.nome %>
+  <%= @current_account.cash_account.nome %> | 
+  <strong>Saldo:</strong>
+  <%= number_to_currency(@current_account.cash_account.saldo, unit: "R$ ", separator: ",", delimiter: ".") %> 
 </p>
 
 <p>
   <strong>Data:</strong>
-  <%= @current_account.data %>
+  <%= date_br(@current_account.data) %>
 </p>
 
 <p>
   <strong>Valor:</strong>
-  <%= @current_account.valor %>
+  <%= number_to_currency(@current_account.valor, unit: "R$ ", separator: ",", delimiter: ".") %> 
 </p>
 
 <p>

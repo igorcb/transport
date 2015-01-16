@@ -4,4 +4,8 @@ class CashAccount < ActiveRecord::Base
   validates :ted_doc, presence: true
 
   has_many :account_payables
+
+  def saldo
+  	CurrentAccount.where(cash_account_id: self.id).sum('valor*tipo')
+  end
 end
