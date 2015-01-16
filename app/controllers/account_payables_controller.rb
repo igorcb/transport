@@ -7,11 +7,11 @@ class AccountPayablesController < ApplicationController
   def type_account_select
     type_id = params[:id].to_i
     case type_id
-      when 0 then suppliers = Supplier.order('nome')
-      when 1 then suppliers = Driver.order('nome')
-      when 2 then suppliers = Client.order('nome')
-      when 3 then suppliers = Employee.order('nome')
-      when 4 then suppliers = Carrier.order('nome')
+      when 1 then suppliers = Supplier.order('nome')
+      when 2 then suppliers = Driver.order('nome')
+      when 3 then suppliers = Client.order('nome')
+      when 4 then suppliers = Employee.order('nome')
+      when 5 then suppliers = Carrier.order('nome')
     end
     sup = []
     suppliers.each do |s|
