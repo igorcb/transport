@@ -6,11 +6,11 @@ module AccountPayablesHelper
 
   def type_account_select(type)
     case type
-      when 0 then Supplier.order('nome')
-      when 1 then Driver.order('nome')
-      when 2 then Client.order('nome')
-      when 3 then Employee.order('nome')
-      when 4 then Carrier.order('nome')
+      when 1 then Supplier.order('nome')
+      when 2 then Driver.order('nome')
+      when 3 then Client.order('nome')
+      when 4 then Employee.order('nome')
+      when 5 then Carrier.order('nome')
     end  	
   end
 end
