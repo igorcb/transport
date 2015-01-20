@@ -101,7 +101,7 @@ class ClientsController < ApplicationController
       :bairro, :cidade, :estado, :cep, :tipo_pessoa, :rg, :orgao_emissor, :data_emissao_rg, :obs, :hora_descarga, :condicao_recebimento, :group_client_id,
       :valor_volume, :valor_peso,
       contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
-      emails_attributes: [:setor, :contato, :email, :responsavel_carga, :id, :_destroy],
+      emails_attributes: [:setor, :contato, :email, :responsavel_carga, :comprovante, :id, :_destroy],
       account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
       assets_attributes: [:asset, :id, :_destroy]
       )

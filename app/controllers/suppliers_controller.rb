@@ -87,7 +87,7 @@ class SuppliersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def supplier_params
       params.require(:supplier).permit(:cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :instricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :tipo_pessoa, :obs,
-        emails_attributes: [:setor, :contato, :email, :id, :_destroy],
+        emails_attributes: [:setor, :contato, :email, :comprovante, :id, :_destroy],
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy],

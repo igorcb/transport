@@ -1,10 +1,11 @@
 <fieldset class="item">
+
   <div class="row">
-    <div class="col-xs-2">
+    <div class="col-xs-3">
       <%= f.text_field :setor, class: "form-control input-sm", placeholder: "Setor" %>
     </div>
 
-    <div class="col-xs-2">
+    <div class="col-xs-3">
       <%= f.text_field :contato, class: "form-control input-sm", placeholder: "Contato" %>
     </div>
     
@@ -12,12 +13,25 @@
       <%= f.text_field :email, class: "form-control input-sm", placeholder: "e-mail" %>
     </div>
 
-    <%= f.check_box :responsavel_carga, checked: f.object.responsavel_carga %> Responsavel pela carga
-
     <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
-    
-    <br/> <br/>
   </div> 
+
+  <div class="row">
+    <div class="col-xs-3">
+      <%= f.label "", class: "checkbox-inline" do %>
+        <%= f.check_box :responsavel_carga, checked: f.object.responsavel_carga %> Responsavel pela carga
+      <% end %>
+    </div>
+
+    <div class="col-xs-3">  
+      <%= f.label "", class: "checkbox-inline" do %>
+        <%= f.check_box :comprovante, checked: f.object.comprovante %> Recebe comprovante
+      <% end %>
+    </div>
+
+  </div>
+
+  <hr />
 
   <%= f.hidden_field :id %>
   <%= f.hidden_field :_destroy %>

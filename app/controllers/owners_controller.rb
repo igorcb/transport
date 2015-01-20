@@ -76,7 +76,7 @@ class OwnersController < ApplicationController
     def owner_params
       params.require(:owner).permit(:cpf_cnpj, :rg, :data_emissao, :orgao_emissor, :nome, :fantasia, :inscricao_estadual, :instricao_municipal,
         :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :obs, 
-        emails_attributes: [:setor, :contato, :email, :id, :_destroy],
+        emails_attributes: [:setor, :contato, :email, :comprovante, :id, :_destroy],
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         ownerships_attributes: [:vehicle_id, :id, :_destroy]
         )
