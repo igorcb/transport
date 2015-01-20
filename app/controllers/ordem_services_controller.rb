@@ -149,7 +149,7 @@ class OrdemServicesController < ApplicationController
       params.require(:ordem_service).permit(:driver_id, :client_id, :data, :placa, :estado, :cidade, :cte, :danfe_cte, :valor_receita, :valor_despesas, :valor_liquido, 
         :observacao, :status, :qtde_volume, :peso, :data_entrega_servico, :senha_sefaz, :carrier_id, 
         nfe_keys_attributes: [:nfe, :chave, :qtde, :id, :_destroy],
-        ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :qtde, :qtde_recebida, :id, :_destroy],
+        ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :qtde, :qtde_recebida, :valor_pago, :id, :_destroy],
         account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :valor, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )
