@@ -1,0 +1,62 @@
+<fieldset class="item">
+ 
+  <%#= f.label :banco, "Banco" %>
+  <%#= f.collection_select :banco, Bank.order('banco'), :id, :banco, {include_blank: "Selecione o Banco"}, :style => "width:60px" %>
+
+  <%#= f.label :nome_banco %>
+  <%#= f.text_field :nome_banco, size: 30, disabled: true, :style => "width:100px" %>
+
+  <%#= f.label :agencia %>
+  <%#= f.text_field :agencia, size: 10, :style => "width:40px" %>
+
+  <%#= f.label :conta_corrente %>
+  <%#= f.text_field :conta_corrente, size: 10, :style => "width:80px" %>
+
+  <%#= f.label :favorecido %>
+  <%#= f.text_field :favorecido, :style => "width:100px" %>
+
+  <%#= f.label :cpf_cnpj %>
+  <%#= f.text_field :cpf_cnpj, :style => "width:100px" %>
+
+<!--   <div class="form-group">
+    <%#= f.label :descricao %><br>
+    <%#= f.text_field :descricao, class: "form-control" %>
+  </div>  
+ -->
+
+  <br > 
+  <div class="form-group">
+    <%= f.select(:banco, Bank.order("banco").collect {|b| ["#{b.banco} - ""#{b.nome}", b.id ] }, {include_blank: "Selecione o Banco"}, {class: "form-control input-sm" }) %>
+  </div>
+  <div class="form-group">
+    <%= f.select( :tipo_operacao, [['Conta Corrente', 0], ['Conta Poupança', 1],["Conta Salário", 2]], {include_blank: "Selecione o Operação"}, {class: "form-control input-sm"} ) %>      
+  </div>
+
+  <div class="row">
+    <div class="col-xs-1">
+      <%= f.label :agencia %>
+      <%= f.text_field :agencia, size: 5, class: "form-control input-sm", placeholder: "Agencia"  %>
+    </div>
+    <div class="col-xs-1">
+      <%= f.label :conta_corrente, "C.Corrente" %>
+      <%= f.text_field :conta_corrente, size: 5, class: "form-control input-sm", placeholder: "Conta Corrente"  %>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :cpf_cnpj %>
+      <%= f.text_field :cpf_cnpj, class: "form-control input-sm", placeholder: "Cnpj ou CPF" %>
+    </div>
+    <div class="col-xs-4">
+      <%= f.label :favorecido %>
+      <%= f.text_field :favorecido, class: "form-control input-sm", placeholder: "Favorecido" %>
+    </div>
+    <div class="col-xs-2">
+      <%= f.label :valor %>
+      <%= f.text_field :valor, class: "form-control input-sm", placeholder: "Valor" %>
+    </div>
+    <br >
+    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
+  </div>
+
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :_destroy %>
+</fieldset>

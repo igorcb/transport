@@ -192,9 +192,19 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h2 class="panel-title"> Documentos </h2>
+    <h2 class="panel-title"> Contas Bancarias </h2>
   </div>
 
+  <div class="panel-body">  
+    <%= render 'show_account_bank', object: @ordem_service %>
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Documentos </h2>
+  </div>
 
     <div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
       <% @ordem_service.assets.each do |asset| %>

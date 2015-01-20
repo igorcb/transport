@@ -6,6 +6,7 @@ class AccountBank < ActiveRecord::Base
   belongs_to :carrier, class_name: "Carrier", foreign_key: "account_id", polymorphic: true, dependent: :destroy
   belongs_to :employee, class_name: "Employee", foreign_key: "account_id", polymorphic: true, dependent: :destroy
   belongs_to :supplier, class_name: "Supplier", foreign_key: "account_id", polymorphic: true, dependent: :destroy
+  belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "account_id", polymorphic: true, dependent: :destroy
 
   before_save :select_bank
 
