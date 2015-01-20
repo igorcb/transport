@@ -1,0 +1,33 @@
+<%#= cost_center.id %>
+<%#= CostCenter.order('descricao').each do |cost_center|  %>
+<%# Pallet.state_all.each do |pallet| %>
+
+<%# cost_center.sub_cost_centers.each do |sub_cost_center| %>
+<%#= sub_cost_center.descricao %>
+<%# end %>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <% CostCenter.order('descricao').each do |cost_center|  %>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading_cost_center<%= cost_center.id %>">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse_cost_center<%= cost_center.id %>" aria-expanded="true" aria-controls="collapse_cost_center<%= cost_center.id %>">
+            <%= cost_center.descricao %>
+          </a>
+          
+        </h4>
+      </div>
+      <div id="collapse_cost_center<%= cost_center.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_<%= cost_center.id %>">
+        <div class="panel-body">
+          
+          <ul class="list-group">
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>  
+</div>

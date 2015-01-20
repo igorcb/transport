@@ -29,6 +29,9 @@ Transport::Application.routes.draw do
       get 'lower'
       post 'pay'
     end    
+    collection do
+      get 'cost_centers'
+    end
   end
 
   resources :payment_methods

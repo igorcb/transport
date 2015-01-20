@@ -29,6 +29,11 @@ class AccountPayablesController < ApplicationController
     end
     render :json => {:sub => sub.compact}.as_json
   end
+  
+  #relatorio com quebra de centro de custo
+  def cost_centers 
+    
+  end
 
   def index
     @account_payables = AccountPayable.order('data_vencimento desc')
