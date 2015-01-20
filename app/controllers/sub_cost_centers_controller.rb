@@ -61,6 +61,6 @@ class SubCostCentersController < ApplicationController
     end
 
     def sub_cost_center_params
-      params.require(:sub_cost_center).permit(:cost_center_id, :descricao)
+      params.require(:sub_cost_center).permit(:cost_center_id, :descricao, :type_service_id)
     end
 end

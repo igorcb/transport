@@ -12,6 +12,11 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :type_service_id, "Tipo de Serviço" %>
+    <%= f.select(:type_service_id, TypeService.logistica.collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  sub_cost_center_path(@sub_cost_center), class: "btn btn-info" if !@sub_cost_center.new_record? %>
     <%= link_to "Listar Todos", sub_cost_centers_path, class: "btn btn-default" %>

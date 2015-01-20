@@ -1,5 +1,6 @@
 class SubCostCenter < ActiveRecord::Base
   belongs_to :cost_center
+  belongs_to :type_service
   has_many :account_payables
   
   before_destroy :can_destroy?
