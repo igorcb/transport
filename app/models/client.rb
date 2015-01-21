@@ -85,7 +85,7 @@ class Client < ActiveRecord::Base
   private 
     def can_destroy?
       if self.ordem_services.present? || 
-         self.account_payables.present? ||
+         self.account_payable.present? ||
          self.pallets.present?
 
         puts ">>>>>>>>>>>>>>>>>>>>>>>>>. não pode apagar"
