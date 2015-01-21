@@ -7,8 +7,8 @@ class OrdemServiceTypeService < ActiveRecord::Base
   belongs_to :type_service
   has_one :account_payable
 
-  scope :open, -> { joins(:type_service).where(status: [0, 1]).order('type_services.descricao') }
-  scope :close, -> { joins(:type_service).where(status: 2).order('type_services.descricao') }
+  scope :open, -> { joins(:type_service, :ordem_service).where(status: [0, 1]).order('ordem_services.data desc') }
+  scope :close, -> { joins(:type_service, :ordem_service).where(status: 2).order('ordem_services.data desc') }
 
   module TipoStatus
     ABERTO = 0
