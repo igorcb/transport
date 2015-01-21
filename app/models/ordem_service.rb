@@ -99,6 +99,12 @@ class OrdemService < ActiveRecord::Base
     return valor  
   end 
 
+  def valor_1500
+    valor = 0.00
+    valor = self.peso * 0.13 if !self.peso.nil?
+    return valor
+  end
+
   def qtde
     self.ordem_service_type_service.sum(:qtde)
   end

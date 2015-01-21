@@ -19,11 +19,11 @@
   </div>
   <div class="form-group">
     <%= f.label :data, "Data da Agendamento" %><br>
-    <%= f.date_select :data, start_year: year_now, :include_blank => true, class: "form-control" %>
+    <%= f.text_field :data, class: "form-control data" %>
   </div>
   <div class="form-group">
     <%= f.label :data_entrega_servico, "Data da Entrega do Serviço" %><br>
-    <%= f.date_select :data_entrega_servico, start_year: year_now, :include_blank => true,  class: "form-control" %>
+    <%= f.text_field :data_entrega_servico, class: "form-control data" %>
   </div>
   <div class="form-group">
     <%= f.label :placa %><br>
