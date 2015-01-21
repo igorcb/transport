@@ -49,4 +49,8 @@ module ApplicationHelper
   def select_credito_debito
     ([['Crédito', 1], ['Débito', -1]])
   end
+
+  def select_status_ordem_service_type_services
+    ([["ABERTO", 0],["PENDENTE", 1], ["PAGO", 2]])
+  end
 end

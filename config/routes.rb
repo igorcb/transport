@@ -1,5 +1,11 @@
 Transport::Application.routes.draw do
 
+  #get "ordem_service_type_services/index"
+  resources :ordem_service_type_services do
+    collection do
+      get 'search'
+    end
+  end
   resources :current_accounts
 
   resources :cash_accounts

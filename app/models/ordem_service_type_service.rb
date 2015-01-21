@@ -7,8 +7,10 @@ class OrdemServiceTypeService < ActiveRecord::Base
   belongs_to :type_service
   has_one :account_payable
 
+  scope :both, -> { joins(:type_service, :ordem_service).order('ordem_services.data desc') }
   scope :open, -> { joins(:type_service, :ordem_service).where(status: [0, 1]).order('ordem_services.data desc') }
   scope :close, -> { joins(:type_service, :ordem_service).where(status: 2).order('ordem_services.data desc') }
+#  scope :everyday, ->(date) { both.where("ordem_services.data = ?", date ) }
 
   module TipoStatus
     ABERTO = 0
@@ -27,6 +29,14 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   def opened?
     self.status == TipoStatus::ABERTO
+  end
+
+  # def self.locate(query)
+  #   where("con_email ilike ?", "%#{query}%" )
+  # end  
+
+  def self.ransackable_attributes(auth_object = nil)
+    ['status' ]
   end
 
 end
