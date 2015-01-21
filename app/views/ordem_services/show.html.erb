@@ -24,6 +24,14 @@
     </p>
 
     <p>
+      <strong>Municipio:</strong>
+      <%= @ordem_service.cidade %> - 
+      <strong>Estado:</strong>
+      <%= @ordem_service.estado %>
+      
+    </p>
+
+    <p>
       <strong>Data da Agendamento:</strong>
       <%= date_br @ordem_service.data %>
     </p>
@@ -90,6 +98,8 @@
           <label class="fields"><%= @ordem_service.client.bairro %></label> - 
           <strong>Municipio:</strong>
           <label class="fields"><%= @ordem_service.client.cidade %></label>
+          <strong>Estado:</strong>
+          <label class="fields"><%= @ordem_service.client.estado %></label>
         </p>
 
         <p>
