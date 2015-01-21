@@ -17,7 +17,10 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :payment_method
   belongs_to :cash_account
   belongs_to :current_account
+  belongs_to :ordem_service
+  belongs_to :ordem_service_type_service
   has_many :lower_account_payables
+
 
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
@@ -77,6 +80,9 @@ class AccountPayable < ActiveRecord::Base
 
       if vr_total_pago >= self.valor
         self.status = TipoStatus::PAGO
+        if self.ordem_service_type_service.present?
+          OrdemServiceTypeService.update(self.ordem_service_type_service, status: OrdemServiceTypeService::TipoStatus::PAGO) 
+        end
       elsif vr_total_pago < self.valor
         self.status = TipoStatus::PAGOPARCIAL
       end
@@ -89,6 +95,7 @@ class AccountPayable < ActiveRecord::Base
                                           cash_account_id: options[:cash_account_id]
                                           )
       self.save
+
       CurrentAccount.create!(cash_account_id: options[:cash_account_id], 
                             data: options[:data_pagamento],  
                             valor: vr_pago,

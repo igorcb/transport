@@ -60,11 +60,12 @@ Transport::Application.routes.draw do
     member do
       get 'close_os'
       get 'show_agent'
-      #get 'close_os_agent'
+      get 'create_payables'
     end
     match 'search' => 'people#search', via: [:get, :post], as: :search
     collection do
       get 'index_agent'
+      get 'request_payables'
     end
   end
 

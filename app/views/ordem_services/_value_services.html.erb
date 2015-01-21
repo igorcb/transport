@@ -1,0 +1,26 @@
+  <div class="panel-body">  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+        <th>Qtde volume</th>  
+        <th>Vr.p/Volume</th>  
+        <th>Peso</th>
+        <th>Vr.p/KG</th>  
+        <th>Vr. 1500</th>
+        <th>Vr. Total Volume</th>
+        <th>Vr. Total KG</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= number_with_precision(@ordem_service.qtde_volume, precision: 2, separator: ',', delimiter: '.') %></td>  
+          <td><%= number_to_currency(@ordem_service.client.valor_volume, precision: 3, unit: "R$ ", separator: ",", delimiter: ".")   %></td>  
+          <td><%= number_with_precision(@ordem_service.peso, precision: 2, separator: ',', delimiter: '.') %></td>  
+          <td><%= number_to_currency(@ordem_service.client.valor_peso, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
+          <td><%= number_to_currency(@ordem_service.peso * 0.13, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
+          <td><%= number_to_currency(@ordem_service.valor_volume, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
+          <td><%= number_to_currency(@ordem_service.valor_peso, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
+        </tr> 
+      </tbody>
+
+    </table>
+  </div>

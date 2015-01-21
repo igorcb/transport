@@ -79,9 +79,12 @@
     </fieldset>
   </div>
 
+  
+
   <div id="ordem_service_type_service">
     <fieldset>
       <legend>Serviços</legend>
+      <%= render 'value_services', object: @ordem_service %>
       <div class="items">
         <%= f.nested_fields_for :ordem_service_type_service do |f| 
           render 'ordem_service_type_services', f: f

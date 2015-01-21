@@ -71,6 +71,47 @@ Item Despesas Operacionais
   
   Despesas Materiais Diversos
     Sacos Plascitos, Fitas, etc..
-	
 
 
+19/12/2014
+Não deixar apagar registro se tiver relacionamento
+Client, Driver, Carrier, Supplier, Employyer, TypeService
+
+Não poder alterar ordem de serviço se o status for diferente de aberto
+Não deixar apagar ordem de serviço se o status for diferente de aberto
+Não deixar alterar contas pagas já pagas
+Não deixar apagar contas pagas
+Definar cancelamento de contas a pagar
+	Só pode fazer cancelamento do que estiver em aberto
+Criar cadastro de parceiros
+Adicionar Parceiros na ordem_servico
+Adicionar Parceiro nos palletes
+Adicionar Parceiro no contas a pagar
+
+26/12/2014
+Fazer Ocorrencias nas OS
+Adicionar Tomador de Serviço OS
+	Transportadora parceiras
+Criar minuta
+	Fazer ordem de coleta de pallete
+	Entregar os paletes
+	O destinatario pode mudar
+Adicionar Paginação Ordem de Serviço
+
+Verificar com o Junior
+Como fazer a minuta
+Importar XML NFE ou CTE
+Para cada tipo de serviço tem algumas exigências
+Ver o lance da solicitação de ordem de coleta
+
+
+
+09/01/2015
+Ao gerar a OS informar a cidade e estado a partir do cliente, desabilitando o campo de estado e cidade ou 
+	se preferir adicionar uma partial com informações do palete e client.
+Ao gerar a OS de vez em quando é criada 2 OS como se tivesse dado 2 clicks
+Quando excluir o Pallete verificar se exist ordem de serviço associado.
+Adicionar um botão para ir para a listagem de ordem de serviço do agent na view show_agent
+
+14/01/2015
+Quando clicar na imagem abrir se for um PDF abrir em uma nova pagina

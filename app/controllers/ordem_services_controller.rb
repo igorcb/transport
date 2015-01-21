@@ -140,6 +140,15 @@ class OrdemServicesController < ApplicationController
     respond_with(@ordem_service)
   end
 
+  def request_payables
+    @ordem_service_type_service = OrdemServiceTypeService.open
+  end
+
+  def create_payables
+    OrdemService.create_payables(params[:id], params[:item_id])
+    redirect_to request_payables_ordem_services_path
+  end
+
   private
     def set_ordem_service
       @ordem_service = OrdemService.find(params[:id])

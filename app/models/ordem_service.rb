@@ -14,6 +14,7 @@ class OrdemService < ActiveRecord::Base
   belongs_to :client
   belongs_to :carrier
   belongs_to :pallet
+  has_one :account_payable
   #belongs_to :type_service, through: :ordem_service_type_service
 
   has_many :nfe_keys, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
@@ -138,6 +139,35 @@ class OrdemService < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       Pallet.update(ordem_service.pallet, status: Pallet::TipoStatus::CONCLUIDO, qtde: qtde, data_fechamento: data)
       OrdemService.update(ordem_service, status: TipoStatus::FECHADO)
+    end
+  end
+
+  def self.create_payables(ordem_service, item_ordem_service)
+    data = Time.now.strftime('%Y-%m-%d')
+    item = OrdemServiceTypeService.find(item_ordem_service)
+    os = OrdemService.find(ordem_service)
+    payment_method = PaymentMethod.find(6)
+    historic = Historic.find(103)
+    cost_center = CostCenter.find(49)
+    sub_cost_center = SubCostCenter.find_by_type_service_id(item.type_service_id)
+    ActiveRecord::Base.transaction do
+      AccountPayable.create!(type_account: 3,
+                            supplier_type: "Client", 
+                              supplier_id: os.client_id,
+                              historic_id: historic.id,
+                        payment_method_id: payment_method.id,
+                           cost_center_id: cost_center.id,
+                       sub_cost_center_id: sub_cost_center.id,
+                          data_vencimento: data,
+                                documento: os.id,
+                                    valor: item.valor_pago,
+                               observacao: "REF: #{sub_cost_center.type_service.descricao}",
+                         ordem_service_id: os.id,
+               ordem_service_type_service: item.id
+                            )
+      item.status = OrdemServiceTypeService::TipoStatus::PENDENTE
+      item.save!
+   
     end
   end
 

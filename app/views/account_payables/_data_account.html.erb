@@ -48,6 +48,24 @@
   <%= number_to_currency(@account_payable.total_pago, unit: "R$ ", separator: ",", delimiter: ".")  %>
 </p>
 
+
+<% if @account_payable.ordem_service.present? %>  
+  <p>
+    <strong>OS. No:</strong> 
+    <%= link_to "#{ @account_payable.ordem_service.id }", @account_payable.ordem_service %> 
+  </p>
+  <p>
+    <strong>Status da OS:</strong>
+    <%= @account_payable.ordem_service.status_name %>
+  </p>
+  <p>
+    <strong>Cte:</strong>
+    <%= @account_payable.ordem_service.cte %> -  
+    <strong>Chave Cte:</strong>  
+    <%= @account_payable.ordem_service.danfe_cte %>
+  </p>
+<% end %>
+
 <p>
   <strong>Observacao:</strong>
   <pre><%= @account_payable.observacao %></pre>
@@ -57,3 +75,4 @@
   <strong>Status:</strong>
   <%= @account_payable.status_name %>
 </p>
+

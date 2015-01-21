@@ -1,0 +1,188 @@
+<%= form_for(@account_payable) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= text_field_tag :client_id, "", value: 0, onblur: "getClient()"  %>
+
+  <div class="dados_fornecedor">
+    
+  </div>
+
+  <div id="result_client">
+    
+  </div>
+  
+  <div class="">
+    <%= f.label :type_account, "Tipo de Conta" %>
+  </div>
+
+  <div class="radio">
+    <label class="radio-inline"> 
+      <%= f.radio_button :type_account, "0" %> Fornecedor 
+    </label>
+
+    <label class="radio-inline"> 
+      <%= f.radio_button :type_account, "1" %> Motorista
+    </label>
+
+    <label class="radio-inline"> 
+      <%= f.radio_button :type_account, "2" %> Cliente
+    </label>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :supplier_id, "Fornecedor" %>
+    <% if @account_payable.type_account.present? %>
+      <%= f.collection_select :supplier_id, type_account_select(@account_payable.type_account), :id, :nome, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control"} %>
+    <% else %>
+      <%= f.collection_select :supplier_id, [], :id, :nome,  {prompt: "SELECT O TIPO DE CONTA"}, {class: "form-control"}  %>
+    <% end %>  
+  </div>
+
+  <div id="data_supplier">
+    
+  </div>
+
+  <div class="form-group">
+    <%= f.label :cost_center_id, "Centro de Custo" %>
+    <%= f.select(:cost_center_id, CostCenter.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :sub_cost_center_id, "Sub Centro de Custo" %>
+    <% if @account_payable.cost_center_id.present? %>
+      <%= f.collection_select :sub_cost_center_id, sub_center(@account_payable.cost_center_id), :id, :descricao, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control"} %>
+    <% else %>
+      <%= f.collection_select :sub_cost_center_id, [], :id, :descricao,  {prompt: "SELECT PRIMEIRO CENTRO DE CUSTO"}, {class: "form-control"}  %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :historic_id, "Historico" %>
+    <%= f.select(:historic_id, Historic.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :data_vencimento %><br>
+    <% if @account_payable.new_record? %>
+      <%= f.text_field :data_vencimento, class: "form-control data" %>
+    <% else %> 
+      <%= f.text_field :data_vencimento, class: "form-control data", value: date_br(@account_payable.data_vencimento) %>
+    <% end %>
+  </div>  
+
+  <div class="form-group">
+    <%= f.label :payment_method_id, "Forma de Pgto" %>
+    <%= f.select(:payment_method_id, PaymentMethod.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :documento %>
+    <%= f.text_field :documento, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :valor %>
+    <%= f.text_field :valor, class: "form-control money2" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :observacao %>
+    <%= f.text_area :observacao, class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  account_payable_path(@account_payable), class: "btn btn-info" if !@account_payable.new_record? %>
+    <%= link_to "Listar Todos", account_payables_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>
+
+<script type="text/javascript">
+ 
+  $(document).ready(function() {
+    var type_account = '';
+    var radios = document.getElementsByTagName('input');
+    var value;
+    $("#account_payable_supplier_id").change(function() {
+      for (var i = 0; i < radios.length; i++) {
+        if (radios[i].type === 'radio' && radios[i].checked) {
+          // get value, set checked flag or do whatever you need to
+          value = radios[i].value;       
+        }
+      }       
+      type_account = value;
+      switch(type_account) {
+        case '0':
+          alert('Supplier');
+          break;
+        case '1':
+          alert('Driver');
+          break;
+        case '2':
+          alert('Client');
+          break;
+      }        
+        
+    });
+
+    /* getSupplier("id="+$("#account_payable_supplier_id").val()); */
+    getSupplier("type_account="+type_account+"id="$("#account_payable_supplier_id").val());
+    
+    function getSupplier(type_account, id) {
+      $.getJSON("/sub_centro_custo_by_custo", id, function(j) {
+        var options = '<option value="">SELECT SUB COST CENTER</option>';
+        $.each(j.sub, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#account_payable_sub_cost_center_id").html(options);
+      });
+    }
+
+  });
+
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#account_payable_cost_center_id").change(function() {
+      getSubCostCenter("id="+$("#account_payable_cost_center_id").val());
+    });
+  });
+
+  $(document).ready(function() {
+   $("#account_payable_historic_id").change(function() {
+      var texto = $('select#account_payable_historic_id :selected').text();
+      document.getElementById("account_payable_observacao").value = texto;
+    });
+  });
+
+  function getSubCostCenter(id) {
+    $.getJSON("/sub_centro_custo_by_custo", id, function(j) {
+      var options = '<option value="">SELECT SUB COST CENTER</option>';
+      $.each(j.sub, function(i, item) {
+        options += '<option value="' + item.id + '">' + item.n + '</option>';
+      });
+      $("#account_payable_sub_cost_center_id").html(options);
+    });
+  }
+</script>
+
+<script type="text/javascript">
+  $(function() {
+    $('input[name="account_payable[type_account]"]').change(function() {
+        getTypeAccount("id="+$(this).val());
+    });
+
+  function getTypeAccount(id) {
+    $.getJSON("/type_account_select", id, function(j) {
+      var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
+      $.each(j.sup, function(i, item) {
+        options += '<option value="' + item.id + '">' + item.n + '</option>';
+      });
+      $("#account_payable_supplier_id").html(options);
+    });
+  }  
+
+});
+</script>
