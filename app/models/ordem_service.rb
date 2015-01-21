@@ -15,7 +15,6 @@ class OrdemService < ActiveRecord::Base
   belongs_to :carrier
   belongs_to :pallet
   has_one :account_payable
-  #belongs_to :type_service, through: :ordem_service_type_service
 
   has_many :nfe_keys, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_keys, allow_destroy: true, :reject_if => :all_blank
@@ -31,6 +30,8 @@ class OrdemService < ActiveRecord::Base
 
   before_save { |os| os.placa = placa.upcase }
   before_save :set_values
+
+  before_destroy :can_destroy?
 
   module TipoStatus
     ABERTO = 0
@@ -170,5 +171,14 @@ class OrdemService < ActiveRecord::Base
    
     end
   end
+
+  private
+    def can_destroy?
+      if self.account_payables.present?
+        errors.add(:base, "You can not delete record with relationship") 
+        return false
+      end
+    end
+
 
 end
