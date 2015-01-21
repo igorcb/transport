@@ -157,6 +157,14 @@ class OrdemService < ActiveRecord::Base
     historic = Historic.find(103)
     cost_center = CostCenter.find(49)
     sub_cost_center = SubCostCenter.find_by_type_service_id(item.type_service_id)
+    
+    # puts ">>>>>>>>>>>>> payment_method: #{payment_method.id}"
+    # puts ">>>>>>>>>>>>> historic: #{historic.id}"
+    # puts ">>>>>>>>>>>>> cost_center: #{cost_center.id}"
+    # puts ">>>>>>>>>>>>> sub_cost_center: #{sub_cost_center.id}"
+    # puts ">>>>>>>>>>>>> item: #{item.id}"
+    # puts ">>>>>>>>>>>>> os: #{os.id}"
+
     ActiveRecord::Base.transaction do
       AccountPayable.create!(type_account: 3,
                             supplier_type: "Client", 
@@ -170,7 +178,7 @@ class OrdemService < ActiveRecord::Base
                                     valor: item.valor_pago,
                                observacao: "REF: #{sub_cost_center.type_service.descricao}",
                          ordem_service_id: os.id,
-               ordem_service_type_service: item.id
+            ordem_service_type_service_id: item.id
                             )
       item.status = OrdemServiceTypeService::TipoStatus::PENDENTE
       item.save!
