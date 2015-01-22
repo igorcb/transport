@@ -72,6 +72,7 @@ Transport::Application.routes.draw do
     collection do
       get 'index_agent'
       get 'request_payables'
+      get 'billing_group_places'
     end
   end
 

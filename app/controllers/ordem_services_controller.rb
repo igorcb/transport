@@ -152,6 +152,11 @@ class OrdemServicesController < ApplicationController
     redirect_to request_payables_ordem_services_path
   end
 
+  def billing_group_places
+    #@ordem_services = OrdemService.is_not_billed    
+    @ordem_services = OrdemService.group_by    
+  end
+
   private
     def set_ordem_service
       @ordem_service = OrdemService.find(params[:id])

@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Ordem de Serviço Por Placa</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Placa</th>
+            <th>Motorista</th>
+            <th>Serviço</th>
+            <th>Total 1500</th>
+            <th>Total Pago</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @ordem_services.each do |ordem_service| %>
+            <tr>
+              <td><%= ordem_service.placa %></td>
+              <td><%= ordem_service.motorista %></td>
+              <td><%= ordem_service.tipo_servico %></td>
+              <td><%= ordem_service.valor %></td>
+              <td><%= ordem_service.valor_pago %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
+

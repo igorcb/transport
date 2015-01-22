@@ -16,6 +16,8 @@ class OrdemService < ActiveRecord::Base
   belongs_to :pallet
   has_one :account_payable
 
+  has_many :type_service, through: :ordem_service_type_service
+
   has_many :nfe_keys, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_keys, allow_destroy: true, :reject_if => :all_blank
 
@@ -28,6 +30,15 @@ class OrdemService < ActiveRecord::Base
   has_many :account_banks, class_name: "AccountBank", foreign_key: "account_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :account_banks, allow_destroy: true
 
+  #scope :is_not_billed, -> { joins(:ordem_service_type_services).where(status: [0,1]).order('ordem_services.data desc') }
+  scope :is_not_billed, -> { joins(:driver, :ordem_service_type_service, :type_service).where(status: [0,1]) }
+  scope :group_by, -> { is_not_billed.select("ordem_services.placa as placa, drivers.nome as motorista,
+                                              type_services.descricao as tipo_servico,
+                                              sum(ordem_service_type_services.valor) as valor,
+                                              sum(ordem_service_type_services.valor_pago) as valor_pago") 
+                                      .group("ordem_services.placa, drivers.nome, type_services.descricao")
+                                      .order("drivers.nome, ordem_services.placa")                                       
+                      }
   before_save { |os| os.placa = placa.upcase }
   before_save :set_values
 
