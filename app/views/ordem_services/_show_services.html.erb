@@ -7,6 +7,7 @@
     <th>Qtde Rec.</th>
     <th>Valor</th>
     <th>Vr. Pago</th>
+    <th>Status</th>
   </thead>
 
   <tbody>
@@ -17,11 +18,13 @@
         <td><%= item.qtde_recebida if !item.type_service.nil? %></td>
         <td><%= number_to_currency(item.valor, unit: "R$ ", separator: ",", delimiter: ".") if !item.type_service.nil? %> </td>
         <td><%= number_to_currency(item.valor_pago, unit: "R$ ", separator: ",", delimiter: ".") if !item.type_service.nil? %> </td>
+        <td><%= item.status_name %></td>
       </tr>
     <% end %>
     <td colspan="3"> <strong>Total</strong> </td>
     <td><strong><%= number_to_currency( object.ordem_service_type_service.sum(:valor), unit: "R$ ", separator: ",", delimiter: ".")  %></strong> </td>
     <td><strong><%= number_to_currency( object.ordem_service_type_service.sum(:valor_pago), unit: "R$ ", separator: ",", delimiter: ".")  %></strong> </td>
+    <td> </td>
 
   </tbody>
 
