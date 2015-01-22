@@ -12,23 +12,15 @@
     </p>
 
     <p>
+      <strong>Contatos:</strong>
+      <%= @ordem_service.driver.telefone_completo %>
+    </p>
+    <hr />
+    <p>
       <strong>Agente:</strong>
       <%= link_to "#{ @ordem_service.carrier.nome }", @ordem_service.carrier if @ordem_service.carrier.present? %> 
       <strong>CNPJ:</strong>
       <%= @ordem_service.carrier.cnpj if @ordem_service.carrier.present? %>
-    </p>
-
-    <p>
-      <strong>Contatos:</strong>
-      <%= @ordem_service.driver.telefone_completo %>
-    </p>
-
-    <p>
-      <strong>Municipio:</strong>
-      <%= @ordem_service.cidade %> - 
-      <strong>Estado:</strong>
-      <%= @ordem_service.estado %>
-      
     </p>
 
     <p>
@@ -39,6 +31,13 @@
     <p>
       <strong>Data da Entrega do Serviço:</strong>
       <%= date_br @ordem_service.data_entrega_servico %>
+    </p>
+
+    <p>
+      <strong>Municipio:</strong>
+      <%= @ordem_service.cidade %> - 
+      <strong>Estado:</strong>
+      <%= @ordem_service.estado %>
     </p>
 
     <p>
