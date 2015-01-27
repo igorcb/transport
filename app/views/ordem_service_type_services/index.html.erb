@@ -21,8 +21,9 @@
 
  	<div class="actions">
     <%= f.submit "Search", class: "btn btn-default" %>
-    <%#= link_to "Limpar Dados do Formulario", "#", class: "btn btn-info btn-xs" %>
+    <%= link_to "Enviar resultado por e-mail", send_email_ordem_service_type_services_path, class: "btn btn-info" %>
   </div>
+
 
 </fieldset>
 

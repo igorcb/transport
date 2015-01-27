@@ -39,5 +39,11 @@ class OrdemServiceTypeService < ActiveRecord::Base
     ['status' ]
   end
 
+  def self.send_report
+    #puts ">>>>>>>>>>>>>>>>>>> model: vai enviar e-mail"
+    #OrdemServiceTypeService.report_mailer.deliver_now
+    #Cobranca.notificar_financeiro_f13(cobranca) 
+  end
+
 end
 

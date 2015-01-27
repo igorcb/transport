@@ -4,6 +4,7 @@ Transport::Application.routes.draw do
   resources :ordem_service_type_services do
     collection do
       get 'search'
+      get 'send_email'
     end
   end
   resources :current_accounts

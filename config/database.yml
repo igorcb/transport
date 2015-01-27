@@ -40,12 +40,11 @@ test:
   host: localhost
   encoding: UTF8    
 
-# production:
-#   adapter: postgresql
-#   database: transport
-#   username: i4
-#   password: q2w3e4
-#   host: localhost
-#   encoding: UTF8    
-
+production:
+  adapter: postgresql
+  database: transport
+  username: i4
+  password: q2w3e4
+  host: localhost
+  encoding: UTF8  
 
