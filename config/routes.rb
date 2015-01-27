@@ -31,10 +31,13 @@ Transport::Application.routes.draw do
   match '/carriers/get_carrier_by_id', :controller => 'carriers', :action => 'get_carrier_by_id', via: [:get]
   match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
 
+  resources :lower_payables, only: [:destroy]
+
   resources :account_payables do 
     member do
       get 'lower'
       post 'pay'
+      #delete 'lower_payable/id'
     end    
     collection do
       get 'cost_centers'

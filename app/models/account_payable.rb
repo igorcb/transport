@@ -123,6 +123,12 @@ class AccountPayable < ActiveRecord::Base
     end
   end
 
+  def check_balance
+    self.status = self.lower_account_payables.sum(:valor_pago).to_f > 0.0 ? 
+                  TipoStatus::PAGOPARCIAL : self.status = TipoStatus::ABERTO
+    self.save!
+  end
+
   private 
     def can_destroy?
       if self.account_payables.present? ||
