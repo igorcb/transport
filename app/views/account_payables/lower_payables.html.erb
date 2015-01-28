@@ -10,7 +10,11 @@
     <%= f.search_field :data_vencimento_eq, class: "form-control data" %>  
   </div>
   <div class="form-group">
-    <%= f.label :supplier_id_eq, "Fornecedor" %>
+    <%= f.label :type_account_eq, "Tipo Fornecedor" %>
+    <%= f.select :type_account_eq, type_account_supplier, {prompt: false}, {class: "form-control"} %>
+  </div>
+  <div class="form-group">
+    <%= f.label :supplier_typr_eq, "Fornecedor" %>
     <%= f.collection_select :supplier_id_eq, Supplier.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
   </div>
 
@@ -25,3 +29,20 @@
 <div id="results">
   <%= render :partial => 'search' %>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#q_type_account_eq").change(function() {
+      getType_account("id="+$("#q_type_account_eq").val());
+    });
+  });
+  function getType_account(id) {
+    $.getJSON("/type_account_select", id, function(j) {
+       var options = '<option value="">SELECIONE FORNECEDOR</option>';
+       $.each(j.sup, function(i, item) {
+         options += '<option value="' + item.id + '">' + item.n + '</option>';
+       });
+       $("#q_supplier_id_eq").html(options);
+     });
+ }
+</script>

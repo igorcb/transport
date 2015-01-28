@@ -21,7 +21,6 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :ordem_service_type_service
   has_many :lower_account_payables
 
-
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
@@ -34,7 +33,7 @@ class AccountPayable < ActiveRecord::Base
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ['data_vencimento', 'documento', 'supplier_id' ]
+    ['data_vencimento', 'documento', 'supplier_id', 'supplier_type', 'type_account' ]
   end  
 
   def status_name

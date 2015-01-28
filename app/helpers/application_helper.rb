@@ -53,4 +53,9 @@ module ApplicationHelper
   def select_status_ordem_service_type_services
     ([["ABERTO", 0],["PENDENTE", 1], ["PAGO", 2]])
   end
+
+  def type_account_supplier
+    ([["Fornecedor", 1],["Motorista", 2], ["Cliente", 3], ["Funcionario", 4], 
+      ["Transportadora", 5]])
+  end
 end

@@ -89,7 +89,8 @@ class AccountPayablesController < ApplicationController
   end
 
   def lower_payables
-    @q = AccountPayable.search(params[:q])
+    @q = AccountPayable.where(status: AccountPayable::TipoStatus::ABERTO).search(params[:q])
+    @account_payables = @q.result
     @employees = Employee.order('nome')
   end
   
