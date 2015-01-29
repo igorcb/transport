@@ -5,6 +5,23 @@ class SubCostCenter < ActiveRecord::Base
   
   before_destroy :can_destroy?
 
+  def valor_total
+    self.account_payables.sum(:valor)
+  end
+
+  def total_pago
+    valor = 0
+    account_payables = AccountPayable.where(sub_cost_center_id: self.id)
+    account_payables.each do |account|
+      valor += account.total_pago
+    end
+    valor
+  end
+
+  def total_aberto
+    valor_total - total_pago
+  end
+
   private 
     def can_destroy?
       if self.account_payables.present?
