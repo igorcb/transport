@@ -1,5 +1,5 @@
 class OrdemServiceTypeServiceMailer < ApplicationMailer
-  default from: "from@example.com"
+  default from: "administrativo@l7logistica.com.br"
 
   def report_mailer(ordem_service_type_services)
   	time = Time.now
