@@ -5,14 +5,6 @@
 
   <div class="panel-body">
 
-    <% if @ordem_service.account_payable.present? %>
-    <p>
-      <strong>Contas a Pagar:</strong>
-      <%= link_to "#{ @ordem_service.account_payable.id }", account_payable_path(@ordem_service.account_payable.id) %> 
-    </p>
-
-    <% end %>
-
     <p>
       <strong>Motorista:</strong>
       <%= link_to "#{ @ordem_service.driver.nome }", @ordem_service.driver %> 

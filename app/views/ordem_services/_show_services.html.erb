@@ -8,6 +8,7 @@
     <th>Valor</th>
     <th>Vr. Pago</th>
     <th>Status</th>
+    <th>C. Pagar</th>
   </thead>
 
   <tbody>
@@ -16,15 +17,16 @@
         <td><%= item.type_service.descricao if !item.type_service.nil? %></td>
         <td><%= item.qtde  if !item.type_service.nil?%></td>
         <td><%= item.qtde_recebida if !item.type_service.nil? %></td>
-        <td><%= number_to_currency(item.valor, unit: "R$ ", separator: ",", delimiter: ".") if !item.type_service.nil? %> </td>
-        <td><%= number_to_currency(item.valor_pago, unit: "R$ ", separator: ",", delimiter: ".") if !item.type_service.nil? %> </td>
+        <td><%= number_to_currency(item.valor, unit: "R$ ", separator: ",", delimiter: ".") if item.type_service.present? %> </td>
+        <td><%= number_to_currency(item.valor_pago, unit: "R$ ", separator: ",", delimiter: ".") if item.type_service.present? %> </td>
         <td><%= item.status_name %></td>
+        <td><%= link_to "#{ item.account_payable.id }", account_payable_path(item.account_payable.id) if item.account_payable.present? %> </td>
       </tr>
     <% end %>
     <td colspan="3"> <strong>Total</strong> </td>
     <td><strong><%= number_to_currency( object.ordem_service_type_service.sum(:valor), unit: "R$ ", separator: ",", delimiter: ".")  %></strong> </td>
     <td><strong><%= number_to_currency( object.ordem_service_type_service.sum(:valor_pago), unit: "R$ ", separator: ",", delimiter: ".")  %></strong> </td>
-    <td> </td>
+    <td colspan="2"> </td>
 
   </tbody>
 

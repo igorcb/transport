@@ -1,7 +1,12 @@
 <fieldset class="item">
   <div class="row">
     <div class="col-xs-2">
-     <%= f.text_field :qtde, class: "form-control input-sm", placeholder: "Qtde Coletada"  %>
+      <% if f.object.qtde < 1 %>
+      <%= f.text_field :qtde, value: nil, size: 5, class: "form-control input-sm", placeholder: "Qtde Coletada" %>
+      <% else %>
+      <%= f.text_field :qtde, size: 5, class: "form-control input-sm", placeholder: "Qtde" %>
+      <% end %>
+     
     </div>
 
     <div class="col-xs-2">
@@ -12,8 +17,9 @@
       <%= f.text_field :chave, maxlength: 44, class: "form-control input-sm", placeholder: "Chave"  %>
     </div>
     <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
-    <br />
   </div>
+
+  <br />
 
   <%= f.hidden_field :id %>
   <%= f.hidden_field :_destroy %>
