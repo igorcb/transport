@@ -8,7 +8,7 @@
       <%= text_field_tag :client_cpf_cpnj, nil, class: "form-control cnpj" %>
     <% else %>
       <%= text_field_tag :client_cpf_cpnj, @pallet.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
-      <%= render partial: "client", locals: { client: @pallet.client } %>
+      <%= render partial: "clients/client", locals: { client: @pallet.client } %>
     <% end %>
   </div>
 
