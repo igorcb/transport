@@ -12,13 +12,23 @@
   <div class="panel-body">
 	  <p>
 	    <strong>Cnpj:</strong>
-	    <%= @pallet.client.cpf_cnpj %>
+	    <%= link_to "#{@pallet.client.cpf_cnpj}", @pallet.client %>
 	  </p>
 
 		<p>
 		  <strong>Client:</strong>
-		  <%= @pallet.client.nome %>
+		  <%= link_to "#{@pallet.client.nome}", @pallet.client %>
 		</p>
+
+    <p>
+      <strong>Endereço:</strong>
+      <%= @pallet.client.endereco %>
+    </p>
+
+    <p>
+      <strong>Complemento:</strong>
+      <%= @pallet.client.complemento %>
+    </p>
 
 		<p>
 		  <strong>Data Agenda Ype:</strong>
