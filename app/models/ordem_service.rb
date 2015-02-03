@@ -14,6 +14,7 @@ class OrdemService < ActiveRecord::Base
   belongs_to :client
   belongs_to :carrier
   belongs_to :pallet
+  belongs_to :billing
   has_one :account_payable
 
   has_many :type_service, through: :ordem_service_type_service
