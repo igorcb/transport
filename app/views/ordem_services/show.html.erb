@@ -5,13 +5,6 @@
 
   <div class="panel-body">
 
-    <% if @ordem_service.billing.present? %>
-      <p>
-        <strong>Faturamento No:</strong>
-        <%= link_to "#{@ordem_service.billing.id}", @ordem_service.billing %>
-      </p>
-    <% end %>
-
     <p>
       <strong>Motorista:</strong>
       <%= link_to "#{ @ordem_service.driver.nome }", @ordem_service.driver %> 
@@ -24,6 +17,12 @@
       <%= @ordem_service.driver.telefone_completo %>
     </p>
     <hr />
+    <% if @ordem_service.billing.present? %>
+      <p>
+        <strong>Faturamento No:</strong>
+        <%= link_to "#{@ordem_service.billing.id}", @ordem_service.billing %>
+      </p>
+    <% end %>
     <p>
       <strong>Agente:</strong>
       <%= link_to "#{ @ordem_service.carrier.nome }", @ordem_service.carrier if @ordem_service.carrier.present? %> 
