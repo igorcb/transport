@@ -157,8 +157,8 @@ class OrdemService < ActiveRecord::Base
     data = Time.now.strftime('%Y-%m-%d')
     qtde = OrdemServiceTypeService.where(ordem_service_id: ordem_service).sum(:qtde_recebida)
     ActiveRecord::Base.transaction do
-      Pallet.update(ordem_service.pallet, status: Pallet::TipoStatus::CONCLUIDO, qtde: qtde, data_fechamento: data)
-      OrdemService.update(ordem_service, status: TipoStatus::FECHADO)
+      Pallet.update(ordem_service.pallet, status: Pallet::TipoStatus::CONCLUIDO, qtde: qtde, data_fechamento: data) if ordem_service.pallet.present?
+      OrdemService.update(ordem_service, data_fechamento: data,  status: TipoStatus::FECHADO)
     end
   end
 

@@ -5,12 +5,22 @@ class OrdemServicesController < ApplicationController
   respond_to :html
 
   def index
-    @q = OrdemService.order('id desc').search(params[:q])
-    @ordem_services = @q.result
+    if current_user.has_role? :admin
+      puts ">>>>>>>>>>>>>>>...... roler: admin"
+      @q = OrdemService.order('id desc').search(params[:q])
+      @ordem_services = @q.result
+    else
+      @q = OrdemService.where(carrier_id: current_user.carrier_id).order('id desc').search(params[:q])
+      @ordem_services = @q.result
+    end
   end
 
   def show
-    respond_with(@ordem_service)
+    if current_user.has_role? :admin
+      respond_with(@ordem_service)
+    else
+      redirect_to show_agent_ordem_service_path(@ordem_service)
+    end
   end
 
   def new
@@ -77,7 +87,11 @@ class OrdemServicesController < ApplicationController
   end
 
   def search
-    @q = OrdemService.search(params[:q])
+    if current_user.has_role? :admin
+      @q = OrdemService.search(params[:q])
+    else
+      @q = OrdemService.where(carrier_id: current_user.carrier_id).search(params[:q])
+    end
   end
 
   def close_os
