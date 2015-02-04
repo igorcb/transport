@@ -69,8 +69,10 @@ Transport::Application.routes.draw do
   resources :ordem_services do
     member do
       get 'close_os'
+      get 'edit_agent'
       get 'show_agent'
       get 'create_payables'
+      post 'update_agent'
     end
     match 'search' => 'people#search', via: [:get, :post], as: :search
     collection do

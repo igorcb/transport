@@ -21,6 +21,10 @@ class Pallet < ActiveRecord::Base
     CONCLUIDO = 3
   end
 
+  module TypeService
+    PALLET = 22
+  end
+
   def set_status
   	self.status = 0
   end
@@ -34,22 +38,23 @@ class Pallet < ActiveRecord::Base
     end
   end
 
-  def create_os(*args)
+  def create_os(options)
 
     ActiveRecord::Base.transaction do
       os = OrdemService.create!(tipo: OrdemService::TipoOS::PALETE,
-                               carrier_id: args[0],
-                               driver_id: args[1],
+                               carrier_id: options[:carrier_id],
+                               driver_id: options[:driver_id],
                                client_id: self.client_id,
                                data: self.data_agendamento,
-                               placa: args[2],
-                               estado: args[3],
-                               cidade: args[4],
-                               pallet_id: args[5]
+                               placa: options[:placa],
+                               estado: options[:estado],
+                               cidade: options[:cidade],
+                               pallet_id: options[:pallet_id]
                                )
-      valor = self.qtde * 9
+      valor = self.qtde.present? ? self.qtde * 9 : self.qtde_informada
+      #valor = self.qtde * 9
       OrdemServiceTypeService.create!(ordem_service_id: os.id, 
-                                      type_service_id: 22, 
+                                      type_service_id: TypeService::PALLET, 
                                       qtde: qtde,
                                       valor: valor
                                       )

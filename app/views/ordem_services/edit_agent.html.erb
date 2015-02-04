@@ -1,0 +1,16 @@
+<%= form_tag({:controller => "ordem_services", action: :update_agent}, :method => "post", :name => "form_edit_agent") do |f| %>
+  <div class="form-group">
+    <%= label_tag "ordem_service[data]",  "Data Agendada" %><br>
+    <%= text_field_tag "ordem_service[data]", date_br(@ordem_service.data), class: "form-control data" %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag "ordem_service[qtde]",  "Qtde" %><br>
+    <%= number_field_tag "pallet[qtde]", @ordem_service.pallet.qtde, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit_tag "Salvar", class: "btn btn-primary" %>
+  </div>
+
+<% end %>

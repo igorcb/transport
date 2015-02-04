@@ -73,36 +73,37 @@ class PalletsController < ApplicationController
   end
   
   def driver_select
-    if @pallet.data_agendamento.nil?
-      flash[:danger] = "Data Agendamento can not be blank."
-      redirect_to pallet_path(@pallet)
-      return
-    elsif @pallet.qtde.to_i <= 0
-      flash[:danger] = "Qtde informed must be greater than zero."
-      redirect_to pallet_path(@pallet)
-      return
-    end
+    # if @pallet.data_agendamento.nil?
+    #   flash[:danger] = "Data Agendamento can not be blank."
+    #   redirect_to pallet_path(@pallet)
+    #   return
+    # elsif
+    # if @pallet.qtde.to_i <= 0
+    #   flash[:danger] = "Qtde informed must be greater than zero."
+    #   redirect_to pallet_path(@pallet)
+    #   return
+    # end
     @drivers = Driver.order('nome')
     @carriers = Carrier.order('nome')
   end
   
   def create_os
-    if params[:carrier_id].blank? 
+    if params[:ordem_services][:carrier_id].blank? 
       flash[:danger] = "Carrier can not be blank."
-      redirect_to driver_select_pallet_path(params[:pallet_id])
+      redirect_to driver_select_pallet_path(params[:ordem_services][:pallet_id])
       return
-    elsif params[:driver_id].blank? 
+    elsif params[:ordem_services][:driver_id].blank? 
       flash[:danger] = "Driver can not be blank."
-      redirect_to driver_select_pallet_path(params[:pallet_id])
+      redirect_to driver_select_pallet_path(params[:ordem_services][:pallet_id])
       return
-    elsif params[:placa].blank? 
+    elsif params[:ordem_services][:placa].blank? 
       flash[:danger] = "Placa can not be blank."
-      redirect_to driver_select_pallet_path(params[:pallet_id])
+      redirect_to driver_select_pallet_path(params[:ordem_services][:pallet_id])
       return
     end
 
-    @pallet = Pallet.find(params[:pallet_id])
-    @pallet.create_os(params[:carrier_id], params[:driver_id], params[:placa], params[:estado], params[:cidade], params[:pallet_id])
+    @pallet = Pallet.find(params[:ordem_services][:pallet_id])
+    @pallet.create_os(params[:ordem_services])
     redirect_to ordem_services_path
   end
 

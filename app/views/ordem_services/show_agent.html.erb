@@ -53,6 +53,10 @@
         margin: 430px 10px 10px 190px;
       }     
 
+      .notprinter {
+        display: none;
+      }
+
       .duplicate_view {
         visibility: visible;   
         margin: 140px 10px 10px 1px;        
@@ -82,10 +86,9 @@
 <%= render partial: "show_agent", locals: {ordem_service: ordem_service} %>
 
 <div class="form-group">
-  <%#= link_to 'Editar', edit_ordem_service_path(ordem_service), class: "btn btn-primary" %>
-  <%#= link_to 'Listar Todos', index_agent_ordem_services_path, class: "btn btn-default" %>
-  <%#= link_to 'Fechar OS', close_os_agent_ordem_service_path(ordem_service), class: "btn btn-success" %>
+  <%= link_to 'Editar', edit_agent_ordem_service_path(ordem_service), class: "btn btn-primary" %>
   <%= link_to 'Fechar OS', edit_ordem_service_path(ordem_service), class: "btn btn-success" %>
+  <a href="javascript:window.print()" class="noPrint btn btn-default">Imprimir</a>
 </div>
 
 
@@ -138,3 +141,4 @@
     <strong>Contato: </strong> 085 30656041   
 
   </p>
+

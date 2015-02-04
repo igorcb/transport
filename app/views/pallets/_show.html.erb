@@ -1,0 +1,52 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Controle Palete No: <%= object.id %></h2>
+  </div>
+
+  <div class="panel-body">
+	  <p>
+	    <strong>Cnpj:</strong>
+	    <%= link_to "#{object.client.cpf_cnpj}", object.client %>
+	  </p>
+
+		<p>
+		  <strong>Client:</strong>
+		  <%= link_to "#{object.client.nome}", object.client %>
+		</p>
+
+    <p>
+      <strong>Endereço:</strong>
+      <%= object.client.endereco %>
+    </p>
+
+    <p>
+      <strong>Complemento:</strong>
+      <%= object.client.complemento %>
+    </p>
+
+		<p>
+		  <strong>Data Solicitada Ype:</strong>
+		  <%= date_br(object.data_informada) %>
+		</p>
+
+		<p>
+		  <strong>Qtde Solicitada Ype:</strong>
+		  <%= object.qtde_informada %>
+		</p>
+
+		<p>
+		  <strong>Data agendada:</strong>
+		  <%= date_br(object.data_agendamento) %>
+		</p>
+
+		<p>
+		  <strong>Qtde:</strong>
+		  <%= object.qtde %>
+		</p>
+
+		<p>
+		  <strong>Status:</strong>
+		  <%= object.status_name %>
+		</p>
+	</div>
+</div>

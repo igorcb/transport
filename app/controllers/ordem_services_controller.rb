@@ -1,6 +1,6 @@
 class OrdemServicesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_ordem_service, only: [:show, :edit, :update, :destroy, :close_os]
+  before_action :set_ordem_service, only: [:show, :edit, :update, :destroy, :close_os ]
   load_and_authorize_resource
   respond_to :html
 
@@ -33,13 +33,27 @@ class OrdemServicesController < ApplicationController
   def edit
      # if @ordem_service.status == OrdemService::TipoStatus::FECHADO
      #   flash[:danger] = "Ordem Service already is closed."
-     #  if current_user.has_role? :admin
      #    redirect_to @ordem_service
      #  else
      #    redirect_to show_agent_ordem_service_path(@ordem_service)
      #  end
      #  return
      # end
+    if current_user.has_role? :agent
+      if @ordem_service.status == OrdemService::TipoStatus::FECHADO
+        flash[:danger] = "Ordem Service already is closed."
+        redirect_to show_agent_ordem_service_path(@ordem_service)
+        return
+      end
+    end
+  end
+
+  def edit_agent
+    if @ordem_service.status == OrdemService::TipoStatus::FECHADO
+      flash[:danger] = "Ordem Service already is closed."
+      redirect_to show_agent_ordem_service_path(@ordem_service)
+      return
+    end
   end
 
   def create
@@ -79,6 +93,25 @@ class OrdemServicesController < ApplicationController
         end
       end
     end  
+  end
+
+  def update_agent
+    ActiveRecord::Base.transaction do
+      respond_to do |format|
+        if @ordem_service.update(ordem_service_params) 
+          qtde = params[:pallet][:qtde]
+          valor = qtde * 9
+          os_type_service = OrdemServiceTypeService.find_by(ordem_service_id: @ordem_service.id, type_service_id: Pallet::TypeService::PALLET)
+          Pallet.update(@ordem_service.pallet, status: Pallet::TipoStatus::OS_CRIADA, qtde: qtde, data_agendamento: params[:ordem_service][:data])
+          OrdemServiceTypeService.update(os_type_service, qtde: qtde, valor: valor)
+          format.html { redirect_to show_agent_ordem_service_path(@ordem_service.id), flash: { success: "Ordem Service was successfully updated." } }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit_agent' }
+          format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+        end
+      end
+    end
   end
 
   def destroy
@@ -183,7 +216,7 @@ class OrdemServicesController < ApplicationController
 
     def ordem_service_params
       params.require(:ordem_service).permit(:driver_id, :client_id, :data, :placa, :estado, :cidade, :cte, :danfe_cte, :valor_receita, :valor_despesas, :valor_liquido, 
-        :observacao, :status, :qtde_volume, :peso, :data_entrega_servico, :senha_sefaz, :carrier_id, 
+        :observacao, :status, :qtde_volume, :peso, :data_entrega_servico, :senha_sefaz, :carrier_id
         nfe_keys_attributes: [:nfe, :chave, :qtde, :id, :_destroy],
         ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :qtde, :qtde_recebida, :valor_pago, :id, :_destroy],
         account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :valor, :id, :_destroy],

@@ -4,58 +4,7 @@
   <li class="active">Show</li>
 </ol>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title">Controle Palete No: <%= @pallet.id %></h2>
-  </div>
-
-  <div class="panel-body">
-	  <p>
-	    <strong>Cnpj:</strong>
-	    <%= link_to "#{@pallet.client.cpf_cnpj}", @pallet.client %>
-	  </p>
-
-		<p>
-		  <strong>Client:</strong>
-		  <%= link_to "#{@pallet.client.nome}", @pallet.client %>
-		</p>
-
-    <p>
-      <strong>Endereço:</strong>
-      <%= @pallet.client.endereco %>
-    </p>
-
-    <p>
-      <strong>Complemento:</strong>
-      <%= @pallet.client.complemento %>
-    </p>
-
-		<p>
-		  <strong>Data Agenda Ype:</strong>
-		  <%= date_br(@pallet.data_informada) %>
-		</p>
-
-		<p>
-		  <strong>Qtde Ype:</strong>
-		  <%= @pallet.qtde_informada %>
-		</p>
-
-		<p>
-		  <strong>Data agendada:</strong>
-		  <%= date_br(@pallet.data_agendamento) %>
-		</p>
-
-		<p>
-		  <strong>Qtde:</strong>
-		  <%= @pallet.qtde %>
-		</p>
-
-		<p>
-		  <strong>Status:</strong>
-		  <%= @pallet.status_name %>
-		</p>
-	</div>
-</div>
+<%= render 'show', object: @pallet %>
 
 <div class="form-group">
   <% if current_user.has_role? :admin %>
