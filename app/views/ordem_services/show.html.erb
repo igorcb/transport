@@ -41,6 +41,11 @@
     </p>
 
     <p>
+      <strong>Data Fechamento da OS:</strong>
+      <%= date_br @ordem_service.data_fechamento if @ordem_service.data_fechamento.present? %>
+    </p>
+
+    <p>
       <strong>Municipio:</strong>
       <%= @ordem_service.cidade %> - 
       <strong>Estado:</strong>
