@@ -23,7 +23,9 @@ module ApplicationHelper
   end
 
   def extenso_boolean(params)
+    #params = params.nil? ? false : false
     case params 
+      when nil   then "Não"
       when false then "Não"
       when true  then "Sim"
     end
