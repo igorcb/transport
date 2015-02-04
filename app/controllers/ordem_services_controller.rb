@@ -93,6 +93,10 @@ class OrdemServicesController < ApplicationController
       flash[:danger] = "Data Entrega Servico can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return
+    elsif !@ordem_service.billing_client_id.present? 
+      flash[:danger] = "Client billing can't be blank."
+      redirect_to ordem_service_path(@ordem_service)
+      return
     end
 
     @ordem_service.data_fechamento = Time.now.strftime('%Y-%m-%d')

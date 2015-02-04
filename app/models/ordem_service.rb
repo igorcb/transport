@@ -15,6 +15,7 @@ class OrdemService < ActiveRecord::Base
   belongs_to :carrier
   belongs_to :pallet
   belongs_to :billing
+  belongs_to :billing_client, class_name: "Client", foreign_key: 'billing_client_id'
   has_one :account_payable
 
   has_many :type_service, through: :ordem_service_type_service

@@ -80,7 +80,7 @@
 
   <div class="operatings-client-show">
         
-        <p>
+      <p>
           <strong>Nome:</strong>
           <label class="fields"> 
             <%= link_to "#{ @ordem_service.client.nome }", @ordem_service.client %> 
@@ -127,6 +127,18 @@
           <strong>Condições para descarregar:</strong>
           <pre><%= @ordem_service.client.condicao_recebimento %></pre>
         </p>
+
+        <p>
+          <strong>Faturar para:</strong>
+          <% if @ordem_service.billing_client.present? %>
+            <label class="fields"> 
+              <%= link_to "#{ @ordem_service.billing_client.nome }", @ordem_service.billing_client %> 
+            </label>
+            <strong>CPF/CNPJ:</strong>
+            <label class="fields"><%= @ordem_service.client.cpf_cnpj %></label>
+          <% end %>
+        </p>
+  
   </div>
 
 </div>
