@@ -100,7 +100,7 @@ class OrdemServicesController < ApplicationController
       respond_to do |format|
         if @ordem_service.update(ordem_service_params) 
           qtde = params[:pallet][:qtde]
-          valor = qtde * 9
+          valor = qtde.to_f * Pallet::TypeService::VALOR_COBRADO_PALLETE
           os_type_service = OrdemServiceTypeService.find_by(ordem_service_id: @ordem_service.id, type_service_id: Pallet::TypeService::PALLET)
           Pallet.update(@ordem_service.pallet, status: Pallet::TipoStatus::OS_CRIADA, qtde: qtde, data_agendamento: params[:ordem_service][:data])
           OrdemServiceTypeService.update(os_type_service, qtde: qtde, valor: valor)

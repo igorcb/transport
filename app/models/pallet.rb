@@ -13,7 +13,6 @@ class Pallet < ActiveRecord::Base
   scope :state_open,  -> { open.joins(:client).select("clients.estado as estado, sum(qtde_informada) as qtde").group("clients.estado").having("sum(qtde_informada) > 0") }
   scope :state_complete, -> { complete.joins(:client).select("clients.estado as estado, sum(qtde) as qtde").group("clients.estado").having("sum(qtde) > 0") }
 
-
   module TipoStatus
     ABERTO    = 0
     AGENDADO  = 1
@@ -23,6 +22,7 @@ class Pallet < ActiveRecord::Base
 
   module TypeService
     PALLET = 22
+    VALOR_COBRADO_PALLETE = 9
   end
 
   def set_status
@@ -51,8 +51,8 @@ class Pallet < ActiveRecord::Base
                                cidade: options[:cidade],
                                pallet_id: options[:pallet_id]
                                )
-      valor = self.qtde.present? ? self.qtde * 9 : self.qtde_informada
-      #valor = self.qtde * 9
+      qtde = self.qtde.present? ? self.qtde : self.qtde_informada
+      valor = qtde.to_f * TypeService::VALOR_COBRADO_PALLETE
       OrdemServiceTypeService.create!(ordem_service_id: os.id, 
                                       type_service_id: TypeService::PALLET, 
                                       qtde: qtde,

@@ -73,6 +73,12 @@ class PalletsController < ApplicationController
   end
   
   def driver_select
+    puts ">>>>>>>>>>>>>> ordem de serviço já criada?: #{@pallet.ordem_service.present? }"
+    if @pallet.ordem_service.present? 
+      flash[:danger] = "Ordem Service has already been created."
+      redirect_to @pallet
+      return
+    end
     # if @pallet.data_agendamento.nil?
     #   flash[:danger] = "Data Agendamento can not be blank."
     #   redirect_to pallet_path(@pallet)
