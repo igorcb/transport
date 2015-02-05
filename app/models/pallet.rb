@@ -7,6 +7,7 @@ class Pallet < ActiveRecord::Base
   has_one :ordem_service
   before_create :set_status
 
+  default_scope { order(id: :desc) } 
   scope :open, -> { where(status: 0) }
   scope :complete, -> { where(status: 3) }
   scope :state_all, -> { all.joins(:client).select("clients.estado as estado, sum(qtde_informada) as qtde").group("clients.estado").having("sum(qtde_informada) > 0") }
