@@ -37,6 +37,15 @@ $(document).ready(function(e) {
         placeholder: "__/__/____"
       }
     });
-});
+  $(".numericOnly").keyup(function() {
+    var jThis=$(this);
+    var notNumber=new RegExp("[^0-9]","g");
+    var val=jThis.val();
 
+    //Math before replacing to prevent losing keyboard selection 
+    if(val.match(notNumber))
+    { jThis.val(val.replace(notNumber,"")); }
+  }).keyup();
+
+});
 
