@@ -22,7 +22,7 @@
               <td><%= link_to ordem_service.id, show_agent_ordem_service_path(ordem_service.id) %></td>
               <td><%= link_to truncate(ordem_service.client.nome, length: 20), show_agent_ordem_service_path(ordem_service.id) %></td>
               <td><%= ordem_service.estado %></td>
-              <td><%= truncate(ordem_service.cidade, length: 10) %></td>
+              <td><%= ordem_service.cidade %></td>
               <td><%= link_to date_br(ordem_service.data), show_agent_ordem_service_path(ordem_service.id) %></td>
               <td><%= ordem_service.qtde %></td>
               <td><%= ordem_service.status_name %></td>
