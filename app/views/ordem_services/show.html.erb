@@ -85,43 +85,7 @@
 
   <div class="operatings-client-show">
         
-      <p>
-          <strong>Nome:</strong>
-          <label class="fields"> 
-            <%= link_to "#{ @ordem_service.client.nome }", @ordem_service.client %> 
-          </label>
-          <strong>CPF/CNPJ:</strong>
-          <label class="fields"><%= @ordem_service.client.cpf_cnpj %></label>
-        </p>
-        
-        <p>
-          <strong>Endereco:</strong>
-          <label class="fields"><%= @ordem_service.client.endereco %>, <%= @ordem_service.client.numero %></label>
-        </p>
-
-        <p>
-          <strong>Complemento:</strong>
-          <label class="fields"><%= @ordem_service.client.complemento %></label>
-        </p>
-
-        <p>
-          <strong>Bairro:</strong>
-          <label class="fields"><%= @ordem_service.client.bairro %></label> - 
-          <strong>Municipio:</strong>
-          <label class="fields"><%= @ordem_service.client.cidade %></label>
-          <strong>Estado:</strong>
-          <label class="fields"><%= @ordem_service.client.estado %></label>
-        </p>
-
-        <p>
-          <strong>Responsavel recebimento:</strong>
-          <label class="fields"><%= @ordem_service.client.telefone_completo  %></label>
-        </p>
-
-        <p>
-          <strong>Responsavel palete:</strong>
-          <label class="fields"><%= @ordem_service.client.telefone_completo_palete  %></label>
-        </p>
+        <%= render 'clients/client_data', object: @ordem_service.client %>  
 
         <p>
           <strong>Horário para descarregar:</strong>

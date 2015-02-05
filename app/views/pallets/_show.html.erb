@@ -4,25 +4,7 @@
   </div>
 
   <div class="panel-body">
-	  <p>
-	    <strong>Cnpj:</strong>
-	    <%= link_to "#{object.client.cpf_cnpj}", object.client %>
-	  </p>
-
-		<p>
-		  <strong>Client:</strong>
-		  <%= link_to "#{object.client.nome}", object.client %>
-		</p>
-
-    <p>
-      <strong>Endereço:</strong>
-      <%= object.client.endereco %>
-    </p>
-
-    <p>
-      <strong>Complemento:</strong>
-      <%= object.client.complemento %>
-    </p>
+    <%= render 'clients/client_data', object: object.client %>
 
 		<p>
 		  <strong>Data Solicitada Ype:</strong>

@@ -44,6 +44,14 @@ class Client < ActiveRecord::Base
     consultar_numero(numero)
   end
 
+  def contatos
+    fone = ''
+    self.contacts.each do |contact|
+      fone +=  "#{contact.nome}: #{contact.fone}, "
+    end
+    fone
+  end
+
   def telefone_completo
     # seperar por virgula os contatos, somente o telefone
     #contato = self.contacts.first
