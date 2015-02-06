@@ -129,25 +129,9 @@
 }
 </style>
 
-<p class="notprinter">
-  <strong>Data:</strong>
-  <%= date_br @billing.data %>
-</p>
-
-<p class="notprinter">
-  <strong>Valor:</strong>
-  <%= @billing.valor %>
-</p>
-
-<p class="notprinter">
-  <strong>Status:</strong>
-  <%= @billing.status_name %>
-</p >
-
-<p class="notprinter">
-  <strong>Obs:</strong>
-  <%= JSON.parse(@billing.obs).sort %>
-</p>
+<div class="notprinter">
+  <%= render 'show', object: @billing %>  
+</div>
 
 <div class="form-group">
   <%= link_to 'Listar Todos',  billings_path, class: "btn btn-default" %>

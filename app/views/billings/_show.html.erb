@@ -1,0 +1,24 @@
+  <p>
+    <strong>Faturamento No: </strong> 
+    <%= link_to object.id, object %>
+  </p>
+
+  <p>
+    <strong>Data:</strong>
+    <%= date_br object.data %>
+  </p>
+
+  <p>
+    <strong>Valor:</strong>
+    <%= object.valor %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= object.status_name %>
+  </p >
+
+  <p>
+    <strong>Obs:</strong>
+    <%= JSON.parse(object.obs).sort %>
+  </p>
