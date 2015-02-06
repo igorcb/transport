@@ -5,35 +5,11 @@
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
-          <tr>
-            <th>Tipo</th>
-            <th>Fornecedor</th>
-            <th>Data vencimento</th>
-            <th>Fgto</th>
-            <th>Documento</th>
-            <th>Valor</th>
-            <th>Observacao</th>
-            <th>Status</th>
-            <th colspan="3">Opções</th>
-          </tr>
+          <%= render 'account_header' %>
         </thead>
 
         <tbody>
-          <% @account_payables.each do |account_payable| %>
-            <tr>
-              <td><%= truncate(account_payable.type_account_name ) if account_payable.type_account.present? %></td>
-              <td><%= truncate(account_payable.supplier.nome, length: 20 ) %></td>
-              <td><%= date_br(account_payable.data_vencimento )%></td>
-              <td><%= account_payable.payment_method.descricao if account_payable.payment_method.present? %></td>
-              <td><%= account_payable.documento %></td>
-              <td><%= number_to_currency(account_payable.valor, unit: "R$ ", separator: ",", delimiter: ".")  %></td>
-              <td><%= truncate(account_payable.observacao, length: 20) %></td>
-              <td><%= account_payable.status_name %></td>
-              <td><%= link_to 'Show', account_payable, class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_account_payable_path(account_payable), class: "btn btn-primary btn-xs" %></td>
-              <td><%= link_to 'Destroy', account_payable, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
-           </tr>
-         <% end %>
+          <%= render @account_payables %>
         </tbody>
       </table>
     </div>    
