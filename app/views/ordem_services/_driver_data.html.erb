@@ -1,0 +1,14 @@
+<p>
+  <strong>Motorista:</strong>
+  <%= link_to "#{ object.nome }", object %> 
+</p>
+
+<p>
+  <strong>CPF:</strong>
+  <%= @ordem_service.driver.cpf %>
+</p>
+
+<p>
+  <strong>Contatos:</strong>
+  <%= object.telefone_completo %>
+</p>
