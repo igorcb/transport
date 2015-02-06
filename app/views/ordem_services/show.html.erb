@@ -153,7 +153,7 @@
     </div>
     <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
       <div class="panel-body">
-        <%= render 'billings/show', object: @ordem_service.billing %>  
+        <%= render 'billings/show', object: @ordem_service.billing if @ordem_service.billing.present? %>  
       </div>
     </div>
   </div>
