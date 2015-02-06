@@ -1,168 +1,208 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title">Ordem de Serviço No: <%= @ordem_service.id %> - <%= @ordem_service.status_name %></h2>
+<!-- 
+1 - Adicionar Colapsable
+    Dados OS
+    Dados Cliente
+    Dados Nfe
+    Servicos
+    Tipo de Serviços
+    Contas Bancarias
+		Contas a Pagar
+		Faturamento
+    Documentos
+    Adicionar Ocorrencias
+
+ -->
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Ordem de Serviço No: <%= @ordem_service.id %> - <%= @ordem_service.status_name %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse off" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+	        <div class="panel-heading">
+	          <h2 class="panel-title">Dados Motorista</h2>
+	        </div>
+
+	        <div class="panel-body"> 
+					  <%= render 'driver_data', object: @ordem_service.driver %>
+					</div>
+				
+	        <div class="panel-heading">
+	          <h2 class="panel-title">Dados Agente</h2>
+	        </div>
+
+	        <div class="panel-body"> 
+					  <%= render 'carrier_data', object: @ordem_service.carrier if @ordem_service.carrier.present? %>
+					</div>
+
+	        <div class="panel-heading">
+	          <h2 class="panel-title">Dados Ordem de Serviço</h2>
+	        </div>
+
+	        <div class="panel-body"> 
+					  <%= render 'ordem_service_data' %>
+					</div>
+				
+				</div>
+      </div>
+    </div>
   </div>
 
-  <div class="panel-body">
-
-    <p>
-      <strong>Motorista:</strong>
-      <%= link_to "#{ @ordem_service.driver.nome }", @ordem_service.driver %> 
-      <strong>CPF:</strong>
-       <%= @ordem_service.driver.cpf %>
-    </p>
-
-    <p>
-      <strong>Contatos:</strong>
-      <%= @ordem_service.driver.telefone_completo %>
-    </p>
-    <hr />
-    <% if @ordem_service.billing.present? %>
-      <p>
-        <strong>Faturamento No:</strong>
-        <%= link_to "#{@ordem_service.billing.id}", @ordem_service.billing %>
-      </p>
-    <% end %>
-    <p>
-      <strong>Agente:</strong>
-      <%= link_to "#{ @ordem_service.carrier.nome }", @ordem_service.carrier if @ordem_service.carrier.present? %> 
-      <strong>CNPJ:</strong>
-      <%= @ordem_service.carrier.cnpj if @ordem_service.carrier.present? %>
-    </p>
-
-    <p>
-      <strong>Data da Agendamento:</strong>
-      <%= date_br @ordem_service.data %>
-    </p>
-
-    <p>
-      <strong>Data da Entrega do Serviço:</strong>
-      <%= date_br @ordem_service.data_entrega_servico %>
-    </p>
-
-    <p>
-      <strong>Data Fechamento da OS:</strong>
-      <%= date_br @ordem_service.data_fechamento if @ordem_service.data_fechamento.present? %>
-    </p>
-
-    <p>
-      <strong>Municipio:</strong>
-      <%= @ordem_service.cidade %> - 
-      <strong>Estado:</strong>
-      <%= @ordem_service.estado %>
-    </p>
-
-    <p>
-      <strong>Placa:</strong>
-      <%= @ordem_service.placa %>
-    </p>
-
-    <p>
-      <strong>Senha Sefaz:</strong>
-      <%= @ordem_service.senha_sefaz %>
-    </p>
-
-    <p>
-      <strong>Cte:</strong>
-      <%= @ordem_service.cte %> -  
-      <strong>Chave Cte:</strong>  
-      <%= @ordem_service.danfe_cte %>
-    </p>
-
-    <p>
-      <strong>Informação sobre a carga:</strong>
-      <pre><%= @ordem_service.observacao %></pre>
-    </p>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Dados do Cliente
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <%= render 'clients/client_data', object: @ordem_service.client %>
+      </div>
+    </div>
   </div>
 
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title">Dados do Destinatário </h2>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Dados NF-e
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <%= render 'show_nfe_keys', object: @ordem_service %>
+      </div>
+    </div>
   </div>
-  <div class="panel-body">
 
-  <div class="operatings-client-show">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Serviços
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="panel-body">
+  			<%= render 'value_services', object: @ordem_service %>
+  			<%= render 'show_services', object: @ordem_service %>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFive">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Contas Bancarias
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+      <div class="panel-body">
+        <%= render 'show_account_bank', object: @ordem_service %>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSix">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Contas a Pagar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+      <div class="panel-body">
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <%= render 'account_payables/account_header' %>
+            </thead>
+
+            <tbody>
+              <%= render @ordem_service.account_payables %>
+            </tbody>
+          </table>
+        </div>    
         
-        <%= render 'clients/client_data', object: @ordem_service.client %>  
-
-        <p>
-          <strong>Horário para descarregar:</strong>
-          <label class="fields"><%= @ordem_service.client.hora_descarga %></label>
-        </p>
-
-        <p>
-          <strong>Condições para descarregar:</strong>
-          <pre><%= @ordem_service.client.condicao_recebimento %></pre>
-        </p>
-
-        <p>
-          <strong>Faturar para:</strong>
-          <% if @ordem_service.billing_client.present? %>
-            <label class="fields"> 
-              <%= link_to "#{ @ordem_service.billing_client.nome }", @ordem_service.billing_client %> 
-            </label>
-            <strong>CPF/CNPJ:</strong>
-            <label class="fields"><%= @ordem_service.client.cpf_cnpj %></label>
-          <% end %>
-        </p>
-  
+      </div>
+    </div>
   </div>
 
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title"> Dados NFE</h2>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSeven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          Faturamento
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+      <div class="panel-body">
+        <%= render 'billings/show', object: @ordem_service.billing %>  
+      </div>
+    </div>
   </div>
 
-  <div class="panel-body">  
-    <%= render 'show_nfe_keys', object: @ordem_service %>
-  </div>
-</div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEight">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+          Documentos
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+      <div class="panel-body">
 
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title"> Services </h2>
-  </div>
-
-  <%= render 'value_services', object: @ordem_service %>
-  <%= render 'show_services', object: @ordem_service %>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title"> Contas Bancarias </h2>
+      <%= render 'shared/document', object: @ordem_service %>
+      
+      </div>
+    </div>
   </div>
 
-  <div class="panel-body">  
-    <%= render 'show_account_bank', object: @ordem_service %>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingNine">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+          Comentarios
+        </a>
+      </h4>
+    </div>
+    <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
   </div>
-</div>
 
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title"> Documentos </h2>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTen">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+          Alguma coisa nova se precisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
   </div>
 
-    <div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
-      <% @ordem_service.assets.each do |asset| %>
-      <p>
-        <%= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"} %> 
-      </p>
-      <% end %>
-    </div>    
-        
-    <%= render 'shared/document', object: @ordem_service %>
-
-</div>    
-
-<div class="form-group">
-  <%= link_to 'Editar', edit_ordem_service_path(@ordem_service), class: "btn btn-primary" %>
-  <%= link_to 'Listar Todos', ordem_services_path, class: "btn btn-default" %>
-  <%= link_to 'Fechar OS', close_os_ordem_service_path, class: "btn btn-default" %>
-  <%= link_to 'OS Pallet', show_agent_ordem_service_path(@ordem_service), class: "btn btn-default" %>
 </div>

@@ -17,7 +17,8 @@ class OrdemService < ActiveRecord::Base
   belongs_to :billing
   belongs_to :billing_client, class_name: "Client", foreign_key: 'billing_client_id'
   has_one :account_payable
-
+  
+  has_many :account_payables
   has_many :type_service, through: :ordem_service_type_service
 
   has_many :nfe_keys, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy

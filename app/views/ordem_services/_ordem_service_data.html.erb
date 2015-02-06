@@ -1,0 +1,47 @@
+
+    <p>
+      <strong>Data da Agendamento:</strong>
+      <%= date_br @ordem_service.data %>
+    </p>
+
+    <p>
+      <strong>Data da Entrega do Serviço:</strong>
+      <%= date_br @ordem_service.data_entrega_servico %>
+    </p>
+
+    <p>
+      <strong>Data Fechamento da OS:</strong>
+      <%= date_br @ordem_service.data_fechamento if @ordem_service.data_fechamento.present? %>
+    </p>
+
+    <p>
+      <strong>Municipio:</strong>
+      <%= @ordem_service.cidade %> - 
+      <strong>Estado:</strong>
+      <%= @ordem_service.estado %>
+    </p>
+
+    <p>
+      <strong>Placa:</strong>
+      <%= @ordem_service.placa %>
+    </p>
+
+    <p>
+      <strong>Senha Sefaz:</strong>
+      <%= @ordem_service.senha_sefaz %>
+    </p>
+
+    <p>
+      <strong>Cte:</strong>
+      <%= @ordem_service.cte %>
+    </p>
+
+    <p>
+      <strong>Chave Cte:</strong>  
+      <%= @ordem_service.danfe_cte %>
+    </p>
+
+    <p>
+      <strong>Informação sobre a carga:</strong>
+      <pre><%= @ordem_service.observacao %></pre>
+    </p>
