@@ -7,6 +7,10 @@
     <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
+    <%= f.label :delivery_driver_id, "Motorista" %><br>
+    <%= f.select(:delivery_driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
     <%= f.label :client_id, "Cliente" %><br>
     <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>

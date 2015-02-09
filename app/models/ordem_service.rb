@@ -11,6 +11,7 @@ class OrdemService < ActiveRecord::Base
   validates :carrier_id, presence: true, if: "tipo == 2"
   
   belongs_to :driver
+  belongs_to :delivery_driver, class_name: "Driver", foreign_key: 'delivery_driver_id'
   belongs_to :client
   belongs_to :carrier
   belongs_to :pallet

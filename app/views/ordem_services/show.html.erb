@@ -27,11 +27,11 @@
         <div class="panel panel-default">
 
 	        <div class="panel-heading">
-	          <h2 class="panel-title">Dados Motorista</h2>
+	          <h2 class="panel-title">Dados motorista da entrega</h2>
 	        </div>
 
 	        <div class="panel-body"> 
-					  <%= render 'driver_data', object: @ordem_service.driver %>
+					  <%= render 'driver_data', object: @ordem_service.delivery_driver if @ordem_service.delivery_driver.present? %>
 					</div>
 				
 	        <div class="panel-heading">
@@ -85,13 +85,37 @@
     <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Dados NF-e
+          Dados Fiscais
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body">
-        <%= render 'show_nfe_keys', object: @ordem_service %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Dados motorista da entrega</h2>
+          </div>
+
+          <div class="panel-body"> 
+            <%= render 'driver_data', object: @ordem_service.driver %>
+          </div>
+
+          <div class="panel-heading">
+            <h2 class="panel-title">Dados CT-e</h2>
+          </div>
+
+          <div class="panel-body"> 
+            <%= render 'cte_data' %>
+          </div>
+
+          <div class="panel-heading">
+            <h2 class="panel-title">Dados NF-e</h2>
+          </div>
+
+          <div class="panel-body"> 
+            <%= render 'show_nfe_keys', object: @ordem_service %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
