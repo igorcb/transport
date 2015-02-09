@@ -21,6 +21,7 @@ class AccountPayablesController < ApplicationController
   end
 
   def sub_centro_custo_by_custo
+    puts ">>>>>>>>>>>>>>>> cost_center_id: #{params[:id].to_i}"
     sub_cost_center_id = params[:id].to_i
     subs = SubCostCenter.where(:cost_center_id => sub_cost_center_id)
     sub = []

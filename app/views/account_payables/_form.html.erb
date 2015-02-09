@@ -119,6 +119,7 @@
     });
   });
   function getSubCostCenter(id) {
+    
     $.getJSON("/sub_centro_custo_by_custo", id, function(j) {
       var options = '<option value="">SELECT SUB COST CENTER</option>';
       $.each(j.sub, function(i, item) {
