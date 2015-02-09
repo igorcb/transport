@@ -33,6 +33,10 @@ class OrdemService < ActiveRecord::Base
   has_many :account_banks, class_name: "AccountBank", foreign_key: "account_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :account_banks, allow_destroy: true
 
+  has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+  has_many :commentaries, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+ # accepts_nested_attributes_for :comments, allow_destroy: true, :reject_if => :all_blank
+
   #scope :is_not_billed, -> { joins(:ordem_service_type_services).where(status: [0,1]).order('ordem_services.data desc') }
   scope :is_not_billed, -> { joins(:driver, :ordem_service_type_service, :type_service).where(status: [0,1]) }
   scope :group_by, -> { is_not_billed.select("ordem_services.placa as placa, drivers.nome as motorista,
@@ -198,6 +202,11 @@ class OrdemService < ActiveRecord::Base
       item.save!
    
     end
+  end
+
+  def feed
+    Comment.where("comment_type = ? and comment_id = ?", "OrdemService", self.id)
+    #self.comments
   end
 
   private

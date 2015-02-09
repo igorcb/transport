@@ -6,7 +6,6 @@ class OrdemServicesController < ApplicationController
 
   def index
     if current_user.has_role? :admin
-      puts ">>>>>>>>>>>>>>>...... roler: admin"
       @q = OrdemService.order('id desc').search(params[:q])
       @ordem_services = @q.result
     else
@@ -17,6 +16,7 @@ class OrdemServicesController < ApplicationController
 
   def show
     if current_user.has_role? :admin
+      @comment = @ordem_service.comments.build
       respond_with(@ordem_service)
     else
       redirect_to show_agent_ordem_service_path(@ordem_service)

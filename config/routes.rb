@@ -1,5 +1,8 @@
 Transport::Application.routes.draw do
+  
+  resources :comments, only: [:create]
 
+  get "comments/create"
   #get "ordem_service_type_services/index"
   resources :ordem_service_type_services do
     collection do
