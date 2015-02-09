@@ -1,0 +1,26 @@
+<div class="panel-group accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+  <% comments.each do |comment| %>  
+  <div class="panel panel-default accordion-group">
+    <div class="panel-heading accordion-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse_comment_<%= comment.id %>">
+          De: <%= comment.email_origem %> | Para: <%= comment.email_destino %> 
+          <small style="color:#999"><%= comment.created_at %></small>
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_comment_<%= comment.id %>" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <div class=" panel-group accordion" id="accordion2" role="tablist" aria-multiselectable="true">
+          <ul>
+            <p>
+              <pre><%= comment.content %></pre> 
+            </p>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
