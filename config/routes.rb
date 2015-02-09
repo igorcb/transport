@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
   
+  resources :occurrences
+
   resources :comments, only: [:create]
 
   get "comments/create"

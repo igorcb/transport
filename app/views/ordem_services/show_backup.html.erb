@@ -1,0 +1,168 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Ordem de Serviço No: <%= @ordem_service.id %> - <%= @ordem_service.status_name %></h2>
+  </div>
+
+  <div class="panel-body">
+
+    <p>
+      <strong>Motorista:</strong>
+      <%= link_to "#{ @ordem_service.driver.nome }", @ordem_service.driver %> 
+      <strong>CPF:</strong>
+       <%= @ordem_service.driver.cpf %>
+    </p>
+
+    <p>
+      <strong>Contatos:</strong>
+      <%= @ordem_service.driver.telefone_completo %>
+    </p>
+    <hr />
+    <% if @ordem_service.billing.present? %>
+      <p>
+        <strong>Faturamento No:</strong>
+        <%= link_to "#{@ordem_service.billing.id}", @ordem_service.billing %>
+      </p>
+    <% end %>
+    <p>
+      <strong>Agente:</strong>
+      <%= link_to "#{ @ordem_service.carrier.nome }", @ordem_service.carrier if @ordem_service.carrier.present? %> 
+      <strong>CNPJ:</strong>
+      <%= @ordem_service.carrier.cnpj if @ordem_service.carrier.present? %>
+    </p>
+
+    <p>
+      <strong>Data da Agendamento:</strong>
+      <%= date_br @ordem_service.data %>
+    </p>
+
+    <p>
+      <strong>Data da Entrega do Serviço:</strong>
+      <%= date_br @ordem_service.data_entrega_servico %>
+    </p>
+
+    <p>
+      <strong>Data Fechamento da OS:</strong>
+      <%= date_br @ordem_service.data_fechamento if @ordem_service.data_fechamento.present? %>
+    </p>
+
+    <p>
+      <strong>Municipio:</strong>
+      <%= @ordem_service.cidade %> - 
+      <strong>Estado:</strong>
+      <%= @ordem_service.estado %>
+    </p>
+
+    <p>
+      <strong>Placa:</strong>
+      <%= @ordem_service.placa %>
+    </p>
+
+    <p>
+      <strong>Senha Sefaz:</strong>
+      <%= @ordem_service.senha_sefaz %>
+    </p>
+
+    <p>
+      <strong>Cte:</strong>
+      <%= @ordem_service.cte %> -  
+      <strong>Chave Cte:</strong>  
+      <%= @ordem_service.danfe_cte %>
+    </p>
+
+    <p>
+      <strong>Informação sobre a carga:</strong>
+      <pre><%= @ordem_service.observacao %></pre>
+    </p>
+  </div>
+
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Dados do Destinatário </h2>
+  </div>
+  <div class="panel-body">
+
+  <div class="operatings-client-show">
+        
+        <%= render 'clients/client_data', object: @ordem_service.client %>  
+
+        <p>
+          <strong>Horário para descarregar:</strong>
+          <label class="fields"><%= @ordem_service.client.hora_descarga %></label>
+        </p>
+
+        <p>
+          <strong>Condições para descarregar:</strong>
+          <pre><%= @ordem_service.client.condicao_recebimento %></pre>
+        </p>
+
+        <p>
+          <strong>Faturar para:</strong>
+          <% if @ordem_service.billing_client.present? %>
+            <label class="fields"> 
+              <%= link_to "#{ @ordem_service.billing_client.nome }", @ordem_service.billing_client %> 
+            </label>
+            <strong>CPF/CNPJ:</strong>
+            <label class="fields"><%= @ordem_service.client.cpf_cnpj %></label>
+          <% end %>
+        </p>
+  
+  </div>
+
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Dados NFE</h2>
+  </div>
+
+  <div class="panel-body">  
+    <%= render 'show_nfe_keys', object: @ordem_service %>
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Services </h2>
+  </div>
+
+  <%= render 'value_services', object: @ordem_service %>
+  <%= render 'show_services', object: @ordem_service %>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Contas Bancarias </h2>
+  </div>
+
+  <div class="panel-body">  
+    <%= render 'show_account_bank', object: @ordem_service %>
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title"> Documentos </h2>
+  </div>
+
+    <div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
+      <% @ordem_service.assets.each do |asset| %>
+      <p>
+        <%= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"} %> 
+      </p>
+      <% end %>
+    </div>    
+        
+    <%= render 'shared/document', object: @ordem_service %>
+
+</div>    
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_ordem_service_path(@ordem_service), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', ordem_services_path, class: "btn btn-default" %>
+  <%= link_to 'Fechar OS', close_os_ordem_service_path, class: "btn btn-default" %>
+  <%= link_to 'OS Pallet', show_agent_ordem_service_path(@ordem_service), class: "btn btn-default" %>
+</div>

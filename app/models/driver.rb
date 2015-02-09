@@ -45,6 +45,7 @@ class Driver < ActiveRecord::Base
 
   has_many :account_payables, class_name: "AccountPayable", foreign_key: "supplier_id"
   has_many :ordem_services
+  has_many :ocurrences
 
   before_destroy :can_destroy?
 
@@ -95,7 +96,8 @@ class Driver < ActiveRecord::Base
 
   private
     def can_destroy?
-      if self.ordem_services.present? || self.account_payables.present?
+      if self.ordem_services.present? || self.account_payables.present? ||
+         self.ocurrences.present?
         errors.add(:base, "You can not delete record with relationship") 
         return false
       end

@@ -1,0 +1,26 @@
+<%= form_for(@occurrence) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :driver_id, "Motorista" %>
+    <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :placa %>
+    <%= f.text_field :placa, class: "form-control placa" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cte %>
+    <%= f.text_field :cte, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :data %><br>
+    <%= f.text_field :data, class: "form-control data" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  occurrence_path(@occurrence), class: "btn btn-info" if !@occurrence.new_record? %>
+    <%= link_to "Listar Todos", occurrences_path, class: "btn btn-default" %>
+  </div>  
+
+<% end %>

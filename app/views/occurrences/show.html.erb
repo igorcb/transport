@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+  	<h2 class="panel-title">Dados da Ocorrência</h2>
+  </div>
+  <div class="panel-body">
+		<%= render "ordem_services/driver_data", object: @occurrence.driver %>
+		<p>
+		  <strong>Placa:</strong>
+		  <%= @occurrence.placa %>
+		</p>
+
+		<p>
+		  <strong>Cte:</strong>
+		  <%= @occurrence.cte %>
+		</p>
+
+		<p>
+		  <strong>Data:</strong>
+		  <%= @occurrence.data %>
+		</p>
+	</div>
+    
+  <div class="panel-heading">
+  	<h2 class="panel-title">Dados da Ocorrência</h2>
+  </div>
+  
+  <div class="panel-body">
+    <%= render 'comments/feed', comments: @occurrence.feed %>
+    <%= render 'comments/form_comment_occurrence' %>
+  </div>
+
+</div>
+
+<div class="form-group">
+	<%= link_to 'Edit', edit_occurrence_path(@occurrence), class: "btn btn-primary" %> 
+	<%= link_to 'Back', occurrences_path, class: "btn btn-default" %>
+</div>
+

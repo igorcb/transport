@@ -1,0 +1,10 @@
+<%= form_for(@comment, html: {multipart: true	}) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+ 
+  <%= hidden_field_tag "comment[comment_id]", @ordem_service.id %>
+  <%= hidden_field_tag "comment[comment_type]", "OrdemService" %>
+
+  <%= render 'comments/fields', f: f %>
+  
+  <%= f.submit "Enviar comentario", class: "btn btn-success" %>
+<% end %>
