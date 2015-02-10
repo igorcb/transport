@@ -5,6 +5,7 @@
 	.tag_header {
 		text-align: center;
     font-size: 70px;
+    font-style: 
   }
 	.tag_content {
 		text-align: center;
@@ -15,6 +16,6 @@
   }
 </style>
 
-<div class="tag_header"><%= @ordem_service.cidade %>/<%= @ordem_service.estado %></div>
+<div class="tag_header"><strong><%= @ordem_service.cidade %>/<%= @ordem_service.estado %></strong></div>
 <div class="tag_content" style="font-size: <%= tamanho_letra(@ordem_service.nfe_keys.size) %>px"><%=  @ordem_service.nfe_keys.map(&:nfe) %>  </div>
-<div class="tag_footer"><%= @ordem_service.client.fantasia %></div>
+<div class="tag_footer"><strong><%= @ordem_service.client.fantasia %></strong> </div>
