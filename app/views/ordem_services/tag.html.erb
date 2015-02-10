@@ -4,18 +4,14 @@
 	}
 	.tag_header {
 		text-align: center;
-    font-size: 100px;
-  }
-	.tag_content {
-		text-align: center;
-    font-size: 200px;
+    font-size: 80px;
   }
 	.tag_footer {
 		text-align: center;
-    font-size: 70px;
+    font-size: 50px;
   }
 </style>
 
 <div class="tag_header"><%= @ordem_service.cidade %>/<%= @ordem_service.estado %></div>
-<div class="tag_content"><%= @ordem_service.cte %></div>
+<div class="tag_content" style="font-size: <%= tamanho_letra(@ordem_service.nfe_keys.size) %>px"><%= @ordem_service.danfes %>  </div>
 <div class="tag_footer"><%= @ordem_service.client.fantasia %></div>
