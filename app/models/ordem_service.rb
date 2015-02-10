@@ -75,6 +75,7 @@ class OrdemService < ActiveRecord::Base
       when 0  then "Aberto"
       when 1  then "Fechado"
       when 2  then "Faturado"
+      when 3  then "Nao Faturar"
       when 99 then "Pago***"
     else "Nao Definido"
     end
