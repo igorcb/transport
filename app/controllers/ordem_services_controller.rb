@@ -209,6 +209,10 @@ class OrdemServicesController < ApplicationController
     @ordem_services = OrdemService.group_by    
   end
 
+  def tag
+    
+  end
+
   private
     def set_ordem_service
       @ordem_service = OrdemService.find(params[:id])

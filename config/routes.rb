@@ -78,6 +78,8 @@ Transport::Application.routes.draw do
       get 'show_agent'
       get 'create_payables'
       post 'update_agent'
+      get 'create_payables'
+      get 'tag'
     end
     match 'search' => 'people#search', via: [:get, :post], as: :search
     collection do

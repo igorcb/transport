@@ -1,0 +1,21 @@
+<style>
+	@page {
+  size: landscape;
+	}
+	.tag_header {
+		text-align: center;
+    font-size: 100px;
+  }
+	.tag_content {
+		text-align: center;
+    font-size: 200px;
+  }
+	.tag_footer {
+		text-align: center;
+    font-size: 70px;
+  }
+</style>
+
+<div class="tag_header"><%= @ordem_service.cidade %>/<%= @ordem_service.estado %></div>
+<div class="tag_content"><%= @ordem_service.cte %></div>
+<div class="tag_footer"><%= @ordem_service.client.fantasia %></div>
