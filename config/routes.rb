@@ -1,7 +1,8 @@
 Transport::Application.routes.draw do
   
+  get "internal_comments/create"
   resources :occurrences
-
+  resources :internal_comments, only: [:create]
   resources :comments, only: [:create]
 
   get "comments/create"

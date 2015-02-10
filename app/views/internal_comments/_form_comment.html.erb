@@ -1,0 +1,11 @@
+<%= form_for(@internal_comment, html: {multipart: true	}) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+ 
+  <%= hidden_field_tag "internal_comment[comment_id]", @ordem_service.id %>
+
+	<div class="form-group">
+	  <%= f.text_area :content, rows: 5, class: "form-control", placeholder: "Escreva o comentário..." %>
+	</div>
+
+  <%= f.submit "Enviar comentario", class: "btn btn-success" %>
+<% end %>

@@ -104,8 +104,6 @@ Importar XML NFE ou CTE
 Para cada tipo de serviço tem algumas exigências
 Ver o lance da solicitação de ordem de coleta
 
-
-
 09/01/2015
 Ao gerar a OS informar a cidade e estado a partir do cliente, desabilitando o campo de estado e cidade ou 
 	se preferir adicionar uma partial com informações do palete e client.
@@ -115,3 +113,13 @@ Adicionar um botão para ir para a listagem de ordem de serviço do agent na vie
 
 14/01/2015
 Quando clicar na imagem abrir se for um PDF abrir em uma nova pagina
+
+
+10/02/2015
+Fazer Etiqueta - Cidade/Estado, CT-e e Danfes Nome Cliente/Fantasia
+Controle de Entrada e Saida de Pallet
+  data, nfe, cliente, qtde, entrada ou saida (1,-1)
+  Vincluar de alguma forma a ordem de serviço
+
+Comentarios Internos
+	Criar Tabela igual a de comentarios

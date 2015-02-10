@@ -36,7 +36,9 @@ class OrdemService < ActiveRecord::Base
 
   has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
   has_many :commentaries, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
- # accepts_nested_attributes_for :comments, allow_destroy: true, :reject_if => :all_blank
+
+  has_many :internal_comments, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+  has_many :internal_commentaries, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
 
   #scope :is_not_billed, -> { joins(:ordem_service_type_services).where(status: [0,1]).order('ordem_services.data desc') }
   scope :is_not_billed, -> { joins(:driver, :ordem_service_type_service, :type_service).where(status: [0,1]) }
@@ -208,7 +210,10 @@ class OrdemService < ActiveRecord::Base
 
   def feed
     Comment.where("comment_type = ? and comment_id = ?", "OrdemService", self.id)
-    #self.comments
+  end
+
+  def feed_internal_comments
+    InternalComment.where("comment_type = ? and comment_id = ?", "OrdemService", self.id)
   end
 
   private

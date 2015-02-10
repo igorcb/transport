@@ -17,6 +17,7 @@ class OrdemServicesController < ApplicationController
   def show
     if current_user.has_role? :admin
       @comment = @ordem_service.comments.build
+      @internal_comment = @ordem_service.internal_comments.build
       respond_with(@ordem_service)
     else
       redirect_to show_agent_ordem_service_path(@ordem_service)

@@ -16,7 +16,11 @@ class CommentsController < ApplicationController
        when "OrdemService" then redirect_to ordem_service_path (@model)
        when "Occurrence" then redirect_to occurrence_path (@model)
      end
+    else
+      flash[:danger] = "Error Comment!"
+      redirect_to ordem_service_path (@model)
     end
+
   end
 
   private
