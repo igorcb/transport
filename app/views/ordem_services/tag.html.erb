@@ -13,5 +13,5 @@
 </style>
 
 <div class="tag_header"><%= @ordem_service.cidade %>/<%= @ordem_service.estado %></div>
-<div class="tag_content" style="font-size: <%= tamanho_letra(@ordem_service.nfe_keys.size) %>px"><%= @ordem_service.danfes %>  </div>
+<div class="tag_content" style="font-size: <%= tamanho_letra(@ordem_service.nfe_keys.size) %>px"><%=  @ordem_service.nfe_keys.map(&:nfe) %>  </div>
 <div class="tag_footer"><%= @ordem_service.client.fantasia %></div>
