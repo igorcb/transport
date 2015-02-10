@@ -10,10 +10,9 @@ module OrdemServiceHelper
 
   def tamanho_letra(qtde_nfe)
     case qtde_nfe
-	    when 1 then tamanho = 200
-	    when 2 then tamanho = 120
-	    when 3 then tamanho = 60
-	    else
+	    when 1 then tamanho = 170
+	    when 2 then tamanho =  77
+	  else
 	    	tamanho = 50
     end
     tamanho
