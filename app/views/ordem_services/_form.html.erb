@@ -7,16 +7,24 @@
     <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
-    <%= f.label :delivery_driver_id, "Motorista" %><br>
+    <%= f.label :delivery_driver_id, "Motorista para Entrega" %><br>
     <%= f.select(:delivery_driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
+
   <div class="form-group">
-    <%= f.label :client_id, "Cliente" %><br>
-    <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%= label_tag :client_cpf_cpnj %><br>
+    <% if @ordem_service.new_record? %>
+      <%= text_field_tag :client_cpf_cpnj, nil, class: "form-control cnpj" %>
+    <% else %>
+      <%= text_field_tag :client_cpf_cpnj, @ordem_service.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= render partial: "clients/result_client", locals: { client: @ordem_service.client } %>
+    <% end %>
   </div>
-  <div id="div_result_person">
-    
+  
+  <div id="client_cnpj_result">
+
   </div>
+
   <div class="form-group">
     <%= f.label :billing_client_id, "Faturar para" %><br>
     <%= f.select(:billing_client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
@@ -162,3 +170,19 @@ jQuery(function($) {
   });
 })
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#client_cpf_cpnj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj},
+        url: '/clients/get_client_by_cnpj'
+      });
+
+    });
+  });
+</script>
+
