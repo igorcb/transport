@@ -39,7 +39,7 @@ class AccountPayable < ActiveRecord::Base
   def status_name
     case self.status
       when 0  then "Aberto"
-      when 1  then "Pago Parcial"
+      when 1  then "P. Parcial"
       when 2  then "Pago"
     else "Nao Definido"
     end
