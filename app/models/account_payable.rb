@@ -33,7 +33,7 @@ class AccountPayable < ActiveRecord::Base
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ['data_vencimento', 'documento', 'supplier_id', 'supplier_type', 'type_account' ]
+    ['data_vencimento', 'documento', 'supplier_id', 'supplier_type', 'type_account', 'status' ]
   end  
 
   def status_name

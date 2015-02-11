@@ -13,4 +13,9 @@ module AccountPayablesHelper
       when 5 then Carrier.order('nome')
     end  	
   end
+
+  def select_status_payables
+     ([["ABERTO", 0], ["PAGO PARCIAL", 1], ["PAGO", 2]])
+  end
+
 end
