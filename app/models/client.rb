@@ -53,8 +53,9 @@ class Client < ActiveRecord::Base
   end
 
   def fone_all
-    self.contacts.map {|m| [m.nome, m.fone]}  
-    #self.contacts.map{|c| [c.nome + ':', c.fone + ', ']}.join()
+    #self.contacts.map {|m| [m.nome, m.fone]}  
+    self.contacts.map{|c| [c.nome + ':', c.fone + ', ']}.join()
+    #self.contacts.select([:nome, :fone]). map {|c|  "#{c.nome}: #{c.fone}" }
   end
 
   def telefone_completo
