@@ -23,7 +23,7 @@
             <tr>
               <td><%= item.type_service.descricao if !item.type_service.nil? %></td>
               <td><%= link_to item.ordem_service.id, item.ordem_service  %></td>
-              <td><%= link_to item.ordem_service.cte, item.ordem_service if item.ordem_service.present?  %></td>
+              <td><%= link_to item.ordem_service.cte, item.ordem_service if item.ordem_service.present? && item.ordem_service.cte.present?%></td>
               <td><%= link_to item.ordem_service.placa, item.ordem_service %></td>
               <td><%= date_br (item.ordem_service.data)   %></td>
               <td><%= item.qtde  if !item.type_service.nil?%></td>
