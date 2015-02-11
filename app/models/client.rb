@@ -52,6 +52,10 @@ class Client < ActiveRecord::Base
     fone
   end
 
+  def fone_all
+    self.contacts.map {|m| [m.nome, m.fone]}  
+  end
+
   def telefone_completo
     # seperar por virgula os contatos, somente o telefone
     #contato = self.contacts.first
