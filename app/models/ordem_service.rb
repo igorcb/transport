@@ -35,7 +35,7 @@ class OrdemService < ActiveRecord::Base
   accepts_nested_attributes_for :account_banks, allow_destroy: true
 
   has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
-  has_many :commentaries, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+  #has_many :commentaries, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
 
   has_many :internal_comments, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
   has_many :internal_commentaries, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
@@ -214,6 +214,10 @@ class OrdemService < ActiveRecord::Base
 
   def feed_internal_comments
     InternalComment.where("comment_type = ? and comment_id = ?", "OrdemService", self.id)
+  end
+
+  def cidade_estado
+    self.cidade + '/' + self.estado
   end
 
   private
