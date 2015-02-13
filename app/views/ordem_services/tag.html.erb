@@ -30,6 +30,6 @@
 		<%= nfe_key.nfe %>  
 	</div>
 	
-	<div class="tag_footer"><strong><%= @ordem_service.client.fantasia %></strong> </div>
+	<div class="tag_footer"><strong><%= truncate @ordem_service.client.fantasia, length:30 %></strong> </div>
 
 <% end %>
