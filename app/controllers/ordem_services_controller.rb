@@ -61,6 +61,8 @@ class OrdemServicesController < ApplicationController
     client = Client.find_by_cpf_cnpj(params[:client_cpf_cpnj])
     @ordem_service = OrdemService.new(ordem_service_params)
     @ordem_service.client_id = client.id if client.present?
+    @ordem_service.estado = client.estado if client.present?
+    @ordem_service.cidade = client.cidade if client.present?
     respond_to do |format|
       if @ordem_service.save 
         format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully created." } }
