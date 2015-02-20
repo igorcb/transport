@@ -33,7 +33,9 @@ module ApplicationHelper
 
   def date_br(date)
     # formatting date: dd-mm-yyyy
-    date.nil? ? "" : date.strftime("%d-%m-%Y")
+    #date.nil? ? "" : date.strftime("%d-%m-%Y")
+    #l @bolsista.data, format: '%d/%m/%Y'
+    date.nil? ? "" : I18n.l(date, format: '%d/%m/%Y')
   end
 
   def select_tipo_operacao
