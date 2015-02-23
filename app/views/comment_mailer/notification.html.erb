@@ -1,0 +1,38 @@
+
+<div id="data_ordem_service">
+	<p>
+	  <strong>Os:</strong><%= @ordem_service.id %>
+	</p>
+
+	<p>
+		<strong>CNPJ:</strong><%= @ordem_service.client.cpf_cnpj %>
+	</p>
+
+	<p>
+		<strong>Cliente:</strong><%= @ordem_service.client.nome %>
+	</p>		
+
+	<p>
+		<strong>Cidade:</strong> <%= @ordem_service.cidade %> /
+		<strong>Estado:</strong> <%= @ordem_service.estado %>
+	</p>
+		
+</div>
+
+<div>
+	<h5>para poder responder este comentário <%= link_to "clique aqui", ordem_service_url(@ordem_service) %></h5>
+	
+	<h3>Comentários</h3>
+
+	<div style="font-size: 20px">
+	  <%= render 'comments/feed', comments: @ordem_service.feed %>
+	</div>
+
+</div>
+
+<footer>
+  <small>
+    Este email foi enviado por <a href="http://www.l7logistica.com.br/">L7 Logística</a>
+    por favor não responder este e-mail.
+  </small>
+</footer>

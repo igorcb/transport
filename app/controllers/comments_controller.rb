@@ -11,11 +11,12 @@ class CommentsController < ApplicationController
     @comment.email_origem = current_user.email
     @comment.comment_type = params[:comment][:comment_type]
     if @comment.save
-     flash[:success] = "Comment created!"
-     case params[:comment][:comment_type] 
-       when "OrdemService" then redirect_to ordem_service_path (@model)
-       when "Occurrence" then redirect_to occurrence_path (@model)
-     end
+      @comment.send_notification_email
+      flash[:success] = "Comment created!"
+      case params[:comment][:comment_type] 
+        when "OrdemService" then redirect_to ordem_service_path (@model)
+        when "Occurrence" then redirect_to occurrence_path (@model)
+      end
     else
       flash[:danger] = "Error Comment!"
       redirect_to ordem_service_path (@model)

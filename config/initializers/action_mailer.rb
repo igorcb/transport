@@ -16,7 +16,7 @@ if Rails.env.development?
       user_name: ENV['RAILS_MAIL_USERNAME'],
       password: ENV['RAILS_MAIL_PASSWORD'],
       domain: 'localhost:3000',
-      enable_starttls_auto: false
+      enable_starttls_auto: true
     }
   end
 end
