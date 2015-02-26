@@ -109,7 +109,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
    $("#account_payable_cost_center_id").change(function() {
-      getSubCostCenter("id="+$("#account_payable_cost_center_id").val());
+      getSubCostCenter("cost_center_id="+$("#account_payable_cost_center_id").val());
     });
   });
   $(document).ready(function() {
@@ -118,9 +118,9 @@
       document.getElementById("account_payable_observacao").value = texto;
     });
   });
-  function getSubCostCenter(id) {
+  function getSubCostCenter(cost_center_id) {
     
-    $.getJSON("/sub_centro_custo_by_custo", id, function(j) {
+    $.getJSON("/sub_centro_custo_by_custo", cost_center_id, function(j) {
       var options = '<option value="">SELECT SUB COST CENTER</option>';
       $.each(j.sub, function(i, item) {
         options += '<option value="' + item.id + '">' + item.n + '</option>';
