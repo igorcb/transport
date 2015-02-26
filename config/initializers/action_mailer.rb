@@ -35,7 +35,7 @@ if Rails.env.production?
       user_name: ENV['RAILS_MAIL_USERNAME'],
       password: ENV['RAILS_MAIL_PASSWORD'],
       domain: ENV['RAILS_MAIL_DOMAIN'],
-      enable_starttls_auto: true
+      enable_starttls_auto: false
     }
   end
 end
