@@ -1,0 +1,12 @@
+<tr>
+  <td><%= truncate(account_payable.type_account_name ) if account_payable.type_account.present? %></td>
+  <td><%= truncate(account_payable.supplier.nome, length: 20 ) %></td>
+  <td><%= date_br(account_payable.data_vencimento )%></td>
+  <td><%= account_payable.payment_method.descricao if account_payable.payment_method.present? %></td>
+  <td><%= account_payable.documento %></td>
+  <td><%= number_to_currency(account_payable.valor, unit: "R$ ", separator: ",", delimiter: ".")  %></td>
+  <td><%= truncate(account_payable.observacao, length: 20) %></td>
+  <td><%= account_payable.status_name %></td>
+  <td><%= link_to 'Show', account_payable, class: "btn btn-info btn-xs" %></td>
+  <td><%= link_to 'Destroy', account_payable, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+</tr>

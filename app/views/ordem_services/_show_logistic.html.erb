@@ -153,18 +153,21 @@
     <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
       <div class="panel-body">
 
-        <div class="table-responsive">
+<!--         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
-              <%= render 'account_payables/account_header' %>
+              <%#= render 'account_payables/account_header' %>
             </thead>
 
             <tbody>
-              <%= render @ordem_service.account_payables %>
+              <%#= render @ordem_service.account_payables %>
             </tbody>
           </table>
         </div>    
         
+ -->      
+        <%= render 'show_account_payables', account_payables: @ordem_service.account_payables %>
+
       </div>
     </div>
   </div>

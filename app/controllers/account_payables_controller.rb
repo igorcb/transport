@@ -57,12 +57,14 @@ class AccountPayablesController < ApplicationController
     @account_payable = AccountPayable.new(account_payable_params)
 
     respond_to do |format|
-      if @account_payable.save
+      if @account_payable.save!
         format.html { redirect_to @account_payable, flash: { success: "AccountPayable was successfully created." } }
         format.json { render action: 'show', status: :created, location: @account_payable }
+        format.js   { render action: 'show', status: :created, location: @account_payable }
       else
         format.html { render action: 'new' }
         format.json { render json: @account_payable.errors, status: :unprocessable_entity }
+        format.js   { render json: @account_payable.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -148,7 +150,7 @@ class AccountPayablesController < ApplicationController
 
     def account_payable_params
       params.require(:account_payable).permit(:supplier_id, :cost_center_id, :sub_cost_center_id, :historic_id, :data_vencimento, :documento, 
-        :valor, :observacao, :status, :payment_method_id, :type_account,
+        :valor, :observacao, :status, :payment_method_id, :type_account, :ordem_service_id,
         lower_payables: [:data_pagamento, :valor_pago, :juros, :desconto, :total_pago],
         assets_attributes: [:asset, :id, :_destroy]
         )
