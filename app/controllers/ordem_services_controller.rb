@@ -25,10 +25,6 @@ class OrdemServicesController < ApplicationController
   end
 
   def new
-    @ordem_service = OrdemService.new
-    @ordem_service.ordem_service_type_service.build
-    @ordem_service.nfe_keys.build
-    respond_with(@ordem_service)
   end
 
   def edit
@@ -40,13 +36,14 @@ class OrdemServicesController < ApplicationController
      #  end
      #  return
      # end
-    if current_user.has_role? :agent
-      if @ordem_service.status == OrdemService::TipoStatus::FECHADO
-        flash[:danger] = "Ordem Service already is closed."
-        redirect_to show_agent_ordem_service_path(@ordem_service)
-        return
-      end
-    end
+    # if current_user.has_role? :agent
+    #   if @ordem_service.status == OrdemService::TipoStatus::FECHADO
+    #     flash[:danger] = "Ordem Service already is closed."
+    #     redirect_to show_agent_ordem_service_path(@ordem_service)
+    #     return
+    #   end
+    # end
+    @type_os = @ordem_service.tipo
   end
 
   def edit_agent
@@ -63,40 +60,61 @@ class OrdemServicesController < ApplicationController
     @ordem_service.client_id = client.id if client.present?
     @ordem_service.estado = client.estado if client.present?
     @ordem_service.cidade = client.cidade if client.present?
+
     respond_to do |format|
       if @ordem_service.save 
         format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully created." } }
         format.json { render action: 'show', status: :created, location: @ordem_service }
       else
-        format.html { render action: 'new' }
+        #format.html { render action: 'new' }
+        format.html do
+          case params[:ordem_service][:tipo].to_i
+            when 1 then render partial: 'form_logistic', change: 'form_ordem_service'
+            when 4 then render partial: 'form_air', change: 'form_ordem_service'
+          end
+        end
         format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  # def create
+  #   client = Client.find_by_cpf_cnpj(params[:client_cpf_cpnj])
+  #   tipo = params[:tipo]
+  #   @ordem_service = OrdemService.new(ordem_service_params)
+  #   @ordem_service.client_id = client.id if client.present?
+  #   @ordem_service.estado = client.estado if client.present?
+  #   @ordem_service.cidade = client.cidade if client.present?
+  #   respond_to do |format|
+  #     if @ordem_service.save 
+  #       format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully created." } }
+  #       format.json { render action: 'show', status: :created, location: @ordem_service }
+  #     else
+  #       puts ">>>>>>> No saved!!!"
+  #       case tipo.to_i
+  #         when 1 then format.html { render partial: 'form_logistic', change: 'form_ordem_service' }
+  #         when 2 then format.html { render partial: 'form_air', change: 'form_ordem_service' }
+  #       end
+  #       format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
+
   def update
-    if current_user.has_role? :admin
-      respond_to do |format|
-        if @ordem_service.update(ordem_service_params) 
-          format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully updated." } }
-          format.json { head :no_content }
-        else
-          format.html { render action: 'edit' }
-          format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+    respond_to do |format|
+      if @ordem_service.update(ordem_service_params)
+        format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully updated." } }
+        format.json { head :no_content }
+      else
+        format.html do
+          case params[:ordem_service][:tipo].to_i
+            when 1 then render partial: 'form_logistic', change: 'form_ordem_service'
+            when 4 then render partial: 'form_air', change: 'form_ordem_service'
+          end
         end
+        format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
       end
-    else
-      respond_to do |format|
-        if @ordem_service.update(ordem_service_params) 
-          OrdemService.close_os_agent(@ordem_service)
-          format.html { redirect_to show_agent_ordem_service_path(@ordem_service.id), flash: { success: "Ordem Service was successfully updated." } }
-          format.json { head :no_content }
-        else
-          format.html { render action: 'edit' }
-          format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
-        end
-      end
-    end  
+    end
   end
 
   def update_agent
@@ -121,6 +139,28 @@ class OrdemServicesController < ApplicationController
   def destroy
     @ordem_service.destroy
     respond_with(@ordem_service)
+  end
+  
+  def type_new_ordem_service  
+    @type_os = params[:tipo_os].to_i
+    @ordem_service = OrdemService.new
+    @ordem_service.ordem_service_airs.build
+    @ordem_service.ordem_service_logistics.build
+    @ordem_service.cte_keys.build
+    @ordem_service.nfe_keys.build
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def type_ordem_service
+    @tipo_os = params[:type].to_i
+    @ordem_services = OrdemService.joins(:client).where(tipo: @tipo_os).order(id: :desc)
+
+    respond_with(@ordem_services) do |format|
+      format.html { render :layout => !request.xhr? }
+    end
   end
 
   def search
@@ -223,12 +263,21 @@ class OrdemServicesController < ApplicationController
     end
 
     def ordem_service_params
-      params.require(:ordem_service).permit(:driver_id, :client_id, :data, :placa, :estado, :cidade, :cte, :danfe_cte, :valor_receita, :valor_despesas, :valor_liquido, 
-        :observacao, :status, :qtde_volume, :peso, :data_entrega_servico, :senha_sefaz, :carrier_id, :billing_client_id, :delivery_driver_id,
+      params.require(:ordem_service).permit(:client_id, :data, :estado, :cidade, :valor_receita, :valor_despesas, :valor_liquido, 
+        :observacao, :status, :data_entrega_servico, :carrier_id, :billing_client_id, :tipo,
+
+        ordem_service_airs_attributes: [:source_stretch_id, :target_stretch_id, :solicitante, :target_agent_id, :airline_carrier_id, 
+          :qtde_volume, :peso, :valor_nf, :total_cubagem, :tarifa_companhia, :tipo_frete, :valor_total, :awb, :voo, :id, :_destroy],
+
+        ordem_service_logistics_attributes: [:driver_id, :delivery_driver_id, :placa, :cte, :danfe_cte,:qtde_volume, :peso, :senha_sefaz, :id, :_destroy],
+
+        cte_keys_attributes: [:cte, :chave, :id, :_destroy],
         nfe_keys_attributes: [:nfe, :chave, :qtde, :id, :_destroy],
         ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :qtde, :qtde_recebida, :valor_pago, :id, :_destroy],
         account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :valor, :id, :_destroy],
         assets_attributes: [:asset, :user_id, :id, :_destroy]
+
         )
     end
 end
+

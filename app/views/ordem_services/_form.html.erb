@@ -1,191 +1,23 @@
+	<div class="form-group">
+		<%= label_tag "type_service_id", "Tipo de Ordem de Serviço" %> <br>
+		<%= select_tag "ordem_service[tipo]", options_for_select(select_tipo_ordem_servico), prompt: "Selecione um Tipo de Servico", class: "form-control" %>
+	</div>
 
-<%= form_for(@ordem_service) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-
-  <div class="form-group">
-    <%= f.label :driver_id, "Motorista" %><br>
-    <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :delivery_driver_id, "Motorista para Entrega" %><br>
-    <%= f.select(:delivery_driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
-  </div>
-
-  <div class="form-group">
-    <%= label_tag :client_cpf_cpnj %><br>
-    <% if @ordem_service.new_record? %>
-      <%= text_field_tag :client_cpf_cpnj, nil, class: "form-control cnpj" %>
-    <% else %>
-      <%= text_field_tag :client_cpf_cpnj, @ordem_service.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
-      <%= render partial: "clients/result_client", locals: { client: @ordem_service.client } %>
-    <% end %>
-  </div>
-  
-  <div id="client_cnpj_result">
-
-  </div>
-
-  <div class="form-group">
-    <%= f.label :billing_client_id, "Faturar para" %><br>
-    <%= f.select(:billing_client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :carrier_id, "Agent" %><br>
-    <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :data, "Data da Agendamento" %><br>
-    <%= f.text_field :data, class: "form-control data", value: date_br(@ordem_service.data) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :data_entrega_servico, "Data da Entrega do Serviço" %><br>
-    <%= f.text_field :data_entrega_servico, class: "form-control data", value: date_br(@ordem_service.data_entrega_servico) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :placa %><br>
-    <%= f.text_field :placa, class: "form-control placa" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :senha_sefaz %><br>
-    <%= f.text_field :senha_sefaz, class: "form-control" %>
-  </div>
-<!--   
-  <div class="form-group">
-    <%#= f.label :estado %><br>
-    <%#= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
-    <%#= f.text_field :estado, client.estado, class: "form-control", disabled: true %>
-  </div>
-  <div class="form-group">
-    <%#= f.label :cidade %><br>
-    <%#= f.text_field :cidade, class: "form-control" %>
-  </div>
- -->  
-  <div class="form-group">
-    <%= f.label :cte %><br>
-    <%= f.text_field :cte, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :danfe_cte, "Chave CTE" %><br>
-    <%= f.text_field :danfe_cte, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :qtde_volume %><br>
-    <%= f.text_field :qtde_volume, class: "form-control"  %>
-  </div>
-  <div class="form-group">
-    <%= f.label :peso %><br>
-    <%= f.text_field :peso, class: "form-control money3", value: to_decimal(@ordem_service.peso) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :observacao %><br>
-    <%= f.text_area :observacao, class: "form-control" %>
-  </div>
-
-  <div id="ordem_service_nfe">
-    <fieldset>
-      <legend>Dados da Nfe</legend>
-      <div class="items">
-        <%= f.nested_fields_for :nfe_keys do |f| 
-          render 'nfe_keys', f: f
-        end  -%>
-      </div>
-      <div class="row">
-        <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] NFE</a>  
-        </div>  
-      </div>
-    
-    </fieldset>
-  </div>
-
-  
-
-  <div id="ordem_service_type_service">
-    <fieldset>
-      <legend>Serviços</legend>
-      <%= render 'value_services', object: @ordem_service %>
-      <div class="items">
-        <%= f.nested_fields_for :ordem_service_type_service do |f| 
-          render 'ordem_service_type_services', f: f
-        end  -%>
-      </div>
-      <div class="row">
-        <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] Serviço</a>  
-        </div>  
-      </div>
-    
-    </fieldset>
-  </div>
-
-  <div id="accounts">
-    <fieldset>
-      <legend>Contas Bancarias</legend>
-      <div class="items">
-        <%= f.nested_fields_for :account_banks do |f| %>
-          <%= render "form_account_bank", f: f %> 
-        <% end %>
-      </div>
-      
-      <div class="row">
-        <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>  
-        </div>  
-      </div>
-    
-    </fieldset>
-  </div>  
-
-  <h2>Documentos</h2> 
-  <div id="documents">
-    <div class="items">
-      <%= f.nested_fields_for :assets do |f| 
-        render 'shared/asset', f: f
-      end  -%>
-    </div>
-      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
-  </div>
-
-  <hr />
-  
-  <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
-    <%= link_to "Exibir",  ordem_service_path(@ordem_service), class: "btn btn-info" if !@ordem_service.new_record? %>
-    <%= link_to "Listar Todos", ordem_services_path, class: "btn btn-default" %>
-  </div>  
-
-<% end %>
+	<div id="form_ordem_service">
+		
+	</div>
 
 <script type="text/javascript">
-jQuery(function($) {
-  // when the #country field changes
-  $("#ordem_service_client_id").change(function() {
-    // make a POST call and replace the content
-    var id = $('select#ordem_service_client_id :selected').val();
-    if(id == "") 
-      id="0";
-    $.ajax({
-      type: "GET",
-      data: {id: id},
-      url: '/clients/get_client_by_id'
-    });
-    return false;
-  });
-})
-</script>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-   $("#client_cpf_cpnj").focusout(function() {
-      var cnpj = $('#client_cpf_cpnj').val();
-      console.log(cnpj);
-      $.ajax({
-        type: "GET",
-        data: {cpf_cpnj: cnpj},
-        url: '/clients/get_client_by_cnpj'
-      });
-
-    });
-  });
+	$(document).ready(function() {
+	 $("#ordem_service_tipo").change(function() {
+			var tipo = $('#ordem_service_tipo').val();
+			console.log(tipo);
+			$.ajax({
+				type: "GET",
+				data: {tipo_os: tipo},
+				url: '/type_new_ordem_service/'
+			});
+		});
+	});
 </script>
 

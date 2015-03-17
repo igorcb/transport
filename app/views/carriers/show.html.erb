@@ -54,9 +54,25 @@
 </p>
 
 <p>
+  <strong>ANTT - CRNTRC : </strong>
+  <%= @carrier.antt %>
+</p>
+
+<p>
+  <strong>ANTT - Categoria : </strong>
+  <%= @carrier.antt_categoria %>
+</p>
+
+<p>
   <strong>Transportadora é cliente? : </strong>
   <%= extenso_boolean @carrier.partner %>
 </p>
+
+<p>
+  <strong>Companhia é aérea? : </strong>
+  <%= extenso_boolean @carrier.aereo %>
+</p>
+
 
 <p>
   <strong>Observação:</strong>

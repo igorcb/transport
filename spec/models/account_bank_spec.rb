@@ -1,15 +1,12 @@
 require 'spec_helper'
 
 describe AccountBank do
+  let(:client) { FactoryGirl.build(:client) }
   before do 
-  	@account_bank = AccountBank.create(banco: '1', 
-  																		 agencia: '0000000', 
-  																		 conta_corrente: '0000000000', 
-  																		 favorecido: "Nome da pessoa que vai receber o pagamento", 
-  																		 cpf_cnpj: "34.259.437/0001-66" 
-  																		 #account_id: id do Driver ou Client
-  																		 #contact_type: Driver, Client
-  																			)
+    @account_bank = client.account_banks.build(banco: '1', 
+                                               agencia: '0000000', 
+                                               favorecido: "Nome da pessoa que vai receber o pagamento",
+                                               cpf_cnpj: "34.259.437/0001-66" )
   end
   
   subject { @account_bank } 

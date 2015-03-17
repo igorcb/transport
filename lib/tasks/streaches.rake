@@ -1,0 +1,40 @@
+namespace :db do
+  desc "Fill database with the data from the site of streach"
+  #  +   "http://www.febraban.org.br/arquivo/bancos/sitebancos2-0.asp"
+  task streaches: :environment do
+    Stretch.create!(cidade: "ARACAJU", estado: "SE", destino: "AJU")
+    Stretch.create!(cidade: "BELEM", estado: "PA", destino: "BEL")
+    Stretch.create!(cidade: "BELO HORIZONTE", estado: "MG", destino: "BHZ")
+    Stretch.create!(cidade: "BELO HORIZONTE", estado: "MG", destino: "CNF")
+    Stretch.create!(cidade: "BRASILIA", estado: "DF", destino: "BSB")
+    Stretch.create!(cidade: "CAMPINAS", estado: "SP", destino: "VCP")
+    Stretch.create!(cidade: "CAMPO GRANDE", estado: "MS", destino: "CGR")
+    Stretch.create!(cidade: "CUIBA", estado: "MT", destino: "CGB")
+    Stretch.create!(cidade: "CURITIBA", estado: "PR", destino: "CWB")
+    Stretch.create!(cidade: "FLORIANOPOLIS", estado: "SC", destino: "FLN")
+    Stretch.create!(cidade: "FORTALEZA", estado: "CE", destino: "FOR")
+    Stretch.create!(cidade: "GOIANIA", estado: "GO", destino: "GYN")
+    Stretch.create!(cidade: "JOAO PESSOA", estado: "PB", destino: "JPA")
+    Stretch.create!(cidade: "JOINVILLE", estado: "SC", destino: "JOI")
+    Stretch.create!(cidade: "LONDRINA", estado: "PR", destino: "LDB")
+    Stretch.create!(cidade: "MACAPA", estado: "AP", destino: "MCP")
+    Stretch.create!(cidade: "MACEIO", estado: "AL", destino: "MCZ")
+    Stretch.create!(cidade: "MANAUS", estado: "AM", destino: "MAO")
+    Stretch.create!(cidade: "NATAL", estado: "RN", destino: "NAT")
+    Stretch.create!(cidade: "NAVEGANTES", estado: "SC", destino: "NVT")
+    Stretch.create!(cidade: "PALMAS", estado: "TO", destino: "PWM")
+    Stretch.create!(cidade: "PORTO ALEGRE", estado: "RS", destino: "POA")
+    Stretch.create!(cidade: "PORTO VELHO", estado: "RO", destino: "PVH")
+    Stretch.create!(cidade: "RECIFE", estado: "PE", destino: "REC")
+    Stretch.create!(cidade: "RIO BRANCO", estado: "AC", destino: "RBR")
+    Stretch.create!(cidade: "RIO DE JANEIRO", estado: "RJ", destino: "SDU")
+    Stretch.create!(cidade: "RIO DE JANEIRO", estado: "RJ", destino: "GIG")
+    Stretch.create!(cidade: "SAO PAULO", estado: "SP", destino: "GRU")
+    Stretch.create!(cidade: "SAO PAULO", estado: "SP", destino: "CGH")
+    Stretch.create!(cidade: "SALVADOR", estado: "BA", destino: "SSA")
+    Stretch.create!(cidade: "SAO LUIS", estado: "MA", destino: "SLZ")
+    Stretch.create!(cidade: "TERESINA", estado: "PI", destino: "THE")
+    Stretch.create!(cidade: "VITORIA", estado: "ES", destino: "VIX")
+  end
+end
+

@@ -1,0 +1,177 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Ordem de Serviço No: <%= @ordem_service.id %> - <%= @ordem_service.status_name %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse off" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+	        <div class="panel-heading">
+	          <h2 class="panel-title">Agente Origem</h2>
+	        </div>
+
+	        <div class="panel-body"> 
+					  <%= render 'carrier_data', object: @ordem_service.carrier if @ordem_service.carrier.present? %>
+					</div>
+
+          <div class="panel-heading">
+            <h2 class="panel-title">Agente Destino</h2>
+          </div>
+
+          <div class="panel-body"> 
+            <%= render 'carrier_data', object: @ordem_service.ordem_service_air.agent_target if @ordem_service.ordem_service_air.agent_target.present? %>
+          </div>
+
+	        <div class="panel-heading">
+	          <h2 class="panel-title">Dados Ordem de Serviço</h2>
+	        </div>
+
+	        <div class="panel-body"> 
+				    <p>
+              <strong>Data da Agendamento:</strong>
+              <%= date_br @ordem_service.data %>
+            </p>
+
+            <p>
+              <strong>Data da Entrega:</strong>
+              <%= date_br @ordem_service.data_entrega_servico %>
+            </p>
+
+            <p>
+              <strong>Trecho:</strong>
+              <%= @ordem_service.ordem_service_air.stretch %>
+            </p>
+
+            <p>
+              <strong>Companhia aérea:</strong>
+              <%= @ordem_service.ordem_service_air.airline.nome if @ordem_service.ordem_service_air.airline.present? %>
+            </p>
+
+            <p>
+              <strong>AWB:</strong>
+              <%= @ordem_service.ordem_service_air.awb %>
+            </p>
+
+            <p>
+              <strong>Voo:</strong>
+              <%= @ordem_service.ordem_service_air.voo %>
+            </p>
+
+            <p>
+              <strong>Volume:</strong>
+              <%= @ordem_service.ordem_service_air.qtde_volume %>
+            </p>
+
+            <p>
+              <strong>Peso:</strong>
+              <%= number_with_precision(@ordem_service.ordem_service_air.peso, precision: 3, separator: ",", delimiter: ".") %>
+            </p>
+
+            <p>
+              <strong>Valor NF:</strong>
+              <%= number_to_currency(@ordem_service.ordem_service_air.valor_nf, unit: "R$ ", separator: ",", delimiter: ".") %>
+            </p>
+
+            <p>
+              <strong>Cubagem:</strong>
+              <%= number_with_precision(@ordem_service.ordem_service_air.total_cubagem, precision: 3, separator: ",", delimiter: ".") %>
+            </p>
+
+            <p>
+              <strong>Tarifa da Companhia:</strong>
+              <%= number_to_currency(@ordem_service.ordem_service_air.tarifa_companhia, unit: "R$ ", separator: ",", delimiter: ".") %>
+            </p>
+
+            <p>
+              <strong>Valor Total:</strong>
+              <%= number_to_currency(@ordem_service.ordem_service_air.valor_total, unit: "R$ ", separator: ",", delimiter: ".") %>
+            </p>
+					</div>
+				
+				</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Dados do Cliente
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <%= render 'clients/client_data', object: @ordem_service.client %>
+
+        <p>
+          <strong>Horário para descarregar:</strong>
+          <label class="fields"><%= @ordem_service.client.hora_descarga %></label>
+        </p>
+
+        <p>
+          <strong>Condições para descarregar:</strong>
+          <pre><%= @ordem_service.client.condicao_recebimento %></pre>
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSix">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Contas a Pagar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+      <div class="panel-body">
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <%= render 'account_payables/account_header' %>
+            </thead>
+
+            <tbody>
+              <%= render @ordem_service.account_payables %>
+            </tbody>
+          </table>
+        </div>    
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEight">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+          Documentos
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+      <div class="panel-body">
+
+      <%= render 'shared/document', object: @ordem_service %>
+      
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_ordem_service_path(@ordem_service), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', ordem_services_path, class: "btn btn-default" %>
+  <%= link_to 'Fechar OS', close_os_ordem_service_path, class: "btn btn-default" %>
+</div>

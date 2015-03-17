@@ -1,0 +1,27 @@
+<% if f.object.new_record? %>
+
+	<div class='nested-fields'>
+    <div class="form-group">
+	    <%= f.file_field :asset %>
+    </div>
+    <br />
+    <%= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+  </div>
+
+<% end %>
+       
+<% unless f.object.new_record? %>
+  <div class='nested-fields'>
+     
+    <% if f.object.is_image? %>
+      <%= link_to image_tag(f.object.asset.url(:thumb)), "#modalcar", data: {:toggle=>"modal"} %> 
+    <% else %>
+      <%= link_to image_tag("image_pdf.png", size: "120x90"), f.object.asset.url(:thumb, false) %>
+    <% end  %>
+    <br />
+    <%= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+     
+  </div>
+
+<% end %>
+  

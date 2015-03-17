@@ -1,6 +1,6 @@
 $(document).ready(function(e) {
-   $('#ordem_service_type_service, #ordem_service_nfe').nestedFields();
-});
+  $('#ordem_service_type_service, #ordem_service_nfe').nestedFields();
+ });
 
 $(document).ready(function(e) {
   $(".placa").mask("AAA-0000", {placeholder: "___-____"})

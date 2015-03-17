@@ -1,7 +1,5 @@
-<% if current_user.has_role? :admin %>
-	<h1>Editing ordem_service</h1>
-	<%= render 'form' %>
-<% else %>
-	<h2>Fechamento de ordem de coleta</h2>
-	<%= render 'form_agent' %>
+<% if @ordem_service.tipo == OrdemService::TipoOS::LOGISTICA %>
+  <%= render 'form_logistic' %>
+<% elsif @ordem_service.tipo == OrdemService::TipoOS::AEREO %>
+  <%= render 'form_air' %>
 <% end %>

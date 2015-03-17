@@ -1,0 +1,111 @@
+<%= form_for(@ordem_service, :html => {id: 'new_ordem_service'}) do |f| %>
+
+  <%= render 'shared/error_messages', object: f.object %>
+  
+  <%= hidden_field_tag "ordem_service[tipo]", @type_os %>
+
+  <div class="form-group">
+    <%= label_tag :client_cpf_cpnj %><br>
+    <% if @ordem_service.new_record? %>
+      <%= text_field_tag :client_cpf_cpnj, nil, class: "form-control cnpj" %>
+    <% else %>
+      <%= text_field_tag :client_cpf_cpnj, @ordem_service.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= render partial: "clients/result_client", locals: { client: @ordem_service.client } %>
+    <% end %>
+  </div>
+  
+  <div id="client_cnpj_result">
+
+  </div>  
+
+  <div class="form-group">
+    <%= f.label :billing_client_id, "Faturar para" %><br>
+    <%= f.select(:billing_client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :carrier_id, "Agente" %><br>
+    <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :data, "Data da Agendamento" %><br>
+    <%= f.text_field :data, class: "form-control data", value: date_br(@ordem_service.data) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :data_entrega_servico, "Data da Entrega do Serviço" %><br>
+    <%= f.text_field :data_entrega_servico, class: "form-control data", value: date_br(@ordem_service.data_entrega_servico) %>
+  </div>  
+ 
+  <%= f.fields_for :ordem_service_logistics do |f| 
+      render 'ordem_service_logistic_fields', f: f
+  end -%>
+
+  <div class="form-group">
+    <%= f.label :observacao %><br>
+    <%= f.text_area :observacao, class: "form-control" %>
+  </div>
+
+  <h3>Dados CT-e</h3>
+  <div class="cte_items">
+    <%= f.fields_for :cte_keys do |f| 
+        render 'cte_key_fields', f: f
+    end -%> <br />
+    <%= link_to_add_association 'Add CT-e', f, :cte_keys, class: "btn btn-success btn-sm" %> <br />
+  </div>
+
+  <h3>Dados NF-e</h3>
+  <div class="nfe_items">
+    <%= f.fields_for :nfe_keys do |f| 
+      render 'nfe_key_fields', f: f
+    end  -%> <br />
+    <%= link_to_add_association 'Add NF-e', f, :nfe_keys, class: "btn btn-success btn-sm" %> <br />
+  </div>
+   
+  <h3>Serviços</h3>
+  <div class="ordem_service_type_service_items">
+      <%= f.fields_for :ordem_service_type_service do |f| 
+        render 'ordem_service_type_service_fields', f: f
+      end  -%> <br />
+      <%= link_to_add_association 'Add Serviço', f, :ordem_service_type_service, class: "btn btn-success btn-sm" %> <br />
+  </div>
+  
+  <h3>Account Banks</h3>
+  <div class="account_banks_items">
+    <%= f.fields_for :account_banks do |f| 
+       render "account_bank_fields", f: f 
+     end -%> <br />
+    <%= link_to_add_association 'Add Account', f, :account_banks, class: "btn btn-success btn-sm" %> <br />
+  </div>
+          
+  <h3>Documentos</h3> 
+  <div class="documents_itens">
+    <%= f.nested_fields_for :assets do |f| 
+      render 'asset_fields', f: f
+    end -%> <br />
+    <%= link_to_add_association 'Add Document', f, :assets, class: "btn btn-success btn-sm" %> <br />
+  </div>
+  
+  <hr />
+  
+  <div class="form-actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+  </div>  
+
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#client_cpf_cpnj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj},
+        url: '/clients/get_client_by_cnpj'
+      });
+
+    });
+  });
+</script>

@@ -1,26 +1,9 @@
 require 'spec_helper'
 
 describe Client do
-	#let(:address) { FactoryGirl.create(:address) }
+  let(:group_client) { FactoryGirl.build(:group_client) }
   before do 
-  	@client = Client.create(tipo_pessoa: Client::TipoPessoa::FISICA,
-                               cpf_cnpj: '00000000000000', 
-                    inscricao_municipal: nil,
-                     inscricao_estadual: nil,
-                                   nome: 'IGOR C B - ME', 
-                               fantasia: 'I4 TECNOLOGIA', 
-                                    cep: '60742300',
-                               endereco: 'Rua Libania',
-                                 numero: '105',
-                            complemento: nil,
-                                 bairro: 'Serrinha',
-                                 cidade: 'Fortaleza',
-                                 estado: 'CE',
-                                     rg: '200209200618',
-                          orgao_emissor: 'SSP/CE',
-                        data_emissao_rg: '2002/09/02'
-                                 ) 
-
+    @client = FactoryGirl.build(:client)
   end
 
   subject { @client }
@@ -41,6 +24,7 @@ describe Client do
   it { should respond_to(:rg) }
   it { should respond_to(:orgao_emissor) }
   it { should respond_to(:data_emissao_rg) }
+  it { should respond_to(:group_client) }
   it { should respond_to(:contacts) }
   it { should accept_nested_attributes_for :assets }
   it { should accept_nested_attributes_for :contacts }

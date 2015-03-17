@@ -39,26 +39,42 @@ gem 'ransack'
 gem "watir-rails"
 gem 'cancan'
 gem 'rolify'
+gem 'cocoon'
+
+# group :development, :test do
+#   # gem 'sqlite3', '1.3.5'
+#   gem 'rspec-rails', '2.11.0'
+#   #gem 'guard-rspec', '0.5.5'
+#   gem 'guard-rspec', '1.2.1'
+#   gem 'rspec-rails', '2.11.0'
+#   gem 'guard-spork', '1.2.0'
+#   gem 'childprocess', '0.3.6'
+#   gem 'spork', '0.9.2'
+#   gem 'capybara', '1.1.2'
+#   gem 'rb-inotify', '~> 0.9'
+#   gem 'libnotify', '0.5.9'
+#   # gem 'cpf_faker'
+#   # gem 'faker'
+#   # gem 'annotate', '2.5.0' 
+#   gem 'factory_girl_rails', '4.1.0' 
+
+#   gem 'thin'
+#   gem 'quiet_assets'
+
+# end
 
 group :development, :test do
-  # gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.11.0'
-  gem 'guard-rspec', '0.5.5'
+  gem 'guard-rspec', '1.2.1'
   gem 'guard-spork', '1.2.0'
   gem 'childprocess', '0.3.6'
-  gem 'spork', '0.9.2'
-  gem 'capybara', '1.1.2'
-  #gem 'rb-inotify', '0.8.8'
-  gem 'rb-inotify', '~> 0.9'
-  gem 'libnotify', '0.5.9'
-  # gem 'cpf_faker'
-  # gem 'faker'
-  # gem 'annotate', '2.5.0'  
-
+  gem 'spork-rails'
+  gem 'factory_girl_rails', '4.1.0' 
   gem 'thin'
   gem 'quiet_assets'
-
+  gem 'capybara', '1.1.2'
 end
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

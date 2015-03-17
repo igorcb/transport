@@ -1,0 +1,45 @@
+  <div class="panel-body">
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Placa</th>
+            <th>Motorista</th>
+            <th>Cliente</th>
+            <th>Data</th>
+            <th>Cte</th>
+            <th>Estado</th>
+            <th>Cidade</th>
+            <th>Status</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @ordem_services.each do |ordem_service| %>
+            <tr>
+              <td><%= link_to ordem_service.ordem_service_logistic.placa, ordem_service %></td>
+              <td><%= link_to truncate(ordem_service.ordem_service_logistic.driver.nome, length: 18), ordem_service  %></td>
+              <td><%= link_to truncate(ordem_service.client.nome, length: 20), ordem_service %></td>
+              <td><%= link_to date_br(ordem_service.data), ordem_service %></td>
+              <td><%= link_to ordem_service.cte, ordem_service if ordem_service.cte.present? %></td>
+              <td><%= ordem_service.estado %></td>
+              <td><%= truncate(ordem_service.cidade, length: 10) %></td>
+              <td><%= ordem_service.status_name %></td>
+              <td><%= link_to 'Show', ordem_service, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_ordem_service_path(ordem_service), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Destroy', ordem_service, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+            </tr>
+            <% if ordem_service.ordem_service_type_service.present? %>
+               <% ordem_service.ordem_service_type_service.each do |item| %>
+                 <tr>
+                   <td colspan="11">Type Service: <%= item.type_service.descricao %> - Valor: <%= item.valor %></td>
+                 </tr>
+               <% end %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>

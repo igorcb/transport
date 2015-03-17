@@ -1,22 +1,8 @@
 require 'spec_helper'
 
 describe Carrier do
-	#let(:address) { FactoryGirl.create(:address) }
   before do 
-  	@carrier = Carrier.create(cnpj: '00000000000000', 
-                    inscricao_municipal: nil,
-                     inscricao_estadual: nil,
-                                   nome: 'IGOR C B - ME', 
-                               fantasia: 'I4 TECNOLOGIA', 
-                                    cep: '60742300',
-                               endereco: 'Rua Libania',
-                                 numero: '105',
-                            complemento: nil,
-                                 bairro: 'Serrinha',
-                                 cidade: 'Fortaleza',
-                                 estado: 'CE'
-                                 ) 
-
+    @carrier = FactoryGirl.build(:carrier)
   end
 
   subject { @carrier }
@@ -33,6 +19,10 @@ describe Carrier do
   it { should respond_to(:bairro) }
   it { should respond_to(:cidade) }
   it { should respond_to(:estado) }
+  it { should respond_to(:aereo) }
+  it { should respond_to(:partner) }
+  it { should respond_to(:antt) }
+  it { should respond_to(:antt_categoria) }
 
   describe "when cnpj is not present" do
     before { @carrier.cnpj = '' }

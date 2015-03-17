@@ -1,0 +1,69 @@
+  <div class="form-group">
+    <%= f.label :target_agent_id, "Agent Destino" %><br>
+    <%= f.select(:target_agent_id, Carrier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :source_stretch_id, "Origem" %>
+    <%= f.select(:source_stretch_id, Stretch.order(:cidade).collect {|c| [c.cidade + ' - ' + c.destino , c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :target_stretch_id, "Destino" %>
+    <%= f.select(:target_stretch_id, Stretch.order(:cidade).collect {|c| [c.cidade + ' - ' + c.destino , c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :airline_carrier_id, "Companhia Aérea" %>
+    <%= f.select(:airline_carrier_id, Carrier.where(aereo: true).order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :awb, "AWB" %>
+    <%= f.text_field :awb, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :voo, "No do Voo" %>
+    <%= f.text_field :voo, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :solicitante %>
+    <%= f.text_field :solicitante, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :tipo_frete  %>
+    <%= f.select( :tipo_frete, select_tipo_frete, {include_blank: "Selecione o Frete"}, {class: "form-control"} ) %>      
+  </div>
+
+  <div class="form-group">
+    <%= f.label :qtde_volume %>
+    <%= f.text_field :qtde_volume, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :peso %>
+    <%= f.text_field :peso, class: "form-control money2" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :valor_nf %>
+    <%= f.text_field :valor_nf, class: "form-control money2" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :total_cubagem %>
+    <%= f.text_field :total_cubagem, class: "form-control money2" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :tarifa_companhia %>
+    <%= f.text_field :tarifa_companhia, class: "form-control money2" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :valor_total %>
+   <%= f.text_field :valor_total, class: "form-control money2" %>
+  </div>

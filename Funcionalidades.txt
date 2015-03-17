@@ -123,3 +123,15 @@ Controle de Entrada e Saida de Pallet
 
 Comentarios Internos
 	Criar Tabela igual a de comentarios
+
+
+27/02/2015
+Verificar o total do serviço na index de OS
+Adiciona a data da chegada do motorista no Galpao
+Adiciona a data do vencimento do boleto do cliente
+Relatorio das Os por data de criação
+	O que eu vou mostrar no relatorio
+
+
+04/03/2015
+Transportador -> Criar condição de pagamento, Intervalo e Numero de Parcelas

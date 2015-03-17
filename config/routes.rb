@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
   
+  resources :cte_xmls, only: [:index, :new, :create]
+  
   get "internal_comments/create"
   resources :occurrences
   resources :internal_comments, only: [:create]
@@ -27,6 +29,7 @@ Transport::Application.routes.draw do
 
   match '/search', :controller => 'ordem_services', :action => 'search', via: [:get, :post]
   match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
+  match 'type_ordem_service/:type', :controller=>'ordem_services', :action => 'type_ordem_service', via: [:get, :post]
   match 'faturamento' => "ordem_services#faturamento",  via: [:get]
   match 'invoice' => "ordem_services#invoice",  via: [:post]
   match '/stocks', :controller => 'pallets', :action => 'estoque', via: [:get]
@@ -69,10 +72,24 @@ Transport::Application.routes.draw do
       post 'create_os'
     end
   end
-  
-  resources :billings
 
+  # resources :teste, only: [:index] do
+  #   collection do  
+  #     get  "route_name/:param_a" => "controller#action_a"
+  #     get  "route_name/:param_a/:param_b" => "controller#action_b"
+  #     get  "route_name/:param_a/:param_b/:param_c/" => "controller#action_c"          
+  #     get  "route_name/:param_a/:param_b/:param_c/:param_d" => "controller#action_d"
+  #   end
+  # end  
+
+  resources :billings
+  #match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
+  match '/type_new_ordem_service', :controller => 'ordem_services', :action => 'type_new_ordem_service', via: [:get, :post]
+  #match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
   resources :ordem_services do
+    #get "type_new_ordem_service/:type_id", :to => "ordem_services#type_new_ordem_service", via: [:get]
+    #get "new_type/:type_id", :to => "ordem_services#new_type", via: [:get]
+    #get '/patients/:id', to: 'patients#show', as: 'patient'
     member do
       get 'close_os'
       get 'edit_agent'
@@ -84,6 +101,7 @@ Transport::Application.routes.draw do
     end
     match 'search' => 'people#search', via: [:get, :post], as: :search
     collection do
+      get "new_type/:id" => "ordem_services#new_type"
       get 'index_agent'
       get 'request_payables'
       get 'billing_group_places'

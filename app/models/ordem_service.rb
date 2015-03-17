@@ -1,29 +1,30 @@
 class OrdemService < ActiveRecord::Base
+  IS_NUMBER = /\A[+-]?\d+\Z/  #/\D/
   resourcify
-  validates :driver_id, presence: true
+
+  validates :tipo, presence: true
   validates :client_id, presence: true
-  #validates :data, presence: true
-  validates :placa, presence: true, length: { maximum: 10 }
   validates :estado, presence: true, length: { maximum: 2 } 
   validates :cidade, presence: true, length: { in: 3..100 }
-  validates :cte, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }, uniqueness: true, if: "tipo != 2"
-  validates :danfe_cte, presence: true, length: { is: 44 }, numericality: { only_integer: true }, if: "tipo != 2"
-  validates :carrier_id, presence: true, if: "tipo == 2"
+  validates :carrier_id, presence: true, if: "tipo == 4"
   
-  belongs_to :driver
-  belongs_to :delivery_driver, class_name: "Driver", foreign_key: 'delivery_driver_id'
+#  validate :validate_danfe
+  
   belongs_to :client
   belongs_to :carrier
   belongs_to :pallet
   belongs_to :billing
   belongs_to :billing_client, class_name: "Client", foreign_key: 'billing_client_id'
   has_one :account_payable
-  
+
   has_many :account_payables
   has_many :type_service, through: :ordem_service_type_service
 
   has_many :nfe_keys, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_keys, allow_destroy: true, :reject_if => :all_blank
+
+  has_many :cte_keys, class_name: "CteKey", foreign_key: "cte_id", :as => :cte, dependent: :destroy
+  accepts_nested_attributes_for :cte_keys, allow_destroy: true, :reject_if => :all_blank
 
   has_many :ordem_service_type_service, dependent: :destroy
   accepts_nested_attributes_for :ordem_service_type_service, allow_destroy: true, :reject_if => :all_blank
@@ -39,6 +40,14 @@ class OrdemService < ActiveRecord::Base
 
   has_many :internal_comments, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
   has_many :internal_commentaries, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+  
+  has_one :ordem_service_logistic
+  has_many :ordem_service_logistics
+  accepts_nested_attributes_for :ordem_service_logistics, allow_destroy: true, :reject_if => :all_blank
+
+  has_one :ordem_service_air
+  has_many :ordem_service_airs
+  accepts_nested_attributes_for :ordem_service_airs, allow_destroy: true, :reject_if => :all_blank
 
   #scope :is_not_billed, -> { joins(:ordem_service_type_services).where(status: [0,1]).order('ordem_services.data desc') }
   scope :is_not_billed, -> { joins(:driver, :ordem_service_type_service, :type_service).where(status: [0,1]) }
@@ -49,7 +58,7 @@ class OrdemService < ActiveRecord::Base
                                       .group("ordem_services.placa, drivers.nome, type_services.descricao")
                                       .order("drivers.nome, ordem_services.placa")                                       
                       }
-  before_save { |os| os.placa = placa.upcase }
+  
   before_save :set_values
 
   before_destroy :can_destroy?
@@ -61,9 +70,17 @@ class OrdemService < ActiveRecord::Base
   end
 
   module TipoOS
-    MUDANCA = 0
     LOGISTICA = 1
-    PALETE = 2
+    MUDANCA = 2
+    PALETE = 3
+    AEREO = 4
+  end
+
+  def validate_danfe
+    if !self.cte.blank?
+      self.errors.add("Danfe CT-e", "can't be blank") if self.danfe_cte.blank?
+      self.errors.add("Danfe CT-e", "is not a number") if self.danfe_cte.to_s !~ IS_NUMBER
+    end
   end
   
   def set_values
@@ -111,19 +128,19 @@ class OrdemService < ActiveRecord::Base
 
   def valor_volume 
     valor = 0.00
-    valor = self.qtde_volume * self.client.valor_volume if !self.qtde_volume.nil? && !self.client.valor_volume.nil?
+    valor = self.qtde_volume * self.client.valor_volume if !self.ordem_service_logistic.qtde_volume.nil? && !self.client.valor_volume.nil?
     return valor  
   end
   
   def valor_peso
     valor = 0.00
-    valor = self.peso * self.client.valor_peso if !self.peso.nil? && !self.client.valor_peso.nil?
+    valor = self.ordem_service_logistic.peso * self.client.valor_peso if !self.ordem_service_logistic.peso.nil? && !self.client.valor_peso.nil?
     return valor  
   end 
 
   def valor_1500
     valor = 0.00
-    valor = self.peso * 0.13 if !self.peso.nil?
+    valor = self.ordem_service_logistic.peso * 0.13 if !self.ordem_service_logistic.peso.nil?
     return valor
   end
 

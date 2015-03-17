@@ -18,8 +18,6 @@ class CarriersController < ApplicationController
   def new
     @carrier = Carrier.new
     @carrier.contacts.build
-    @carrier.emails.build
-    @carrier.assets.build 
   end
 
   # GET /carriers/1/edit
@@ -81,9 +79,9 @@ class CarriersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def carrier_params
-      params.require(:carrier).permit(:cnpj, :nome, :fantasia, :inscricao_estadual, :instricao_municipal, :endereco, :numero, :complemento, :bairro, 
-      :cidade, :estado, :cep, :obs, :partner,
-      emails_attributes: [:setor, :contato, :email, :comprovante, :id, :_destroy],
+      params.require(:carrier).permit(:cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, :bairro, 
+      :cidade, :estado, :cep, :obs, :partner, :aereo, :antt, :antt_categoria,
+      emails_attributes: [:setor, :contato, :email, :comprovante, :responsavel_carga, :id, :_destroy],
       contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
       account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
       assets_attributes: [:asset, :id, :_destroy]

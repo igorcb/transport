@@ -1,0 +1,34 @@
+<div class='nested-fields'>
+  
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.text_field :qtde, size: 5, class: "form-control input-sm numericOnly", placeholder: "Qtde" %>
+    </div>
+
+    <div class="col-xs-2">
+      <%= f.text_field :nfe, class: "form-control input-sm numericOnly", placeholder: "Nfe"  %>
+    </div>
+
+    <div class="col-xs-4">
+      <%= f.text_field :chave, maxlength: 44, class: "form-control input-sm", placeholder: "Chave"  %>
+    </div>
+    
+    <%= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".numericOnly").keyup(function() {
+    var jThis=$(this);
+    var notNumber=new RegExp("[^0-9]","g");
+    var val=jThis.val();
+
+    //Math before replacing to prevent losing keyboard selection 
+    if(val.match(notNumber))
+    { jThis.val(val.replace(notNumber,"")); }
+  }).keyup();
+});
+</script>
