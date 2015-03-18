@@ -5,16 +5,30 @@
   <%= hidden_field_tag "ordem_service[tipo]", @type_os %>  
 
   <div class="form-group">
-    <%= label_tag :client_cpf_cpnj %><br>
+    <%= label_tag :source_client_cpf_cpnj, "CNPJ Remetente" %><br>
     <% if @ordem_service.new_record? %>
-      <%= text_field_tag :client_cpf_cpnj, nil, class: "form-control cnpj" %>
+      <%= text_field_tag :source_client_cpf_cpnj, nil, class: "form-control cnpj" %>
     <% else %>
-      <%= text_field_tag :client_cpf_cpnj, @ordem_service.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= text_field_tag :source_client_cpf_cpnj, @ordem_service.source_client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= render partial: "clients/result_client", locals: { client: @ordem_service.source_client } %>
+    <% end %>
+  </div>
+  
+  <div id="source_client_cnpj_result">
+
+  </div>  
+
+  <div class="form-group">
+    <%= label_tag :target_client_cpf_cpnj, "CNPJ Destinatário" %><br>
+    <% if @ordem_service.new_record? %>
+      <%= text_field_tag :target_client_cpf_cpnj, nil, class: "form-control cnpj" %>
+    <% else %>
+      <%= text_field_tag :target_client_cpf_cpnj, @ordem_service.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
       <%= render partial: "clients/result_client", locals: { client: @ordem_service.client } %>
     <% end %>
   </div>
   
-  <div id="client_cnpj_result">
+  <div id="target_client_cnpj_result">
 
   </div>  
 
@@ -65,15 +79,36 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-   $("#client_cpf_cpnj").focusout(function() {
-      var cnpj = $('#client_cpf_cpnj').val();
+   $("#target_client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#target_client_cpf_cpnj').val();
       console.log(cnpj);
       $.ajax({
         type: "GET",
         data: {cpf_cpnj: cnpj},
-        url: '/clients/get_client_by_cnpj'
+        dataType : 'html',
+        url: '/clients/get_client_by_cnpj',
+        success: function(data){
+            $('#target_client_cnpj_result').html(data);
+        },
       });
+    });
+  });
+</script>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#source_client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#source_client_cpf_cpnj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj},
+        dataType : 'html',
+        url: '/clients/get_client_by_cnpj',
+        success: function(data){
+            $('#source_client_cnpj_result').html(data);
+        },
+      });
     });
   });
 </script>

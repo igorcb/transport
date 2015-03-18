@@ -3,20 +3,23 @@ class OrdemService < ActiveRecord::Base
   resourcify
 
   validates :tipo, presence: true
-  validates :client_id, presence: true
+  validates :target_client_id, presence: true
+  validates :source_client_id, presence: true
   validates :estado, presence: true, length: { maximum: 2 } 
   validates :cidade, presence: true, length: { in: 3..100 }
   validates :carrier_id, presence: true, if: "tipo == 4"
   
 #  validate :validate_danfe
   
-  belongs_to :client
+  belongs_to :client, class_name: "Client", foreign_key: 'target_client_id'
+  belongs_to :source_client, class_name: "Client", foreign_key: 'source_client_id'
+  belongs_to :billing_client, class_name: "Client", foreign_key: 'billing_client_id'
+  belongs_to :driver
   belongs_to :carrier
   belongs_to :pallet
   belongs_to :billing
-  belongs_to :billing_client, class_name: "Client", foreign_key: 'billing_client_id'
-  has_one :account_payable
 
+  has_one :account_payable
   has_many :account_payables
   has_many :type_service, through: :ordem_service_type_service
 

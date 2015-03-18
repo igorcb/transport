@@ -3,9 +3,11 @@ require 'spec_helper'
 describe OrdemService do
 	let(:driver) { FactoryGirl.build(:driver) }
 	let(:client) { FactoryGirl.build(:client) }
+	let(:source_client) { FactoryGirl.build(:client) }
   before do 
   	@ordem_service = OrdemService.create( driver_id: driver.id,
-						                              client_id: client.id, 
+						                       target_client_id: client.id, 
+						                       source_client_id: source_client.id, 
 						                                   data: '2014-12-01',
 						                     							placa: 'AUH-0000',
 						                                 estado: 'CE',
@@ -30,7 +32,8 @@ describe OrdemService do
 	subject { @ordem_service }
 
 	it { should respond_to(:driver_id) }
-	it { should respond_to(:client_id) }
+	it { should respond_to(:target_client_id) }
+	it { should respond_to(:source_client_id) }
 	it { should respond_to(:data) }
 	it { should respond_to(:placa) }
 	it { should respond_to(:estado) }
@@ -56,17 +59,20 @@ describe OrdemService do
 
 	#Associations
 	it { should respond_to(:client) }
-#	it { should respond_to(:driver) }
+	it { should respond_to(:source_client) }
+	it { should respond_to(:billing_client) }
+	it { should respond_to(:driver) }
+
 	it { should respond_to(:nfe_keys) }
 	it { should respond_to(:ordem_service_type_service) }
 	it { should respond_to(:assets) }
-  it { should respond_to(:ordem_service_logistic) }
-  it { should respond_to(:ordem_service_logistics) }
+	it { should respond_to(:ordem_service_logistic) }
+	it { should respond_to(:ordem_service_logistics) }
 	it { should respond_to(:ordem_service_air) }
 	it { should respond_to(:ordem_service_airs) }
 	it { should accept_nested_attributes_for :ordem_service_logistics }
 	it { should accept_nested_attributes_for :ordem_service_airs }
-  it { should accept_nested_attributes_for :nfe_keys }
+	it { should accept_nested_attributes_for :nfe_keys }
 	it { should accept_nested_attributes_for :ordem_service_type_service }
 	it { should accept_nested_attributes_for :assets }
 

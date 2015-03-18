@@ -57,11 +57,14 @@ class OrdemServicesController < ApplicationController
   end
 
   def create
-    client = Client.find_by_cpf_cnpj(params[:client_cpf_cpnj])
+    source_client  = Client.find_by_cpf_cnpj(params[:source_client_cpf_cpnj])
+    target_client  = Client.find_by_cpf_cnpj(params[:target_client_cpf_cpnj])
+    billing_client = Client.find_by_cpf_cnpj(params[:billing_client_id])
     @ordem_service = OrdemService.new(ordem_service_params)
-    @ordem_service.client_id = client.id if client.present?
-    @ordem_service.estado = client.estado if client.present?
-    @ordem_service.cidade = client.cidade if client.present?
+    @ordem_service.source_client_id = source_client.id if source_client.present?
+    @ordem_service.target_client_id = target_client.id if target_client.present?
+    @ordem_service.estado = target_client.estado if target_client.present?
+    @ordem_service.cidade = target_client.cidade if target_client.present?
 
     respond_to do |format|
       if @ordem_service.save 
@@ -265,8 +268,8 @@ class OrdemServicesController < ApplicationController
     end
 
     def ordem_service_params
-      params.require(:ordem_service).permit(:client_id, :data, :estado, :cidade, :valor_receita, :valor_despesas, :valor_liquido, 
-        :observacao, :status, :data_entrega_servico, :carrier_id, :billing_client_id, :tipo,
+      params.require(:ordem_service).permit(:billing_client_id, :data, :estado, :cidade, :valor_receita, :valor_despesas, :valor_liquido, 
+        :observacao, :status, :data_entrega_servico, :carrier_id, :tipo,
 
         ordem_service_airs_attributes: [:source_stretch_id, :target_stretch_id, :solicitante, :target_agent_id, :airline_carrier_id, 
           :qtde_volume, :peso, :valor_nf, :total_cubagem, :tarifa_companhia, :tipo_frete, :valor_total, :awb, :voo, :id, :_destroy],

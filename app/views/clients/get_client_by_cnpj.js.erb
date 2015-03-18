@@ -1,8 +1,5 @@
 <% if @client.present? %>
-  $('#client_cnpj_result').empty(); 
-  $('#client_cnpj_result').append("<%= j( render(:partial => 'result_client', locals: {client: @client}) ) %>");
+  <%= render(:partial => 'result_client', locals: {client: @client}) %>
 <% else %>
-  $('#client_cnpj_result').empty();
-  $("#client_cnpj_result").append("<%= j(content_tag(:div, content_tag(:p, "Not found any client"), class: "alert alert-danger")) %> ");
+  <%= content_tag(:div, content_tag(:p, "Not found any client"), class: "alert alert-danger") %>
 <% end %>
-
