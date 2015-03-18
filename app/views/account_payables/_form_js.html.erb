@@ -1,0 +1,13 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<%= form_for(@account_payable, remote: true, html: {role: :form, 'data-model' => 'account_payable'}) do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+
+  <%= render 'account_payables/fields', f: f %>
+
+  <div class="actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+  </div>
+
+<% end %>
+

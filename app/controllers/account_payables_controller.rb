@@ -2,7 +2,7 @@ class AccountPayablesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_account_payable, only: [:show, :edit, :update, :destroy, :lower, :pay]
   load_and_authorize_resource
-  respond_to :html, :js
+  respond_to :html
 
   def type_account_select
     type_id = params[:id].to_i
@@ -74,9 +74,11 @@ class AccountPayablesController < ApplicationController
       if @account_payable.update(account_payable_params)
         format.html { redirect_to @account_payable, flash: { success: "AccountPayable was successfully updated." } }
         format.json { head :no_content }
+        format.js   { render action: 'show', status: :created, location: @account_payable }
       else
         format.html { render action: 'edit' }
         format.json { render json: @account_payable.errors, status: :unprocessable_entity }
+        format.js   { render json: @account_payable.errors, status: :unprocessable_entity }
       end
     end
   end
