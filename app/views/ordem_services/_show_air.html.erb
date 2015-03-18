@@ -135,21 +135,12 @@
     <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
       <div class="panel-body">
 
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <%= render 'account_payables/account_header' %>
-            </thead>
+       <%= render 'show_account_payables', account_payables: @ordem_service.account_payables %>
 
-            <tbody>
-              <%= render @ordem_service.account_payables %>
-            </tbody>
-          </table>
-        </div>    
-        
       </div>
     </div>
   </div>
+
 
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingEight">
