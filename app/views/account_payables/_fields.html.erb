@@ -87,6 +87,19 @@
     <%= f.text_area :observacao, class: "form-control" %>
   </div>
 
+  <h2>Documentos</h2> 
+  <div id="documents">
+    <div class="items">
+      <%= f.nested_fields_for :assets do |f| 
+        render 'shared/asset', f: f
+      end  -%>
+    </div> <br />
+    <a href="#" class="add btn btn-success btn-sm">[+] Documento</a>
+  </div>
+
+  <hr />
+
+
 <script type="text/javascript">
   $(document).ready(function() {
    $("#account_payable_cost_center_id").change(function() {
