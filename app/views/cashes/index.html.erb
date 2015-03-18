@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem do Caixa</div>
+  <div class="panel-body">
+    <%= link_to 'Novo Lançamento Caixa', new_cash_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Valor</th>
+            <th>Tipo</th>
+            <th>Historico</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @cashes.each do |cash| %>
+            <tr>
+              <td><%= date_br(cash.data) %></td>
+              <td><%= number_to_currency(cash.valor, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+              <td><%= cash.credito_debito %></td>
+              <td><%= truncate(cash.historic.descricao, length: 20 )  %></td>
+              <td><%= link_to 'Show', cash, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_cash_path(cash), class: "btn btn-primary btn-xs" %>
+              <td><%= link_to 'Destroy', cash, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger btn-xs" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

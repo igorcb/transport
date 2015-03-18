@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
   
+  resources :cashes
+
   resources :cte_xmls, only: [:index, :new, :create]
   
   get "internal_comments/create"
