@@ -4,8 +4,10 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>OS No</th>
             <th>Cliente</th>
             <th>Data Coleta</th>
+            <th>AWB</th>
             <th>Trecho</th>
             <th>Status</th>
             <th colspan="3">Opções</th>
@@ -15,8 +17,10 @@
         <tbody>
           <% @ordem_services.each do |ordem_service| %>
             <tr>
+              <td><%= link_to ordem_service.id, ordem_service %></td>
               <td><%= link_to truncate(ordem_service.client.nome, length: 20), ordem_service %></td>
               <td><%= link_to date_br(ordem_service.data), ordem_service %></td>
+              <td><%= link_to ordem_service.ordem_service_air.awb, ordem_service %></td>
               <td><%= ordem_service.ordem_service_air.stretch %></td>
               <td><%= ordem_service.status_name %></td>
               <td><%= link_to 'Show', ordem_service, class: "btn btn-info btn-xs" %></td>
