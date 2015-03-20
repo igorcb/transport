@@ -33,7 +33,7 @@
   </div>  
 
   <div class="form-group">
-    <%= f.label :billing_client_id, "Faturar para" %><br>
+    <%= f.label :billing_client_id, "Tomador do serviço" %><br>
     <%= f.select(:billing_client_id, Client.billing.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
 
