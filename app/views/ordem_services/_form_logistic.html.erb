@@ -34,7 +34,7 @@
 
   <div class="form-group">
     <%= f.label :billing_client_id, "Faturar para" %><br>
-    <%= f.select(:billing_client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%= f.select(:billing_client_id, Client.billing.gorder(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
