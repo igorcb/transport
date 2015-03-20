@@ -108,6 +108,16 @@
   <pre><%= @client.condicao_recebimento %></pre>
 </p>
 
+<p>
+  <strong>Pode faturar para este cliente? : </strong>
+  <%= extenso_boolean @client.faturar %>
+</p>
+
+<p>
+  <strong>Este cliente é da capital ou região metropolitana? : </strong>
+  <%= extenso_boolean @client.capital %>
+</p>
+
 
 <%= render 'shared/show_contacts', object: @client %>
 
