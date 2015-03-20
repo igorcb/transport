@@ -1,7 +1,7 @@
-<% if @tipo_os == 1%>
+<% if @tipo_os == 1 %>
 	<%= render 'list_logistic' %>
 <% elsif @tipo_os == 4 %>	
   <%= render 'list_air' %>
+<% else %>	
+  <%= render 'not_found' %>
 <% end %>
-
-<%#= @ordem_services.count %>

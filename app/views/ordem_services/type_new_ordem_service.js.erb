@@ -1,7 +1,11 @@
 $('#form_ordem_service').empty(); 
 <% if @type_os == 1 %>
   $('#form_ordem_service').append("<%= j( render(:partial => 'form_logistic', locals: {f: @ordem_service}) ) %>");
+<% elsif @type_os == 3 %>
+  $('#form_ordem_service').append("<%= j( render(:partial => 'form_mudanca', locals: {f: @ordem_service}) ) %>");
 <% elsif @type_os == 4 %>
   $('#form_ordem_service').append("<%= j( render(:partial => 'form_air', locals: {f: @ordem_service}) ) %>");
+<% else  %>
+  ("#form_ordem_service").append("<div><p>Not Found</p></div> ");
 <% end %>
 
