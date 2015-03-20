@@ -19,7 +19,8 @@ module OrdemServiceHelper
   end
 
   def select_tipo_ordem_servico
-    ([["LOGISTICA", 1], ["MUDANCA", 2], ["PALETE", 3], ["AEREO", 4]])
+    #["PALETE", 3]
+    ([["LOGISTICA", 1], ["MUDANCA", 2], ["AEREO", 4]])
   end
 
   def select_tipo_frete
