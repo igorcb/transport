@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe CostCenter do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do 
+  	@cost_center = FactoryGirl.build(:cost_center)
+  end
+
+  subject {@cost_center}
+
+  it { should respond_to(:descricao) }
 end
