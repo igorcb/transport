@@ -1,23 +1,8 @@
 require 'spec_helper'
 
 describe Supplier do
-	#let(:address) { FactoryGirl.create(:address) }
   before do 
-  	@supplier = Supplier.create(tipo_pessoa: Supplier::TipoPessoa::FISICA,
-                               cpf_cnpj: '00000000000000', 
-                    inscricao_municipal: nil,
-                     inscricao_estadual: nil,
-                                   nome: 'IGOR C B - ME', 
-                               fantasia: 'I4 TECNOLOGIA', 
-                                    cep: '60742300',
-                               endereco: 'Rua Libania',
-                                 numero: '105',
-                            complemento: nil,
-                                 bairro: 'Serrinha',
-                                 cidade: 'Fortaleza',
-                                 estado: 'CE'
-                                 ) 
-
+    @supplier = FactoryGirl.build(:supplier) 
   end
 
   subject { @supplier }
