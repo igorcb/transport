@@ -34,6 +34,8 @@ class Client < ActiveRecord::Base
 
   before_destroy :can_destroy?
 
+  scope :billing, -> { where(faturar:true) }
+
   module TipoPessoa
   	FISICA = 0
   	JURIDICA = 1
