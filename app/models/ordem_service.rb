@@ -7,7 +7,7 @@ class OrdemService < ActiveRecord::Base
   validates :source_client_id, presence: true
   validates :estado, presence: true, length: { maximum: 2 } 
   validates :cidade, presence: true, length: { in: 3..100 }
-  validates :carrier_id, presence: true, if: "tipo == 4"
+  validates :carrier_id, presence: true, if: Proc.new { |o| o.tipo == TipoOS::AEREO }
   
 #  validate :validate_danfe
   
