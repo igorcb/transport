@@ -21,7 +21,7 @@
 	
 </style>
 <% @ordem_service.nfe_keys.each do |nfe_key| %>  
-	<div class="tag_header_left"><strong>CT-e: <%= @ordem_service.cte %></strong>, peso: <%= number_with_precision(@ordem_service.peso, precision: 2, separator: ',', delimiter: '.') %></div>
+	<div class="tag_header_left"><strong>CT-e: <%= @ordem_service.cte_keys.first.cte %></strong>, peso: <%= number_with_precision(@ordem_service.ordem_service_logistic.peso, precision: 2, separator: ',', delimiter: '.') %></div>
   <% tam_letra_header = @ordem_service.cidade_estado.size > 15 ? 50 : 70 %>
 
 	<div class="tag_header" style="font-size: <%= tam_letra_header %>px"><strong><%= @ordem_service.cidade %>/<%= @ordem_service.estado %></strong></div>
