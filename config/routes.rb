@@ -96,6 +96,7 @@ Transport::Application.routes.draw do
       get 'close_os'
       get 'edit_agent'
       get 'show_agent'
+      get 'pallet'
       get 'create_payables'
       post 'update_agent'
       get 'create_payables'

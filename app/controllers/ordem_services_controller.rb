@@ -238,6 +238,11 @@ class OrdemServicesController < ApplicationController
     @ordem_services = OrdemService.where(carrier_id: carrier, status: OrdemService::TipoStatus::ABERTO).order('id desc')
   end
 
+  def pallet
+    @ordem_services = OrdemService.where(id: params[:id])
+    respond_with(@ordem_service)
+  end
+
   def show_agent
     #@ordem_services = OrdemService.where(id: params[:id], carrier_id: current_user.carrier_id)
     @ordem_services = OrdemService.where(id: params[:id])

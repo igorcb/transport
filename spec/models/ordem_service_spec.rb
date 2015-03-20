@@ -50,7 +50,9 @@ describe OrdemService do
 	it { should respond_to(:data_entrega_servico) }
 	it { should respond_to(:senha_sefaz) }
 	it { should respond_to(:tipo) }
+	it { should respond_to(:data_solicitacao) }
   
+  #Methods
 	it { should respond_to(:valor_ordem_service) }
 	it { should respond_to(:valor_os) }
 	it { should respond_to(:valor_peso) }
