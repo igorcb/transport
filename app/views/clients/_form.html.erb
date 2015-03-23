@@ -107,6 +107,14 @@
       <%= f.check_box :capital %> Este cliente é da capital ou região metropolitana?
     <% end %>
   </div>
+  <div class="form-group">
+    <%= f.label :faturar_cada, "Faturar a cada:" %>
+    <%= f.text_field :faturar_cada, class: "form-control" %> 
+  </div>
+  <div class="form-group">
+    <%= f.label :vencimento_para, "Vencimento para:" %>
+    <%= f.text_field :vencimento_para, class: "form-control" %> 
+  </div>
 
   <div id="phones">
     <fieldset>

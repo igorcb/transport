@@ -94,8 +94,23 @@
 </p>
 
 <p>
-  <strong>Observação:</strong>
-  <pre><%= @client.obs %></pre>
+  <strong>Este cliente é da capital ou região metropolitana? : </strong>
+  <%= extenso_boolean @client.capital %>
+</p>
+
+<p>
+  <strong>Pode faturar para este cliente? : </strong>
+  <%= extenso_boolean @client.faturar %>
+</p>
+
+<p>
+  <strong>Faturar a cada:</strong> 
+  <%= @client.faturar_cada %> dias.
+</p>
+
+<p>
+  <strong>Vencimento para:</strong> 
+  <%= @client.vencimento_para %> dias.
 </p>
 
 <p>
@@ -109,15 +124,9 @@
 </p>
 
 <p>
-  <strong>Pode faturar para este cliente? : </strong>
-  <%= extenso_boolean @client.faturar %>
+  <strong>Observação:</strong>
+  <pre><%= @client.obs %></pre>
 </p>
-
-<p>
-  <strong>Este cliente é da capital ou região metropolitana? : </strong>
-  <%= extenso_boolean @client.capital %>
-</p>
-
 
 <%= render 'shared/show_contacts', object: @client %>
 
