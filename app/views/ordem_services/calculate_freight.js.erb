@@ -1,0 +1,2 @@
+$('#result_calculate_freight').empty(); 
+$('#result_calculate_freight').append("<%= j( render(:partial => 'ordem_services/calculate_freight', locals: {f: @client, peso: @peso_os, volume: @volume_os}) ) %>");

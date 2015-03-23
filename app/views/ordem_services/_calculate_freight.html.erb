@@ -1,0 +1,30 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">Calculo para pagamento/recebimento</div>
+  <div class="panel-body">
+  		<h4><strong>Pagamento de descarga</strong></h4>
+  		<p>
+			<strong>Total por Vol:</strong>
+				<%= number_to_currency(OrdemService.valor_pgto_descarca_vol(@client, @volume_os), unit: "R$ ", separator: ",", delimiter: ".") %>
+  		</p>
+  		<p>
+			<strong>Total por Peso:</strong>
+				<%= number_to_currency(OrdemService.valor_pgto_descarca_peso(@client, @peso_os), unit: "R$ ", separator: ",", delimiter: ".") %>
+  		</p>
+  		<h4><strong>Recebimento de Pgto descarga</strong></h4>
+			<strong>Total por Vol:</strong>
+				<%= number_to_currency(OrdemService.valor_recebimento_descarca_vol(@client, @volume_os), unit: "R$ ", separator: ",", delimiter: ".") %>
+  		</p>
+  		<p>
+			<strong>Total por Peso:</strong>
+				<%= number_to_currency(OrdemService.valor_recebimento_descarca_peso(@client, @peso_os), unit: "R$ ", separator: ",", delimiter: ".") %>
+  		</p>
+  		<h4><strong>Recebimento de Distribuicao</strong></h4>
+			<strong>Total por Vol:</strong>
+				<%= number_to_currency(OrdemService.valor_recebimento_distribuicao(@client, @peso_os), unit: "R$ ", separator: ",", delimiter: ".") %>
+  		</p>
+  		<p>
+  </div>
+</div>
+
+

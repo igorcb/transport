@@ -159,6 +159,15 @@ class OrdemServicesController < ApplicationController
     end
   end
 
+  def calculate_freight
+    @client = Client.find_by_cpf_cnpj(params[:cpf_cpnj])
+    @peso_os = params[:os_peso]
+    @volume_os = params[:os_volume]
+    respond_to do |format|
+     format.js
+    end
+  end
+
   def type_ordem_service
     @tipo_os = params[:type].to_i
     @ordem_services = OrdemService.joins(:client).where(tipo: @tipo_os).order(id: :desc)

@@ -23,6 +23,8 @@ class OrdemService < ActiveRecord::Base
   has_many :account_payables
   has_many :type_service, through: :ordem_service_type_service
 
+  has_many :account_receivables
+
   has_many :nfe_keys, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_keys, allow_destroy: true, :reject_if => :all_blank
 
@@ -63,6 +65,7 @@ class OrdemService < ActiveRecord::Base
                       }
   
   before_save :set_values
+  after_save :generate_billing 
 
   before_destroy :can_destroy?
 
@@ -74,8 +77,7 @@ class OrdemService < ActiveRecord::Base
 
   module TipoOS
     LOGISTICA = 1
-    MUDANCA = 2
-    PALETE = 3
+    MUDANCA = 3
     AEREO = 4
   end
 
@@ -131,7 +133,7 @@ class OrdemService < ActiveRecord::Base
 
   def valor_volume 
     valor = 0.00
-    valor = self.qtde_volume * self.client.valor_volume if !self.ordem_service_logistic.qtde_volume.nil? && !self.client.valor_volume.nil?
+    valor = self.ordem_service_logistic.qtde_volume * self.client.valor_volume if !self.ordem_service_logistic.qtde_volume.nil? && !self.client.valor_volume.nil?
     return valor  
   end
   
@@ -144,6 +146,48 @@ class OrdemService < ActiveRecord::Base
   def valor_1500
     valor = 0.00
     valor = self.ordem_service_logistic.peso * 0.13 if !self.ordem_service_logistic.peso.nil?
+    return valor
+  end
+
+  def self.valor_pgto_descarca_vol(client, os_volume)
+    valor = 0.00
+    valor_por_volume = 0.00
+    valor_por_volume = client.valor_volume if client.present?
+    valor = valor_por_volume.to_f * os_volume.to_f
+    return valor
+  end
+
+  def self.valor_pgto_descarca_peso(client, os_peso)
+    valor = 0.00
+    valor_por_peso = 0.00
+    valor_por_peso = client.valor_peso.to_f if client.present?
+    valor = valor_por_peso.to_f * os_peso.to_f
+    return valor
+  end
+
+  def self.valor_recebimento_descarca_vol(client, os_volume)
+    valor = 0.00
+    valor_por_volume = 0.00
+    valor_por_volume = client.valor_volume.to_f if client.present?
+    valor = valor_por_volume.to_f * os_volume.to_f
+    valor_1500 = valor + ((valor * 30) / 100) #aplicar 30% do valor que foi cobrado a descarga por volume ou por peso 
+    return valor_1500.to_f
+  end
+
+  def self.valor_recebimento_descarca_peso(client, os_peso)
+    valor = 0.00
+    valor_por_peso = 0.00
+    valor_por_peso = client.valor_peso.to_f if client.present?
+    valor = valor_por_peso.to_f * os_peso.to_f
+    valor_1500 = valor + ((valor * 30) / 100) #aplicar 30% do valor que foi cobrado a descarga por volume ou por peso
+    return valor_1500.to_f
+  end
+
+  def self.valor_recebimento_distribuicao(client, os_peso)
+    valor = 0.00
+    valor_por_peso = 0.00
+    valor_por_peso = client.valor_peso_1500.to_f if client.present?
+    valor = valor_por_peso.to_f * os_peso.to_f
     return valor
   end
 
@@ -188,6 +232,44 @@ class OrdemService < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       Pallet.update(ordem_service.pallet, status: Pallet::TipoStatus::CONCLUIDO, qtde: qtde, data_fechamento: data) if ordem_service.pallet.present?
       OrdemService.update(ordem_service, data_fechamento: data,  status: TipoStatus::FECHADO)
+    end
+  end
+
+  def generate_billing
+    # Fazer algumas validacoes
+    # se o cliente não tiver vencimento definido
+    # centro de custo de acordo com o tipo de servico
+    # se já tiver criado o faturamento, o que tem que fazer ?
+      # se tiver varios serviços de 1 OS vai ser lancado varios contas a receber ?
+      # se o usuario colocar os serviços aos poucos, pode excluir o contas a receber e gerar novamente ?
+    # como vai ficar o status da OS, tinha Aberto, Fechado e Faturado, agora mudou o fluxo, já que é
+      # faturado assim que cria a OS
+    
+    if self.billing_client.present?
+      ActiveRecord::Base.transaction do
+        self.account_receivables.destroy_all
+        # Centro de Custo Galopao = 54
+        case self.tipo
+          when TipoOS::LOGISTICA then cost_center = CostCenter.find(58)
+          when TipoOS::MUDANCA then cost_center = CostCenter.find(56)
+          when TipoOS::AEREO then cost_center = CostCenter.find(57)
+        end
+
+        sub_cost_center = cost_center.sub_cost_centers.first
+        historic = Historic.find(106) #Nao Definido
+        valor = valor_ordem_service
+        vencimento = get_due_client(self.created_at, self.billing_client)
+        AccountReceivable.create!(client_id: self.billing_client_id,
+                                  cost_center_id: cost_center.id,
+                                  sub_cost_center_id: sub_cost_center.id,
+                                  historic_id: historic.id,
+                                  documento: self.id,
+                                  valor: valor,
+                                  data_vencimento: vencimento,
+                                  ordem_service_id: self.id,
+                                  observacao: "FATURA GERADA AUTOMÁTICA NA CRIAÇÃO DA O.S.")
+
+      end
     end
   end
 
@@ -240,6 +322,10 @@ class OrdemService < ActiveRecord::Base
     self.cidade + '/' + self.estado
   end
 
+  def billing_to_client #para efeito de test no console
+    get_due_client(self.created_at, self.billing_client)
+  end
+
   private
     def can_destroy?
       if self.account_payable.present?
@@ -248,5 +334,23 @@ class OrdemService < ActiveRecord::Base
       end
     end
 
+    def get_due_client(date_os, client)
+      vencimento = 0
+      dia_os = date_os.day
+      n = 0
+      until n > 30 do
+        if dia_os <= n
+          vencimento = n+client.vencimento_para
+          break
+        end        
+        n += client.faturar_cada
+      end
+      data = Time.now + 15.days
+      data_vencimento = vencimento > 32 ? Date.new(data.year, data.month, client.vencimento_para) : Date.new(data.year, data.month, vencimento)
+      puts ">>>>>>>>>> Data OS: #{date_os.day}"
+      puts ">>>>>>> fat a cada: #{client.faturar_cada}"
+      puts ">>>>>>>>>>>>> venc: #{data_vencimento}"
+      data_vencimento
+    end
 
 end

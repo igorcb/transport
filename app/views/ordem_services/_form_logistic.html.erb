@@ -78,6 +78,10 @@
   </div>
    
   <h3>Serviços</h3>
+  <div id="result_calculate_freight">
+
+  </div>
+
   <div class="ordem_service_type_service_items">
       <%= f.fields_for :ordem_service_type_service do |f| 
         render 'ordem_service_type_service_fields', f: f
@@ -140,6 +144,23 @@
         success: function(data){
             $('#source_client_cnpj_result').html(data);
         },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#ordem_service_ordem_service_logistics_attributes_0_peso").focusout(function() {
+      var peso = document.getElementById('ordem_service_ordem_service_logistics_attributes_0_peso').value * 1;
+      var volume = document.getElementById('ordem_service_ordem_service_logistics_attributes_0_qtde_volume').value;
+      var cnpj = $('#target_client_cpf_cpnj').val();
+      console.log(peso);
+      console.log(volume);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj, os_peso: peso, os_volume: volume},
+        url: '/calculate_freight'
       });
     });
   });
