@@ -9,8 +9,10 @@ describe OrdemServiceLogistic do
   							driver_id: driver.id,
   							delivery_driver_id: driver_delivery.id,
   							placa: "AUH-3298",
-  							cte: "098765",
-  							danfe_cte: "0987650987650987650987651234"
+                qtde_volume: 10,
+                peso: 100
+  							#cte: "098765",
+  							#danfe_cte: "0987650987650987650987651234"
 
   		)
 
@@ -21,7 +23,9 @@ describe OrdemServiceLogistic do
   it { should respond_to(:driver_id) }
   it { should respond_to(:delivery_driver_id) }
   it { should respond_to(:placa) }
-  it { should respond_to(:cte) }
-  it { should respond_to(:danfe_cte) }
+  it { should respond_to(:qtde_volume) }
+  it { should respond_to(:peso) }
+  # it { should respond_to(:cte) }
+  # it { should respond_to(:danfe_cte) }
   it { should respond_to(:ordem_service) }
 end
