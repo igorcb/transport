@@ -168,7 +168,6 @@ FactoryGirl.define do
   end
 
   factory :ordem_service do
-    client_id :client
     data '2014-12-01'
     estado 'CE'
     cidade 'FORTALEZA'
@@ -184,7 +183,6 @@ FactoryGirl.define do
   end
 
   factory :ordem_service_air, class: OrdemService do
-    client_id :client
     carrier_id :agent
     data '2014-12-01'
     estado 'CE'
