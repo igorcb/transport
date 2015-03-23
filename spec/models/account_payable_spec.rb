@@ -7,8 +7,8 @@ describe AccountPayable do
 	let(:historic) { FactoryGirl.build(:historic) }
 	#let(:ordem_service) { FactoryGirl.build(:ordem_service) }
   before do 
-  	@account = AccountReceivable.create(
-  						supplier_id: client.id,
+  	@account = AccountPayable.create(
+  						supplier_id: supplier.id,
   						cost_center_id: cost_center.id,
   						sub_cost_center_id: sub_cost_center.id,
   						historic_id: historic.id,
@@ -22,7 +22,7 @@ describe AccountPayable do
 
   subject { @account } 
   
-  it { should respond_to(:client_id) }
+  it { should respond_to(:supplier_id) }
   it { should respond_to(:cost_center_id) }
   it { should respond_to(:sub_cost_center_id) }
   it { should respond_to(:historic_id) }
@@ -33,13 +33,13 @@ describe AccountPayable do
   it { should respond_to(:status) }
 
 	#Associations
-	it { should respond_to(:client) }
+	it { should respond_to(:supplier) }
 	it { should respond_to(:cost_center) }
 	it { should respond_to(:sub_cost_center) }
 	it { should respond_to(:historic) }
 
-  describe "when client is not present" do
-    before { @account.client_id = '' }
+  describe "when supplier_id is not present" do
+    before { @account.supplier_id = '' }
     it { should_not be_valid }
   end  
 
