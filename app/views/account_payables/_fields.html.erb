@@ -128,10 +128,10 @@
   $(function() {
     $('input[name="account_payable[type_account]"]').change(function() {
         $('#div_result_person').empty(); 
-        getTypeAccount("id="+$(this).val());
+        getTypeAccount("type_id="+$(this).val());
     });
-  function getTypeAccount(id) {
-    $.getJSON("/type_account_select", id, function(j) {
+  function getTypeAccount(type_id) {
+    $.getJSON("/type_account_select", type_id, function(j) {
       var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
       $.each(j.sup, function(i, item) {
         options += '<option value="' + item.id + '">' + item.n + '</option>';

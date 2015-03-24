@@ -5,7 +5,7 @@ class AccountPayablesController < ApplicationController
   respond_to :html
 
   def type_account_select
-    type_id = params[:id].to_i
+    type_id = params[:type_id].to_i
     case type_id
       when 1 then suppliers = Supplier.order('nome')
       when 2 then suppliers = Driver.order('nome')
@@ -101,7 +101,7 @@ class AccountPayablesController < ApplicationController
   
   def search
     #@q = AccountPayable.where(status: AccountPayable::TipoStatus::ABERTO).order('id desc').search(params[:q])
-    @q = AccountPayable.order('data_vencimento desc').search(params[:q])
+    @q = AccountPayable.order('data_vencimento desc').search(params[:query])
     @account_payables = @q.result
   end
 
