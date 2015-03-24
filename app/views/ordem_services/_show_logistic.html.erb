@@ -17,6 +17,7 @@
 
 	        <div class="panel-body"> 
 					  <%= render 'drivers/driver_data', object: @ordem_service.ordem_service_logistic.delivery_driver if @ordem_service.ordem_service_logistic.delivery_driver.present? %>
+            <%#= @ordem_service.ordem_service_logistic.delivery_driver.present? %>
 					</div>
 				
 	        <div class="panel-heading">
@@ -86,7 +87,7 @@
               <strong>Placa:</strong>
               <%= @ordem_service.ordem_service_logistic.placa %>
             </p>
-            <%= render 'drivers/driver_data', object: @ordem_service.ordem_service_logistic.driver %>
+            <%= render 'drivers/driver_data', object: @ordem_service.ordem_service_logistic.driver if @ordem_service.ordem_service_logistic.driver.present?%>
           </div>
 
           <div class="panel-heading">
