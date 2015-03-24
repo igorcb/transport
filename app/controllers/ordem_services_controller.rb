@@ -184,7 +184,7 @@ class OrdemServicesController < ApplicationController
 
   def type_ordem_service
     @tipo_os = params[:type].to_i
-    @ordem_services = OrdemService.joins(:client).where(tipo: @tipo_os).order(id: :desc)
+    @ordem_services = OrdemService.joins(:client, :ordem_service_logistics).where(tipo: @tipo_os).order(id: :desc)
 
     respond_with(@ordem_services) do |format|
       format.html { render :layout => !request.xhr? }
