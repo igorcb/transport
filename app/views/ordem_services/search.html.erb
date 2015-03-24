@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Agenda O.S.</div>
+  <div class="panel-body">
+    
+    <div class="form-group">
+      <%= label_tag "type_service_id", "" %> <br>
+      <%= select_tag "type_service_id", options_for_select(select_tipo_ordem_servico), :prompt => "Selecione um Tipo de Ordem Servico", class: "form-control" %>
+    </div>
+    
+    <div class="row">
+      
+      <div id="type_ordem_service">
+        
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+jQuery(function($) {
+  $("#type_service_id").change(function() {
+    var tipo_os = $('select#type_service_id :selected').val();
+    if(tipo_os == "") tipo_os="1";
+    jQuery.get('/search_type_ordem_service/' + tipo_os, function(data){
+        $("#type_ordem_service").remove;
+        $("#type_ordem_service").html(data);
+    })
+    return false;
+  });
+})
+</script>

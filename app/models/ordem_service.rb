@@ -120,7 +120,7 @@ class OrdemService < ActiveRecord::Base
   end  
 
   def self.ransackable_attributes(auth_object = nil)
-    ['data', 'data_entrega_servico', 'placa', 'cte', 'estado', 'cidade', 'senha_sefaz', "billing_id", "status" ]
+    ['data', 'data_entrega_servico', 'estado', 'cidade', 'senha_sefaz', "billing_id", "status" ]
   end
 
   def valor_ordem_service

@@ -5,13 +5,27 @@ class OrdemServicesController < ApplicationController
   respond_to :html
 
   def index
+    tipo = 1
     if current_user.has_role? :admin
-      @q = OrdemService.order('id desc').search(params[:q])
+      @q = OrdemService.joins(:ordem_service_logistics).order('id desc').search(params[:q])
       @ordem_services = @q.result
     else
       @q = OrdemService.where(carrier_id: current_user.carrier_id).order('id desc').search(params[:q])
       @ordem_services = @q.result
     end
+
+
+
+    # tipo = 1
+    # @ordem_services = OrdemService.search(params[:q])
+    # respond_to do |format|
+    #   format.html do
+    #     case tipo
+    #       when 1 then render partial: 'list_logistic', locals: {ordem_services: @ordem_services}
+    #       when 4 then render partial: 'list_air', locals: {ordem_services: @ordem_services}
+    #     end
+    #   end
+    # end
   end
 
   def show
@@ -20,7 +34,7 @@ class OrdemServicesController < ApplicationController
     if current_user.has_role? :admin
       @comment = @ordem_service.comments.build
       @internal_comment = @ordem_service.internal_comments.build
-      respond_with(@ordem_service)
+      respond_with(@orrdem_service)
     else
       redirect_to show_agent_ordem_service_path(@ordem_service)
     end
@@ -182,6 +196,26 @@ class OrdemServicesController < ApplicationController
       @q = OrdemService.search(params[:q])
     else
       @q = OrdemService.where(carrier_id: current_user.carrier_id).search(params[:q])
+    end
+    respond_with(@ordem_services) do |format|
+      format.html { render :layout => !request.xhr? }
+    end
+  end
+
+  def search_type_ordem_service
+    @tipo_os = params[:type].to_i
+    @q = OrdemService.where(status: -1).joins(:ordem_service_logistics).search(params[:q])
+    @ordem_services = @q.result
+    respond_with(@ordem_services) do |format|
+     format.html { render :layout => !request.xhr? }
+    end
+  end
+
+  def search_logistic
+    @q = OrdemService.joins(:ordem_service_logistics).search(params[:query])
+    @ordem_services = @q.result
+    respond_with(@ordem_services) do |format|
+      format.js
     end
   end
 

@@ -1,0 +1,3 @@
+<%# if @ordem_services.present? %>
+  $('#result_list_logistic').empty(); 
+  $("#result_list_logistic").append("<%= j(render(partial: "list_logistic", locals: {f: @ordem_services})) %>");

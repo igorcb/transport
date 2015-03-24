@@ -1,0 +1,7 @@
+<% if @tipo_os == 1 %>
+	<%= render 'search_form_logistic' %>
+<% elsif @tipo_os == 4 %>	
+  <%= render 'search_form_air' %>
+<% else %>	
+  <%= render 'not_found' %>
+<% end %>

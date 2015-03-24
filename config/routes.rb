@@ -30,8 +30,6 @@ Transport::Application.routes.draw do
   match "lower_all" => "account_payables#lower_all", via: [:post]
 
   match '/search', :controller => 'ordem_services', :action => 'search', via: [:get, :post]
-  match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
-  match 'type_ordem_service/:type', :controller=>'ordem_services', :action => 'type_ordem_service', via: [:get, :post]
   match 'faturamento' => "ordem_services#faturamento",  via: [:get]
   match 'invoice' => "ordem_services#invoice",  via: [:post]
   match '/stocks', :controller => 'pallets', :action => 'estoque', via: [:get]
@@ -86,14 +84,15 @@ Transport::Application.routes.draw do
 
   resources :billings
   #match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
+  match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
+  match 'type_ordem_service/:type', :controller=>'ordem_services', :action => 'type_ordem_service', via: [:get, :post]
   match '/type_new_ordem_service', :controller => 'ordem_services', :action => 'type_new_ordem_service', via: [:get, :post]
   match '/calculate_freight', :controller => 'ordem_services', :action => 'calculate_freight', via: [:get, :post]
+  match 'search_type_ordem_service/:type', :controller => 'ordem_services', :action => 'search_type_ordem_service', via: [:get, :post]
+  #match "/search_logistic", :controller => "ordem_services", :action => "search_logistic", via: [:get, :post]
+  match "/ordem_services_search_logistic" => "ordem_services#search_logistic", via: [:get]
   
-  #match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
   resources :ordem_services do
-    #get "type_new_ordem_service/:type_id", :to => "ordem_services#type_new_ordem_service", via: [:get]
-    #get "new_type/:type_id", :to => "ordem_services#new_type", via: [:get]
-    #get '/patients/:id', to: 'patients#show', as: 'patient'
     member do
       get 'close_os'
       get 'edit_agent'

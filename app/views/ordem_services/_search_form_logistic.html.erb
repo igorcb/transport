@@ -1,0 +1,43 @@
+<div class="panel-body">
+  <%= search_form_for @q, :remote=>"true", url: ordem_services_search_logistic_path, :method => :get do |f| %>
+    <div class="form-group">
+      <%= f.label :cte_keys_cte_eq, "CTE" %>
+      <%= f.search_field :cte_keys_cte_eq, class: "form-control numericOnly", placeholder: "Informe o No CTE ex: 187212" %>  
+    </div>
+    <div class="form-group">
+      <%= f.label :ordem_service_logistic_placa_cont_any, "Placa" %>
+      <%= f.search_field :ordem_service_logistic_placa_cont_any, class: "form-control placa", placeholder: "Informe a placa do veículo ex: AAU-3289" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :ordem_service_logistic_senha_sefaz_eq, "Senha Sefaz" %>
+      <%= f.search_field :ordem_service_logistic_senha_sefaz_eq, class: "form-control", placeholder: "Informe a senha da Sefaz ex: 20140000001" %>
+    </div>
+     <div class="form-group">
+      <%= f.label :data_eq, "Data do Agendamento" %>
+      <%= f.search_field :data_eq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>  
+    </div>
+    <div class="form-group">
+      <%= f.label :data_entrega_servico_eq, "Data da Entrega do Serviço" %>
+      <%= f.search_field :data_entrega_servico_eq, class: "form-control data", placeholder: "Informe a Data da entrega do Serviço ex: 05-12-2014" %>  
+    </div>
+    <div class="form-group">
+      <%= f.label :nfe_keys_nfe_eq, "NF-e" %>
+      <%= f.search_field :nfe_keys_nfe_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NF-e ex: 123456" %>  
+    </div>
+    <div class="form-group">
+      <%= f.label :ordem_service_type_service_type_service_id_eq, "Tipo de Serviço" %>
+      <%= f.collection_select :ordem_service_type_service_type_service_id_eq, TypeService.logistica.order('descricao'), :id, :descricao, {include_blank: true}, {class: "form-control"} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :status_eq, "Status" %>
+      <%= f.select( :status_eq, select_status_os, {include_blank: true}, {class: "form-control"} ) %> 
+    </div>
+
+    <div class="actions"><%= f.submit "Search" %></div>
+  <% end %>
+</div>
+
+<div id="result_list_logistic">
+  <%#= render :partial => 'list_logistic' %>
+</div>
+
