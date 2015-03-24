@@ -4,6 +4,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>No O.S.</th>
             <th>Placa</th>
             <th>Motorista</th>
             <th>Cliente</th>
@@ -19,6 +20,7 @@
         <tbody>
           <% @ordem_services.each do |ordem_service| %>
             <tr>
+              <td><%= link_to ordem_service.id, ordem_service %></td>
               <td><%= link_to ordem_service.ordem_service_logistic.placa, ordem_service if ordem_service.ordem_service_logistic.placa.present? %></td>
               <td><%= link_to truncate(ordem_service.ordem_service_logistic.driver.nome, length: 18), ordem_service if ordem_service.ordem_service_logistic.driver.present? %></td>
               <td><%= link_to truncate(ordem_service.client.nome, length: 20), ordem_service %></td>
