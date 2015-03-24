@@ -347,9 +347,6 @@ class OrdemService < ActiveRecord::Base
       end
       data = Time.now + 15.days
       data_vencimento = vencimento > 32 ? Date.new(data.year, data.month, client.vencimento_para) : Date.new(data.year, data.month, vencimento)
-      puts ">>>>>>>>>> Data OS: #{date_os.day}"
-      puts ">>>>>>> fat a cada: #{client.faturar_cada}"
-      puts ">>>>>>>>>>>>> venc: #{data_vencimento}"
       data_vencimento
     end
 
