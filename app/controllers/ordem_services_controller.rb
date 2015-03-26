@@ -173,7 +173,7 @@ class OrdemServicesController < ApplicationController
   def type_ordem_service
     @tipo_os = params[:type].to_i
     case @tipo_os
-    when 1 then  @ordem_services = OrdemService.joins(:client, :ordem_service_logistics).where(tipo: @tipo_os).order(id: :desc)
+    when 1 then  @ordem_services = OrdemService.joins(:client, :driver, :ordem_service_logistics).where(tipo: @tipo_os).order(id: :desc)
     when 4 then  @ordem_services = OrdemService.joins(:client, :ordem_service_airs).where(tipo: @tipo_os).order(id: :desc)
     end
     respond_with(@ordem_services) do |format|
