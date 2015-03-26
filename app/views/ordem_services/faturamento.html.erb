@@ -1,7 +1,8 @@
 <div id="tab_ordemservices">
   <div id="typeserv_id">
-    <%= label_tag "type_service_id", "Tipo de Serviço" %> <br>
-    <%= select_tag "type_service_id", options_from_collection_for_select(@type_services, "id", "descricao"), :prompt => "Selecione um Tipo de Servico" %>
+    <div class="form-group"></div>
+    <%#= label_tag "type_service_id", "Tipo de Serviço" %> <br>
+    <%= select_tag "type_service_id", options_from_collection_for_select(@type_services, "id", "descricao"), :prompt => "Selecione um Tipo de Servico", class: "form-control" %>
   </div>
   <br>
 </div>
@@ -17,13 +18,14 @@
           <thead>
             <tr>
               <th></th>
+              <th>No O.S.</th>
               <th>Placa</th>
               <th>Driver</th>
               <th>Client</th>
               <th>Data</th>
+              <th>Cte</th>
               <th>Estado</th>
               <th>Cidade</th>
-              <th>Cte</th>
               <th style= "text-align: Right">ValorOS</th>
               <th>Status</th>
             </tr>
@@ -38,13 +40,14 @@
                   <%= check_box_tag "os[ids][#{ordem_service.id}]", ordem_service.id, false, value: ordem_service.valor_ordem_service, onchange:"checkTotal()", class: "escolha" %>
                   <!-- <input type="checkbox" name="choice" value="2" onchange="checkTotal()"/> -->
                 </td>
-                <td><%= link_to ordem_service.placa,  ordem_service %></td>
-                <td><%= link_to truncate(ordem_service.driver.nome, length: 18), ordem_service, { :title => ordem_service.driver.nome } %></td>
-                <td><%= link_to truncate(ordem_service.client.nome, length: 25), ordem_service, { :title => ordem_service.client.nome } %></td>
-                <td><%= link_to ordem_service.data, ordem_service %></td>
+                <td><%= link_to ordem_service.id, ordem_service %></td>
+                <td><%= link_to ordem_service.ordem_service_logistic.placa, ordem_service if ordem_service.ordem_service_logistic.placa.present? %></td>
+                <td><%= link_to truncate(ordem_service.ordem_service_logistic.driver.nome, length: 16), ordem_service if ordem_service.ordem_service_logistic.driver.present? %></td>
+                <td><%= link_to truncate(ordem_service.client.nome, length: 16), ordem_service %></td>
+                <td><%= link_to date_br(ordem_service.data), ordem_service %></td>
+                <td><%= link_to ordem_service.cte_keys.first.cte, ordem_service if ordem_service.cte_keys.present? %></td>
                 <td><%= link_to ordem_service.estado, ordem_service %></td>
                 <td><%= link_to ordem_service.cidade, ordem_service %></td>
-                <td><%= link_to ordem_service.cte, ordem_service %></td>
                 <td style="text-align: Right"><%= ordem_service.valor_ordem_service %></td>
                 <td><%= ordem_service.status_name %></td>
                 <td><%#= link_to 'Show', ordem_service, class: "btn btn-info btn-xs" %></td>
