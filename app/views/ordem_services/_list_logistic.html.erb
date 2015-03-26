@@ -25,7 +25,7 @@
               <td><%= link_to truncate(ordem_service.ordem_service_logistic.driver.nome, length: 16), ordem_service if ordem_service.ordem_service_logistic.driver.present? %></td>
               <td><%= link_to truncate(ordem_service.client.nome, length: 16), ordem_service %></td>
               <td><%= link_to date_br(ordem_service.data), ordem_service %></td>
-              <td><%= link_to ordem_service.cte, ordem_service if ordem_service.cte.present? %></td>
+              <td><%= link_to ordem_service.cte_key.cte, ordem_service if ordem_service.cte_key.present? %></td>
               <td><%= ordem_service.estado %></td>
               <td><%= truncate(ordem_service.cidade, length: 10) %></td>
               <td><%= ordem_service.status_name %></td>

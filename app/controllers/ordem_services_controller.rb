@@ -13,19 +13,6 @@ class OrdemServicesController < ApplicationController
       @q = OrdemService.where(carrier_id: current_user.carrier_id).order('id desc').search(params[:q])
       @ordem_services = @q.result
     end
-
-
-
-    # tipo = 1
-    # @ordem_services = OrdemService.search(params[:q])
-    # respond_to do |format|
-    #   format.html do
-    #     case tipo
-    #       when 1 then render partial: 'list_logistic', locals: {ordem_services: @ordem_services}
-    #       when 4 then render partial: 'list_air', locals: {ordem_services: @ordem_services}
-    #     end
-    #   end
-    # end
   end
 
   def show
@@ -81,7 +68,7 @@ class OrdemServicesController < ApplicationController
     @ordem_service.cidade = target_client.cidade if target_client.present?
 
     respond_to do |format|
-      if @ordem_service.save 
+      if @ordem_service.save! 
         format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully created." } }
         format.json { render action: 'show', status: :created, location: @ordem_service }
       else
@@ -167,6 +154,7 @@ class OrdemServicesController < ApplicationController
     @ordem_service.ordem_service_logistics.build
     @ordem_service.cte_keys.build
     @ordem_service.nfe_keys.build
+    @ordem_service.ordem_service_type_service.build #if @type_os == OrdemService::TipoOS::LOGISTICA
 
     respond_to do |format|
       format.js
@@ -184,8 +172,10 @@ class OrdemServicesController < ApplicationController
 
   def type_ordem_service
     @tipo_os = params[:type].to_i
-    @ordem_services = OrdemService.joins(:client, :ordem_service_logistics).where(tipo: @tipo_os).order(id: :desc)
-
+    case @tipo_os
+    when 1 then  @ordem_services = OrdemService.joins(:client, :ordem_service_logistics).where(tipo: @tipo_os).order(id: :desc)
+    when 4 then  @ordem_services = OrdemService.joins(:client, :ordem_service_airs).where(tipo: @tipo_os).order(id: :desc)
+    end
     respond_with(@ordem_services) do |format|
       format.html { render :layout => !request.xhr? }
     end
