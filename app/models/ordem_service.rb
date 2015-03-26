@@ -9,6 +9,7 @@ class OrdemService < ActiveRecord::Base
   validates :cidade, presence: true, length: { in: 3..100 }
   validates :carrier_id, presence: true, if: Proc.new { |o| o.tipo == TipoOS::AEREO }
   
+  validates_associated :ordem_service_type_service  
 #  validate :validate_danfe
   
   belongs_to :client, class_name: "Client", foreign_key: 'target_client_id'
@@ -64,7 +65,7 @@ class OrdemService < ActiveRecord::Base
                                       .order("drivers.nome, ordem_services.placa")                                       
                       }
   
-  before_save :set_values
+  before_save :set_values, :validates_type_service
   after_save :generate_billing 
 
   before_destroy :can_destroy?
@@ -79,6 +80,11 @@ class OrdemService < ActiveRecord::Base
     LOGISTICA = 1
     MUDANCA = 3
     AEREO = 4
+  end
+
+  def validates_type_service
+#    puts ">>>>>>>>>>>>>>.. Validates"
+#    self.errors.add("Type Services", "can't be blank") if self.ordem_service_type_service.blank?
   end
 
   def validate_danfe

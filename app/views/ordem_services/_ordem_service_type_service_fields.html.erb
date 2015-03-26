@@ -4,21 +4,22 @@
       <%= f.select( :type_service_id, TypeService.logistica.collect {|p| [ p.descricao, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>
     </div>
 
-    <div class="col-xs-1">
-      <%= f.text_field :qtde, size: 5, class: "form-control input-sm", placeholder: "Qtde" %>
+     <div class="col-xs-1">
+      <% valor_qtde = @ordem_service.new_record? ? nil : f.object.qtde %>
+      <%= f.text_field :qtde, size: 5, value: valor_qtde, class: "form-control input-sm", placeholder: "Qtde" %>
     </div>
 
     <div class="col-xs-1">
-      <%= f.text_field :qtde_recebida, size: 5, class: "form-control input-sm", placeholder: "Qtde Recebida" %>
+      <% value_qtde_recebida = @ordem_service.new_record? ? nil : f.object.qtde_recebida %>
+      <%= f.text_field :qtde_recebida, value: value_qtde_recebida, class: "form-control input-sm", placeholder: "Qtde Recebida" %>
     </div>
-
-    <div class="col-xs-2">
+     <div class="col-xs-2">
       <%= f.text_field :valor, class: "form-control input-sm money2", value: to_real(f.object.valor), placeholder: "Valor do Serviço" %>
     </div>
-
+<!-- 
     <div class="col-xs-2">
-      <%= f.text_field :valor_pago, class: "form-control input-sm money2", value: to_real(f.object.valor_pago), placeholder: "Valor Pago" %>
-    </div>
+      <%#= f.text_field :valor_pago, class: "form-control input-sm money2", value: to_real(f.object.valor_pago), placeholder: "Valor Pago" %>
+    </div> -->
 
     <%= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
                                                     
