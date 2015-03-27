@@ -3,6 +3,9 @@
 	<p>
 	  <strong>Os:</strong><%= @ordem_service.id %>
 	</p>
+	<p>
+	  <strong>Motorista:</strong><%= @ordem_service.ordem_service_logistic.driver.nome if @ordem_service.ordem_service_logistic.driver.present? %>
+	</p>
 
 	<p>
 		<strong>CNPJ:</strong><%= @ordem_service.client.cpf_cnpj %>
@@ -16,6 +19,12 @@
 		<strong>Cidade:</strong> <%= @ordem_service.cidade %> /
 		<strong>Estado:</strong> <%= @ordem_service.estado %>
 	</p>
+
+	<% if @ordem_service.cte_keys.present? %>
+		<p>
+			<strong>Cte:</strong><%= @ordem_service.cte_keys.first.cte %> - <%= @ordem_service.cte_keys.first.chave %>
+		</p>		
+	<% end %>
 		
 </div>
 
