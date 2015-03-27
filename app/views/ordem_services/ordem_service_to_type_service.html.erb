@@ -36,10 +36,10 @@
                 <td><%= link_to os_type_service.ordem_service.ordem_service_logistic.placa, os_type_service.ordem_service %></td>
                 <td><%= link_to truncate(os_type_service.ordem_service.ordem_service_logistic.driver.nome, length: 18), os_type_service.ordem_service, { :title => os_type_service.ordem_service.ordem_service_logistic.driver.nome } %></td>
                 <td><%= link_to truncate(os_type_service.ordem_service.client.nome, length: 18), os_type_service.ordem_service, { :title => os_type_service.ordem_service.client.nome } %></td>
-                <td><%= link_to os_type_service.ordem_service.data,   os_type_service.ordem_service %></td>
+                <td><%= link_to os_type_service.ordem_service.data,   os_type_service.ordem_service if os_type_service.ordem_service.data.present? %></td>
                 <td><%= link_to os_type_service.ordem_service.estado, os_type_service.ordem_service %></td>
                 <td><%= link_to os_type_service.ordem_service.cidade, os_type_service.ordem_service %></td>
-                <td><%= link_to os_type_service.ordem_service.cte_keys.first.cte, os_type_service.ordem_service %></td>
+                <td><%= link_to os_type_service.ordem_service.cte_keys.first.cte, os_type_service.ordem_service if os_type_service.ordem_service.cte_keys.present? %></td>
                 <td style="text-align: Right"><%=os_type_service.ordem_service.valor_ordem_service %></td>
                 <td><%= os_type_service.ordem_service.status_name %></td>
                 <td><%#= link_to 'Show', ordem_service, class: "btn btn-info btn-xs" %></td>
