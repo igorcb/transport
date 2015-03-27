@@ -254,16 +254,19 @@ class OrdemService < ActiveRecord::Base
     if self.billing_client.present?
       ActiveRecord::Base.transaction do
         self.account_receivables.destroy_all
-        # Centro de Custo Galopao = 54
+        # Centro de Custo Galpao = 54 isso é apenas um informativo
         case self.tipo
-          when TipoOS::LOGISTICA then cost_center = CostCenter.find(58)
+          when TipoOS::LOGISTICA then 
+            cost_center = CostCenter.find(58)
+            valor = valor_ordem_service
           when TipoOS::MUDANCA then cost_center = CostCenter.find(56)
-          when TipoOS::AEREO then cost_center = CostCenter.find(57)
+          when TipoOS::AEREO then 
+            cost_center = CostCenter.find(57)
+            valor = self.ordem_service_air.valor_total
         end
 
         sub_cost_center = cost_center.sub_cost_centers.first
         historic = Historic.find(106) #Nao Definido
-        valor = valor_ordem_service
         vencimento = get_due_client(self.created_at, self.billing_client)
         AccountReceivable.create!(client_id: self.billing_client_id,
                                   cost_center_id: cost_center.id,
