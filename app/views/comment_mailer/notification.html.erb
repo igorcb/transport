@@ -1,29 +1,35 @@
 
 <div id="data_ordem_service">
 	<p>
-	  <strong>Os:</strong><%= @ordem_service.id %>
+	  <strong>Os: </strong><%= @ordem_service.id %>
 	</p>
 	<p>
-	  <strong>Motorista:</strong><%= @ordem_service.ordem_service_logistic.driver.nome if @ordem_service.ordem_service_logistic.driver.present? %>
-	</p>
-
-	<p>
-		<strong>CNPJ:</strong><%= @ordem_service.client.cpf_cnpj %>
+	  <strong>Placa: </strong><%= @ordem_service.ordem_service_logistic.placa if @ordem_service.ordem_service_logistic.placa.present? %> <br />
+	  <strong>Motorista: </strong><%= @ordem_service.ordem_service_logistic.driver.nome if @ordem_service.ordem_service_logistic.driver.present? %>
 	</p>
 
 	<p>
-		<strong>Cliente:</strong><%= @ordem_service.client.nome %>
+		<strong>CNPJ: </strong><%= @ordem_service.client.cpf_cnpj %> <br />
+		<strong>Cliente: </strong><%= @ordem_service.client.nome %> <br />
+		<strong>Cidade: </strong> <%= @ordem_service.cidade %> - <%= @ordem_service.estado %>
 	</p>		
 
-	<p>
-		<strong>Cidade:</strong> <%= @ordem_service.cidade %> /
-		<strong>Estado:</strong> <%= @ordem_service.estado %>
-	</p>
-
+	<p><strong>CT-e:</strong></p>
 	<% if @ordem_service.cte_keys.present? %>
-		<p>
-			<strong>Cte:</strong><%= @ordem_service.cte_keys.first.cte %> - <%= @ordem_service.cte_keys.first.chave %>
-		</p>		
+		<% @ordem_service.cte_keys.each	do |cte| %>
+			<ul>
+				<strong>CT-e:</strong><%= cte.cte %> - <%= cte.chave %>
+			</ul>		
+		<% end %>
+	<% end %>
+
+	<p><strong>NF-e:</strong></p>
+	<% if @ordem_service.nfe_keys.present? %>
+		<% @ordem_service.nfe_keys.each	do |nfe| %>
+			<ul>
+				<strong>NF-e:</strong><%= nfe.nfe %> - <%= nfe.chave %>
+			</ul>		
+		<% end %>
 	<% end %>
 		
 </div>
