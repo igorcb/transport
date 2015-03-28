@@ -28,7 +28,7 @@ module Transport
     # config.i18n.available_locales = [:"pt-BR", :en]
     # config.i18n.default_locale = "pt-BR"
     #config.i18n.enforce_available_locales = true
-    
+    config.time_zone = 'Brasilia'
     #config.assets.prefix = '/assets'
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     Paperclip.options[:command_path] = "/usr/bin/"

@@ -51,17 +51,29 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
-        <%= render 'clients/client_data', object: @ordem_service.client %>
+        <%#= render 'clients/client_data', object: @ordem_service.client %>
 
-        <p>
-          <strong>Horário para descarregar:</strong>
-          <label class="fields"><%= @ordem_service.client.hora_descarga %></label>
-        </p>
+        <div class="panel-body">
+          <div class="panel panel-default">
 
-        <p>
-          <strong>Condições para descarregar:</strong>
-          <pre><%= @ordem_service.client.condicao_recebimento %></pre>
-        </p>
+            <div class="panel-heading">
+              <h2 class="panel-title">Dados Remetente</h2>
+            </div>
+
+            <div class="panel-body"> 
+              <%= render 'clients/client_data', object: @ordem_service.source_client if @ordem_service.source_client.present? %>
+            </div>
+
+            <div class="panel-heading">
+              <h2 class="panel-title">Dados Destinatário</h2>
+            </div>
+
+            <div class="panel-body"> 
+              <%= render 'clients/client_data', object: @ordem_service.client if @ordem_service.client.present? %>
+            </div>
+
+          </div>
+        </div>
 
       </div>
     </div>
