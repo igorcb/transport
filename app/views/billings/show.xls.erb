@@ -30,9 +30,9 @@
       </Row>
     <% @billing.ordem_services.each do |ordem_service| %>
       <Row>
-        <Cell><Data ss:Type="Number"><%= ordem_service.cte %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= ordem_service.placa %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= ordem_service.driver.nome %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= ordem_service.cte_keys.first.cte %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= ordem_service.ordem_service_logistic.placa %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= ordem_service.ordem_service_logistic.driver.nome %></Data></Cell>
         <Cell><Data ss:Type="String"><%= ordem_service.danfes %></Data></Cell>
         <Cell><Data ss:Type="Number"><%= number_with_precision(ordem_service.valor_ordem_service, precision: 2, separator: '.') %></Data></Cell>
         <Cell><Data ss:Type="String"><%= ordem_service.type_services %></Data></Cell>
