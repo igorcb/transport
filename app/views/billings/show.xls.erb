@@ -30,7 +30,7 @@
       </Row>
     <% @billing.ordem_services.each do |ordem_service| %>
       <Row>
-        <Cell><Data ss:Type="Number"><%= ordem_service.cte_keys.first.cte %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= ordem_service.cte_keys.present? ? ordem_service.cte_keys.first.cte : "No CT-e"  %></Data></Cell>
         <Cell><Data ss:Type="String"><%= ordem_service.ordem_service_logistic.placa %></Data></Cell>
         <Cell><Data ss:Type="String"><%= ordem_service.ordem_service_logistic.driver.nome %></Data></Cell>
         <Cell><Data ss:Type="String"><%= ordem_service.danfes %></Data></Cell>
