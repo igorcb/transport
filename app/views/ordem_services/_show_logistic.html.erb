@@ -165,12 +165,23 @@
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
           Faturamento
+          <%#= render 'clients/client_data', object: @ordem_service.billing_client if @ordem_service.billing_client.present? %>
         </a>
       </h4>
     </div>
     <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
       <div class="panel-body">
-        <%= render 'billings/show', object: @ordem_service.billing if @ordem_service.billing.present? %>  
+        <div class="panel panel-default">
+
+          <div class="panel-heading">
+            <h2 class="panel-title">Dados tomador do serviço</h2>
+          </div>
+
+          <div class="panel-body"> 
+            <%= render 'clients/client_data', object: @ordem_service.billing_client if @ordem_service.billing_client.present? %>
+          </div>
+        
+        </div>
       </div>
     </div>
   </div>
