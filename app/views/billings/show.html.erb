@@ -164,7 +164,7 @@
             <tr>
               <td ><%= ordem_service.ordem_service_logistic.placa %></td>
               <td ><%= truncate(ordem_service.ordem_service_logistic.driver.nome, length: 25) %></td>
-              <td ><%= truncate(ordem_service.target_client.nome, length: 25) %></td>
+              <td ><%= truncate(ordem_service.client.nome, length: 25) %></td>
               <td ><%= ordem_service.cte_keys.first.cte if ordem_service.cte_keys.present? %></td>
               <td ><%= ordem_service.valor_ordem_service %></td>
               <td class="action"><%= link_to 'Show', ordem_service, class: "btn btn-info btn-sm" %></td>
