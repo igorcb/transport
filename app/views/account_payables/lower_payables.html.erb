@@ -36,17 +36,17 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-   $("#q_type_account_eq").change(function() {
-      getType_account("id="+$("#q_type_account_eq").val());
+   $("#query_type_account_eq").change(function() {
+      getType_account("type_id="+$("#query_type_account_eq").val());
     });
   });
-  function getType_account(id) {
-    $.getJSON("/type_account_select", id, function(j) {
+  function getType_account(type_id) {
+    $.getJSON("/type_account_select", type_id, function(j) {
        var options = '<option value="">SELECIONE FORNECEDOR</option>';
        $.each(j.sup, function(i, item) {
          options += '<option value="' + item.id + '">' + item.n + '</option>';
        });
-       $("#q_supplier_id_eq").html(options);
+       $("#query_supplier_id_eq").html(options);
      });
  }
 </script>
