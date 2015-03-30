@@ -1,53 +1,109 @@
-
-<div id="data_ordem_service">
-	<p>
-	  <strong>Os: </strong><%= @ordem_service.id %>
-	</p>
-	<p>
-	  <strong>Placa: </strong><%= @ordem_service.ordem_service_logistic.placa if @ordem_service.ordem_service_logistic.placa.present? %> <br />
-	  <strong>Motorista: </strong><%= @ordem_service.ordem_service_logistic.driver.nome if @ordem_service.ordem_service_logistic.driver.present? %>
-	</p>
-
-	<p>
-		<strong>CNPJ: </strong><%= @ordem_service.client.cpf_cnpj %> <br />
-		<strong>Cliente: </strong><%= @ordem_service.client.nome %> <br />
-		<strong>Cidade: </strong> <%= @ordem_service.cidade %> - <%= @ordem_service.estado %>
-	</p>		
-
-	<p><strong>CT-e:</strong></p>
-	<% if @ordem_service.cte_keys.present? %>
-		<% @ordem_service.cte_keys.each	do |cte| %>
-			<ul>
-				<strong>CT-e:</strong><%= cte.cte %> - <%= cte.chave %>
-			</ul>		
-		<% end %>
-	<% end %>
-
-	<p><strong>NF-e:</strong></p>
-	<% if @ordem_service.nfe_keys.present? %>
-		<% @ordem_service.nfe_keys.each	do |nfe| %>
-			<ul>
-				<strong>NF-e:</strong><%= nfe.nfe %> - <%= nfe.chave %>
-			</ul>		
-		<% end %>
-	<% end %>
-		
-</div>
-
-<div>
-	<h5>para poder responder este comentário <%= link_to "clique aqui", ordem_service_url(@ordem_service) %></h5>
+<style type="text/css">
 	
-	<h3>Comentários</h3>
+	table, th, td {
+    border: 1px solid black;
+}
 
-	<div style="font-size: 20px">
-	  <%= render 'comments/feed', comments: @ordem_service.feed %>
-	</div>
+	th {
+    text-align: center;
+}
 
-</div>
+</style>
 
-<footer>
-  <small>
-    Este email foi enviado por <a href="http://www.l7logistica.com.br/">L7 Logística</a>
-    por favor não responder este e-mail.
-  </small>
-</footer>
+<table width="70%">
+	<tr>
+		<td>OS:</td>
+		<td><%= @ordem_service.id %></td>
+		<td width="90%"><img src="http://www.l7logistica.com.br/assets/logo-l7-120.png" border="0" alt="1" align="right" /></td>
+	</tr>
+</table>
+
+<br />
+
+<table width="70%">	
+
+	<tr>
+		<th colspan="6"><strong>MOTORISTA</strong></th>
+	</tr>
+
+	<tr>
+		<td style="text-align: center;" colspan="6"><%= @ordem_service.ordem_service_logistic.driver.nome %></td>
+	</tr>
+
+	<tr>
+		<td>Placa:</td>
+		<td colspan="5"><%= @ordem_service.ordem_service_logistic.placa %></td>
+	</tr>
+
+	<tr>
+		<th colspan="6"><strong>REMETENTE</strong></th>
+	</tr>
+
+	<tr>
+		<td style="text-align: center;" colspan="6"><%= @ordem_service.source_client.nome %></td>
+	</tr>
+
+	<tr>
+		<td>CNPJ:</td>
+		<td><%= @ordem_service.source_client.cpf_cnpj %></td>
+		<td>Cidade:</td>
+		<td><%= @ordem_service.source_client.cidade %></td>
+		<td>Estado:</td>
+		<td><%= @ordem_service.source_client.estado %></td>	
+	</tr>
+	
+	<tr>
+		
+	</tr>
+
+	<tr>
+		<td style="text-align: center;" colspan="6"><strong>DESTINATÁRIO</strong></td>
+	</tr>
+
+	<tr>
+		<th colspan="6"><%= @ordem_service.client.nome %></th>
+	</tr>
+
+	<tr>
+		<td>CNPJ:</td>
+		<td><%= @ordem_service.client.cpf_cnpj %></td>
+		<td>Cidade:</td>
+		<td><%= @ordem_service.cidade %></td>
+		<td>Estado:</td>
+		<td><%= @ordem_service.estado %></td>	
+	</tr>
+
+	<tr>
+		
+	</tr>
+
+	<tr>
+		<th colspan="6"><strong>PRODUTO</strong></th>
+	</tr>
+
+	<tr>
+		<td>PESO:</td>
+		<td><%= @ordem_service.ordem_service_logistic.peso %> </td>
+		<td>QUANTIDADE:</td>
+		<td><%= @ordem_service.ordem_service_logistic.qtde_volume %></td>
+	</tr>
+
+	<tr>
+		
+	</tr>
+
+	<tr>
+		<th colspan="6"><strong>DADOS FISCAIS</strong></th>
+	</tr>
+
+	<tr>
+		<td>CT-e:</td>
+		<td><%= @ordem_service.cte_keys.first.cte if @ordem_service.cte_keys.present? %></td>
+		<td>DANFE:</td>
+		<td><%= @ordem_service.danfes %></td>
+	</tr>
+
+</table>
+<br />
+<h3>Comentários</h3>
+<%= render 'comments/feed', comments: @ordem_service.feed %>
