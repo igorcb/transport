@@ -17,6 +17,7 @@ class Client < ActiveRecord::Base
 
   validates :faturar_cada, presence: true, if: :faturar?
   validates :vencimento_para, presence: true, if: :faturar?
+  validates :qtde_parcela, presence: true, numericality: { greater_than: 0 }, if: :faturar?
 
   belongs_to :group_client
   has_many :ordem_services

@@ -103,12 +103,12 @@
   </div>
   <div class="form-group">
     <%= f.label "", class: "checkbox-inline" do %>
-      <%= f.check_box :faturar %> Pode faturar para este cliente?
+      <%= f.check_box :capital %> Este cliente é da capital ou região metropolitana?
     <% end %>
   </div>
   <div class="form-group">
     <%= f.label "", class: "checkbox-inline" do %>
-      <%= f.check_box :capital %> Este cliente é da capital ou região metropolitana?
+      <%= f.check_box :faturar %> Pode faturar para este cliente?
     <% end %>
   </div>
   <div class="form-group">
@@ -118,6 +118,10 @@
   <div class="form-group">
     <%= f.label :vencimento_para, "Vencimento para:" %>
     <%= f.text_field :vencimento_para, class: "form-control" %> 
+  </div>
+  <div class="form-group">
+    <%= f.label :qtde_parcela %>
+    <%= f.text_field :qtde_parcela, class: "form-control" %> 
   </div>
   <div class="form-group">
     <%= f.label :suframa %>
