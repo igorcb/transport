@@ -1,0 +1,64 @@
+<style type="text/css">
+	table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    text-align: center;
+}
+
+</style>
+
+
+<div id="data_ordem_service">
+	<p>
+	  <strong>Os: </strong><%= @ordem_service.id %>
+	</p>
+	<p>
+	  <strong>Placa: </strong><%= @ordem_service.ordem_service_logistic.placa if @ordem_service.ordem_service_logistic.placa.present? %> <br />
+	  <strong>Motorista: </strong><%= @ordem_service.ordem_service_logistic.driver.nome if @ordem_service.ordem_service_logistic.driver.present? %>
+	</p>
+
+	<p>
+		<strong>CNPJ: </strong><%= @ordem_service.client.cpf_cnpj %> <br />
+		<strong>Cliente: </strong><%= @ordem_service.client.nome %> <br />
+		<strong>Cidade: </strong> <%= @ordem_service.cidade %> - <%= @ordem_service.estado %>
+	</p>		
+
+	<p><strong>CT-e:</strong></p>
+	<% if @ordem_service.cte_keys.present? %>
+		<% @ordem_service.cte_keys.each	do |cte| %>
+			<ul>
+				<strong>CT-e:</strong><%= cte.cte %> - <%= cte.chave %>
+			</ul>		
+		<% end %>
+	<% end %>
+
+	<p><strong>NF-e:</strong></p>
+	<% if @ordem_service.nfe_keys.present? %>
+		<% @ordem_service.nfe_keys.each	do |nfe| %>
+			<ul>
+				<strong>NF-e:</strong><%= nfe.nfe %> - <%= nfe.chave %>
+			</ul>		
+		<% end %>
+	<% end %>
+		
+</div>
+
+<div>
+	<h5>para poder responder este comentário <%= link_to "clique aqui", ordem_service_url(@ordem_service) %></h5>
+	
+	<h3>Comentários</h3>
+
+	<div style="font-size: 20px">
+	  <%= render 'comments/feed', comments: @ordem_service.feed %>
+	</div>
+
+</div>
+
+<footer>
+  <small>
+    Este email foi enviado por <a href="http://www.l7logistica.com.br/">L7 Logística</a>
+    por favor não responder este e-mail.
+  </small>
+</footer>
