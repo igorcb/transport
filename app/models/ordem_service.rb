@@ -66,7 +66,7 @@ class OrdemService < ActiveRecord::Base
                       }
   
   before_save :set_values, :validates_type_service
-  after_save :generate_billing 
+  #after_save :generate_billing 
 
   before_destroy :can_destroy?
 
@@ -241,7 +241,15 @@ class OrdemService < ActiveRecord::Base
     end
   end
 
-  def generate_billing
+  def self.close_os(os_id)
+    ActiveRecord::Base.transaction do
+      data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
+      OrdemService.update(os_id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
+      generate_billing(os_id)
+    end
+  end
+
+  def self.generate_billing(os_id)
     # Fazer algumas validacoes
     # se o cliente não tiver vencimento definido
     # centro de custo de acordo com o tipo de servico
@@ -250,34 +258,43 @@ class OrdemService < ActiveRecord::Base
       # se o usuario colocar os serviços aos poucos, pode excluir o contas a receber e gerar novamente ?
     # como vai ficar o status da OS, tinha Aberto, Fechado e Faturado, agora mudou o fluxo, já que é
       # faturado assim que cria a OS
-    
-    if self.billing_client.present?
+
+    os = OrdemService.find(os_id)
+
+    if os.billing_client.present?
       ActiveRecord::Base.transaction do
-        self.account_receivables.destroy_all
+        #os.account_receivables.destroy_all #Não precisa mais apagar pois a conta só é criada quando fechar a OS
         # Centro de Custo Galpao = 54 isso é apenas um informativo
-        case self.tipo
+        case os.tipo
           when TipoOS::LOGISTICA then 
             cost_center = CostCenter.find(58)
-            valor = valor_ordem_service
+            valor = os.valor_ordem_service
           when TipoOS::MUDANCA then cost_center = CostCenter.find(56)
           when TipoOS::AEREO then 
             cost_center = CostCenter.find(57)
-            valor = self.ordem_service_air.valor_total
+            valor = os.ordem_service_air.valor_total
         end
-
         sub_cost_center = cost_center.sub_cost_centers.first
         historic = Historic.find(106) #Nao Definido
-        vencimento = get_due_client(self.created_at, self.billing_client)
-        AccountReceivable.create!(client_id: self.billing_client_id,
+
+        valor_das_parcelas = valor / os.billing_client.qtde_parcela
+        ajuste = (valor - (valor_das_parcelas * os.billing_client.qtde_parcela)).round(2)
+        #vencimento = os.get_due_client(os.created_at, os.billing_client)
+        vencimento = os.billing_to_client
+        data_vencimento = nil
+        os.billing_client.qtde_parcela.times do |time|
+          valor = time == 0? (valor_das_parcelas + ajuste).round(2) : valor_das_parcelas.round(2)
+          data_vencimento = time == 0? vencimento : (data_vencimento + os.billing_client.vencimento_para.days)
+          AccountReceivable.create!(client_id: os.billing_client_id,
                                   cost_center_id: cost_center.id,
                                   sub_cost_center_id: sub_cost_center.id,
                                   historic_id: historic.id,
-                                  documento: self.id,
+                                  documento: os.id,
                                   valor: valor,
-                                  data_vencimento: vencimento,
-                                  ordem_service_id: self.id,
+                                  data_vencimento: data_vencimento,
+                                  ordem_service_id: os.id,
                                   observacao: "FATURA GERADA AUTOMÁTICA NA CRIAÇÃO DA O.S.")
-
+        end
       end
     end
   end

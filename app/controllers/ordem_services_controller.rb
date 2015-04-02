@@ -228,18 +228,19 @@ class OrdemServicesController < ApplicationController
       return
     end
 
-    @ordem_service.data_fechamento = Time.now.strftime('%Y-%m-%d')
-    @ordem_service.status = OrdemService::TipoStatus::FECHADO
+    OrdemService.close_os(params[:id])
+    redirect_to @ordem_service
 
-    respond_to do |format|
-      if @ordem_service.save
-        format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully closed." } }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to @ordem_service, flash: { danger: "An error occurred when closing work order." } }
-        format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
-      end
-    end
+
+    # respond_to do |format|
+    #   if @ordem_service.save
+    #     format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully closed." } }
+    #     format.json { head :no_content }
+    #   else
+    #     format.html { redirect_to @ordem_service, flash: { danger: "An error occurred when closing work order." } }
+    #     format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   def faturamento
