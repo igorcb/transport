@@ -1,5 +1,4 @@
 <%= link_to 'New Account', '#new_account_payable_modal', 'data-toggle' => 'modal', class: "btn btn-success btn-sm" %>
-
 <table class="table table-striped" id='account_payables_table'>
   <thead>
     <th>Tipo</th>
@@ -17,6 +16,11 @@
     <% account_payables.each do |account_payable| %>
       <%= render partial: 'account_payables/table_row', locals: {account_payable: account_payable} %>
     <% end %>    
+    <tr>
+      <td colspan="4"></td>
+      <td colspan="1"><strong>Total:</strong></td>
+      <td colspan="5"><strong><%= number_to_currency(account_payables.sum(:valor), unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
+    </tr>
   </tbody>
 
 </table>
