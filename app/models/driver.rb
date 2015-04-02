@@ -96,8 +96,7 @@ class Driver < ActiveRecord::Base
 
   private
     def can_destroy?
-      if self.ordem_services.present? || self.account_payables.present? ||
-         self.ocurrences.present?
+      if self.ordem_services.present? || self.account_payables.present?
         errors.add(:base, "You can not delete record with relationship") 
         return false
       end
