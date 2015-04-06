@@ -38,6 +38,10 @@ module ApplicationHelper
     date.nil? ? "" : I18n.l(date, format: '%d/%m/%Y')
   end
 
+  def date_hora_br(date)
+    date.nil? ? "" : I18n.l(date, format: '%d/%m/%Y %H:%M:%S')
+  end
+
   def select_tipo_operacao
     ([['Conta Corrente', 0], ['Conta Poupança', 1],["Conta Salário", 2]])
   end
