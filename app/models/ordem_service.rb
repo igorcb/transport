@@ -54,6 +54,10 @@ class OrdemService < ActiveRecord::Base
   has_one :ordem_service_air
   has_many :ordem_service_airs
   accepts_nested_attributes_for :ordem_service_airs, allow_destroy: true, :reject_if => :all_blank
+  
+  has_one :cancellation, class_name: "Cancellation", foreign_key: "cancellation_id"
+  has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
+  accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
 
   #scope :is_not_billed, -> { joins(:ordem_service_type_services).where(status: [0,1]).order('ordem_services.data desc') }
   scope :is_not_billed, -> { joins(:driver, :ordem_service_type_service, :type_service).where(status: [0,1]) }
@@ -74,6 +78,11 @@ class OrdemService < ActiveRecord::Base
     ABERTO = 0
     FECHADO = 1
     FATURADO = 2
+    NAO_FATURAR = 3
+    PAGA = 4
+    SOLICITACAO_CANCELAMENTO = 5
+    CANCELADA = 6
+    PAGO_SEMFATURA = 99
   end
 
   module TipoOS
@@ -106,6 +115,9 @@ class OrdemService < ActiveRecord::Base
       when 1  then "Fechado"
       when 2  then "Faturado"
       when 3  then "Nao Faturar"
+      when 4  then "Pago"
+      when 5  then "Cancelamento Solicitado"
+      when 6  then "Cancelada"
       when 99 then "Pago***"
     else "Nao Definido"
     end
@@ -249,6 +261,20 @@ class OrdemService < ActiveRecord::Base
     end
   end
 
+  def self.cancel(user, options )
+    ActiveRecord::Base.transaction do
+      ordem_service = OrdemService.find(options[:ordem_service_id])
+      ordem_service.status = TipoStatus::SOLICITACAO_CANCELAMENTO
+      ordem_service.save!
+      cancel = Cancellation.create!(solicitation_user_id: user,
+                                     observacao: options[:observacao],
+                                cancellation_id: options[:ordem_service_id],
+                              cancellation_type: "OrdemService"
+                         )
+      cancel.send_notification_solicitation_cancellation
+    end
+  end
+
   def self.generate_billing(os_id)
     # Fazer algumas validacoes
     # se o cliente não tiver vencimento definido
@@ -342,6 +368,10 @@ class OrdemService < ActiveRecord::Base
 
   def feed_internal_comments
     InternalComment.where("comment_type = ? and comment_id = ?", "OrdemService", self.id)
+  end
+
+  def feed_cancellations
+    Cancellation.where("cancellation_type = ? and cancellation_id = ?", "OrdemService", self.id)
   end
 
   def cidade_estado

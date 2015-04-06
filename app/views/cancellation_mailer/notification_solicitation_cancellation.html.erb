@@ -1,0 +1,22 @@
+<table width="50%">
+	<tr>
+		<td width="20%"></td>
+		<td width="80%" align="center"><strong>Solicitacão de Cancelamento</strong></td>
+		<td><img src="http://www.l7logistica.com.br/assets/logo-l7-120.png" border="0" alt="1" align="right" /></td>
+	</tr>
+	<tr>
+		<td width="20%">Ordem Serviço:</td>
+		<td width="15%"><%= @ordem_service.id %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td width="20%">Solicitante:</td>
+		<td width="15%"><%= @ordem_service.cancellation.solicitation_user.email %></td>
+		<td></td>
+	</tr>
+</table>
+
+<h3>MOTIVO</h3>
+<p bgcolor="#D3D3D3" style="font-size:20px">
+	<%= @ordem_service.cancellation.observacao %>
+</p>

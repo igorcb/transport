@@ -142,6 +142,43 @@ class OrdemServicesController < ApplicationController
     end
   end
 
+  def cancel
+    if @ordem_service.status == OrdemService::TipoStatus::FECHADO
+      flash[:danger] = "You can not cancel the ordem service taken closed."
+      redirect_to ordem_service_path(@ordem_service)
+    elsif @ordem_service.status == OrdemService::TipoStatus::FATURADO
+      flash[:danger] = "You can not cancel the ordem service taken billing."
+      redirect_to ordem_service_path(@ordem_service)
+    elsif @ordem_service.status == OrdemService::TipoStatus::NAO_FATURAR
+      flash[:danger] = "You can not cancel the ordem service taken invoice."
+      redirect_to ordem_service_path(@ordem_service)
+    elsif @ordem_service.status == OrdemService::TipoStatus::PAGA
+      flash[:danger] = "You can not cancel the ordem service pay."
+      redirect_to ordem_service_path(@ordem_service)
+    elsif @ordem_service.status == OrdemService::TipoStatus::SOLICITACAO_CANCELAMENTO
+      flash[:danger] = "You can not cancel the ordem service request cancellation."
+      redirect_to ordem_service_path(@ordem_service)
+    elsif @ordem_service.status == OrdemService::TipoStatus::CANCELADA
+      flash[:danger] = "You can not cancel the ordem service cancellation."
+      redirect_to ordem_service_path(@ordem_service)
+    elsif @ordem_service.status > 6
+      flash[:danger] = "You can not cancel the ordem service status more than 6 (not defined)."
+      redirect_to ordem_service_path(@ordem_service)
+    end
+    @ordem_service.cancellations.build
+  end
+
+  def update_cancel
+    if params[:ordem_services][:observacao].length < 15
+      flash[:danger] = "Observacao is too short (minimum is 15 characters)."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    end
+
+    OrdemService.cancel(current_user.id, params[:ordem_services])
+    redirect_to ordem_service_path(params[:id]), flash: { success: "Request for cancellation of Ordem Service was successful." }
+  end
+
   def destroy
     @ordem_service.destroy
     respond_with(@ordem_service)
@@ -314,7 +351,7 @@ class OrdemServicesController < ApplicationController
           :qtde_volume, :peso, :valor_nf, :total_cubagem, :tarifa_companhia, :tipo_frete, :valor_total, :awb, :voo, :id, :_destroy],
 
         ordem_service_logistics_attributes: [:driver_id, :delivery_driver_id, :placa, :cte, :danfe_cte,:qtde_volume, :peso, :senha_sefaz, :id, :_destroy],
-
+        cancellations_attributes: [:solicitation_user_id, :authorization_user_id, :status, :observacao, :id, :_destroy],
         cte_keys_attributes: [:cte, :chave, :id, :_destroy],
         nfe_keys_attributes: [:nfe, :chave, :qtde, :id, :_destroy],
         ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :qtde, :qtde_recebida, :valor_pago, :id, :_destroy],

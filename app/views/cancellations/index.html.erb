@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Solicitações de cancelamento </div>
+  <div class="panel-body">
+    
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>No.</th>
+            <th>Solicitante</th>
+            <th>Autorizador</th>
+            <th>Status</th>
+            <th>Motivo</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @cancellations.each do |cancel| %>
+            <tr>
+              <td><%= cancel.cancellation_type %></td>
+              <td><%= link_to cancel.ordem_service.id, cancel %></td>
+              <td><%= link_to cancel.solicitation_user.email, cancel, title: cancel.solicitation_user.email %></td>
+              <td><%= link_to cancel.authorization_user.email, cancel, title: cancel.authorization_user.email if cancel.authorization_user.present? %></td>
+              <td><%= cancel.status_name %></td>
+              <td><%= link_to truncate(cancel.observacao, length: 25), cancel, title: cancel.observacao %></td>
+              <td><%= link_to 'Show', cancel, class: "btn btn-info btn-xs" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Solicitação de cancelamento </h2>
+  </div>
+
+  <div class="panel-body">
+    <%= render 'show' %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= link_to 'Confirmar cancelamento', confirmation_cancellation_path(@cancellation), class: "btn btn-primary" if @cancellation.pode_cancelar? %>
+  <%= link_to 'Listar Todos', cancellations_path, class: "btn btn-default" %>
+</div>

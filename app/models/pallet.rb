@@ -42,10 +42,11 @@ class Pallet < ActiveRecord::Base
   def create_os(options)
 
     ActiveRecord::Base.transaction do
-      os = OrdemService.create!(tipo: OrdemService::TipoOS::PALETE,
+      os = OrdemService.create!(tipo: OrdemService::TipoOS::LOGISTICA,
                                carrier_id: options[:carrier_id],
                                driver_id: options[:driver_id],
-                               client_id: self.client_id,
+                               source_client_id: self.client_id,
+                               target_client_id: self.client_id,
                                data: self.data_agendamento,
                                placa: options[:placa],
                                estado: options[:estado],

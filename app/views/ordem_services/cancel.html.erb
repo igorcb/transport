@@ -1,0 +1,15 @@
+<%#= form_for(@ordem_service) do |f| %>
+<%= form_tag({:controller => "ordem_services", :action => "update_cancel"}, :method => "post") do |f| %>
+  <h3>Informe o motivo do cancelamento</h3> 
+
+  <div class="form-group">
+    <%= text_area_tag "ordem_services[observacao]", nil, rows: 5, class: "form-control" %>
+  </div>  
+
+  <%= hidden_field_tag "ordem_services[ordem_service_id]", @ordem_service.id %>
+
+  <div class="form-group">
+    <%= submit_tag "Enviar solicitacao de cancelamento", class: "btn btn-primary btn-lg btn-block" %>
+  </div>
+
+<% end %>

@@ -1,5 +1,10 @@
 Transport::Application.routes.draw do
-  
+  resources :cancellations, only: [:index, :show, :edit, :update]  do
+    member do
+      get 'confirmation'
+    end
+  end
+
   resources :cashes
 
   resources :cte_xmls, only: [:index, :new, :create]
@@ -102,6 +107,8 @@ Transport::Application.routes.draw do
       post 'update_agent'
       get 'create_payables'
       get 'tag'
+      get 'cancel'
+      post 'update_cancel'
     end
     match 'search' => 'people#search', via: [:get, :post], as: :search
     collection do

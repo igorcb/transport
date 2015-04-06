@@ -1,0 +1,1 @@
+Sua solicitação de cancelamento da Ordem de Serviço: <%= @ordem_service.id %> foi confirmada com sucesso.

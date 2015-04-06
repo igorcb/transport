@@ -1,0 +1,27 @@
+    <p>
+      <strong>OS.:</strong>
+      <label class="fields"> 
+      	<% ordem_service = @cancellation.ordem_service   %>
+        <%= link_to "#{ @cancellation.ordem_service.id }", @cancellation.ordem_service %> 
+      </label>
+    </p>
+
+    <p>
+      <strong>Solicitante:</strong>
+      <%= @cancellation.solicitation_user.email %>
+    </p>
+
+    <p>
+      <strong>Autorizador:</strong>
+      <%= @cancellation.authorization_user.email if @cancellation.authorization_user.present? %>
+    </p>
+
+    <p>
+      <strong>Status:</strong>
+      <%= @cancellation.status_name %>
+    </p>
+
+    <p>
+      <strong>Motivo:</strong>
+      <pre><%= @cancellation.observacao %></pre>
+    </p>
