@@ -143,7 +143,10 @@ class OrdemServicesController < ApplicationController
   end
 
   def cancel
-    if @ordem_service.status == OrdemService::TipoStatus::FECHADO
+    if @ordem_service.status == OrdemService::TipoStatus::ENTREGA_EFETUADA
+      flash[:danger] = "You can not cancel the ordem service done delivery."
+      redirect_to ordem_service_path(@ordem_service)
+    elsif @ordem_service.status == OrdemService::TipoStatus::FECHADO
       flash[:danger] = "You can not cancel the ordem service taken closed."
       redirect_to ordem_service_path(@ordem_service)
     elsif @ordem_service.status == OrdemService::TipoStatus::FATURADO
@@ -161,7 +164,7 @@ class OrdemServicesController < ApplicationController
     elsif @ordem_service.status == OrdemService::TipoStatus::CANCELADA
       flash[:danger] = "You can not cancel the ordem service cancellation."
       redirect_to ordem_service_path(@ordem_service)
-    elsif @ordem_service.status > 6
+    elsif @ordem_service.status > 7
       flash[:danger] = "You can not cancel the ordem service status more than 6 (not defined)."
       redirect_to ordem_service_path(@ordem_service)
     end

@@ -76,12 +76,13 @@ class OrdemService < ActiveRecord::Base
 
   module TipoStatus
     ABERTO = 0
-    FECHADO = 1
-    FATURADO = 2
-    NAO_FATURAR = 3
-    PAGA = 4
-    SOLICITACAO_CANCELAMENTO = 5
-    CANCELADA = 6
+    ENTREGA_EFETUADA = 1
+    FECHADO = 2
+    FATURADO = 3
+    NAO_FATURAR = 4
+    PAGA = 5
+    SOLICITACAO_CANCELAMENTO = 6
+    CANCELADA = 7
     PAGO_SEMFATURA = 99
   end
 
@@ -112,12 +113,13 @@ class OrdemService < ActiveRecord::Base
   def status_name
     case self.status
       when 0  then "Aberto"
-      when 1  then "Fechado"
-      when 2  then "Faturado"
-      when 3  then "Nao Faturar"
-      when 4  then "Pago"
-      when 5  then "Cancelamento Solicitado"
-      when 6  then "Cancelada"
+      when 1  then "Entregue"
+      when 2  then "Fechado"
+      when 3  then "Faturado"
+      when 4  then "Nao Faturar"
+      when 5  then "Pago"
+      when 6  then "Canc. Solicitado"
+      when 7  then "Cancelada"
       when 99 then "Pago***"
     else "Nao Definido"
     end
