@@ -40,6 +40,12 @@ gem "watir-rails"
 gem 'cancan'
 gem 'rolify'
 gem 'cocoon'
+gem 'pdf-reader'
+#gem 'tesseract-ocr', '~> 0.1.7'
+gem 'rmagick', '~> 2.14.0'
+gem 'rtesseract', '~> 1.2.6'
+gem 'cocaine', '~> 0.5.7'
+#gem 'cep', '~> 0.0.8'
 
 # group :development, :test do
 #   # gem 'sqlite3', '1.3.5'

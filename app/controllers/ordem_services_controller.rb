@@ -248,9 +248,13 @@ class OrdemServicesController < ApplicationController
       format.js
     end
   end
-
-  def close_os
-    if !@ordem_service.ordem_service_type_service.present? 
+  
+  def delivery
+    if @ordem_service.status == OrdemService::TipoStatus::ENTREGA_EFETUADA
+      flash[:warning] = "Ordem Service is already as delivered."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    elsif !@ordem_service.ordem_service_type_service.present? 
       flash[:danger] = "Can not close without an Order of Seriviço associated service."
       redirect_to ordem_service_path(@ordem_service)
       return
@@ -268,19 +272,31 @@ class OrdemServicesController < ApplicationController
       return
     end
 
-    OrdemService.close_os(params[:id])
-    redirect_to @ordem_service
+    OrdemService.information_delivery(params[:id])
+    redirect_to @ordem_service, flash: { success: "Ordem Service delivery was successful" }
+  end
 
+  def close
+    respond_to do |format|
+      #if @ordem_service.update(ordem_service_params) && OrdemService.close_os(params[:id])
+      if @ordem_service.update(ordem_service_params) && @ordem_service.close_os
+        format.html { redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful." } }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'close_os' }
+        format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
-    # respond_to do |format|
-    #   if @ordem_service.save
-    #     format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully closed." } }
-    #     format.json { head :no_content }
-    #   else
-    #     format.html { redirect_to @ordem_service, flash: { danger: "An error occurred when closing work order." } }
-    #     format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
-    #   end
-    # end
+  def close_os
+    if !@ordem_service.data_entrega_servico.present? 
+      flash[:danger] = "Data Entrega Servico can't be blank."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    end
+    #OrdemService.close_os(params[:id])
+    #redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful..............." }
   end
 
   def faturamento
@@ -355,8 +371,8 @@ class OrdemServicesController < ApplicationController
 
         ordem_service_logistics_attributes: [:driver_id, :delivery_driver_id, :placa, :cte, :danfe_cte,:qtde_volume, :peso, :senha_sefaz, :id, :_destroy],
         cancellations_attributes: [:solicitation_user_id, :authorization_user_id, :status, :observacao, :id, :_destroy],
-        cte_keys_attributes: [:cte, :chave, :id, :_destroy],
-        nfe_keys_attributes: [:nfe, :chave, :qtde, :id, :_destroy],
+        cte_keys_attributes: [:cte, :chave, :asset, :id, :_destroy],
+        nfe_keys_attributes: [:nfe, :chave, :asset, :qtde, :id, :_destroy],
         ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :qtde, :qtde_recebida, :valor_pago, :id, :_destroy],
         account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :valor, :id, :_destroy],
         assets_attributes: [:asset, :user_id, :id, :_destroy]

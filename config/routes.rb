@@ -96,10 +96,12 @@ Transport::Application.routes.draw do
   match 'search_type_ordem_service/:type', :controller => 'ordem_services', :action => 'search_type_ordem_service', via: [:get, :post]
   #match "/search_logistic", :controller => "ordem_services", :action => "search_logistic", via: [:get, :post]
   match "/ordem_services_search_logistic" => "ordem_services#search_logistic", via: [:get]
-  
+
   resources :ordem_services do
     member do
-      get 'close_os'
+      get 'delivery'
+      get 'close_os'  
+      patch 'close'  
       get 'edit_agent'
       get 'show_agent'
       get 'pallet'
@@ -111,6 +113,7 @@ Transport::Application.routes.draw do
       post 'update_cancel'
     end
     match 'search' => 'people#search', via: [:get, :post], as: :search
+    
     collection do
       get "new_type/:id" => "ordem_services#new_type"
       get 'index_agent'

@@ -245,6 +245,38 @@ class OrdemService < ActiveRecord::Base
       OrdemService.where(id: hash_ids).update_all(status: TipoStatus::FATURADO, billing_id: billing.id)
     end
   end
+  
+  def close_os
+    self.cte_keys.each do |cte|
+      puts ">>>>>>>>>>>>. Validando CTE: #{cte.cte} is image: #{cte.is_image?}"
+      self.errors.add("Cte-Keys", "#{cte.cte} is not image Valid") if !cte.is_image?
+      self.errors.add("Cte-Keys", "#{cte.cte} is not CT-e Valid") if !cte.tesseract_context?
+    end
+    if self.errors.present?
+      puts "Errors: #{self.errors.messages}"
+    else
+      ActiveRecord::Base.transaction do
+        data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
+        OrdemService.update(self.id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
+        generate_billing(self.id)
+      end
+    end
+  end
+
+  # def self.close_os(os_id)
+  #   ordem_service = OrdemService.find(os_id)
+  #   ordem_service.cte_keys.each do |cte|
+  #     puts ">>>>>>>>>>>>. Validando CTE: #{cte.cte} is image: #{cte.is_image?}"
+  #     ordem_service.errors.add("Cte-Keys", "#{cte.cte} is not image Valid") if !cte.is_image?
+  #     ordem_service.errors.add("Cte-Keys", "#{cte.cte} is not CT-e Valid") if !cte.tesseract_context?
+  #   end
+  #   puts ">>>>>>>>>>>>. Erros #{ordem_service.errors.messages}"
+  #   # ActiveRecord::Base.transaction do
+  #   #   data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
+  #   #   OrdemService.update(os_id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
+  #   #   generate_billing(os_id)
+  #   # end
+  # end
 
   def self.close_os_agent(ordem_service)
     data = Time.now.strftime('%Y-%m-%d')
@@ -255,13 +287,12 @@ class OrdemService < ActiveRecord::Base
     end
   end
 
-  def self.close_os(os_id)
+  def self.information_delivery(os_id)
     ActiveRecord::Base.transaction do
-      data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
-      OrdemService.update(os_id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
-      generate_billing(os_id)
+      OrdemService.update(os_id, status: OrdemService::TipoStatus::ENTREGA_EFETUADA)
     end
   end
+
 
   def self.cancel(user, options )
     ActiveRecord::Base.transaction do
