@@ -17,7 +17,7 @@ class NfeKey < ActiveRecord::Base
     #%w('CT-e', 'CT-E', 'CTE', 'CTe').each {|str| puts str}
     img = RTesseract.new(self.asset.path)
     text_img = img.to_s
-    text_img.include?(self.cte) ? true : false
+    text_img.include?(self.nfe) ? true : false
   end
 
 end

@@ -248,9 +248,14 @@ class OrdemService < ActiveRecord::Base
   
   def close_os
     self.cte_keys.each do |cte|
-      puts ">>>>>>>>>>>>. Validando CTE: #{cte.cte} is image: #{cte.is_image?}"
-      self.errors.add("Cte-Keys", "#{cte.cte} is not image Valid") if !cte.is_image?
-      self.errors.add("Cte-Keys", "#{cte.cte} is not CT-e Valid") if !cte.tesseract_context?
+      #puts ">>>>>>>>>>>>. Validando CTE: #{cte.cte} is image: #{cte.is_image?}"
+      self.errors.add("CTe-Keys", "#{cte.cte} is not image Valid") if !cte.is_image?
+      self.errors.add("CTe-Keys", "#{cte.cte} is not CT-e Valid") if !cte.tesseract_context?
+    end
+    self.nfe_keys.each do |nfe|
+      #puts ">>>>>>>>>>>>. Validando NF-e: #{cte.cte} is image: #{cte.is_image?}"
+      self.errors.add("NFe-Keys", "#{nfe.nfe} is not image Valid") if !nfe.is_image?
+      self.errors.add("NFe-Keys", "#{nfe.nfe} is not NF-e Valid") if !nfe.tesseract_context?
     end
     if self.errors.present?
       puts "Errors: #{self.errors.messages}"
