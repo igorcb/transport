@@ -263,7 +263,7 @@ class OrdemService < ActiveRecord::Base
       ActiveRecord::Base.transaction do
         data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
         OrdemService.update(self.id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
-        generate_billing(self.id)
+        OrdemService.generate_billing(self.id)
       end
     end
   end
