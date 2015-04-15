@@ -251,9 +251,13 @@ class OrdemServicesController < ApplicationController
   
   def delivery
     if @ordem_service.status == OrdemService::TipoStatus::ENTREGA_EFETUADA
-      flash[:warning] = "Ordem Service is already as delivered."
+      flash[:danger] = "Ordem Service is already as delivered."
       redirect_to ordem_service_path(@ordem_service)
       return
+    elsif @ordem_service.status == OrdemService::TipoStatus::FECHADO
+      flash[:danger] = "Ordem Service is already as closed."
+      redirect_to ordem_service_path(@ordem_service)
+      return    
     elsif !@ordem_service.ordem_service_type_service.present? 
       flash[:danger] = "Can not close without an Order of Seriviço associated service."
       redirect_to ordem_service_path(@ordem_service)
@@ -290,7 +294,11 @@ class OrdemServicesController < ApplicationController
   end
 
   def close_os
-    if !@ordem_service.data_entrega_servico.present? 
+    if @ordem_service.status == OrdemService::TipoStatus::FECHADO
+      flash[:danger] = "Ordem Service is already as closed."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    elsif !@ordem_service.data_entrega_servico.present? 
       flash[:danger] = "Data Entrega Servico can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return

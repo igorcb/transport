@@ -14,9 +14,12 @@ class CteKey < ActiveRecord::Base
   
   def tesseract_context?
     #%w('CT-e', 'CT-E', 'CTE', 'CTe').each {|str| puts str}
-    img = RTesseract.new(self.asset.path)
-    text_img = img.to_s
-    text_img.include?(self.cte) ? true : false
+    if self.asset.present?
+      img = RTesseract.new(self.asset.path)
+      puts ">>>>>>>>>>>>> Img: #{img.to_s}"
+      text_img = img.to_s
+      text_img.include?(self.cte) ? true : false
+    end
   end
 
 end
