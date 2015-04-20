@@ -91,9 +91,11 @@ var n = this,
     var elements = document.getElementsByClassName('escolha');
     var label = document.getElementById('valor_total');
     var sum = 0;
+    // console.log(elements[i].value);
     for (i=0;i< elements.length;i++) {
       if (elements[i].checked) {
-        sum = sum + parseInt(elements[i].value);
+        sum = sum + parseFloat(elements[i].value);
+        console.log(elements[i].value);
       }
     }
     document.getElementById('valor_total').value = 'R$ ' + sum.formatMoney(2, ',', '.');
