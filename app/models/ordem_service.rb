@@ -254,7 +254,7 @@ class OrdemService < ActiveRecord::Base
       self.errors.add("CTe-Keys", "#{cte.cte} is not CT-e Valid") if !cte.tesseract_context?
     end
     self.nfe_keys.each do |nfe|
-      #puts ">>>>>>>>>>>>. Validando NF-e: #{cte.cte} is image: #{cte.is_image?}"
+      #puts ">>>>>>>>>>>>. Validando NF-e: #{nfr.nfr} is image: #{nfe.is_image?}"
       self.errors.add("NFe-Keys", "#{nfe.nfe} is not image present") if !nfe.asset.present?
       self.errors.add("NFe-Keys", "#{nfe.nfe} is not image Valid") if !nfe.is_image?
       self.errors.add("NFe-Keys", "#{nfe.nfe} is not NF-e Valid") if !nfe.tesseract_context?
