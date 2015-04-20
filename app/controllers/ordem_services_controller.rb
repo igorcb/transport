@@ -68,18 +68,18 @@ class OrdemServicesController < ApplicationController
     @ordem_service.cidade = target_client.cidade if target_client.present?
 
     respond_to do |format|
-      if @ordem_service.save! 
+      if @ordem_service.save
         format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully created." } }
         format.json { render action: 'show', status: :created, location: @ordem_service }
       else
         #format.html { render action: 'new' }
+        # format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
         format.html do
           case params[:ordem_service][:tipo].to_i
             when 1 then render partial: 'form_logistic', change: 'form_ordem_service'
             when 4 then render partial: 'form_air', change: 'form_ordem_service'
           end
         end
-        format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
       end
     end
   end
