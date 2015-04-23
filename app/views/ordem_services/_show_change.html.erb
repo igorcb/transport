@@ -1,0 +1,228 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Ordem de Serviço No: <%= @ordem_service.id %> - <%= @ordem_service.status_name %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse off" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+	        <div class="panel-heading">
+	          <h2 class="panel-title">Dados motorista</h2>
+	        </div>
+
+	        <div class="panel-body"> 
+					  <%= render 'drivers/driver_data', object: @ordem_service.ordem_service_change.driver if @ordem_service.ordem_service_change.driver.present? %>
+            <%#= @ordem_service.ordem_service_logistic.delivery_driver.present? %>
+					</div>
+				
+	        <div class="panel-heading">
+	          <h2 class="panel-title">Dados Ordem de Serviço</h2>
+	        </div>
+
+	        <div class="panel-body"> 
+					  <%= render 'ordem_service_data' %>
+					</div>
+				
+				</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Dados do Cliente
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+
+        <div class="panel-body">
+          <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <h2 class="panel-title">Dados Remetente</h2>
+            </div>
+
+            <div class="panel-body"> 
+              <%= render 'clients/client_data', object: @ordem_service.source_client if @ordem_service.source_client.present? %>
+            </div>
+
+            <div class="panel-heading">
+              <h2 class="panel-title">Dados Destinatário</h2>
+            </div>
+
+            <div class="panel-body"> 
+              <%= render 'clients/client_data', object: @ordem_service.client if @ordem_service.client.present? %>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Endereços
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="panel-body">
+
+        <div class="panel-body">
+          <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <h2 class="panel-title">Remetente</h2>
+            </div>
+
+            <div class="panel-body"> 
+              <p>
+                <strong>Endereco:</strong>
+                <%= @ordem_service.ordem_service_change.source_endereco %>,
+                <%= @ordem_service.ordem_service_change.source_numero %>
+              </p>
+
+              <p>
+                <strong>Complemento:</strong>
+                <%= @ordem_service.ordem_service_change.source_complemento %>
+              </p>
+
+              <p>
+                <strong>Bairro:</strong>
+                <%= @ordem_service.ordem_service_change.source_bairro %>
+              </p>
+
+              <p>
+                <strong>Cidade:</strong>
+                <%= @ordem_service.ordem_service_change.source_cidade %> -
+                <%= @ordem_service.ordem_service_change.source_estado %>
+              </p>
+
+              <p>
+                <strong>Cep:</strong>
+                <%= @ordem_service.ordem_service_change.source_cep %>
+              </p>
+
+              <p>
+                <strong>Contato:</strong>
+                <%= @ordem_service.ordem_service_change.source_contato %>
+              </p>
+
+            </div>
+
+            <div class="panel-heading">
+              <h2 class="panel-title">Destinatário</h2>
+            </div>
+
+            <div class="panel-body"> 
+              <p>
+                <strong>Endereco:</strong>
+                <%= @ordem_service.ordem_service_change.target_endereco %>,
+                <%= @ordem_service.ordem_service_change.target_numero %>
+              </p>
+
+              <p>
+                <strong>Complemento:</strong>
+                <%= @ordem_service.ordem_service_change.target_complemento %>
+              </p>
+
+              <p>
+                <strong>Bairro:</strong>
+                <%= @ordem_service.ordem_service_change.target_bairro %>
+              </p>
+
+              <p>
+                <strong>Cidade:</strong>
+                <%= @ordem_service.ordem_service_change.target_cidade %> -
+                <%= @ordem_service.ordem_service_change.target_estado %>
+              </p>
+
+              <p>
+                <strong>Cep:</strong>
+                <%= @ordem_service.ordem_service_change.target_cep %>
+              </p>
+
+              <p>
+                <strong>Contato:</strong>
+                <%= @ordem_service.ordem_service_change.target_contato %>
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFive">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Serviços
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+      <div class="panel-body">
+  			<%#= render 'value_services', object: @ordem_service %>
+  			<%= render 'show_services', object: @ordem_service %>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSix">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Contas a Pagar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+      <div class="panel-body">
+
+       <%= render 'show_account_payables', account_payables: @ordem_service.account_payables %>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEight">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+          Documentos
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+      <div class="panel-body">
+
+      <%= render 'shared/document', object: @ordem_service %>
+      
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_ordem_service_path(@ordem_service), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', ordem_services_path, class: "btn btn-default" %>
+  <%= link_to 'Fechar', close_os_ordem_service_path, class: "btn btn-info" %>
+</div>

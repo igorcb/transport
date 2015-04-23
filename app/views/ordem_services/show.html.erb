@@ -1,5 +1,7 @@
 <% if @ordem_service.tipo == OrdemService::TipoOS::LOGISTICA %>
   <%= render 'show_logistic' %>
+<% elsif @ordem_service.tipo == OrdemService::TipoOS::MUDANCA %>
+  <%= render 'show_change' %>
 <% elsif @ordem_service.tipo == OrdemService::TipoOS::AEREO %>
   <%= render 'show_air' %>
 <% end %>

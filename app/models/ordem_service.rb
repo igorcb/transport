@@ -1,3 +1,4 @@
+#encoding: utf-8
 class OrdemService < ActiveRecord::Base
   IS_NUMBER = /\A[+-]?\d+\Z/  #/\D/
   resourcify
@@ -55,6 +56,10 @@ class OrdemService < ActiveRecord::Base
   has_many :ordem_service_airs
   accepts_nested_attributes_for :ordem_service_airs, allow_destroy: true, :reject_if => :all_blank
   
+  has_one :ordem_service_change
+  has_many :ordem_service_changes
+  accepts_nested_attributes_for :ordem_service_changes, allow_destroy: true, :reject_if => :all_blank
+
   has_one :cancellation, class_name: "Cancellation", foreign_key: "cancellation_id"
   has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
   accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
@@ -127,9 +132,10 @@ class OrdemService < ActiveRecord::Base
 
   def tipo_os_name
     case self.tipo
-      when 0 then "Mudanca"
       when 1 then "Logistica"
       when 2 then "Palete"
+      when 3 then "Mudanca"
+      when 4 then "Aereo"
     else "Nao Definido"
     end
   end 
@@ -444,6 +450,10 @@ class OrdemService < ActiveRecord::Base
       data = Time.now + 15.days
       data_vencimento = vencimento > 32 ? Date.new(data.year, data.month, client.vencimento_para) : Date.new(data.year, data.month, vencimento)
       data_vencimento
+    end
+
+    def has_address?
+      self.ordem_service_change.source_endereco.present?
     end
 
 end

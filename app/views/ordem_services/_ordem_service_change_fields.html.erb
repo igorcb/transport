@@ -1,0 +1,174 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Endereço de Origem</div>
+  <div class="panel-body">
+	  <div class="form-group">
+	    <%= f.label :source_cep, "CEP" %>
+	    <%= f.text_field :source_cep, class: "form-control" %>
+	  </div>
+
+    <div class="form-group">
+      <%= f.label :source_endereco, "Endereço" %>
+      <%= f.text_field :source_endereco, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :source_bairro, "Bairro" %>
+      <%= f.text_field :source_bairro, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :source_cidade, "Cidade" %>
+      <%= f.text_field :source_cidade, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :source_estado, "Estado" %>
+      <%= f.text_field :source_estado, class: "form-control" %>
+    </div>
+
+	  <div class="form-group">
+	    <%= f.label :source_numero, "Numero" %>
+	    <%= f.text_field :source_numero, class: "form-control" %>
+	  </div>  
+
+	  <div class="form-group">
+	    <%= f.label :source_complemento, "Complemento" %>
+	    <%= f.text_field :source_complemento, class: "form-control" %>
+	  </div>    
+
+    <div class="form-group">
+      <%= f.label :source_contato, "Contato" %>
+      <%= f.text_field :source_contato, class: "form-control" %>
+    </div>    
+
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Endereço de Destino</div>
+  <div class="panel-body">
+    <div class="form-group">
+      <%= f.label :target_cep, "CEP" %>
+      <%= f.text_field :target_cep, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :target_endereco, "Endereço" %>
+      <%= f.text_field :target_endereco, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :target_bairro, "Bairro" %>
+      <%= f.text_field :target_bairro, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :target_cidade, "Cidade" %>
+      <%= f.text_field :target_cidade, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :target_estado, "Estado" %>
+      <%= f.text_field :target_estado, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :target_numero, "Numero" %>
+      <%= f.text_field :target_numero, class: "form-control" %>
+    </div>  
+
+    <div class="form-group">
+      <%= f.label :target_complemento, "Complemento" %>
+      <%= f.text_field :target_complemento, class: "form-control" %>
+    </div>    
+
+    <div class="form-group">
+      <%= f.label :target_contato, "Contato" %>
+      <%= f.text_field :target_contato, class: "form-control" %>
+    </div>    
+
+  </div>
+</div>
+
+  <div class="form-group">
+    <%= f.label :driver_id, "Motorista" %><br>
+    <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :placa %>
+    <%= f.text_field :placa, class: "form-control" %>
+  </div>    
+
+  <div class="form-group">
+    <%= f.label :cubagem %>
+    <%= f.text_field :cubagem, class: "form-control" %>
+  </div>    
+
+  <div class="form-group">
+    <%= f.label :valor_declarado, "Valor declarado para o seguro" %>
+    <%= f.text_field :valor_declarado, class: "form-control money2" %>
+  </div>    
+
+  <div class="form-group">
+    <%= f.label :valor_total, "Valor Serviço" %>
+    <%= f.text_field :valor_total, class: "form-control money2" %>
+  </div>    
+
+  <%= f.check_box :compartilhado %> Entrega compartilhada?
+
+<style type="text/css">
+  .ocultar{display:none}
+</style>
+
+<script type="text/javascript">
+$(function(){
+   $("#ordem_service_ordem_service_changes_attributes_0_source_cep").change(function(){
+     var cep     = $(this).val().replace(/[^0-9]/, ''); 
+     var boxes   = $("#boxCampos");
+     var msgErro = $("#mensagemErro");
+     boxes.addClass('ocultar');
+     msgErro.addClass('ocultar');
+    if(cep !== ""){
+        $.getJSON('/get_address_by_cep', 'cep=' + cep, function(data){
+        	 console.log(data)
+	         $("#ordem_service_ordem_service_changes_attributes_0_source_endereco").val(data.logradouro);
+	         $("#ordem_service_ordem_service_changes_attributes_0_source_bairro").val(data.bairro);
+	         $("#ordem_service_ordem_service_changes_attributes_0_source_cidade").val(data.localidade);
+	         $("#ordem_service_ordem_service_changes_attributes_0_source_estado").val(data.uf);
+           $("#ordem_service_ordem_service_changes_attributes_0_source_numero").focus();
+	         boxes.removeClass('ocultar');
+          }).fail(function(){
+            //Não retornando um valor válido, ele mostra a mensagem
+          msgErro.removeClass('ocultar').html('CEP inexistente')
+       });
+       }
+   });
+});  
+</script>
+
+<script type="text/javascript">
+$(function(){
+   $("#ordem_service_ordem_service_changes_attributes_0_target_cep").change(function(){
+     var cep     = $(this).val().replace(/[^0-9]/, ''); 
+     var boxes   = $("#boxCampos");
+     var msgErro = $("#mensagemErro");
+     boxes.addClass('ocultar');
+     msgErro.addClass('ocultar');
+    if(cep !== ""){
+        $.getJSON('/get_address_by_cep', 'cep=' + cep, function(data){
+        	 console.log(data)
+           $("#ordem_service_ordem_service_changes_attributes_0_target_endereco").val(data.logradouro);
+           $("#ordem_service_ordem_service_changes_attributes_0_target_bairro").val(data.bairro);
+           $("#ordem_service_ordem_service_changes_attributes_0_target_cidade").val(data.localidade);
+           $("#ordem_service_ordem_service_changes_attributes_0_target_estado").val(data.uf);
+           $("#ordem_service_ordem_service_changes_attributes_0_target_numero").focus();
+	         boxes.removeClass('ocultar');
+          }).fail(function(){
+            //Não retornando um valor válido, ele mostra a mensagem
+          msgErro.removeClass('ocultar').html('CEP inexistente')
+       });
+       }
+   });
+});  
+</script>

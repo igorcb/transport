@@ -1,3 +1,4 @@
+#encoding: utf-8
 class OrdemServicesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_ordem_service, only: [:show, :edit, :update, :destroy, :close_os ]
@@ -77,6 +78,7 @@ class OrdemServicesController < ApplicationController
         format.html do
           case params[:ordem_service][:tipo].to_i
             when 1 then render partial: 'form_logistic', change: 'form_ordem_service'
+            when 3 then render partial: 'form_change', change: 'form_ordem_service'
             when 4 then render partial: 'form_air', change: 'form_ordem_service'
           end
         end
@@ -115,6 +117,7 @@ class OrdemServicesController < ApplicationController
         format.html do
           case params[:ordem_service][:tipo].to_i
             when 1 then render partial: 'form_logistic', change: 'form_ordem_service'
+            when 3 then render partial: 'form_change', change: 'form_ordem_service'
             when 4 then render partial: 'form_air', change: 'form_ordem_service'
           end
         end
@@ -189,9 +192,15 @@ class OrdemServicesController < ApplicationController
   
   def type_new_ordem_service  
     @type_os = params[:tipo_os].to_i
+    case @type_os
+      when 1 then @type_service = TypeService.logistica
+      when 3 then @type_service = TypeService.mudanca
+    end
+    
     @ordem_service = OrdemService.new
-    @ordem_service.ordem_service_airs.build
     @ordem_service.ordem_service_logistics.build
+    @ordem_service.ordem_service_changes.build
+    @ordem_service.ordem_service_airs.build
     @ordem_service.cte_keys.build
     @ordem_service.nfe_keys.build
     @ordem_service.ordem_service_type_service.build #if @type_os == OrdemService::TipoOS::LOGISTICA
@@ -378,6 +387,10 @@ class OrdemServicesController < ApplicationController
           :qtde_volume, :peso, :valor_nf, :total_cubagem, :tarifa_companhia, :tipo_frete, :valor_total, :awb, :voo, :id, :_destroy],
 
         ordem_service_logistics_attributes: [:driver_id, :delivery_driver_id, :placa, :cte, :danfe_cte,:qtde_volume, :peso, :senha_sefaz, :id, :_destroy],
+        ordem_service_changes_attributes: [
+          :source_cep,:source_numero,:source_complemento,:source_endereco_completo,:source_endereco,:source_bairro,:source_cidade,:source_estado,:source_contato,
+          :target_cep,:target_numero,:target_complemento,:target_endereco_completo,:target_endereco,:target_bairro,:target_cidade,:target_estado,:target_contato,
+          :driver_id, :placa,:driver,:compartilhado,:cubagem,:valor_declarado, :valor_total, :id, :_destroy],
         cancellations_attributes: [:solicitation_user_id, :authorization_user_id, :status, :observacao, :id, :_destroy],
         cte_keys_attributes: [:cte, :chave, :asset, :id, :_destroy],
         nfe_keys_attributes: [:nfe, :chave, :asset, :qtde, :id, :_destroy],

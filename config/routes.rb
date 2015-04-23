@@ -25,7 +25,8 @@ Transport::Application.routes.draw do
   resources :current_accounts
 
   resources :cash_accounts
-
+  
+  match '/get_address_by_cep', :controller => 'address', :action => 'get_address_by_cep', via: [:get]
   match '/dashboard_visit', :controller => 'static_pages', :action => 'dashboard_visit', via: [:get, :post]
   match '/dashboard_agent', :controller => 'static_pages', :action => 'dashboard_agent', via: [:get, :post]
   match "type_account_select" => "account_payables#type_account_select", via: [:get]

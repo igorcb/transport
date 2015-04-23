@@ -1,0 +1,122 @@
+<%= form_for(@ordem_service, :html => {id: 'edit_ordem_service'}) do |f| %>
+
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= hidden_field_tag "ordem_service[tipo]", @type_os %>  
+
+  <div class="form-group">
+    <%= label_tag :source_client_cpf_cpnj, "CNPJ Remetente" %><br>
+    <% if @ordem_service.new_record? %>
+      <%= text_field_tag :source_client_cpf_cpnj, nil, class: "form-control cnpj" %>
+    <% else %>
+      <%= text_field_tag :source_client_cpf_cpnj, @ordem_service.source_client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= render partial: "clients/result_client", locals: { client: @ordem_service.source_client } %>
+    <% end %>
+  </div>
+  
+  <div id="source_client_cnpj_result">
+
+  </div>  
+
+  <div class="form-group">
+    <%= label_tag :target_client_cpf_cpnj, "CNPJ Destinatário" %><br>
+    <% if @ordem_service.new_record? %>
+      <%= text_field_tag :target_client_cpf_cpnj, nil, class: "form-control cnpj" %>
+    <% else %>
+      <%= text_field_tag :target_client_cpf_cpnj, @ordem_service.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= render partial: "clients/result_client", locals: { client: @ordem_service.client } %>
+    <% end %>
+  </div>
+  
+  <div id="target_client_cnpj_result">
+
+  </div>  
+
+  <div class="form-group">
+    <%= f.label :billing_client_id, "Tomador do serviço" %><br>
+    <%= f.select(:billing_client_id, Client.billing.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :data, "Data Prevista" %><br>
+    <%= f.text_field :data, class: "form-control data", value: date_br(@ordem_service.data) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :data_entrega_servico, "Data da Entrega do Serviço" %><br>
+    <%= f.text_field :data_entrega_servico, class: "form-control data", value: date_br(@ordem_service.data_entrega_servico) %>
+  </div>  
+
+  <div class="form-group">
+    <%= f.label :carrier_id, "Agente Origem" %><br>
+    <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>    
+
+  <%= f.fields_for :ordem_service_changes do |f| 
+      render 'ordem_service_change_fields', f: f
+  end -%>
+  
+  <div class="form-group">
+    <%= f.label :observacao %><br>
+    <%= f.text_area :observacao, class: "form-control" %>
+  </div>
+
+  <h3>Serviços</h3> 
+  <div class="ordem_service_type_service_items">
+      <%= f.fields_for :ordem_service_type_service do |f| 
+        render 'ordem_service_type_service_fields', f: f
+      end  -%> <br />
+      <%= link_to_add_association 'Add Serviço', f, :ordem_service_type_service, class: "btn btn-success btn-sm" %> <br />
+  </div>
+
+  <h3>Documentos</h3> 
+  <div class="documents_itens">
+    <%= f.nested_fields_for :assets do |f| 
+      render 'asset_fields', f: f
+    end -%> <br />
+    <%= link_to_add_association 'Add Document', f, :assets, class: "btn btn-success btn-sm" %> <br />
+  </div>
+
+  <hr />
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+  </div>  
+
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#target_client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#target_client_cpf_cpnj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj},
+        dataType : 'html',
+        url: '/clients/get_client_by_cnpj',
+        success: function(data){
+            $('#target_client_cnpj_result').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#source_client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#source_client_cpf_cpnj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj},
+        dataType : 'html',
+        url: '/clients/get_client_by_cnpj',
+        success: function(data){
+            $('#source_client_cnpj_result').html(data);
+        },
+      });
+    });
+  });
+</script>
