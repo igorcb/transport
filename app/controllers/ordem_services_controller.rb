@@ -310,8 +310,24 @@ class OrdemServicesController < ApplicationController
           flash[:danger] = "Ordem Service is already as closed."
           redirect_to ordem_service_path(@ordem_service)
           return
+        elsif @ordem_service.status == OrdemService::TipoStatus::FECHADO
+          flash[:danger] = "Ordem Service is already as closed."
+          redirect_to ordem_service_path(@ordem_service)
+          return    
+        elsif !@ordem_service.ordem_service_type_service.present? 
+          flash[:danger] = "Can not close without an Order of Seriviço associated service."
+          redirect_to ordem_service_path(@ordem_service)
+          return
+        elsif !@ordem_service.data.present? 
+          flash[:danger] = "Data Agendamento can't be blank."
+          redirect_to ordem_service_path(@ordem_service)
+          return
         elsif !@ordem_service.data_entrega_servico.present? 
           flash[:danger] = "Data Entrega Servico can't be blank."
+          redirect_to ordem_service_path(@ordem_service)
+          return
+        elsif !@ordem_service.billing_client_id.present? 
+          flash[:danger] = "Client billing can't be blank."
           redirect_to ordem_service_path(@ordem_service)
           return
         end
