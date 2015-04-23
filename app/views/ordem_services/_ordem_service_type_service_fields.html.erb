@@ -1,8 +1,11 @@
 <div class='nested-fields'>
   <div class="row">
     <div class="col-xs-3">
-      <%#= f.select( :type_service_id, TypeService.logistica.collect {|p| [ p.descricao, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>
-      <%= f.select( :type_service_id, @type_service.collect {|p| [ p.descricao, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>
+      <% if @type_os == OrdemService::TipoOS::LOGISTICA %> 
+        <%= f.select( :type_service_id, TypeService.logistica.collect {|p| [ p.descricao, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>
+      <%  elsif @type_os == OrdemService::TipoOS::MUDANCA %>       
+        <%= f.select( :type_service_id, TypeService.mudanca.collect {|p| [ p.descricao, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>
+      <% end %>
     </div>
 
      <div class="col-xs-1">

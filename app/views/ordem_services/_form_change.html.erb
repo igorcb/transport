@@ -5,11 +5,11 @@
   <%= hidden_field_tag "ordem_service[tipo]", @type_os %>  
 
   <div class="form-group">
-    <%= label_tag :source_client_cpf_cpnj, "CNPJ Remetente" %><br>
+    <%= label_tag :source_client_cpf_cpnj, "CPF/CNPJ Remetente" %><br>
     <% if @ordem_service.new_record? %>
-      <%= text_field_tag :source_client_cpf_cpnj, nil, class: "form-control cnpj" %>
+      <%= text_field_tag :source_client_cpf_cpnj, nil, class: "form-control" %>
     <% else %>
-      <%= text_field_tag :source_client_cpf_cpnj, @ordem_service.source_client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= text_field_tag :source_client_cpf_cpnj, @ordem_service.source_client.cpf_cnpj, class: "form-control", disabled: true %>
       <%= render partial: "clients/result_client", locals: { client: @ordem_service.source_client } %>
     <% end %>
   </div>
@@ -19,11 +19,11 @@
   </div>  
 
   <div class="form-group">
-    <%= label_tag :target_client_cpf_cpnj, "CNPJ Destinatário" %><br>
+    <%= label_tag :target_client_cpf_cpnj, "CPF/CNPJ Destinatário" %><br>
     <% if @ordem_service.new_record? %>
-      <%= text_field_tag :target_client_cpf_cpnj, nil, class: "form-control cnpj" %>
+      <%= text_field_tag :target_client_cpf_cpnj, nil, class: "form-control" %>
     <% else %>
-      <%= text_field_tag :target_client_cpf_cpnj, @ordem_service.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= text_field_tag :target_client_cpf_cpnj, @ordem_service.client.cpf_cnpj, class: "form-control", disabled: true %>
       <%= render partial: "clients/result_client", locals: { client: @ordem_service.client } %>
     <% end %>
   </div>
@@ -33,9 +33,18 @@
   </div>  
 
   <div class="form-group">
-    <%= f.label :billing_client_id, "Tomador do serviço" %><br>
-    <%= f.select(:billing_client_id, Client.billing.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%= label_tag :billing_client_cpf_cnpj, "CPF/CNPJ Tomador Serviço" %><br>
+    <% if @ordem_service.new_record? %>
+      <%= text_field_tag :billing_client_cpf_cnpj, nil, class: "form-control" %>
+    <% else %>
+      <%= text_field_tag :billing_client_cpf_cnpj, @ordem_service.billing_client.cpf_cnpj, class: "form-control", disabled: true %>
+      <%= render partial: "clients/result_client", locals: { client: @ordem_service.client } %>
+    <% end %>
   </div>
+
+  <div id="billing_client_cnpj_result">
+
+  </div>  
 
   <div class="form-group">
     <%= f.label :data, "Data Prevista" %><br>
@@ -115,6 +124,24 @@
         url: '/clients/get_client_by_cnpj',
         success: function(data){
             $('#source_client_cnpj_result').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#billing_client_cpf_cnpj").focusout(function() {
+      var cnpj = $('#billing_client_cpf_cnpj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj},
+        dataType : 'html',
+        url: '/clients/get_client_by_cnpj',
+        success: function(data){
+            $('#billing_client_cnpj_result').html(data);
         },
       });
     });

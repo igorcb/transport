@@ -253,18 +253,12 @@ class OrdemService < ActiveRecord::Base
   end
   
   def close_os
-    self.cte_keys.each do |cte|
-      #puts ">>>>>>>>>>>>. Validando CTE: #{cte.cte} is image: #{cte.is_image?}"
-      self.errors.add("CTe-Keys", "#{cte.cte} is not image present") if !cte.asset.present?
-      self.errors.add("CTe-Keys", "#{cte.cte} is not image Valid") if !cte.is_image?
-      self.errors.add("CTe-Keys", "#{cte.cte} is not CT-e Valid") if !cte.tesseract_context?
+    case self.tipo
+      when TipoOS::LOGISTICA then close_os_logistic # validacoes para fechamento
+      when TipoOS::MUDANCA then close_os_change # validacoes para fechamento
+      when TipoOS::AEREO then close_os_air # validacoes para fechamento
     end
-    self.nfe_keys.each do |nfe|
-      #puts ">>>>>>>>>>>>. Validando NF-e: #{nfr.nfr} is image: #{nfe.is_image?}"
-      self.errors.add("NFe-Keys", "#{nfe.nfe} is not image present") if !nfe.asset.present?
-      self.errors.add("NFe-Keys", "#{nfe.nfe} is not image Valid") if !nfe.is_image?
-      self.errors.add("NFe-Keys", "#{nfe.nfe} is not NF-e Valid") if !nfe.tesseract_context?
-    end
+
     if self.errors.present?
       puts "Errors: #{self.errors.messages}"
     else
@@ -342,6 +336,10 @@ class OrdemService < ActiveRecord::Base
             cost_center = CostCenter.find(58)
             valor = os.valor_ordem_service
           when TipoOS::MUDANCA then cost_center = CostCenter.find(56)
+            #definir com o Paulo de onde vem o valor da Ordem de Serviço
+              #soma dos itens
+              #do preenchimento do valor do servico = ordem_service_change.valor_total
+            valor = os.valor_ordem_service
           when TipoOS::AEREO then 
             cost_center = CostCenter.find(57)
             valor = os.ordem_service_air.valor_total
@@ -454,6 +452,29 @@ class OrdemService < ActiveRecord::Base
 
     def has_address?
       self.ordem_service_change.source_endereco.present?
+    end
+
+    def close_os_logistic
+      self.cte_keys.each do |cte|
+        #puts ">>>>>>>>>>>>. Validando CTE: #{cte.cte} is image: #{cte.is_image?}"
+        self.errors.add("CTe-Keys", "#{cte.cte} is not image present") if !cte.asset.present?
+        self.errors.add("CTe-Keys", "#{cte.cte} is not image Valid") if !cte.is_image?
+        self.errors.add("CTe-Keys", "#{cte.cte} is not CT-e Valid") if !cte.tesseract_context?
+      end
+      self.nfe_keys.each do |nfe|
+        #puts ">>>>>>>>>>>>. Validando NF-e: #{nfr.nfr} is image: #{nfe.is_image?}"
+        self.errors.add("NFe-Keys", "#{nfe.nfe} is not image present") if !nfe.asset.present?
+        self.errors.add("NFe-Keys", "#{nfe.nfe} is not image Valid") if !nfe.is_image?
+        self.errors.add("NFe-Keys", "#{nfe.nfe} is not NF-e Valid") if !nfe.tesseract_context?
+      end
+    end
+
+    def close_os_change
+      #fazer validacoes para fechamento
+    end
+
+    def close_os_air
+      #fazer validacoes para fechamento
     end
 
 end

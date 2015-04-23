@@ -61,12 +61,17 @@ class OrdemServicesController < ApplicationController
   def create
     source_client  = Client.find_by_cpf_cnpj(params[:source_client_cpf_cpnj])
     target_client  = Client.find_by_cpf_cnpj(params[:target_client_cpf_cpnj])
-    billing_client = Client.find_by_cpf_cnpj(params[:billing_client_id])
+    if params[:tipo].to_i == OrdemService::TipoOS::MUDANCA
+      billing_client = Client.find_by_cpf_cnpj(params[:target_client_cpf_cpnj])
+    else
+      billing_client = Client.find_by_cpf_cnpj(params[:billing_client_id])
+    end
     @ordem_service = OrdemService.new(ordem_service_params)
     @ordem_service.source_client_id = source_client.id if source_client.present?
     @ordem_service.target_client_id = target_client.id if target_client.present?
     @ordem_service.estado = target_client.estado if target_client.present?
     @ordem_service.cidade = target_client.cidade if target_client.present?
+    @ordem_service.billing_client_id = billing_client.id
 
     respond_to do |format|
       if @ordem_service.save
@@ -192,11 +197,6 @@ class OrdemServicesController < ApplicationController
   
   def type_new_ordem_service  
     @type_os = params[:tipo_os].to_i
-    case @type_os
-      when 1 then @type_service = TypeService.logistica
-      when 3 then @type_service = TypeService.mudanca
-    end
-    
     @ordem_service = OrdemService.new
     @ordem_service.ordem_service_logistics.build
     @ordem_service.ordem_service_changes.build
@@ -304,15 +304,24 @@ class OrdemServicesController < ApplicationController
   end
 
   def close_os
-    if @ordem_service.status == OrdemService::TipoStatus::FECHADO
-      flash[:danger] = "Ordem Service is already as closed."
-      redirect_to ordem_service_path(@ordem_service)
-      return
-    elsif !@ordem_service.data_entrega_servico.present? 
-      flash[:danger] = "Data Entrega Servico can't be blank."
-      redirect_to ordem_service_path(@ordem_service)
-      return
-    end
+    case @ordem_service.tipo
+      when OrdemService::TipoOS::LOGISTICA 
+        if @ordem_service.status == OrdemService::TipoStatus::FECHADO
+          flash[:danger] = "Ordem Service is already as closed."
+          redirect_to ordem_service_path(@ordem_service)
+          return
+        elsif !@ordem_service.data_entrega_servico.present? 
+          flash[:danger] = "Data Entrega Servico can't be blank."
+          redirect_to ordem_service_path(@ordem_service)
+          return
+        end
+      when OrdemService::TipoOS::MUDANCA 
+        @ordem_service.close_os
+        redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful." }
+      when OrdemService::TipoOS::AEREO
+        @ordem_service.close_os
+        redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful." }
+    end    
     #OrdemService.close_os(params[:id])
     #redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful..............." }
   end
