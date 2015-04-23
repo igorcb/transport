@@ -1,5 +1,7 @@
 <% if @tipo_os == 1 %>
 	<%= render 'list_logistic' %>
+<% elsif @tipo_os == 3 %>	
+  <%= render 'list_change' %>
 <% elsif @tipo_os == 4 %>	
   <%= render 'list_air' %>
 <% else %>	
