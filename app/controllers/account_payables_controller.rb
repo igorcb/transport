@@ -6,7 +6,6 @@ class AccountPayablesController < ApplicationController
 
   def type_account_select
     type_id = params[:type_id].to_i
-    puts ">>>>>>>>>>>>>>> type_id: #{type_id}"
     case type_id
       when 1 then suppliers = Supplier.order('nome')
       when 2 then suppliers = Driver.order('nome')
@@ -14,15 +13,10 @@ class AccountPayablesController < ApplicationController
       when 4 then suppliers = Employee.order('nome')
       when 5 then suppliers = Carrier.order('nome')
     end
-    puts ">>>>>>>>>>>>>>> class: #{suppliers.class}"
     sup = []
     suppliers.each do |s|
       sup << {:id => s.id, :n => s.nome}
     end
-    #puts ">>>>>>>>>>>>>>> sup: #{sup.to_s}"
-    #sup.each {|s| puts "ID: #{s[:id]} - Descricao: #{s[:nome]}"}
-    
-    #render :json => {:sup => sup.compact}.as_json
     render :text => sup.to_json
   end
 
