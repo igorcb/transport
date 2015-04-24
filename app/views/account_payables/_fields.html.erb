@@ -125,21 +125,28 @@
 </script>
 
 <script type="text/javascript">
-  $(function() {
-    $('input[name="account_payable[type_account]"]').change(function() {
-        $('#div_result_person').empty(); 
-        getTypeAccount("type_id="+$(this).val());
-    });
-  function getTypeAccount(type_id) {
-    $.getJSON("/type_account_select", type_id, function(j) {
-      var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
-      $.each(j.sup, function(i, item) {
-        options += '<option value="' + item.id + '">' + item.n + '</option>';
+  // $(function() {
+  //   $('input[name="account_payable[type_account]"]').change(function() {
+  //       $('#div_result_person').empty(); 
+  //       alert('SHOW');
+  //       //console.log(">>>>> type_id:"+$(this).val());
+  //       //getTypeAccount("type_id="+$(this).val());
+  //   });
+  // });
+  $(function(){
+    $('input[name="account_payable[type_account]"]').change(function(){
+      var type_id = "type_id="+$(this).val();
+      console.log(type_id);
+      $.getJSON('/type_account_select', type_id, function(data){
+        var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#account_payable_supplier_id").html(options);
       });
-      $("#account_payable_supplier_id").html(options);
-    });
-  }  
-});
+    });     
+  });
+
 </script>
 
 <script type="text/javascript">
