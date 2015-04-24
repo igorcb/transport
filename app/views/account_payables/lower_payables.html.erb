@@ -35,18 +35,18 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-   $("#query_type_account_eq").change(function() {
-      getType_account("type_id="+$("#query_type_account_eq").val());
-    });
+  $(function(){
+    $("#query_type_account_eq").change(function(){
+      var type_id = "type_id="+$(this).val();
+      console.log(type_id);
+      $.getJSON('/type_account_select', type_id, function(data){
+        var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
+        console.log(data[0]);
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#query_supplier_id_eq").html(options);
+      });
+    });     
   });
-  function getType_account(type_id) {
-    $.getJSON("/type_account_select", type_id, function(j) {
-       var options = '<option value="">SELECIONE FORNECEDOR</option>';
-       $.each(j.sup, function(i, item) {
-         options += '<option value="' + item.id + '">' + item.n + '</option>';
-       });
-       $("#query_supplier_id_eq").html(options);
-     });
- }
 </script>
