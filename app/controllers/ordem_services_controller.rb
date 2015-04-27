@@ -61,12 +61,9 @@ class OrdemServicesController < ApplicationController
   def create
     source_client  = Client.find_by_cpf_cnpj(params[:source_client_cpf_cpnj])
     target_client  = Client.find_by_cpf_cnpj(params[:target_client_cpf_cpnj])
-    puts ">>>>>>>>>>>>>>>>>>>> Tipo: #{params[:ordem_service][:tipo].to_i}"
     if params[:ordem_service][:tipo].to_i == OrdemService::TipoOS::MUDANCA
-      puts ">>>>>>>>>>>>>>>>>>>> Busca por CPF:"
       billing_client = Client.find_by_cpf_cnpj(params[:billing_client_cpf_cnpj])
     else
-      puts ">>>>>>>>>>>>>>>>>>>> Busca por ID:"
       billing_client = Client.find_by_cpf_cnpj(params[:billing_client_id])
     end
     @ordem_service = OrdemService.new(ordem_service_params)
