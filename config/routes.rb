@@ -1,4 +1,7 @@
 Transport::Application.routes.draw do
+  get '/print_contract/:id', to: 'reports#print_contract', as: 'print_contract'
+  #get '/patients/:id', to: 'patients#show', as: 'patient'
+
   resources :cancellations, only: [:index, :show, :edit, :update]  do
     member do
       get 'confirmation'
