@@ -1,6 +1,7 @@
 Transport::Application.routes.draw do
   get '/print_contract/:id', to: 'reports#print_contract', as: 'print_contract'
-  #get '/patients/:id', to: 'patients#show', as: 'patient'
+  
+  resources :inventories
 
   resources :cancellations, only: [:index, :show, :edit, :update]  do
     member do
@@ -103,6 +104,7 @@ Transport::Application.routes.draw do
   match "/ordem_services_search_logistic" => "ordem_services#search_logistic", via: [:get]
 
   resources :ordem_services do
+    resources :inventories
     member do
       get 'delivery'
       get 'close_os'  

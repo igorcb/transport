@@ -90,38 +90,7 @@
             </div>
 
             <div class="panel-body"> 
-              <p>
-                <strong>Endereco:</strong>
-                <%= @ordem_service.ordem_service_change.source_endereco %>,
-                <%= @ordem_service.ordem_service_change.source_numero %>
-              </p>
-
-              <p>
-                <strong>Complemento:</strong>
-                <%= @ordem_service.ordem_service_change.source_complemento %>
-              </p>
-
-              <p>
-                <strong>Bairro:</strong>
-                <%= @ordem_service.ordem_service_change.source_bairro %>
-              </p>
-
-              <p>
-                <strong>Cidade:</strong>
-                <%= @ordem_service.ordem_service_change.source_cidade %> -
-                <%= @ordem_service.ordem_service_change.source_estado %>
-              </p>
-
-              <p>
-                <strong>Cep:</strong>
-                <%= @ordem_service.ordem_service_change.source_cep %>
-              </p>
-
-              <p>
-                <strong>Contato:</strong>
-                <%= @ordem_service.ordem_service_change.source_contato %>
-              </p>
-
+              <%= render 'data_destinatario' %>
             </div>
 
             <div class="panel-heading">
@@ -129,37 +98,7 @@
             </div>
 
             <div class="panel-body"> 
-              <p>
-                <strong>Endereco:</strong>
-                <%= @ordem_service.ordem_service_change.target_endereco %>,
-                <%= @ordem_service.ordem_service_change.target_numero %>
-              </p>
-
-              <p>
-                <strong>Complemento:</strong>
-                <%= @ordem_service.ordem_service_change.target_complemento %>
-              </p>
-
-              <p>
-                <strong>Bairro:</strong>
-                <%= @ordem_service.ordem_service_change.target_bairro %>
-              </p>
-
-              <p>
-                <strong>Cidade:</strong>
-                <%= @ordem_service.ordem_service_change.target_cidade %> -
-                <%= @ordem_service.ordem_service_change.target_estado %>
-              </p>
-
-              <p>
-                <strong>Cep:</strong>
-                <%= @ordem_service.ordem_service_change.target_cep %>
-              </p>
-
-              <p>
-                <strong>Contato:</strong>
-                <%= @ordem_service.ordem_service_change.target_contato %>
-              </p>
+              <%= render 'data_destinatario' %>
             </div>
 
           </div>
@@ -226,4 +165,5 @@
   <%= link_to 'Listar Todos', ordem_services_path, class: "btn btn-default" %>
   <%= link_to 'Fechar', close_os_ordem_service_path, class: "btn btn-info" %>
   <%= link_to 'Imprimir Contrato', print_contract_path(@ordem_service), class: "btn btn-info" %>
+  <%= link_to 'Inventário', ordem_service_inventories_path(@ordem_service), class: "btn btn-warning" %>
 </div>

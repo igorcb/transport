@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Itens do Inventário</div>
+  <div class="panel-body">
+    <%#= link_to 'Novo Link', new_link_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Qtde</th>
+            <th>Estado Peça</th>
+            <th>Valor Seg.</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @inventories.each do |inventory| %>
+            <tr id="id_inventory_<%= inventory.id %>">
+              <td><%= inventory.descricao %></td>
+              <td><%= inventory.qtde %></td>
+              <td><%= inventory.estado %></td>
+              <td><%= inventory.valor %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
