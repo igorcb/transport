@@ -2,7 +2,7 @@ class AccountPayablesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_account_payable, only: [:show, :edit, :update, :destroy, :lower, :pay]
   load_and_authorize_resource
-  respond_to :html
+  respond_to :html, :json, :js
 
   def type_account_select
     type_id = params[:type_id].to_i
