@@ -101,27 +101,19 @@
 
 
 <script type="text/javascript">
-  $(document).ready(function() {
-   $("#account_payable_cost_center_id").change(function() {
-      getSubCostCenter("cost_center_id="+$("#account_payable_cost_center_id").val());
-    });
-  });
-  $(document).ready(function() {
-   $("#account_payable_historic_id").change(function() {
-      var texto = $('select#account_payable_historic_id :selected').text();
-      document.getElementById("account_payable_observacao").value = texto;
-    });
-  });
-  function getSubCostCenter(cost_center_id) {
-    
-    $.getJSON("/sub_centro_custo_by_custo", cost_center_id, function(j) {
-      var options = '<option value="">SELECT SUB COST CENTER</option>';
-      $.each(j.sub, function(i, item) {
-        options += '<option value="' + item.id + '">' + item.n + '</option>';
+  $(function(){
+    $("#account_payable_cost_center_id").change(function(){
+      var cost_center = "cost_center_id="+$(this).val();
+      console.log(cost_center);
+      $.getJSON('/sub_centro_custo_by_custo', cost_center, function(data){
+        var options = '<option value="">SELECIONE SUB CENTRO CUSTO</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#account_payable_sub_cost_center_id").html(options);
       });
-      $("#account_payable_sub_cost_center_id").html(options);
     });
-  }
+  });
 </script>
 
 <script type="text/javascript">

@@ -2,7 +2,7 @@ class AccountPayablesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_account_payable, only: [:show, :edit, :update, :destroy, :lower, :pay]
   load_and_authorize_resource
-  respond_to :html, :json, :js
+  respond_to :html
 
   def type_account_select
     type_id = params[:type_id].to_i
@@ -28,7 +28,7 @@ class AccountPayablesController < ApplicationController
     subs.each do |s|
       sub << {:id => s.id, :n => s.descricao}
     end
-    render :json => {:sub => sub.compact}.as_json
+    render :text => sub.to_json
   end
   
   #relatorio com quebra de centro de custo
