@@ -46,6 +46,7 @@ gem 'cocaine', '~> 0.5.7'
 gem 'cep', '~> 0.0.8'
 gem 'ruby-json', '~> 1.1.2'
 gem 'odf-report', '~> 0.5.1'
+gem 'business_time', '~> 0.7.4'
 
 # group :development, :test do
 #   # gem 'sqlite3', '1.3.5'
