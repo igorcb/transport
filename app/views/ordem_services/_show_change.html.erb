@@ -25,6 +25,14 @@
 	        </div>
 
 	        <div class="panel-body"> 
+            <p>
+              <strong>Dias para Entrega:</strong>
+              <%= @ordem_service.ordem_service_change.dias %>
+            </p>
+            <p>
+              <strong>Data Limite:</strong>
+              <%= date_br @ordem_service.ordem_service_change.date_limit %>
+            </p>
 					  <%= render 'ordem_service_data' %>
 					</div>
 				

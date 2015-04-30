@@ -418,7 +418,7 @@ class OrdemServicesController < ApplicationController
         ordem_service_changes_attributes: [
           :source_cep,:source_numero,:source_complemento,:source_endereco_completo,:source_endereco,:source_bairro,:source_cidade,:source_estado,:source_contato,
           :target_cep,:target_numero,:target_complemento,:target_endereco_completo,:target_endereco,:target_bairro,:target_cidade,:target_estado,:target_contato,
-          :driver_id, :placa,:driver,:compartilhado,:cubagem,:valor_declarado, :valor_total, :id, :_destroy],
+          :driver_id, :placa,:driver,:compartilhado,:cubagem,:valor_declarado, :valor_total, :dias, :id, :_destroy],
         cancellations_attributes: [:solicitation_user_id, :authorization_user_id, :status, :observacao, :id, :_destroy],
         cte_keys_attributes: [:cte, :chave, :asset, :id, :_destroy],
         nfe_keys_attributes: [:nfe, :chave, :asset, :qtde, :id, :_destroy],
