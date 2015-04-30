@@ -8,4 +8,12 @@ class OrdemServiceChange < ActiveRecord::Base
   validates :cubagem, presence: true
 #  validates :valor_declarado, presence: true
 #  validates :valor_total, presence: true  
+
+  def stretch
+    "#{self.source_cidade} X #{self.target_cidade}" 
+  end
+
+  def status_compartilhado
+  	self.compartilhado? ? "COMPARTILHADO" : "EXCLUSIVO"
+  end
 end
