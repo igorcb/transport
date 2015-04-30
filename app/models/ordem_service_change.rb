@@ -16,4 +16,8 @@ class OrdemServiceChange < ActiveRecord::Base
   def status_compartilhado
   	self.compartilhado? ? "COMPARTILHADO" : "EXCLUSIVO"
   end
+
+  def date_limit
+    self.dias.business_days.after(self.ordem_service.data)
+  end
 end

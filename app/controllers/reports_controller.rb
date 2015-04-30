@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../../config/environment.rb'
 
 class ReportsController < ApplicationController
+  include ApplicationHelper
+  include ActionView::Helpers::NumberHelper
 	def index
 	end
   
@@ -10,7 +12,11 @@ class ReportsController < ApplicationController
    		r.add_field :client_nome, @ordem_service.client.nome
       r.add_field :cpf_cnpj, @ordem_service.client.cpf_cnpj
       r.add_field :doc_rg, @ordem_service.client.rg
-      r.add_field :data_prevista, @ordem_service.data
+      r.add_field :tipo_mudanca, @ordem_service.ordem_service_change.status_compartilhado
+      r.add_field :trecho, @ordem_service.ordem_service_change.stretch
+      r.add_field :data_prevista, date_br(@ordem_service.data)
+      r.add_field :dias, @ordem_service.ordem_service_change.dias
+      r.add_field :data_limite, date_br(@ordem_service.ordem_service_change.date_limit)
       r.add_field :telefone_contatos, @ordem_service.client.fone_all
       r.add_field :endereco_origem, @ordem_service.ordem_service_change.source_endereco +
                                     @ordem_service.ordem_service_change.source_numero
@@ -27,7 +33,8 @@ class ReportsController < ApplicationController
       r.add_field :estado_destino, @ordem_service.ordem_service_change.target_estado
       r.add_field :cep_destino, @ordem_service.ordem_service_change.target_cep
       r.add_field :contato_destino, @ordem_service.ordem_service_change.target_contato
-      r.add_field :valor_servico, @ordem_service.valor_ordem_service
+      r.add_field :valor_servico, number_to_currency( @ordem_service.valor_ordem_service, unit: "R$ ", separator: ",", delimiter: ".")
+      r.add_field :valor_seguro, number_to_currency( @ordem_service.ordem_service_change.valor_declarado, unit: "R$ ", separator: ",", delimiter: ".")
       r.add_field :os_numero, @ordem_service.id
       r.add_field :os_ano, @ordem_service.created_at.strftime('%Y')
   	end
