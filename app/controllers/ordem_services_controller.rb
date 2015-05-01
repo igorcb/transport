@@ -293,19 +293,34 @@ class OrdemServicesController < ApplicationController
   end
 
   def close
-    respond_to do |format|
-      #if @ordem_service.update(ordem_service_params) && OrdemService.close_os(params[:id])
-      if @ordem_service.update(ordem_service_params) && @ordem_service.close_os
-        format.html { redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful." } }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'close_os' }
-        format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+    if params[:ordem_service].present?
+      respond_to do |format|
+        #if @ordem_service.update(ordem_service_params) && OrdemService.close_os(params[:id])
+        if @ordem_service.update(ordem_service_params) && @ordem_service.close_os
+          format.html { redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful." } }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'close_os' }
+          format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+        end
       end
-    end
+    else
+      respond_to do |format|
+        #if @ordem_service.update(ordem_service_params) && OrdemService.close_os(params[:id])
+        if @ordem_service.close_os
+          format.html { redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful." } }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'close_os' }
+          format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+        end
+      end
+
+    end      
   end
 
   def close_os
+
     case @ordem_service.tipo
       when OrdemService::TipoOS::LOGISTICA 
         if @ordem_service.status == OrdemService::TipoStatus::FECHADO
