@@ -12,10 +12,10 @@
     </div>
   </div>
   
-  <div class="form-group">
-    <%= f.label :cpf_cnpj %><br>
-    <%= f.text_field :cpf_cnpj, class: "form-control" %>
+  <div id="client_cpf_cpnj" class="form-group">
+
   </div>
+
   <div class="form-group">
     <%= f.label :nome %><br>
     <%= f.text_field :nome, class: "form-control" %>
@@ -151,3 +151,50 @@
   </div>
 
 <% end %>
+
+<script type="text/javascript">
+  <% if @supplier.new_record? %>
+    $(document).ready(function() {
+      $('input[name="supplier[tipo_pessoa]"]').change(function() {
+        var tipo = $(this).val();
+        var cpf_ou_cnpj = '<%= @supplier.cpf_cnpj %>'
+        $('#client_cpf_cpnj').empty(); 
+        if (tipo === '0') {
+          $('#client_cpf_cpnj').append("<div class='form-group'> <label for='client_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='client_cpf_cnpj' name='supplier[cpf_cnpj]' type='text'> </div>");
+        } else {
+          $('#client_cpf_cpnj').append("<div class='form-group'> <label for='client_cpf_cnpj'>CNPJ</label> <input class='form-control cnpj' id='client_cpf_cnpj' name='supplier[cpf_cnpj]' type='text'> </div>");
+        }
+       document.getElementById("client_cpf_cnpj").setAttribute('value', cpf_ou_cnpj);
+
+      });
+    });
+  <% else %>
+    var tipo = '<%= @supplier.tipo_pessoa %>'
+    var cpf_ou_cnpj = '<%= @supplier.cpf_cnpj %>'
+    console.log(tipo);
+   if (tipo === '0') {
+      $('#client_cpf_cpnj').append("<div class='form-group'> <label for='client_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='client_cpf_cnpj' name='supplier[cpf_cnpj]' type='text'> </div>");
+    } else {
+      $('#client_cpf_cpnj').append("<div class='form-group'> <label for='client_cpf_cnpj'>CNPJ</label> <input class='form-control cnpj' id='client_cpf_cnpj' name='supplier[cpf_cnpj]' type='text'> </div>");
+    }
+    document.getElementById("client_cpf_cnpj").setAttribute('value', cpf_ou_cnpj);
+
+    $(document).ready(function() {
+      $('input[name="supplier[tipo_pessoa]"]').change(function() {
+        var tipo = $(this).val();
+        var cpf_ou_cnpj = '<%= @supplier.cpf_cnpj %>'
+        console.log(cpf_ou_cnpj);
+        $('#client_cpf_cpnj').empty(); 
+        if (tipo === '0') {
+          $('#client_cpf_cpnj').append("<div class='form-group'> <label for='client_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='client_cpf_cnpj' name='supplier[cpf_cnpj]' type='text'> </div>");
+        } else {
+          $('#client_cpf_cpnj').append("<div class='form-group'> <label for='client_cpf_cnpj'>CNPJ</label> <input class='form-control cnpj' id='client_cpf_cnpj' name='supplier[cpf_cnpj]' type='text'> </div>");
+        }
+       document.getElementById("client_cpf_cnpj").setAttribute('value', cpf_ou_cnpj);
+
+      });
+    });
+
+  <% end %>
+</script>
+
