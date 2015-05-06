@@ -58,20 +58,18 @@ class ReportsController < ApplicationController
 
       r.add_field :endereco_origem, @ordem_service.ordem_service_change.source_endereco +
                                     @ordem_service.ordem_service_change.source_numero
-      r.add_field :complemento_origem, @ordem_service.ordem_service_change.source_complemento
-      r.add_field :bairro_origem, @ordem_service.ordem_service_change.source_bairro
+      r.add_field :field_aleatorio, @ordem_service.ordem_service_change.source_bairro
       r.add_field :cidade_origem, @ordem_service.ordem_service_change.source_cidade
-      r.add_field :estado_origem, @ordem_service.ordem_service_change.source_estado
       r.add_field :cep_origem, @ordem_service.ordem_service_change.source_cep
       r.add_field :contato_local, @ordem_service.ordem_service_change.source_contato
+      r.add_field :campo_aleatorio, @ordem_service.ordem_service_change.source_estado
 
       r.add_field :endereco_destino, @ordem_service.ordem_service_change.target_endereco +
                                     @ordem_service.ordem_service_change.target_numero
-      r.add_field :complemento_destino, @ordem_service.ordem_service_change.target_complemento
-      r.add_field :bairro_destino, @ordem_service.ordem_service_change.target_bairro
+      r.add_field :neighborhood_target, @ordem_service.ordem_service_change.target_bairro
       r.add_field :cidade_destino, @ordem_service.ordem_service_change.target_cidade
-      r.add_field :estado_destino, @ordem_service.ordem_service_change.target_estado
       r.add_field :cep_destino, @ordem_service.ordem_service_change.target_cep
+      r.add_field :state_target, @ordem_service.ordem_service_change.target_estado
       r.add_field :os_numero, @ordem_service.id
       r.add_field :os_ano, @ordem_service.created_at.strftime('%Y')
       r.add_field :observacao, @ordem_service.observacao
