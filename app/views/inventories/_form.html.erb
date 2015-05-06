@@ -3,28 +3,33 @@
      <%= render 'shared/error_messages', object: f.object %>
   </div>
   <div id="inventories_success"> </div>
-    
-  <div class="row">
-    <div class="col-xs-4">
-      <%= f.text_field :descricao, class: "form-control input-sm", placeholder: "Descrição do Item" %> 
-    </div>
+  <div class="notprinter">
+    <div class="row">
+      <div class="col-xs-1">
+        <%= f.text_field :numero, class: "form-control input-sm", placeholder: "No" %>
+      </div>
 
-    <div class="col-xs-2">
-      <%= f.text_field :qtde, class: "form-control input-sm", placeholder: "Qtde" %>
-    </div>
-    
-    <div class="col-xs-2">
-      <%= f.text_field :estado, class: "form-control input-sm", placeholder: "Estado da Peça" %>
-    </div>
-    
-    <div class="col-xs-2">
-      <%= f.text_field :valor, class: "form-control input-sm", placeholder: "Valor Seguro" %>
-    </div>
+      <div class="col-xs-4">
+        <%= f.text_field :descricao, class: "form-control input-sm", placeholder: "Descrição do Item" %> 
+      </div>
 
-    <div class="form-actions">
-      <%= f.submit "[+] Add Item", class: "btn btn-success btn-sm" %>
+      <div class="col-xs-1">
+        <%= f.text_field :qtde, class: "form-control input-sm", placeholder: "Qtde" %>
+      </div>
+      
+      <div class="col-xs-2">
+        <%= f.text_field :estado, class: "form-control input-sm", placeholder: "Estado da Peça" %>
+      </div>
+      
+      <div class="col-xs-2">
+        <%= f.text_field :valor, class: "form-control input-sm money2", placeholder: "Valor Seguro" %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit "[+] Add Item", class: "btn btn-success btn-sm" %>
+      </div>
     </div>
-  </div>
+  </div>    
 
 <% end %>
 

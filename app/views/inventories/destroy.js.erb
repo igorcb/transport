@@ -1,2 +1,3 @@
-<h1>Inventories#destroy</h1>
-<p>Find me in app/views/inventories/destroy.html.erb</p>
+$("#inventories_success").show(300);
+$("#inventories_success").html("<%= j(render 'shared/error_messages', object: @inventory)%>");
+$('#id_inventory_<%= @inventory.id %>').remove();
