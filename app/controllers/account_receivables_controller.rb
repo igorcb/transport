@@ -55,6 +55,41 @@ class AccountReceivablesController < ApplicationController
     @account_receivable.destroy
     respond_with(@account_receivable)
   end
+  
+  def lower
+    if @account_receivable.status == AccountReceivable::TipoStatus::PAGO
+      flash[:danger] = "AccountReceivable already made payment."
+      redirect_to account_receivables_path #(params[:id])
+      return 
+    end
+    @cash_accounts = CashAccount.order('nome')
+  end  
+
+  def pay
+    if !params[:lower_receivables][:cash_account_id].present?
+      flash[:danger] = "Cash Account can't be blank."
+      redirect_to lower_account_receivable_path(params[:id])
+      return 
+    elsif !params[:lower_receivables][:data_pagamento].present?
+      flash[:danger] = "Data Pagamento can't be blank."
+      redirect_to lower_account_receivable_path(params[:id])
+      return 
+    elsif !params[:lower_receivables][:valor_pago].present?
+      flash[:danger] = "Valor do Pagamento can't be blank."
+      redirect_to lower_account_receivable_path(params[:id])
+      return
+    end
+
+    respond_to do |format|
+      if @account_receivable.payament(params[:lower_receivables])
+        format.html { redirect_to @account_receivable, flash: { success: "Lower AccountReceivable was successful." } }
+      else
+        format.html { redirect_to @account_receivable, flash: { danger: "Could not lower accounts payable was successful." }}
+        format.json { render json: @account_receivable.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   private
     def set_account_receivable

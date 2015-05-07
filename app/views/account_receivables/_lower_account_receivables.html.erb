@@ -1,0 +1,7 @@
+<td><%= lower_account_receivable.cash_account.nome if lower_account_receivable.cash_account.present? %></td>
+<td><%= date_br(lower_account_receivable.data_pagamento) %></td>
+<td><%= number_to_currency(lower_account_receivable.valor_pago, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+<td><%= number_to_currency(lower_account_receivable.juros, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+<td><%= number_to_currency(lower_account_receivable.desconto, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+<td><%= number_to_currency(lower_account_receivable.total_pago, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+<td><%= link_to 'deletar', lower_receivable_path(lower_account_receivable), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>

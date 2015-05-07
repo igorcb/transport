@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Recebimentos</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Conta</th>
+            <th>Dt. Pgto</th>
+            <th>Valor Pago</th>
+            <th>Juros</th>
+            <th>Desconto</th>
+            <th>Total pg.</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @account_receivable.lower_account_receivables.each do |receipt| %>
+            <tr>
+						  <%= render 'lower_account_receivables', lower_account_receivable: receipt %>
+           </tr>
+         <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
