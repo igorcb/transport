@@ -1,0 +1,11 @@
+<%= form_for(@account_receivable) do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+
+  <%= render 'fields', f: f %>
+
+  <div class="actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+  </div>
+
+<% end %>
+

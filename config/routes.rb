@@ -55,6 +55,9 @@ Transport::Application.routes.draw do
 
   resources :lower_payables, only: [:destroy]
 
+  resources :account_receivables do 
+  end
+
   resources :account_payables do 
     member do
       get 'lower'

@@ -1,0 +1,64 @@
+
+<p>
+  <strong>Centro de Custo:</strong>
+  <%= @account_receivable.cost_center.descricao %>
+</p>
+
+<p>
+  <strong>Sub Centro de Custo:</strong>
+  <%= @account_receivable.sub_cost_center.descricao %>
+</p>
+
+<p>
+  <strong>Historico:</strong>
+  <%= @account_receivable.historic.descricao %>
+</p>
+
+<p>
+  <strong>Data vencimento:</strong>
+  <%= date_br(@account_receivable.data_vencimento) %>
+</p>
+
+<p>
+  <strong>Documento:</strong>
+  <%= @account_receivable.documento %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= number_to_currency(@account_receivable.valor, unit: "R$ ", separator: ",", delimiter: ".")  %>
+</p>
+
+<p>
+  <strong>Saldo:</strong>
+  <%= number_to_currency(@account_receivable.saldo, unit: "R$ ", separator: ",", delimiter: ".")  %>
+</p>
+
+<p>
+  <strong>Total Pago:</strong>
+  <%= number_to_currency(@account_receivable.total_pago, unit: "R$ ", separator: ",", delimiter: ".")  %>
+</p>
+
+
+<% if @account_receivable.ordem_service.present? %>  
+  <p>
+    <strong>OS. No:</strong> 
+    <%= link_to "#{ @account_receivable.ordem_service.id }", @account_receivable.ordem_service %> 
+  </p>
+  <p>
+    <strong>Status da OS:</strong>
+    <%= @account_receivable.ordem_service.status_name %>
+  </p>
+  
+<% end %>
+
+<p>
+  <strong>Observacao:</strong>
+  <pre><%= @account_receivable.observacao %></pre>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @account_receivable.status_name %>
+</p>
+

@@ -15,4 +15,22 @@ class AccountReceivable < ActiveRecord::Base
 
   #has_many :lower_account_payables
 
+  def status_name
+    case self.status
+      when 0  then "Aberto"
+      when 1  then "P. Parcial"
+      when 2  then "Pago"
+    else "Nao Definido"
+    end
+  end 
+
+  def total_pago
+    #self.lower_account_payables.sum(:total_pago)
+    0.00
+  end
+
+  def saldo
+    valor #- self.lower_account_payables.sum(:valor_pago)
+  end
+
 end

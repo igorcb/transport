@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Dados contas a receber</h2>
+  </div>
+
+  <div class="panel-body">
+
+
+<%= render "data_account" %>
+
+<div class="form-group">
+  <%= link_to 'Listar Todos', account_receivables_path, class: "btn btn-default" %>
+  <%#= link_to 'Baixar', lower_account_receivable_path(@account_receivable), class: "btn btn-default" %>
+  <%= link_to 'Baixar', "#", class: "btn btn-default" %>
+</div>
+
+<%#= render "payments" %>
+
+</div>
+

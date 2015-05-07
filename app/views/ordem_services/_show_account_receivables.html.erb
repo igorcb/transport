@@ -1,0 +1,35 @@
+<%= link_to 'New Receiver', '#new_account_receivable_modal', 'data-toggle' => 'modal', class: "btn btn-success btn-sm" %>
+<table class="table table-striped" id='account_receivable_table'>
+  <thead>
+    <%= render 'account_receivables/account_header' %>
+  </thead>
+  <tbody>
+    <% account_receivables.each do |account_receivable| %>
+      <%= render partial: 'account_receivables/account_receivable', locals: {account_receivable: account_receivable} %>
+    <% end %>    
+    <tr>
+      <td colspan="4"></td>
+      <td colspan="1"><strong>Total:</strong></td>
+      <td colspan="5"><strong><%= number_to_currency(account_receivables.sum(:valor), unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
+    </tr>
+  </tbody>
+
+</table>
+
+<div class="modal fade" id="new_account_receivable_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Novo Recebimento</h4>
+      </div>
+      <div class="modal-body">
+        <%# Render the new person form (passing modal => true to enable remote => true) %>
+        <%= render 'account_receivables/form_js', modal: true %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -83,7 +83,7 @@
     <div class="panel-heading" role="tab" id="headingFour">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          Endereços
+          Remetente/Destinatário
         </a>
       </h4>
     </div>
@@ -144,6 +144,23 @@
       <div class="panel-body">
 
        <%= render 'show_account_payables', account_payables: @ordem_service.account_payables %>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSeven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          Contas a Receber
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+      <div class="panel-body">
+
+       <%= render 'show_account_receivables', account_receivables: @ordem_service.account_receivables %>
 
       </div>
     </div>

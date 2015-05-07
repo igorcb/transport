@@ -1,0 +1,22 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<%= form_for(@account_receivable, remote: true, html: {role: :form, 'data-model' => 'account_receivable'}) do |f| %>
+
+	<%= render 'shared/error_messages', object: f.object %>
+
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  <%= f.hidden_field :client_id, value: @ordem_service.client.id %>
+  <%= f.hidden_field :documento, value: @ordem_service.id %>
+  <%= f.hidden_field :cost_center_id, value: 58 %>
+  <%= f.hidden_field :sub_cost_center_id, value: 146 %>
+  <%= f.hidden_field :historic_id, value: 106 %>
+
+  <%= render 'account_receivables/fields', f: f %>
+
+
+  <div class="actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+  </div>
+
+<% end %>
+

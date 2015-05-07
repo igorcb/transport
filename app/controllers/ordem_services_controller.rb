@@ -18,6 +18,7 @@ class OrdemServicesController < ApplicationController
 
   def show
     @account_payable = AccountPayable.new
+    @account_receivable = AccountReceivable.new
     
     if current_user.has_role? :admin
       @comment = @ordem_service.comments.build

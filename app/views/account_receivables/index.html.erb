@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Contas a Receber</div>
+  <div class="panel-body">
+    <%#= link_to 'Novo Recebimento', new_account_receivable_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <%= render 'account_header' %>
+        </thead>
+
+        <tbody>
+          <%= render @account_receivables %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

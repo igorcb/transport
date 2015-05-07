@@ -106,6 +106,11 @@ class Client < ActiveRecord::Base
     fone = fone += email
   end
 
+  def fantasia_cidade
+    "#{fantasia} - #{cidade} - #{estado}"
+  end
+
+
   private 
     def can_destroy?
       if self.ordem_services.present? || 
