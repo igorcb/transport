@@ -51,7 +51,7 @@ class ReportsController < ApplicationController
     @ordem_service = OrdemService.find(params[:id])
     @list_of_itens = @ordem_service.inventories
     report = ODFReport::Report.new("#{Rails.root}/app/reports/iventario_mudanca.odt") do |r|
-      r.add_field :client_nome, @ordem_service.client.nome
+      r.add_field :nome_do_cliente, @ordem_service.client.nome
       r.add_field :data_coleta, date_br(@ordem_service.data)
       r.add_field :prz_entrega, date_br(@ordem_service.ordem_service_change.date_limit)
       r.add_field :contato, @ordem_service.client.fone_all
