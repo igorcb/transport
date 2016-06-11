@@ -50,6 +50,6 @@ class ControlPalletsController < ApplicationController
     end
 
     def control_pallet_params
-      params.require(:control_pallet).permit(:client_id, :data, :qte, :tipo, :historico)
+      params.require(:control_pallet).permit(:client_id, :data, :qte, :tipo, :historico, :nfe, :nfd, :nfe_original, :nfd_orginal)
     end
 end

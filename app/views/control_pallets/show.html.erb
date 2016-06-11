@@ -28,6 +28,27 @@
   <%= @control_pallet.historico %>
 </p>
 
+<p>
+  <strong>Historico:</strong>
+  <%= @control_pallet.nfe %>
+</p>
+
+<p>
+  <strong>Historico:</strong>
+  <%= @control_pallet.nfd %>
+</p>
+
+<p>
+  <strong>Historico:</strong>
+  <%= @control_pallet.nfe_original %>
+</p>
+
+<p>
+  <strong>Historico:</strong>
+  <%= @control_pallet.nfd_orginal %>
+</p>
+
+
 <div class="form-group">
   <%= link_to 'Editar', edit_control_pallet_path(@control_pallet), class: "btn btn-primary" %> 
   <%= link_to 'Voltar', control_pallets_path, class: "btn btn-default" %>

@@ -27,6 +27,26 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :nfe %><br>
+    <%= f.text_field :nfe, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :nfd %><br>
+    <%= f.text_field :nfd, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :nfe_original %><br>
+    <%= f.text_field :nfe_original, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :nfd_original %><br>
+    <%= f.text_field :nfd_original, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  control_pallet_path(@control_pallet), class: "btn btn-info" if !@control_pallet.new_record? %>
     <%= link_to "Listar Todos", control_pallets_path, class: "btn btn-default" %>
