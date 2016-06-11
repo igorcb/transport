@@ -22,6 +22,8 @@ class ControlPalletsController < ApplicationController
 
   def create
     @control_pallet = ControlPallet.new(control_pallet_params)
+    source_client  = Client.find_by_cpf_cnpj(params[:source_client_cpf_cpnj])
+    @control_pallet.client_id = source_client.id if source_client.present?
     respond_to do |format|
       if @control_pallet.save
         format.html { redirect_to @control_pallet, flash: { success: "Pallet was successfully created." } }
@@ -50,6 +52,6 @@ class ControlPalletsController < ApplicationController
     end
 
     def control_pallet_params
-      params.require(:control_pallet).permit(:client_id, :data, :qte, :tipo, :historico, :nfe, :nfd, :nfe_original, :nfd_orginal)
+      params.require(:control_pallet).permit(:data, :qte, :tipo, :historico, :nfe, :nfd, :nfe_original, :nfd_original)
     end
 end

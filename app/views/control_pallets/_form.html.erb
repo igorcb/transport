@@ -2,13 +2,28 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="form-group">
-    <%= f.label :client_id %><br>
-    <%= f.select(:client_id, Client.order(:nome).collect {|g| [g.nome, g.id]}, {include_blank: "Informe o Cliente"}, {class: "form-control"} ) %>
+    <%#= f.label :client_id %><br>
+    <%#= f.select(:client_id, Client.order(:nome).collect {|g| [g.nome, g.id]}, {include_blank: "Informe o Cliente"}, {class: "form-control"} ) %>
   </div>
+
+  <div class="form-group">
+    <%= label_tag :source_client_cpf_cpnj, "CNPJ Remetente" %><br>
+    <% if @control_pallet.new_record? %>
+      <%= text_field_tag :source_client_cpf_cpnj, nil, class: "form-control cnpj" %>
+    <% else %>
+      <%= text_field_tag :source_client_cpf_cpnj, @control_pallet.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= render partial: "clients/result_client", locals: { client: @control_pallet.client } %>
+    <% end %>
+  </div>
+  
+  
+  <div id="source_client_cnpj_result">
+
+  </div>    
   
   <div class="form-group">
     <%= f.label :data  %><br />
-    <%= f.text_field :data, class: "form-control data"  %>
+    <%= f.text_field :data, class: "form-control data", value: date_br(@control_pallet.data)  %>
   </div>
   
   <div class="form-group">
@@ -52,3 +67,21 @@
     <%= link_to "Listar Todos", control_pallets_path, class: "btn btn-default" %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#source_client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#source_client_cpf_cpnj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj},
+        dataType : 'html',
+        url: '/clients/get_client_by_cnpj',
+        success: function(data){
+            $('#source_client_cnpj_result').html(data);
+        },
+      });
+    });
+  });
+</script>

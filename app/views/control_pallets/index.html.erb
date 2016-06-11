@@ -12,10 +12,14 @@
             <th>Qte</th>
             <th>Tipo</th>
             <th>Historico</th>
+            <th>NFE</th>
+            <th>NFE Original</th>
+            <th>NFD</th>
+            <th>NFD Original</th>
             <th colspan="3">Opções</th>
           </tr>
         </thead>
-
+ 
         <tbody>
           <% @control_pallets.each do |control_pallet| %>
             <tr>
@@ -25,8 +29,8 @@
               <td><%= control_pallet.credito_debito %></td>
               <td><%= control_pallet.historico %></td>
               <td><%= control_pallet.nfe %></td>
-              <td><%= control_pallet.nfd %></td>
               <td><%= control_pallet.nfe_original %></td>
+              <td><%= control_pallet.nfd %></td>
               <td><%= control_pallet.nfd_original %></td>
               <td><%= link_to 'Show', control_pallet, class: "btn btn-info btn-sm" %></td>
               <td><%= link_to 'Edit', edit_control_pallet_path(control_pallet), class: "btn btn-primary btn-sm" %></td>
