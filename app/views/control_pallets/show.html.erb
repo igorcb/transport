@@ -1,0 +1,34 @@
+<p>
+  <strong>Client:</strong>
+  <%= @control_pallet.client.nome %>
+</p>
+
+<p>
+  <strong>Saldo de Palletes para este client:</strong>
+  <%= ControlPallet.saldo(@control_pallet.client.id) %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= date_br @control_pallet.data %>
+</p>
+
+<p>
+  <strong>Qte:</strong>
+  <%= @control_pallet.qte %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @control_pallet.credito_debito %>
+</p>
+
+<p>
+  <strong>Historico:</strong>
+  <%= @control_pallet.historico %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_control_pallet_path(@control_pallet), class: "btn btn-primary" %> 
+  <%= link_to 'Voltar', control_pallets_path, class: "btn btn-default" %>
+</div>

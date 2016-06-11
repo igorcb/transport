@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :control_pallets
+
   get '/print_contract/:id', to: 'reports#print_contract', as: 'print_contract'
   get '/print_inventory/:id', to: 'reports#print_inventory', as: 'print_inventory'
   
