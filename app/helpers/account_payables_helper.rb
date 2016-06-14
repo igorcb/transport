@@ -4,6 +4,10 @@ module AccountPayablesHelper
     SubCostCenter.where("cost_center_id = ?", cost_center)
   end
 
+  def sub_center_there(cost_center, sub_center)
+    SubCostCenter.where("cost_center_id = ? and sub_center_cost_id", cost_center, sub_center)
+  end
+
   def type_account_select(type)
     case type
       when 1 then Supplier.order('nome')

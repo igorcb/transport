@@ -30,6 +30,18 @@ class AccountPayablesController < ApplicationController
     end
     render :text => sub.to_json
   end
+
+  def sub_centro_custo_three_by_custo
+    cost_center_id = params[:cost_center_id].to_i
+    sub_cost_center_id = params[:sub_cost_center_id].to_i
+    subs = SubCostCenterThree.where(:cost_center_id => cost_center_id, :sub_cost_center_id => sub_cost_center_id)
+    sub = []
+    subs.each do |s|
+      sub << {:id => s.id, :n => s.descricao}
+    end
+    render :text => sub.to_json
+   
+  end
   
   #relatorio com quebra de centro de custo
   def cost_centers 
@@ -151,8 +163,8 @@ class AccountPayablesController < ApplicationController
     end
 
     def account_payable_params
-      params.require(:account_payable).permit(:supplier_id, :cost_center_id, :sub_cost_center_id, :historic_id, :data_vencimento, :documento, 
-        :valor, :observacao, :status, :payment_method_id, :type_account, :ordem_service_id,
+      params.require(:account_payable).permit(:supplier_id, :cost_center_id, :sub_cost_center_id, :sub_cost_center_three_id, :historic_id, 
+        :data_vencimento, :documento, :valor, :observacao, :status, :payment_method_id, :type_account, :ordem_service_id,
         lower_payables: [:data_pagamento, :valor_pago, :juros, :desconto, :total_pago],
         assets_attributes: [:asset, :id, :_destroy]
         )

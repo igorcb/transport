@@ -42,6 +42,7 @@ Transport::Application.routes.draw do
   match "/type_account_select", :controller => "account_payables", :action => 'type_account_select', via: [:get]
   #match "/sub_centro_custo_by_custo" => "account_payables#sub_centro_custo_by_custo", via: [:get]
   match "/sub_centro_custo_by_custo", :controller => "account_payables", :action => "sub_centro_custo_by_custo", via: [:get]
+  match "/sub_centro_custo_three_by_custo", :controller => "account_payables", :action => "sub_centro_custo_three_by_custo", via: [:get]
   match "/account_payables_search" => "account_payables#search", via: [:get]
   match "/lower_payables" => "account_payables#lower_payables", via: [:get]
   match "lower_all" => "account_payables#lower_all", via: [:post]
