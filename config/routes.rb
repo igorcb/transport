@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :sub_cost_center_threes
+
   resources :control_pallets
 
   get '/print_contract/:id', to: 'reports#print_contract', as: 'print_contract'

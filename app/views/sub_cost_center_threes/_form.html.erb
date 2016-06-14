@@ -1,0 +1,45 @@
+<%= form_for(@sub_cost_center_three) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :cost_center_id, "Centro de Custo" %>
+    <%= f.select(:cost_center_id, CostCenter.order(:descricao).collect {|c| [c.descricao, c.id]}, {prompt: "SELECT CENTRO DE CUSTO"}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :sub_cost_center_id, "Sub Centro de Custo" %>
+    <% if @sub_cost_center_three.cost_center_id.present? %>
+      <%= f.collection_select :sub_cost_center_id, sub_center(@sub_cost_center_three.cost_center_id), :id, :descricao, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control"} %>
+    <% else %>
+      <%= f.collection_select :sub_cost_center_id, [], :id, :descricao, {prompt: "SELECT PRIMEIRO CENTRO DE CUSTO"}, {class: "form-control"}  %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :descricao %>
+    <%= f.text_field :descricao, class: "form-control" %>
+  </div>  
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  sub_cost_center_three_path(@sub_cost_center_three), class: "btn btn-info" if !@sub_cost_center_three.new_record? %>
+    <%= link_to "Listar Todos", sub_cost_center_threes_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+    $("#sub_cost_center_three_cost_center_id").change(function(){
+      var cost_center = "cost_center_id="+$(this).val();
+      console.log(cost_center);
+      $.getJSON('/sub_centro_custo_by_custo', cost_center, function(data){
+        var options = '<option value="">SELECIONE SUB CENTRO CUSTO</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#sub_cost_center_three_sub_cost_center_id").html(options);
+      });
+    });
+  });
+</script>
