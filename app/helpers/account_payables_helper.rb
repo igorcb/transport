@@ -5,7 +5,8 @@ module AccountPayablesHelper
   end
 
   def sub_center_there(cost_center, sub_center)
-    SubCostCenter.where("cost_center_id = ? and sub_center_cost_id", cost_center, sub_center)
+   sub = SubCostCenterThree.where("cost_center_id = ? and sub_cost_center_id = ? ", cost_center, sub_center)
+   sub.nil? ? 0 : sub
   end
 
   def type_account_select(type)
