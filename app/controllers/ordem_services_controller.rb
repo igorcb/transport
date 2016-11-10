@@ -333,7 +333,7 @@ class OrdemServicesController < ApplicationController
           redirect_to ordem_service_path(@ordem_service)
           return    
         elsif !@ordem_service.ordem_service_type_service.present? 
-          flash[:danger] = "Can not close without an Order of Seriviço associated service."
+          flash[:danger] = "Can not close without an Order of Service associated service."
           redirect_to ordem_service_path(@ordem_service)
           return
         elsif !@ordem_service.data.present? 
