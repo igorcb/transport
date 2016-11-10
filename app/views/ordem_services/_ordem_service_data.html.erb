@@ -22,6 +22,16 @@
     </p>
 
     <p>
+      <strong>Data Expedição:</strong>
+      <%= date_br @ordem_service.date_shipping if @ordem_service.date_shipping.present? %>
+    </p>
+
+    <p>
+      <strong>Data Entrada:</strong>
+      <%= date_br @ordem_service.date_entry if @ordem_service.date_entry.present? %>
+    </p>
+
+    <p>
       <strong>Municipio:</strong>
       <%= @ordem_service.cidade %> - 
       <strong>Estado:</strong>
