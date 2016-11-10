@@ -16,6 +16,22 @@
     <%= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
 
   </div>
+
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.text_field :remessa_ype, size: 5, class: "form-control input-sm numericOnly", placeholder: "Remessa Ype" %>
+    </div>
+
+    <div class="col-xs-2">
+      <%= f.text_field :peso, size: 5, class: "form-control input-sm numericOnly", placeholder: "Peso" %>
+    </div>
+
+    <div class="col-xs-2">
+      <%= f.text_field :volume, size: 5, class: "form-control input-sm numericOnly", placeholder: "Volume" %>
+    </div>
+
+  </div>
+
 </div>
 
 

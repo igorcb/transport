@@ -4,8 +4,14 @@
   <ul class="list-group">
     <% object.nfe_keys.each do |item| %>
       <li class="list-group-item" > 
+        <strong> Qtde:</strong> <%= item.qtde %> - 
         <strong> NF-e:</strong> <%= item.nfe %> - 
         <strong>Chave:</strong> <%= item.chave %> 
+        <br />
+        <strong> Remessa Ype:</strong> <%= item.remessa_ype %> - 
+        <strong> Peso:</strong> <%= item.peso %> - 
+        <strong> Volume:</strong> <%= item.volume %>
+
       </li>
     <% end %>
   </ul>

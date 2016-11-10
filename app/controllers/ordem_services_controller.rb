@@ -437,7 +437,7 @@ class OrdemServicesController < ApplicationController
           :driver_id, :placa,:driver,:compartilhado,:cubagem,:valor_declarado, :valor_total, :dias, :id, :_destroy],
         cancellations_attributes: [:solicitation_user_id, :authorization_user_id, :status, :observacao, :id, :_destroy],
         cte_keys_attributes: [:cte, :chave, :asset, :id, :_destroy],
-        nfe_keys_attributes: [:nfe, :chave, :asset, :qtde, :id, :_destroy],
+        nfe_keys_attributes: [:nfe, :chave, :asset, :qtde, :remessa_ype, :peso, :volume, :id, :_destroy],
         ordem_service_type_service_attributes: [:ordem_service_id, :type_service_id, :valor, :qtde, :qtde_recebida, :valor_pago, :id, :_destroy],
         account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :valor, :id, :_destroy],
         assets_attributes: [:asset, :user_id, :id, :_destroy]
