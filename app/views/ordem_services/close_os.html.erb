@@ -6,26 +6,27 @@
 	<div class="alert alert-warning" role="alert">
 		<p>Para efetuar o fechamento da OS. é necessário informar em anexo o(s) canhoto(s) referente a cada CT-e e NF-e respectivamente.</p>
 	</div>
+<!-- 	
   <h3>Dados CT-e</h3>
   <div class="cte_items">
-	  <%= f.fields_for :cte_keys do |ff| %>
+	  <%#= f.fields_for :cte_keys do |ff| %>
 		  <div class='nested-fields'>
 				  <div class="row">
 			    <div class="col-xs-2">
-			      <%= ff.text_field :cte, class: "form-control input-sm numericOnly", placeholder: "Nfe", disabled: true  %>
+			      <%#= ff.text_field :cte, class: "form-control input-sm numericOnly", placeholder: "Nfe", disabled: true  %>
 			    </div>
 
 			    <div class="col-xs-4">
-			      <%= ff.text_field :chave, maxlength: 44, class: "form-control input-sm", placeholder: "Chave", disabled: true  %>
+			      <%#= ff.text_field :chave, maxlength: 44, class: "form-control input-sm", placeholder: "Chave", disabled: true  %>
 			    </div>
 			    <div class="col-xs-4">
-			      <%= ff.file_field :asset  %>
+			      <%#= ff.file_field :asset  %>
 			    </div>
 
      	</div>
-	  <% end %> <br />
+	  <%# end %> <br />
   </div>
-
+ -->
   <h3>Dados NF-e</h3>
   <div class="nfe_items">
 	    <%= f.fields_for :nfe_keys do |ff| %>
