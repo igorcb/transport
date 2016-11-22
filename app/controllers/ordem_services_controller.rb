@@ -430,7 +430,7 @@ class OrdemServicesController < ApplicationController
         ordem_service_airs_attributes: [:source_stretch_id, :target_stretch_id, :solicitante, :target_agent_id, :airline_carrier_id, 
           :qtde_volume, :peso, :valor_nf, :total_cubagem, :tarifa_companhia, :tipo_frete, :valor_total, :awb, :voo, :id, :_destroy],
 
-        ordem_service_logistics_attributes: [:driver_id, :delivery_driver_id, :placa, :cte, :danfe_cte,:qtde_volume, :peso, :senha_sefaz, :id, :_destroy],
+        ordem_service_logistics_attributes: [:driver_id, :delivery_driver_id, :placa, :cte, :danfe_cte,:qtde_volume, :peso, :senha_sefaz, :qtde_palets, :id, :_destroy],
         ordem_service_changes_attributes: [
           :source_cep,:source_numero,:source_complemento,:source_endereco_completo,:source_endereco,:source_bairro,:source_cidade,:source_estado,:source_contato,
           :target_cep,:target_numero,:target_complemento,:target_endereco_completo,:target_endereco,:target_bairro,:target_cidade,:target_estado,:target_contato,
