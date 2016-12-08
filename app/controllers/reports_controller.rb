@@ -5,6 +5,35 @@ class ReportsController < ApplicationController
   include ActionView::Helpers::NumberHelper
 	def index
 	end
+
+  def print_billing
+    @billing = Billing.find(params[:id])
+    # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
+    report = ODFReport::Report.new("#{Rails.root}/app/reports/fatura.odt") do |r|
+
+      r.add_field(:vr_fatura, @billing.valor)
+      r.add_field(:no_duplicata, @billing.id)
+      r.add_field(:ano_duplicata, extract_year(@billing.data))
+      r.add_field(:vencimento, date_br(@billing.data + 10.days))
+      r.add_field(:emitida_em, date_br(@billing.data))
+      r.add_field(:vr_total, @billing.valor)
+      r.add_field(:valor_por_extenso, Extenso.moeda(@billing.valor * 100)) #multiplicar por 100 para gerar as casas decimais
+
+      # r.add_table("OPERATORS", @billing.ordem_services) do |t|
+      #   # t.add_column(:motorista_id) {|os| "#{os.ordem_service_logistic.driver.nome}" }
+      #   # t.add_column(:client_id) { |os| "#{os.client.nome}" }
+      #   t.add_column(:placa_id) {|os| "#{os.ordem_service_logistic.placa}" }
+      #   t.add_column(:vr_servico, :valor_ordem_service)
+      #   t.add_column(:motorista_id, :motorista_nome)
+      #   t.add_column(:client_id, :cliente_nome)
+        
+      # end
+    end
+    name_report = "Fatura_#{@billing.id}"
+    send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
+                                disposition: 'attachment',
+                                filename: "#{name_report}.odt"
+  end
   
   def print_contract
     @ordem_service = OrdemService.find(params[:id])

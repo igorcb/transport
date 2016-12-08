@@ -110,7 +110,7 @@ class OrdemService < ActiveRecord::Base
       self.errors.add("Danfe CT-e", "is not a number") if self.danfe_cte.to_s !~ IS_NUMBER
     end
   end
-  
+
   def set_values
     self.valor_receita  = 0
     self.valor_despesas = 0
@@ -272,21 +272,6 @@ class OrdemService < ActiveRecord::Base
     end
   end
 
-  # def self.close_os(os_id)
-  #   ordem_service = OrdemService.find(os_id)
-  #   ordem_service.cte_keys.each do |cte|
-  #     puts ">>>>>>>>>>>>. Validando CTE: #{cte.cte} is image: #{cte.is_image?}"
-  #     ordem_service.errors.add("Cte-Keys", "#{cte.cte} is not image Valid") if !cte.is_image?
-  #     ordem_service.errors.add("Cte-Keys", "#{cte.cte} is not CT-e Valid") if !cte.tesseract_context?
-  #   end
-  #   puts ">>>>>>>>>>>>. Erros #{ordem_service.errors.messages}"
-  #   # ActiveRecord::Base.transaction do
-  #   #   data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
-  #   #   OrdemService.update(os_id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
-  #   #   generate_billing(os_id)
-  #   # end
-  # end
-
   def self.close_os_agent(ordem_service)
     data = Time.now.strftime('%Y-%m-%d')
     qtde = OrdemServiceTypeService.where(ordem_service_id: ordem_service).sum(:qtde_recebida)
@@ -301,7 +286,6 @@ class OrdemService < ActiveRecord::Base
       OrdemService.update(os_id, status: OrdemService::TipoStatus::ENTREGA_EFETUADA)
     end
   end
-
 
   def self.cancel(user, options )
     ActiveRecord::Base.transaction do
@@ -428,6 +412,30 @@ class OrdemService < ActiveRecord::Base
     get_due_client(self.created_at, self.billing_client)
   end
 
+  def get_number_cte
+    ctes = []
+    self.cte_keys.each do |c|
+      ctes << c.cte.to_i
+    end
+    ctes
+  end
+
+  def cliente_nome
+    self.client.nome
+  end
+
+  def motorista_nome
+    self.ordem_service_logistic.driver.nome
+  end
+
+  def get_number_nfe
+    nfes = []
+    self.nfe_keys.each do |n|
+      nfes << n.nfe
+    end
+    nfes
+  end
+
   private
     def can_destroy?
       if self.account_payable.present?
@@ -463,13 +471,14 @@ class OrdemService < ActiveRecord::Base
       #   self.errors.add("CTe-Keys", "#{cte.cte} is not image Valid") if !cte.is_image?
       #   self.errors.add("CTe-Keys", "#{cte.cte} is not CT-e Valid") if !cte.tesseract_context?
       # end
-      self.nfe_keys.each do |nfe|
-        #puts ">>>>>>>>>>>>. Validando NF-e: #{nfr.nfr} is image: #{nfe.is_image?}"
-        self.errors.add("NFe-Keys", "#{nfe.nfe} is not image present") if !nfe.asset.present?
-        self.errors.add("NFe-Keys", "#{nfe.nfe} is not image Valid") if !nfe.is_image?
-        self.errors.add("NFe-Keys", "#{nfe.nfe} is not NF-e Valid") if !nfe.tesseract_context?
-      end
+      # self.nfe_keys.each do |nfe|
+      #   #puts ">>>>>>>>>>>>. Validando NF-e: #{nfr.nfr} is image: #{nfe.is_image?}"
+      #   self.errors.add("NFe-Keys", "#{nfe.nfe} is not image present") if !nfe.asset.present?
+      #   self.errors.add("NFe-Keys", "#{nfe.nfe} is not image Valid") if !nfe.is_image?
+      #   self.errors.add("NFe-Keys", "#{nfe.nfe} is not NF-e Valid") if !nfe.tesseract_context?
+      # end
     end
+
 
     def close_os_change
       #fazer validacoes para fechamento

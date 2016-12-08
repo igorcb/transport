@@ -41,12 +41,15 @@ gem 'cancan'
 gem 'rolify'
 gem 'cocoon'
 gem 'rmagick', '~> 2.14.0'
+gem "mini_magick"
 gem 'rtesseract', '~> 1.2.6'
 gem 'cocaine', '~> 0.5.7'
 gem 'cep', '~> 0.0.8'
 gem 'ruby-json', '~> 1.1.2'
 gem 'odf-report', '~> 0.5.1'
+#gem 'odf-ods-report'
 gem 'business_time', '~> 0.7.4'
+gem 'extensobr'
 
 # group :development, :test do
 #   # gem 'sqlite3', '1.3.5'
@@ -71,12 +74,21 @@ gem 'business_time', '~> 0.7.4'
 # end
 
 group :development, :test do
-  gem 'rspec-rails', '2.11.0'
-  gem 'guard-rspec', '1.2.1'
-  gem 'guard-spork', '1.2.0'
-  gem 'childprocess', '0.3.6'
+#  gem 'rspec-rails', '2.11.0'
+#  gem 'guard-rspec', '1.2.1'
+#  gem 'guard-spork', '1.2.0'
+#  gem 'childprocess', '0.3.6'
+
+  gem 'guard-rails', '0.7.2', require: false
+  gem 'guard-rspec', '3.1.0', require: false
+  gem 'guard-rubocop', '1.2.0', require: false
+  gem 'guard-spork', '2.1.0', require: false
+
+
   gem 'spork-rails'
   gem 'factory_girl_rails', '4.1.0' 
+
+
   gem 'thin'
   gem 'quiet_assets'
   gem 'capybara', '1.1.2'

@@ -3,8 +3,11 @@
 <%= form_for(@ordem_service, :url => close_ordem_service_path, :html => { :multipart => true } ) do |f| %> 
 	<h1>Fechamento O.S.</h1>
 	<%= render 'shared/error_messages', object: f.object %>
-	<div class="alert alert-warning" role="alert">
+<!-- 	<div class="alert alert-warning" role="alert">
 		<p>Para efetuar o fechamento da OS. é necessário informar em anexo o(s) canhoto(s) referente a cada CT-e e NF-e respectivamente.</p>
+	</div>
+ -->	<div class="alert alert-warning" role="alert">
+		<p>Foi retirado temporariamente a funcionalidade de adicionar o canhoto a NF-e.</p>
 	</div>
 <!-- 	
   <h3>Dados CT-e</h3>
@@ -27,27 +30,28 @@
 	  <%# end %> <br />
   </div>
  -->
-  <h3>Dados NF-e</h3>
+<!--   
+<h3>Dados NF-e</h3>
   <div class="nfe_items">
-	    <%= f.fields_for :nfe_keys do |ff| %>
+	    <%#= f.fields_for :nfe_keys do |ff| %>
      	<div class='nested-fields'>
 			  <div class="row">
 			    <div class="col-xs-2">
-			      <%= ff.text_field :nfe, class: "form-control input-sm numericOnly", placeholder: "Nfe", disabled: true  %>
+			      <%#= ff.text_field :nfe, class: "form-control input-sm numericOnly", placeholder: "Nfe", disabled: true  %>
 			    </div>
 
 			    <div class="col-xs-4">
-			      <%= ff.text_field :chave, maxlength: 44, class: "form-control input-sm", placeholder: "Chave", disabled: true  %>
+			      <%#= ff.text_field :chave, maxlength: 44, class: "form-control input-sm", placeholder: "Chave", disabled: true  %>
 			    </div>
 
 			    <div class="col-xs-4">
-			      <%= ff.file_field :asset  %>
+			      <%#= ff.file_field :asset  %>
 			    </div>
 			</div>
-	   <% end -%> <br />
+	   <%# end -%> <br />
     
   </div>  
-
+ -->
 
   <div class="form-group">
     <%= link_to 'Voltar', ordem_service_path(@ordem_service), class: "btn btn-default" %>
