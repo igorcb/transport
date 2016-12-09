@@ -10,14 +10,14 @@ class ReportsController < ApplicationController
     @billing = Billing.find(params[:id])
     # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
     report = ODFReport::Report.new("#{Rails.root}/app/reports/fatura.odt") do |r|
-
+      valor = (@billing.valor.to_f * 100)
       r.add_field(:vr_fatura, @billing.valor)
       r.add_field(:no_duplicata, @billing.id)
       r.add_field(:ano_duplicata, extract_year(@billing.data))
       r.add_field(:vencimento, date_br(@billing.data + 10.days))
       r.add_field(:emitida_em, date_br(@billing.data))
       r.add_field(:vr_total, @billing.valor)
-      r.add_field(:valor_por_extenso, Extenso.moeda(@billing.valor * 100)) #multiplicar por 100 para gerar as casas decimais
+      r.add_field(:valor_por_extenso, Extenso.moeda(valor)) #multiplicar por 100 para gerar as casas decimais
 
       # r.add_table("OPERATORS", @billing.ordem_services) do |t|
       #   # t.add_column(:motorista_id) {|os| "#{os.ordem_service_logistic.driver.nome}" }
