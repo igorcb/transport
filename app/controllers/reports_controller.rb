@@ -18,6 +18,17 @@ class ReportsController < ApplicationController
       r.add_field(:emitida_em, date_br(@billing.data))
       r.add_field(:vr_total, @billing.valor)
       r.add_field(:valor_por_extenso, Extenso.moeda(valor)) #multiplicar por 100 para gerar as casas decimais
+      @client = b.ordem_services.first.billing_client
+      r.add_field(:nome_sacado, @client.nome)
+      r.add_field(:endereco_sacado, "#{@client.endereco}, #{@client.numero}")
+      r.add_field(:bairro_sacado, @client.bairro)
+      r.add_field(:cidade_sacado, @client.cidade)
+      r.add_field(:uf, @client.estado)
+      r.add_field(:cnpj_sacado, @client.cpf_cnpj)
+      r.add_field(:ie_sacado, @client.inscricao_estadual)
+
+
+
 
       # r.add_table("OPERATORS", @billing.ordem_services) do |t|
       #   # t.add_column(:motorista_id) {|os| "#{os.ordem_service_logistic.driver.nome}" }
