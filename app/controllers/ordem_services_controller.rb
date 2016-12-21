@@ -310,7 +310,7 @@ class OrdemServicesController < ApplicationController
       respond_to do |format|
         #if @ordem_service.update(ordem_service_params) && OrdemService.close_os(params[:id])
         puts "Entrou no close &&&&"
-        if @ordem_service.close_os
+        if @ordem_service.close_ordem_service
           format.html { redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful &&&&." } }
           format.json { head :no_content }
         else
