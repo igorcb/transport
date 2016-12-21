@@ -246,6 +246,7 @@ class OrdemService < ActiveRecord::Base
       hash_ids << i[0].to_i
       valor_total += i[1].to_f
     end
+
     # Efetuar Faturamento
     data = Time.now.strftime('%Y-%m-%d')
     ActiveRecord::Base.transaction do
