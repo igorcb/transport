@@ -314,7 +314,7 @@ class OrdemServicesController < ApplicationController
           format.html { redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful &&&&." } }
           format.json { head :no_content }
         else
-          format.html { render action: 'close_os' }
+          format.html { render action: 'edit' }
           format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
         end
       end
