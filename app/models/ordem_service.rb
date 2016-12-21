@@ -255,7 +255,7 @@ class OrdemService < ActiveRecord::Base
     end
   end
   
-  def close_os
+  def close_ordem_service
     case self.tipo
       when TipoOS::LOGISTICA then close_os_logistic # validacoes para fechamento
       when TipoOS::MUDANCA then close_os_change # validacoes para fechamento
