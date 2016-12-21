@@ -269,6 +269,8 @@ class OrdemService < ActiveRecord::Base
         data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
         OrdemService.update(self.id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
         OrdemService.generate_billing(self.id)
+        puts "Gerou o recebimento"
+        return true
       end
     end
   end
@@ -478,6 +480,7 @@ class OrdemService < ActiveRecord::Base
       #   self.errors.add("NFe-Keys", "#{nfe.nfe} is not image Valid") if !nfe.is_image?
       #   self.errors.add("NFe-Keys", "#{nfe.nfe} is not NF-e Valid") if !nfe.tesseract_context?
       # end
+      puts ">>>>>>>>>>>> close_os_logistic"
     end
 
 
