@@ -28,6 +28,7 @@ class AccountPayablesController < ApplicationController
     subs.each do |s|
       sub << {:id => s.id, :n => s.descricao}
     end
+    puts ">>>>>>>>>>>>>> #{sub.to_json}"
     render :text => sub.to_json
   end
 
