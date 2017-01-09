@@ -440,6 +440,28 @@ class OrdemService < ActiveRecord::Base
     nfes
   end
 
+    def get_due_client(date_os, client)
+      vencimento = 0
+      dia_os = date_os.day
+      puts ">>>>>> Data: #{date_os.to_date}"
+      puts ">>>>>> Dias OS: #{dia_os}"
+      n = 0
+      until n > 30 do
+        puts ">>>>>> N: #{n}"
+        if dia_os <= n
+          vencimento = n+client.vencimento_para
+          puts ">>>>>> Venc: #{vencimento}"
+          break
+        end        
+        n += client.faturar_cada
+      end
+      puts "Vencimento para: #{client.vencimento_para}"
+      puts "Novo vencimento: #{data.year} - #{data.month} - #{vencimento}"
+      data = Time.now + 15.days
+      data_vencimento = vencimento > 32 ? Date.new(data.year, data.month, client.vencimento_para) : Date.new(data.year, data.month, client.vencimento_para)
+      data_vencimento
+    end
+
   private
     def can_destroy?
       if self.account_payable.present?
@@ -448,21 +470,6 @@ class OrdemService < ActiveRecord::Base
       end
     end
 
-    def get_due_client(date_os, client)
-      vencimento = 0
-      dia_os = date_os.day
-      n = 0
-      until n > 30 do
-        if dia_os <= n
-          vencimento = n+client.vencimento_para
-          break
-        end        
-        n += client.faturar_cada
-      end
-      data = Time.now + 15.days
-      data_vencimento = vencimento > 32 ? Date.new(data.year, data.month, client.vencimento_para) : Date.new(data.year, data.month, vencimento)
-      data_vencimento
-    end
 
     def has_address?
       self.ordem_service_change.source_endereco.present?
