@@ -27,7 +27,7 @@
               <td><%= link_to date_br(ordem_service.data), ordem_service %></td>
               <td><%= link_to ordem_service.cte_keys.first.cte, ordem_service if ordem_service.cte_keys.present? %></td>
               <td><%= ordem_service.estado %></td>
-              <td><%= truncate(ordem_service.cidade, length: 10) %></td>
+              <td><%= truncate(ordem_service.client.cidade, length: 10) %></td>
               <td><%= ordem_service.status_name %></td>
               <td><%= link_to 'Show', ordem_service, class: "btn btn-info btn-xs" %></td>
               <td><%= link_to 'Edit', edit_ordem_service_path(ordem_service), class: "btn btn-primary btn-xs" %></td>
