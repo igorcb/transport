@@ -1,5 +1,5 @@
 class Vehicle < ActiveRecord::Base
-  validates :tipo_veiculo, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..4 }
+  validates :tipo_veiculo, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..5 }
   validates :marca, presence: true, length: { maximum: 20 } 
   validates :modelo, presence: true, length: { maximum: 20 } 
   validates :ano, presence: true, :numericality => { :only_integer => true }
@@ -54,7 +54,7 @@ class Vehicle < ActiveRecord::Base
       when 2 then "BAU"
       when 3 then "TRUK"
       when 4 then "TROCO"
-      when 4 then "CARRETA"
+      when 5 then "CARRETA"
     end
   end
 
