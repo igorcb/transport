@@ -141,7 +141,7 @@
     <tbody>
       <% @vehicle.drivers.each do |driver| %>
         <tr>
-          <td><%= driver.nome %></td>
+          <td><%= link_to "#{driver.nome}", driver  %></td>
           <td><%= driver.fantasia %></td>
           <td><%= driver.cpf %></td>
       
@@ -161,10 +161,9 @@
     <tbody>
       <% @vehicle.owners.each do |owner| %>
         <tr>
-          <td><%= owner.nome %></td>
+          <td><%= link_to "#{owner.nome}", owner  %></td>
           <td><%= owner.fantasia %></td>
           <td><%= owner.cpf_cnpj %></td>
-      
         </tr>
       <% end %>
 
