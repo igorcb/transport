@@ -256,15 +256,18 @@ class OrdemService < ActiveRecord::Base
   end
   
   def close_ordem_service
+    puts "Fechando a Ordem de Servico Model"
     case self.tipo
       when TipoOS::LOGISTICA then close_os_logistic # validacoes para fechamento
       when TipoOS::MUDANCA then close_os_change # validacoes para fechamento
       when TipoOS::AEREO then close_os_air # validacoes para fechamento
     end
 
+    puts "Ordem de Servico fechada Model"
     if self.errors.present?
       puts "Errors: #{self.errors.messages}"
     else
+      puts "Atualizando o Status para FECHADO e GERANDO o recebimento MODEL"
       ActiveRecord::Base.transaction do
         data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
         OrdemService.update(self.id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
@@ -335,10 +338,8 @@ class OrdemService < ActiveRecord::Base
         end
         sub_cost_center = cost_center.sub_cost_centers.first
         historic = Historic.find(106) #Nao Definido
-
         valor_das_parcelas = valor / os.billing_client.qtde_parcela
         ajuste = (valor - (valor_das_parcelas * os.billing_client.qtde_parcela)).round(2)
-        #vencimento = os.get_due_client(os.created_at, os.billing_client)
         vencimento = os.billing_to_client
         data_vencimento = nil
         os.billing_client.qtde_parcela.times do |time|
@@ -480,7 +481,8 @@ class OrdemService < ActiveRecord::Base
       #   self.errors.add("NFe-Keys", "#{nfe.nfe} is not image Valid") if !nfe.is_image?
       #   self.errors.add("NFe-Keys", "#{nfe.nfe} is not NF-e Valid") if !nfe.tesseract_context?
       # end
-      puts ">>>>>>>>>>>> close_os_logistic"
+      puts ">>>>>>>>>>>> close_os_logistic Model <<<<<<<<<<<<<< "
+      true
     end
 
 

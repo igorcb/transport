@@ -296,7 +296,6 @@ class OrdemServicesController < ApplicationController
   def close
     if params[:ordem_service].present?
       respond_to do |format|
-        puts "Entrou no close ****"
         #if @ordem_service.update(ordem_service_params) && OrdemService.close_os(params[:id])
         if @ordem_service.update(ordem_service_params) && @ordem_service.close_os
           format.html { redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful ****." } }
@@ -309,11 +308,11 @@ class OrdemServicesController < ApplicationController
     else
       respond_to do |format|
         #if @ordem_service.update(ordem_service_params) && OrdemService.close_os(params[:id])
-        puts "Entrou no close &&&&"
         if @ordem_service.close_ordem_service
           format.html { redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful &&&&." } }
           format.json { head :no_content }
         else
+          puts "Ordem de Servico com problemas"
           format.html { render action: 'edit' }
           format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
         end
