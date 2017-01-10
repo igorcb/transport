@@ -76,7 +76,7 @@ class OrdemService < ActiveRecord::Base
                                       .order("drivers.nome, ordem_services.placa")                                       
                       }
   
-  before_save :set_values, :validates_type_service
+  before_save :set_values, :validates_type_service, :set_peso_and_volume
   #after_save :generate_billing 
 
   before_destroy :can_destroy?
@@ -97,6 +97,15 @@ class OrdemService < ActiveRecord::Base
     LOGISTICA = 1
     MUDANCA = 3
     AEREO = 4
+  end
+
+  def set_peso_and_volume
+    peso = self.nfe_keys.sum(:peso)
+    volume = self.nfe_keys.sum(:volume)
+    ActiveRecord::Base.transaction do
+      puts "peso: #{peso} and volume: #{volume}"
+      OrdemService.where(id: self.id).update_all(peso: peso, qtde_volume: volume)
+    end
   end
 
   def validates_type_service
