@@ -33,6 +33,9 @@ class OrdemService < ActiveRecord::Base
   has_many :cte_keys, class_name: "CteKey", foreign_key: "cte_id", :as => :cte, dependent: :destroy
   accepts_nested_attributes_for :cte_keys, allow_destroy: true, :reject_if => :all_blank
 
+  has_many :nfs_keys, class_name: "NfsKey", foreign_key: "nfs_id", :as => :nfs, dependent: :destroy
+  accepts_nested_attributes_for :nfs_keys, allow_destroy: true, :reject_if => :all_blank
+
   has_many :ordem_service_type_service, dependent: :destroy
   accepts_nested_attributes_for :ordem_service_type_service, allow_destroy: true, :reject_if => :all_blank
 
@@ -441,6 +444,14 @@ class OrdemService < ActiveRecord::Base
       nfes << n.nfe
     end
     nfes
+  end
+
+  def get_number_nfse
+    nfs = []
+    self.nfs_keys.each do |n|
+      nfs << n.nfe
+    end
+    nfs
   end
 
   def get_type_service

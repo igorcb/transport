@@ -1,0 +1,13 @@
+<% if object.nfs_keys.present? %>
+
+  <ul class="list-group">
+    <% object.nfs_keys.each do |item| %>
+      <li class="list-group-item" > 
+        <strong>NFS-e:</strong> <%= item.nfs %> - 
+        <strong>Chave:</strong> <%= item.chave %> 
+      </li>
+    <% end %>
+  </ul>
+<% else %>  
+  <h2 class="panel-title"> is not exist nfe association </h2>
+<% end %>

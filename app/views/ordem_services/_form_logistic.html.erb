@@ -71,6 +71,14 @@
     <%= f.text_area :observacao, class: "form-control" %>
   </div>
 
+  <h3>Dados NFS-e</h3>
+  <div class="cte_items">
+    <%= f.fields_for :nfs_keys do |f| 
+        render 'nfs_key_fields', f: f
+    end -%> <br />
+    <%= link_to_add_association 'Add NFS-e', f, :nfs_keys, class: "btn btn-success btn-sm" %> <br />
+  </div>
+
   <h3>Dados CT-e</h3>
   <div class="cte_items">
     <%= f.fields_for :cte_keys do |f| 
