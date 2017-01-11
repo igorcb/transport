@@ -100,11 +100,13 @@ class OrdemService < ActiveRecord::Base
   end
 
   def set_peso_and_volume
+    puts ">>>>>>>>>>>>>>>>>>>>>>>>>   Pegando o peso e o volume   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     peso = self.nfe_keys.sum(:peso)
     volume = self.nfe_keys.sum(:volume)
     ActiveRecord::Base.transaction do
       puts "peso: #{peso} and volume: #{volume}"
       OrdemService.where(id: self.id).update_all(peso: peso, qtde_volume: volume)
+      OrdemServiceLogistic.where(ordem_service_id: self.id).update_all(peso: peso, qtde_volume: volume)
     end
   end
 
