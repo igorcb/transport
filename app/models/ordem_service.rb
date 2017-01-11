@@ -435,6 +435,22 @@ class OrdemService < ActiveRecord::Base
     ctes
   end
 
+  def get_number_nfe
+    nfes = []
+    self.nfe_keys.each do |n|
+      nfes << n.nfe
+    end
+    nfes
+  end
+
+  def get_type_service
+    services = []
+    self.ordem_service_type_service.each do |n|
+      services << n.type_service.descricao
+    end
+    services
+  end
+
   def cliente_nome
     self.client.nome
   end
@@ -443,13 +459,6 @@ class OrdemService < ActiveRecord::Base
     self.ordem_service_logistic.driver.nome
   end
 
-  def get_number_nfe
-    nfes = []
-    self.nfe_keys.each do |n|
-      nfes << n.nfe
-    end
-    nfes
-  end
 
   private
     def can_destroy?

@@ -10,13 +10,13 @@ class ReportsController < ApplicationController
     @billing = Billing.find(params[:id])
     @client = @billing.ordem_services.first.source_client
     # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
-    report = ODFReport::Report.new("#{Rails.root}/app/reports/fatura.odt") do |r|
+    report = ODFReport::Report.new("#{Rails.root}/app/reports/fatura_modelo.odt") do |r|
       valor = (@billing.valor.to_f * 100).to_i
       puts ">>>>>>>>>>>>>> Valor: #{valor}"
       r.add_field(:no_fatura, @billing.id)
       r.add_field(:vr_fatura, @billing.valor)
-      r.add_field(:no_duplicata, @billing.id)
-      r.add_field(:ano_duplicata, extract_year(@billing.data))
+      r.add_field(:no_duplicata, "#{@billing.id} / #{extract_year(@billing.data)}")
+      #r.add_field(:ano_duplicata, extract_year(@billing.data))
       r.add_field(:vencimento, date_br(@billing.data + @client.vencimento_para.days))
       r.add_field(:emitida_em, date_br(@billing.data))
       r.add_field(:vr_total, @billing.valor)
@@ -30,18 +30,16 @@ class ReportsController < ApplicationController
       r.add_field(:cnpj_sacado, @client.cpf_cnpj)
       r.add_field(:ie_sacado, @client.inscricao_estadual)
 
+      r.add_table("TABLE_01", @billing.ordem_services, :header=>true) do |t|
+        t.add_column(:FIELD_04) { |os| "#{os.id}" }
+        t.add_column(:FIELD_05) { |os| "#{date_br(@billing.data)}" }
+        t.add_column(:FIELD_06, :valor_ordem_service)
+        t.add_column(:FIELD_07) { |os| "#{os.get_number_cte}" }
+        t.add_column(:FIELD_08) { |os| "#{os.get_number_nfe}" }
+        t.add_column(:FIELD_09) { |os| "#{os.get_number_nfe}" }
+        t.add_column(:ADDRESS)  { |os| "#{os.get_type_service}" }
+      end
 
-
-
-      # r.add_table("OPERATORS", @billing.ordem_services) do |t|
-      #   # t.add_column(:motorista_id) {|os| "#{os.ordem_service_logistic.driver.nome}" }
-      #   # t.add_column(:client_id) { |os| "#{os.client.nome}" }
-      #   t.add_column(:placa_id) {|os| "#{os.ordem_service_logistic.placa}" }
-      #   t.add_column(:vr_servico, :valor_ordem_service)
-      #   t.add_column(:motorista_id, :motorista_nome)
-      #   t.add_column(:client_id, :cliente_nome)
-        
-      # end
     end
     name_report = "Fatura_#{@billing.id}"
     send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
