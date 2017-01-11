@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
     @billing = Billing.find(params[:id])
     @client = @billing.ordem_services.first.source_client
     # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
-    report = ODFReport::Report.new("#{Rails.root}/app/reports/fatura_modelo.odt") do |r|
+    report = ODFReport::Report.new("#{Rails.root}/app/reports/fatura.odt") do |r|
       valor = (@billing.valor.to_f * 100).to_i
       puts ">>>>>>>>>>>>>> Valor: #{valor}"
       r.add_field(:no_fatura, @billing.id)
@@ -35,7 +35,7 @@ class ReportsController < ApplicationController
         t.add_column(:FIELD_05) { |os| "#{date_br(@billing.data)}" }
         t.add_column(:FIELD_06, :valor_ordem_service)
         t.add_column(:FIELD_07) { |os| "#{os.get_number_cte}" }
-        t.add_column(:FIELD_08) { |os| "#{os.get_number_nfe}" }
+        t.add_column(:FIELD_08) { |os| "#{os.get_number_nfse}" }
         t.add_column(:FIELD_09) { |os| "#{os.get_number_nfe}" }
         t.add_column(:ADDRESS)  { |os| "#{os.get_type_service}" }
       end
