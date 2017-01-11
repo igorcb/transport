@@ -128,7 +128,13 @@ class AccountPayablesController < ApplicationController
   end
 
   def lower_all
-    AccountPayable.payament_all(params[:os][:ids], params[:valor_total])
+    if !params[:cash_account][:cash_account_id].present?
+      flash[:danger] = "Conta Corrente can't be blank."
+      redirect_to lower_payables_path
+      return 
+    end
+
+    AccountPayable.payament_all(params[:os][:ids], params[:valor_total], params[:cash_account][:cash_account_id])
     redirect_to lower_payables_path    
   end
 

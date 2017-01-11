@@ -76,7 +76,7 @@ class AccountPayable < ActiveRecord::Base
     #options ||= {}
     ActiveRecord::Base.transaction do
       vr_pago = options[:valor_pago].to_f + options[:juros].to_f - options[:desconto].to_f
-      options[:total_pago] = vr_pago
+      options.merge!(total_pago: vr_pago)
 
       vr_total_pago = valor_total_pago + options[:valor_pago].to_f
 
@@ -108,7 +108,7 @@ class AccountPayable < ActiveRecord::Base
     end
   end
 
-  def self.payament_all(ids, value)
+  def self.payament_all(ids, value, cash_account)
     data = Time.now.strftime('%Y-%m-%d')
     valor_total = 0
     hash_ids = []
@@ -120,7 +120,7 @@ class AccountPayable < ActiveRecord::Base
       valor = i[1].to_f
       ActiveRecord::Base.transaction do
         account = AccountPayable.find(id)
-        account.payament(data, account.valor, 0, 0)
+        account.payament({data_pagamento: data, valor_pago: account.valor.to_f, juros: 0.0, desconto: 0.0, cash_account_id: cash_account})
       end
     end
   end

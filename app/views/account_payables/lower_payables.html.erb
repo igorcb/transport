@@ -1,22 +1,27 @@
 <%= search_form_for @q, :remote=>"true", url: account_payables_search_path, :method => :get do |f| %>
 <fieldset>
   <legend>Baixa Contas a Pagar</legend>	
+  
   <div class="form-group">
     <%= f.label :documento_eq, "Documento" %>
     <%= f.search_field :documento_eq, class: "form-control" %>
   </div>
+  
   <div class="form-group">
     <%= f.label :data_vencimento_eq, "Data do Vencimento" %>
     <%= f.search_field :data_vencimento_eq, class: "form-control data" %>  
   </div>
+  
   <div class="form-group">
     <%= f.label :type_account_eq, "Tipo Fornecedor" %>
     <%= f.select :type_account_eq, type_account_supplier, {prompt: 'SELECIONE UM TIPO DE FORNECEDOR'}, {class: "form-control"} %>
   </div>
+  
   <div class="form-group">
     <%= f.label :supplier_typr_eq, "Fornecedor" %>
     <%= f.collection_select :supplier_id_eq, Supplier.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
   </div>
+  
   <div class="form-group">
     <%= f.label :status_eq, "Status" %>
     <%= f.select :status_eq, select_status_payables, {include_blank: true}, {class: "form-control"} %>
@@ -26,9 +31,12 @@
     <%= f.submit "Search" %>
   </div>
 
+
 </fieldset>
 
 <% end %>
+
+<hr>
 
 <div id="results">
   <%= render :partial => 'search' %>
