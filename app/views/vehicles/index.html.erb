@@ -12,6 +12,7 @@
             <th>Renavan</th>
             <th>Chassi</th>
             <th>Placa</th>
+            <th>Motorista</th>
             <th colspan="3">Opções</th>
           </tr>
         </thead>
@@ -25,9 +26,10 @@
               <td><%= vehicle.renavan %></td>
               <td><%= vehicle.chassi %></td>
               <td><%= vehicle.placa %></td>
-              <td><%= link_to 'Show', vehicle, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_vehicle_path(vehicle), class: "btn btn-primary btn-sm" %></td>
-              <td><%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+              <td><%= vehicle.drivers.first.nome  if vehicle.drivers.present? %></td>
+              <td><%= link_to 'Show', vehicle, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_vehicle_path(vehicle), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>
