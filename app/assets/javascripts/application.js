@@ -12,12 +12,17 @@
 //
 //= require jquery
 //  require jquery.turbolinks
+//= require jquery-ui
 //= require jquery_ujs
 //= require jquery.nested-fields
-//= require bootstrap
 
+//= require jquery-ui/widgets/sortable
+//= require jquery-ui/effects/effect-blind
+
+//= require bootstrap
 //= require bootstrap/load-image.min
 //= require bootstrap/image-gallery.min
 //= require cocoon
+
 //= require_tree .
 

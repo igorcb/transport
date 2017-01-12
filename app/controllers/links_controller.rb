@@ -1,13 +1,21 @@
 class LinksController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_link, only: [:show, :edit, :update, :destroy]
+  before_action :set_link, only: [:show, :edit, :update, :destroy, :update_row_order]
   load_and_authorize_resource
 
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all
+    @links = Link.order(:row_order)
   end
+
+  def update_row_order
+    @link = Link.find(link_params[:link_id])
+    @link.row_order_position = link_params[:row_order_position]
+    @link.save
+
+    render nothing: true # this is a POST action, updates sent via AJAX, no view rendered
+  end  
 
   # GET /links/1
   # GET /links/1.json
@@ -66,11 +74,21 @@ class LinksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_link
-      @link = Link.find(params[:id])
+      if params[:id].present?
+        puts "parametro ID esta presente"
+        link_id = params[:id]
+      else
+        puts "parametro ID nao exist"
+        link_id = params[:link][:link_id]
+      end
+      puts ">>>>>>>>>>>>>>>>> Link : #{link_id} <<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+      link_id = params[:id].present? ? params[:id] : params[:link][:link_id]
+      @link = Link.find(link_id)
+      
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:url, :descricao)
+      params.require(:link).permit(:link_id, :url, :descricao, :row_order_position)
     end
 end

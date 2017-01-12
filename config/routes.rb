@@ -169,7 +169,9 @@ Transport::Application.routes.draw do
 
   resources :specialties
 
-  resources :links
+  resources :links do
+    post :update_row_order, on: :collection    
+  end
 
   resources :owners
 
