@@ -79,8 +79,8 @@ class OrdemService < ActiveRecord::Base
                                       .order("drivers.nome, ordem_services.placa")                                       
                       }
   
-  before_save :set_values, :validates_type_service, :set_peso_and_volume
-  #after_save :generate_billing 
+  before_save :set_values, :validates_type_service
+  after_save :set_peso_and_volume #:generate_billing 
 
   before_destroy :can_destroy?
 
