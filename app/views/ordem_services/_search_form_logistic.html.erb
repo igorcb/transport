@@ -25,6 +25,10 @@
       <%= f.search_field :date_entry_eq, class: "form-control data", placeholder: "Informe a Data da entrada na Transportadora ex: 05-12-2014" %>  
     </div>
     <div class="form-group">
+      <%= f.label :date_shipping_eq, "Data da Expedição" %>
+      <%= f.search_field :date_shipping_eq, class: "form-control data", placeholder: "Informe a Data da Expedição ex: 05-12-2014" %>  
+    </div>
+    <div class="form-group">
       <%= f.label :nfe_keys_nfe_eq, "NF-e" %>
       <%= f.search_field :nfe_keys_nfe_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NF-e ex: 123456" %>  
     </div>
