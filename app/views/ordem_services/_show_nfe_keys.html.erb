@@ -9,7 +9,7 @@
         <strong>Chave:</strong> <%= item.chave %> 
         <br />
         <strong> Remessa Ype:</strong> <%= item.remessa_ype %> - 
-        <strong> Peso:</strong> <%= item.peso %> - 
+        <strong> Peso:</strong> <%= number_to_currency( item.peso, unit: "", separator: ",", delimiter: ".", precision: 3)  %> - 
         <strong> Volume:</strong> <%= item.volume %>
 
       </li>
