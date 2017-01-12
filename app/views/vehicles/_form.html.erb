@@ -17,9 +17,18 @@
     <%= f.label :cor %><br>
     <%= f.text_field :cor, class: "form-control" %>
   </div>
+
+  <div class="form-group">
+    <%= f.label :tipo %><br>
+    <%= f.select( :tipo, select_tipo, {include_blank: :true}, {class: "form-control"} ) %>      
+  </div>
   <div class="form-group">
     <%= f.label :tipo_veiculo %><br>
     <%= f.select( :tipo_veiculo, select_tipo_veiculo, {include_blank: :true}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :tipo_carroceria %><br>
+    <%= f.select( :tipo_carroceria, select_tipo_carroceria, {include_blank: :true}, {class: "form-control"} ) %>      
   </div>
 
   <div class="form-group">

@@ -1,5 +1,7 @@
 class Vehicle < ActiveRecord::Base
-  validates :tipo_veiculo, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..5 }
+  validates :tipo, presence: true, :numericality => { :only_integer => true }
+  validates :tipo_veiculo, presence: true, :numericality => { :only_integer => true }
+  validates :tipo_carroceria, presence: true, :numericality => { :only_integer => true }
   validates :marca, presence: true, length: { maximum: 20 } 
   validates :modelo, presence: true, length: { maximum: 20 } 
   validates :ano, presence: true, :numericality => { :only_integer => true }
@@ -34,17 +36,42 @@ class Vehicle < ActiveRecord::Base
   has_many :owners, :through => :ownerships
   accepts_nested_attributes_for :ownerships, allow_destroy: true, reject_if: :all_blank
 
+  module Tipo
+    REBOQUE = 0
+    TRACAO = 1
+  end
+
+  module TipoCarroceria
+    ABERTA = 0
+    FECHADA_BAU = 1
+    GRANELEIRA = 2
+    PORTA_CONTAINER = 3
+    SIDER = 4
+    NAO_APLICAVEL = 5
+  end
+
 	module TipoVeiculo
 		STANDARD = 0
 		LS = 1
 		BAU = 2
 		TRUK = 3
-		TROCO = 4
+		TOCO = 4
     CARRETA = 5
+    CAVALO_MECANICO = 6
+    UTILITARIO = 7
+    VAN = 8
+    NAOAPLICAVEL = 9
 	end
 
   def cubagem
     largura * altura * comprimento
+  end
+
+  def tipo_nome
+    case self.tipo
+      when 0 then "REBOQUE"
+      when 1 then "TRACAO"
+    end
   end
 
   def tipo_veiculo_nome
@@ -53,8 +80,24 @@ class Vehicle < ActiveRecord::Base
       when 1 then "LS"
       when 2 then "BAU"
       when 3 then "TRUK"
-      when 4 then "TROCO"
+      when 4 then "TOCO"
       when 5 then "CARRETA"
+      when 6 then "CAVALO MECÂNICO"
+      when 7 then "UTILITARIO"
+      when 8 then "VAN"
+      else "NAO APLICAVEL"
+    end
+  end
+
+  def tipo_carroceria_name
+    case self.tipo_carroceria
+      when 0 then "ABERTA"
+      when 1 then "FECHADA BAU"
+      when 2 then "GRANELEIRA"
+      when 3 then "PORTA_CONTAINER"
+      when 4 then "TOCO"
+      when 5 then "SIDER"
+      else "NAO APLICAVEL"
     end
   end
 
