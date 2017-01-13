@@ -32,7 +32,7 @@ class ReportsController < ApplicationController
 
       r.add_table("TABLE_01", @billing.ordem_services, :header=>true) do |t|
         t.add_column(:FIELD_04) { |os| "#{os.id}" }
-        t.add_column(:FIELD_05) { |os| "#{date_br(@billing.data)}" }
+        t.add_column(:FIELD_05) { |os| "#{date_br(os.data_entrega_servico)}" }
         t.add_column(:FIELD_06, :valor_ordem_service)
         t.add_column(:FIELD_07) { |os| "#{os.get_number_cte}" }
         t.add_column(:FIELD_08) { |os| "#{os.get_number_nfse}" }
