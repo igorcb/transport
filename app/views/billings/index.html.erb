@@ -6,9 +6,11 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Data</th>
+            <th>Data Emissao</th>
+            <th>Data Vencto</th>
             <th>Valor</th>
             <th>Status</th>
+            <th>Options</th>
           </tr>
         </thead>
 
@@ -17,8 +19,10 @@
             <tr>
               <td><%= link_to billing.id, billing %></td>
               <td><%= link_to date_br(billing.data), billing %></td>
+              <td><%= link_to date_br(billing.data_vencimento), billing if billing.data_vencimento.present? %></td>
               <td><%= link_to number_with_precision(billing.valor, precision: 2, separator: '.'), billing %></td>
               <td><%= link_to billing.status_name, billing %></td>
+              <td><%= link_to 'Edit', edit_billing_path(billing), class: "btn btn-primary btn-sm" %></td>
             </tr>
           <% end %>
         </tbody>

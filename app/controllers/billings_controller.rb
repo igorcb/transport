@@ -26,8 +26,8 @@ class BillingsController < ApplicationController
   #   respond_with(@billing)
   # end
 
-  # def edit
-  # end
+  def edit
+  end
 
   # def create
   #   @billing = Billing.new(billing_params)
@@ -35,10 +35,21 @@ class BillingsController < ApplicationController
   #   respond_with(@billing)
   # end
 
-  # def update
-  #   @billing.update(billing_params)
-  #   respond_with(@billing)
-  # end
+  def update
+    #@billing.update(billing_params)
+    #respond_with(@billing)
+
+    respond_to do |format|
+      if @billing.update(billing_params)
+        format.html { redirect_to @billing, flash: { success: "Billing was successfully updated." } }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @billing.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
 
   # def destroy
   #   @billing.destroy
@@ -50,8 +61,8 @@ class BillingsController < ApplicationController
       @billing = Billing.find(params[:id])
     end
 
-    # def billing_params
-    #   params.require(:billing).permit(:data, :valor, :status, :obs)
-    # end
+    def billing_params
+      params.require(:billing).permit(:data_vencimento, :status, :obs)
+    end
 end
 

@@ -264,9 +264,13 @@ class OrdemService < ActiveRecord::Base
 
     # Efetuar Faturamento
     data = Time.now.strftime('%Y-%m-%d')
+    os = OrdemService.find(hash_ids[0])
+    venc = os.billing_to_client
+
     ActiveRecord::Base.transaction do
-      billing = Billing.create(data: data, valor: valor_total, type_service_id: type_service, status: Billing::TipoStatus::ABERTO , obs: hash_ids.to_s)
+      billing = Billing.create!(data: data, valor: valor_total, data_vencimento: venc ,type_service_id: type_service, status: Billing::TipoStatus::ABERTO , obs: hash_ids.to_s)
       OrdemService.where(id: hash_ids).update_all(status: TipoStatus::FATURADO, billing_id: billing.id)
+      AccountReceivable.where(ordem_service_id: hash_ids).update_all(billing_id: billing.id)
     end
   end
   

@@ -12,6 +12,7 @@ class AccountReceivable < ActiveRecord::Base
   belongs_to :sub_cost_center
   belongs_to :historic
   belongs_to :ordem_service
+  belongs_to :billing
 
   has_many :lower_account_receivables
 
