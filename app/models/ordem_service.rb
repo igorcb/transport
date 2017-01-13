@@ -445,8 +445,8 @@ class OrdemService < ActiveRecord::Base
 
   def get_number_nfe
     nfes = []
-    self.nfs_keys.each do |n|
-      nfes << n.nfs
+    self.nfe_keys.each do |n|
+      nfes << n.nfe
     end
     nfes
   end
@@ -454,7 +454,7 @@ class OrdemService < ActiveRecord::Base
   def get_number_nfse
     nfs = []
     self.nfs_keys.each do |n|
-      nfs << n.nfe
+      nfs << n.nfs
     end
     nfs
   end
