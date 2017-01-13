@@ -17,7 +17,8 @@ class ReportsController < ApplicationController
       r.add_field(:vr_fatura, @billing.valor)
       r.add_field(:no_duplicata, "#{@billing.id} / #{extract_year(@billing.data)}")
       #r.add_field(:ano_duplicata, extract_year(@billing.data))
-      r.add_field(:vencimento, date_br(@billing.data + @client.vencimento_para.days))
+      #r.add_field(:vencimento, date_br(@billing.data + @client.vencimento_para.days))
+      r.add_field(:vencimento, date_br(@billing.data_vencimento))
       r.add_field(:emitida_em, date_br(@billing.data))
       r.add_field(:vr_total, @billing.valor)
       r.add_field(:valor_por_extenso, Extenso.moeda(valor)) #multiplicar por 100 para gerar as casas decimais
