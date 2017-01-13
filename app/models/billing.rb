@@ -10,12 +10,14 @@ class Billing < ActiveRecord::Base
   module TipoStatus
   	ABERTO = 0
   	PAGO = 1
+    CANCELADA = 2
   end	
 
   def status_name
     case self.status
       when 0 then "Aberto"
       when 1 then "Pago"
+      when 2 then "Cancelada"
     else "Nao Definido"
     end  	
   end
