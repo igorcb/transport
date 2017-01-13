@@ -432,7 +432,8 @@ class OrdemService < ActiveRecord::Base
   end
 
   def billing_to_client #para efeito de test no console
-    get_due_client(self.created_at, self.billing_client)
+    #get_due_client(self.created_at, self.billing_client)
+    get_due_client(Date.current.to_s, self.billing_client)
   end
 
   def get_number_cte
@@ -487,19 +488,25 @@ class OrdemService < ActiveRecord::Base
     def get_due_client(date_os, client)
       #vencimento ficou pegando da quantidade de dias para faturamento de 
       #acordo com o que está no cadastro
-      vencimento = 0
-      dia_os = date_os.day
-      n = 0
-      until n > 30 do
-        if dia_os <= n
-          vencimento = n+client.vencimento_para
-          break
-        end        
-        n += client.faturar_cada
-      end
-      data = Time.now + 15.days
-      data_vencimento = vencimento > 32 ? Date.new(data.year, data.month, client.vencimento_para) : Date.new(data.year, data.month, client.vencimento_para)
-      data_vencimento
+
+      #calculo par fatuar a cada x dias
+      # vencimento = 0
+      # dia_os = date_os.day
+      # n = 0
+      # until n > 30 do
+      #   if dia_os <= n
+      #     vencimento = n+client.vencimento_para
+      #     break
+      #   end        
+      #   n += client.faturar_cada
+      # end
+      # data = Time.now + 15.days
+      # data_vencimento = vencimento > 32 ? Date.new(data.year, data.month, client.vencimento_para) : Date.new(data.year, data.month, client.vencimento_para)
+      # data_vencimento      
+      #fim do calculo para faturar a cada x dias
+      #client.faturar_cada = vencimento para x dias a partir da criação da os
+      data_vencimento = date_os + client.faturar_cada.days
+
     end
 
     def has_address?
