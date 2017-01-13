@@ -433,7 +433,7 @@ class OrdemService < ActiveRecord::Base
 
   def billing_to_client #para efeito de test no console
     #get_due_client(self.created_at, self.billing_client)
-    get_due_client(Date.current.to_s, self.billing_client)
+    get_due_client(Date.current, self.billing_client)
   end
 
   def get_number_cte
@@ -506,7 +506,7 @@ class OrdemService < ActiveRecord::Base
       #fim do calculo para faturar a cada x dias
       #client.faturar_cada = vencimento para x dias a partir da criação da os
       data_vencimento = date_os + client.faturar_cada.days
-
+      data_vencimento.to_s
     end
 
     def has_address?
