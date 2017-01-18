@@ -1,0 +1,46 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">Dados do Embarque</div>
+  <div class="panel-body">
+		
+		<p>
+		  <strong>Data:</strong>
+		  <%= @boarding.date_boarding %>
+		</p>
+		<p>
+		  <strong>Agente:</strong>
+		  <%= @boarding.carrier.nome %>
+		</p>
+
+		<p>
+		  <strong>Motorista:</strong>
+		  <%= @boarding.driver.nome %>
+		</p>
+
+  </div>
+</div>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_boarding_path(@boarding), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', boardings_path, class: "btn btn-default" %>
+</div>
+
+
+<div class="panel panel-default">
+ 
+  <div class="panel-heading">
+    <h3 class="panel-title">Entregas</h3>
+  </div>
+
+  <div id="messages"></div>
+
+  <div class="panel-body">
+    <div id="boardings_items_form"><%= render "/boarding_items/form" %></div>
+    <div id="boardings_items_list"><%= render "/boarding_items/boarding_item", boarding_items: @boarding_items %></div>
+  </div>
+
+</div>
+
+
+
+
