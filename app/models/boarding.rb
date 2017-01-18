@@ -33,7 +33,7 @@ class Boarding < ActiveRecord::Base
       hash_ids.each do |os|
       	boarding.boarding_items.create!(ordem_service_id: os, delivery_number: 1)
       end
-      OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::EMBARQUE)
+      OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::EMBARCANDO)
     end
     boarding
   end  
