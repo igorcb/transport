@@ -7,11 +7,11 @@
   <div class="panel-heading">Items</div>
   <div class="panel-body">
     <div class="table-responsive">
-      <table class="table table-striped">
+      <table class="table table-striped" id="sortable_embarque">
         <thead>
           <tr>
-            <th>Entrega.</th>
-            <th>OS.</th>
+            <th>Entrega</th>
+            <th>O.S.</th>
             <th>Cliente</th>
             <th>Cidade</th>
             <th>UF</th>
@@ -25,11 +25,11 @@
         </thead>
 
         <tbody>
-        <% @boarding.boarding_items.each do |item| %>
-          <tr id="boarding_items_id_<%= item.id %>">
+        <% @boarding.boarding_items.order(:row_order).each do |item| %>
+          <tr id="boarding_items_id_<%= item.id %>" data-item-id=<%= "#{item.id}" %> class="item">
             <td><%= item.delivery_number %></td>
             <td><%= link_to item.ordem_service.id, item.ordem_service %></td>
-            <td><%= link_to truncate(item.ordem_service.client.nome, length: 25), item.ordem_service, title: item.ordem_service.client.nome %></td>
+            <td><%= link_to truncate(item.ordem_service.client.nome, length: 20), item.ordem_service, title: item.ordem_service.client.nome %></td>
             <td><%= link_to truncate(item.ordem_service.client.cidade, length: 10), item.ordem_service, title: item.ordem_service.client.cidade %></td>
             <td><%= item.ordem_service.client.estado %></td>
             <td><div><%= item.ordem_service.get_number_nfe %></div></td>

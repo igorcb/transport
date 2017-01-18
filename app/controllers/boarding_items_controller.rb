@@ -4,6 +4,14 @@ class BoardingItemsController < ApplicationController
 	def index
 		@boarding = Boarding.find(params[:boarding_id])
 	end
+  
+  def update_row_order
+    @boarding_item = BoardingItem.find(boarding_item_params[:boarding_item_id])
+    @boarding_item.row_order_position = boarding_item_params[:row_order_position]
+    @boarding_item.save
+
+    render nothing: true # this is a POST action, updates sent via AJAX, no view rendered
+  end  
 
 	def create
 		
@@ -63,7 +71,7 @@ class BoardingItemsController < ApplicationController
   private
 
     def boarding_item_params
-      params.require(:boarding_item).permit(:ordem_service_id, :delivery_number)
+      params.require(:boarding_item).permit(:ordem_service_id, :delivery_number, :row_order_position, :boarding_item_id)
     end
 
 

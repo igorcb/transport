@@ -1,7 +1,13 @@
 Transport::Application.routes.draw do
 
   resources :boardings do
-    resources :boarding_items
+    resources :boarding_items do
+      post :update_row_order, on: :collection    
+    end
+  end
+
+  resources :boarding_items do
+    post :update_row_order, on: :collection    
   end
 
   match 'selection_shipment' => "boardings#selection_shipment",  via: [:get]

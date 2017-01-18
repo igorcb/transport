@@ -2,10 +2,11 @@
   <div class="panel-heading">Items</div>
   <div class="panel-body">
     <div class="table-responsive">
-      <table class="table table-striped">
+      <table class="table table-striped" id="sortable_embarque">
         <thead>
           <tr>
-            <th>OS.</th>
+            <th>Entrega</th>
+            <th>O.S.</th>
             <th>Cliente</th>
             <th>Cidade</th>
             <th>UF</th>
@@ -20,7 +21,8 @@
 
         <tbody>
         <% @boarding.boarding_items.each do |item| %>
-          <tr>
+          <tr data-item-id=<%= "#{item.id}" %> class="item">
+            <td><%= link_to item.delivery_number, item.ordem_service %></td>
             <td><%= link_to item.ordem_service.id, item.ordem_service %></td>
             <td><%= link_to truncate(item.ordem_service.client.nome, length: 25), item.ordem_service, title: item.ordem_service.client.nome %></td>
             <td><%= link_to truncate(item.ordem_service.client.cidade, length: 10), item.ordem_service, title: item.ordem_service.client.cidade %></td>

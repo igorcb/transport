@@ -61,7 +61,7 @@ class BoardingsController < ApplicationController
 
 		def set_boarding
 			@boarding = Boarding.find(params[:id])	
-      @boarding_items = @boarding.boarding_items
+      @boarding_items = @boarding.boarding_items.order(:row_order)
       @boarding_item = BoardingItem.new
 		end
 
