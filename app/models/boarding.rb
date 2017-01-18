@@ -26,10 +26,10 @@ class Boarding < ActiveRecord::Base
 
     driver = Driver.find(105) #Motorista Padrao - Motorista Não Identificado
     carrier = Carrier.find(3) #Agent Padrao - Agent Não Identificado
-    
+    puts ">>>>>>>>>> driver: #{driver}, carrier: #{carrier}"
     boarding = nil
     ActiveRecord::Base.transaction do
-      boarding = Boarding.create!(driver_id: driver, carrier_id: carrier, status: TipoStatus::ABERTO)
+      boarding = Boarding.create!(driver_id: driver.id, carrier_id: carrier.id, status: TipoStatus::ABERTO)
       hash_ids.each do |os|
       	boarding.boarding_items.create!(ordem_service_id: os, delivery_number: 1)
       end
