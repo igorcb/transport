@@ -1,0 +1,47 @@
+<style type="text/css">
+  td div { width:76px; overflow: hidden; }
+  th div {text-align:right}
+</style>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Items</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Entrega.</th>
+            <th>OS.</th>
+            <th>Cliente</th>
+            <th>Cidade</th>
+            <th>UF</th>
+            <th width:"10px">NF-e</th>
+            <th>CT-e</th>
+            <th> <div>Valor Serv.</div></th>
+            <th> <div>Peso</div></th>
+            <th> <div>Vol</div></th>
+            <th colspan="1">  Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% @boarding.boarding_items.each do |item| %>
+          <tr id="boarding_items_id_<%= item.id %>">
+            <td><%= item.delivery_number %></td>
+            <td><%= link_to item.ordem_service.id, item.ordem_service %></td>
+            <td><%= link_to truncate(item.ordem_service.client.nome, length: 25), item.ordem_service, title: item.ordem_service.client.nome %></td>
+            <td><%= link_to truncate(item.ordem_service.client.cidade, length: 10), item.ordem_service, title: item.ordem_service.client.cidade %></td>
+            <td><%= item.ordem_service.client.estado %></td>
+            <td><div><%= item.ordem_service.get_number_nfe %></div></td>
+            <td><div><%= item.ordem_service.get_number_cte %></div></td>
+            <td align="right"><%= number_to_currency(item.ordem_service.valor_ordem_service, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+            <td align="right"><%= number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %></td>
+            <td align="right"><%= number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %></td>
+            <td><%= link_to 'Destroy', [@boarding, item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", :remote => true %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

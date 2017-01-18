@@ -1,0 +1,2 @@
+module BoardingItemsHelper
+end
