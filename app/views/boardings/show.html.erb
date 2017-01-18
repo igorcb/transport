@@ -17,6 +17,11 @@
 		  <%= @boarding.driver.nome %>
 		</p>
 
+		<p>
+		  <strong>Valor:</strong>
+		  <%= number_to_currency(@boarding.value_boarding, unit: "R$ ", separator: ",", delimiter: ".") %> 
+		</p>
+
   </div>
 </div>
 
