@@ -15,6 +15,9 @@ class BoardingsController < ApplicationController
     end
 	end
 
+  def index
+    @boardings = Boarding.all
+  end
 
 	def show
 
@@ -66,7 +69,7 @@ class BoardingsController < ApplicationController
 		end
 
     def boarding_params
-      params.require(:boarding).permit(:date_boarding, :driver_id, :carrier_id,
+      params.require(:boarding).permit(:date_boarding, :driver_id, :carrier_id, :value_boarding,
         board_items_attributes: [:delivery_number, :ordem_service_id, :id, :_destroy]
 
       	)

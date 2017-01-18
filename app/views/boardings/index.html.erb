@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Embarques</div>
+  <div class="panel-body">
+    <%#= link_to 'Novo Embarque', new_boarding_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Embarque</th>
+            <th>Dt. Emb.</th>
+            <th>Agente</th>
+            <th>Motorista</th>
+            <th>Valor</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @boardings.each do |boarding| %>
+            <tr>
+              <td><%= boarding.id %></td>
+              <td><%= boarding.date_boarding %></td>
+              <td><%= boarding.carrier.nome %></td>
+              <td><%= boarding.driver.nome %></td>
+              <td><%= number_to_currency(boarding.value_boarding, unit: "R$ ", separator: ",", delimiter: ".") %> </td>
+              <td><%= link_to 'Show', boarding, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_boarding_path(boarding), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', boarding, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
