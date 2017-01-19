@@ -9,12 +9,12 @@
 		</p>
 		<p>
 		  <strong>Agente:</strong>
-		  <%= @boarding.carrier.nome %>
+		  <%= link_to @boarding.carrier.nome, @boarding.carrier %>
 		</p>
 
 		<p>
 		  <strong>Motorista:</strong>
-		  <%= @boarding.driver.nome %>
+		  <%= link_to @boarding.driver.nome, @boarding.driver %>
 		</p>
 
 		<p>
