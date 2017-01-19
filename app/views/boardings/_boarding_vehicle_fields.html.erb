@@ -1,0 +1,12 @@
+
+<div class='nested-fields'>
+  
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.select( :vehicle_id, Vehicle.order(:placa).collect {|p| [ p.placa, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>
+    </div>
+
+    <%= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+
+  </div>
+</div>

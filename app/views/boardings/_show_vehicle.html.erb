@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Dados dos Veiculos</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Tipo Veículo</th>
+            <th>Placa</th>
+            <th>Antt.</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% object.boarding_vehicles.each do |item| %>
+            <tr>
+              <td><%= item.vehicle.tipo_nome  %></td>
+              <td><%= item.vehicle.placa %></td>
+              <td><%= item.vehicle.antt %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>	

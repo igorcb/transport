@@ -15,9 +15,19 @@
     <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
-    <%= f.label :value_boarding %><br>
+    <%= f.label :value_boarding, "Valor Embarque" %><br>
     <%= f.text_field :value_boarding, class: "form-control money2", value: to_real(f.object.value_boarding) %>
   </div>
+
+  <h3>Dados Veiculos</h3>
+  <div class="cte_items">
+    <%= f.fields_for :boarding_vehicles do |f| 
+        render 'boarding_vehicle_fields', f: f
+    end -%> <br />
+    <%= link_to_add_association 'Add Veiculo', f, :boarding_vehicles, class: "btn btn-success btn-sm" %> <br />
+  </div>
+
+  <hr />
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>

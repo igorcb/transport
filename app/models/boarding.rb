@@ -9,6 +9,12 @@ class Boarding < ActiveRecord::Base
   has_one :ordem_services
   has_many :boarding_items
   #accepts_nested_attributes_for :boarding_items, allow_destroy: true, :reject_if => :all_blank
+  has_many :boarding_vehicles
+  accepts_nested_attributes_for :boarding_vehicles, allow_destroy: true, :reject_if => :all_blank
+
+  has_many :cte_keys, class_name: "CteKey", foreign_key: "cte_id", :as => :cte, dependent: :destroy
+  accepts_nested_attributes_for :cte_keys, allow_destroy: true, :reject_if => :all_blank
+
 
   before_destroy :erase_boarding_items
 

@@ -31,7 +31,6 @@
   <%= link_to 'Imprimir Embarque', print_boarding_path, class: "btn btn-primary" %>
 </div>
 
-
 <div class="panel panel-default">
  
   <div class="panel-heading">
@@ -47,6 +46,6 @@
 
 </div>
 
-
+<%= render 'show_vehicle', object: @boarding  %>
 
 
