@@ -6,6 +6,47 @@ class ReportsController < ApplicationController
 	def index
 	end
 
+  def print_boarding
+    @boarding = Boarding.find(params[:id])
+    # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
+    report = ODFReport::Report.new("#{Rails.root}/app/reports/embarque.odt") do |r|
+      r.add_field(:NO_EMB, "L7/CE #{@boarding.id.to_s.rjust(3, "0")}")
+      r.add_field(:MOTORISTA, @boarding.driver.nome)
+      r.add_field(:MOTORISTA_CPF, @boarding.driver.cpf)
+      r.add_field(:MOTORISTA_RG, @boarding.driver.rg)
+      r.add_field(:MOTORISTA_CNH, @boarding.driver.cnh)
+      r.add_field(:CNH_REG, @boarding.driver.registro_cnh)
+      r.add_field(:CNH_VAL, date_br(@boarding.driver.validade_cnh))
+
+      #rodapé
+      r.add_field(:DATA_EXPEDICAO, date_br(@boarding.date_boarding))      
+      r.add_field(:PESO_BRUTO, "#{number_to_currency(@boarding.peso_bruto, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+      r.add_field(:VOLUME_TOTAL, "#{number_to_currency(@boarding.volume_total, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+      r.add_field(:CANHOTO_CTE, @boarding.qtde_cte)
+      r.add_field(:CANHOTO_NFE, @boarding.qtde_nfe)
+      r.add_field(:QTDE_PALETES, @boarding.qtde_palets)
+      r.add_field(:QTDE_ENTREGAS, @boarding.qtde_entregas)
+
+      r.add_table("TABLE_02", @boarding.boarding_items, :header=>true) do |t|
+
+        t.add_column(:FIELD_01) { |item| "#{item.delivery_number}" }
+        t.add_column(:FIELD_02) { |item| "#{item.ordem_service.id}" }
+        t.add_column(:FIELD_03) { |item| "#{item.ordem_service.client.nome}" }
+        t.add_column(:FIELD_04) { |item| "#{item.ordem_service.client.cidade}" }
+        t.add_column(:FIELD_05) { |item| "#{item.ordem_service.client.estado}" }
+        t.add_column(:FIELD_06) { |item| "#{item.ordem_service.get_number_nfe}" }
+        t.add_column(:FIELD_07) { |item| "#{number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".")}" }
+        t.add_column(:FIELD_08) { |item| "#{number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".")}" }
+        
+      end
+
+    end
+    name_report = "Embarque_#{@boarding.id}"
+    send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
+                                disposition: 'attachment',
+                                filename: "#{name_report}.odt"
+  end
+
   def print_billing
     @billing = Billing.find(params[:id])
     @client = @billing.ordem_services.first.source_client

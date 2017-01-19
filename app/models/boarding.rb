@@ -45,4 +45,43 @@ class Boarding < ActiveRecord::Base
     end
     boarding
   end  
+
+  def peso_bruto
+    boarding_items.joins(:ordem_service).sum("ordem_services.peso")
+  end
+
+  def volume_total
+    boarding_items.joins(:ordem_service).sum("ordem_services.qtde_volume")
+  end
+
+  def qtde_palets
+    soma = 0
+    self.boarding_items.each do |item|
+      soma += item.ordem_service.qtde_palets
+    end
+    soma
+  end
+
+  def qtde_cte
+    soma = 0
+    self.boarding_items.each do |item|
+      soma += item.ordem_service.qtde_cte
+    end
+    soma
+  end
+
+  def qtde_nfe
+    soma = 0
+    self.boarding_items.each do |item|
+      soma += item.ordem_service.qtde_nfe
+    end
+    soma
+  end
+
+  def qtde_entregas
+    number = self.boarding_items.group('delivery_number').having('delivery_number > 0').count
+    number.count
+  end
+
 end
+

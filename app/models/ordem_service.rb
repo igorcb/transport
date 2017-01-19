@@ -244,6 +244,18 @@ class OrdemService < ActiveRecord::Base
     self.ordem_service_type_service.sum(:qtde)
   end
 
+  def qtde_palets
+    self.ordem_service_logistic.qtde_palets
+  end
+
+  def qtde_cte
+    self.cte_keys.count
+  end
+
+  def qtde_nfe
+    self.nfe_keys.count
+  end
+
   def danfes
     nfes = []
     self.nfe_keys.each do |n|
