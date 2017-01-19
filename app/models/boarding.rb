@@ -7,15 +7,24 @@ class Boarding < ActiveRecord::Base
   belongs_to :driver
 
   has_one :ordem_services
-  has_many :boarding_items, dependent: :destroy
-  #has_many :boarding_items, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
-  accepts_nested_attributes_for :boarding_items, allow_destroy: true, :reject_if => :all_blank
+  has_many :boarding_items
+  #accepts_nested_attributes_for :boarding_items, allow_destroy: true, :reject_if => :all_blank
 
+  before_destroy :erase_boarding_items
 
   module TipoStatus
   	ABERTO = 0
   	FECHADO = 1
   	CANCELADO = 2
+  end
+
+  def erase_boarding_items
+    ActiveRecord::Base.transaction do
+      OrdemService.where(id: [self.boarding_items.ids]).update_all(status: OrdemService::TipoStatus::ABERTO)
+      self.boarding_items.each do |item|
+        item.destroy
+      end
+    end
   end
 
   def self.generate_shipping(ids)
@@ -26,7 +35,6 @@ class Boarding < ActiveRecord::Base
 
     driver = Driver.find(105) #Motorista Padrao - Motorista Não Identificado
     carrier = Carrier.find(3) #Agent Padrao - Agent Não Identificado
-    puts ">>>>>>>>>> driver: #{driver}, carrier: #{carrier}"
     boarding = nil
     ActiveRecord::Base.transaction do
       boarding = Boarding.create!(driver_id: driver.id, carrier_id: carrier.id, status: TipoStatus::ABERTO)

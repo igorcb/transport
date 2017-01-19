@@ -55,16 +55,19 @@ class BoardingsController < ApplicationController
     end
 	end
 
-
-	def delete
-		
-	end
+	def destroy
+    @boarding.destroy
+    respond_to do |format|
+      format.html { redirect_to boardings_url }
+      format.json { head :no_content }
+    end
+  end
 
 	private
 
 		def set_boarding
 			@boarding = Boarding.find(params[:id])	
-      @boarding_items = @boarding.boarding_items.order(:row_order)
+      @boarding_items = @boarding.boarding_items.order(:row_order) if @boarding.boarding_items.present?
       @boarding_item = BoardingItem.new
 		end
 
