@@ -1,6 +1,6 @@
 <p>
   <strong><%= @account_payable.type_account_name %> :</strong>
-  <%= @account_payable.supplier.nome %>
+  <%= link_to @account_payable.supplier.nome, @account_payable.supplier %>
 </p>
 
 <p>
