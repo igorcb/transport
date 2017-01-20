@@ -25,7 +25,7 @@
         </thead>
 
         <tbody>
-        <% @boarding.boarding_items.order(:row_order).each do |item| %>
+        <% @boarding.boarding_items.order(:delivery_number).each do |item| %>
           <tr id="boarding_items_id_<%= item.id %>" data-item-id=<%= "#{item.id}" %> class="item">
             <td align="center"><%= item.delivery_number %></td>
             <td><%= link_to item.ordem_service.id, item.ordem_service %></td>
@@ -38,8 +38,6 @@
             <td align="right"><%= number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %></td>
             <td align="right"><%= number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %></td>
             <td><%= link_to 'Destroy', [@boarding, item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", :remote => true %></td>
-          </tr>
-
         <% end %>
           <tr>
             <td colspan="07">Total:</td>
