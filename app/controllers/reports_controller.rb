@@ -27,6 +27,13 @@ class ReportsController < ApplicationController
       r.add_field(:QTDE_PALETES, @boarding.qtde_palets)
       r.add_field(:QTDE_ENTREGAS, @boarding.qtde_entregas)
 
+      r.add_table("TABELA_VEICULOS", @boarding.boarding_vehicles, :header=>true) do |t|
+
+        t.add_column(:FIELD_03) { |item| "#{item.vehicle.tipo_nome}" }
+        t.add_column(:FIELD_04) { |item| "#{item.vehicle.placa}" }
+        t.add_column(:ADDRESS)  { |item| "#{item.vehicle.antt}" }
+        
+      end
       r.add_table("TABLE_02", @boarding.boarding_items, :header=>true) do |t|
 
         t.add_column(:FIELD_01) { |item| "#{item.delivery_number}" }
