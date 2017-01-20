@@ -10,13 +10,13 @@
       <table class="table table-striped" id="sortable_embarque">
         <thead>
           <tr>
-            <th>Entrega</th>
+            <th width:"3px">No. Ent.</th>
             <th>O.S.</th>
             <th>Cliente</th>
             <th>Cidade</th>
             <th>UF</th>
             <th width:"10px">NF-e</th>
-            <th>CT-e</th>
+            <th width:"10px">CT-e</th>
             <th> <div>Valor Serv.</div></th>
             <th> <div>Peso</div></th>
             <th> <div>Vol</div></th>
@@ -27,7 +27,7 @@
         <tbody>
         <% @boarding.boarding_items.order(:row_order).each do |item| %>
           <tr id="boarding_items_id_<%= item.id %>" data-item-id=<%= "#{item.id}" %> class="item">
-            <td><%= item.delivery_number %></td>
+            <td align="center"><%= item.delivery_number %></td>
             <td><%= link_to item.ordem_service.id, item.ordem_service %></td>
             <td><%= link_to truncate(item.ordem_service.client.nome, length: 20), item.ordem_service, title: item.ordem_service.client.nome %></td>
             <td><%= link_to truncate(item.ordem_service.client.cidade, length: 10), item.ordem_service, title: item.ordem_service.client.cidade %></td>
@@ -39,7 +39,15 @@
             <td align="right"><%= number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %></td>
             <td><%= link_to 'Destroy', [@boarding, item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", :remote => true %></td>
           </tr>
+
         <% end %>
+          <tr>
+            <td colspan="07">Total:</td>
+            <th align="right"><%= number_to_currency(@boarding.valor_total, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %></th>
+            <th align="right"><%= number_to_currency(@boarding.peso_bruto, precision: 3, unit: "", separator: ",", delimiter: ".") %></th>
+            <th align="right"><%= number_to_currency(@boarding.volume_total, precision: 3, unit: "", separator: ",", delimiter: ".") %></th>
+            <th ></th>
+          </tr>
         </tbody>
       </table>
     </div>    
