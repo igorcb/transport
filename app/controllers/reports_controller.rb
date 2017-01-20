@@ -31,11 +31,12 @@ class ReportsController < ApplicationController
 
         t.add_column(:FIELD_01) { |item| "#{item.delivery_number}" }
         t.add_column(:FIELD_02) { |item| "#{item.ordem_service.id}" }
+        t.add_column(:ADDRESS)  { |item| "#{date_br(item.ordem_service.data)}" }
         t.add_column(:FIELD_03) { |item| "#{item.ordem_service.client.nome}" }
         t.add_column(:FIELD_04) { |item| "#{item.ordem_service.client.cidade}" }
         t.add_column(:FIELD_05) { |item| "#{item.ordem_service.client.estado}" }
         t.add_column(:FIELD_06) { |item| "#{item.ordem_service.get_number_nfe}" }
-        t.add_column(:FIELD_07) { |item| "#{number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".")}" }
+        t.add_column(:FIELD_07) { |item| "#{number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}" }
         t.add_column(:FIELD_08) { |item| "#{number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".")}" }
         
       end
