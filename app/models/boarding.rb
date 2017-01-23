@@ -24,6 +24,15 @@ class Boarding < ActiveRecord::Base
   	CANCELADO = 2
   end
 
+  def status_name
+    case status
+      when 0 then "Aberto"
+      when 1 then "Fechado"
+      when 2 then "Cancelado"
+      else "Não Informado"
+    end
+  end
+
   def erase_boarding_items
     ActiveRecord::Base.transaction do
       OrdemService.where(id: [self.boarding_items.ids]).update_all(status: OrdemService::TipoStatus::ABERTO)
