@@ -14,9 +14,9 @@
         <tbody>
           <% object.boarding_vehicles.each do |item| %>
             <tr>
-              <td><%= item.vehicle.tipo_nome  %></td>
-              <td><%= item.vehicle.placa %></td>
-              <td><%= item.vehicle.antt %></td>
+              <td><%= link_to item.vehicle.tipo_nome, item.vehicle if item.vehicle.tipo.present? %></td>
+              <td><%= link_to item.vehicle.placa, item.vehicle %></td>
+              <td><%= link_to item.vehicle.antt, item.vehicle if item.vehicle.antt.present?%></td>
             </tr>
           <% end %>
         </tbody>
