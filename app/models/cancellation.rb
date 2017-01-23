@@ -8,13 +8,15 @@ class Cancellation < ActiveRecord::Base
 	
   module TipoStatus
   	PEDENDENTE = 0
-  	CANCELADO = 1
-  end
+  	CONFIRMADO = 1
+    REJEITADO = 1
+    end
 
   def status_name
 	  case self.status
 		  when 0 then "Pedendente"
-	  	when 1 then "Cancelado"
+	  	when 1 then "Confirmado"
+      when 2 then "Rejeitado"
 		end
   end
 
@@ -37,10 +39,22 @@ class Cancellation < ActiveRecord::Base
   def self.confirm(user, id) #id = cancellation_id
   	ActiveRecord::Base.transaction do
   		cancel = Cancellation.find(id)
+      #fazer um case para quando tiver outro tipo de cancelamento
   		ordem_service = cancel.ordem_service
   		OrdemService.update(ordem_service, status: OrdemService::TipoStatus::CANCELADA)
-  		Cancellation.update(id, authorization_user_id: user, status: TipoStatus::CANCELADO)
-      cancel.send_notification_cancellation
+      Cancellation.update(id, authorization_user_id: user, status: TipoStatus::REJEITADO)
+      #cancel.send_notification_cancellation
   	end
+  end
+
+  def self.rejected(user, id) #id = cancellation_id
+    ActiveRecord::Base.transaction do
+      cancel = Cancellation.find(id)
+      #fazer um case para quando tiver outro tipo de cancelamento
+      ordem_service = cancel.ordem_service
+      OrdemService.update(ordem_service, status: OrdemService::TipoStatus::CANCELADA)
+      Cancellation.update(id, authorization_user_id: user, status: TipoStatus::REJEITADO)
+      #cancel.send_notification_cancellation
+    end
   end
 end

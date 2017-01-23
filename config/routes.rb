@@ -25,7 +25,7 @@ Transport::Application.routes.draw do
   
   resources :inventories
 
-  resources :cancellations, only: [:index, :show, :edit, :update]  do
+  resources :cancellations, only: [:index, :show, :edit, :update, :create]  do
     member do
       get 'confirmation'
     end
