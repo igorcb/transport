@@ -95,8 +95,7 @@ class Vehicle < ActiveRecord::Base
       when 1 then "FECHADA BAU"
       when 2 then "GRANELEIRA"
       when 3 then "PORTA_CONTAINER"
-      when 4 then "TOCO"
-      when 5 then "SIDER"
+      when 4 then "SIDER"
       else "NAO APLICAVEL"
     end
   end
