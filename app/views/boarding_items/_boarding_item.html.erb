@@ -21,6 +21,7 @@
             <th> <div>Valor Serv.</div></th>
             <th> <div>Peso</div></th>
             <th> <div>Vol</div></th>
+            <th> <div>Status</div></th>
             <th colspan="1">  Opções</th>
           </tr>
         </thead>
@@ -39,7 +40,8 @@
             <td align="right"><%= number_to_currency(item.ordem_service.valor_ordem_service, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %></td>
             <td align="right"><%= number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %></td>
             <td align="right"><%= number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %></td>
-            <td><%= link_to 'Destroy', [@boarding, item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", :remote => true %></td>
+            <td><%= item.ordem_service.status_name %></td>
+            <td><%= link_to 'Destroy', [@boarding, item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs", :remote => true %></td>
         <% end %>
           <tr>
             <td colspan="08">Total:</td>
