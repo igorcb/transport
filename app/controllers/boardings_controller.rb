@@ -16,7 +16,7 @@ class BoardingsController < ApplicationController
 	end
 
   def index
-    @boardings = Boarding.all
+    @boardings = Boarding.order(id: :desc)
   end
 
 	def show
