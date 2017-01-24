@@ -7,9 +7,10 @@ Transport::Application.routes.draw do
   end
 
   resources :boarding_items do
-    post :update_row_order, on: :collection    
+    post :update_row_order, on: :collection  
+    match :update_status, :as => :update_status, :via => [:get, :put]  
   end
-
+  #match "update_status" => "boarding_items#update_status", :as => :update_status, :via => [:get, :put]  
   match 'selection_shipment' => "boardings#selection_shipment",  via: [:get]
   match 'generate_shipping' => "boardings#generate_shipping",  via: [:post]
   match 'search_ordem_service' => "boardings#search_ordem_service",  via: [:get]

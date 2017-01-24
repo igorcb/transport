@@ -72,7 +72,7 @@ class OrdemService < ActiveRecord::Base
   has_many :inventories
 
   #scope :is_not_billed, -> { joins(:ordem_service_type_services).where(status: [0,1]).order('ordem_services.data desc') }
-  scope :status_open, -> { where(status: [TipoStatus::ABERTO, TipoStatus::EMBARQUE]).order("id desc") }
+  scope :status_open, -> { where(status: [TipoStatus::ABERTO, TipoStatus::AGUARDANDO_EMBARQUE]).order("id desc") }
   scope :is_not_billed, -> { joins(:driver, :ordem_service_type_service, :type_service).where(status: [0,1]) }
   scope :group_by, -> { is_not_billed.select("ordem_services.placa as placa, drivers.nome as motorista,
                                               type_services.descricao as tipo_servico,
@@ -96,7 +96,7 @@ class OrdemService < ActiveRecord::Base
     PAGA = 5
     SOLICITACAO_CANCELAMENTO = 6
     CANCELADA = 7
-    EMBARCANDO = 8
+    AGUARDANDO_EMBARQUE = 8
     EMBARCADO = 9
     PAGO_SEMFATURA = 99
   end
@@ -148,7 +148,8 @@ class OrdemService < ActiveRecord::Base
       when 5  then "Pago"
       when 6  then "Canc. Solicitado"
       when 7  then "Cancelada"
-      when 8  then "Embarque"
+      when 8  then "Ag. Emb."
+      when 9  then "Embarcado"
       when 99 then "Pago***"
     else "Nao Definido"
     end

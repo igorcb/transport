@@ -56,10 +56,27 @@ class Boarding < ActiveRecord::Base
       hash_ids.each do |os|
       	boarding.boarding_items.create!(ordem_service_id: os, delivery_number: 1)
       end
-      OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::EMBARCANDO)
+      OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
     end
     boarding
   end  
+
+  def check_status_ordem_service?
+    positivo = true
+    self.boarding_items.order(:delivery_number).each do |item|
+      puts "Status: #{item.ordem_service.status} - #{item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO}"
+      positivo = item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO 
+      return false if positivo == false
+    end
+    positivo
+  end  
+
+  def close(ordem_service_id)
+    ActiveRecord::Base.transaction do
+      OrdemService.where(id: ordem_service_id).update_all(status: OrdemService::TipoStatus::EMBARCADO)
+      Boarding.where(id: self.id).update_all(status: Boarding::TipoStatus::FECHADO) if self.check_status_ordem_service?
+    end
+  end
 
   def peso_bruto
     boarding_items.joins(:ordem_service).sum("ordem_services.peso")

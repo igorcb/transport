@@ -40,8 +40,12 @@
             <td align="right"><%= number_to_currency(item.ordem_service.valor_ordem_service, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %></td>
             <td align="right"><%= number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %></td>
             <td align="right"><%= number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %></td>
-            <td><%= item.ordem_service.get_number_cte %></td>
-            <td><%= link_to 'Destroy', [@boarding, item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", :remote => true %></td>
+            <% if item.ordem_service.status == OrdemService::TipoStatus::AGUARDANDO_EMBARQUE %>
+              <td><%= link_to item.ordem_service.status_name, boarding_item_update_status_path(item.id), class: "btn btn-primary btn-xs" %></td>
+            <% else %>
+              <td><%= item.ordem_service.status_name %></td>
+            <% end %>
+            <td><%= link_to 'Destroy', [@boarding, item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs", :remote => true %></td>
         <% end %>
           <tr>
             <td colspan="08">Total:</td>
