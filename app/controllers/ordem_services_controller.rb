@@ -237,9 +237,9 @@ class OrdemServicesController < ApplicationController
 
   def search
     if current_user.has_role? :admin
-      @q = OrdemService.search(params[:q])
+      @q = OrdemService.paginate(:page => params[:page]).search(params[:q])
     else
-      @q = OrdemService.where(carrier_id: current_user.carrier_id).search(params[:q])
+      @q = OrdemService.where(carrier_id: current_user.carrier_id).paginate(:page => params[:page]).search(params[:q])
     end
     respond_with(@ordem_services) do |format|
       format.html { render :layout => !request.xhr? }
@@ -256,7 +256,7 @@ class OrdemServicesController < ApplicationController
   end
 
   def search_logistic
-    @q = OrdemService.joins(:ordem_service_logistics).search(params[:query])
+    @q = OrdemService.joins(:ordem_service_logistics).paginate(:page => params[:page]).search(params[:query])
     @ordem_services = @q.result
     respond_with(@ordem_services) do |format|
       format.js
