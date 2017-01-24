@@ -9,10 +9,10 @@ class OrdemServicesController < ApplicationController
     tipo = 1
     if current_user.has_role? :admin
       @q = OrdemService.joins(:ordem_service_logistics).order('id desc').search(params[:q])
-      @ordem_services = @q.result
+      @ordem_services = @q.result.paginate(:page => params[:page])
     else
       @q = OrdemService.where(carrier_id: current_user.carrier_id).order('id desc').search(params[:q])
-      @ordem_services = @q.result
+      @ordem_services = @q.result.paginate(:page => params[:page])
     end
   end
 
@@ -226,9 +226,9 @@ class OrdemServicesController < ApplicationController
   def type_ordem_service
     @tipo_os = params[:type].to_i
     case @tipo_os
-    when 1 then  @ordem_services = OrdemService.joins(:client, :ordem_service_logistics).where(tipo: @tipo_os).order(id: :desc)
-    when 3 then  @ordem_services = OrdemService.joins(:client, :ordem_service_changes).where(tipo: @tipo_os).order(id: :desc)
-    when 4 then  @ordem_services = OrdemService.joins(:client, :ordem_service_airs).where(tipo: @tipo_os).order(id: :desc)
+    when 1 then  @ordem_services = OrdemService.joins(:client, :ordem_service_logistics).where(tipo: @tipo_os).paginate(:page => params[:page]).order(id: :desc)
+    when 3 then  @ordem_services = OrdemService.joins(:client, :ordem_service_changes).where(tipo: @tipo_os).paginate(:page => params[:page]).order(id: :desc)
+    when 4 then  @ordem_services = OrdemService.joins(:client, :ordem_service_airs).where(tipo: @tipo_os).paginate(:page => params[:page]).order(id: :desc)
     end
     respond_with(@ordem_services) do |format|
       format.html { render :layout => !request.xhr? }

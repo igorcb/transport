@@ -1,5 +1,5 @@
   <div class="panel-body">
-
+    <%= will_paginate @ordem_services, renderer: BootstrapPagination::Rails %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -42,5 +42,7 @@
           <% end %>
         </tbody>
       </table>
+      <%#= will_paginate class: "pagination"%>
+      <%= will_paginate @ordem_services, renderer: BootstrapPagination::Rails %>
     </div>    
   </div>
