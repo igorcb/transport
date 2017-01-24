@@ -1,0 +1,10 @@
+<%= form_for(@cancellation, html: {multipart: true }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+ 
+  <%= hidden_field_tag "cancellation[cancellation_id]", @boarding.id %>
+  <%= hidden_field_tag "cancellation[cancellation_type]", "Boarding" %>
+
+  <%= render 'cancellations/fields', f: f %>
+
+  <%= f.submit "Solicitar Cancelamento", class: "btn btn-success" %>
+<% end %>
