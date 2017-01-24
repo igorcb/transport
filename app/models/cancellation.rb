@@ -4,8 +4,10 @@ class Cancellation < ActiveRecord::Base
   belongs_to :solicitation_user, class_name: "User", foreign_key: 'solicitation_user_id'
   belongs_to :authorization_user, class_name: "User", foreign_key: 'authorization_user_id'
   
-  #belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "cancellation_id", polymorphic: true, dependent: :destroy
-	
+  # belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "cancellation_id", polymorphic: true, dependent: :destroy
+  # belongs_to :boarding, class_name: "Boarding", foreign_key: "cancellation_id", polymorphic: true, dependent: :destroy
+  # belongs_to :cancel, class_name: "Cancellation", foreign_key: "cancellation_id", polymorphic: true
+
   module TipoStatus
   	PEDENDENTE = 0
   	CONFIRMADO = 1
@@ -24,9 +26,19 @@ class Cancellation < ActiveRecord::Base
   	self.status == TipoStatus::PEDENDENTE
   end
 
-	def ordem_service
-		ordem_service = OrdemService.find(self.cancellation_id)
-	end
+  def cancellation_type_name
+    case self.cancellation_type
+      when "OrdemService" then "O.S."
+      when "Boarding" then "Embarque"
+    end
+  end
+
+  def cancellation_model
+    case self.cancellation_type
+      when "OrdemService" then OrdemService.find(self.cancellation_id)
+      when "Boarding" then Boarding.find(self.cancellation_id)
+    end
+  end
 
   def send_notification_solicitation_cancellation
   	CancellationMailer.notification_solicitation_cancellation(ordem_service).deliver!
@@ -37,24 +49,54 @@ class Cancellation < ActiveRecord::Base
   end
 
   def self.confirm(user, id) #id = cancellation_id
-  	ActiveRecord::Base.transaction do
-  		cancel = Cancellation.find(id)
-      #fazer um case para quando tiver outro tipo de cancelamento
-  		ordem_service = cancel.ordem_service
-  		OrdemService.update(ordem_service, status: OrdemService::TipoStatus::CANCELADA)
-      Cancellation.update(id, authorization_user_id: user, status: TipoStatus::REJEITADO)
-      #cancel.send_notification_cancellation
-  	end
+  	# ActiveRecord::Base.transaction do
+  	# 	cancel = Cancellation.find(id)
+   #    #fazer um case para quando tiver outro tipo de cancelamento
+  	# 	ordem_service = cancel.ordem_service
+  	# 	OrdemService.update(ordem_service, status: OrdemService::TipoStatus::CANCELADA)
+   #    Cancellation.update(id, authorization_user_id: user, status: TipoStatus::CONFIRMADO)
+   #    #cancel.send_notification_cancellation
+  	# end
+    cancel = Cancellation.find(id)
+    user = User.find(user)
+    case cancel.cancellation_model
+      when "OrdemService" then cancel.cancel_ordem_service(cancel, user)
+      when "Boarding" then cancel.cancel_boarding(cancel, user)
+    end
+    #cancel.send_notification_cancellation
   end
 
   def self.rejected(user, id) #id = cancellation_id
     ActiveRecord::Base.transaction do
-      cancel = Cancellation.find(id)
       #fazer um case para quando tiver outro tipo de cancelamento
-      ordem_service = cancel.ordem_service
+      model = cancel.cancellation_model
       OrdemService.update(ordem_service, status: OrdemService::TipoStatus::CANCELADA)
       Cancellation.update(id, authorization_user_id: user, status: TipoStatus::REJEITADO)
       #cancel.send_notification_cancellation
+    end
+  end
+  
+  def cancel_ordem_service(cancel, user)
+    # colocar status da ordem de servico como cancelada
+    # colocar status do cancelamento como CONFIRMADO
+    ActiveRecord::Base.transaction do
+      ordem_service = cancel.cancellation_model
+      OrdemService.where(id: ordem_service.id).update_all(status: OrdemService::TipoStatus::CANCELADA)
+      Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
+    end
+  end
+
+  def cancel_boarding(cancel, user)
+    # voltar status da ordem de servico como AGUARDANDO_EMBARQUE
+    # colocar status do embarque como CANCELADO
+    # colocar status do cancelamento como CONFIRMADO
+    ActiveRecord::Base.transaction do
+      cancel = Cancellation.find(id)
+      boarding = cancel.cancellation_model
+      hash_ids = boarding.ordem_services_ids
+      OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
+      Boarding.where(id: boarding.id).update_all(status: Boarding::TipoStatus::CANCELADO)
+      Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
     end
   end
 end

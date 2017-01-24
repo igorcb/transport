@@ -4,6 +4,7 @@ Transport::Application.routes.draw do
     resources :boarding_items do
       post :update_row_order, on: :collection    
     end
+    #match :cancellation, :as => :cancellation, :via => [:get, :put]  
   end
 
   resources :boarding_items do

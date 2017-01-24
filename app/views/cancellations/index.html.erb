@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-  <div class="panel-heading">Listagem de Solicitações de cancelamento </div>
+  <div class="panel-heading">Listagem de solicitações de cancelamento </div>
   <div class="panel-body">
     
     <div class="table-responsive">
@@ -18,9 +18,9 @@
 
         <tbody>
           <% @cancellations.each do |cancel| %>
-            <tr>
-              <td><%= cancel.cancellation_type %></td>
-              <td><%= link_to cancel.ordem_service.id, cancel %></td>
+            <tr> 
+              <td><%= cancel.cancellation_type_name %></td>
+              <td><%= link_to cancel.cancellation_id, cancel.cancellation_model %></td>
               <td><%= link_to cancel.solicitation_user.email, cancel, title: cancel.solicitation_user.email %></td>
               <td><%= link_to cancel.authorization_user.email, cancel, title: cancel.authorization_user.email if cancel.authorization_user.present? %></td>
               <td><%= cancel.status_name %></td>

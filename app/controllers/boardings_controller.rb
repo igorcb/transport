@@ -15,12 +15,17 @@ class BoardingsController < ApplicationController
     end
 	end
 
+  def cancellation
+    #@boarding.cancel
+    #redirect_to boarding_url(@boarding_item), flash: { success: "Status update successfully..." }
+  end
+
   def index
     @boardings = Boarding.order(id: :desc)
   end
 
 	def show
-
+    @cancellation = @boarding.cancellations.build
 	end
 
 	def new
@@ -62,6 +67,7 @@ class BoardingsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
 	private
 

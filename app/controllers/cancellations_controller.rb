@@ -26,7 +26,7 @@ class CancellationsController < ApplicationController
   def create
     case params[:cancellation][:cancellation_type]
       when "OrdemService" then @model = OrdemService.find(params[:cancellation][:cancellation_id])
-      when "Occurrence" then @model = Occurrence.find(params[:comment][:comment_id])
+      when "Boarding" then @model = Boarding.find(params[:cancellation][:cancellation_id])
     end
     @cancellation = @model.cancellations.build(cancellation_params)
     @cancellation.solicitation_user_id = current_user.id
@@ -35,13 +35,13 @@ class CancellationsController < ApplicationController
       flash[:success] = "Cancellation created!"
       case params[:cancellation][:cancellation_type] 
         when "OrdemService" then redirect_to ordem_service_path (@model)
-        when "Occurrence" then redirect_to occurrence_path (@model)
+        when "Boarding" then redirect_to boarding_path (@model)
       end
     else
       flash[:danger] = "Error Cancellation!"
       case params[:cancellation][:cancellation_type] 
         when "OrdemService" then redirect_to ordem_service_path (@model)
-        when "Occurrence" then redirect_to occurrence_path (@model)
+        when "Boarding" then redirect_to boarding_path (@model)
       end
     end
     

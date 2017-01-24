@@ -31,10 +31,31 @@
 		  <strong>Observação:</strong>
 		  <pre><%= @boarding.obs %></pre>
 		</p>
-
-
-
   </div>
+</div>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Dados do Cancelamento
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+
+      <%= render 'cancellations/feed', cancellations: @boarding.feed_cancellations %>
+
+      <%= render 'cancellations/form_cancellation_boarding' %>
+      
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="form-group">
@@ -59,5 +80,3 @@
 </div>
 
 <%= render 'show_vehicle', object: @boarding  %>
-
-

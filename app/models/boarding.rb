@@ -15,6 +15,10 @@ class Boarding < ActiveRecord::Base
   has_many :cte_keys, class_name: "CteKey", foreign_key: "cte_id", :as => :cte, dependent: :destroy
   accepts_nested_attributes_for :cte_keys, allow_destroy: true, :reject_if => :all_blank
 
+  has_one :cancellation, class_name: "Cancellation", foreign_key: "cancellation_id"
+  has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
+  accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
+
 
   before_destroy :erase_boarding_items
 
@@ -32,6 +36,11 @@ class Boarding < ActiveRecord::Base
       else "Não Informado"
     end
   end
+
+  def feed_cancellations
+    Cancellation.where("cancellation_type = ? and cancellation_id = ?", "Boarding", self.id)
+  end
+
 
   def erase_boarding_items
     ActiveRecord::Base.transaction do
@@ -75,6 +84,14 @@ class Boarding < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       OrdemService.where(id: ordem_service_id).update_all(status: OrdemService::TipoStatus::EMBARCADO)
       Boarding.where(id: self.id).update_all(status: Boarding::TipoStatus::FECHADO) if self.check_status_ordem_service?
+    end
+  end
+
+  def self.cancel(boarding_id)
+    hash_ids = get_ordem_services_ids
+    ActiveRecord::Base.transaction do
+      OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
+      Boarding.where(id: self.id).update_all(status: Boarding::TipoStatus::CANCELADO)
     end
   end
 
@@ -125,6 +142,21 @@ class Boarding < ActiveRecord::Base
     number = self.boarding_items.group('delivery_number').having('delivery_number > 0').count
     number.count
   end
+
+  def ordem_services_ids
+    get_ordem_services_ids
+  end
+
+  private
+  
+    def get_ordem_services_ids
+      hash_ids = []
+      boarding = Boarding.find(self.id)
+      boarding.boarding_items.each do |item|
+        hash_ids << item.ordem_service_id
+      end
+      hash_ids
+    end
 
 end
 

@@ -1,8 +1,7 @@
     <p>
-      <strong>OS.:</strong>
+      <strong><%= @cancellation.cancellation_type_name %>:</strong>
       <label class="fields"> 
-      	<% ordem_service = @cancellation.ordem_service   %>
-        <%= link_to "#{ @cancellation.ordem_service.id }", @cancellation.ordem_service %> 
+        <%= link_to @cancellation.cancellation_id, @cancellation.cancellation_model %> 
       </label>
     </p>
 
