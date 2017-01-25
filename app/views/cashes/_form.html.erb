@@ -7,8 +7,12 @@
   </div>
   <div class="form-group">
     <%= f.label :data %><br>
-    <%= f.text_field :data, class: "form-control data" %>
-  </div>
+    <% if @cash.new_record? %>
+      <%= f.text_field :data, class: "form-control data" %>
+    <% else %>
+      <%= f.text_field :data, class: "form-control data", value: date_br(@cash.data) %>
+    <% end %>
+  </div>  
   <div class="form-group">
     <%= f.label :valor %><br>
     <%= f.text_field :valor, class: "form-control money2" %>
@@ -34,9 +38,18 @@
   <div class="form-group">
     <%= f.label :sub_cost_center_id, "Sub Centro de Custo" %>
     <% if @cash.cost_center_id.present? %>
-      <%= f.collection_select :sub_cost_center_id, sub_center(@account_payable.cost_center_id), :id, :descricao, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control"} %>
+      <%= f.collection_select :sub_cost_center_id, sub_center(@cash.cost_center_id), :id, :descricao, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control"} %>
     <% else %>
       <%= f.collection_select :sub_cost_center_id, [], :id, :descricao,  {prompt: "SELECT PRIMEIRO CENTRO DE CUSTO"}, {class: "form-control"}  %>
+    <% end %>
+  </div>
+
+ <div class="form-group">
+    <%= f.label :sub_cost_center_three_id, "Sub Centro de Custo Nivel 3" %>
+    <% if @cash.cost_center_id.present? %>
+      <%= f.collection_select :sub_cost_center_three_id, sub_center_there(@cash.cost_center_id, @cash.sub_cost_center_id), :id, :descricao, {prompt: "SELECIONE SUB CENTRO CUSTO NIVEL 3"}, {class: "form-control"} %>
+    <% else %>
+      <%= f.collection_select :sub_cost_center_three_id, [], :id, :descricao,  {prompt: "SELECT PRIMEIRO SUB CENTRO DE CUSTO"}, {class: "form-control"}  %>
     <% end %>
   </div>
 
@@ -75,6 +88,25 @@
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
         $("#cash_sub_cost_center_id").html(options);
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(function(){
+    $("#cash_sub_cost_center_id").change(function(){
+      var cost_center = $("#cash_cost_center_id").val();
+      var sub_cost_center = $(this).val();
+      var cost_and_sub_cost = {'cost_center_id': cost_center, 'sub_cost_center_id': sub_cost_center}
+      //var myLoc = { 'lat': 35, 'lon': -110 };
+      console.log(cost_and_sub_cost);
+      $.getJSON('/sub_centro_custo_three_by_custo', cost_and_sub_cost, function(data){
+        var options = '<option value="">SELECIONE SUB CENTRO CUSTO NIVEL 3</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#cash_sub_cost_center_three_id").html(options);
       });
     });
   });

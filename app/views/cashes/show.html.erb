@@ -37,6 +37,11 @@
       <strong>Sub cost center:</strong>
       <%= @cash.sub_cost_center.descricao %>
     </p>
+    
+    <p>
+      <strong>Sub Centro de Custo Nivel 3:</strong>
+      <%= @cash.sub_cost_center_three.descricao if @cash.sub_cost_center_three.present?%>
+    </p>
 
     <p>
       <strong>Historic:</strong>
