@@ -9,7 +9,8 @@
             <th>Motorista</th>
             <th>Cliente</th>
             <th>Data</th>
-            <th>Cte</th>
+            <th>CT-e</th>
+            <th>NFS-e</th>
             <th>Estado</th>
             <th>Cidade</th>
             <th>Status</th>
@@ -26,6 +27,7 @@
               <td><%= link_to truncate(ordem_service.client.nome, length: 16), ordem_service %></td>
               <td><%= link_to date_br(ordem_service.data), ordem_service %></td>
               <td><%= link_to ordem_service.cte_keys.first.cte, ordem_service if ordem_service.cte_keys.present? %></td>
+              <td><%= link_to ordem_service.nfs_keys.first.nfs, ordem_service if ordem_service.nfs_keys.present? %></td>
               <td><%= ordem_service.estado %></td>
               <td><%= truncate(ordem_service.client.cidade, length: 10) %></td>
               <td><%= ordem_service.status_name %></td>
