@@ -98,11 +98,15 @@ class AccountPayable < ActiveRecord::Base
                                           )
       self.save
 
-      CurrentAccount.create!(cash_account_id: options[:cash_account_id], 
+      Cash.create!(cash_account_id: options[:cash_account_id], 
                             data: options[:data_pagamento],  
                             valor: vr_pago,
-                            tipo: CurrentAccount::TipoLancamento::DEBITO,
+                            tipo: Cash::TipoLancamento::DEBITO,
                             historico: "BAIXA CONTA A PAGAR: " + self.documento,
+                            cost_center_id: self.cost_center_id,
+                            payment_method_id: self.payment_method_id,
+                            sub_cost_center_id: self.sub_cost_center_id,
+                            sub_cost_center_three_id: self.sub_cost_center_three_id,
                             account_payable_id: self.id
                             )
     end

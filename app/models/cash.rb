@@ -2,7 +2,7 @@ class Cash < ActiveRecord::Base
   validates :data, presence: true
   validates :valor, presence: true
   validates :tipo, presence: true
-  validates :historic, presence: true
+  
   validates :payment_method, presence: true
   validates :cost_center, presence: true
   validates :sub_cost_center, presence: true
@@ -10,7 +10,7 @@ class Cash < ActiveRecord::Base
   belongs_to :payment_method
   belongs_to :cost_center
   belongs_to :sub_cost_center
-  belongs_to :historic
+  
   belongs_to :cash_account
   belongs_to :sub_cost_center_three
 

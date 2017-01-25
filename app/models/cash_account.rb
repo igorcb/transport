@@ -5,7 +5,12 @@ class CashAccount < ActiveRecord::Base
 
   has_many :account_payables
 
+  module TipoLancamento
+    CREDITO = 1
+    DEBITO  = -1
+  end
+  
   def saldo
-  	CurrentAccount.where(cash_account_id: self.id).sum('valor*tipo')
+  	Cash.where(cash_account_id: self.id).sum('valor*tipo')
   end
 end

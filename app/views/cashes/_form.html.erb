@@ -22,8 +22,8 @@
     <%= f.select( :tipo, select_credito_debito, {include_blank: "Selecione Crédito/Débito"}, {class: "form-control"} ) %>      
   </div>
   <div class="form-group">
-    <%= f.label :historic_id %><br>
-    <%= f.select(:historic_id, Historic.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%= f.label :historico %><br>
+    <%= f.text_field :historico, class: "form-control" %>
   </div>
     <div class="form-group">
     <%= f.label :payment_method_id %><br>
