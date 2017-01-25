@@ -127,7 +127,8 @@ class AccountPayablesController < ApplicationController
       redirect_to account_payables_path #(params[:id])
       return 
     end
-    @cash_accounts = CashAccount.order('nome')
+    @cash_accounts = CashAccount.order(:nome)
+    @payment_methods = PaymentMethod.order(:descricao)
   end
 
   def lower_all
