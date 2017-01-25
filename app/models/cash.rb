@@ -7,11 +7,12 @@ class Cash < ActiveRecord::Base
   validates :cost_center, presence: true
   validates :sub_cost_center, presence: true
 
+  belongs_to :account_payable
+  belongs_to :cash_account
+
   belongs_to :payment_method
   belongs_to :cost_center
   belongs_to :sub_cost_center
-  
-  belongs_to :cash_account
   belongs_to :sub_cost_center_three
 
   module TipoLancamento
