@@ -100,8 +100,7 @@ class OrdemService < ActiveRecord::Base
     EMBARCADO = 9
     PAGO_SEMFATURA = 99
   end
-  #sequencia do status => [Aberto, Embarcando, Embarcado, Entrega Efetuada, Faturado]
-
+  #sequencia do status => [Aberto, Embarcando, Embarcado, Entrega Efetuada, Fechado, Faturado]
 
   module TipoOS
     LOGISTICA = 1
@@ -110,7 +109,6 @@ class OrdemService < ActiveRecord::Base
   end
 
   def set_peso_and_volume
-    puts ">>>>>>>>>>>>>>>>>>>>>>>>>   Pegando o peso e o volume   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     peso = self.nfe_keys.sum(:peso)
     volume = self.nfe_keys.sum(:volume)
     ActiveRecord::Base.transaction do
@@ -328,8 +326,11 @@ class OrdemService < ActiveRecord::Base
   end
 
   def self.information_delivery(os_id)
+    ordem_service = OrdemService.find(os_id)
+    boarding = ordem_service.boarding_item.boarding
     ActiveRecord::Base.transaction do
-      OrdemService.update(os_id, status: OrdemService::TipoStatus::ENTREGA_EFETUADA)
+      OrdemService.where(id: os_id).update_all(status: OrdemService::TipoStatus::ENTREGA_EFETUADA)
+      Boarding.where(id: boarding.id).update_all(status: Boarding::TipoStatus::ENTREGUE) if boarding.check_status_ordem_service_entregue?
     end
   end
 

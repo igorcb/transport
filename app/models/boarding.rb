@@ -75,8 +75,18 @@ class Boarding < ActiveRecord::Base
   def check_status_ordem_service?
     positivo = true
     self.boarding_items.order(:delivery_number).each do |item|
-      puts "Status: #{item.ordem_service.status} - #{item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO}"
+      #puts "Status: #{item.ordem_service.status} - #{item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO}"
       positivo = item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO 
+      return false if positivo == false
+    end
+    positivo
+  end  
+
+  def check_status_ordem_service_entregue?
+    positivo = true
+    self.boarding_items.order(:delivery_number).each do |item|
+      #puts "Status: #{item.ordem_service.status} - #{item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO}"
+      positivo = item.ordem_service.status == OrdemService::TipoStatus::ENTREGA_EFETUADA
       return false if positivo == false
     end
     positivo
@@ -92,6 +102,7 @@ class Boarding < ActiveRecord::Base
   def self.cancel(boarding_id)
     hash_ids = get_ordem_services_ids
     ActiveRecord::Base.transaction do
+      #  OBS: quando cancelar o embarque, verificar a possibilidade de retirar a associacao da os no embarque
       OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
       Boarding.where(id: self.id).update_all(status: Boarding::TipoStatus::CANCELADO)
     end
