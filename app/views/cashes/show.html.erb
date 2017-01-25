@@ -44,8 +44,18 @@
     </p>
 
     <p>
-      <strong>Historic:</strong>
+      <strong>Historico:</strong>
       <%= @cash.historico %>
+    </p>
+
+    <p>
+      <strong>Contas a Pagar:</strong>
+      <%= link_to @cash.account_payable.id, @cash.account_payable if @cash.account_payable.present? %>
+    </p>
+
+    <p>
+      <strong>Obs do contas a pagar:</strong>
+      <%= @cash.account_payable.obs if @cash.account_payable.present? %>
     </p>
   </div>
 </div>
