@@ -25,14 +25,16 @@ class Boarding < ActiveRecord::Base
   module TipoStatus
   	ABERTO = 0
   	FECHADO = 1
-  	CANCELADO = 2
+  	ENTREGUE = 2
+    CANCELADO = 3
   end
 
   def status_name
     case status
       when 0 then "Aberto"
       when 1 then "Fechado"
-      when 2 then "Cancelado"
+      when 2 then "Entregue"
+      when 3 then "Cancelado"
       else "Não Informado"
     end
   end
