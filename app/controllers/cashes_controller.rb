@@ -57,6 +57,6 @@ class CashesController < ApplicationController
     end
 
     def cash_params
-      params.require(:cash).permit(:data, :valor, :tipo, :payment_method_id, :cost_center_id, :sub_cost_center_id, :historic_id)
+      params.require(:cash).permit(:data, :valor, :tipo, :payment_method_id, :cost_center_id, :sub_cost_center_id, :historic_id, :cash_account_id)
     end
 end

@@ -6,6 +6,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>Conta</th>
             <th>Data</th>
             <th>Valor</th>
             <th>Tipo</th>
@@ -17,6 +18,7 @@
         <tbody>
           <% @cashes.each do |cash| %>
             <tr>
+              <td><%= cash.cash_account.nome %></td>
               <td><%= date_br(cash.data) %></td>
               <td><%= number_to_currency(cash.valor, unit: "R$ ", separator: ",", delimiter: ".") %></td>
               <td><%= cash.credito_debito %></td>

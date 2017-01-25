@@ -5,6 +5,10 @@
   </div>
   <div class="panel-body">
     <p>
+      <strong>Conta:</strong>
+      <%= @cash.cash_account.nome %> - <strong>Saldo:</strong><%= @cash.cash_account.saldo %>
+    </p>
+    <p>
       <strong>Data:</strong>
       <%= date_br @cash.data %>
     </p>

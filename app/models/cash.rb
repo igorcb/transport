@@ -11,6 +11,7 @@ class Cash < ActiveRecord::Base
   belongs_to :cost_center
   belongs_to :sub_cost_center
   belongs_to :historic
+  belongs_to :cash_account
 
   module TipoLancamento
     CREDITO = 1
