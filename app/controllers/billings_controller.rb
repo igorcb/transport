@@ -14,6 +14,7 @@ class BillingsController < ApplicationController
   end
 
   def show
+    @cancellation = @billing.cancellations.build
     respond_with(@billing)
     # respond_to do |format|
     #   format.html

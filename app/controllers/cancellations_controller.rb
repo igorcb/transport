@@ -14,7 +14,6 @@ class CancellationsController < ApplicationController
   end
 
   def confirmation
-    puts ">>>>>>>>>>> clicou no botao confirmar"
   	Cancellation.confirm(current_user.id, params[:id])
   	redirect_to cancellation_path(params[:id]), flash: { success: "Confirmations was successful." }
   end
@@ -50,16 +49,18 @@ class CancellationsController < ApplicationController
   
     def cancellation_model
       case params[:cancellation][:cancellation_type] 
-        when "OrdemService" then OrdemService.find(params[:cancellation][:cancellation_id])
+        when "Billing" then Billing.find(params[:cancellation][:cancellation_id])
         when "Boarding" then Boarding.find(params[:cancellation][:cancellation_id])
+        when "OrdemService" then OrdemService.find(params[:cancellation][:cancellation_id])
         when "AccountPayable" then AccountPayable.find(params[:cancellation][:cancellation_id])
       end
     end
 
     def redirect_to_model
       case params[:cancellation][:cancellation_type] 
-        when "OrdemService" then redirect_to ordem_service_path (@model)
+      when "Billing" then redirect_to billing_path (@model)
         when "Boarding" then redirect_to boarding_path (@model)
+        when "OrdemService" then redirect_to ordem_service_path (@model)
         when "AccountPayable" then redirect_to account_payable_path (@model)
       end
     end

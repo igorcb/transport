@@ -5,6 +5,10 @@ class Billing < ActiveRecord::Base
   belongs_to :type_service
   has_many :ordem_services
 
+  has_one :cancellation, class_name: "Cancellation", foreign_key: "cancellation_id"
+  has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
+  accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
+
   before_update :modify_due_date
 
   module TipoStatus
@@ -20,6 +24,10 @@ class Billing < ActiveRecord::Base
       when 2 then "Cancelada"
     else "Nao Definido"
     end  	
+  end
+  
+  def feed_cancellations
+    Cancellation.where("cancellation_type = ? and cancellation_id = ?", "Billing", self.id)
   end
 
   def to_csv

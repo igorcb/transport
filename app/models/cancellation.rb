@@ -31,17 +31,17 @@ class Cancellation < ActiveRecord::Base
       when "OrdemService" then "O.S."
       when "Boarding" then "Embarque"
       when "AccountPayable" then "Ct. a Pagar"
+      when "Billing" then "Faturamento"
     end
   end
 
   def cancellation_model
-    puts ">>>>>>>>>>> cancellation_model - 1:"
     case self.cancellation_type.to_s
-      when "OrdemService" then model=OrdemService.find(self.cancellation_id)
-      when "Boarding" then model=Boarding.find(self.cancellation_id)
-      when "AccountPayable" then model=AccountPayable.find(self.cancellation_id)
+      when "Billing" then model = Billing.find(self.cancellation_id)
+      when "Boarding" then model = Boarding.find(self.cancellation_id)
+      when "OrdemService" then model = OrdemService.find(self.cancellation_id)
+      when "AccountPayable" then model = AccountPayable.find(self.cancellation_id)
     end     
-    puts ">>>>>>>>>>> cancellation_model - 2: #{model.class}"
     model
   end
 
@@ -65,10 +65,10 @@ class Cancellation < ActiveRecord::Base
     cancel = Cancellation.find(id)
     user = User.find(user)
     model = cancel.cancellation_model
-    puts ">>>>>>>>> method confirm: model(#{model.class}) "
     case model
-      when OrdemService then cancel.cancel_ordem_service(cancel, user)
+      when Billing then cancel.cancel_billing(cancel, user)
       when Boarding then cancel.cancel_boarding(cancel, user)
+      when OrdemService then cancel.cancel_ordem_service(cancel, user)
       when AccountPayable then cancel.cancel_account_payable(cancel, user)
     end
     #cancel.send_notification_cancellation
@@ -87,7 +87,6 @@ class Cancellation < ActiveRecord::Base
   def cancel_ordem_service(cancel, user)
     # colocar status da ordem de servico como cancelada
     # colocar status do cancelamento como CONFIRMADO
-    puts ">>>>>>>>> method confirm: cancel_ordem_service"
     ActiveRecord::Base.transaction do
       ordem_service = cancel.cancellation_model
       OrdemService.where(id: ordem_service.id).update_all(status: OrdemService::TipoStatus::CANCELADA)
@@ -99,7 +98,6 @@ class Cancellation < ActiveRecord::Base
     # voltar status da ordem de servico como AGUARDANDO_EMBARQUE
     # colocar status do embarque como CANCELADO
     # colocar status do cancelamento como CONFIRMADO
-    puts ">>>>>>>>> method confirm: cancel_boarding"
     ActiveRecord::Base.transaction do
       cancel = Cancellation.find(id)
       boarding = cancel.cancellation_model
@@ -113,10 +111,19 @@ class Cancellation < ActiveRecord::Base
   def cancel_account_payable(cancel, user)
     # colocar status da ordem de servico como cancelada
     # colocar status do cancelamento como CONFIRMADO
-    puts ">>>>>>>>> method: cancel_account_payable <<<<<<<<<<<<<<<<<<<<"
     ActiveRecord::Base.transaction do
       account_payable = cancel.cancellation_model
       AccountPayable.where(id: account_payable.id).update_all(status: AccountPayable::TipoStatus::CANCELADO)
+      Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
+    end
+  end
+
+  def cancel_billing(cancel, user)
+    # colocar status da ordem de servico como cancelada
+    # colocar status do cancelamento como CONFIRMADO
+    ActiveRecord::Base.transaction do
+      billing = cancel.cancellation_model
+      Billing.where(id: billing.id).update_all(status: Billing::TipoStatus::CANCELADA)
       Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
     end
   end
