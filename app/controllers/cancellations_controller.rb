@@ -14,6 +14,7 @@ class CancellationsController < ApplicationController
   end
 
   def confirmation
+    puts ">>>>>>>>>>> clicou no botao confirmar"
   	Cancellation.confirm(current_user.id, params[:id])
   	redirect_to cancellation_path(params[:id]), flash: { success: "Confirmations was successful." }
   end
@@ -24,25 +25,16 @@ class CancellationsController < ApplicationController
   end
 
   def create
-    case params[:cancellation][:cancellation_type]
-      when "OrdemService" then @model = OrdemService.find(params[:cancellation][:cancellation_id])
-      when "Boarding" then @model = Boarding.find(params[:cancellation][:cancellation_id])
-    end
+    @model = cancellation_model
     @cancellation = @model.cancellations.build(cancellation_params)
     @cancellation.solicitation_user_id = current_user.id
     if @cancellation.save!
       #@comment.send_notification_email
       flash[:success] = "Cancellation created!"
-      case params[:cancellation][:cancellation_type] 
-        when "OrdemService" then redirect_to ordem_service_path (@model)
-        when "Boarding" then redirect_to boarding_path (@model)
-      end
+      redirect_to_model
     else
       flash[:danger] = "Error Cancellation!"
-      case params[:cancellation][:cancellation_type] 
-        when "OrdemService" then redirect_to ordem_service_path (@model)
-        when "Boarding" then redirect_to boarding_path (@model)
-      end
+      redirect_to_model
     end
     
   end
@@ -56,4 +48,20 @@ class CancellationsController < ApplicationController
       params.require(:cancellation).permit(:solicitations_user_id, :authorization_user_id, :observacao, :cancellation_type, :cancellation_id)
     end
   
+    def cancellation_model
+      case params[:cancellation][:cancellation_type] 
+        when "OrdemService" then OrdemService.find(params[:cancellation][:cancellation_id])
+        when "Boarding" then Boarding.find(params[:cancellation][:cancellation_id])
+        when "AccountPayable" then AccountPayable.find(params[:cancellation][:cancellation_id])
+      end
+    end
+
+    def redirect_to_model
+      case params[:cancellation][:cancellation_type] 
+        when "OrdemService" then redirect_to ordem_service_path (@model)
+        when "Boarding" then redirect_to boarding_path (@model)
+        when "AccountPayable" then redirect_to account_payable_path (@model)
+      end
+    end
+
 end

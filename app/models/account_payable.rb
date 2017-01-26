@@ -27,12 +27,19 @@ class AccountPayable < ActiveRecord::Base
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
+  has_one :cancellation, class_name: "Cancellation", foreign_key: "cancellation_id"
+  has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
+  accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
+
+
   before_save :set_supplier_type
 
   module TipoStatus
     ABERTO = 0
     PAGOPARCIAL = 1
     PAGO = 2
+    ESTORNADO = 3
+    CANCELADO = 4
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -44,6 +51,8 @@ class AccountPayable < ActiveRecord::Base
       when 0  then "Aberto"
       when 1  then "P. Parcial"
       when 2  then "Pago"
+      when 3  then "Estornado'"
+      when 4  then "Cancelado"
     else "Nao Definido"
     end
   end 
@@ -57,6 +66,10 @@ class AccountPayable < ActiveRecord::Base
       when 5  then "Transportadora"
       else "*"
     end
+  end
+
+  def feed_cancellations
+    Cancellation.where("cancellation_type = ? and cancellation_id = ?", "AccountPayable", self.id)
   end
 
   def total_pago

@@ -58,6 +58,7 @@ class AccountPayablesController < ApplicationController
   end
 
   def show
+    @cancellation = @account_payable.cancellations.build
     respond_with(@account_payable)
   end
 
