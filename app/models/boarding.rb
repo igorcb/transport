@@ -24,7 +24,7 @@ class Boarding < ActiveRecord::Base
 
   module TipoStatus
   	ABERTO = 0
-  	FECHADO = 1
+  	EMBARCADO = 1
   	ENTREGUE = 2
     CANCELADO = 3
   end
@@ -32,7 +32,7 @@ class Boarding < ActiveRecord::Base
   def status_name
     case status
       when 0 then "Aberto"
-      when 1 then "Fechado"
+      when 1 then "Embarcado"
       when 2 then "Entregue"
       when 3 then "Cancelado"
       else "Não Informado"
@@ -95,7 +95,7 @@ class Boarding < ActiveRecord::Base
   def close(ordem_service_id)
     ActiveRecord::Base.transaction do
       OrdemService.where(id: ordem_service_id).update_all(status: OrdemService::TipoStatus::EMBARCADO)
-      Boarding.where(id: self.id).update_all(status: Boarding::TipoStatus::FECHADO) if self.check_status_ordem_service?
+      Boarding.where(id: self.id).update_all(status: Boarding::TipoStatus::EMBARCADO) if self.check_status_ordem_service?
     end
   end
 

@@ -17,20 +17,6 @@ class BoardingItemsController < ApplicationController
     @boarding_item = BoardingItem.find(params[:boarding_item_id])
     @boarding_item.boarding.close(@boarding_item.ordem_service_id)
     redirect_to boarding_url(@boarding_item.boarding), flash: { success: "Status update successfully..." }
-    
-
-
-    # if OrdemService.where(id: @boarding_item.ordem_service.id).update_all(status: OrdemService::TipoStatus::EMBARCADO)
-    #   Boarding.where(id: @boarding_item.boarding_id).update_all(status: Boarding::TipoStatus::FECHADO) if @boarding_item.boarding.check_status_ordem_service?
-    #   flash[:notice] = 'Status update successfully...'
-    #   redirect_to boarding_url(@boarding_item.boarding)
-    # else
-    #   #flash[:erros] = 'Nao foi possivel setar como admin...'
-    #   @boarding_item.errors.full_messages.each do |msg|
-    #     flash[:error] = msg  
-    #   end
-    #   redirect_to boarding_url(@boarding_item.boarding)
-    # end
   end
 
 
