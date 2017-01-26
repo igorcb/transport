@@ -1,0 +1,36 @@
+  <div class="panel-body">
+    <%#= will_paginate @ordem_services, renderer: BootstrapPagination::Rails %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <tr>
+              <th>Conta</th>
+              <th>Data</th>
+              <th>Valor</th>
+              <th>Tipo</th>
+              <th>Historico</th>
+              <th colspan="3">Opções</th>
+            </tr>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @cashes.each do |cash| %>
+            <tr>
+              <td><%= cash.cash_account.nome if cash.cash_account.present? %></td>
+              <td><%= date_br(cash.data) %></td>
+              <td><%= number_to_currency(cash.valor, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+              <td><%= cash.credito_debito %></td>
+              <td><%= link_to truncate(cash.historico, length: 20 ), cash, { class: "has_tooltip", "data-toggle" => "tooltip", "data-placement" => "top", title: "#{ cash.account_payable.observacao if cash.account_payable.present? }", rel: "tooltip", "data-original-title" => "Ordem de Servico" } %></td>
+              <td><%= link_to 'Show', cash, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_cash_path(cash), class: "btn btn-primary btn-xs" %>
+              <td><%= link_to 'Destroy', cash, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger btn-xs" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%#= will_paginate class: "pagination"%>
+      <%#= will_paginate @ordem_services, renderer: BootstrapPagination::Rails %>
+    </div>    
+  </div>

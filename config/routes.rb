@@ -33,7 +33,8 @@ Transport::Application.routes.draw do
     end
   end
 
-  resources :cashes
+  resources :cashes do
+  end
 
   resources :cte_xmls, only: [:index, :new, :create]
   
@@ -63,6 +64,7 @@ Transport::Application.routes.draw do
   match "/sub_centro_custo_by_custo", :controller => "account_payables", :action => "sub_centro_custo_by_custo", via: [:get]
   match "/sub_centro_custo_three_by_custo", :controller => "account_payables", :action => "sub_centro_custo_three_by_custo", via: [:get]
   match "/account_payables_search" => "account_payables#search", via: [:get]
+  match "/cashes_search" => "cashes#search", via: [:get]
   match "/lower_payables" => "account_payables#lower_payables", via: [:get]
   match "lower_all" => "account_payables#lower_all", via: [:post]
 

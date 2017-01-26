@@ -27,4 +27,9 @@ class Cash < ActiveRecord::Base
   		else ""
   	end
   end  
+
+  def self.ransackable_attributes(auth_object = nil)
+    ['data',  "cash_account_id"]
+  end
+
 end

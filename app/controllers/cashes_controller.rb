@@ -4,8 +4,17 @@ class CashesController < ApplicationController
   load_and_authorize_resource
   respond_to :html
 
+  def search
+    @q = Cash.search(params[:query])
+    @cashes = @q.result
+    respond_with(@cashes) do |format|
+     format.js
+    end
+  end
+
   def index
-    @cashes = Cash.all
+    @q = Cash.order('id desc').search(params[:q])
+    @cashes = Cash.order('id desc')
     respond_with(@cashes)
   end
 

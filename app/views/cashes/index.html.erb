@@ -1,37 +1,48 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+      <%= render "form_search" %>
+
+    </div>
+
+    
+
+  </div>
+
+</div>
+
 <div class="panel panel-default">
   <div class="panel-heading">Listagem do Caixa</div>
   <div class="panel-body">
-    <%= link_to 'Novo Lançamento Caixa', new_cash_path, class: "btn btn-primary btn-lg btn-block" %>
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Conta</th>
-            <th>Data</th>
-            <th>Valor</th>
-            <th>Tipo</th>
-            <th>Historico</th>
-            <th colspan="3">Opções</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% @cashes.each do |cash| %>
-            <tr>
-              <td><%= cash.cash_account.nome %></td>
-              <td><%= date_br(cash.data) %></td>
-              <td><%= number_to_currency(cash.valor, unit: "R$ ", separator: ",", delimiter: ".") %></td>
-              <td><%= cash.credito_debito %></td>
-              <td><%#= link_to truncate(cash.historico, length: 20 ), cash, title: cash.account_payable.observacao if cash.account_payable.present?%>
-              <%= link_to truncate(cash.historico, length: 20 ), cash, { class: "has_tooltip", "data-toggle" => "tooltip", "data-placement" => "top", title: "#{ cash.account_payable.observacao if cash.account_payable.present? }", rel: "tooltip", "data-original-title" => "Ordem de Servico" } %>
-              </td>
-              <td><%= link_to 'Show', cash, class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_cash_path(cash), class: "btn btn-primary btn-xs" %>
-              <td><%= link_to 'Destroy', cash, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger btn-xs" %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+    <%= link_to 'Novo Lançamento Caixa', new_cash_path, class: "btn btn-primary btn-sm btn-block" %>
+    <div class="table-responsive">
+      
+        <div id="result_cash">
+
+        <table class="table table-striped">
+          <thead>
+            <%= render 'cash_header' %>
+
+          </thead>
+
+          <tbody>
+            <%= render @cashes %>
+          </tbody>
+
+        </table>
+      </div>
+
     </div>    
   </div>
 </div>
