@@ -57,7 +57,7 @@
 <% if @account_payable.ordem_service.present? %>  
   <p>
     <strong>OS. No:</strong> 
-    <%= link_to "#{ @account_payable.ordem_service.id }", @account_payable.ordem_service %> 
+    <%= link_to @account_payable.ordem_service.id, @account_payable.ordem_service %> 
   </p>
   <p>
     <strong>Status da OS:</strong>
@@ -68,6 +68,13 @@
     <%= @account_payable.ordem_service.cte %> -  
     <strong>Chave Cte:</strong>  
     <%= @account_payable.ordem_service.danfe_cte %>
+  </p>
+<% end %>
+
+<% if @account_payable.boarding.present? %>  
+  <p>
+    <strong>Embarque No:</strong>
+    <%= link_to @account_payable.boarding.id, @account_payable.boarding %> 
   </p>
 <% end %>
 
