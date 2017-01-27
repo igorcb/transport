@@ -327,10 +327,10 @@ class OrdemService < ActiveRecord::Base
 
   def self.information_delivery(os_id)
     ordem_service = OrdemService.find(os_id)
-    boarding = ordem_service.boarding_item.boarding if ordem_service.boarding_id.present?
+    boarding = ordem_service.boarding_item.boarding if ordem_service.boarding_item.present?
     ActiveRecord::Base.transaction do
       OrdemService.where(id: os_id).update_all(status: OrdemService::TipoStatus::ENTREGA_EFETUADA)
-      if ordem_service.boarding_id.present?
+      if ordem_service.boarding_item.present?
         Boarding.where(id: boarding.id).update_all(status: Boarding::TipoStatus::ENTREGUE) if boarding.check_status_ordem_service_entregue?
       end
     end
