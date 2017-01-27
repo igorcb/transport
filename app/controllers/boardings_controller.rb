@@ -25,6 +25,7 @@ class BoardingsController < ApplicationController
   end
 
 	def show
+    @account_payable = AccountPayable.new
     @cancellation = @boarding.cancellations.build
 	end
 

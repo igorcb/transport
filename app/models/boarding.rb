@@ -5,6 +5,9 @@ class Boarding < ActiveRecord::Base
     
   belongs_to :carrier
   belongs_to :driver
+  
+  has_one :account_payable
+  has_many :account_payables
 
   has_one :ordem_services
   has_many :boarding_items

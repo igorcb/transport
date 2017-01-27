@@ -1,4 +1,6 @@
 	<%= hidden_field_tag "account_payable[ordem_service_id]", @ordem_service.id if !@ordem_service.nil? %>  
+  <%= hidden_field_tag "account_payable[boarding_id]", @boarding.id if !@boarding.nil? %>  
+  /* hidden_field_account_payable  */
 
   <div class="">
     <%= f.label :type_account, "Tipo de Conta" %>

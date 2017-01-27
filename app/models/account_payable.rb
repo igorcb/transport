@@ -21,6 +21,7 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :cash_account
   belongs_to :current_account
   belongs_to :ordem_service
+  belongs_to :boarding
   belongs_to :ordem_service_type_service
   has_many :lower_account_payables
 

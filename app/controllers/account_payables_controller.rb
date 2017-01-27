@@ -176,7 +176,7 @@ class AccountPayablesController < ApplicationController
 
     def account_payable_params
       params.require(:account_payable).permit(:supplier_id, :cost_center_id, :sub_cost_center_id, :sub_cost_center_three_id, :historic_id, 
-        :data_vencimento, :documento, :valor, :observacao, :status, :payment_method_id, :type_account, :ordem_service_id,
+        :data_vencimento, :documento, :valor, :observacao, :status, :payment_method_id, :type_account, :ordem_service_id, :boarding_id,
         lower_payables: [:data_pagamento, :valor_pago, :juros, :desconto, :total_pago],
         assets_attributes: [:asset, :id, :_destroy]
         )
