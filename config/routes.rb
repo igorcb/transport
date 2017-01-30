@@ -12,6 +12,10 @@ Transport::Application.routes.draw do
     match :update_status, :as => :update_status, :via => [:get, :put]  
   end
   #match "update_status" => "boarding_items#update_status", :as => :update_status, :via => [:get, :put]  
+
+  match 'selection_pallet' => "control_pallets#selection_pallet",  via: [:get]
+  match 'generate_ordem_service' => "control_pallets#generate_ordem_service",  via: [:post]
+
   match 'selection_shipment' => "boardings#selection_shipment",  via: [:get]
   match 'generate_shipping' => "boardings#generate_shipping",  via: [:post]
   match 'search_ordem_service' => "boardings#search_ordem_service",  via: [:get]
@@ -71,7 +75,7 @@ Transport::Application.routes.draw do
   match '/search', :controller => 'ordem_services', :action => 'search', via: [:get, :post]
   match 'faturamento' => "ordem_services#faturamento",  via: [:get]
   match 'invoice' => "ordem_services#invoice",  via: [:post]
-  match '/stocks', :controller => 'pallets', :action => 'estoque', via: [:get]
+  match '/stocks', :controller => 'control_pallets', :action => 'estoque', via: [:get]
   match '/clients/get_client_by_cnpj', :controller => 'clients', :action => 'get_client_by_cnpj', via: [:get]
   match '/clients/get_client_by_id', :controller => 'clients', :action => 'get_client_by_id', via: [:get]
   match '/drivers/get_driver_by_id', :controller => 'drivers', :action => 'get_driver_by_id', via: [:get]

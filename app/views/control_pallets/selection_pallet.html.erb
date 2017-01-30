@@ -1,0 +1,118 @@
+<style type="text/css">
+	td div { width:76px; overflow: hidden; }
+</style>
+<h1>Gerar Embarque</h1>
+
+
+<div id="ordem_service_type_service_id">
+  <%= form_tag({:controller => "control_pallets", :action => "generate_ordem_service"}, :method => "post", :name => "boardingForm") do %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Selecione as notas dos palletes</div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Client</th>
+              <th>Data</th>
+              <th>Tipo</th>
+              <th>Transp.</th>
+              <th>NFE</th>
+              <th>NFD</th>
+              <th>Qte</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% i = 1 %>
+            <% @control_pallets.each do |pallet| %>
+              <tr>
+                <td>
+                  <%= check_box_tag "controle_pallete[ids][#{pallet.id}]", pallet.id, false, value: pallet.qte, onchange:"checkTotal();", class: "escolha" %>
+                </td>
+                <td><%= pallet.client.nome %></td>
+                <td><%= date_br pallet.data %></td>
+                <td><%= pallet.credito_debito %></td>
+                <td><%= pallet.carrier.nome if pallet.carrier.present? %></td>
+                <td><%= pallet.nfe %></td>
+                <td><%= pallet.nfd %></td>
+                <td><%= pallet.qte %></td>
+  
+              </tr>
+              <% i = i +1 %>
+            <% end %>
+   
+            <tr>
+              <td colspan="7"><strong>Total Selecionado</strong></td>
+              <td align="right"><%= text_field_tag :valor_total, "", value: 0, disabled: true, size: 10, style: "text-align: Right"  %></td>
+              <td colspan=""><strong></strong></td>
+            </tr>
+   
+        </table>
+      </div>    
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= collection_select(:controle_pallete, :source_client_id, Client.order(:nome), :id, :nome, {:prompt => 'Selecione um cliente remetente'}, class: "form-control")%>
+  </div>
+
+  <div class="form-group">
+    <%= collection_select(:controle_pallete, :target_client_id, Client.order(:nome), :id, :nome, {:prompt => 'Selecione um cliente destinatário'}, class: "form-control")%>
+  </div>
+
+  <%= submit_tag("Gerar Ordem Serviço", class: "btn btn-primary") %> 
+
+  <% end %>
+</div>
+
+<hr>
+
+<script type="text/javascript">
+Number.prototype.formatMoney = function(c, d, t){
+var n = this, 
+    c = isNaN(c = Math.abs(c)) ? 2 : c, 
+    d = d == undefined ? "." : d, 
+    t = t == undefined ? "," : t, 
+    s = n < 0 ? "-" : "", 
+    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+    j = (j = i.length) > 3 ? j % 3 : 0;
+   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ };
+
+
+
+  function checkTotal() {
+    var elements = document.getElementsByClassName('escolha');
+    var label = document.getElementById('valor_total');
+    var sum = 0;
+    // console.log(elements[i].value);
+    for (i=0;i< elements.length;i++) {
+      if (elements[i].checked) {
+        sum = sum + parseFloat(elements[i].value);
+        console.log(elements[i].value);
+      }
+    }
+    document.getElementById('valor_total').value = sum;
+
+  }
+
+
+</script>
+
+<script type="text/javascript">
+jQuery(function($) {
+  // when the #country field changes
+  $("#type_service_id").change(function() {
+    // make a POST call and replace the content
+    var conta = $('select#type_service_id :selected').val();
+    if(conta == "") conta="0";
+    jQuery.get('/ordem_service_to_type_service/' + conta, function(data){
+        $("#ordem_service_type_service_id").html(data);
+    })
+    return false;
+  });
+})
+</script>

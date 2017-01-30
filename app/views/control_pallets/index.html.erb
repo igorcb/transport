@@ -11,30 +11,28 @@
             <th>Data</th>
             <th>Qte</th>
             <th>Tipo</th>
+            <th>Transp.</th>
             <th>Historico</th>
             <th>NFE</th>
-            <th>NFE Original</th>
             <th>NFD</th>
-            <th>NFD Original</th>
             <th colspan="3">Opções</th>
           </tr>
         </thead>
  
         <tbody>
-          <% @control_pallets.each do |control_pallet| %>
+          <% @control_pallets.each do |pallet| %>
             <tr>
-              <td><%= control_pallet.client.nome %></td>
-              <td><%= date_br control_pallet.data %></td>
-              <td><%= control_pallet.qte %></td>
-              <td><%= control_pallet.credito_debito %></td>
-              <td><%= control_pallet.historico %></td>
-              <td><%= control_pallet.nfe %></td>
-              <td><%= control_pallet.nfe_original %></td>
-              <td><%= control_pallet.nfd %></td>
-              <td><%= control_pallet.nfd_original %></td>
-              <td><%= link_to 'Show', control_pallet, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_control_pallet_path(control_pallet), class: "btn btn-primary btn-sm" %></td>
-              <td><%= link_to 'Destroy', control_pallet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+              <td><%= pallet.client.nome %></td>
+              <td><%= date_br pallet.data %></td>
+              <td><%= pallet.qte %></td>
+              <td><%= pallet.credito_debito %></td>
+              <td><%= pallet.carrier.nome if pallet.carrier.present? %></td>
+              <td><%= pallet.historico %></td>
+              <td><%= pallet.nfe %></td>
+              <td><%= pallet.nfd %></td>
+              <td><%= link_to 'Show', pallet, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_control_pallet_path(pallet), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', pallet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
             </tr>
           <% end %>
         </tbody>

@@ -3,8 +3,21 @@ class ControlPalletsController < ApplicationController
 
   respond_to :html
 
+  def selection_pallet
+    @control_pallets = ControlPallet.open_entry
+  end
+
+  def generate_ordem_service
+    ControlPallet.create_ordem_service(params[:controle_pallete])
+    redirect_to control_pallets_path, flash: { success: "Ordem Service create was successful" }
+  end
+
+  def estoque
+    @control_pallets = ControlPallet.select(:client_id).uniq(:client_id)
+  end
+
   def index
-    @control_pallets = ControlPallet.all
+    @control_pallets = ControlPallet.order_desc
     respond_with(@control_pallets)
   end
 
@@ -52,6 +65,6 @@ class ControlPalletsController < ApplicationController
     end
 
     def control_pallet_params
-      params.require(:control_pallet).permit(:data, :qte, :tipo, :historico, :nfe, :nfd, :nfe_original, :nfd_original)
+      params.require(:control_pallet).permit(:data, :qte, :tipo, :historico, :nfe, :nfd, :nfe_original, :nfd_original, :client_id, :carrier_id, :ids)
     end
 end

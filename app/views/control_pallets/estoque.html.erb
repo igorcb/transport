@@ -1,0 +1,32 @@
+<h3>Entradas: <%= ControlPallet.entrada %></h3>
+<h3>Saidas: <%= ControlPallet.saida %></h3>
+<h1>Total: <%= ControlPallet.entrada - ControlPallet.saida %></h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de estoque por cliente</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Entrada</th>
+            <th>Saida</th>
+            <th>Saldo</th>
+          </tr>
+        </thead>
+ 
+        <tbody>
+          <% @control_pallets.each do |pallet| %>
+            <tr>
+              <td><%= pallet.client.nome %></td>
+              <td><%= ControlPallet.entrada(pallet.client.id) %></td>
+              <td><%= ControlPallet.saida(pallet.client.id) %></td>
+              <td><%= ControlPallet.saldo(pallet.client.id) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
