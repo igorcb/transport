@@ -64,6 +64,7 @@ class ReportsController < ApplicationController
       puts ">>>>>>>>>>>>>> Valor: #{valor}"
       r.add_field(:no_fatura, @billing.id)
       r.add_field(:vr_fatura, @billing.valor)
+      r.add_field(:OBS, @billing.observacao)
       r.add_field(:no_duplicata, "#{@billing.id} / #{extract_year(@billing.data)}")
       #r.add_field(:ano_duplicata, extract_year(@billing.data))
       #r.add_field(:vencimento, date_br(@billing.data + @client.vencimento_para.days))
