@@ -15,6 +15,7 @@ class CashesController < ApplicationController
   def index
     @q = Cash.order('id desc').search(params[:q])
     @cashes = Cash.order('id desc')
+    @cash_accounts = CashAccount.order(:nome)
     respond_with(@cashes)
   end
 

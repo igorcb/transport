@@ -14,11 +14,36 @@
       <%= render "form_search" %>
 
     </div>
-
-    
-
   </div>
 
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="headingFour">
+    <h4 class="panel-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        Saldo Caixa
+      </a>
+    </h4>
+  </div>
+  <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <%= render 'cash_accounts/header' %>
+          </thead>
+
+          <tbody>
+            <% @cash_accounts.each do |cash_account| %>
+              <%= render "cash_accounts/list", object: cash_account %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>    
+    </div>
+  </div>
 </div>
 
 <div class="panel panel-default">
