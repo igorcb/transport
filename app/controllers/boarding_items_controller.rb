@@ -55,9 +55,9 @@ class BoardingItemsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       @boarding_item = @boarding.boarding_items.create!(boarding_item_params)
-      OrdemService.where(id: params[:boarding_item][:ordem_service_id]).update_all(status: OrdemService::TipoStatus::EMBARCANDO)
+      OrdemService.where(id: params[:boarding_item][:ordem_service_id]).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
   	  if @boarding_item.save
-  	    flash.now[:notice] = "Boarding Items created successfully."
+  	    flash.now[:notice] = "Boarding Items created successfully." 
       else
         @boarding_item.errors.full_messages.each do |msg|
           flash[:error] = msg  
