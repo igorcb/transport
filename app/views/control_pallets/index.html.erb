@@ -13,8 +13,9 @@
             <th>Tipo</th>
             <th>Transp.</th>
             <th>Historico</th>
-            <th>NFE</th>
-            <th>NFD</th>
+            <th>NF-e</th>
+            <th>NF-d</th>
+            <th>Status</th>
             <th colspan="3">Opções</th>
           </tr>
         </thead>
@@ -30,9 +31,9 @@
               <td><%= pallet.historico %></td>
               <td><%= pallet.nfe %></td>
               <td><%= pallet.nfd %></td>
-              <td><%= link_to 'Show', pallet, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_control_pallet_path(pallet), class: "btn btn-primary btn-sm" %></td>
-              <td><%= link_to 'Destroy', pallet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+              <td><%= link_to 'Show', pallet, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_control_pallet_path(pallet), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Destroy', pallet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>

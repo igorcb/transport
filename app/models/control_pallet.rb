@@ -9,9 +9,9 @@ class ControlPallet < ActiveRecord::Base
   scope :open_entry, -> { where(tipo: CreditoDebito::ENTRADA, status: TipoStatus::ABERTO).order(id: :desc) }
 
   module TipoStatus
-   ABERTO = 0
-   OS_CRIADA = 1
-   FECHADO = 2
+   ABERTO    = 0 # pallete que tem em stok
+   OS_CRIADA = 1 # pallets que foi para embarque
+   FECHADO   = 2 # pallets que foi entregue
   end
 
   module CreditoDebito
@@ -54,13 +54,16 @@ class ControlPallet < ActiveRecord::Base
       hash_ids.each do |i|
         id = i[0].to_i 
         qtde_total += i[1].to_f
-        puts ">>>>>>>>>>>>>>> ControlPallet: #{id}"
         control_pallet = ControlPallet.find(id)
         ordem_service.nfe_keys.create!(nfe: control_pallet.nfe, chave: control_pallet.nfe_original)
         ControlPallet.create!(client_id: control_pallet.client_id, 
                                    data: Date.today, 
                                     qte: control_pallet.qte, 
                                    tipo: CreditoDebito::SAIDA, 
+                                    nfe: control_pallet.nfe,
+                                    nfd: control_pallet.nfd,
+                           nfe_original: control_pallet.nfe_original,
+                           nfd_original: control_pallet.nfd_original,
                               historico: "Sainda de Pallets OS: #{ordem_service.id}", 
                               carrier_id: 3 #carrier_id: 3 nao identificado
                               )
