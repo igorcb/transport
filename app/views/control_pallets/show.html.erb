@@ -15,6 +15,11 @@
 </p>
 
 <p>
+  <strong>Transportador:</strong>
+  <%= @control_pallet.carrier.nome if @control_pallet.carrier.present? %>
+</p>
+
+<p>
   <strong>Qte:</strong>
   <%= @control_pallet.qte %>
 </p>
