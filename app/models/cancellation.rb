@@ -65,6 +65,7 @@ class Cancellation < ActiveRecord::Base
     cancel = Cancellation.find(id)
     user = User.find(user)
     model = cancel.cancellation_model
+    puts ">>>>>>>>>>>>> model #{model.class}"
     case model
       when Billing then cancel.cancel_billing(cancel, user)
       when Boarding then cancel.cancel_boarding(cancel, user)
@@ -87,6 +88,7 @@ class Cancellation < ActiveRecord::Base
   def cancel_ordem_service(cancel, user)
     # colocar status da ordem de servico como cancelada
     # colocar status do cancelamento como CONFIRMADO
+    puts ">>>>>>>>> Cancelando OS"
     ActiveRecord::Base.transaction do
       ordem_service = cancel.cancellation_model
       OrdemService.where(id: ordem_service.id).update_all(status: OrdemService::TipoStatus::CANCELADA)
@@ -121,9 +123,13 @@ class Cancellation < ActiveRecord::Base
   def cancel_billing(cancel, user)
     # colocar status da ordem de servico como cancelada
     # colocar status do cancelamento como CONFIRMADO
+    puts ">>>>>>>>> Cancelando OS"
     ActiveRecord::Base.transaction do
       billing = cancel.cancellation_model
+      ids = billing.ordem_service_ids
+      puts ">>>>>>>>>>>>>>>>> ids: #{ids.class}"
       Billing.where(id: billing.id).update_all(status: Billing::TipoStatus::CANCELADA)
+      OrdemService.where(id: ids).update_all(status: OrdemService::TipoStatus::FECHADO)
       Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
     end
   end

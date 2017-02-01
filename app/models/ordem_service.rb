@@ -281,6 +281,10 @@ class OrdemService < ActiveRecord::Base
       valor_total += i[1].to_f
     end
 
+    if OrdemService.check_client_billing?(ids)
+      self.errors.add("Client Billing", "Customer invoices are not the same")
+    end
+
     # Efetuar Faturamento
     data = Time.now.strftime('%Y-%m-%d')
     os = OrdemService.find(hash_ids[0])
@@ -292,7 +296,21 @@ class OrdemService < ActiveRecord::Base
       AccountReceivable.where(ordem_service_id: hash_ids).update_all(billing_id: billing.id)
     end
   end
-  
+
+  def self.check_client_billing?(ids)
+    # verifica se o cliente da fatura é o mesmo para todas as os
+    positivo = true
+    clients = OrdemService.where(id: ids)
+    client = clients.first
+    puts ">>>>>>>>>>>> first: #{client.billing_client_id}"
+    clients.order(:id).each do |os|
+      puts ">>>>>>>>>>>>. #{client.billing_client_id} - #{os.billing_client_id} - #{client.billing_client_id == os.billing_client_id}"
+      positivo = client.billing_client_id == os.billing_client_id
+      return false if positivo == false
+    end
+    positivo
+  end
+
   def close_ordem_service
     puts "Fechando a Ordem de Servico Model"
     case self.tipo
