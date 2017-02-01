@@ -25,7 +25,6 @@
               <td><%= link_to truncate(cash.historico, length: 20 ), cash, { class: "has_tooltip", "data-toggle" => "tooltip", "data-placement" => "top", title: "#{ cash.account_payable.observacao if cash.account_payable.present? }", rel: "tooltip", "data-original-title" => "Ordem de Servico" } %></td>
               <td><%= link_to 'Show', cash, class: "btn btn-info btn-xs" %></td>
               <td><%= link_to 'Edit', edit_cash_path(cash), class: "btn btn-primary btn-xs" %>
-              <td><%= link_to 'Destroy', cash, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>
