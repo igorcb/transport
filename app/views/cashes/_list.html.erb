@@ -27,6 +27,13 @@
               <td><%= link_to 'Edit', edit_cash_path(cash), class: "btn btn-primary btn-xs" %>
             </tr>
           <% end %>
+          <tr>
+            <td colspan="2"><strong>Saldo: </strong></td>
+            <td><%#= text_field_tag :valor_total, "", value: 0, disabled: true, size: 10, style: "text-align: Right"  %>
+            <%= number_to_currency(@cashes.sum("tipo*valor"), unit: "R$ ", separator: ",", delimiter: ".")  %>
+            </td>
+            <td colspan="1"><strong></strong></td>
+          </tr>
         </tbody>
       </table>
       <%#= will_paginate class: "pagination"%>
