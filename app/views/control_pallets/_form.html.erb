@@ -45,33 +45,49 @@
     <%= f.label :historico %><br>
     <%= f.text_field :historico, class: "form-control" %>
   </div>
-
+<!--
   <div class="form-group">
-    <%= f.label :nfe %><br>
-    <%= f.text_field :nfe, class: "form-control" %>
+    <%#= f.label :nfe %><br>
+    <%#= f.text_field :nfe, class: "form-control" %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :nfe_original, "Chave NF-e" %><br>
-    <%= f.text_field :nfe_original, class: "form-control" %>
+   <div class="form-group">
+    <%#= f.label :nfe_original, "Chave NF-e" %><br>
+    <%#= f.text_field :nfe_original, class: "form-control" %>
+  </div>
+-->
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.label :nfe %><br>
+      <%= f.text_field :nfe, class: "form-control input-sm numericOnly", placeholder: "Nfe"  %>
+    </div>
+
+    <div class="col-xs-4">
+      <%= f.label :nfe, "Chave NF-e" %><br>
+      <%= f.text_field :nfe_original, maxlength: 44, class: "form-control input-sm", placeholder: "Chave NF-e"  %>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= f.label :nfd %><br>
-    <%= f.text_field :nfd, class: "form-control" %>
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.label :nfd %><br>
+      <%= f.text_field :nfd, class: "form-control input-sm numericOnly", placeholder: "Nfe"  %>
+    </div>
+
+    <div class="col-xs-4">
+      <%= f.label :nfd_original, "Chave NFd" %><br>
+      <%= f.text_field :nfd_original, class: "form-control input-sm", placeholder: "Chave NFd"   %>
+    </div>
   </div>
 
-
-  <div class="form-group">
-    <%= f.label :nfd_original, "Chave NFd" %><br>
-    <%= f.text_field :nfd_original, class: "form-control" %>
-  </div>
+  <br />
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  control_pallet_path(@control_pallet), class: "btn btn-info" if !@control_pallet.new_record? %>
     <%= link_to "Listar Todos", control_pallets_path, class: "btn btn-default" %>
   </div>
+
 <% end %>
 
 <script type="text/javascript">
