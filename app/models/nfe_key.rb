@@ -3,6 +3,7 @@ class NfeKey < ActiveRecord::Base
   validates :chave, length: { is: 44 }, numericality: { only_integer: true }, allow_blank: true
 	
 	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "nfe_id", polymorphic: true, dependent: :destroy
+  belongs_to :ordem_service, class_name: "Pallet", foreign_key: "nfe_id", polymorphic: true, dependent: :destroy
 
   has_attached_file :asset
   validates_attachment_content_type :asset, :content_type => /\Aimage\/.*\Z/, allow_blank: true

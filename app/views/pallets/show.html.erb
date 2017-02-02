@@ -4,7 +4,34 @@
   <li class="active">Show</li>
 </ol>
 
-<%= render 'show', object: @pallet %>
+  
+  <%= render 'show', object: @pallet %>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Dados da NF-e
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <%#= render 'clients/client_data', object: @ordem_service.client %>
+
+        <div class="panel-body">
+          <div class="panel panel-default">
+
+           <%= render 'show_nfe_keys', object: @pallet %>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
 
 <div class="form-group">
   <% if current_user.has_role? :admin %>

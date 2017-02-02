@@ -3,17 +3,32 @@
  
   <%= render 'shared/error_messages', object: f.object %>
   <div class="form-group">
-    <%= label_tag :client_cpf_cpnj %><br>
+    <%= label_tag :client_cpf_cpnj, "CNPJ Remetente" %><br>
     <% if @pallet.new_record? %>
       <%= text_field_tag :client_cpf_cpnj, nil, class: "form-control cnpj" %>
     <% else %>
       <%= text_field_tag :client_cpf_cpnj, @pallet.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
-      <%= render partial: "clients/client", locals: { client: @pallet.client } %>
+      <%= render partial: "clients/result_client", locals: { client: @pallet.client } %>
     <% end %>
   </div>
+  
+  <div id="source_client_cnpj_result">
+
+  </div>  
+
 
   <div id="client_cnpj_result">
 
+  </div>
+
+  <div class="form-group">
+    <%= f.label :billing_client_id, "Tomador do serviço" %><br>
+    <%= f.select(:billing_client_id, Client.billing.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :carrier_id, "Transportadora" %><br>
+    <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
@@ -42,6 +57,16 @@
       <%= f.number_field :qtde, class: "form-control" %>
     </div>
   <% end %>
+
+  <h3>Dados NF-e</h3>
+  <div class="nfe_items">
+    <%= f.fields_for :nfe_keys do |f| 
+      render 'nfe_key_fields', f: f
+    end  -%> <br />
+    <%= link_to_add_association 'Add NF-e', f, :nfe_keys, class: "btn btn-success btn-sm" %> <br />
+  </div>
+
+
   <hr />
   <% if current_user.has_role? :admin %>
   <div class="form-group">
@@ -63,10 +88,12 @@
       $.ajax({
         type: "GET",
         data: {cpf_cpnj: cnpj},
-        url: '/clients/get_client_by_cnpj'
+        dataType : 'html',
+        url: '/clients/get_client_by_cnpj',
+        success: function(data){
+            $('#source_client_cnpj_result').html(data);
+        },
       });
-
     });
   });
 </script>
-
