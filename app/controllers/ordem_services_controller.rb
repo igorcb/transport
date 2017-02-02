@@ -377,6 +377,13 @@ class OrdemServicesController < ApplicationController
   end
 
   def invoice
+    ids = OrdemService.get_hash_ids(params[:os][:ids])
+    puts ">>>>>>>>>>>>>>>>>>>>>>> check_client_billing: #{OrdemService.check_client_billing?(ids)} <<<<<<<<<<<<<<<<<<<<<<<<"
+    if !OrdemService.check_client_billing?(ids)
+      flash[:danger] = "Customer invoices are not the same."
+      redirect_to faturamento_path
+      return
+    end
     OrdemService.invoice(params[:os][:ids], params[:id_service], params[:valor_total])
     redirect_to billings_path
   end

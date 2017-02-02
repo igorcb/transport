@@ -273,6 +273,14 @@ class OrdemService < ActiveRecord::Base
     services
   end
 
+  def self.get_hash_ids(ids)
+    hash_ids = []
+    ids.each do |i|
+      hash_ids << i[0].to_i
+    end
+    hash_ids
+  end
+
   def self.invoice(ids, type_service, value)
     valor_total = 0
     hash_ids = []
@@ -281,9 +289,9 @@ class OrdemService < ActiveRecord::Base
       valor_total += i[1].to_f
     end
 
-    if OrdemService.check_client_billing?(ids)
-      self.errors.add("Client Billing", "Customer invoices are not the same")
-    end
+    #if OrdemService.check_client_billing?(hash_ids)
+    #  OrdemService.errors.add("Client Billing", "Customer invoices are not the same")
+    #end
 
     # Efetuar Faturamento
     data = Time.now.strftime('%Y-%m-%d')
