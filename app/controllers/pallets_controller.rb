@@ -133,7 +133,10 @@ class PalletsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pallet_params
-      params.require(:pallet).permit(:client_id, :data_agendamento, :qtde, :data_informada, :qtde_informada, :status)
+      params.require(:pallet).permit(:client_id, :billing_client_id, :carrier_id, :data_agendamento, :qtde, :data_informada, 
+        :qtde_informada, :status,
+        nfe_keys_attributes: [:nfe, :chave, :asset, :qtde, :remessa_ype, :peso, :volume, :id, :_destroy]
+        )
     end
 
 end
