@@ -98,6 +98,7 @@ class OrdemService < ActiveRecord::Base
     CANCELADA = 7
     AGUARDANDO_EMBARQUE = 8
     EMBARCADO = 9
+    ARMAZENADO = 10
     PAGO_SEMFATURA = 99
   end
   #sequencia do status => [Aberto, Embarcando, Embarcado, Entrega Efetuada, Fechado, Faturado]

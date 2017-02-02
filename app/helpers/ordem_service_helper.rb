@@ -1,7 +1,10 @@
 module OrdemServiceHelper
  
   def select_status_os
-    ([["ABERTO", 0],["FECHADO", 1], ["FATURADO", 2], ["NAO FATURAR", 3], ["PAGO***", 99]])
+    #([["ABERTO", 0],["FECHADO", 1], ["FATURADO", 2], ["NAO FATURAR", 3], ["PAGO***", 99]])
+    ([["ABERTO", 0], ["ENTREGA_EFETUADA", 1], ["FECHADO", 2], ["FATURADO", 3], ["NAO_FATURAR", 4],
+        ["PAGA", 5], ["SOLICITACAO_CANCELAMENTO", 6], ["CANCELADA", 7], ["AGUARDANDO_EMBARQUE", 8],
+        ["EMBARCADO", 9], ["ARMAZENADO", 10], ["PAGO_SEMFATURA", 99]])
   end
 
   def year_now
