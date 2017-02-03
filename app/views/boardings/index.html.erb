@@ -29,6 +29,9 @@
               <td><%= link_to 'Edit', edit_boarding_path(boarding), class: "btn btn-primary btn-xs" %></td>
               <td><%= link_to 'Destroy', boarding, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
             </tr>
+            <tr>
+              <td colspan="9">Cidades: <%= boarding.get_cities %></td>
+            </tr>
           <% end %>
         </tbody>
       </table>

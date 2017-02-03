@@ -163,6 +163,14 @@ class Boarding < ActiveRecord::Base
     get_ordem_services_ids
   end
 
+  def get_cities
+    cities = []
+    self.boarding_items.each do |item|
+      cities << item.ordem_service.client.cidade
+    end
+    cities
+  end
+
   private
   
     def get_ordem_services_ids
