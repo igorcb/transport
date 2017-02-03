@@ -2,6 +2,23 @@
   <%= render 'show', object: @billing %>  
 </div>
 
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEight">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+          Documentos
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+      <div class="panel-body">
+
+      <%= render 'shared/document', object: @billing %>
+      
+      </div>
+    </div>
+  </div>
+
   <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
     <div class="panel panel-default">

@@ -9,6 +9,10 @@ class Billing < ActiveRecord::Base
   has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
   accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
 
+  has_many :assets, as: :asset, dependent: :destroy
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
+
+
   before_update :modify_due_date
 
   module TipoStatus

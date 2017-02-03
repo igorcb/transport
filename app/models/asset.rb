@@ -1,7 +1,8 @@
 class Asset < ActiveRecord::Base
-	belongs_to :carrier, class_name: "Carrier", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :client, class_name: "Client", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :driver, class_name: "Driver", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
+	belongs_to :carrier, class_name: "Carrier", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
+	belongs_to :billing, class_name: "Billing", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :vehicle, class_name: "Vehicle", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :employee, class_name: "Employee", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :supplier, class_name: "Supplier", foreign_key: "asset_id", polymorphic: true, dependent: :destroy

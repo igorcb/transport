@@ -20,7 +20,17 @@
     <%= f.text_area :observacao, class: "form-control" %>
   </div>
 
+  <h2>Documentos</h2> 
+  <div id="documents">
+    <div class="items">
+      <%= f.nested_fields_for :assets do |f| 
+        render 'shared/asset', f: f
+      end  -%>
+    </div>
+      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+  </div>
 
+  <br />
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  billings_path(@billing), class: "btn btn-info" if !@billing.new_record? %>

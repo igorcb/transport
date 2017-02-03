@@ -63,7 +63,9 @@ class BillingsController < ApplicationController
     end
 
     def billing_params
-      params.require(:billing).permit(:data_vencimento, :status, :obs, :observacao)
+      params.require(:billing).permit(:data_vencimento, :status, :obs, :observacao,
+        assets_attributes: [:asset, :user_id, :id, :_destroy]
+        )
     end
 end
 
