@@ -93,6 +93,8 @@ class Pallet < ActiveRecord::Base
                                  data: Date.today, 
                                   qte: nfe.volume, 
                                  tipo: ControlPallet::CreditoDebito::ENTRADA, 
+                                  nfe: nfe.nfe,
+                         nfe_original: nfe.chave,      
                             historico: "Entrada de Pallets No: #{self.id}", 
                             carrier_id: self.carrier_id #carrier_id: 3 nao identificado
                           )
