@@ -17,6 +17,13 @@ class ReportsController < ApplicationController
       r.add_field(:MOTORISTA_CNH, @boarding.driver.cnh)
       r.add_field(:CNH_REG, @boarding.driver.registro_cnh)
       r.add_field(:CNH_VAL, date_br(@boarding.driver.validade_cnh))
+      
+      r.add_field(:AGENTE, @boarding.carrier.fantasia)
+      r.add_field(:AGENTE_RAZAO_SOCIAL, @boarding.carrier.nome) #RAZAO SOCIAL
+      r.add_field(:AGENTE_CNPJ, @boarding.carrier.cnpj) 
+      r.add_field(:AGENTE_ENDERECO, @boarding.carrier.endereco) 
+      r.add_field(:AGENTE_COMPLEMENTO, @boarding.carrier.complemento) 
+      r.add_field(:AGENTE_BAIRRO, @boarding.carrier.bairro + ' - ' + @boarding.carrier.cidade) 
 
       #rodapé
       r.add_field(:DATA_EXPEDICAO, date_br(@boarding.date_boarding))      
