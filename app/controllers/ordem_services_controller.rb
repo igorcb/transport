@@ -256,7 +256,7 @@ class OrdemServicesController < ApplicationController
   end
 
   def search_logistic
-    @q = OrdemService.joins(:ordem_service_logistics).paginate(:page => params[:page]).search(params[:query])
+    @q = OrdemService.joins(:ordem_service_logistics).order(id: :desc).paginate(:page => params[:page]).search(params[:query])
     @ordem_services = @q.result
     respond_with(@ordem_services) do |format|
       format.js
