@@ -12,7 +12,11 @@
     <p>
       <strong>Criada em:</strong>
       <%= date_hora_br @ordem_service.created_at %>
+    </p>
 
+    <p>
+      <strong>Data Entrada:</strong>
+      <%= date_br @ordem_service.date_entry if @ordem_service.date_entry.present? %>
     </p>
 
     <p>
@@ -21,23 +25,28 @@
     </p>
 
     <p>
-      <strong>Data da Entrega do Serviço:</strong>
-      <%= date_br @ordem_service.data_entrega_servico %>
-    </p>
-
-    <p>
-      <strong>Data Fechamento da OS:</strong>
-      <%= date_br @ordem_service.data_fechamento if @ordem_service.data_fechamento.present? %>
-    </p>
-
-    <p>
       <strong>Data Expedição:</strong>
       <%= date_br @ordem_service.date_shipping if @ordem_service.date_shipping.present? %>
     </p>
 
     <p>
-      <strong>Data Entrada:</strong>
-      <%= date_br @ordem_service.date_entry if @ordem_service.date_entry.present? %>
+      <strong>Data da Entrega do Serviço:</strong>
+      <%= date_br @ordem_service.data_entrega_servico %>
+    </p>
+
+    <p>
+      <strong>Data OTIF:</strong>
+      <%= date_br @ordem_service.date_otif if @ordem_service.date_otif.present? %>
+    </p>
+
+    <p>
+      <strong>Lead Time:</strong>
+      <%= date_br @ordem_service.lead_time if @ordem_service.lead_time.present? %>
+    </p>
+
+    <p>
+      <strong>Data Fechamento da OS:</strong>
+      <%= date_br @ordem_service.data_fechamento if @ordem_service.data_fechamento.present? %>
     </p>
 
     <p>
