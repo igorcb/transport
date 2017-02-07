@@ -20,7 +20,7 @@ class ReportsController < ApplicationController
       
       r.add_field(:AGENTE, @boarding.carrier.fantasia)
       r.add_field(:AGENTE_RAZAO_SOCIAL, @boarding.carrier.nome) #RAZAO SOCIAL
-      r.add_field(:AGENTE_CNPJ, @boarding.carrier.cnpj) 
+      r.add_field(:AGENTE_CPF_CNPJ, @boarding.carrier.cnpj)
       r.add_field(:AGENTE_ENDERECO, @boarding.carrier.endereco) 
       r.add_field(:AGENTE_COMPLEMENTO, @boarding.carrier.complemento) 
       r.add_field(:AGENTE_BAIRRO, @boarding.carrier.bairro + ' - ' + @boarding.carrier.cidade) 

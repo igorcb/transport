@@ -25,6 +25,8 @@ class Boarding < ActiveRecord::Base
 
   before_destroy :erase_boarding_items
 
+  ZERO = 0.00
+
   module TipoStatus
   	ABERTO = 0
   	EMBARCADO = 1
@@ -133,7 +135,7 @@ class Boarding < ActiveRecord::Base
   def qtde_palets
     soma = 0
     self.boarding_items.each do |item|
-      soma += item.ordem_service.qtde_palets
+      soma += item.ordem_service.qtde_palets.blank? ? ZERO : item.ordem_service.qtde_palets
     end
     soma
   end
