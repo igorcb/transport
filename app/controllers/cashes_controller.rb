@@ -5,7 +5,7 @@ class CashesController < ApplicationController
   respond_to :html
 
   def search
-    @q = Cash.search(params[:query])
+    @q = Cash.order(data: :desc).search(params[:query])
     @cashes = @q.result
     respond_with(@cashes) do |format|
      format.js
@@ -13,8 +13,8 @@ class CashesController < ApplicationController
   end
 
   def index
-    @q = Cash.order('id desc').search(params[:q])
-    @cashes = Cash.order('id desc')
+    @q = Cash.order(data: :desc).search(params[:q])
+    @cashes = Cash.order(data: :desc)
     @cash_accounts = CashAccount.order(:nome)
     respond_with(@cashes)
   end

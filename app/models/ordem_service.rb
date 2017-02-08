@@ -338,7 +338,7 @@ class OrdemService < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       billing = Billing.create!(data: data, valor: valor_total, data_vencimento: venc ,type_service_id: type_service, status: Billing::TipoStatus::ABERTO , obs: hash_ids.to_s)
       OrdemService.where(id: hash_ids).update_all(status: TipoStatus::FATURADO, billing_id: billing.id)
-      AccountReceivable.where(ordem_service_id: hash_ids).update_all(billing_id: billing.id)
+      AccountReceivable.where(ordem_service_id: hash_ids).update_all(billing_id: billing.id, data_vencimento: venc)
     end
   end
 
