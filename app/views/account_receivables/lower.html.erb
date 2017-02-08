@@ -11,6 +11,11 @@
   </div>
 
   <div class="form-group">
+    <%= label_tag :payment_method_id, "Forma de Pgto" %><br>
+    <%= select_tag "lower_receivables[payment_method_id]", options_from_collection_for_select(@payment_methods, "id", "descricao"), :prompt => "Selecione uma forma de pagamento", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= label_tag :data_pagamento %><br>
     <%= text_field_tag "lower_receivables[data_pagamento]", "", class: "form-control data" %>
   </div>

@@ -60,6 +60,8 @@ class AccountReceivable < ActiveRecord::Base
         self.status = TipoStatus::PAGOPARCIAL
       end
 
+      self.save
+
       self.lower_account_receivables.create!(data_pagamento: options[:data_pagamento],
                                           valor_pago: options[:valor_pago],
                                           juros: options[:juros],
@@ -67,15 +69,26 @@ class AccountReceivable < ActiveRecord::Base
                                           total_pago: options[:total_pago],
                                           cash_account_id: options[:cash_account_id]
                                           )
-      self.save
 
-      CurrentAccount.create!(cash_account_id: options[:cash_account_id], 
-                            data: options[:data_pagamento],  
-                            valor: vr_pago,
-                            tipo: CurrentAccount::TipoLancamento::CREDITO,
-                            historico: "BAIXA CONTA A RECEBER: " + self.documento,
-                            account_receivable_id: self.id
+      Cash.create!(cash_account_id: options[:cash_account_id], 
+                              data: options[:data_pagamento],  
+                              valor: vr_pago,
+                               tipo: Cash::TipoLancamento::CREDITO,
+                          historico: "PAGAMENTO FATURA: " + self.billing_id.to_s,
+                     cost_center_id: self.cost_center_id,
+                  payment_method_id: self.payment_method_id,
+                 sub_cost_center_id: self.sub_cost_center_id,
+           sub_cost_center_three_id: self.sub_cost_center_three_id,
+              account_receivable_id: self.id
                             )
+
+      # CurrentAccount.create!(cash_account_id: options[:cash_account_id], 
+      #                       data: options[:data_pagamento],  
+      #                       valor: vr_pago,
+      #                       tipo: CurrentAccount::TipoLancamento::CREDITO,
+      #                       historico: "BAIXA CONTA A RECEBER: " + self.documento,
+      #                       account_receivable_id: self.id
+      #                       )
     end
   end
 
