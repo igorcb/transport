@@ -109,6 +109,14 @@ class OrdemService < ActiveRecord::Base
     AEREO = 4
   end
 
+  module AlertLeadTime
+    ALERT    = 0 # se diferenca entre data der zero ou negativo está atrasado
+    ALTO     = 1 # se diferenca entre data der um (1) ou está estado de alerta
+    MEDIO    = 2 # se diferenca entre data der um (2) ou está estado de alerta medio
+    BAIXO    = 3 # se diferenca entre data der um (3) ou está estado de alerta baixo
+    NORMAL    = 4 # se diferenca entre data der um (3) ou está dentro do prazo
+  end
+
   def set_peso_and_volume
     peso = self.nfe_keys.sum(:peso)
     volume = self.nfe_keys.sum(:volume)
@@ -153,6 +161,34 @@ class OrdemService < ActiveRecord::Base
     else "Nao Definido"
     end
   end 
+
+  def alert
+    #(self.date_otif - Date.today).round
+    days = self.date_otif.blank? ? AlertLeadTime::ALERT : (self.date_otif - Date.today).round
+    days = 0 if days < 0 # se a data for negativa setar como zero
+    days = 4 if days > 4 # se a data for maior que 4 setar como está no prazo
+    case days
+      when 0 then AlertLeadTime::ALERT
+      when 1 then AlertLeadTime::ALTO
+      when 2 then AlertLeadTime::MEDIO
+      when 3 then AlertLeadTime::BAIXO
+      when 4 then AlertLeadTime::NORMAL
+    end
+  end
+
+  def alert_name
+    #(self.date_otif - Date.today).round
+    days = self.date_otif.blank? ? AlertLeadTime::ALERT : (self.date_otif - Date.today).round
+    days = 0 if days < 0 # se a data for negativa setar como zero
+    days = 4 if days > 4 # se a data for maior que 4 setar como está no prazo
+    case days
+      when 0 then "ALERT"
+      when 1 then "ALTO"
+      when 2 then "MEDIO"
+      when 3 then "BAIXO"
+      when 4 then "NORMAL"
+    end
+  end
 
   def tipo_os_name
     case self.tipo

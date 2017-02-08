@@ -29,4 +29,18 @@ module OrdemServiceHelper
   def select_tipo_frete
     ([["CIF", 1], ["FOB", 2]])
   end
+
+  def alert_color(ordem_service, alert)
+    case alert
+      when 0 then link_to "Alert", ordem_service, {:target => "_blank"}.merge(class: "btn btn-danger btn-xs")
+      when 1 then link_to "Alto" , ordem_service, {:target => "_blank"}.merge(class: "btn btn-warning btn-xs")
+      when 2 then link_to "Medio", ordem_service, {:target => "_blank"}.merge(class: "btn btn-yellow btn-xs")
+      when 3 then link_to "Baixo", ordem_service, {:target => "_blank"}.merge(class: "btn btn-green btn-xs")
+      when 4 then link_to "Normal", ordem_service, {:target => "_blank"}.merge(class: "btn btn-default btn-xs")
+    end
+    
+    
+  end
+
+ 
 end
