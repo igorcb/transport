@@ -10,6 +10,16 @@
 </p>
 
 <p>
+  <strong>Sub Centro de Custo Nivel 3:</strong>
+  <%= @account_receivable.sub_cost_center_three.descricao if @account_receivable.sub_cost_center_three.present? %>
+</p>
+
+<p>
+  <strong>Forma de Pagamento:</strong>
+  <%= @account_receivable.payment_method.descricao if @account_receivable.payment_method.present? %>
+</p>
+
+<p>
   <strong>Historico:</strong>
   <%= @account_receivable.historic.descricao %>
 </p>
