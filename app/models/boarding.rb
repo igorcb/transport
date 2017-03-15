@@ -13,6 +13,7 @@ class Boarding < ActiveRecord::Base
   has_many :boarding_items
   #accepts_nested_attributes_for :boarding_items, allow_destroy: true, :reject_if => :all_blank
   has_many :boarding_vehicles
+  has_many :vehicles, :through => :boarding_vehicles
   accepts_nested_attributes_for :boarding_vehicles, allow_destroy: true, :reject_if => :all_blank
 
   has_many :cte_keys, class_name: "CteKey", foreign_key: "cte_id", :as => :cte, dependent: :destroy

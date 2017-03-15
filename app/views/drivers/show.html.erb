@@ -154,25 +154,8 @@
     
 <%= render 'shared/document', object: @driver %>
 
-<h2>Veiculos</h2>
-<% if @driver.vehicles.any? %>
-  <table class="table table-striped">
-    <tbody>
-      <% @driver.vehicles.each do |vehicle| %>
-        <tr>
-          <td><%= link_to "#{vehicle.tipo_nome}", vehicle %></td>
-          <td><%= link_to "#{vehicle.tipo_carroceria_name}", vehicle %></td>
-          <td><%= link_to "#{vehicle.tipo_veiculo_nome}", vehicle %></td>
-          <td><%= link_to "#{vehicle.marca}", vehicle %></td>
-          <td><%= link_to "#{vehicle.modelo}", vehicle %></td>
-          <td><%= link_to "#{vehicle.placa}", vehicle %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>This person has no vehicle yet.</p>
-<% end %>
+<%= render 'shared/show_vehicle_compact', object: @driver %>
+
   
 <div class="form-actions">
   <%= link_to 'Editar', edit_driver_path(@driver), class: "btn btn-primary" %>
