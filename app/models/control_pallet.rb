@@ -66,7 +66,7 @@ class ControlPallet < ActiveRecord::Base
                            nfe_original: control_pallet.nfe_original,
                            nfd_original: control_pallet.nfd_original,
                               historico: "Sainda de Pallets OS: #{ordem_service.id}", 
-                                 status: TipoStatus::Aberto,
+                                 status: TipoStatus::ABERTO,
                               carrier_id: 3 #carrier_id: 3 nao identificado
                               )
       end
