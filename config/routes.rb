@@ -1,4 +1,9 @@
 Transport::Application.routes.draw do
+  #match '/select_xml_nfe_new_ordem_services', :controller => 'new_ordem_services', :action => 'select_xml_nfe', via: [:get, :post]
+  resources :new_creation_ordem_services do
+    get :select_xml_nfe, on: :collection
+    post :process_xml_nfe, on: :collection  
+  end
 
   resources :boardings do
     resources :boarding_items do
@@ -12,7 +17,7 @@ Transport::Application.routes.draw do
     match :update_status, :as => :update_status, :via => [:get, :put]  
   end
   #match "update_status" => "boarding_items#update_status", :as => :update_status, :via => [:get, :put]  
-
+  match 'selection_pallet' => "control_pallets#selection_pallet",  via: [:get]
   match 'selection_pallet' => "control_pallets#selection_pallet",  via: [:get]
   match 'generate_ordem_service' => "control_pallets#generate_ordem_service",  via: [:post]
 
@@ -39,7 +44,8 @@ Transport::Application.routes.draw do
 
   resources :cashes do
   end
-
+  
+  resources :nfe_xmls, only: [:index, :new, :create]
   resources :cte_xmls, only: [:index, :new, :create]
   
   get "internal_comments/create"
