@@ -77,11 +77,13 @@ class NfeXml < ActiveRecord::Base
            											source_client_id: source_client.id,
                                billing_client_id: billing_client.id,
       															  carrier_id: 11, #A MOURA DO NASCIMENTO - ME  # 3 - Nao Identificado
+                                            peso: nfe.vol.pesoB, 
+                                     qtde_volume: nfe.vol.qVol,
   																				estado: target_client.estado,
   																				cidade: target_client.cidade
       															             )
       # motorista não identificado 105
-      ordem_service.ordem_service_logistics.create!(driver_id: 105, placa: nfe.veiculo.placa)
+      ordem_service.ordem_service_logistics.create!(driver_id: 105, placa: nfe.veiculo.placa, peso: nfe.vol.pesoB, qtde_volume: nfe.vol.qVol)
       ordem_service.nfe_keys.create!(nfe: nfe.ide.nNF, chave: chave_nfe, qtde: 0, volume: nfe.vol.qVol, peso: nfe.vol.pesoB)
     end
   end
