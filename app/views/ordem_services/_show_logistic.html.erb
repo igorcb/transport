@@ -130,6 +130,30 @@
     </div>
   </div>
 
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwelve">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+          Itens da OS
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwelve" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwelve">
+      <div class="panel-body">
+        <div class="panel panel-default">
+<!--           <div class="panel-heading">
+            <h2 class="panel-title">Items</h2>
+          </div>
+ -->
+
+<!--            <div class="panel-body"> 
+            <%#= render 'show_item_ordem_services', object: @ordem_service %>
+          </div>
+ -->          <%= render 'show_item_ordem_services', object: @ordem_service %>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <div class="panel panel-default">

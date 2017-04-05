@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Itens Ordem de Serviço</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>NF-e</th>
+            <th>Cod.Prod.</th>
+            <th>Produto</th>
+            <th>Qtde</th>
+            <th>Qtde Trib.</th>
+            <th>Valor</th>
+            <th>Un.Med.</th>
+            <th>Vl. Unit.</th>
+         </tr>
+        </thead>
+
+        <tbody>
+          <% @ordem_service.item_ordem_services.each do |item| %>
+            <tr>
+              <td><%= item.number %></td>
+              <td><%= item.product.cod_prod %></td>
+              <td><%= item.product.descricao %></td>
+              <td><%= item.qtde %></td>
+              <td><%= item.qtde_trib %></td>
+              <td><%= item.valor %></td>
+              <td><%= item.unid_medida %></td>
+              <td><%= item.product.valor_unitario %></td>
+
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
