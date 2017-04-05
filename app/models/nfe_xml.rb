@@ -46,7 +46,7 @@ class NfeXml < ActiveRecord::Base
       cnpj_target = nfe.dest.CNPJ.to_s
       cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
       chave_nfe = nfe_xml.asset_file_name.gsub(".xml", '')
-    
+      placa = nfe.veiculo.placa.insert(3, '-')
     	source_client = Client.create_with(    
     																	tipo_pessoa: 1, 
     															group_client_id: 7, 
@@ -80,11 +80,38 @@ class NfeXml < ActiveRecord::Base
                                             peso: nfe.vol.pesoB, 
                                      qtde_volume: nfe.vol.qVol,
   																				estado: target_client.estado,
-  																				cidade: target_client.cidade
+  																				cidade: target_client.cidade,
+                                      observacao: nfe.info.infCpl
       															             )
       # motorista não identificado 105
-      ordem_service.ordem_service_logistics.create!(driver_id: 105, placa: nfe.veiculo.placa, peso: nfe.vol.pesoB, qtde_volume: nfe.vol.qVol)
-      ordem_service.nfe_keys.create!(nfe: nfe.ide.nNF, chave: chave_nfe, qtde: 0, volume: nfe.vol.qVol, peso: nfe.vol.pesoB)
+      ordem_service.ordem_service_logistics.create!(driver_id: 105, placa: placa, peso: nfe.vol.pesoB, qtde_volume: nfe.vol.qVol)
+      ordem_service.nfe_keys.create!(nfe: nfe.ide.nNF, chave: nfe.infoProt.chNFe, qtde: 0, volume: nfe.vol.qVol, peso: nfe.vol.pesoB)
+      nfe.prod.each do |product|
+        prod = Produto.new
+        prod.attributes=(product)
+                                  #produtos da NFE
+        produto = Product.create_with(category_id: 6, 
+                                      cubagem: 0,
+                                  cod_prod: prod.cProd, 
+                                 descricao: prod.xProd, 
+                                       ean: prod.cEAN,
+                                  ean_trib: prod.cEANTrib,
+                                       ncm: prod.NCM,
+                                      cfop: prod.CFOP,
+                               unid_medida: prod.uCom,
+                            valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
+        
+        ordem_service.item_ordem_services.create!(number: nfe.ide.nNF,
+                                              product_id: produto.id,
+                                                    qtde: prod.qCom,
+                                               qtde_trib: prod.qTrib,
+                                                   valor: prod.vProd,
+                                          valor_unitario: prod.vUnTrib,
+                                    valor_unitario_comer: prod.vUnCom,
+                                             unid_medida: prod.uCom
+                                      )
+      end
+      
     end
   end
 
