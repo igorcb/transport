@@ -17,7 +17,7 @@
         </thead>
 
         <tbody>
-          <% @ordem_service.item_ordem_services.each do |item| %>
+          <% @ordem_service.item_ordem_services.order(:cod_prod).each do |item| %>
             <tr>
               <td><%= item.number %></td>
               <td><%= item.product.cod_prod %></td>
