@@ -46,7 +46,7 @@ class NfeXml < ActiveRecord::Base
       cnpj_target = nfe.dest.CNPJ.to_s
       cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
       chave_nfe = nfe_xml.asset_file_name.gsub(".xml", '')
-      placa = nfe.veiculo.placa.insert(3, '-')
+      placa = nfe.veiculo.placa.present? ? nfe.veiculo.placa.insert(3, '-') : 'ZZZ-9999'
     	source_client = Client.create_with(    
     																	tipo_pessoa: 1, 
     															group_client_id: 7, 
