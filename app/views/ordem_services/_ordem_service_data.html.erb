@@ -51,7 +51,7 @@
 
     <p>
       <strong>Qtde Palets:</strong>
-      <%= @ordem_service.ordem_service_logistic.qtde_palets %>
+      <%= @ordem_service.ordem_service_logistic.qtde_palets if @ordem_service.ordem_service_logistic.present? %>
     </p>
 
     <p>
