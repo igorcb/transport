@@ -23,6 +23,16 @@
     </div>
 
     <div class="form-group">
+      <%= f.label :ordem_service_logistic_driver_id_eq, "Motorista" %>
+      <%= f.collection_select :ordem_service_logistic_driver_id_eq, Driver.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :ordem_service_logistic_delivery_driver_id_eq, "Motorista para Entrega" %>
+      <%= f.collection_select :ordem_service_logistic_delivery_driver_id_eq, Driver.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+    </div>
+
+    <div class="form-group">
       <%= f.label :cte_keys_cte_eq, "CTE" %>
       <%= f.search_field :cte_keys_cte_eq, class: "form-control numericOnly", placeholder: "Informe o No CTE ex: 187212" %>  
     </div>
