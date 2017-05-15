@@ -264,7 +264,15 @@ class OrdemServicesController < ApplicationController
   end
   
   def delivery
-    if @ordem_service.status == OrdemService::TipoStatus::ENTREGA_EFETUADA
+    if @ordem_service.status == OrdemService::TipoStatus::ABERTO
+      flash[:danger] = "Ordem Service is already as ABERTO."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    elsif @ordem_service.status == OrdemService::TipoStatus::AGUARDANDO_EMBARQUE
+      flash[:danger] = "Ordem Service is already as WAITING FOR BOARDING."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    elsif @ordem_service.status == OrdemService::TipoStatus::ENTREGA_EFETUADA
       flash[:danger] = "Ordem Service is already as delivered."
       redirect_to ordem_service_path(@ordem_service)
       return
@@ -272,6 +280,10 @@ class OrdemServicesController < ApplicationController
       flash[:danger] = "Ordem Service is already as closed."
       redirect_to ordem_service_path(@ordem_service)
       return    
+    elsif @ordem_service.status == OrdemService::TipoStatus::FATURADO
+      flash[:danger] = "Ordem Service is already as BILLING."
+      redirect_to ordem_service_path(@ordem_service)
+      return
     elsif !@ordem_service.ordem_service_type_service.present? 
       flash[:danger] = "Can not close without an Order of Seriviço associated service."
       redirect_to ordem_service_path(@ordem_service)
