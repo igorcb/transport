@@ -21,7 +21,8 @@ class BoardingsController < ApplicationController
   end
 
   def index
-    @boardings = Boarding.order(id: :desc)
+    #@boardings = Boarding.order(id: :desc)
+    @boardings = Boarding.status_open
   end
 
 	def show

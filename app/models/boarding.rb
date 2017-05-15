@@ -23,6 +23,7 @@ class Boarding < ActiveRecord::Base
   has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
   accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
 
+  scope :status_open, -> { where(status: [TipoStatus::ABERTO, TipoStatus::EMBARCADO]).order("id desc") }
 
   before_destroy :erase_boarding_items
 
