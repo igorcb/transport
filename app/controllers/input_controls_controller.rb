@@ -58,7 +58,7 @@ class InputControlsController < ApplicationController
     # @input_control = InputControl.new(input_control_params)
     # @input_control.save
     # respond_with(@input_control)
-
+    @input_control.user_id = current_user.id
     respond_to do |format|
       if @input_control.save                               
         format.html { redirect_to @input_control, flash: { success: "Input Control was successfully created." } }
@@ -96,9 +96,9 @@ class InputControlsController < ApplicationController
     end
 
     def input_control_params
-      params.require(:input_control).permit(:client_id, :carrier_id, :driver_id, :placa, :placa_carreta, 
-        :placa_carreta_2, :data_entrada, :hora_entrada, :data_recebimento, :paletizada, :qtde_paletes, 
-        :peso, :volume, :valor_tonelada, :valor_kg, :valor_total, :observacao,
+      params.require(:input_control).permit(:carrier_id, :driver_id, :place, :place_cart, 
+        :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets, 
+        :observation,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy]
         )
     end

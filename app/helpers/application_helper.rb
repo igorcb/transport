@@ -38,6 +38,10 @@ module ApplicationHelper
     date.nil? ? "" : I18n.l(date, format: '%d/%m/%Y')
   end
 
+  def time_br(date)
+    date.nil? ? "" : I18n.l(date, format: '%H:%M')
+  end
+
   def date_hora_br(date)
     date.nil? ? "" : I18n.l(date, format: '%d/%m/%Y %H:%M:%S')
   end

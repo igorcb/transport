@@ -1,6 +1,6 @@
 class InputControl < ActiveRecord::Base
   validates :carrier_id, :driver_id, presence: true
-	validates :placa, :data_entrada, presence: true
+	validates :place, :date_entry, :time_entry, presence: true
 
   belongs_to :carrier
   belongs_to :driver
@@ -13,6 +13,7 @@ class InputControl < ActiveRecord::Base
   after_save :processa_nfe_xmls
 
   before_create do |cte|
+    set_peso_and_volume
     set_values
   end 
 
@@ -23,8 +24,8 @@ class InputControl < ActiveRecord::Base
     PALETIZADA  = true
   end
 
-  def carga_paletizada
-    case self.paletizada
+  def palletized_status
+    case self.palletized
       when false then "Nao"
       when true then "Sim"
       else "Nao Informado"
@@ -32,20 +33,20 @@ class InputControl < ActiveRecord::Base
   end
 
   def set_values
-    self.peso = 0.00
+    self.weight = 0.00
     self.volume = 0.00
-    self.valor_kg = valor_kg
-    self.valor_total = 0.00
-    self.valor_tonelada  = VALOR_DA_TONELADA
+    self.value_kg = valor_kg
+    self.value_total = 0.00
+    self.value_ton  = VALOR_DA_TONELADA
   end
 
   def set_peso_and_volume
     peso = self.nfe_xmls.sum(:peso)
     volume = self.nfe_xmls.sum(:volume)
-    valor_total = peso * valor_kg
+    valor_total = valor_total
     ActiveRecord::Base.transaction do
       puts "peso: #{peso} and volume: #{volume}"
-      InputControl.where(id: self.id).update_all(peso: peso, volume: volume, valor_total: valor_total)
+      InputControl.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
     end
   end
 
@@ -57,6 +58,12 @@ class InputControl < ActiveRecord::Base
     valor = 0.00
   	valor = (VALOR_DA_TONELADA / 1000.00)
   	valor
+  end
+
+  def valor_total
+    valor = 0.00
+    valor = valor_kg * self.peso
+    valor
   end
 
   def processa_nfe_xmls

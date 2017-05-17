@@ -1,0 +1,73 @@
+<p>
+  <strong>Carrier:</strong>
+  <%= @input_control.carrier.nome %>
+</p>
+
+<p>
+  <strong>Driver:</strong>
+  <%= @input_control.driver.nome %>
+</p>
+
+<p>
+  <strong>Placa:</strong>
+  <%= @input_control.place %> |
+  <strong>Placa Carreta:</strong>
+  <%= @input_control.place_cart %> |
+  <strong>Placa Carreta 2:</strong>
+  <%= @input_control.place_cart_2 %>
+</p>
+
+<p>
+  <strong>Date entry:</strong>
+  <%= date_br @input_control.date_entry %> | <%= time_br @input_control.time_entry %>
+</p>
+
+<p>
+  <strong>Date receipt:</strong>
+  <%= date_br @input_control.date_receipt %>
+</p>
+
+<p>
+  <strong>Peso:</strong>
+  <%= @input_control.weight %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @input_control.volume %>
+</p>
+
+<p>
+  <strong>Carga Peletizada:</strong>
+  <%= @input_control.palletized_status %>
+</p>
+
+<p>
+  <strong>Qtde Paletes:</strong>
+  <%= @input_control.quantity_pallets %>
+</p>
+
+<p>
+  <strong>Valor Tonelada:</strong>
+  <%= @input_control.value_ton %>
+</p>
+
+<p>
+  <strong>Value p/ kg:</strong>
+  <%= @input_control.value_kg %>
+</p>
+
+<p>
+  <strong>Valor Descarga:</strong>
+  <%= @input_control.value_total %>
+</p>
+
+<p>
+  <strong>Observation:</strong>
+  <pre><%= @input_control.observation %></pre>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_input_control_path(@input_control), class: "btn btn-primary" %> 
+  <%= link_to 'Listar Todos', input_controls_path, class: "btn btn-default" %>
+</div>

@@ -1,0 +1,66 @@
+<%= form_for(@input_control) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :carrier_id %>
+    <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :driver_id %>
+    <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :place %>
+    <%= f.text_field :place, class: "form-control placa" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :place_cart %>
+    <%= f.text_field :place_cart, class: "form-control placa" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :place_cart_2 %>
+    <%= f.text_field :place_cart_2, class: "form-control placa" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :date_entry %>
+    <%= f.text_field :date_entry, class: "form-control data", value: date_br(@input_control.date_entry) %>
+    
+  </div>
+
+  <div class="form-group">
+    <%= f.label :time_entry %>
+    <%= f.text_field :time_entry, class: "form-control time" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :date_receipt %>
+    <%= f.text_field :date_receipt, class: "form-control data" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.check_box :palletized %> Carga Paletizada?
+  </div>
+
+  <div class="form-group">
+    <%= f.label :quantity_pallets %>
+    <%= f.text_field :quantity_pallets, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :observation %>
+    <%= f.text_area :observation, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  input_control_path(@input_control), class: "btn btn-info" if !@input_control.new_record? %>
+    <%= link_to "Listar Todos", input_controls_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>
+
