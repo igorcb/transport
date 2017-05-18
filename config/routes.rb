@@ -1,5 +1,10 @@
 Transport::Application.routes.draw do
-  resources :input_controls
+  resources :input_controls do
+    member do
+      get 'select_nfe'
+      post 'create_ordem_service'
+    end
+  end
 
   #match '/select_xml_nfe_new_ordem_services', :controller => 'new_ordem_services', :action => 'select_xml_nfe', via: [:get, :post]
   resources :new_creation_ordem_services do

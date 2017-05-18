@@ -6,13 +6,15 @@ class NfeXml < ActiveRecord::Base
 
   #belongs_to :input_control, polymorphic: true
   has_one :input_control, class_name: "InputControl", foreign_key: "nfe_id"
-  #belongs_to :input_control, class_name: "InputControl", foreign_key: :nfe_id, conditions: {nfe_type: "InputControl"}
-  #has_many :spam_comments, conditions: { spam: true }, class_name: 'Comment'
+  belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id"
+  belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id"
   
+  scope :not_create_os, -> { where(create_os: TipoOsCriada::NAO) }
 
 	before_create do |cte|
 		cte.status = 0
 		cte.error = 0
+    cte.create_os = 0
 	end 
 
 	module TipoStatus
@@ -31,6 +33,19 @@ class NfeXml < ActiveRecord::Base
     PALETE = 1
     CINTA = 2
     CHAPATEX = 3
+  end
+
+  module TipoOsCriada
+    NAO = 0
+    SIM = 1
+  end
+
+  def status_os_create
+    case self.create_os
+      when 0 then "Nao"
+      when 1 then "Sim"
+      else "Nao Informado"
+    end
   end
 
 	def status_name

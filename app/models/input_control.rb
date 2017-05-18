@@ -102,17 +102,17 @@ class InputControl < ActiveRecord::Base
                                 source_client_id: source_client.id,
                                billing_client_id: source_client.id,
                                       carrier_id: input_control.carrier.id,
-                                            peso: input_control.peso, 
+                                            peso: input_control.weight, 
                                      qtde_volume: input_control.volume,
                                           estado: target_client.estado,
                                           cidade: target_client.cidade,
-                                      date_entry: input_control.data_recebimento,
+                                      date_entry: input_control.date_entry,
                                       observacao: ""
                                                  )
       puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico Logistica"
       ordem_service.ordem_service_logistics.create!(driver_id: input_control.driver.id, 
-                                                        placa: input_control.placa, 
-                                                         peso: input_control.peso, 
+                                                        placa: input_control.place, 
+                                                         peso: input_control.weight, 
                                                   qtde_volume: input_control.volume)
       puts ">>>>>>>>>>>>>>>> Importar dados da NFE XML para NFE Keys"
       nfe_xmls.each do |nfe|
@@ -128,7 +128,7 @@ class InputControl < ActiveRecord::Base
       puts ">>>>>>>>>>>>>>>> Importar produtos"
       input_control.item_input_controls.each do |item|
         ordem_service.item_ordem_services.create!( product_id: item.product_id,
-                                                       number: item.number,
+                                                       number: item.number_nfe,
                                                          qtde: item.qtde_trib,
                                                   unid_medida: item.valor,
                                                valor_unitario: item.valor_unitario,
