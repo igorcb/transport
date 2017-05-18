@@ -4,6 +4,12 @@ class NfeXml < ActiveRecord::Base
 	validates_attachment :asset, uniqueness: true, attachment_presence: true, :content_type => { :content_type => "text/xml" }
 	validates :asset_file_name, uniqueness: true
 
+  #belongs_to :input_control, polymorphic: true
+  has_one :input_control, class_name: "InputControl", foreign_key: "nfe_id"
+  #belongs_to :input_control, class_name: "InputControl", foreign_key: :nfe_id, conditions: {nfe_type: "InputControl"}
+  #has_many :spam_comments, conditions: { spam: true }, class_name: 'Comment'
+  
+
 	before_create do |cte|
 		cte.status = 0
 		cte.error = 0
@@ -53,7 +59,7 @@ class NfeXml < ActiveRecord::Base
   end
 
   def self.processa_xml_input_control(params)
-    if !params.nil?
+    if params.status == TipoStatus::NAO_PROCESSADO
       ActiveRecord::Base.transaction do
         #processar xml - extrair os daddos da nfe 
         # - atualizar campos na tabela nfe_xml
@@ -102,8 +108,35 @@ class NfeXml < ActiveRecord::Base
                                     target_client_id: target_client.id,
                                               status: TipoStatus::PROCESSADO)
 
-        
+        #produtos da NFE
+        input_control = InputControl.find(nfe_xml.nfe_id)
+        nfe.prod.each do |product|
+          prod = Produto.new
+          prod.attributes=(product)
+          produto = Product.create_with(category_id: 6, 
+                                        cubagem: 0,
+                                    cod_prod: prod.cProd, 
+                                   descricao: prod.xProd, 
+                                         ean: prod.cEAN,
+                                    ean_trib: prod.cEANTrib,
+                                         ncm: prod.NCM,
+                                        cfop: prod.CFOP,
+                                 unid_medida: prod.uCom,
+                              valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
 
+          input_control.item_input_controls.create!(
+                                              number_nfe: nfe.ide.nNF,
+                                              product_id: produto.id,
+                                                    qtde: prod.qCom,
+                                               qtde_trib: prod.qTrib,
+                                                   valor: prod.vProd,
+                                          valor_unitario: prod.vUnTrib,
+                                    valor_unitario_comer: prod.vUnCom,
+                                             unid_medida: prod.uCom
+                                      )
+
+
+        end
 
       end
     end
