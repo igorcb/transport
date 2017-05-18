@@ -72,3 +72,26 @@
   <%= link_to 'Listar Todos', input_controls_path, class: "btn btn-default" %>
   <%= link_to 'Gerar Ordem Servico', select_nfe_input_control_path, class: "btn btn-success"%>
 </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de XML de NF-e</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <%= render 'nfe_xmls/nfe_header' %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @input_control.nfe_xmls.each do |nfe_xml| %>
+            <tr>
+              <%= render nfe_xml %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

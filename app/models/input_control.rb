@@ -123,17 +123,17 @@ class InputControl < ActiveRecord::Base
                                      peso: nfe.peso,
                                    volume: nfe.volume
                                     )
+        puts ">>>>>>>>>>>>>>>> Importar produtos"
+        nfe.item_input_controls.each do |item|
+          ordem_service.item_ordem_services.create!( product_id: item.product_id,
+                                                         number: item.number_nfe,
+                                                           qtde: item.qtde_trib,
+                                                    unid_medida: item.valor,
+                                                 valor_unitario: item.valor_unitario,
+                                           valor_unitario_comer: item.valor_unitario_comer
+                                      )
+        end
         NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM)
-      end
-      puts ">>>>>>>>>>>>>>>> Importar produtos"
-      input_control.item_input_controls.each do |item|
-        ordem_service.item_ordem_services.create!( product_id: item.product_id,
-                                                       number: item.number_nfe,
-                                                         qtde: item.qtde_trib,
-                                                  unid_medida: item.valor,
-                                               valor_unitario: item.valor_unitario,
-                                         valor_unitario_comer: item.valor_unitario_comer
-                                    )
       end
 
     end

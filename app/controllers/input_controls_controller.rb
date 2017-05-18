@@ -38,7 +38,7 @@ class InputControlsController < ApplicationController
   end
 
   def index
-    @input_controls = InputControl.all
+    @input_controls = InputControl.order(id: :desc)
     respond_with(@input_controls)
   end
 

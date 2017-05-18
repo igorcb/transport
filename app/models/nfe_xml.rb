@@ -8,6 +8,8 @@ class NfeXml < ActiveRecord::Base
   has_one :input_control, class_name: "InputControl", foreign_key: "nfe_id"
   belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id"
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id"
+
+  has_many :item_input_controls
   
   scope :not_create_os, -> { where(create_os: TipoOsCriada::NAO) }
 
@@ -124,7 +126,7 @@ class NfeXml < ActiveRecord::Base
                                               status: TipoStatus::PROCESSADO)
 
         #produtos da NFE
-        input_control = InputControl.find(nfe_xml.nfe_id)
+        #input_control = InputControl.find(nfe_xml.nfe_id)
         nfe.prod.each do |product|
           prod = Produto.new
           prod.attributes=(product)
@@ -139,7 +141,8 @@ class NfeXml < ActiveRecord::Base
                                  unid_medida: prod.uCom,
                               valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
 
-          input_control.item_input_controls.create!(
+          nfe_xml.item_input_controls.create!(
+                                        input_control_id: nfe_xml.nfe_id,
                                               number_nfe: nfe.ide.nNF,
                                               product_id: produto.id,
                                                     qtde: prod.qCom,

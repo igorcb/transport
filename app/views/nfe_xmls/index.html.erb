@@ -6,19 +6,14 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Chave</th>
-            <th>Status</th>
-            <th>Option</th>
+            <%= render 'nfe_header' %>
           </tr>
         </thead>
 
         <tbody>
-          <% @nfe_xmls.each do |nfe| %>
+          <% @nfe_xmls.each do |nfe_xml| %>
             <tr>
-              <td><%= nfe.asset_file_name %></td>
-              <td><%= link_to "#{nfe.asset.path}", nfe.asset.url(:original, timestamp: false) %></td>
-              <td><%= nfe.status_name %></td>
-              <td><%= nfe.error_name %></td>
+              <%= render nfe_xml %>
             </tr>
           <% end %>
         </tbody>
