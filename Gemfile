@@ -23,6 +23,7 @@ gem 'therubyracer'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'
@@ -50,6 +51,9 @@ gem 'odf-report', '~> 0.5.1'
 #gem 'odf-ods-report'
 gem 'business_time', '~> 0.7.4'
 gem 'extensobr'
+gem 'ranked-model'
+gem 'roxml', '~> 3.3', '>= 3.3.1'
+gem 'ruby-nfe', '~> 0.0.3'
 
 # group :development, :test do
 #   # gem 'sqlite3', '1.3.5'
