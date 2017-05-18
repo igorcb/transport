@@ -35,6 +35,7 @@ gem 'awesome_nested_fields', '0.6.4'
 gem "paperclip", "3.5.0"
 gem 'bootstrap-sass'
 gem 'bootstrap-addons-rails'
+gem 'will_paginate-bootstrap'
 gem 'devise'
 gem 'ransack'
 gem "watir-rails"
