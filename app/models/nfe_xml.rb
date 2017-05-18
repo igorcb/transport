@@ -20,6 +20,13 @@ class NfeXml < ActiveRecord::Base
 		COM_ERROR = 1
 	end
 
+  module TipoEquipamento
+    NOTA_FISCAL = 0
+    PALETE = 1
+    CINTA = 2
+    CHAPATEX = 3
+  end
+
 	def status_name
 		case self.status
 		  when 0 then "Não Processado"
@@ -33,6 +40,73 @@ class NfeXml < ActiveRecord::Base
 		  when 0 then "Sem Erros"
 		  when 1 then "Contem Erros"
 		end
+  end
+
+  def equipamento_name
+    case self.equipamento
+      when 0 then "Nota Fiscal"
+      when 1 then "Palete"
+      when 1 then "Cinta"
+      when 1 then "Chapatex"
+      else "Nao Informado"
+    end
+  end
+
+  def self.processa_xml_input_control(params)
+    if !params.nil?
+      ActiveRecord::Base.transaction do
+        #processar xml - extrair os daddos da nfe 
+        # - atualizar campos na tabela nfe_xml
+        # - criar produtos na tabela item_input_control
+        nfe_xml = params
+        file = "#{Rails.root.join('public')}" + nfe_xml.asset.url(:original, timestamp: false)
+        puts ">>>>>>>>>>>>>>>>>>>> Processando File #{file}"
+        nfe = NFe::NotaFiscal.new.load_xml_serealize(file)
+        #antes de gerar a ordem de servico verificar se todas as notas está para o mesmo CNPJ emitente
+        cnpj_source = nfe.emit.CNPJ.to_s
+        cnpj_source.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
+        cnpj_target = nfe.dest.CNPJ.to_s
+        cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
+
+        source_client = Client.create_with(    
+                                        tipo_pessoa: 1, 
+                                    group_client_id: 7, 
+                                               nome: nfe.emit.xNome, 
+                                           fantasia: nfe.emit.xNome, 
+                                                cep: nfe.emit.endereco_emitente.CEP, 
+                                           endereco: nfe.emit.endereco_emitente.xLgr, 
+                                             numero: nfe.emit.endereco_emitente.nro, 
+                                        complemento: nfe.emit.endereco_emitente.xCpl, 
+                                             bairro: nfe.emit.endereco_emitente.xBairro, 
+                                             cidade: nfe.emit.endereco_emitente.xMun, 
+                                             estado: nfe.emit.endereco_emitente.UF).find_or_create_by(cpf_cnpj: cnpj_source)
+        target_client = Client.create_with(
+                                        tipo_pessoa: 1, 
+                                    group_client_id: 7, 
+                                               nome: nfe.dest.xNome, 
+                                           fantasia: nfe.dest.xNome, 
+                                                cep: nfe.dest.endereco_destinatario.CEP, 
+                                           endereco: nfe.dest.endereco_destinatario.xLgr, 
+                                             numero: nfe.dest.endereco_destinatario.nro, 
+                                        complemento: nfe.dest.endereco_destinatario.xCpl, 
+                                             bairro: nfe.dest.endereco_destinatario.xBairro, 
+                                             cidade: nfe.dest.endereco_destinatario.xMun, 
+                                             estado: nfe.dest.endereco_destinatario.UF).find_or_create_by(cpf_cnpj: cnpj_target)
+
+        nfe_xml.update_attributes(peso: nfe.vol.pesoB, 
+                                              volume: nfe.vol.qVol, 
+                                              numero: nfe.ide.nNF,
+                                               chave: nfe.infoProt.chNFe,
+                                          valor_nota: nfe.icms_tot.vNF,
+                                    source_client_id: source_client.id,
+                                    target_client_id: target_client.id,
+                                              status: TipoStatus::PROCESSADO)
+
+        
+
+
+      end
+    end
   end
 
   def self.create_ordem_service(params)

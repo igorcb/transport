@@ -56,6 +56,15 @@
     <%= f.text_area :observation, class: "form-control" %>
   </div>
 
+  <h3>NF-e</h3> 
+  <div class="documents_itens">
+    <%= f.nested_fields_for :nfe_xmls do |f| 
+      render 'nfe_xml_fields', f: f
+    end -%> <br />
+    <%= link_to_add_association 'Add NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm" %> <br />
+  </div> <br />
+  
+
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  input_control_path(@input_control), class: "btn btn-info" if !@input_control.new_record? %>

@@ -8,13 +8,12 @@ class InputControl < ActiveRecord::Base
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
 
-  has_many :item_input_controls
+  # has_many :item_input_controls
 
   after_save :processa_nfe_xmls
 
   before_create do |cte|
-    set_peso_and_volume
-    set_values
+   set_values
   end 
 
   VALOR_DA_TONELADA = 25
@@ -41,9 +40,10 @@ class InputControl < ActiveRecord::Base
   end
 
   def set_peso_and_volume
+    puts ">>>>>>>>>>> set_peso_and_volume"
     peso = self.nfe_xmls.sum(:peso)
     volume = self.nfe_xmls.sum(:volume)
-    valor_total = valor_total
+    valor_total = peso * valor_kg
     ActiveRecord::Base.transaction do
       puts "peso: #{peso} and volume: #{volume}"
       InputControl.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
