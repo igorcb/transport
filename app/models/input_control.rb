@@ -10,12 +10,21 @@ class InputControl < ActiveRecord::Base
 
   has_many :item_input_controls
   
+  #before_save { |item| item.email = email.downcase }
 
-  after_save :processa_nfe_xmls
-
+  before_save do |item| 
+    item.place = place.upcase 
+    item.place_cart = place_cart.upcase 
+    item.place_cart_2 = place_cart_2.upcase 
+  end
+  
   before_create do |cte|
    set_values
   end 
+
+
+  after_save :processa_nfe_xmls
+
 
   VALOR_DA_TONELADA = 25
 
