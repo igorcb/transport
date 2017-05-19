@@ -1,12 +1,23 @@
-<p>
-  <strong>Carrier:</strong>
-  <%= @input_control.carrier.nome %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Transportadora</h2>
+  </div>
 
-<p>
-  <strong>Driver:</strong>
-  <%= @input_control.driver.nome %>
-</p>
+  <div class="panel-body"> 
+    <%= render 'carriers/carrier_data', object: @input_control.carrier if @input_control.carrier.present? %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Dados do Motorista</h2>
+  </div>
+
+  <div class="panel-body"> 
+    <%= render 'drivers/driver_data', object: @input_control.driver if @input_control.driver.present? %>
+  </div>
+</div>
+
 
 <p>
   <strong>Placa:</strong>
@@ -18,23 +29,13 @@
 </p>
 
 <p>
-  <strong>Date entry:</strong>
+  <strong>Date Entrada NF-e:</strong>
   <%= date_br @input_control.date_entry %> | <%= time_br @input_control.time_entry %>
 </p>
 
 <p>
-  <strong>Date receipt:</strong>
+  <strong>Date Recebimento:</strong>
   <%= date_br @input_control.date_receipt %>
-</p>
-
-<p>
-  <strong>Peso:</strong>
-  <%= @input_control.weight %>
-</p>
-
-<p>
-  <strong>Volume:</strong>
-  <%= @input_control.volume %>
 </p>
 
 <p>
@@ -48,18 +49,28 @@
 </p>
 
 <p>
+  <strong>Peso:</strong>
+  <%= number_to_currency(@input_control.weight, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= number_to_currency(@input_control.volume, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %>
+</p>
+
+<p>
   <strong>Valor Tonelada:</strong>
-  <%= @input_control.value_ton %>
+  <%= number_to_currency(@input_control.value_ton, unit: "R$ ", separator: ",", delimiter: ".") %>
 </p>
 
 <p>
   <strong>Value p/ kg:</strong>
-  <%= @input_control.value_kg %>
+  <%= number_to_currency(@input_control.value_kg, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %>
 </p>
 
 <p>
   <strong>Valor Descarga:</strong>
-  <%= @input_control.value_total %>
+  <%= number_to_currency(@input_control.value_total, unit: "R$ ", separator: ",", delimiter: ".") %>
 </p>
 
 <p>
