@@ -108,7 +108,10 @@ class Boarding < ActiveRecord::Base
 
   def close(ordem_service_id)
     ActiveRecord::Base.transaction do
-      OrdemService.where(id: ordem_service_id).update_all(status: OrdemService::TipoStatus::EMBARCADO)
+      OrdemService.where(id: ordem_service_id).update_all(
+                                                      carrier_id: self.carrier_id,
+                                                          status: OrdemService::TipoStatus::EMBARCADO)
+      OrdemServiceLogistic.where(ordem_service_id: ordem_service_id).update_all(delivery_driver_id: self.driver_id)
       Boarding.where(id: self.id).update_all(status: Boarding::TipoStatus::EMBARCADO) if self.check_status_ordem_service?
     end
   end
