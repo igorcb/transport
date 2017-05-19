@@ -146,6 +146,8 @@ class InputControl < ActiveRecord::Base
         end
         NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM)
       end
+      puts ">>>>>>>>>>>>>>>> update peso e volume"
+      ordem_service.set_peso_and_volume
 
     end
   end
