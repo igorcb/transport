@@ -154,6 +154,9 @@ class InputControl < ActiveRecord::Base
                                        tipo: ControlPallet::CreditoDebito::ENTRADA,
                                         nfe: nfe.numero,
                                nfe_original: nfe.chave,
+                                       peso: nfe.peso,
+                                     volume: nfe.volume,
+                                     status: ControlPallet::TipoStatus::ABERTO,
                                   historico: "Entrada de Paletes pela Remessa de Entrada. No: #{input_control.id} "
                                 )
           end
