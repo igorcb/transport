@@ -134,6 +134,7 @@ class InputControl < ActiveRecord::Base
                                      peso: nfe.peso,
                                    volume: nfe.volume
                                     )
+
         puts ">>>>>>>>>>>>>>>> Importar produtos"
         nfe.item_input_controls.each do |item|
           ordem_service.item_ordem_services.create!( product_id: item.product_id,
@@ -143,7 +144,25 @@ class InputControl < ActiveRecord::Base
                                                  valor_unitario: item.valor_unitario,
                                            valor_unitario_comer: item.valor_unitario_comer
                                       )
+          puts ">>>>>>>>>>>>>>>>> se nota de palete lançar no controle de palete"
+          if nfe.equipamento == NfeXml::TipoEquipamento::PALETE
+            ControlPallet.create!(
+                                  client_id: source_client.id,
+                                 carrier_id: input_control.carrier.id,
+                                       data: input_control.date_receipt,
+                                        qte: item.qtde_trib,
+                                       tipo: ControlPallet::CreditoDebito::ENTRADA,
+                                        nfe: nfe.numero,
+                               nfe_original: nfe.chave,
+                                       peso: nfe.peso,
+                                     volume: nfe.volume,
+                                     status: ControlPallet::TipoStatus::ABERTO,
+                                  historico: "Entrada de Paletes pela Remessa de Entrada. No: #{input_control.id} "
+                                )
+          end
+
         end
+        
         NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM)
       end
       puts ">>>>>>>>>>>>>>>> update peso e volume"
