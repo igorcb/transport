@@ -29,6 +29,10 @@ class Carrier < ActiveRecord::Base
   has_many :ordem_services
 
   before_destroy :can_destroy?
+
+  def name_state
+    "#{nome} - #{estado}"
+  end
   
   private 
     def can_destroy?
