@@ -29,6 +29,10 @@ class Boarding < ActiveRecord::Base
 
   ZERO = 0.00
 
+  DRIVER_NOT_INFORMATION = 105
+  CARRIER_NOT_INFORMATION = 3
+
+
   module TipoStatus
   	ABERTO = 0
   	EMBARCADO = 1
@@ -46,10 +50,13 @@ class Boarding < ActiveRecord::Base
     end
   end
 
+  def value_zero?
+    self.value_boarding == 0
+  end
+
   def feed_cancellations
     Cancellation.where("cancellation_type = ? and cancellation_id = ?", "Boarding", self.id)
   end
-
 
   def erase_boarding_items
     ActiveRecord::Base.transaction do

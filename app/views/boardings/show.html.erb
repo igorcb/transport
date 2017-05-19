@@ -22,6 +22,15 @@
 		  <%= number_to_currency(@boarding.value_boarding, unit: "R$ ", separator: ",", delimiter: ".") %> 
 		</p>
 
+    <p>
+      <strong>Seguro RCTR-C:</strong>
+      <%= number_to_currency(@boarding.safe_rctr_c, unit: "", separator: ",", delimiter: ".") %> 
+    </p>
+
+    <p>
+      <strong>Seguro (opc.):</strong>
+      <%= number_to_currency(@boarding.safe_optional, unit: "", separator: ",", delimiter: ".") %> 
+    </p>
 		<p>
 		  <strong>Status:</strong>
 		  <%= @boarding.status_name %>

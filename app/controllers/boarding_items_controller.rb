@@ -15,6 +15,20 @@ class BoardingItemsController < ApplicationController
 
   def update_status
     @boarding_item = BoardingItem.find(params[:boarding_item_id])
+    puts ">>>>>>>>>>>>>>>>>>> Check Carrier: carrier: #{@boarding_item.boarding.carrier_id} || carrier_information: #{Boarding::CARRIER_NOT_INFORMATION}"
+    if @boarding_item.boarding.carrier_id == Boarding::CARRIER_NOT_INFORMATION
+      @boarding_item.errors.add("Boarding Item", "Informe a transportadora")
+      redirect_to boarding_url(@boarding_item.boarding), flash: { error: "Informe a transportadora" }
+      return
+    elsif @boarding_item.boarding.driver_id == Boarding::DRIVER_NOT_INFORMATION
+      @boarding_item.errors.add("Boarding Item", "Informe o motorista")
+      redirect_to boarding_url(@boarding_item.boarding), flash: { error: "Informe o motorista" }
+      return
+    elsif @boarding_item.boarding.value_boarding.blank? or @boarding_item.boarding.value_boarding.zero?
+      @boarding_item.errors.add("Boarding Item", "Informe o valor do embarque")
+      redirect_to boarding_url(@boarding_item.boarding), flash: { error: "Informe o valor do embarque" }
+      return
+    end
     @boarding_item.boarding.close(@boarding_item.ordem_service_id)
     redirect_to boarding_url(@boarding_item.boarding), flash: { success: "Status update successfully..." }
   end

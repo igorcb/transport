@@ -80,7 +80,7 @@ class BoardingsController < ApplicationController
 		end
 
     def boarding_params
-      params.require(:boarding).permit(:date_boarding, :driver_id, :carrier_id, :value_boarding, :obs,
+      params.require(:boarding).permit(:date_boarding, :driver_id, :carrier_id, :value_boarding, :safe_rctr_c, :safe_optional, :obs,
         board_items_attributes: [:delivery_number, :ordem_service_id, :id, :_destroy],
         boarding_vehicles_attributes: [:boarding_vehicles_id, :vehicle_id, :id, :_destroy]
 
