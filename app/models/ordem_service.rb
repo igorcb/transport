@@ -20,6 +20,7 @@ class OrdemService < ActiveRecord::Base
   belongs_to :carrier
   belongs_to :pallet
   belongs_to :billing
+  belongs_to :input_control
   
   has_one :boarding_item
 

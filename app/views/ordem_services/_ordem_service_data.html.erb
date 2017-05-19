@@ -1,4 +1,10 @@
     <p>
+      <strong>Remessa Entrada.:</strong>
+      <%= link_to @ordem_service.input_control_id, @ordem_service.input_control if @ordem_service.input_control.present? %>
+
+    </p>
+
+    <p>
       <strong>Faturamento No.:</strong>
       <%= link_to @ordem_service.billing_id, @ordem_service.billing if @ordem_service.billing.present? %>
 
