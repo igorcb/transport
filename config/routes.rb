@@ -52,7 +52,7 @@ Transport::Application.routes.draw do
   resources :cashes do
   end
   
-  resources :nfe_xmls, only: [:index, :new, :create]
+  #resources :nfe_xmls, only: [:index, :new, :create]
   resources :cte_xmls, only: [:index, :new, :create]
   
   get "internal_comments/create"
