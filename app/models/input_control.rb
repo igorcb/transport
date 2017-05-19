@@ -103,6 +103,7 @@ class InputControl < ActiveRecord::Base
     nfe_xmls = input_control.nfe_xmls.not_create_os.where(id: params[:nfe])
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
+    carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
     ActiveRecord::Base.transaction do
       puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico"
       ordem_service = OrdemService.create!( tipo: OrdemService::TipoOS::LOGISTICA,
@@ -110,12 +111,13 @@ class InputControl < ActiveRecord::Base
                                 target_client_id: target_client.id, 
                                 source_client_id: source_client.id,
                                billing_client_id: source_client.id,
-                                      carrier_id: input_control.carrier.id,
+                                      carrier_id: carrier.id,
+                                carrier_entry_id: input_control.carrier.id,
                                             peso: input_control.weight, 
                                      qtde_volume: input_control.volume,
                                           estado: target_client.estado,
                                           cidade: target_client.cidade,
-                                      date_entry: input_control.date_entry,
+                                      date_entry: input_control.date_receipt,
                                       observacao: ""
                                                  )
       puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico Logistica"
