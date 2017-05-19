@@ -3,7 +3,7 @@
 
   <div class="form-group">
     <%= f.label :carrier_id %>
-    <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.name_state, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
   
   <div class="form-group">
