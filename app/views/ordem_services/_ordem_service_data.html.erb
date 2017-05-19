@@ -1,23 +1,17 @@
     <p>
-      <strong>Remessa Entrada.:</strong>
-      <%= link_to @ordem_service.input_control_id, @ordem_service.input_control if @ordem_service.input_control.present? %>
-
+      <strong>Faturamento No.:</strong>
+      <%= link_to @ordem_service.billing_id, @ordem_service.billing if @ordem_service.billing.present? %>
     </p>
 
     <p>
-      <strong>Faturamento No.:</strong>
-      <%= link_to @ordem_service.billing_id, @ordem_service.billing if @ordem_service.billing.present? %>
-
+      <strong>Remessa Entrada.:</strong>
+      <%= link_to @ordem_service.input_control_id, @ordem_service.input_control if @ordem_service.input_control.present? %>
     </p>
+
     <p>
       <strong>Embarque No.:</strong>
       <%= link_to @ordem_service.boarding_item.boarding_id, @ordem_service.boarding_item.boarding if @ordem_service.boarding_item.present? %>
 
-    </p>
-
-    <p>
-      <strong>Criada em:</strong>
-      <%= date_hora_br @ordem_service.created_at %>
     </p>
 
     <p>
@@ -38,6 +32,11 @@
     <p>
       <strong>Data da Entrega do Serviço:</strong>
       <%= date_br @ordem_service.data_entrega_servico %>
+    </p>
+
+    <p>
+      <strong>Criada em:</strong>
+      <%= date_hora_br @ordem_service.created_at %>
     </p>
 
     <p>
