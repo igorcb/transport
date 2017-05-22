@@ -56,7 +56,7 @@ class ControlPallet < ActiveRecord::Base
         id = i[0].to_i 
         qtde_total += i[1].to_f
         control_pallet = ControlPallet.find(id)
-        ordem_service.nfe_keys.create!(nfe: control_pallet.nfe, chave: control_pallet.nfe_original, volume: control_pallet.qte)
+        ordem_service.nfe_keys.create!(nfe: control_pallet.nfe, chave: control_pallet.nfe_original, volume: control_pallet.qte, peso: control_pallet.peso)
         ControlPallet.create!(client_id: control_pallet.client_id, 
                                    data: Date.today, 
                                     qte: control_pallet.qte, 
@@ -66,9 +66,12 @@ class ControlPallet < ActiveRecord::Base
                            nfe_original: control_pallet.nfe_original,
                            nfd_original: control_pallet.nfd_original,
                               historico: "Sainda de Pallets OS: #{ordem_service.id}", 
+                                   peso: control_pallet.peso,
+                                 volume: control_pallet.volume,
                                  status: TipoStatus::ABERTO,
                               carrier_id: 3 #carrier_id: 3 nao identificado
                               )
+        ordem_service.set_peso_and_volume
       end
 
     end
