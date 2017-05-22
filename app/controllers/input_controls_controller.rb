@@ -37,6 +37,22 @@ class InputControlsController < ApplicationController
     end
   end
 
+  def create_stok_pallets
+    ids = OrdemService.get_hash_ids(params[:nfe][:ids])
+    InputControl.create_stok_pallets({id: params[:id], nfe: ids})
+    puts ">>>>>>>>>>>>>ID Input Control: #{@input_control.id} "
+    respond_with(@input_control)
+  end
+
+  def select_pallets
+    if @input_control.date_receipt.blank?
+      flash[:danger] = "Receipt date can not be blank."
+      redirect_to (@input_control)
+      return
+    end
+  end
+
+
   def index
     @input_controls = InputControl.order(id: :desc)
     respond_with(@input_controls)

@@ -96,11 +96,36 @@ class InputControl < ActiveRecord::Base
     positivo
   end
 
+  def self.create_stok_pallets(params = {})
+    puts ">>>>>>>>>>>>  params: #{params.to_s}"
+    input_control = InputControl.find(params[:id])
+    nfe_xmls = input_control.nfe_xmls.pallets.not_create_os.where(id: params[:nfe])
+    target_client = nfe_xmls.first.target_client
+    source_client = nfe_xmls.first.source_client
+    ActiveRecord::Base.transaction do
+      nfe_xmls.each do |nfe|
+        ControlPallet.create!(
+                      client_id: source_client.id,
+                     carrier_id: input_control.carrier.id,
+                           data: input_control.date_receipt,
+                            qte: nfe.volume,
+                           tipo: ControlPallet::CreditoDebito::ENTRADA,
+                            nfe: nfe.numero,
+                   nfe_original: nfe.chave,
+                           peso: nfe.peso,
+                         volume: nfe.volume,
+                         status: ControlPallet::TipoStatus::ABERTO,
+                      historico: "Entrada de Paletes pela Remessa de Entrada. No: #{input_control.id} "
+                            )
+        NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM)
+      end
+    end
+  end    
 
   def self.create_ordem_service_input_controls(params = {})
     puts ">>>>>>>>>>>>  params: #{params.to_s}"
     input_control = InputControl.find(params[:id])
-    nfe_xmls = input_control.nfe_xmls.not_create_os.where(id: params[:nfe])
+    nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
     carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
@@ -145,21 +170,21 @@ class InputControl < ActiveRecord::Base
                                            valor_unitario_comer: item.valor_unitario_comer
                                       )
           puts ">>>>>>>>>>>>>>>>> se nota de palete lançar no controle de palete"
-          if nfe.equipamento == NfeXml::TipoEquipamento::PALETE
-            ControlPallet.create!(
-                                  client_id: source_client.id,
-                                 carrier_id: input_control.carrier.id,
-                                       data: input_control.date_receipt,
-                                        qte: item.qtde_trib,
-                                       tipo: ControlPallet::CreditoDebito::ENTRADA,
-                                        nfe: nfe.numero,
-                               nfe_original: nfe.chave,
-                                       peso: nfe.peso,
-                                     volume: nfe.volume,
-                                     status: ControlPallet::TipoStatus::ABERTO,
-                                  historico: "Entrada de Paletes pela Remessa de Entrada. No: #{input_control.id} "
-                                )
-          end
+          # if nfe.equipamento == NfeXml::TipoEquipamento::PALETE
+          #   ControlPallet.create!(
+          #                         client_id: source_client.id,
+          #                        carrier_id: input_control.carrier.id,
+          #                              data: input_control.date_receipt,
+          #                               qte: item.qtde_trib,
+          #                              tipo: ControlPallet::CreditoDebito::ENTRADA,
+          #                               nfe: nfe.numero,
+          #                      nfe_original: nfe.chave,
+          #                              peso: nfe.peso,
+          #                            volume: nfe.volume,
+          #                            status: ControlPallet::TipoStatus::ABERTO,
+          #                         historico: "Entrada de Paletes pela Remessa de Entrada. No: #{input_control.id} "
+          #                       )
+          # end
 
         end
         

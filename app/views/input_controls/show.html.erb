@@ -82,10 +82,11 @@
   <%= link_to 'Editar', edit_input_control_path(@input_control), class: "btn btn-primary" %> 
   <%= link_to 'Listar Todos', input_controls_path, class: "btn btn-default" %>
   <%= link_to 'Gerar Ordem Servico', select_nfe_input_control_path, class: "btn btn-success"%>
-</div>
+  <%= link_to 'Armazenar Paletes', select_pallets_input_control_path, class: "btn btn-yellow"%>
+</div>                             
 
 <div class="panel panel-default">
-  <div class="panel-heading">Listagem de XML de NF-e</div>
+  <div class="panel-heading">Listagem de XML de NF-e Paletes</div>
   <div class="panel-body">
     <div class="table-responsive">
       <table class="table table-striped">

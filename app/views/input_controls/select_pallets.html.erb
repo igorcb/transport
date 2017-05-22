@@ -1,5 +1,5 @@
 <div id="ordem_service_type_service_id">
-	<%= form_tag({:controller => "input_controls", :action => "create_ordem_service"}, :method => "post", :name => "selectNfeForm") do %>
+	<%= form_tag({:controller => "input_controls", :action => "create_stok_pallets"}, :method => "post", :name => "selectPalletForm") do %>
 	<%= hidden_field_tag "id", @input_control.id %>
 		<div class="panel panel-default">
 		  <div class="panel-heading">Selecionar notas para geraração da Ordem de Serviço.</div>
@@ -9,7 +9,7 @@
 		        <thead>
 		          <tr>
 		          	<th></th>
-		            <th>OS.Criada</th>
+		            <th>Armazenado</th>
 		            <th>Status</th>
                 <th>Tipo Nota</th>
 		            <th>Chave</th>
@@ -22,7 +22,7 @@
 		        </thead>
 
 		        <tbody>
-		          <% @input_control.nfe_xmls.nfe.each do |nfe_xml| %>
+		          <% @input_control.nfe_xmls.pallets.each do |nfe_xml| %>
 		            <tr>
 		            	<td><%= check_box_tag "nfe[ids][#{nfe_xml.id}]", nfe_xml.id, false, onchange:"checkTotal()", class: "escolha" if nfe_xml.create_os == NfeXml::TipoOsCriada::NAO %></td>
 		              <td><%= truncate(nfe_xml.status_os_create, length: 20) %></td>
@@ -36,9 +36,9 @@
 		    </div>    
 		  </div>
 		</div>
-  <%= link_to 'Show', input_control_path(@input_control), class: "btn btn-primary btn-xs" %> 
-	<%= submit_tag("Criar Ordem de Serviço", class: "btn btn-success") %> 
-
+	<%= link_to 'Show', input_control_path(@input_control), class: "btn btn-primary btn-xs" %> 
+	<%= submit_tag("Armazenar Paletes", class: "btn btn-yellow") %> 
+  
 	<% end %>
 
 </div>

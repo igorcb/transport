@@ -12,6 +12,8 @@ class NfeXml < ActiveRecord::Base
   has_many :item_input_controls
   
   scope :not_create_os, -> { where(create_os: TipoOsCriada::NAO) }
+  scope :nfe, -> { where(equipamento: TipoEquipamento::NOTA_FISCAL) }
+  scope :pallets, -> { where(equipamento: TipoEquipamento::PALETE) }
 
 	before_create do |cte|
 		cte.status = 0

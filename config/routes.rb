@@ -2,7 +2,9 @@ Transport::Application.routes.draw do
   resources :input_controls do
     member do
       get 'select_nfe'
+      get 'select_pallets'
       post 'create_ordem_service'
+      post 'create_stok_pallets'
     end
   end
 
