@@ -8,6 +8,7 @@ class NfeXml < ActiveRecord::Base
   has_one :input_control, class_name: "InputControl", foreign_key: "nfe_id"
   belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id"
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id"
+  #belongs_to :ordem_service, class_name: "NfeKey", foreign_key: "nfe_id"
 
   has_many :item_input_controls
   
@@ -75,6 +76,11 @@ class NfeXml < ActiveRecord::Base
       when 1 then "Chapatex"
       else "Nao Informado"
     end
+  end
+
+   def ordem_service
+    nfe_key = NfeKey.where(nfe: self.numero)
+    ordem_service = nfe_key.present? ? nfe_key.first.ordem_service : nil
   end
 
   def self.processa_xml_input_control(params)
