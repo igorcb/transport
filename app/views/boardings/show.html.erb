@@ -31,6 +31,12 @@
       <strong>Seguro (opc.):</strong>
       <%= number_to_currency(@boarding.safe_optional, unit: "", separator: ",", delimiter: ".") %> 
     </p>
+
+    <p>
+      <strong>Numero Rastreador Correios</strong>
+      <%= @boarding.number_tranking %> 
+    </p>
+
 		<p>
 		  <strong>Status:</strong>
 		  <%= @boarding.status_name %>
