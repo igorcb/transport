@@ -36,6 +36,9 @@ class Driver < ActiveRecord::Base
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
+  has_many :driver_restrictions, class_name: "DriverRestriction", foreign_key: "driver_id", dependent: :destroy
+  accepts_nested_attributes_for :driver_restrictions, allow_destroy: true
+
   has_attached_file :avatar, styles: lambda { |a| a.instance.avatar_content_type =~ %r(image) ? { mini: "144x>90"} : {} }
   #validates_attachment_presence :avatar
 
@@ -48,7 +51,6 @@ class Driver < ActiveRecord::Base
   has_many :ocurrences
 
   before_destroy :can_destroy?
-
 
   module Categoria
   	A = 0
