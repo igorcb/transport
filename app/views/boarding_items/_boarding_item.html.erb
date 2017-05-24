@@ -10,6 +10,7 @@
       <table class="table table-striped" id="sortable_embarque">
         <thead>
           <tr>
+            <th>Seq</th>
             <th width:"3px">No. Ent.</th>
             <th>O.S.</th>
             <th>Dt. Agen.</th>
@@ -27,8 +28,9 @@
         </thead>
 
         <tbody>
-        <% @boarding.boarding_items.order(:delivery_number).each do |item| %>
+        <% @boarding.boarding_items.order(:row_order).each do |item| %>
           <tr id="boarding_items_id_<%= item.id %>" data-item-id=<%= "#{item.id}" %> class="item">
+            <td><%= link_to item.row_order, item.ordem_service %></td>
             <td align="center"><%= item.delivery_number %></td>
             <td><%= link_to item.ordem_service.id, item.ordem_service %></td>
             <td><%= link_to date_br(item.ordem_service.data), item.ordem_service %></td>

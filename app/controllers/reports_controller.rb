@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
       r.add_field(:AGENTE_CPF_CNPJ, @boarding.carrier.cnpj)
       r.add_field(:AGENTE_ENDERECO, @boarding.carrier.endereco) 
       r.add_field(:AGENTE_COMPLEMENTO, @boarding.carrier.complemento) 
-      r.add_field(:AGENTE_BAIRRO, @boarding.carrier.bairro + ' - ' + @boarding.carrier.cidade) 
+      r.add_field(:AGENTE_BAIRRO, @boarding.carrier.bairro + ' - ' + @boarding.carrier.cidade + ' - CEP:' + @boarding.carrier.cep) 
 
       #rodapé
       r.add_field(:DATA_EXPEDICAO, date_br(@boarding.date_boarding))      
@@ -41,7 +41,7 @@ class ReportsController < ApplicationController
         t.add_column(:ADDRESS)  { |item| "#{item.vehicle.antt}" }
         
       end
-      r.add_table("TABLE_02", @boarding.boarding_items, :header=>true) do |t|
+      r.add_table("TABLE_02", @boarding.boarding_items.order(:row_order), :header=>true) do |t|
 
         t.add_column(:FIELD_01) { |item| "#{item.delivery_number}" }
         t.add_column(:FIELD_02) { |item| "#{item.ordem_service.id}" }
