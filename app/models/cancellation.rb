@@ -32,16 +32,20 @@ class Cancellation < ActiveRecord::Base
       when "Boarding" then "Embarque"
       when "AccountPayable" then "Ct. a Pagar"
       when "Billing" then "Faturamento"
+      when "NfsKey" then "NFS"
     end
   end
 
   def cancellation_model
+    puts ">>>>>>>>>>>>>>> cancellation_model #{self.cancellation_id}"
     case self.cancellation_type.to_s
       when "Billing" then model = Billing.find(self.cancellation_id)
       when "Boarding" then model = Boarding.find(self.cancellation_id)
       when "OrdemService" then model = OrdemService.find(self.cancellation_id)
       when "AccountPayable" then model = AccountPayable.find(self.cancellation_id)
+      when "NfsKey" then model = NfsKey.select_ordem_service(self.cancellation_id)
     end     
+    puts ">>>>>>>>>>>>>>> cancellation_model #{self.cancellation_id} - Model: #{model}"
     model
   end
 

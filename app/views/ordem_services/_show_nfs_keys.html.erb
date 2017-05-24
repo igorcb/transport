@@ -1,10 +1,32 @@
 <% if object.nfs_keys.present? %>
-
+  <%#= link_to 'Solicitar Cancelamento', '#request_cancelation', id: item.id, 'data-toggle' => 'modal', class: "btn btn-warning btn-sm" if item.cancellations.first.status == Cancellation::TipoStatus::PEDENDENTE%>
+  
   <ul class="list-group">
     <% object.nfs_keys.each do |item| %>
       <li class="list-group-item" > 
-        <strong>NFS-e:</strong> <%= item.nfs %> - 
-        <strong>Chave:</strong> <%= item.chave %> 
+        <strong>NFS-e:</strong> <%= item.nfs %> |
+        <strong>Chave:</strong> <%= item.chave %> | 
+        <strong>Status Cancelamento:</strong> <%= item.cancellations.first.status_name if item.cancellations.present? %> 
+				<%= link_to 'Solicitar Cancelamento', '#request_cancelation', id: item.id, 'data-toggle' => 'modal', class: "btn btn-warning btn-sm" unless item.cancellations.present? %>
+
+				<div class="modal fade" id="request_cancelation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title" id="myModalLabel">Solicitar Cancelamento <%= item.id %></h4>
+				      </div>
+				      <div class="modal-body">
+				        <%# Render the new person form (passing modal => true to enable remote => true) %>
+				        <%= render 'cancellations/form_cancellation_nfs.js', modal: true, :item_id => item.id %>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+
       </li>
     <% end %>
   </ul>

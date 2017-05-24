@@ -2,5 +2,15 @@ class NfsKey < ActiveRecord::Base
   validates :nfs, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }
   validates :chave, numericality: { only_integer: true }, allow_blank: true
 	
-	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "nfs_id", polymorphic: true, dependent: :destroy
+	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "nfs_id", dependent: :destroy
+
+  has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
+  accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
+
+  def self.select_ordem_service(id)
+  	puts " >>>>>>>>>>>>>> ID: #{id}"
+  	nfs = NfsKey.find(id)
+  	nfs.ordem_service
+  end
+
 end
