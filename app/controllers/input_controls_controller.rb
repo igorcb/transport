@@ -115,7 +115,8 @@ class InputControlsController < ApplicationController
       params.require(:input_control).permit(:carrier_id, :driver_id, :place, :place_cart, 
         :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets, 
         :observation,
-        nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy]
+        nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
+        assets_attributes: [:asset, :id, :_destroy]
         )
     end
 end

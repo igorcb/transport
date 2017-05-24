@@ -64,6 +64,17 @@
     <%= link_to_add_association 'Add NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm" %> <br />
   </div> <br />
   
+  <h3>Documentos</h3> 
+  <div id="documents">
+    <div class="items">
+      <%= f.nested_fields_for :assets do |f| 
+        render 'shared/asset', f: f
+      end  -%>
+    </div>
+      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+  </div>
+
+  <hr />
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>

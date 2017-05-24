@@ -18,65 +18,73 @@
   </div>
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Dados da Remessa de Entrada</h2>
+  </div>
 
-<p>
-  <strong>Placa:</strong>
-  <%= @input_control.place %> |
-  <strong>Placa Carreta:</strong>
-  <%= @input_control.place_cart %> |
-  <strong>Placa Carreta 2:</strong>
-  <%= @input_control.place_cart_2 %>
-</p>
+  <div class="panel-body"> 
+    <p>
+      <strong>Placa:</strong>
+      <%= @input_control.place %> |
+      <strong>Placa Carreta:</strong>
+      <%= @input_control.place_cart %> |
+      <strong>Placa Carreta 2:</strong>
+      <%= @input_control.place_cart_2 %>
+    </p>
 
-<p>
-  <strong>Date Entrada NF-e:</strong>
-  <%= date_br @input_control.date_entry %> | <%= time_br @input_control.time_entry %>
-</p>
+    <p>
+      <strong>Date Entrada NF-e:</strong>
+      <%= date_br @input_control.date_entry %> | <%= time_br @input_control.time_entry %>
+    </p>
 
-<p>
-  <strong>Date Recebimento:</strong>
-  <%= date_br @input_control.date_receipt %>
-</p>
+    <p>
+      <strong>Date Recebimento:</strong>
+      <%= date_br @input_control.date_receipt %>
+    </p>
 
-<p>
-  <strong>Carga Peletizada:</strong>
-  <%= @input_control.palletized_status %>
-</p>
+    <p>
+      <strong>Carga Peletizada:</strong>
+      <%= @input_control.palletized_status %>
+    </p>
 
-<p>
-  <strong>Qtde Paletes:</strong>
-  <%= @input_control.quantity_pallets %>
-</p>
+    <p>
+      <strong>Qtde Paletes:</strong>
+      <%= @input_control.quantity_pallets %>
+    </p>
 
-<p>
-  <strong>Peso:</strong>
-  <%= number_to_currency(@input_control.weight, precision: 3, unit: "", separator: ",", delimiter: ".") %>
-</p>
+    <p>
+      <strong>Peso:</strong>
+      <%= number_to_currency(@input_control.weight, precision: 3, unit: "", separator: ",", delimiter: ".") %>
+    </p>
 
-<p>
-  <strong>Volume:</strong>
-  <%= number_to_currency(@input_control.volume, precision: 3, unit: "", separator: ",", delimiter: ".") %>
-</p>
+    <p>
+      <strong>Volume:</strong>
+      <%= number_to_currency(@input_control.volume, precision: 3, unit: "", separator: ",", delimiter: ".") %>
+    </p>
 
-<p>
-  <strong>Valor Tonelada:</strong>
-  <%= number_to_currency(@input_control.value_ton, unit: "R$ ", separator: ",", delimiter: ".") %>
-</p>
+    <p>
+      <strong>Valor Tonelada:</strong>
+      <%= number_to_currency(@input_control.value_ton, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
 
-<p>
-  <strong>Value p/ kg:</strong>
-  <%= number_to_currency(@input_control.value_kg, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %>
-</p>
+    <p>
+      <strong>Value p/ kg:</strong>
+      <%= number_to_currency(@input_control.value_kg, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
 
-<p>
-  <strong>Valor Descarga:</strong>
-  <%= number_to_currency(@input_control.value_total, unit: "R$ ", separator: ",", delimiter: ".") %>
-</p>
+    <p>
+      <strong>Valor Descarga:</strong>
+      <%= number_to_currency(@input_control.value_total, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
 
-<p>
-  <strong>Observation:</strong>
-  <pre><%= @input_control.observation %></pre>
-</p>
+    <p>
+      <strong>Observation:</strong>
+      <pre><%= @input_control.observation %></pre>
+    </p>
+
+  </div>
+</div>
 
 <div class="form-group">
   <%= link_to 'Editar', edit_input_control_path(@input_control), class: "btn btn-primary" %> 
@@ -105,5 +113,15 @@
         </tbody>
       </table>
     </div>    
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Documentos</h2>
+  </div>
+
+  <div class="panel-body"> 
+    <%= render 'shared/document', object: @input_control %>
   </div>
 </div>

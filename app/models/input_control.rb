@@ -9,7 +9,10 @@ class InputControl < ActiveRecord::Base
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
 
   has_many :item_input_controls
-  
+
+  has_many :assets, as: :asset, dependent: :destroy
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
+
   #before_save { |item| item.email = email.downcase }
 
   before_save do |item| 
