@@ -119,6 +119,22 @@
     </fieldset>
   </div>
 
+  <div id="phones">
+    <fieldset>
+      <legend>Restrições</legend>
+        <div class="items">
+          <%= f.nested_fields_for :driver_restrictions do |f| 
+            render 'driver_restriction_fields', f: f
+          end -%>
+        </div>
+        <div class="row">
+          <div class="col-xs-2">
+            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Restrição</a>  
+          </div>  
+        </div>
+    </fieldset>
+  </div>
+
   <div id="accounts">
     <fieldset>
       <legend>Contas Bancarias</legend>
@@ -182,7 +198,7 @@
 
   <div class="form-actions">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
-    <%= link_to "Exibir",  drivers_path(@driver), class: "btn btn-info" if !@driver.new_record? %>
+    <%= link_to "Exibir",  driver_path(@driver), class: "btn btn-info" if !@driver.new_record? %>
     <%= link_to "Listar Todos", drivers_path, class: "btn btn-default" %>
   </div>
 

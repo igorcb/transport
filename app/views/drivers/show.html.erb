@@ -120,6 +120,31 @@
 
 <%= render 'shared/show_contacts', object: @driver %>
 
+<h2>Restrições</h2>
+<% if @driver.driver_restrictions.any? %>
+  <table class="table table-striped">
+    <thead>
+      <th>Cliente</th>
+      <th>Tipo Restricao</th>
+      <th>Observacao</th>
+    </thead>
+    <tbody>
+      <% @driver.driver_restrictions.each do |restriction| %>
+        <tr>
+          <td><%= restriction.client.nome %></td>
+          <td><%= restriction.restriction_name %></td>
+          <td><%= restriction.observation %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% else %>
+  <p>This person has no restriction yet.</p>
+<% end %>
+
+
 <%= render 'shared/show_account_bank', object: @driver %>
 
 <h2>Tabela de Preços</h2>
