@@ -36,10 +36,27 @@ class InputControl < ActiveRecord::Base
     PALETIZADA  = true
   end
 
+  module TypeStatus
+    OPEN   = 0
+    RECEIVED = 1
+    CLOSED  = 2
+    BILLED = 3
+  end
+
   def palletized_status
     case self.palletized
       when false then "Nao"
       when true then "Sim"
+      else "Nao Informado"
+    end
+  end
+
+  def status_name
+    case self.status
+      when 0 then "Aberto"
+      when 1 then "Recebido"
+      when 2 then "Fechado"
+      when 3 then "Faturado"
       else "Nao Informado"
     end
   end

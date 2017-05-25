@@ -6,13 +6,14 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Carrier</th>
-            <th>Driver</th>
-            <th>Date entry</th>
+            <th>Transportadora</th>
+            <th>Motorista</th>
+            <th>Data Ent.</th>
             <th>Time</th>
-            <th>Date receipt</th>
+            <th>Data Rec.</th>
             <th>Palletized</th>
-            <th>Qtde Paletes</th>
+            <th>Qtde </th>
+            <th>Status</th>
             <th colspan="3">Options</th>
          </tr>
         </thead>
@@ -27,8 +28,9 @@
               <td><%= date_br input_control.date_receipt %></td>
               <td><%= input_control.palletized_status %></td>
               <td><%= input_control.quantity_pallets %></td>
-              <td><%= link_to 'Show', input_control, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_input_control_path(input_control), class: "btn btn-primary btn-sm"  %></td>
+              <td><%= input_control.status_name %></td>
+              <td><%= link_to 'Show', input_control, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_input_control_path(input_control), class: "btn btn-primary btn-xs"  %></td>
             </tr>
           <% end %>
         </tbody>

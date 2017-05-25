@@ -54,7 +54,7 @@ class InputControlsController < ApplicationController
 
 
   def index
-    @input_controls = InputControl.order(id: :desc)
+    @input_controls = InputControl.order(date_entry: :desc, time_entry: :desc)
     respond_with(@input_controls)
   end
 
