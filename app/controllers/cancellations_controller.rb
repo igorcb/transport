@@ -63,7 +63,7 @@ class CancellationsController < ApplicationController
         when "Boarding" then redirect_to boarding_path (@model)
         when "OrdemService" then redirect_to ordem_service_path (@model)
         when "AccountPayable" then redirect_to account_payable_path (@model)
-        #when "NfsKey" then redirect_to ordem_service_path (@model)
+        when "NfsKey" then redirect_to ordem_service_path (NfsKey.ordem_service(@model))
       end
     end
 

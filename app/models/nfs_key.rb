@@ -7,7 +7,7 @@ class NfsKey < ActiveRecord::Base
   has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
   accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
 
-  def self.select_ordem_service(id)
+  def self.ordem_service(id)
   	puts " >>>>>>>>>>>>>> ID: #{id}"
   	nfs = NfsKey.find(id)
   	nfs.ordem_service

@@ -159,6 +159,9 @@ Transport::Application.routes.draw do
   match "/ordem_services_search_logistic" => "ordem_services#search_logistic", via: [:get]
 
   resources :ordem_services do
+    resources :nfs_keys do
+      get 'request_cancelation' 
+    end
     resources :inventories
     member do
       get 'delivery'
@@ -173,6 +176,7 @@ Transport::Application.routes.draw do
       get 'tag'
       get 'cancel'
       post 'update_cancel'
+      #get 'request_cancelation_nfs'
     end
     match 'search' => 'people#search', via: [:get, :post], as: :search
     

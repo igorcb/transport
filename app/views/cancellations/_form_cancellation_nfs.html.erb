@@ -4,7 +4,7 @@
   <%= render 'shared/error_messages', object: f.object %>
   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%> 
 
-  <%= hidden_field_tag "cancellation[cancellation_id]", item_id %>
+  <%= hidden_field_tag "cancellation[cancellation_id]", @nfs_key.id %>
   <%= hidden_field_tag "cancellation[cancellation_type]", "NfsKey" %>
 
   <%= render 'cancellations/fields', f: f %>
