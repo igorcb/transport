@@ -6,6 +6,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>Remessa</th>
             <th>Transportadora</th>
             <th>Motorista</th>
             <th>Data Entrada</th>
@@ -20,6 +21,7 @@
         <tbody>
           <% @input_controls.each do |input_control| %>
             <tr>
+              <td><%= input_control.id %></td>
               <td><%= input_control.carrier.nome %></td>
               <td><%= input_control.driver.nome %></td>
               <td><%= date_br input_control.date_entry %>&nbsp<%= time_br input_control.time_entry %></td>

@@ -7,7 +7,8 @@ class InputControl < ActiveRecord::Base
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
-
+  
+  has_many :ordem_services
   has_many :item_input_controls
 
   has_many :assets, as: :asset, dependent: :destroy
@@ -25,9 +26,7 @@ class InputControl < ActiveRecord::Base
    set_values
   end 
 
-
   after_save :processa_nfe_xmls
-
 
   VALOR_DA_TONELADA = 25
 
@@ -129,7 +128,6 @@ class InputControl < ActiveRecord::Base
       return_value = false
       raise ActiveRecord::Rollback
     end
-    
   end
 
   def self.create_stok_pallets(params = {})

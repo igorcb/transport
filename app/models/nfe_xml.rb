@@ -78,10 +78,14 @@ class NfeXml < ActiveRecord::Base
     end
   end
 
-   def ordem_service
+  def ordem_service
     nfe_key = NfeKey.where(nfe: self.numero)
     ordem_service = nfe_key.present? ? nfe_key.first.ordem_service : nil
   end
+
+  # def ordem_services_status
+  #   ordem_service.status_name
+  # end
 
   def self.processa_xml_input_control(params)
     if params.status == TipoStatus::NAO_PROCESSADO
