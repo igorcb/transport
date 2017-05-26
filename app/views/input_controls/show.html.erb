@@ -94,7 +94,7 @@
 <div class="form-group">
   <%= link_to 'Editar', edit_input_control_path(@input_control), class: "btn btn-primary" %> 
   <%= link_to 'Listar Todos', input_controls_path, class: "btn btn-default" %>
-  <%= link_to 'Informar Recebimento', received_input_control_path(@input_control), class: "btn btn-primary" if @input_control == InputControl::TypeStatus::OPEN %>
+  <%= link_to 'Informar Recebimento', received_input_control_path(@input_control), class: "btn btn-primary" if @input_control.status == InputControl::TypeStatus::OPEN %>
   <%= link_to 'Gerar Ordem Servico', select_nfe_input_control_path, class: "btn btn-success"%>
   <%= link_to 'Armazenar Paletes', select_pallets_input_control_path, class: "btn btn-yellow"%>
 </div>                             
