@@ -5,6 +5,15 @@ class InputControlsController < ApplicationController
 
   respond_to :html
 
+  def received
+    if @input_control.received
+      flash[:success] = "Input Control was successfully received"
+    else
+      flash[:success] = "Error receiving input control."
+    end
+    redirect_to input_control_path(@input_control)
+  end
+
   def create_ordem_service
     if params[:nfe].blank?
       flash[:danger] = "Select at least one nfe to generate the ordem service."

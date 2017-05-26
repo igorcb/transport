@@ -116,6 +116,22 @@ class InputControl < ActiveRecord::Base
     positivo
   end
 
+  def received
+    puts ">>>>>>>>>>>> Received"
+    return_value = false
+    begin
+      ActiveRecord::Base.transaction do
+        return_value = true
+        puts ">>>>>>>>>>>> update Received Today"
+        self.update_attributes(date_receipt: Date.current, status: InputControl::TypeStatus::RECEIVED)
+      end
+    rescue exception
+      return_value = false
+      raise ActiveRecord::Rollback
+    end
+    
+  end
+
   def self.create_stok_pallets(params = {})
     puts ">>>>>>>>>>>>  params: #{params.to_s}"
     input_control = InputControl.find(params[:id])

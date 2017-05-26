@@ -1,26 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h2 class="panel-title">Transportadora</h2>
-  </div>
-
-  <div class="panel-body"> 
-    <%= render 'carriers/carrier_data', object: @input_control.carrier if @input_control.carrier.present? %>
-  </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title">Dados do Motorista</h2>
-  </div>
-
-  <div class="panel-body"> 
-    <%= render 'drivers/driver_data', object: @input_control.driver if @input_control.driver.present? %>
-  </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title">Dados da Remessa de Entrada: <%= @input_control.status_name %></h2>
+    <h2 class="panel-title">
+      Dados da Remessa de Entrada No:
+      <%= @input_control.id %> -
+      <%= @input_control.status_name %>
+    </h2>
   </div>
 
   <div class="panel-body"> 
@@ -86,9 +70,31 @@
   </div>
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Transportadora</h2>
+  </div>
+
+  <div class="panel-body"> 
+    <%= render 'carriers/carrier_data', object: @input_control.carrier if @input_control.carrier.present? %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Dados do Motorista</h2>
+  </div>
+
+  <div class="panel-body"> 
+    <%= render 'drivers/driver_data', object: @input_control.driver if @input_control.driver.present? %>
+  </div>
+</div>
+
+
 <div class="form-group">
   <%= link_to 'Editar', edit_input_control_path(@input_control), class: "btn btn-primary" %> 
   <%= link_to 'Listar Todos', input_controls_path, class: "btn btn-default" %>
+  <%= link_to 'Informar Recebimento', received_input_control_path(@input_control), class: "btn btn-primary" if @input_control == InputControl::TypeStatus::OPEN %>
   <%= link_to 'Gerar Ordem Servico', select_nfe_input_control_path, class: "btn btn-success"%>
   <%= link_to 'Armazenar Paletes', select_pallets_input_control_path, class: "btn btn-yellow"%>
 </div>                             

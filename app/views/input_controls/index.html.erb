@@ -8,8 +8,7 @@
           <tr>
             <th>Transportadora</th>
             <th>Motorista</th>
-            <th>Data Ent.</th>
-            <th>Time</th>
+            <th>Data Entrada</th>
             <th>Data Rec.</th>
             <th>Palletized</th>
             <th>Qtde </th>
@@ -23,8 +22,7 @@
             <tr>
               <td><%= input_control.carrier.nome %></td>
               <td><%= input_control.driver.nome %></td>
-              <td><%= date_br input_control.date_entry %></td>
-              <td><%= time_br input_control.time_entry %></td>
+              <td><%= date_br input_control.date_entry %>&nbsp<%= time_br input_control.time_entry %></td>
               <td><%= date_br input_control.date_receipt %></td>
               <td><%= input_control.palletized_status %></td>
               <td><%= input_control.quantity_pallets %></td>
