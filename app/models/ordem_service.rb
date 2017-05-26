@@ -363,8 +363,6 @@ class OrdemService < ActiveRecord::Base
     positivo = true
     input_control = InputControl.find(self.input_control_id)
     input_control.ordem_services.each do |os|
-      puts ">>>>>>>>>>>>>>>>>>> ID: #{os.id} Status: #{os.status} FECHADO: #{os.status == OrdemService::TipoStatus::FECHADO}"
-      puts ">>>>>>>>>>>>>>>>>>> ID: #{os.id} Status: #{os.status} BILLING: #{os.status == OrdemService::TipoStatus::FATURADO}"
       positivo = ((os.status == OrdemService::TipoStatus::FECHADO) or (os.status == OrdemService::TipoStatus::FATURADO))
       return false if positivo == false      
     end
@@ -387,7 +385,9 @@ class OrdemService < ActiveRecord::Base
       ActiveRecord::Base.transaction do
         data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
         OrdemService.update(self.id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
-        InputControl.update(self.input_control_id, date_closing: data_fechamento, status: InputControl::TypeStatus::CLOSED) if all_input_controls_closed
+        unless self.input_control_id.nil?
+          InputControl.update(self.input_control_id, date_closing: data_fechamento, status: InputControl::TypeStatus::CLOSED) if all_input_controls_closed
+        end
         OrdemService.generate_billing(self.id)
         puts "Gerou o recebimento"
         return true
