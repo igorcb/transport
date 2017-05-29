@@ -15,7 +15,7 @@ module InputControlsHelper
 
   def get_chave(id)
     nfe_xml = NfeXml.where(id: id)
-    if nfe_xml.chave.present?
+    if nfe_xml.first.chave.present?
       nfe_xml.first.chave
     else
       nfe_xml.first.asset_file_name
