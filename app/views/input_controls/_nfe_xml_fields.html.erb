@@ -18,7 +18,7 @@
     
     <div class="form-group">
       <%= link_to image_tag("image_pdf.png", size: "90x70"), f.object.asset.url(:thumb, false) %>
-      <%#= f.object.equipamento_name %> 
+      <%= f.object.equipamento_name %> 
     </div>
     <div class="form-group">
       <%= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>     
