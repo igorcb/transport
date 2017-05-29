@@ -13,6 +13,15 @@ module InputControlsHelper
 		end
   end
 
+  def get_chave(id)
+    nfe_xml = NfeXml.where(id: id)
+    if nfe_xml.present?
+      nfe_xml.first.chave
+    else
+      nfe_xml.first.asset_file_name
+    end
+  end
+
 end
 
   # def alert_color(ordem_service, alert)

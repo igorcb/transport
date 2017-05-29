@@ -1,6 +1,6 @@
 <td><%= nfe_xml.status_name %></td>
 <td><%= nfe_xml.equipamento_name %></td>
-<td><%= nfe_xml.chave %></td>
+<td><%= get_chave(nfe_xml.id) %></td>
 <td><%= link_to_ordem_service(nfe_xml.numero)  %></td>
 <td><%= nfe_xml.target_client.cidade if nfe_xml.target_client.present? %></td>
 <td><%= nfe_xml.target_client.estado if nfe_xml.target_client.present? %></td>
