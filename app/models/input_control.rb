@@ -42,6 +42,11 @@ class InputControl < ActiveRecord::Base
     BILLED = 3
   end
 
+  def status_received?
+    puts ">>>>>>>>>>>>>>>> Status: #{self.status_name} : Result: #{self.status == TypeStatus::RECEIVED}"
+    self.status == TypeStatus::RECEIVED
+  end
+
   def palletized_status
     case self.palletized
       when false then "Nao"
