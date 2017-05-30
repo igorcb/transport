@@ -54,7 +54,7 @@
 
     <p>
       <strong>Recebimento confirmado por:</strong>
-      <%= @input_control.user_received.email %>
+      <%= @input_control.user_received.email if @input_control.user_received.present? %>
     </p>
 
     <p>
