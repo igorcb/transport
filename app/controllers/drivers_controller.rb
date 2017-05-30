@@ -92,6 +92,14 @@ class DriversController < ApplicationController
     end
   end
 
+  def get_driver_by_cpf
+    @carrier = Driver.find_by_cpf(params[:cpf_cpnj])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_driver
