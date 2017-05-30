@@ -1,0 +1,5 @@
+<% if @carrier.present? %>
+  <%= render(:partial => 'result_carrier', locals: {carrier: @carrier}) %>
+<% else %>
+  <%= content_tag(:div, content_tag(:p, "Not found any carrier"), class: "alert alert-danger") %>
+<% end %>
