@@ -5,7 +5,8 @@ Transport::Application.routes.draw do
       get 'select_pallets'
       post 'create_ordem_service'
       post 'create_stok_pallets'
-      get 'received'      
+      get 'received'
+      get 'confirm_received'
     end
   end
 

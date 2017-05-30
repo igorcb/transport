@@ -1,0 +1,10 @@
+<div class="alert alert-danger" role="alert">
+	Sr(a) <%= current_user.email %> <br />
+	<h3> <strong>Você confirma que a mercadoria foi conferida e armazenada no CD da L7?</strong> </h3> <br />	 
+	Caso a empresa inicie um embarque e essa mercadoria não esteja devidamente <br />
+	armazenada o usuário que confirmou esse recebimento se responsabiliza por 
+	qualquer custo que venha a ter.
+</div>
+
+<%= link_to 'Confirma Recebimento', confirm_received_input_control_path(@input_control), class: "btn btn-primary" if @input_control.status == InputControl::TypeStatus::OPEN %>
+<%= link_to 'Voltar', input_control_path(@input_control), class: "btn btn-default" %>

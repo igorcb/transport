@@ -6,7 +6,11 @@ class InputControlsController < ApplicationController
   respond_to :html
 
   def received
+  end
+
+  def confirm_received
     if @input_control.received
+      @input_control.update_attributes(received_user_id: current_user.id)
       flash[:success] = "Input Control was successfully received"
     else
       flash[:success] = "Error receiving input control."
