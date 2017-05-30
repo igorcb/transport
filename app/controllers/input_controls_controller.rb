@@ -96,6 +96,10 @@ class InputControlsController < ApplicationController
     # @input_control = InputControl.new(input_control_params)
     # @input_control.save
     # respond_with(@input_control)
+    driver  = Driver.find_by_cpf(params[:driver_cpf])
+    carrier = Carrier.find_by_cnpj(params[:carrier_cnpj])
+    @input_control.driver_id = driver.id
+    @input_control.carrier_id = carrier.id
     @input_control.user_id = current_user.id
     respond_to do |format|
       if @input_control.save                               
