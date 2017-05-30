@@ -1,16 +1,45 @@
 <%= form_for(@input_control) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+<!--   <div class="form-group">
+    <%#= f.label :carrier_id, "Transportadora" %>
+    <%#= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.name_state, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+ -->
   <div class="form-group">
-    <%= f.label :carrier_id, "Transportadora" %>
-    <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.name_state, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%= label_tag :carrier_id, "Transportadora" %><br>
+    <% if @input_control.new_record? %>
+      <%= text_field_tag :carrier_cnpj, nil, class: "form-control cnpj" %>
+    <% else %>
+      <%= text_field_tag :carrier_cnpj, @input_control.carrier.cnpj, class: "form-control cnpj", disabled: true %>
+      <%= render partial: "carriers/result_carrier", locals: { carrier: @input_control.carrier } %>
+    <% end %>
   </div>
   
-  <div class="form-group">
-    <%= f.label :driver_id, "Motorista" %>
-    <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
-  </div>
+  <div id="carrier_cnpj_result">
+
+  </div>  
+
   
+<!--   <div class="form-group">
+    <%#= f.label :driver_id, "Motorista" %>
+    <%#= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+ -->  
+  <div class="form-group">
+    <%= label_tag :driver_id, "Motorista" %><br>
+    <% if @input_control.new_record? %>
+      <%= text_field_tag :driver_cpf, nil, class: "form-control cpf" %>
+    <% else %>
+      <%= text_field_tag :driver_cpf, @input_control.driver.cpf, class: "form-control cpf", disabled: true %>
+      <%= render partial: "drivers/result_driver", locals: { driver: @input_control.driver } %>
+    <% end %>
+  </div>
+
+  <div id="driver_cpf_result">
+
+  </div>  
+
   <div class="form-group">
     <%= f.label :place, "Placa" %>
     <%= f.text_field :place, class: "form-control placa" %>
@@ -84,3 +113,39 @@
 
 <% end %>
 
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#carrier_cnpj").focusout(function() {
+      var cnpj = $('#carrier_cnpj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cnpj: cnpj},
+        dataType : 'html',
+        url: '/carriers/get_carrier_by_cnpj',
+        success: function(data){
+            $('#carrier_cnpj_result').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#driver_cpf").focusout(function() {
+      var cpf = $('#driver_cpf').val();
+      console.log(cpf);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cpf},
+        dataType : 'html',
+        url: '/drivers/get_driver_by_cpf',
+        success: function(data){
+            $('#driver_cpf_result').html(data);
+        },
+      });
+    });
+  });
+</script>
