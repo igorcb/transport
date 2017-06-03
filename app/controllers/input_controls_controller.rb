@@ -81,7 +81,12 @@ class InputControlsController < ApplicationController
   end
 
   def show
-    respond_with(@input_control)
+    #respond_with(@input_control)
+    respond_to do |format|
+      format.html # index.html.erb
+      # Example: Basic Usage
+      format.pdf { render_input_control(@input_control) }
+    end
   end
 
   def new
@@ -145,4 +150,30 @@ class InputControlsController < ApplicationController
         assets_attributes: [:asset, :id, :_destroy]
         )
     end
+
+    def render_input_control(task)
+        report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
+
+        report.start_new_page
+        report.page.item(:input_control_id).value(@input_control.id)
+        report.page.item(:driver_name).value(@input_control.driver.nome)
+        report.page.item(:driver_cpf).value(@input_control.driver.cpf)
+        report.page.item(:placa_cavalo).value(@input_control.place)
+        report.page.item(:placa_reboque).value(@input_control.place_cart)
+        report.page.item(:placa_reboque_2).value(@input_control.place_cart_2)
+        report.page.item(:carrier_name).value(@input_control.carrier.nome)
+        task.nfe_xmls.each do |nfe|
+          report.page.item(:nfe_numero).value(nfe.numero)
+          nfe.item_input_controls.each do |item|
+            report.list.add_row do |row|
+              row.values product_id: item.product.cod_prod, 
+                     product_name: item.product.descricao
+              end
+          end
+        end
+        
+        send_data report.generate, filename: "ocorrencia_#{task.id}_.pdf", 
+                                   type: 'application/pdf', 
+                                   disposition: 'attachment'
+      end    
 end

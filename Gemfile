@@ -55,6 +55,9 @@ gem 'extensobr'
 gem 'ranked-model'
 gem 'roxml', '~> 3.3', '>= 3.3.1'
 gem 'ruby-nfe', '~> 0.0.3'
+gem 'thinreports', '0.9.1'
+gem 'thinreports-rails', '~> 0.3.0'
+
 
 # group :development, :test do
 #   # gem 'sqlite3', '1.3.5'
@@ -97,6 +100,8 @@ group :development, :test do
   gem 'thin'
   gem 'quiet_assets'
   gem 'capybara', '1.1.2'
+
+  gem 'pdf-inspector', require: 'pdf/inspector'
 end
 
 

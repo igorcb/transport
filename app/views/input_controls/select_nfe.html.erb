@@ -1,6 +1,6 @@
 <div id="ordem_service_type_service_id">
-	<%= form_tag({:controller => "input_controls", :action => "create_ordem_service"}, :method => "post", :name => "selectNfeForm") do %>
-	<%= hidden_field_tag "id", @input_control.id %>
+	<%= form_tag({:controller => "input_controls", :action => "create_ordem_service"}, :method => "post", id: "selectNfeForm", :html => { onsubmit: "checkForm(this);" }) do %>
+	<%= hidden_field_tag "id", @input_control.id %>																																												
 		<div class="panel panel-default">
 		  <div class="panel-heading">Selecionar notas para geraração da Ordem de Serviço.</div>
 		  <div class="panel-body">
@@ -32,12 +32,11 @@
 		  </div>
 		</div>
   <%= link_to 'Show', input_control_path(@input_control), class: "btn btn-primary btn-xs" %> 
-	<%= submit_tag("Criar Ordem de Serviço", class: "btn btn-success") %> 
+	<%= submit_tag("Criar Ordem de Serviço", class: "btn btn-success ", id: "button_create_ordem_service", name: "button_create", onclick: "checkForm(this)") %> 
 
 	<% end %>
 
 </div>
-
 
 <script type="text/javascript">
   function checkTotal() {
@@ -53,4 +52,36 @@
     }
     document.getElementById('valor_total').value = 'R$ ' + sum.formatMoney(2, ',', '.');
   }
-</script
+</script>
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+		$('selectNfeForm#id').submit(function(e){
+		    $(this).children('input[type=submit]').attr('disabled', 'disabled');
+		    // this is just for demonstration
+		    e.preventDefault();    
+		    console.log('disabled button submit');
+		 });
+  });
+</script>
+
+<script type="text/javascript">
+  //$("button_create_ordem_service").attr("disabled", true).delay(2000).attr("disabled", false);
+  function checkForm(form)
+  {
+    //
+    // validate form fields
+    //
+    
+		form.disabled = true;
+		console.log("desabilitado");
+    //form.button_create_ordem_service.disabled = true;
+    form.delay = 5000;
+    console.log("espera 5s");
+    form.disabled = false;
+    console.log("habilitado 5s");
+    return true;
+  }
+
+</script>
