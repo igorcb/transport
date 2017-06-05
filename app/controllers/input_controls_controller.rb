@@ -153,7 +153,7 @@ class InputControlsController < ApplicationController
 
     def render_input_control(task)
         report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
-
+        
         report.start_new_page
         report.page.item(:input_control_id).value(@input_control.id)
         report.page.item(:driver_name).value(@input_control.driver.nome)
@@ -162,12 +162,15 @@ class InputControlsController < ApplicationController
         report.page.item(:placa_reboque).value(@input_control.place_cart)
         report.page.item(:placa_reboque_2).value(@input_control.place_cart_2)
         report.page.item(:carrier_name).value(@input_control.carrier.nome)
-        task.nfe_xmls.each do |nfe|
+        report.page.item(:carrier_cnpj).value(@input_control.carrier.cnpj)
+        task.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
           report.page.item(:nfe_numero).value(nfe.numero)
-          nfe.item_input_controls.each do |item|
+          nfe.item_input_controls.joins(:product).order("products.cod_prod").each do |item|
             report.list.add_row do |row|
-              row.values product_id: item.product.cod_prod, 
-                     product_name: item.product.descricao
+              row.values prod_id: item.product.cod_prod, 
+                     prod_name: item.product.descricao,
+                     prod_total: item.qtde,
+                     prod_und: item.unid_medida
               end
           end
         end
