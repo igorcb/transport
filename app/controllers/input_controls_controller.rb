@@ -173,6 +173,7 @@ class InputControlsController < ApplicationController
                      prod_und: item.unid_medida
               end
           end
+          report.start_new_page
         end
         
         send_data report.generate, filename: "ocorrencia_#{task.id}_.pdf", 
