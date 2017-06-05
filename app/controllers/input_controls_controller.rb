@@ -174,6 +174,7 @@ class InputControlsController < ApplicationController
               end
           end
           report.start_new_page
+          report.page.item(:input_control_id).value(@input_control.id)
         end
         
         send_data report.generate, filename: "ocorrencia_#{task.id}_.pdf", 
