@@ -2,6 +2,7 @@
 class OrdemServicesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_ordem_service, only: [:show, :edit, :update, :destroy, :close_os ]
+  before_action :is_not_edit, only: [:edit, :update ]
   load_and_authorize_resource
   respond_to :html
 
@@ -438,6 +439,15 @@ class OrdemServicesController < ApplicationController
   private
     def set_ordem_service
       @ordem_service = OrdemService.find(params[:id])
+    end
+
+    def is_not_edit
+      @ordem_service = OrdemService.find(params[:id])
+      if @ordem_service.status == OrdemService::TipoStatus::FATURADO
+        flash[:danger] = "Ordem Service already is billing."
+        redirect_to ordem_service_path(@ordem_service)
+        return
+      end
     end
 
     def ordem_service_params
