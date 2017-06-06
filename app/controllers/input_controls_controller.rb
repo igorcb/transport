@@ -1,4 +1,7 @@
 class InputControlsController < ApplicationController
+  include ApplicationHelper
+  include ActionView::Helpers::NumberHelper
+
   before_filter :authenticate_user!
   before_action :set_input_control, only: [:show, :edit, :update, :destroy, :select_nfe]
   load_and_authorize_resource  
@@ -158,6 +161,8 @@ class InputControlsController < ApplicationController
         data_input_control(report)
         task.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
           report.page.item(:nfe_numero).value(nfe.numero)
+          report.page.item(:nfe_peso).value("#{number_to_currency(nfe.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+          report.page.item(:nfe_volume).value("#{number_to_currency(nfe.volume, precision: 3, unit: "", separator: ",", delimiter: ".")}")
           report.page.item(:client_name).value(nfe.target_client.nome)
           report.page.item(:client_cnpj).value(nfe.target_client.cpf_cnpj)
           report.page.item(:client_cidade).value(nfe.target_client.cidade)
@@ -184,7 +189,7 @@ class InputControlsController < ApplicationController
       report.page.item(:driver_cpf).value(@input_control.driver.cpf)
       report.page.item(:placa_cavalo).value(@input_control.place)
       report.page.item(:placa_reboque).value(@input_control.place_cart)
-      report.page.item(:placa_reboque_2).value(@input_control.place_cart_2)
+      #report.page.item(:placa_reboque_2).value(@input_control.place_cart_2)
       report.page.item(:carrier_name).value(@input_control.carrier.nome)
       report.page.item(:carrier_cnpj).value(@input_control.carrier.cnpj)
     end
