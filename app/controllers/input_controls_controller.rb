@@ -8,6 +8,16 @@ class InputControlsController < ApplicationController
 
   respond_to :html
 
+  def finish_typing
+    if @input_control.finish_typing
+      #@input_control.update_attributes(received_user_id: current_user.id)
+      flash[:success] = "Input Control was successfully received"
+    else
+      flash[:success] = "Error receiving input control."
+    end
+    redirect_to input_control_path(@input_control)
+  end
+
   def received
   end
 

@@ -7,7 +7,10 @@ Transport::Application.routes.draw do
       post 'create_stok_pallets'
       get 'received'
       get 'confirm_received'
+      get 'finish_typing'
     end
+    #match :finish_typing, :as => :update_status, :via => [:get, :put]  
+    #match "input_controls/finish_typing" => "input_controlsr#finish_typing", as: :finish_typing, via: [:post]
   end
 
   #match '/select_xml_nfe_new_ordem_services', :controller => 'new_ordem_services', :action => 'select_xml_nfe', via: [:get, :post]

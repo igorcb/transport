@@ -41,7 +41,8 @@ class InputControl < ActiveRecord::Base
     RECEIVED = 1
     CLOSED  = 2
     BILLED = 3
-  end
+    FINISH_TYPING = 4
+  end #ordem do processo OPEN, FINISH TYPING, CLOSE, BILLIED
 
   def status_received?
     puts ">>>>>>>>>>>>>>>> Status: #{self.status_name} : Result: #{self.status == TypeStatus::RECEIVED}"
@@ -62,6 +63,7 @@ class InputControl < ActiveRecord::Base
       when 1 then "Recebido"
       when 2 then "Fechado"
       when 3 then "Faturado"
+      when 4 then "Dig.Finalizada"
       else "Nao Informado"
     end
   end
@@ -122,13 +124,25 @@ class InputControl < ActiveRecord::Base
   end
 
   def received
-    puts ">>>>>>>>>>>> Received"
+    # so pode informar recebimento se a remessa estiver no status FINISH_TYPING
+    # fazer checagem se necessario
     return_value = false
     begin
       ActiveRecord::Base.transaction do
         return_value = true
-        puts ">>>>>>>>>>>> update Received Today"
         self.update_attributes(date_receipt: Date.current, status: InputControl::TypeStatus::RECEIVED)
+      end
+    rescue exception
+      return_value = false
+      raise ActiveRecord::Rollback
+    end
+  end
+
+  def finish_typing
+    return_value = false
+    begin
+      ActiveRecord::Base.transaction do
+        self.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
       end
     rescue exception
       return_value = false
