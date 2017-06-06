@@ -155,16 +155,12 @@ class InputControlsController < ApplicationController
         report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
         
         report.start_new_page
-        report.page.item(:input_control_id).value(@input_control.id)
-        report.page.item(:driver_name).value(@input_control.driver.nome)
-        report.page.item(:driver_cpf).value(@input_control.driver.cpf)
-        report.page.item(:placa_cavalo).value(@input_control.place)
-        report.page.item(:placa_reboque).value(@input_control.place_cart)
-        report.page.item(:placa_reboque_2).value(@input_control.place_cart_2)
-        report.page.item(:carrier_name).value(@input_control.carrier.nome)
-        report.page.item(:carrier_cnpj).value(@input_control.carrier.cnpj)
+        data_input_control(report)
         task.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
           report.page.item(:nfe_numero).value(nfe.numero)
+          report.page.item(:client_name).value(nfe.target_client.nome)
+          report.page.item(:client_cnpj).value(nfe.target_client.cpf_cnpj)
+          report.page.item(:client_cidade).value(nfe.target_client.cidade)
           nfe.item_input_controls.joins(:product).order("products.cod_prod").each do |item|
             report.list.add_row do |row|
               row.values prod_id: item.product.cod_prod, 
@@ -174,11 +170,22 @@ class InputControlsController < ApplicationController
               end
           end
           report.start_new_page
-          report.page.item(:input_control_id).value(@input_control.id)
+          data_input_control(report)
         end
         
         send_data report.generate, filename: "ocorrencia_#{task.id}_.pdf", 
                                    type: 'application/pdf', 
                                    disposition: 'attachment'
-      end    
+    end    
+
+    def data_input_control(report)
+      report.page.item(:input_control_id).value(@input_control.id)
+      report.page.item(:driver_name).value(@input_control.driver.nome)
+      report.page.item(:driver_cpf).value(@input_control.driver.cpf)
+      report.page.item(:placa_cavalo).value(@input_control.place)
+      report.page.item(:placa_reboque).value(@input_control.place_cart)
+      report.page.item(:placa_reboque_2).value(@input_control.place_cart_2)
+      report.page.item(:carrier_name).value(@input_control.carrier.nome)
+      report.page.item(:carrier_cnpj).value(@input_control.carrier.cnpj)
+    end
 end
