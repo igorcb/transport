@@ -17,6 +17,11 @@ class InputControl < ActiveRecord::Base
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
+  has_one :cancellation, class_name: "Cancellation", foreign_key: "cancellation_id"
+  has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
+  accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
+
+
   #before_save { |item| item.email = email.downcase }
   RECEBIMENTO_DESCARGA_HISTORIC = 100
   RECEBIMENTO_DESCARGA_PAYMENT_METHOD = 2
@@ -274,5 +279,10 @@ class InputControl < ActiveRecord::Base
 
     end
   end
+
+  def feed_cancellations
+    Cancellation.where("cancellation_type = ? and cancellation_id = ?", "InputControl", self.id)
+  end
+
 
 end

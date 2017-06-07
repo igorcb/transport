@@ -99,6 +99,26 @@
   </div>
 
   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSix">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Dados do Cancelamento
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+      <div class="panel-body">
+
+      <%= render 'cancellations/feed', cancellations: @input_control.feed_cancellations %>
+
+      <%= render 'cancellations/form_cancellation_input_control' %>
+      
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingFive">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">

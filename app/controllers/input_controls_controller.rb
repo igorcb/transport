@@ -103,6 +103,7 @@ class InputControlsController < ApplicationController
   end
 
   def show
+    @cancellation = @input_control.cancellations.build
     #respond_with(@input_control)
     respond_to do |format|
       format.html # index.html.erb
