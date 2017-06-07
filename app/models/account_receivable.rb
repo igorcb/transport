@@ -18,6 +18,8 @@ class AccountReceivable < ActiveRecord::Base
   belongs_to :payment_method
 
   has_many :lower_account_receivables
+
+  before_destroy :can_destroy?
  
   module TipoStatus
     ABERTO = 0
@@ -133,5 +135,14 @@ class AccountReceivable < ActiveRecord::Base
   end
   
   private
+
+    def can_destroy?
+      if self.lower_account_receivables.present?
+        puts ">>>>>>>>>>>>>>>>>>>>>>>>>. não pode apagar"
+        errors.add(:base, "You can not delete record with relationship") 
+        return false
+      end
+    end
+
 
 end
