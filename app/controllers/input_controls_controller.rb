@@ -8,6 +8,15 @@ class InputControlsController < ApplicationController
 
   respond_to :html
 
+  def quitter
+    #respond_with(@input_control)
+    respond_to do |format|
+      format.html
+      # Example: Basic Usage
+      format.pdf { render_quitter_input_control(@input_control) }
+    end
+  end
+
   def finish_typing
     if @input_control.finish_typing
       #@input_control.update_attributes(received_user_id: current_user.id)
@@ -164,6 +173,17 @@ class InputControlsController < ApplicationController
         )
     end
 
+    def render_quitter_input_control(quitter)
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'recibo.tlf')
+    
+      report.start_new_page
+
+      send_data report.generate, filename: "recibo_#{quitter.id}_.pdf", 
+                                   type: 'application/pdf', 
+                                   disposition: 'attachment'
+
+    end
+
     def render_input_control(task)
         report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
         
@@ -203,4 +223,5 @@ class InputControlsController < ApplicationController
       report.page.item(:carrier_name).value(@input_control.carrier.nome)
       report.page.item(:carrier_cnpj).value(@input_control.carrier.cnpj)
     end
+
 end

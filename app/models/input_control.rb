@@ -6,6 +6,8 @@ class InputControl < ActiveRecord::Base
   belongs_to :driver
   belongs_to :user_received, class_name: "User", foreign_key: "received_user_id"
 
+  has_one :account_receivable
+
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
   
@@ -16,6 +18,11 @@ class InputControl < ActiveRecord::Base
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
   #before_save { |item| item.email = email.downcase }
+  RECEBIMENTO_DESCARGA_HISTORIC = 100
+  RECEBIMENTO_DESCARGA_PAYMENT_METHOD = 2
+  RECEBIMENTO_DESCARGA_COST_CENTER = 81
+  RECEBIMENTO_DESCARGA_SUB_COST_CENTER = 269
+  RECEBIMENTO_DESCARGA_SUB_COST_CENTER_THREE = 160
 
   before_save do |item| 
     item.place = place.upcase 
@@ -142,6 +149,24 @@ class InputControl < ActiveRecord::Base
     return_value = false
     begin
       ActiveRecord::Base.transaction do
+        #criar contas a receber
+        AccountReceivable.create!(
+                               type_account: AccountReceivable::TypeAccount::MOTORISTA,
+                                client_type: AccountReceivable::TypeAccountName::MOTORISTA,
+                                  client_id: self.driver_id,
+                           input_control_id: self.id,
+                             cost_center_id: RECEBIMENTO_DESCARGA_COST_CENTER,
+                         sub_cost_center_id: RECEBIMENTO_DESCARGA_SUB_COST_CENTER,
+                   sub_cost_center_three_id: RECEBIMENTO_DESCARGA_SUB_COST_CENTER_THREE,
+                          payment_method_id: RECEBIMENTO_DESCARGA_PAYMENT_METHOD, 
+                                historic_id: RECEBIMENTO_DESCARGA_HISTORIC,
+                            data_vencimento: Date.today,
+                                  documento: self.id,
+                                      valor: self.value_total,
+                                 observacao: "RECEBIMENTO DE DESCARGA REMESSA No: #{self.id}",
+                                     status: AccountReceivable::TipoStatus::ABERTO
+                               )
+        #colocar remessa como digitação finalizada
         self.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
       end
     rescue exception

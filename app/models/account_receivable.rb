@@ -7,7 +7,8 @@ class AccountReceivable < ActiveRecord::Base
   validates :data_vencimento, presence: true
   validates :valor, presence: true, numericality: { greater_than: 0 }
 
-  belongs_to :client
+  #belongs_to :client
+  belongs_to :client, class_name: "Client", foreign_key: "client_id", polymorphic: true
   belongs_to :cost_center
   belongs_to :sub_cost_center
   belongs_to :historic
@@ -17,12 +18,40 @@ class AccountReceivable < ActiveRecord::Base
   belongs_to :payment_method
 
   has_many :lower_account_receivables
-
+ 
   module TipoStatus
     ABERTO = 0
     PAGOPARCIAL = 1
     PAGO = 2
   end
+
+  module TypeAccount
+    FORNECEDOR    = 1
+    MOTORISTA     = 2
+    CLIENTE       = 3
+    FUNCIONARIO   = 4
+    TRANSPORTADORA= 5
+  end
+
+  module TypeAccountName
+    FORNECEDOR    = "Supplier"
+    MOTORISTA     = "Driver"
+    CLIENTE       = "Client"
+    FUNCIONARIO   = "Employee"
+    TRANSPORTADORA= "Carrier"
+  end  
+
+  def type_account_name
+    case self.type_account
+      when 1  then "Fornecedor"
+      when 2  then "Motorista"
+      when 3  then "Cliente"
+      when 4  then "Funcionario"
+      when 5  then "Transportadora"
+      else "*"
+    end
+  end  
+
 
   def status_name
     case self.status
