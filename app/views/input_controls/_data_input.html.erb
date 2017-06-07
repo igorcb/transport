@@ -26,7 +26,7 @@
       <strong>Qtde Paletes:</strong>
       <%= @input_control.quantity_pallets %>
     </p>
-
+    <hr>
     <p>
       <strong>Peso:</strong>
       <%= number_to_currency(@input_control.weight, precision: 3, unit: "", separator: ",", delimiter: ".") %>
@@ -52,6 +52,16 @@
       <%= number_to_currency(@input_control.value_total, unit: "R$ ", separator: ",", delimiter: ".") %>
     </p>
 
+    <p>
+      <strong>Contas a Receber:</strong>
+      <%= link_to @input_control.account_receivable.id, @input_control.account_receivable if @input_control.account_receivable.present? %>
+      <strong>Status:</strong>
+      <%= @input_control.account_receivable.status_name if @input_control.account_receivable.present? %>    
+    </p>
+
+
+    <hr>
+    
     <p>
       <strong>Recebimento confirmado por:</strong>
       <%= @input_control.user_received.email if @input_control.user_received.present? %>

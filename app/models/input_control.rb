@@ -6,13 +6,13 @@ class InputControl < ActiveRecord::Base
   belongs_to :driver
   belongs_to :user_received, class_name: "User", foreign_key: "received_user_id"
 
-  has_one :account_receivable
-
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
   
   has_many :ordem_services
   has_many :item_input_controls
+
+  has_one :account_receivable
 
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
