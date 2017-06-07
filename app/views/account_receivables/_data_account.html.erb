@@ -58,17 +58,29 @@
   <%= number_to_currency(@account_receivable.total_pago, unit: "R$ ", separator: ",", delimiter: ".")  %>
 </p>
 
+<p>
+  <strong>Situação do Pago:</strong>
+  <%= @account_receivable.status_name %>
+</p>
+
+<p>
+  <strong>Remessa de Entrada:</strong>
+  <%= link_to @account_receivable.input_control_id, @account_receivable.input_control if @account_receivable.input_control.present?  %>
+</p>
 
 <% if @account_receivable.ordem_service.present? %>  
   <p>
-    <strong>OS. No:</strong> 
+    <strong>Ordem de Serviço:</strong> 
     <%= link_to "#{ @account_receivable.ordem_service.id }", @account_receivable.ordem_service %> 
   </p>
   <p>
     <strong>Status da OS:</strong>
     <%= @account_receivable.ordem_service.status_name %>
   </p>
-  
+<% else %>
+  <p>
+    <strong>Ordem de Serviço:</strong> 
+  </p>
 <% end %>
 
 <p>

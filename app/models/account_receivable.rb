@@ -52,7 +52,6 @@ class AccountReceivable < ActiveRecord::Base
     end
   end  
 
-
   def status_name
     case self.status
       when 0  then "Aberto"
@@ -61,6 +60,10 @@ class AccountReceivable < ActiveRecord::Base
     else "Nao Definido"
     end
   end 
+
+  def input_control
+    InputControl.where(id: self.input_control_id).first
+  end
 
   def total_pago
     self.lower_account_receivables.sum(:total_pago)
