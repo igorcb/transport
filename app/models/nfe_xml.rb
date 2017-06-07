@@ -127,15 +127,15 @@ class NfeXml < ActiveRecord::Base
                                              bairro: nfe.dest.endereco_destinatario.xBairro, 
                                              cidade: nfe.dest.endereco_destinatario.xMun, 
                                              estado: nfe.dest.endereco_destinatario.UF).find_or_create_by(cpf_cnpj: cnpj_target)
-
-        nfe_xml.update_attributes(peso: nfe.vol.pesoB, 
-                                              volume: nfe.vol.qVol, 
-                                              numero: nfe.ide.nNF,
-                                               chave: nfe.infoProt.chNFe,
-                                          valor_nota: nfe.icms_tot.vNF,
-                                    source_client_id: source_client.id,
-                                    target_client_id: target_client.id,
-                                              status: TipoStatus::PROCESSADO)
+        peso = nfe.vol.pesoB.nil? ? nfe.vol.pesoL : nfe.vol.pesoB
+        nfe_xml.update_attributes(peso: peso, 
+                                volume: nfe.vol.qVol, 
+                                numero: nfe.ide.nNF,
+                                 chave: nfe.infoProt.chNFe,
+                            valor_nota: nfe.icms_tot.vNF,
+                      source_client_id: source_client.id,
+                      target_client_id: target_client.id,
+                                status: TipoStatus::PROCESSADO)
 
         #produtos da NFE
         #input_control = InputControl.find(nfe_xml.nfe_id)
