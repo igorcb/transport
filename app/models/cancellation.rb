@@ -12,7 +12,7 @@ class Cancellation < ActiveRecord::Base
   	PEDENDENTE = 0
   	CONFIRMADO = 1
     REJEITADO = 1
-    end
+  end
 
   def status_name
 	  case self.status
@@ -69,7 +69,11 @@ class Cancellation < ActiveRecord::Base
     CancellationMailer.notification_cancellation(ordem_service).deliver!
   end
 
-  def self.confirm(user, id) #id = cancellation_id
+  # def confirm?(user)
+  #   Cancellation.confirm?(user, self.id)
+  # end
+
+  def self.confirm?(user, id) #id = cancellation_id
     cancel = Cancellation.find(id)
     user = User.find(user)
     model = cancel.cancellation_model
@@ -152,11 +156,22 @@ class Cancellation < ActiveRecord::Base
 
   def cancel_input_control(cancel, user)
     # colocar status da remessa de entrada como aberta
+    # se tiver contas a receber, excluir 
+      # se tiver com o pgto efetuado, não deixa excluir o contas a receber
     # colocar status do cancelamento como CONFIRMADO
-    ActiveRecord::Base.transaction do
-      input_control = cancel.cancellation_model
-      InputControl.where(id: input_control.id).update_all(status: InputControl::TypeStatus::OPEN)
-      Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
+    begin
+      ActiveRecord::Base.transaction do
+        input_control = cancel.cancellation_model
+        account_receivable = AccountReceivable.find(input_control.account_receivable)
+        account_receivable.destroy!
+        InputControl.where(id: input_control.id).update_all(status: InputControl::TypeStatus::OPEN)
+        Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
+        return true
+      end
+      rescue Exception => e
+        puts e.message
+        self.errors.add(:cancellation, e.message)
+        return false        
     end
   end
 

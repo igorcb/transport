@@ -14,8 +14,11 @@ class CancellationsController < ApplicationController
   end
 
   def confirmation
-  	Cancellation.confirm(current_user.id, params[:id])
-  	redirect_to cancellation_path(params[:id]), flash: { success: "Confirmations was successful." }
+  	if Cancellation.confirm?(current_user.id, params[:id])
+  	  redirect_to cancellation_path(params[:id]), flash: { success: "Confirmations was successful." }
+    else
+      redirect_to cancellation_path(params[:id]), flash: { danger: "Error confirming cancellation!." }
+    end
   end
 
   def rejeted

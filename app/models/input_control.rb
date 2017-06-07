@@ -168,7 +168,7 @@ class InputControl < ActiveRecord::Base
                             data_vencimento: Date.today,
                                   documento: self.id,
                                       valor: self.value_total,
-                                 observacao: "RECEBIMENTO DE DESCARGA REMESSA No: #{self.id}",
+                                 observacao: "RECEBIMENTO DE DESCARGA REMESSA No: #{self.id}, NF-e: #{get_number_nfe_xmls}",
                                      status: AccountReceivable::TipoStatus::ABERTO
                                )
         #colocar remessa como digitação finalizada
@@ -284,5 +284,13 @@ class InputControl < ActiveRecord::Base
     Cancellation.where("cancellation_type = ? and cancellation_id = ?", "InputControl", self.id)
   end
 
+#  private
+    def get_number_nfe_xmls
+      nfes = []
+      self.nfe_xmls.each do |n|
+        nfes << n.numero
+      end
+      nfes
+    end
 
 end
