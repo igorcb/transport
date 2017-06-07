@@ -114,6 +114,12 @@ Transport::Application.routes.draw do
       get 'lower'
       post 'pay'
     end    
+    get :received_driver, on: :collection
+
+    collection do
+
+    end
+
   end
 
   resources :account_payables do 

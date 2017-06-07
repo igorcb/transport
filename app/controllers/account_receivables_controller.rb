@@ -4,6 +4,11 @@ class AccountReceivablesController < ApplicationController
   load_and_authorize_resource
   respond_to :html
 
+  def received_driver
+    @account_receivables = AccountReceivable.received_driver.last_seven_days.order('data_vencimento desc')
+    respond_with(@account_receivables)
+  end
+
   def index
     @account_receivables = AccountReceivable.order('data_vencimento desc')
     respond_with(@account_receivables)

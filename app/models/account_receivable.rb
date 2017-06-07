@@ -19,6 +19,9 @@ class AccountReceivable < ActiveRecord::Base
 
   has_many :lower_account_receivables
 
+  scope :received_driver, -> { where("type_account = ?", TypeAccount::MOTORISTA).order(data_vencimento: :desc) }  
+  scope :last_seven_days, -> { where("created_at > ?", 7.days.ago).order(data_vencimento: :desc) }  
+
   before_destroy :can_destroy?
  
   module TipoStatus
