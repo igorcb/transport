@@ -6,5 +6,5 @@
 	qualquer custo que venha a ter.
 </div>
 
-<%= link_to 'Confirma Recebimento', confirm_received_input_control_path(@input_control), class: "btn btn-primary" if @input_control.status == InputControl::TypeStatus::OPEN %>
+<%= link_to 'Confirma Recebimento', confirm_received_input_control_path(@input_control), class: "btn btn-primary" if @input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
 <%= link_to 'Voltar', input_control_path(@input_control), class: "btn btn-default" %>
