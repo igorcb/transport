@@ -113,6 +113,7 @@ Transport::Application.routes.draw do
     member do
       get 'lower'
       post 'pay'
+      get 'quitter'
     end    
     get :received_driver, on: :collection
 

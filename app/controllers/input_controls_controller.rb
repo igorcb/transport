@@ -174,17 +174,6 @@ class InputControlsController < ApplicationController
         )
     end
 
-    def render_quitter_input_control(quitter)
-      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'recibo.tlf')
-    
-      report.start_new_page
-
-      send_data report.generate, filename: "recibo_#{quitter.id}_.pdf", 
-                                   type: 'application/pdf', 
-                                   disposition: 'attachment'
-
-    end
-
     def render_input_control(task)
         report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
         

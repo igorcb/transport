@@ -1,4 +1,7 @@
 class AccountReceivablesController < ApplicationController
+  include ApplicationHelper
+  include ActionView::Helpers::NumberHelper
+
   before_filter :authenticate_user!
   before_action :set_account_receivable, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
@@ -7,6 +10,15 @@ class AccountReceivablesController < ApplicationController
   def received_driver
     @account_receivables = AccountReceivable.received_driver.last_seven_days.order('data_vencimento desc')
     respond_with(@account_receivables)
+  end
+
+  def quitter
+    #respond_with(@input_control)
+    respond_to do |format|
+      #format.html
+      # Example: Basic Usage
+      format.pdf { render_quitter(@account_receivable) }
+    end
   end
 
   def index
@@ -109,4 +121,22 @@ class AccountReceivablesController < ApplicationController
         #lower_payables: [:data_pagamento, :valor_pago, :juros, :desconto, :total_pago]
         )
     end
+
+    def render_quitter(quitter)
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'recibo.tlf')
+      valor = (quitter.valor.to_f * 100).to_i
+      local_data = "FORTALEZA, #{l Date.today , format: :long }"
+      report.start_new_page
+      report.page.item(:valor_numerico).value("R$ #{number_to_currency(quitter.valor, precision: 2, unit: "", separator: ",", delimiter: ".")}")
+      report.page.item(:nome).value(quitter.client.nome)
+      report.page.item(:cpf_cnpj).value(quitter.client.cpf)
+      report.page.item(:valor_extenso).value(Extenso.moeda(valor))
+      report.page.item(:account_obs).value(quitter.observacao)
+      report.page.item(:issue_date).value(local_data)
+      send_data report.generate, filename: "recibo_#{quitter.id}_.pdf", 
+                                   type: 'application/pdf', 
+                                   disposition: 'inline'
+
+    end
+
 end
