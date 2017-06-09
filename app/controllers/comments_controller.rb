@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
     @comment.email_origem = current_user.email
     @comment.comment_type = params[:comment][:comment_type]
     if @comment.save
-      @comment.send_notification_email
+      #@comment.send_notification_email
       flash[:success] = "Comment created!"
       case params[:comment][:comment_type] 
         when "OrdemService" then redirect_to ordem_service_path (@model)

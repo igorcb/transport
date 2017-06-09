@@ -10,6 +10,8 @@ class Ability
       #can :manage, OrdemService
     elsif  user.has_role? :visit
       can :manage, Pallet
+    elsif  user.has_role? :client
+      #can :manage, Pallet
     elsif  user.has_role? :agent
       can :manage, OrdemService, :carrier_id => user.carrier_id
       #if user.has_role?(:agent, OrdemSerice.where(carrier_id: ?, user.carrier_id))

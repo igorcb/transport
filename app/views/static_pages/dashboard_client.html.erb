@@ -1,0 +1,41 @@
+<%= current_user.email %> |
+<%= link_to "Sair", destroy_user_session_path, method: "delete" %> 
+<div class="panel panel-default">
+  <div class="panel-heading">Flowup Client</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>NF-e</th>
+            <th>Destinatário</th>
+            <th>Ent. CD</th>
+            <th>Prod. CD</th>
+            <th>O.S.</th>
+            <th>Agendamento</th>
+            <th>Entrega</th>
+            <th>Status</th>
+            <th colspan="1"></th>
+         </tr>
+        </thead>
+
+        <tbody>
+          <% NfeXml.all.order(created_at: :desc).each do |nfe| %>
+            <tr>
+              <td><%= nfe.numero %></td>
+              <td><%= nfe.target_client.nome %></td>
+              <td><%= date_br(nfe.input_control.date_entry) %></td>
+              <td><%= date_br(nfe.input_control.date_receipt) %></td>
+              <td><%= nfe.ordem_service.id if nfe.ordem_service.present? %></td>
+              <td><%= date_br(nfe.ordem_service.data) if nfe.ordem_service.present?  %></td>
+              <td><%= date_br(nfe.ordem_service.data_entrega_servico) if nfe.ordem_service.present? %></td>
+              <td><%= nfe.ordem_service.status_name if nfe.ordem_service.present? %></td>
+              <td><%= link_to 'Ocorrências', client_ordem_service_path(nfe.ordem_service), class: "btn btn-primary btn-xs" if nfe.ordem_service.present? && nfe.ordem_service.comments.present? %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
+

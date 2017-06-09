@@ -12,4 +12,7 @@ class StaticPagesController < ApplicationController
 
 	end
 
+	def dashboard_client
+		
+	end
 end

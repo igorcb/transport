@@ -17,8 +17,12 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, flash: { danger: exception.message }
     elsif current_user.has_role? :visit
       redirect_to dashboard_visit_path, flash: { danger: exception.message }
-    else  
+    elsif current_user.has_role? :client
+      redirect_to dashboard_client_path, flash: { danger: exception.message }
+    elsif current_user.has_role? :agent 
       redirect_to dashboard_agent_path, flash: { danger: exception.message }
+    else
+      #root_path
     end
   end
 
@@ -27,8 +31,12 @@ class ApplicationController < ActionController::Base
       links_path
     elsif current_user.has_role? :visit
       dashboard_visit_path
-    else  
+    elsif current_user.has_role? :client
+      dashboard_client_path
+    elsif current_user.has_role? :agent
       dashboard_agent_path
+    else
+      #root_path
     end
   end
 

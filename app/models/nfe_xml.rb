@@ -5,7 +5,7 @@ class NfeXml < ActiveRecord::Base
 	validates :asset_file_name, uniqueness: true
 
   #belongs_to :input_control, polymorphic: true
-  has_one :input_control, class_name: "InputControl", foreign_key: "nfe_id"
+  belongs_to :input_control, class_name: "InputControl", foreign_key: "nfe_id"
   belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id"
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id"
   #belongs_to :ordem_service, class_name: "NfeKey", foreign_key: "nfe_id"

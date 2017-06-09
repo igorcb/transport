@@ -418,6 +418,10 @@ class OrdemServicesController < ApplicationController
     respond_with(@ordem_service)
   end
 
+  def ordem_service_comments #Client
+    @ordem_service = OrdemService.where(id: params[:id]).first
+  end
+
   def request_payables
     @ordem_service_type_service = OrdemServiceTypeService.open
   end
