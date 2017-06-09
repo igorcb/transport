@@ -11,11 +11,9 @@
 <div class="form-group">
   <%= link_to 'Listar Todos', account_receivables_path, class: "btn btn-default" %>
   <%= link_to 'Baixar', lower_account_receivable_path(@account_receivable), class: "btn btn-default" %>
-  <%= link_to 'Recibo', quitter_account_receivable_path(@account_receivable, format: 'pdf'), class: "btn btn-default" %> 
 </div>
 
 <%= render "receipts" %>
-
 
 </div>
 

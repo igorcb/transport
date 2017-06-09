@@ -5,3 +5,4 @@
 <td><%= number_to_currency(lower_account_receivable.desconto, unit: "R$ ", separator: ",", delimiter: ".") %></td>
 <td><%= number_to_currency(lower_account_receivable.total_pago, unit: "R$ ", separator: ",", delimiter: ".") %></td>
 <td><%= link_to 'deletar', lower_receivable_path(lower_account_receivable), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+<td><%= link_to 'Recibo', quitter_lower_receivable_path(lower_account_receivable, format: 'pdf'), class: "btn btn-default btn-xs" %> </td>

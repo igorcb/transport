@@ -110,13 +110,14 @@ Transport::Application.routes.draw do
   match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
 
   resources :lower_payables, only: [:destroy]
-  resources :lower_receivables, only: [:destroy]
+  resources :lower_receivables, only: [:destroy] do
+    get :quitter, on: :member
+  end
 
   resources :account_receivables do 
     member do
       get 'lower'
       post 'pay'
-      get 'quitter'
     end    
     get :received_driver, on: :collection
 
