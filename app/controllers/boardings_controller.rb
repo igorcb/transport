@@ -102,9 +102,20 @@ class BoardingsController < ApplicationController
       # valor = (quitter.total_pago.to_f * 100).to_i
       # local_data = "FORTALEZA, #{l Date.today , format: :long }"
       report.start_new_page
-      #report.page.item(:input_control_id).value(@input_control.id)
-      #report.page.item(:driver_name).value(@input_control.driver.nome)       
-      # report.page.item(:valor_numerico).value("R$ #{number_to_currency(quitter.total_pago, precision: 2, unit: "", separator: ",", delimiter: ".")}")
+
+      report.page.item(:agent_cnpj).value(boarding.carrier.cnpj)
+      report.page.item(:agent_name).value(boarding.carrier.nome)
+      report.page.item(:agent_address).value(boarding.carrier.endereco + ',' + boarding.carrier.numero)
+      report.page.item(:agent_complement).value(boarding.carrier.complemento)
+      report.page.item(:agent_district_city).value(boarding.carrier.distric_city_state_cep)
+
+      report.page.item(:driver_cpf).value(boarding.driver.cpf)
+      report.page.item(:driver_name).value(boarding.driver.nome)
+      report.page.item(:driver_address).value(boarding.driver.endereco + ',' + boarding.driver.numero)
+      report.page.item(:driver_complement).value(boarding.driver.complemento)
+      report.page.item(:driver_district_city).value(boarding.driver.distric_city_state_cep)
+
+
       boarding.boarding_items.order(:row_order).each do |item|
         report.list.add_row do |row|
           row.values(ent: item.delivery_number)
