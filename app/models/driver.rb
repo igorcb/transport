@@ -78,6 +78,10 @@ class Driver < ActiveRecord::Base
     end
   end
 
+  def distric_city_state_cep
+    "#{bairro} - #{cidade} - #{estado} - CEP: #{cep}"
+  end
+
   def telefone_completo
     # seperar por virgula os contatos, somente o telefone
     fone = ''
