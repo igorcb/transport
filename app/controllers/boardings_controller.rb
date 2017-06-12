@@ -1,8 +1,8 @@
 class BoardingsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_boarding, only: [:show, :edit, :update, :destroy, :lower]
+  before_action :set_boarding, only: [:show, :edit, :update, :destroy, :lower, :print]
   load_and_authorize_resource
-  respond_to :js, :html, :json
+  #respond_to :js, :html, :json, :pdf
 
 	def selection_shipment
 		@ordem_services = OrdemService.where(status: OrdemService::TipoStatus::ABERTO)
@@ -70,6 +70,15 @@ class BoardingsController < ApplicationController
     end
   end
 
+  def print
+    respond_to do |format|
+      format.html
+      format.pdf { render_print_boarding(@boarding) }
+      # format.pdf do
+      #   render pdf: render_quitter(@lower)
+      # end
+    end
+  end
 
 	private
 
@@ -88,4 +97,35 @@ class BoardingsController < ApplicationController
       	)
     end
 
+    def render_print_boarding(boarding)
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'embarque.tlf')
+      # valor = (quitter.total_pago.to_f * 100).to_i
+      # local_data = "FORTALEZA, #{l Date.today , format: :long }"
+      report.start_new_page
+      #report.page.item(:input_control_id).value(@input_control.id)
+      #report.page.item(:driver_name).value(@input_control.driver.nome)       
+      # report.page.item(:valor_numerico).value("R$ #{number_to_currency(quitter.total_pago, precision: 2, unit: "", separator: ",", delimiter: ".")}")
+      boarding.boarding_items.order(:row_order).each do |item|
+        report.list.add_row do |row|
+          row.values(ent: item.delivery_number)
+          row.values(os: item.ordem_service.id)
+          row.values(data: date_br(item.ordem_service.data))
+          row.values(cliente: item.ordem_service.client.nome)
+          row.values(cidade: item.ordem_service.client.cidade + '-' + item.ordem_service.client.estado)
+          row.values(nfes: item.ordem_service.get_number_nfe)
+          row.values(peso: "#{number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+          row.values(volume: "#{number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+        end
+        # report.page.item(:ent).value(item.delivery_number)
+        # report.page.item(:os).value(item.ordem_service.id)
+        # report.page.item(:data).value(date_br(item.ordem_service.data))
+        # report.page.list(:cliente).value(item.ordem_service.client.nome)
+        # report.page.item(:cidade).value(item.ordem_service.client.cidade + '-' + item.ordem_service.client.estado)
+      end
+      send_data report.generate, filename: "embarque_#{boarding.id}_.pdf", 
+                                   type: 'application/pdf', 
+                                   disposition: 'inline'
+
+
+    end
 end

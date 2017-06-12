@@ -100,7 +100,7 @@
 <div class="form-group">
   <%= link_to 'Editar', edit_boarding_path(@boarding), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', boardings_path, class: "btn btn-default" %>
-  <%= link_to 'Imprimir Embarque', print_boarding_path, class: "btn btn-primary" %>
+  <%= link_to 'Imprimir Embarque', print_boarding_path(@boarding, format: 'pdf'), class: "btn btn-primary" %>
 </div>
 
 <div class="panel panel-default">

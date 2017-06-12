@@ -21,6 +21,9 @@ Transport::Application.routes.draw do
   end
 
   resources :boardings do
+    member do
+      get :print
+    end
     resources :boarding_items do
       post :update_row_order, on: :collection    
     end
@@ -31,7 +34,38 @@ Transport::Application.routes.draw do
     post :update_row_order, on: :collection  
     match :update_status, :as => :update_status, :via => [:get, :put]  
   end
-  #match "update_status" => "boarding_items#update_status", :as => :update_status, :via => [:get, :put]  
+
+  resources :lower_payables, only: [:destroy]
+  resources :lower_receivables, only: [:destroy] do
+    get :quitter, on: :member
+  end
+
+  resources :account_receivables do 
+    member do
+      get 'lower'
+      post 'pay'
+    end    
+    get :received_driver, on: :collection
+    collection do
+    end
+  end
+
+  resources :account_payables do 
+    member do
+      get 'lower'
+      post 'pay'
+      #delete 'lower_payable/id'
+    end    
+    collection do
+      get 'cost_centers'
+    end
+  end
+
+  get '/print_inventory/:id', to: 'reports#print_inventory', as: 'print_inventory'
+  get '/print_contract/:id', to: 'reports#print_contract', as: 'print_contract'
+  #get '/print_boarding/:id', to: 'reports#print_boarding', as: 'print_boarding'
+  get '/print_billing/:id', to: 'reports#print_billing', as: 'print_billing'
+
   match 'selection_pallet' => "control_pallets#selection_pallet",  via: [:get]
   match 'selection_pallet' => "control_pallets#selection_pallet",  via: [:get]
   match 'generate_ordem_service' => "control_pallets#generate_ordem_service",  via: [:post]
@@ -43,11 +77,6 @@ Transport::Application.routes.draw do
   resources :sub_cost_center_threes
 
   resources :control_pallets
-
-  get '/print_inventory/:id', to: 'reports#print_inventory', as: 'print_inventory'
-  get '/print_contract/:id', to: 'reports#print_contract', as: 'print_contract'
-  get '/print_boarding/:id', to: 'reports#print_boarding', as: 'print_boarding'
-  get '/print_billing/:id', to: 'reports#print_billing', as: 'print_billing'
   
   resources :inventories
 
@@ -108,35 +137,6 @@ Transport::Application.routes.draw do
   match '/carriers/get_carrier_by_id', :controller => 'carriers', :action => 'get_carrier_by_id', via: [:get]
   match '/carriers/get_carrier_by_cnpj', :controller => 'carriers', :action => 'get_carrier_by_cnpj', via: [:get]
   match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
-
-  resources :lower_payables, only: [:destroy]
-  resources :lower_receivables, only: [:destroy] do
-    get :quitter, on: :member
-  end
-
-  resources :account_receivables do 
-    member do
-      get 'lower'
-      post 'pay'
-    end    
-    get :received_driver, on: :collection
-
-    collection do
-
-    end
-
-  end
-
-  resources :account_payables do 
-    member do
-      get 'lower'
-      post 'pay'
-      #delete 'lower_payable/id'
-    end    
-    collection do
-      get 'cost_centers'
-    end
-  end
 
   resources :payment_methods
 
