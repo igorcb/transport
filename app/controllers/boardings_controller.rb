@@ -103,21 +103,40 @@ class BoardingsController < ApplicationController
       # local_data = "FORTALEZA, #{l Date.today , format: :long }"
       report.start_new_page
 
+      emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
+
+      # cabecalho esquerdo
+      report.page.item(:emb).value("EMBARQUE Nº L7/CE #{boarding.id}")
+      report.page.item(:emb_1).value(boarding.id)
       report.page.item(:agent_cnpj).value(boarding.carrier.cnpj)
       report.page.item(:agent_name).value(boarding.carrier.nome)
       report.page.item(:agent_address).value(boarding.carrier.endereco + ',' + boarding.carrier.numero)
       report.page.item(:agent_complement).value(boarding.carrier.complemento)
       report.page.item(:agent_district_city).value(boarding.carrier.distric_city_state_cep)
-
+      # cabecalho direito
       report.page.item(:driver_cpf).value(boarding.driver.cpf)
       report.page.item(:driver_name).value(boarding.driver.nome)
       report.page.item(:driver_address).value(boarding.driver.endereco + ',' + boarding.driver.numero)
       report.page.item(:driver_complement).value(boarding.driver.complemento)
       report.page.item(:driver_district_city).value(boarding.driver.distric_city_state_cep)
-
-
+      #rodape
+      report.page.item(:data_expedicao).value(date_br(boarding.date_boarding))
+      report.page.item(:peso_bruto).value("#{number_to_currency(boarding.peso_bruto, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+      report.page.item(:volume_total).value("#{number_to_currency(boarding.volume_total, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+      report.page.item(:canhoto_cte).value(boarding.qtde_cte)
+      report.page.item(:canhoto_nfe).value(boarding.qtde_nfe)
+      report.page.item(:qtde_paletes).value(boarding.qtde_palets)
+      report.page.item(:qtde_entregas).value(boarding.qtde_entregas)
+      report.page.item(:data_and_hora).value(emitido)
+      #lista veiculos
+      boarding.boarding_vehicles.each do |item|
+        report.list(:list_veiculos).add_row do |row|
+          row.values(tipo_veiculo: item.vehicle.tipo_nome)
+        end
+      end
+      #lista ordem de servico
       boarding.boarding_items.order(:row_order).each do |item|
-        report.list.add_row do |row|
+        report.list(:list_ordem_service).add_row do |row|
           row.values(ent: item.delivery_number)
           row.values(os: item.ordem_service.id)
           row.values(data: date_br(item.ordem_service.data))
@@ -127,12 +146,8 @@ class BoardingsController < ApplicationController
           row.values(peso: "#{number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}")
           row.values(volume: "#{number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".")}")
         end
-        # report.page.item(:ent).value(item.delivery_number)
-        # report.page.item(:os).value(item.ordem_service.id)
-        # report.page.item(:data).value(date_br(item.ordem_service.data))
-        # report.page.list(:cliente).value(item.ordem_service.client.nome)
-        # report.page.item(:cidade).value(item.ordem_service.client.cidade + '-' + item.ordem_service.client.estado)
       end
+
       send_data report.generate, filename: "embarque_#{boarding.id}_.pdf", 
                                    type: 'application/pdf', 
                                    disposition: 'inline'
