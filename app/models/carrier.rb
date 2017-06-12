@@ -33,7 +33,11 @@ class Carrier < ActiveRecord::Base
   def name_state
     "#{nome} - #{estado}"
   end
-  
+
+  def distric_city_state_cep
+    "#{bairro} - #{cidade} - #{estado} - CEP: #{cep}"
+  end
+
   private 
     def can_destroy?
       if self.ordem_services.present? || self.account_payables.present?
