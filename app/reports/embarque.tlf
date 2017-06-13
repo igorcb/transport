@@ -1158,7 +1158,7 @@
               "line-height-ratio": "",
               "letter-spacing": "",
               "font-style": [],
-              "overflow": "truncate",
+              "overflow": "expand",
               "word-wrap": "break-word"
             },
             "reference-id": "",
