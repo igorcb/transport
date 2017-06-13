@@ -798,7 +798,7 @@
       "x": 135.3,
       "y": 58,
       "width": 135.3,
-      "height": 24,
+      "height": 15,
       "style": {
         "font-family": [
           "Helvetica"
@@ -813,7 +813,7 @@
         "font-style": []
       },
       "texts": [
-        "SERVIÇO RODOVIARIO"
+        "SERVIÇO RODOVIÁRIO"
       ]
     },
     {
@@ -1126,7 +1126,7 @@
             "display": true,
             "description": "",
             "x": 297,
-            "y": 255.8,
+            "y": 257.8,
             "width": 78,
             "height": 14,
             "style": {
@@ -1158,7 +1158,7 @@
             "display": true,
             "description": "",
             "x": 382,
-            "y": 255.8,
+            "y": 257.8,
             "width": 66,
             "height": 14,
             "style": {
@@ -1190,7 +1190,7 @@
             "display": true,
             "description": "",
             "x": 453,
-            "y": 255.8,
+            "y": 257.8,
             "width": 61.3,
             "height": 14,
             "style": {
@@ -1222,7 +1222,7 @@
             "display": true,
             "description": "",
             "x": 518.3,
-            "y": 255.8,
+            "y": 257.8,
             "width": 54.7,
             "height": 14,
             "style": {
@@ -1254,7 +1254,7 @@
             "display": true,
             "description": "",
             "x": 20,
-            "y": 255.8,
+            "y": 257.8,
             "width": 24.3,
             "height": 14,
             "style": {
@@ -1286,7 +1286,7 @@
             "display": true,
             "description": "",
             "x": 48,
-            "y": 255.8,
+            "y": 257.8,
             "width": 36.3,
             "height": 14,
             "style": {
@@ -1318,7 +1318,7 @@
             "display": true,
             "description": "",
             "x": 88,
-            "y": 255.8,
+            "y": 257.8,
             "width": 52.2,
             "height": 14,
             "style": {
@@ -1350,9 +1350,9 @@
             "display": true,
             "description": "",
             "x": 145,
-            "y": 255.8,
+            "y": 257.8,
             "width": 146.3,
-            "height": 14,
+            "height": 11,
             "style": {
               "font-family": [
                 "Helvetica"
@@ -1366,11 +1366,11 @@
               "letter-spacing": "",
               "font-style": [],
               "overflow": "fit",
-              "word-wrap": "none"
+              "word-wrap": "break-word"
             },
             "reference-id": "",
             "value": "",
-            "multiple-line": true,
+            "multiple-line": false,
             "format": {
               "base": "",
               "type": ""
@@ -1389,7 +1389,7 @@
             "x1": 46,
             "y1": 253.8,
             "x2": 46,
-            "y2": 268.8
+            "y2": 270.8
           },
           {
             "id": "",
@@ -1404,7 +1404,7 @@
             "x1": 86,
             "y1": 253.8,
             "x2": 86,
-            "y2": 268.8
+            "y2": 270.8
           },
           {
             "id": "",
@@ -1419,7 +1419,7 @@
             "x1": 142,
             "y1": 253.8,
             "x2": 142,
-            "y2": 268.8
+            "y2": 270.8
           },
           {
             "id": "",
@@ -1434,7 +1434,7 @@
             "x1": 295,
             "y1": 253.8,
             "x2": 295,
-            "y2": 269.8
+            "y2": 270.8
           },
           {
             "id": "",
@@ -1449,7 +1449,7 @@
             "x1": 380,
             "y1": 253.8,
             "x2": 380,
-            "y2": 271.8
+            "y2": 270.8
           },
           {
             "id": "",
@@ -1464,7 +1464,7 @@
             "x1": 450,
             "y1": 253.8,
             "x2": 450,
-            "y2": 271.8
+            "y2": 270.8
           },
           {
             "id": "",
@@ -1479,7 +1479,7 @@
             "x1": 516,
             "y1": 253.8,
             "x2": 516,
-            "y2": 268.8
+            "y2": 270.8
           },
           {
             "id": "",
@@ -1623,38 +1623,6 @@
       "x": 25,
       "y": 162,
       "width": 265,
-      "height": 13,
-      "style": {
-        "font-family": [
-          "Helvetica"
-        ],
-        "font-size": 10,
-        "color": "#000000",
-        "text-align": "left",
-        "vertical-align": "top",
-        "line-height": "",
-        "line-height-ratio": "",
-        "letter-spacing": "",
-        "font-style": [],
-        "overflow": "fit",
-        "word-wrap": "none"
-      },
-      "reference-id": "",
-      "value": "",
-      "multiple-line": true,
-      "format": {
-        "base": "",
-        "type": ""
-      }
-    },
-    {
-      "id": "driver_name",
-      "type": "text-block",
-      "display": true,
-      "description": "",
-      "x": 309,
-      "y": 120,
-      "width": 250,
       "height": 13,
       "style": {
         "font-family": [
@@ -1840,8 +1808,8 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 343.7,
-      "y": 105.7,
+      "x": 339,
+      "y": 120,
       "width": 231.5,
       "height": 13,
       "style": {
@@ -1873,7 +1841,7 @@
       "display": true,
       "description": "",
       "x": 310,
-      "y": 105.7,
+      "y": 120,
       "width": 32.8,
       "height": 13,
       "style": {
@@ -2588,7 +2556,7 @@
           "Helvetica"
         ],
         "font-size": 8,
-        "color": "#000000",
+        "color": "#f2f2f2",
         "text-align": "center",
         "vertical-align": "top",
         "line-height": "",
@@ -2700,6 +2668,38 @@
       "y1": 196,
       "x2": 576,
       "y2": 196.3
+    },
+    {
+      "id": "driver_name",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 309,
+      "y": 105.7,
+      "width": 250,
+      "height": 13,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 10,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [],
+        "overflow": "fit",
+        "word-wrap": "none"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": true,
+      "format": {
+        "base": "",
+        "type": ""
+      }
     }
   ],
   "state": {
