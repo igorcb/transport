@@ -139,13 +139,14 @@ class BoardingsController < ApplicationController
       #lista ordem de servico
       boarding.boarding_items.order(:row_order).each do |item|
         report.list(:list_ordem_service).add_row do |row|
-          row.values(ent: item.delivery_number)
+          
           row.values(os: item.ordem_service.id)
           row.values(data: date_br(item.ordem_service.data))
           row.values(cliente: item.ordem_service.client.nome)
           row.values(cidade: item.ordem_service.client.cidade + '-' + item.ordem_service.client.estado)
           row.values(peso: "#{number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}")
           row.values(volume: "#{number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+          row.values(ctes: item.ordem_service.get_number_cte)
           if item.ordem_service.nfe_keys.count > 1
             item.ordem_service.nfe_keys.each do |nfe|
               report.list(:list_ordem_service).add_row do |row_two|

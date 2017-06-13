@@ -849,7 +849,7 @@
         "- Não permitir que embalagens avariadas sejam carregadas, solicitando ao conferente a troca",
         "imediata da mercadoria;",
         "",
-        "- Não permitir que seu veiculo seja carregado com excesso de peso. Multas serão de ",
+        "- Não permitir que seu veiculo seja carregado com excesso de peso. Multas e avarias serão de ",
         "responsabilidade do proprietário do veiculo.",
         "",
         "- Conferir a(s) nota(s) fiscal (is) com a instrução carregada (dados da nota, destino)."
@@ -877,36 +877,8 @@
             "type": "text",
             "display": true,
             "description": "",
-            "x": 24,
+            "x": 110,
             "y": 223,
-            "width": 18.8,
-            "height": 11,
-            "style": {
-              "font-family": [
-                "Helvetica"
-              ],
-              "font-size": 10,
-              "color": "#000000",
-              "text-align": "left",
-              "vertical-align": "top",
-              "line-height": "",
-              "line-height-ratio": "",
-              "letter-spacing": "",
-              "font-style": [
-                "bold"
-              ]
-            },
-            "texts": [
-              "Ent"
-            ]
-          },
-          {
-            "id": "",
-            "type": "text",
-            "display": true,
-            "description": "",
-            "x": 144,
-            "y": 223.7,
             "width": 45,
             "height": 11,
             "style": {
@@ -933,7 +905,7 @@
             "type": "text",
             "display": true,
             "description": "",
-            "x": 55,
+            "x": 20,
             "y": 223,
             "width": 22.2,
             "height": 11,
@@ -961,7 +933,7 @@
             "type": "text",
             "display": true,
             "description": "",
-            "x": 100,
+            "x": 64.5,
             "y": 223,
             "width": 29,
             "height": 11,
@@ -989,7 +961,7 @@
             "type": "text",
             "display": true,
             "description": "",
-            "x": 310,
+            "x": 275,
             "y": 223.7,
             "width": 44.5,
             "height": 11,
@@ -1017,7 +989,7 @@
             "type": "text",
             "display": true,
             "description": "",
-            "x": 397,
+            "x": 355,
             "y": 223.7,
             "width": 24.6,
             "height": 11,
@@ -1110,6 +1082,34 @@
             "y1": 238,
             "x2": 575.2,
             "y2": 238
+          },
+          {
+            "id": "",
+            "type": "text",
+            "display": true,
+            "description": "",
+            "x": 420,
+            "y": 223.7,
+            "width": 24.6,
+            "height": 11,
+            "style": {
+              "font-family": [
+                "Helvetica"
+              ],
+              "font-size": 10,
+              "color": "#000000",
+              "text-align": "left",
+              "vertical-align": "top",
+              "line-height": "",
+              "line-height-ratio": "",
+              "letter-spacing": "",
+              "font-style": [
+                "bold"
+              ]
+            },
+            "texts": [
+              "CT-e"
+            ]
           }
         ]
       },
@@ -1125,7 +1125,7 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 297,
+            "x": 260,
             "y": 257.8,
             "width": 78,
             "height": 14,
@@ -1142,7 +1142,7 @@
               "letter-spacing": "",
               "font-style": [],
               "overflow": "fit",
-              "word-wrap": "break-word"
+              "word-wrap": "none"
             },
             "reference-id": "",
             "value": "",
@@ -1157,9 +1157,9 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 382,
+            "x": 342,
             "y": 257.8,
-            "width": 66,
+            "width": 62,
             "height": 14,
             "style": {
               "font-family": [
@@ -1189,9 +1189,9 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 453,
+            "x": 468,
             "y": 257.8,
-            "width": 61.3,
+            "width": 50,
             "height": 14,
             "style": {
               "font-family": [
@@ -1221,9 +1221,9 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 518.3,
+            "x": 523,
             "y": 257.8,
-            "width": 54.7,
+            "width": 50,
             "height": 14,
             "style": {
               "font-family": [
@@ -1249,45 +1249,13 @@
             }
           },
           {
-            "id": "ent",
+            "id": "os",
             "type": "text-block",
             "display": true,
             "description": "",
             "x": 20,
             "y": 257.8,
-            "width": 24.3,
-            "height": 14,
-            "style": {
-              "font-family": [
-                "Helvetica"
-              ],
-              "font-size": 10,
-              "color": "#000000",
-              "text-align": "left",
-              "vertical-align": "top",
-              "line-height": "",
-              "line-height-ratio": "",
-              "letter-spacing": "",
-              "font-style": [],
-              "overflow": "fit",
-              "word-wrap": "break-word"
-            },
-            "reference-id": "",
-            "value": "",
-            "multiple-line": true,
-            "format": {
-              "base": "",
-              "type": ""
-            }
-          },
-          {
-            "id": "os",
-            "type": "text-block",
-            "display": true,
-            "description": "",
-            "x": 48,
-            "y": 257.8,
-            "width": 36.3,
+            "width": 30,
             "height": 14,
             "style": {
               "font-family": [
@@ -1317,7 +1285,7 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 88,
+            "x": 53.5,
             "y": 257.8,
             "width": 52.2,
             "height": 14,
@@ -1349,7 +1317,7 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 145,
+            "x": 110,
             "y": 257.8,
             "width": 146.3,
             "height": 11,
@@ -1386,9 +1354,9 @@
               "border-width": 1,
               "border-style": "solid"
             },
-            "x1": 46,
+            "x1": 52,
             "y1": 253.8,
-            "x2": 46,
+            "x2": 52,
             "y2": 270.8
           },
           {
@@ -1401,9 +1369,9 @@
               "border-width": 1,
               "border-style": "solid"
             },
-            "x1": 86,
+            "x1": 108,
             "y1": 253.8,
-            "x2": 86,
+            "x2": 108,
             "y2": 270.8
           },
           {
@@ -1416,9 +1384,9 @@
               "border-width": 1,
               "border-style": "solid"
             },
-            "x1": 142,
+            "x1": 258,
             "y1": 253.8,
-            "x2": 142,
+            "x2": 258,
             "y2": 270.8
           },
           {
@@ -1431,9 +1399,9 @@
               "border-width": 1,
               "border-style": "solid"
             },
-            "x1": 295,
+            "x1": 340,
             "y1": 253.8,
-            "x2": 295,
+            "x2": 340,
             "y2": 270.8
           },
           {
@@ -1446,9 +1414,9 @@
               "border-width": 1,
               "border-style": "solid"
             },
-            "x1": 380,
+            "x1": 406,
             "y1": 253.8,
-            "x2": 380,
+            "x2": 406,
             "y2": 270.8
           },
           {
@@ -1461,24 +1429,9 @@
               "border-width": 1,
               "border-style": "solid"
             },
-            "x1": 450,
+            "x1": 520,
             "y1": 253.8,
-            "x2": 450,
-            "y2": 270.8
-          },
-          {
-            "id": "",
-            "type": "line",
-            "display": true,
-            "description": "",
-            "style": {
-              "border-color": "#000000",
-              "border-width": 1,
-              "border-style": "solid"
-            },
-            "x1": 516,
-            "y1": 253.8,
-            "x2": 516,
+            "x2": 520,
             "y2": 270.8
           },
           {
@@ -1495,6 +1448,53 @@
             "y1": 270.8,
             "x2": 575.2,
             "y2": 270.8
+          },
+          {
+            "id": "",
+            "type": "line",
+            "display": true,
+            "description": "",
+            "style": {
+              "border-color": "#000000",
+              "border-width": 1,
+              "border-style": "solid"
+            },
+            "x1": 465,
+            "y1": 253.8,
+            "x2": 465,
+            "y2": 270.8
+          },
+          {
+            "id": "ctes",
+            "type": "text-block",
+            "display": true,
+            "description": "",
+            "x": 410,
+            "y": 257.8,
+            "width": 52,
+            "height": 14,
+            "style": {
+              "font-family": [
+                "Helvetica"
+              ],
+              "font-size": 10,
+              "color": "#000000",
+              "text-align": "center",
+              "vertical-align": "top",
+              "line-height": "",
+              "line-height-ratio": "",
+              "letter-spacing": "",
+              "font-style": [],
+              "overflow": "expand",
+              "word-wrap": "break-word"
+            },
+            "reference-id": "",
+            "value": "",
+            "multiple-line": true,
+            "format": {
+              "base": "",
+              "type": ""
+            }
           }
         ]
       },
