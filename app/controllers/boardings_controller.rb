@@ -142,7 +142,15 @@ class BoardingsController < ApplicationController
           row.values(data: date_br(item.ordem_service.data))
           row.values(cliente: item.ordem_service.client.nome)
           row.values(cidade: item.ordem_service.client.cidade + '-' + item.ordem_service.client.estado)
-          row.values(nfes: item.ordem_service.get_number_nfe)
+          if item.ordem_service.nfes.count > 1
+            item.ordem_service.nfes.each do |nfe|
+              row.values(nfes: nfe.nfe)
+              report.list(:list_ordem_service).add_row
+            end
+          else
+            row.values(nfes: item.ordem_service.get_number_nfe)
+          end
+          #row.values(nfes: item.ordem_service.get_number_nfe)
           row.values(peso: "#{number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}")
           row.values(volume: "#{number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".")}")
         end
