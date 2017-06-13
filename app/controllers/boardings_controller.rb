@@ -143,7 +143,7 @@ class BoardingsController < ApplicationController
           row.values(cliente: item.ordem_service.client.nome)
           row.values(cidade: item.ordem_service.client.cidade + '-' + item.ordem_service.client.estado)
           if item.ordem_service.nfes.count > 1
-            item.ordem_service.nfes.each do |nfe|
+            item.ordem_service.nfe_keys.each do |nfe|
               row.values(nfes: nfe.nfe)
               report.list(:list_ordem_service).add_row
             end
