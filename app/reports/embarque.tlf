@@ -468,7 +468,7 @@
       "display": true,
       "description": "",
       "x": 314.6,
-      "y": 420,
+      "y": 421,
       "width": 260.6,
       "height": 206,
       "style": {
@@ -478,34 +478,6 @@
         "fill-color": "#FFFFFF"
       },
       "border-radius": 0
-    },
-    {
-      "id": "",
-      "type": "text",
-      "display": true,
-      "description": "",
-      "x": 340,
-      "y": 450.5,
-      "width": 240.6,
-      "height": 19,
-      "style": {
-        "font-family": [
-          "Helvetica"
-        ],
-        "font-size": 9,
-        "color": "#000000",
-        "text-align": "left",
-        "vertical-align": "top",
-        "line-height": "",
-        "line-height-ratio": "",
-        "letter-spacing": "",
-        "font-style": [
-          "bold"
-        ]
-      },
-      "texts": [
-        "O.S                      VLR  UNIT.                               VLR PESO"
-      ]
     },
     {
       "id": "",
@@ -907,7 +879,7 @@
             "description": "",
             "x": 20,
             "y": 223,
-            "width": 18,
+            "width": 18.8,
             "height": 11,
             "style": {
               "font-family": [
@@ -935,7 +907,7 @@
             "description": "",
             "x": 144,
             "y": 223.7,
-            "width": 44.5,
+            "width": 45,
             "height": 11,
             "style": {
               "font-family": [
@@ -963,7 +935,7 @@
             "description": "",
             "x": 55,
             "y": 223,
-            "width": 20,
+            "width": 22.2,
             "height": 11,
             "style": {
               "font-family": [
@@ -991,7 +963,7 @@
             "description": "",
             "x": 100,
             "y": 223,
-            "width": 26.5,
+            "width": 29,
             "height": 11,
             "style": {
               "font-family": [
@@ -1047,7 +1019,7 @@
             "description": "",
             "x": 397,
             "y": 223.7,
-            "width": 24.5,
+            "width": 24.6,
             "height": 11,
             "style": {
               "font-family": [
@@ -1075,7 +1047,7 @@
             "description": "",
             "x": 472,
             "y": 223.7,
-            "width": 28,
+            "width": 30,
             "height": 11,
             "style": {
               "font-family": [
@@ -1103,7 +1075,7 @@
             "description": "",
             "x": 528,
             "y": 223.7,
-            "width": 44.5,
+            "width": 45,
             "height": 11,
             "style": {
               "font-family": [
@@ -1186,8 +1158,8 @@
               "line-height-ratio": "",
               "letter-spacing": "",
               "font-style": [],
-              "overflow": "expand",
-              "word-wrap": "break-word"
+              "overflow": "truncate",
+              "word-wrap": "none"
             },
             "reference-id": "",
             "value": "",
@@ -1362,7 +1334,7 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 144,
+            "x": 145,
             "y": 253.8,
             "width": 146.3,
             "height": 14,
@@ -2344,92 +2316,7 @@
           "x": 0,
           "y": -2
         },
-        "items": [
-          {
-            "id": "",
-            "type": "text",
-            "display": true,
-            "description": "",
-            "x": 25,
-            "y": 187,
-            "width": 73,
-            "height": 13,
-            "style": {
-              "font-family": [
-                "Helvetica"
-              ],
-              "font-size": 10,
-              "color": "#000000",
-              "text-align": "left",
-              "vertical-align": "top",
-              "line-height": "",
-              "line-height-ratio": "",
-              "letter-spacing": "",
-              "font-style": [
-                "bold"
-              ]
-            },
-            "texts": [
-              "TIPO VEICULO"
-            ]
-          },
-          {
-            "id": "",
-            "type": "text",
-            "display": true,
-            "description": "",
-            "x": 220,
-            "y": 187,
-            "width": 72.7,
-            "height": 13,
-            "style": {
-              "font-family": [
-                "Helvetica"
-              ],
-              "font-size": 10,
-              "color": "#000000",
-              "text-align": "left",
-              "vertical-align": "top",
-              "line-height": "",
-              "line-height-ratio": "",
-              "letter-spacing": "",
-              "font-style": [
-                "bold"
-              ]
-            },
-            "texts": [
-              "PLACA"
-            ]
-          },
-          {
-            "id": "",
-            "type": "text",
-            "display": true,
-            "description": "",
-            "x": 410,
-            "y": 187,
-            "width": 140,
-            "height": 13,
-            "style": {
-              "font-family": [
-                "Helvetica"
-              ],
-              "font-size": 10,
-              "color": "#000000",
-              "text-align": "center",
-              "vertical-align": "top",
-              "line-height": "",
-              "line-height-ratio": "",
-              "letter-spacing": "",
-              "font-style": [
-                "bold"
-              ]
-            },
-            "texts": [
-              "ANTT"
-            ]
-          }
-        ]
+        "items": []
       },
       "detail": {
         "height": 17,
@@ -2537,8 +2424,8 @@
         ]
       },
       "page-footer": {
-        "enabled": false,
-        "height": 0,
+        "enabled": true,
+        "height": 11.3,
         "translate": {
           "x": 0,
           "y": -1.6
@@ -2546,11 +2433,11 @@
         "items": []
       },
       "footer": {
-        "enabled": false,
-        "height": 0,
+        "enabled": true,
+        "height": 11.3,
         "translate": {
           "x": 0,
-          "y": -15.3
+          "y": -4
         },
         "items": []
       },
@@ -2590,6 +2477,84 @@
         "base": "",
         "type": ""
       }
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 320,
+      "y": 450,
+      "width": 46.6,
+      "height": 12,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 10,
+        "color": "#000000",
+        "text-align": "center",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": []
+      },
+      "texts": [
+        "O.S"
+      ]
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 400,
+      "y": 450,
+      "width": 51.7,
+      "height": 12,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 10,
+        "color": "#000000",
+        "text-align": "center",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": []
+      },
+      "texts": [
+        "VLR. UNIT."
+      ]
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 500,
+      "y": 450,
+      "width": 54.9,
+      "height": 12,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 10,
+        "color": "#000000",
+        "text-align": "center",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": []
+      },
+      "texts": [
+        "VLR. PESO"
+      ]
     }
   ],
   "state": {
