@@ -132,7 +132,7 @@ class BoardingsController < ApplicationController
       boarding.boarding_vehicles.each do |item|
         report.list(:list_veiculos).add_row do |row|
           row.values(tipo_veiculo: item.vehicle.tipo_nome)
-          row.values(placa: "#{item.vehicle.placa}/#{item.vehicle.estado}" )
+          row.values(placa: "#{item.vehicle.placa} #{item.vehicle.estado}" )
           row.values(antt: item.vehicle.antt)
         end
       end
