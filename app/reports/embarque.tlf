@@ -1159,7 +1159,7 @@
               "letter-spacing": "",
               "font-style": [],
               "overflow": "truncate",
-              "word-wrap": "none"
+              "word-wrap": "break-word"
             },
             "reference-id": "",
             "value": "",
