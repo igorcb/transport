@@ -235,7 +235,8 @@ class OrdemService < ActiveRecord::Base
 
   def valor_1500
     valor = 0.00
-    valor = self.ordem_service_logistic.peso * 0.13 if !self.ordem_service_logistic.peso.nil?
+    valor_1500 = self.client.valor_peso_1500.nil? ? 0.13 : self.client.valor_peso_1500
+    valor = self.ordem_service_logistic.peso * valor_1500 if !self.ordem_service_logistic.peso.nil?
     return valor
   end
 
