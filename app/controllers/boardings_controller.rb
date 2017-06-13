@@ -132,6 +132,8 @@ class BoardingsController < ApplicationController
       boarding.boarding_vehicles.each do |item|
         report.list(:list_veiculos).add_row do |row|
           row.values(tipo_veiculo: item.vehicle.tipo_nome)
+          row.values(placa: item.vehicle.placa)
+          row.values(antt: item.vehicle.antt)
         end
       end
       #lista ordem de servico
@@ -142,17 +144,18 @@ class BoardingsController < ApplicationController
           row.values(data: date_br(item.ordem_service.data))
           row.values(cliente: item.ordem_service.client.nome)
           row.values(cidade: item.ordem_service.client.cidade + '-' + item.ordem_service.client.estado)
+          row.values(peso: "#{number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+          row.values(volume: "#{number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".")}")
           if item.ordem_service.nfe_keys.count > 1
             item.ordem_service.nfe_keys.each do |nfe|
-              row.values(nfes: nfe.nfe)
-              report.list(:list_ordem_service).add_row
+              report.list(:list_ordem_service).add_row do |row_two|
+                row_two.values(nfes: nfe.nfe)
+              end
             end
           else
             row.values(nfes: item.ordem_service.get_number_nfe)
           end
           #row.values(nfes: item.ordem_service.get_number_nfe)
-          row.values(peso: "#{number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}")
-          row.values(volume: "#{number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".")}")
         end
       end
 
@@ -163,3 +166,4 @@ class BoardingsController < ApplicationController
 
     end
 end
+

@@ -877,7 +877,7 @@
             "type": "text",
             "display": true,
             "description": "",
-            "x": 20,
+            "x": 24,
             "y": 223,
             "width": 18.8,
             "height": 11,
@@ -1095,11 +1095,26 @@
             "texts": [
               "VOLUME"
             ]
+          },
+          {
+            "id": "",
+            "type": "line",
+            "display": true,
+            "description": "",
+            "style": {
+              "border-color": "#000000",
+              "border-width": 1,
+              "border-style": "solid"
+            },
+            "x1": 19.2,
+            "y1": 238,
+            "x2": 575.2,
+            "y2": 238
           }
         ]
       },
       "detail": {
-        "height": 15,
+        "height": 18,
         "translate": {
           "x": 0,
           "y": 26.2
@@ -1111,7 +1126,7 @@
             "display": true,
             "description": "",
             "x": 297,
-            "y": 253.8,
+            "y": 255.8,
             "width": 78,
             "height": 14,
             "style": {
@@ -1143,7 +1158,7 @@
             "display": true,
             "description": "",
             "x": 382,
-            "y": 253.8,
+            "y": 255.8,
             "width": 66,
             "height": 14,
             "style": {
@@ -1175,7 +1190,7 @@
             "display": true,
             "description": "",
             "x": 453,
-            "y": 253.8,
+            "y": 255.8,
             "width": 61.3,
             "height": 14,
             "style": {
@@ -1207,7 +1222,7 @@
             "display": true,
             "description": "",
             "x": 518.3,
-            "y": 253.8,
+            "y": 255.8,
             "width": 54.7,
             "height": 14,
             "style": {
@@ -1239,7 +1254,7 @@
             "display": true,
             "description": "",
             "x": 20,
-            "y": 253.8,
+            "y": 255.8,
             "width": 24.3,
             "height": 14,
             "style": {
@@ -1271,7 +1286,7 @@
             "display": true,
             "description": "",
             "x": 48,
-            "y": 253.8,
+            "y": 255.8,
             "width": 36.3,
             "height": 14,
             "style": {
@@ -1303,7 +1318,7 @@
             "display": true,
             "description": "",
             "x": 88,
-            "y": 253.8,
+            "y": 255.8,
             "width": 52.2,
             "height": 14,
             "style": {
@@ -1335,7 +1350,7 @@
             "display": true,
             "description": "",
             "x": 145,
-            "y": 253.8,
+            "y": 255.8,
             "width": 146.3,
             "height": 14,
             "style": {
@@ -1419,7 +1434,7 @@
             "x1": 295,
             "y1": 253.8,
             "x2": 295,
-            "y2": 268.8
+            "y2": 269.8
           },
           {
             "id": "",
@@ -1434,7 +1449,7 @@
             "x1": 380,
             "y1": 253.8,
             "x2": 380,
-            "y2": 268.8
+            "y2": 271.8
           },
           {
             "id": "",
@@ -1449,7 +1464,7 @@
             "x1": 450,
             "y1": 253.8,
             "x2": 450,
-            "y2": 268.8
+            "y2": 271.8
           },
           {
             "id": "",
@@ -1465,6 +1480,21 @@
             "y1": 253.8,
             "x2": 516,
             "y2": 268.8
+          },
+          {
+            "id": "",
+            "type": "line",
+            "display": true,
+            "description": "",
+            "style": {
+              "border-color": "#000000",
+              "border-width": 1,
+              "border-style": "solid"
+            },
+            "x1": 19.2,
+            "y1": 270.8,
+            "x2": 575.2,
+            "y2": 270.8
           }
         ]
       },
@@ -1473,7 +1503,7 @@
         "height": 0,
         "translate": {
           "x": 0,
-          "y": 10.4
+          "y": 13.4
         },
         "items": []
       },
@@ -1482,7 +1512,7 @@
         "height": 0,
         "translate": {
           "x": 0,
-          "y": -12.7
+          "y": -9.7
         },
         "items": []
       },
@@ -2316,7 +2346,92 @@
           "x": 0,
           "y": -2
         },
-        "items": []
+        "items": [
+          {
+            "id": "",
+            "type": "text",
+            "display": true,
+            "description": "",
+            "x": 30,
+            "y": 187,
+            "width": 114.4,
+            "height": 12,
+            "style": {
+              "font-family": [
+                "Helvetica"
+              ],
+              "font-size": 10,
+              "color": "#000000",
+              "text-align": "left",
+              "vertical-align": "top",
+              "line-height": "",
+              "line-height-ratio": "",
+              "letter-spacing": "",
+              "font-style": [
+                "bold"
+              ]
+            },
+            "texts": [
+              "VEÍCULO"
+            ]
+          },
+          {
+            "id": "",
+            "type": "text",
+            "display": true,
+            "description": "",
+            "x": 225,
+            "y": 187,
+            "width": 114.4,
+            "height": 12,
+            "style": {
+              "font-family": [
+                "Helvetica"
+              ],
+              "font-size": 10,
+              "color": "#000000",
+              "text-align": "left",
+              "vertical-align": "top",
+              "line-height": "",
+              "line-height-ratio": "",
+              "letter-spacing": "",
+              "font-style": [
+                "bold"
+              ]
+            },
+            "texts": [
+              "PLACA"
+            ]
+          },
+          {
+            "id": "",
+            "type": "text",
+            "display": true,
+            "description": "",
+            "x": 410,
+            "y": 187,
+            "width": 114.4,
+            "height": 12,
+            "style": {
+              "font-family": [
+                "Helvetica"
+              ],
+              "font-size": 10,
+              "color": "#000000",
+              "text-align": "left",
+              "vertical-align": "top",
+              "line-height": "",
+              "line-height-ratio": "",
+              "letter-spacing": "",
+              "font-style": [
+                "bold"
+              ]
+            },
+            "texts": [
+              "ANTT"
+            ]
+          }
+        ]
       },
       "detail": {
         "height": 17,
@@ -2330,7 +2445,7 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 25,
+            "x": 30,
             "y": 203.3,
             "width": 146.3,
             "height": 14,
@@ -2362,7 +2477,7 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 220,
+            "x": 223,
             "y": 203.3,
             "width": 146,
             "height": 14,
@@ -2404,7 +2519,7 @@
               ],
               "font-size": 10,
               "color": "#000000",
-              "text-align": "center",
+              "text-align": "left",
               "vertical-align": "top",
               "line-height": "",
               "line-height-ratio": "",
@@ -2420,12 +2535,27 @@
               "base": "",
               "type": ""
             }
+          },
+          {
+            "id": "",
+            "type": "line",
+            "display": true,
+            "description": "",
+            "style": {
+              "border-color": "#000000",
+              "border-width": 1,
+              "border-style": "solid"
+            },
+            "x1": 20,
+            "y1": 217.6,
+            "x2": 576,
+            "y2": 217.6
           }
         ]
       },
       "page-footer": {
-        "enabled": true,
-        "height": 11.3,
+        "enabled": false,
+        "height": 0,
         "translate": {
           "x": 0,
           "y": -1.6
@@ -2433,11 +2563,11 @@
         "items": []
       },
       "footer": {
-        "enabled": true,
-        "height": 11.3,
+        "enabled": false,
+        "height": 0,
         "translate": {
           "x": 0,
-          "y": -4
+          "y": -15.3
         },
         "items": []
       },
@@ -2555,6 +2685,21 @@
       "texts": [
         "VLR. PESO"
       ]
+    },
+    {
+      "id": "",
+      "type": "line",
+      "display": true,
+      "description": "",
+      "style": {
+        "border-color": "#000000",
+        "border-width": 1,
+        "border-style": "solid"
+      },
+      "x1": 20,
+      "y1": 196,
+      "x2": 576,
+      "y2": 196.3
     }
   ],
   "state": {
