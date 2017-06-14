@@ -9,6 +9,7 @@
         <th>Marca</th>
         <th>Modelo</th>
         <th>Placa</th>
+        <th>Qtd Palets</th>
       </tr>
     </thead>
     <tbody>
@@ -20,6 +21,7 @@
           <td><%= link_to "#{vehicle.marca}", vehicle %></td>
           <td><%= link_to "#{vehicle.modelo}", vehicle %></td>
           <td><%= link_to "#{vehicle.placa}/#{vehicle.estado}", vehicle %></td>
+          <td><%= link_to "#{vehicle.qtde_paletes}", vehicle %></td>
         </tr>
       <% end %>
     </tbody>
