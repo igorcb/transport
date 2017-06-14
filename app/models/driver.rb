@@ -19,6 +19,7 @@ class Driver < ActiveRecord::Base
   validates :cnh, presence: true, length: { maximum: 20 }
   validates :registro_cnh, presence: true,length: { maximum: 20 }
   validates :validade_cnh, presence: true
+  validate  :expiration_validade_cnh
   validates :nome_do_pai, presence: true, length: { maximum: 100 }
   validates :nome_da_mae, presence: true, length: { maximum: 100 }
 
@@ -77,7 +78,16 @@ class Driver < ActiveRecord::Base
       when 8 then "AE"
     end
   end
+  
+  #methods for validations
+  def expiration_validade_cnh
+    if validade_cnh.present? && validade_cnh < Date.today
+      errors.add(:validade_cnh, "can't be in the past")
+    end
+  end
 
+
+  #methods do model
   def distric_city_state_cep
     "#{bairro} - #{cidade} - #{estado} - CEP: #{cep}"
   end
