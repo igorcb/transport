@@ -85,17 +85,18 @@
 
 <p>
   <strong>Valor por Volume:</strong>
-  <%= @client.valor_volume %>
+  <%= number_to_currency(@client.valor_volume, precision: 3, unit: "R$ ", separator: ",", delimiter: ".")  %>
 </p>
 
 <p>
   <strong>Valor por KG:</strong>
-  <%= @client.valor_peso %>
+  <%= number_to_currency(@client.valor_peso, precision: 3, unit: "R$ ", separator: ",", delimiter: ".")  %>
 </p>
 
 <p>
   <strong>Valor por KG 1500:</strong>
-  <%= @client.valor_peso_1500 %>
+  <%= number_to_currency(@client.valor_peso_1500, precision: 3, unit: "R$ ", separator: ",", delimiter: ".")  %>
+
 </p>
 
 <p>
