@@ -71,12 +71,28 @@ class BoardingsController < ApplicationController
   end
 
   def print
+    if @boarding.date_boarding.blank?
+      flash[:danger] = "Date of shipment not informed."
+      redirect_to boarding_path(@boarding)
+      return
+    elsif @boarding.driver_id == Boarding::DRIVER_NOT_INFORMATION
+      flash[:danger] = "Inform o driver."
+      redirect_to boarding_path(@boarding)
+      return
+    elsif @boarding.carrier == Boarding::CARRIER_NOT_INFORMATION
+      flash[:danger] = "Inform o carrier."
+      redirect_to boarding_path(@boarding)
+      return
+    elsif @boarding.value_boarding.nil? || @boarding.value_boarding.to_f == 0.00
+      flash[:danger] = "Enter the value of the freight."
+      redirect_to boarding_path(@boarding)
+      return
+
+    end
+
     respond_to do |format|
       format.html
       format.pdf { render_print_boarding(@boarding) }
-      # format.pdf do
-      #   render pdf: render_quitter(@lower)
-      # end
     end
   end
 
