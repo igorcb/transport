@@ -28,7 +28,7 @@ class LowerReceivablesController < ApplicationController
     def render_quitter(quitter)
       report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'recibo.tlf')
       valor = (quitter.total_pago.to_f * 100).to_i
-      local_data = "FORTALEZA, #{l Date.today , format: :long }"
+      local_data = "FORTALEZA, #{l quitter.data_pagamento , format: :long }"
       report.start_new_page
       report.page.item(:valor_numerico).value("R$ #{number_to_currency(quitter.total_pago, precision: 2, unit: "", separator: ",", delimiter: ".")}")
       report.page.item(:nome).value(quitter.account_receivable.client.nome)
