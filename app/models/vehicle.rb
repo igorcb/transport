@@ -15,6 +15,10 @@ class Vehicle < ActiveRecord::Base
   validates :especie, presence: true
   validates :numero_eixos, presence: true
   validates :numero_loks, presence: true
+  validates :qtde_paletes, presence: true
+  validates :qtde_paletes, numericality: { greater_than: 0 }, :if => :tipo_reboque?
+
+
   #validates :grade, presence: true
   #validates :cordas, presence: true
   #validates :lonas, presence: true
@@ -62,6 +66,12 @@ class Vehicle < ActiveRecord::Base
     VAN = 8
     NAOAPLICAVEL = 9
 	end
+  #validations
+  def tipo_reboque?
+    puts ">>>>>>>>>>>>>> tipo_reboque: #{self.tipo}"
+    self.tipo == Tipo::REBOQUE
+  end
+
 
   def cubagem
     largura * altura * comprimento
