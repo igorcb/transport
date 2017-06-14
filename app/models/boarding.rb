@@ -137,9 +137,7 @@ class Boarding < ActiveRecord::Base
   def valor_total
     #valor_ordem_service
     soma = 0
-    puts ">>>>>>>>>>>>>>>>>>> Valor Total: #{0.00}"
     self.boarding_items.each do |item| 
-    puts ">>>>>>>>>>>>>>>>>>> OS: #{0.00}"
       soma += item.ordem_service.valor_ordem_service
     end
     soma
