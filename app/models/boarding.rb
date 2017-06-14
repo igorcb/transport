@@ -145,6 +145,14 @@ class Boarding < ActiveRecord::Base
     soma
   end
 
+  def capacidade_paletes
+    soma = 0
+    self.boarding_vehicles.each do |item|
+      soma += item.vehicle.qtde_paletes.blank? ? ZERO : item.vehicle.qtde_paletes
+    end
+    soma
+  end
+
   def qtde_palets
     soma = 0
     self.boarding_items.each do |item|
