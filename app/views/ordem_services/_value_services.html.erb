@@ -2,24 +2,22 @@
     <table class="table table-striped">
       <thead>
         <tr>
-        <th>Qtde volume</th>  
-        <th>Vr.p/Volume</th>  
-        <th>Peso</th>
-        <th>Vr.p/KG</th>  
-        <th>Vr. 1500</th>
-        <th>Vr. Total Volume</th>
-        <th>Vr. Total KG</th>
+        <th>VOLUMES</th>  
+        <th>PESO</th>
+        <th>QTDE PALETS</th>
+        <th>VALOR VOLUME</th>  
+        <th>VALOR PESO</th>  
+        <th>VR. SER. YPE</th>
       </thead>
       <tbody>
         <tr>
           <% if @ordem_service.client.present? %>
           <td><%= number_with_precision(@ordem_service.ordem_service_logistic.qtde_volume, precision: 2, separator: ',', delimiter: '.') %></td>  
-          <td><%= number_to_currency(@ordem_service.valor_volume, precision: 3, unit: "R$ ", separator: ",", delimiter: ".")   %></td>  
           <td><%= number_with_precision(@ordem_service.ordem_service_logistic.peso, precision: 3, separator: ',', delimiter: '.') %></td>  
+          <td><%= @ordem_service.ordem_service_logistic.qtde_palets if @ordem_service.ordem_service_logistic.present? %></td>  
+          <td><%= number_to_currency(@ordem_service.valor_volume, precision: 3, unit: "R$ ", separator: ",", delimiter: ".")   %></td>  
           <td><%= number_to_currency(@ordem_service.valor_peso, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
           <td><%= number_to_currency(@ordem_service.valor_1500, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
-          <td><%= number_to_currency(@ordem_service.valor_volume, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
-          <td><%= number_to_currency(@ordem_service.valor_peso, unit: "R$ ", separator: ",", delimiter: ".") %></td>  
           <% end %>
         </tr> 
       </tbody>
