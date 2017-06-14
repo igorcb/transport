@@ -82,7 +82,7 @@ class Driver < ActiveRecord::Base
   #methods for validations
   def expiration_validade_cnh
     if validade_cnh.present? && validade_cnh < Date.today
-      errors.add(:validade_cnh, "can't be in the past")
+      errors.add(:validade_cnh, "expiration")
     end
   end
 
