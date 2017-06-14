@@ -249,9 +249,21 @@ class InputControl < ActiveRecord::Base
           ordem_service.item_ordem_services.create!( product_id: item.product_id,
                                                          number: item.number_nfe,
                                                            qtde: item.qtde_trib,
-                                                    unid_medida: item.valor,
+                                                          valor: item.valor,
+                                                    unid_medida: item.unid_medida,
                                                  valor_unitario: item.valor_unitario,
                                            valor_unitario_comer: item.valor_unitario_comer
+
+        ordem_service.item_ordem_services.create!(number: nfe.ide.nNF,
+                                              product_id: produto.id,
+                                                    qtde: prod.qCom,
+                                               qtde_trib: prod.qTrib,
+                                                   valor: prod.vProd,
+                                          valor_unitario: prod.vUnTrib,
+                                    valor_unitario_comer: prod.vUnCom,
+                                             unid_medida: prod.uCom
+                                      )
+
                                       )
           puts ">>>>>>>>>>>>>>>>> se nota de palete lançar no controle de palete"
           # if nfe.equipamento == NfeXml::TipoEquipamento::PALETE
