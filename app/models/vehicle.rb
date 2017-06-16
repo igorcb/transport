@@ -8,10 +8,10 @@ class Vehicle < ActiveRecord::Base
   validates :cor, presence: true, length: { maximum: 20 } 
   validates :municipio_emplacamento, presence: true, length: { maximum: 100 }
   validates :estado, presence: true, length: { maximum: 2 }
-  validates :renavan, presence: true, length: { maximum: 20 }
+  validates :renavan, presence: true, length: { maximum: 20 }, uniqueness: true
   validates :chassi, presence: true, length: { maximum: 20 }
   validates :capacidade, presence: true
-  validates :placa, presence: true, length: { maximum: 7 }
+  validates :placa, presence: true, length: { maximum: 7 }, uniqueness: true
   validates :especie, presence: true
   validates :numero_eixos, presence: true
   validates :numero_loks, presence: true
