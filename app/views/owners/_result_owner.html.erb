@@ -1,0 +1,49 @@
+<% if owner.present? %>
+
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h2 class="panel-title">Dados do Proprietario </h2>
+	  </div>
+	  <div class="panel-body">
+
+	  <div class="operatings-client-show">
+	        
+	        <p>
+	          <strong>Nome:</strong>
+	          <label class="fields"> 
+	            <%= link_to "#{ owner.nome }", owner %> 
+	          </label>
+	        </p>
+
+	        <p>
+	          <strong>CPF/CNPJ:</strong>
+	          <label class="fields"><%= owner.cpf_cnpj %></label>
+	        </p>
+	        
+	        <p>
+	          <strong>Endereco:</strong>
+	          <label class="fields"><%= owner.endereco %>, <%= owner.numero %></label>
+	        </p>
+
+	        <p>
+	          <strong>Complemento:</strong>
+	          <label class="fields"><%= owner.complemento %></label>
+	        </p>
+
+	        <p>
+	          <strong>Bairro:</strong>
+	          <label class="fields"><%= owner.bairro %></label> - 
+	          <strong>Municipio:</strong>
+	          <label class="fields"><%= owner.cidade %></label>
+	        </p>
+
+	  </div>
+
+	</div>
+
+
+
+<% end %>
+
+
+
