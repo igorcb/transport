@@ -87,6 +87,10 @@ class BoardingsController < ApplicationController
       flash[:danger] = "Enter the value of the freight."
       redirect_to boarding_path(@boarding)
       return
+    elsif !@boarding.boarding_vehicles.present?
+      flash[:danger] = "Report vehicles for shipping."
+      redirect_to boarding_path(@boarding)
+      return
 
     end
 
