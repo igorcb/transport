@@ -52,6 +52,11 @@
       <%= @boarding.capacidade_paletes %>
     </p>
 
+    <p>
+      <strong>Valor Carga:</strong>
+      <%= number_to_currency(@boarding.valor_nota_fiscal, unit: "R$ ", separator: ",", delimiter: ".") %> 
+    </p>
+
 		<p>
 		  <strong>Observação:</strong>
 		  <pre><%= @boarding.obs %></pre>
