@@ -282,6 +282,10 @@ class OrdemService < ActiveRecord::Base
     return valor
   end
 
+  def valor_nota_fiscal
+    self.item_ordem_services.sum(:valor)
+  end
+
   def qtde
     self.ordem_service_type_service.sum(:qtde)
   end

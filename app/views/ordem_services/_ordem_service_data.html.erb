@@ -67,6 +67,11 @@
     </p>
 
     <p>
+      <strong>Valor NF-e:</strong>
+      <%= number_to_currency(@ordem_service.valor_nota_fiscal, unit: "R$ ", separator: ",", delimiter: ".")  %>
+    </p>
+
+    <p>
       <strong>Informação sobre a carga:</strong>
       <pre><%= @ordem_service.observacao %></pre>
     </p>

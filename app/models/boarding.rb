@@ -143,6 +143,14 @@ class Boarding < ActiveRecord::Base
     soma
   end
 
+  def valor_nota_fiscal
+    soma = 0
+    self.boarding_items.each do |item| 
+      soma += item.ordem_service.valor_nota_fiscal
+    end
+    soma
+  end
+
   def capacidade_paletes
     soma = 0
     self.boarding_vehicles.each do |item|
