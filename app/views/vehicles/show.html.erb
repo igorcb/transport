@@ -1,3 +1,20 @@
+<div class="form-group">
+  <% if @vehicle.owners.present? %>
+    <%= render(:partial => '/owners/result_owner', locals: {owner: @vehicle.owners.first}) %>
+  <% end %>
+</div>
+
+<p>
+  <strong>Placa:</strong>
+  <%= @vehicle.placa %>
+</p>
+
+<p>
+  <strong>Renavan:</strong>
+  <%= @vehicle.renavan %>
+</p>
+
+
 <p>
   <strong>Marca:</strong>
   <%= @vehicle.marca %>
@@ -43,10 +60,6 @@
   <%= @vehicle.estado %>
 </p>
 
-<p>
-  <strong>Renavan:</strong>
-  <%= @vehicle.renavan %>
-</p>
 
 <p>
   <strong>Chassi:</strong>
@@ -63,10 +76,6 @@
   <%= @vehicle.capacidade %>
 </p>
 
-<p>
-  <strong>Placa:</strong>
-  <%= @vehicle.placa %>
-</p>
 
 <p>
   <strong>ANTT:</strong>
