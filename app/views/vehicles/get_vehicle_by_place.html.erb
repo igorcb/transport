@@ -1,0 +1,4 @@
+<% if @vehicle.present? %>
+  <%#= render(:partial => 'result_client', locals: {client: @vehicle}) %>
+  <%= content_tag(:div, content_tag(:p, "Placa já está registrada"), class: "alert alert-danger") %>
+<% end %>

@@ -67,6 +67,20 @@ class VehiclesController < ApplicationController
     end
   end
 
+  def get_vehicle_by_place
+    @vehicle = Vehicle.find_by_placa(params[:place])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_vehicle_by_renavan
+    @vehicle = Vehicle.find_by_renavan(params[:renavan])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vehicle

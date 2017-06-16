@@ -1,5 +1,23 @@
 <%= form_for(@vehicle) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  <div class="form-group">
+    <%= f.label :placa %><br>
+    <%= f.text_field :placa, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :renavan %><br>
+    <%= f.text_field :renavan, class: "form-control" %>
+  </div>
+
+  <div id="vehicle_placa_result">
+
+  </div>  
+  
+  <div class="form-group">
+    <% if @vehicle.owners.present? %>
+      <%= render(:partial => '/owners/result_owner', locals: {owner: @vehicle.owners.first}) %>
+    <% end %>
+  </div>
 
   <div class="form-group">
     <%= f.label :marca %><br>
@@ -54,10 +72,6 @@
   <div class="form-group">
     <%= f.label :capacidade %><br>
     <%= f.text_field :capacidade, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :placa %><br>
-    <%= f.text_field :placa, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :antt %><br>
@@ -186,3 +200,41 @@
 
 
 <% end %>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#vehicle_placa").focusout(function() {
+      var place = $('#vehicle_placa').val();
+      console.log(place);
+      $.ajax({
+        type: "GET",
+        data: {place: place},
+        dataType : 'html',
+        url: '/vehicles/get_vehicle_by_place',
+        success: function(data){
+            $('#vehicle_placa_result').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#vehicle_renavan").focusout(function() {
+      var renavan = $('#vehicle_renavan').val();
+      console.log(renavan);
+      $.ajax({
+        type: "GET",
+        data: {renavan: renavan},
+        dataType : 'html',
+        url: '/vehicles/get_vehicle_by_renavan',
+        success: function(data){
+            $('#vehicle_placa_result').html(data);
+        },
+      });
+    });
+  });
+</script>
+

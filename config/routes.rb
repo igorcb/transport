@@ -137,6 +137,10 @@ Transport::Application.routes.draw do
   match '/carriers/get_carrier_by_id', :controller => 'carriers', :action => 'get_carrier_by_id', via: [:get]
   match '/carriers/get_carrier_by_cnpj', :controller => 'carriers', :action => 'get_carrier_by_cnpj', via: [:get]
   match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
+  match '/owners/get_owner_by_cpf_cnpj', :controller => 'owners', :action => 'get_owner_by_cpf_cnpj', via: [:get]
+  match '/vehicles/get_vehicle_by_place', :controller => 'vehicles', :action => 'get_vehicle_by_place', via: [:get]
+  match '/vehicles/get_vehicle_by_renavan', :controller => 'vehicles', :action => 'get_vehicle_by_renavan', via: [:get]
+
 
   resources :payment_methods
 
