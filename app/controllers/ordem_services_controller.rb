@@ -2,7 +2,7 @@
 class OrdemServicesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_ordem_service, only: [:show, :edit, :update, :destroy, :close_os ]
-  before_action :is_not_edit, only: [:edit, :update ]
+  #before_action :is_not_edit, only: [:edit, :update ]
   load_and_authorize_resource
   respond_to :html
 
