@@ -82,6 +82,26 @@
     </div>
   </div>
 
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingNine">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+          Ocorrencias
+        </a>
+      </h4>
+    </div>
+    <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+      <div class="panel-body">
+
+      <%= render 'comments/feed', comments: @boarding.feed %>
+
+      <%#= render 'comments/form_comment_ordem_service' %>
+      
+      </div>
+    </div>
+  </div>
+
+
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
@@ -107,10 +127,13 @@
 
 </div>
 
+
+
 <div class="form-group">
   <%= link_to 'Editar', edit_boarding_path(@boarding), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', boardings_path, class: "btn btn-default" %>
   <%= link_to 'Imprimir Embarque', print_boarding_path(@boarding, format: 'pdf'), class: "btn btn-primary" %>
+  <%= link_to 'Gerar Ocorrência', comments_boarding_path(@boarding), class: "btn btn-warning" %>
 </div>
 
 <div class="panel panel-default">

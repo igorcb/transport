@@ -1,0 +1,58 @@
+
+<table border="1">
+		<tr>
+			<td align="center" bgcolor="#1f497d" style="color:white" colspan="2">
+				<h2>NOTIFICACAO DE OCORRENCIAS</h2>
+			</td>
+		</tr>
+		<tr>
+			<td>Tipo</td>
+			<td align="center" bgcolor="#ffff99" style="color:#1f497d" >OCORRÊNCIA NA ENTREGA</td>
+		</tr>
+		<tr>
+			<td>Data da Ocorrência</td>
+			<td align="center" style="color:#1f497d"><%= date_br(Date.today) %></td>
+		</tr>
+		<tr>
+			<td>Hora</td>
+			<td align="center" style="color:#1f497d"><%= time_br(Time.zone.now) %></td>
+		</tr>
+		<tr>
+			<td>Placa</td>
+			<td align="center" style="color:#1f497d"><%= @boarding.type_and_place_vehicles %></td>
+		</tr>
+		<tr>
+			<td>Motorista</td>
+			<td align="center" style="color:#1f497d"><%= @boarding.driver.nome %></td>
+		</tr>
+		<tr>
+			<td>Transportadora</td>
+			<td align="center" style="color:#1f497d"><%= @boarding.carrier.nome %></td>
+		</tr>
+		<tr>
+			<td>NF Origem</td>
+			<td align="center" style="color:#1f497d"><%= @boarding.get_number_nfe %></td>
+		</tr>
+		<tr>
+			<td>Cliente</td>
+			<td align="center" style="color:#1f497d"><%= @boarding.boarding_items.first.ordem_service.client.nome %></td>
+		</tr>
+		<tr>
+			<td>Volume Total da NF</td>
+			<td align="center" style="color:#1f497d"><%= @boarding.volume_total %></td>
+		</tr>
+		<tr>
+			<td>Ocorrência</td>
+			<td align="center" style="color:#1f497d">AVARIA E FALTA NO RECEBIMENTO EM NOSSO CD</td>
+		</tr>
+		<tr>
+			<td>Descrição da Ocorrência</td>
+			<td align="center" style="color:#1f497d"><pre><%= @boarding.comments.last.content %></pre></td>
+		</tr>
+		<tr>
+			<td>NF Devolução</td>
+			<td align="center" bgcolor="#ffff99" style="color:#1f497d">NAO</td>
+		</tr>
+</table>
+
+<%= image_tag attachments["assinatura_paulo.png"].url -%>

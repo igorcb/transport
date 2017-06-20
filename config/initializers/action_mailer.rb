@@ -12,11 +12,13 @@ if Rails.env.development?
     action_mailer.smtp_settings = {
       address: ENV['RAILS_MAIL_HOST'],
       port: '587',
-      authentication: :plain,
       user_name: ENV['RAILS_MAIL_USERNAME'],
       password: ENV['RAILS_MAIL_PASSWORD'],
       domain: 'localhost:3000',
+      authentication: :plain,
       enable_starttls_auto: true
+      #openssl_verify_mode: 'none', 
+      #encryption: 'tsl',
     }
   end
 end

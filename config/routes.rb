@@ -23,6 +23,10 @@ Transport::Application.routes.draw do
   resources :boardings do
     member do
       get :print
+      get :comments
+    end
+    collection do
+      #get :comments
     end
     resources :boarding_items do
       post :update_row_order, on: :collection    

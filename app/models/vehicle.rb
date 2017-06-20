@@ -110,4 +110,8 @@ class Vehicle < ActiveRecord::Base
     end
   end
 
+  def type_and_place
+    "#{tipo_nome}/#{placa}"
+  end
+
 end

@@ -1,0 +1,50 @@
+<style type="text/css">
+  td div { width:76px; overflow: hidden; }
+  th div {text-align:right}
+</style>
+
+<%= form_for(@comment, html: {multipart: true }) do |f| %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Items</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped" id="sortable_embarque">
+        <thead>
+          <tr>
+            <th></th>
+            <th width:"10px">NF-e</th>
+            <th>O.S.</th>
+            <th>Dt. Agen.</th>
+            <th>Cliente</th>
+            <th>Cidade</th>
+            <th>UF</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @boarding.nfe_keys.each do |item| %>
+            <tr>
+              <td><%= check_box_tag "nfe[ids][#{item.id}]", item.id, false, class: "escolha" %></td>
+              <td><%= link_to item.nfe, item.ordem_service %></td>
+              <td><%= link_to item.ordem_service.id, item.ordem_service %></td>
+              <td><%= link_to date_br(item.ordem_service.data), item.ordem_service %></td>
+              <td><%= link_to truncate(item.ordem_service.client.nome, length: 20), item.ordem_service, title: item.ordem_service.client.nome %></td>
+              <td><%= link_to truncate(item.ordem_service.client.cidade, length: 10), item.ordem_service, title: item.ordem_service.client.cidade %></td>
+              <td><%= link_to item.ordem_service.client.estado, item.ordem_service %></td>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
+
+  <%= render 'shared/error_messages', object: f.object %>
+ 
+  <%= hidden_field_tag "comment[comment_id]", @boarding.id %>
+  <%= hidden_field_tag "comment[comment_type]", "Boarding" %>
+
+  <%= render 'comments/fields', f: f %>
+  
+  <%= f.submit "Enviar comentario", class: "btn btn-success" %>
+<% end %>

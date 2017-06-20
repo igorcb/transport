@@ -9,7 +9,9 @@ class Boarding < ActiveRecord::Base
   has_one :account_payable
   has_many :account_payables
 
-  has_one :ordem_services
+  has_many :ordem_services, :through => :boarding_items
+  has_many :nfe_keys, :through => :ordem_services
+
   has_many :boarding_items
   #accepts_nested_attributes_for :boarding_items, allow_destroy: true, :reject_if => :all_blank
   has_many :boarding_vehicles
@@ -22,6 +24,10 @@ class Boarding < ActiveRecord::Base
   has_one :cancellation, class_name: "Cancellation", foreign_key: "cancellation_id"
   has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
   accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
+
+  has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+  #has_many :commentaries, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+
 
   scope :status_open, -> { where(status: [TipoStatus::ABERTO, TipoStatus::EMBARCADO]).order("id desc") }
 
@@ -183,6 +189,14 @@ class Boarding < ActiveRecord::Base
     soma
   end
 
+  def get_number_nfe
+    nfes = []
+    self.nfe_keys.each do |n|
+      nfes << n.nfe
+    end
+    nfes
+  end
+
   def qtde_entregas
     number = self.boarding_items.group('delivery_number').having('delivery_number > 0').count
     number.count
@@ -198,6 +212,18 @@ class Boarding < ActiveRecord::Base
       cities << item.ordem_service.client.cidade
     end
     cities
+  end
+
+  def feed
+    Comment.where("comment_type = ? and comment_id = ?", "Boarding", self.id)
+  end
+
+  def type_and_place_vehicles
+    result = []
+    self.boarding_vehicles.each do |item|
+      result << item.vehicle.type_and_place
+    end
+    result
   end
 
   private

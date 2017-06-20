@@ -100,6 +100,10 @@ class BoardingsController < ApplicationController
     end
   end
 
+  def comments
+    @comment = Comment.new
+  end
+
 	private
 
 		def set_boarding
