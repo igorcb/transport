@@ -31,7 +31,7 @@
 		</tr>
 		<tr>
 			<td>NF Origem</td>
-			<td align="center" style="color:#1f497d"><%= @boarding.get_number_nfe %></td>
+			<td align="center" style="color:#1f497d"><%= @boarding.comments.last.observation %></td>
 		</tr>
 		<tr>
 			<td>Cliente</td>
@@ -43,7 +43,7 @@
 		</tr>
 		<tr>
 			<td>Ocorrência</td>
-			<td align="center" style="color:#1f497d">AVARIA E FALTA NO RECEBIMENTO EM NOSSO CD</td>
+			<td align="center" style="color:#1f497d"><%= @boarding.comments.last.type_occurrence_name %></td>
 		</tr>
 		<tr>
 			<td>Descrição da Ocorrência</td>

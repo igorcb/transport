@@ -23,7 +23,7 @@ class CommentMailer < ActionMailer::Base
     @comments = @boarding.comments
     comment  = @comments.last
     email = "#{comment.email_destino}, igor.batista@l7logistica.com.br"
-    text_subject = "OCORRENCIA: NF #{@boarding.get_number_nfe}"
+    text_subject = "OCORRENCIA: NF #{comment.observation}"
     #anexar imagens
     photo = Asset.last
     #attachments["#{photo.asset_file_name}"] = File.read("#{photo.asset.path}")
@@ -34,7 +34,7 @@ class CommentMailer < ActionMailer::Base
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
 
     ## anexar as imagens das avarias
-    attachments.inline["#{photo.asset_file_name}"] = File.read("#{photo.asset.path}")
+    #attachments.inline["#{photo.asset_file_name}"] = File.read("#{photo.asset.path}")
     mail to: email, bcc: nil, subject: "#{text_subject}"
 
   end

@@ -25,7 +25,7 @@
         <tbody>
           <% @boarding.nfe_keys.each do |item| %>
             <tr>
-              <td><%= check_box_tag "nfe[ids][#{item.id}]", item.id, false, class: "escolha" %></td>
+              <td><%= check_box_tag "nfe[ids][#{item.nfe}]", item.id, false, class: "escolha" %></td>
               <td><%= link_to item.nfe, item.ordem_service %></td>
               <td><%= link_to item.ordem_service.id, item.ordem_service %></td>
               <td><%= link_to date_br(item.ordem_service.data), item.ordem_service %></td>
@@ -43,6 +43,10 @@
  
   <%= hidden_field_tag "comment[comment_id]", @boarding.id %>
   <%= hidden_field_tag "comment[comment_type]", "Boarding" %>
+
+  <div class="form-group">
+    <%= f.select( :title, select_title_ocurrence, {include_blank: "Selecione o tipo de ocorrencia"}, {class: "form-control"} ) %>      
+  </div>
 
   <%= render 'comments/fields', f: f %>
   
