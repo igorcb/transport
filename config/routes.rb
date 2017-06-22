@@ -9,6 +9,7 @@ Transport::Application.routes.draw do
       get 'confirm_received'
       get 'finish_typing'
       get 'quitter'
+      get :comments
     end
     #match :finish_typing, :as => :update_status, :via => [:get, :put]  
     #match "input_controls/finish_typing" => "input_controlsr#finish_typing", as: :finish_typing, via: [:post]

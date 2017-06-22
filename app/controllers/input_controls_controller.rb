@@ -160,6 +160,10 @@ class InputControlsController < ApplicationController
     respond_with(@input_control)
   end
 
+  def comments
+    
+  end
+
   private
     def set_input_control
       @input_control = InputControl.find(params[:id])
