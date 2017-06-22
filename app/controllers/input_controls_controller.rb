@@ -161,7 +161,7 @@ class InputControlsController < ApplicationController
   end
 
   def comments
-    
+    @comment = Comment.new
   end
 
   private

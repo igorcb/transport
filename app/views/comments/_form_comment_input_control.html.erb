@@ -1,0 +1,44 @@
+<style type="text/css">
+  td div { width:76px; overflow: hidden; }
+  th div {text-align:right}
+</style>
+
+<%= form_for(@comment, html: {multipart: true }) do |f| %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Items</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped" id="sortable_embarque">
+        <thead>
+          <tr>
+            <td></td>
+            <%= render 'nfe_xmls/nfe_header' %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @input_control.nfe_xmls.each do |nfe_xml| %>
+            <tr>
+              <td><%= check_box_tag "nfe[ids][#{nfe_xml.numero}]", nfe_xml.id, false, class: "escolha" %></td>
+              <%= render nfe_xml %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
+
+  <%= render 'shared/error_messages', object: f.object %>
+ 
+  <%= hidden_field_tag "comment[comment_id]", @input_control.id %>
+  <%= hidden_field_tag "comment[comment_type]", "InputControl" %>
+
+  <div class="form-group">
+    <%= f.select( :title, select_title_ocurrence, {include_blank: "Selecione o tipo de ocorrencia"}, {class: "form-control"} ) %>      
+  </div>
+
+  <%= render 'comments/fields', f: f %>
+  
+  <%= f.submit "Enviar comentario", class: "btn btn-success" %>
+<% end %>
