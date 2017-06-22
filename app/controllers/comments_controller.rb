@@ -18,6 +18,16 @@ class CommentsController < ApplicationController
           redirect_to comments_boarding_path(@model)
           return
         end
+      when "InputControl" then 
+        if params[:nfe].blank?
+          flash[:danger] = "Select at least one nfe to generate ocurrence."
+          redirect_to comments_boarding_path(@model)
+          return
+        elsif params[:comment][:title].blank?
+          flash[:danger] = "Select the type of occurrence."
+          redirect_to comments_boarding_path(@model)
+          return
+        end
     end
 
     ids = OrdemService.get_hash_ids(params[:nfe][:ids])
@@ -48,6 +58,7 @@ class CommentsController < ApplicationController
         when "OrdemService" then @model = OrdemService.find(params[:comment][:comment_id])
         when "Occurrence" then @model = Occurrence.find(params[:comment][:comment_id])
         when "Boarding" then @model = Boarding.find(params[:comment][:comment_id])
+        when "InputControl" then @model = InputControl.find(params[:comment][:comment_id])
       end
     end
 
@@ -56,6 +67,7 @@ class CommentsController < ApplicationController
         when "OrdemService" then redirect_to ordem_service_path (@model)
         when "Occurrence" then redirect_to occurrence_path (@model)
         when "Boarding" then redirect_to boarding_path (@model)
+        when "InputControl" then redirect_to input_control_path (@model)
       end
     end
 
