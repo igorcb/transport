@@ -21,6 +21,8 @@ class InputControl < ActiveRecord::Base
   has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
   accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
 
+  has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+
 
   #before_save { |item| item.email = email.downcase }
   RECEBIMENTO_DESCARGA_HISTORIC = 100
@@ -279,6 +281,10 @@ class InputControl < ActiveRecord::Base
       ordem_service.set_peso_and_volume
 
     end
+  end
+
+  def feed
+    Comment.where("comment_type = ? and comment_id = ?", "InputControl", self.id)
   end
 
   def feed_cancellations
