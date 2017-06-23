@@ -23,6 +23,7 @@ class OrdemService < ActiveRecord::Base
   belongs_to :input_control
   
   has_one :boarding_item
+  has_one :boarding, through: :boarding_item
 
   has_one :account_payable
   has_many :account_payables

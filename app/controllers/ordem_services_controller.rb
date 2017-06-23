@@ -277,6 +277,10 @@ class OrdemServicesController < ApplicationController
       flash[:danger] = "Ordem Service is already as delivered."
       redirect_to ordem_service_path(@ordem_service)
       return
+    elsif !@ordem_service.boarding.check_status_ordem_service_embarcado?
+      flash[:danger] = "To close a ordem service, all ordem services in boarding, must be as boarding."
+      redirect_to ordem_service_path(@ordem_service)
+      return
     elsif @ordem_service.status == OrdemService::TipoStatus::FECHADO
       flash[:danger] = "Ordem Service is already as closed."
       redirect_to ordem_service_path(@ordem_service)
@@ -341,6 +345,18 @@ class OrdemServicesController < ApplicationController
       when OrdemService::TipoOS::LOGISTICA 
         if @ordem_service.status == OrdemService::TipoStatus::FECHADO
           flash[:danger] = "Ordem Service is already as closed."
+          redirect_to ordem_service_path(@ordem_service)
+          return
+        elsif @ordem_service.status == OrdemService::TipoStatus::ABERTO
+          flash[:danger] = "Ordem Service is open, make the shipment."
+          redirect_to ordem_service_path(@ordem_service)
+          return
+        elsif @ordem_service.status == OrdemService::TipoStatus::AGUARDANDO_EMBARQUE
+          flash[:danger] = "Please do the shipment of the order of service."
+          redirect_to ordem_service_path(@ordem_service)
+          return
+        elsif @ordem_service.status == OrdemService::TipoStatus::EMBARCADO
+          flash[:danger] = "You can not close a service order without it being delivered."
           redirect_to ordem_service_path(@ordem_service)
           return
         elsif !@ordem_service.ordem_service_type_service.present? 
