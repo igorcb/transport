@@ -1,0 +1,45 @@
+<table border="1" style="width:718px;">
+		<tr>
+			<td align="center" bgcolor="#1f497d" style="color:white" colspan="2">
+				<h2>NOTIFICACAO DE ENTREGA</h2>
+			</td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Tipo</td>
+			<td align="center" bgcolor="#ffff99" style="color:#1f497d" >ENTREGA REALIZADA</td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Transportadora</td>
+			<td align="center" style="color:#1f497d"><%= @ordem_service.carrier.nome %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Data da Ocorrência</td>
+			<td align="center" style="color:#1f497d"><%= l @ordem_service.data_entrega_servico, format: :long %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Veiculo/Placa</td>
+			<td align="center" style="color:#1f497d"><%= @ordem_service.ordem_service_logistic.placa %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Motorista</td>
+			<td align="center" style="color:#1f497d"><%= @ordem_service.ordem_service_logistic.delivery_driver.nome %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">NF Origem</td>
+			<td align="center" style="color:#1f497d"><%= @ordem_service.danfes %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Cliente</td>
+			<td align="center" style="color:#1f497d"><%= @ordem_service.client.nome %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Ordem de Serviço</td>
+			<td align="center" style="color:#1f497d"><%= @ordem_service.id %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">No: Embarque</td>
+			<td align="center" style="color:#1f497d"><%= @ordem_service.boarding_item.boarding_id %></td>
+		</tr>
+</table>
+
+<%= image_tag attachments["assinatura_paulo.png"].url -%>
