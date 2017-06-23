@@ -23,9 +23,10 @@ class Comment < ActiveRecord::Base
   	result = model.class == Boarding
   	puts ">>>>>>>>>>>>>> result: #{result}"
     case model.class.to_s
-      when "OrdemService" then CommentMailer.notification(ordem_service).deliver!
-      when "Occurrence" then CommentMailer.notification(ordem_service).deliver!
-      when "Boarding" then CommentMailer.notification_boarding(boarding).deliver!
+      when "OrdemService" then CommentMailer.notification(model).deliver!
+      when "Occurrence" then CommentMailer.notification(model).deliver!
+      when "Boarding" then CommentMailer.notification_boarding(model).deliver!
+      when "InputControl" then CommentMailer.notification_input_control(model).deliver!
     end
   end
 

@@ -1,0 +1,67 @@
+
+<!-- <table style="table-layout: fixed; width: 100px; overflow: hidden;"> -->
+<table border="1" style="width:718px;">
+		<tr>
+			<td align="center" bgcolor="#1f497d" style="color:white" colspan="2">
+				<h2>NOTIFICACAO DE OCORRENCIAS</h2>
+			</td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Tipo</td>
+			<td align="center" bgcolor="#ffff99" style="color:#1f497d" >OCORRÊNCIA NA ENTRADA</td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Data da Ocorrência</td>
+			<td align="center" style="color:#1f497d"><%= l Date.current,format: :long   %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Transportadora</td>
+			<td align="center" style="color:#1f497d"><%= @input_control.carrier.nome %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Hora</td>
+			<td align="center" style="color:#1f497d"><%= time_br(Time.zone.now) %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Veiculo/Placa</td>
+			<td align="center" style="color:#1f497d"><%= @input_control.place %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Motorista</td>
+			<td align="center" style="color:#1f497d"><%= @input_control.driver.nome %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Numero da Remessa</td>
+			<td align="center" style="color:#1f497d"></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">NF Origem</td>
+			<td align="center" style="color:#1f497d"><%= @input_control.comments.last.observation %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Cliente</td>
+			<td align="center" style="color:#1f497d"><%= @input_control.nfe_xmls_clients %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Cidade/UF Destino</td>
+			<td align="center" style="color:#1f497d"><%= @input_control.nfe_xmls_cities %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Volume Total da NF</td>
+			<td align="center" style="color:#1f497d"><%= @input_control.nfe_xmls_volume %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Ocorrência</td>
+			<td align="center" style="color:#1f497d"><%= @input_control.comments.last.type_occurrence_name %></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">Descrição da Ocorrência</td>
+			<td align="center" style="color:#1f497d"><pre><%= @input_control.comments.last.content %></pre></td>
+		</tr>
+		<tr>
+			<td align="center" style="width:150px;">NF Devolução</td>
+			<td align="center" bgcolor="#ffff99" style="color:#1f497d">NAO</td>
+		</tr>
+</table>
+
+<%= image_tag attachments["assinatura_paulo.png"].url -%>

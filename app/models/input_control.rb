@@ -283,6 +283,35 @@ class InputControl < ActiveRecord::Base
     end
   end
 
+  def nfe_xmls_clients
+    clients = []
+    nfes_number = self.comments.last.observation.gsub(" ","").gsub('[','').gsub(']','').split(',')
+    self.nfe_xmls.where(numero: nfes_number).select(:target_client_id).uniq.each do |item|
+      clients << item.target_client.nome
+    end
+    puts ">>>>>>>>>>>>>>> number NFE: #{nfes_number}"
+    clients
+  end
+
+  def nfe_xmls_cities
+    cities = []
+    nfes_number = self.comments.last.observation.gsub(" ","").gsub('[','').gsub(']','').split(',')
+    self.nfe_xmls.where(numero: nfes_number).select(:target_client_id).uniq.each do |item|
+      cities << "#{item.target_client.cidade}/#{item.target_client.estado}"
+    end
+    cities
+  end
+
+  def nfe_xmls_volume
+    vol = 0.00
+    nfes_number = self.comments.last.observation.gsub(" ","").gsub('[','').gsub(']','').split(',')
+    self.nfe_xmls.where(numero: nfes_number).each do |item|
+      vol += item.volume
+      #cities << "#{item.target_client.cidade}/#{item.target_client.estado}"
+    end
+    vol
+  end
+
   def feed
     Comment.where("comment_type = ? and comment_id = ?", "InputControl", self.id)
   end

@@ -39,4 +39,25 @@ class CommentMailer < ActionMailer::Base
 
   end
 
+  def notification_input_control(input_control)
+    @input_control = input_control
+    @comments = @input_control.comments
+    comment  = @comments.last
+    email = "#{comment.email_destino}, igor.batista@l7logistica.com.br"
+    text_subject = "OCORRENCIA: NF #{comment.observation}"
+    #anexar imagens
+    photo = Asset.last
+    #attachments["#{photo.asset_file_name}"] = File.read("#{photo.asset.path}")
+    #attachments.inline['photo.png'] = File.read('path/to/photo.png')
+
+    ## Essa logo deve ser pego do usuário que está enviando a ocorrencia ou 
+    ## pegar uma imagem padrão para assinatura
+    attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
+
+    ## anexar as imagens das avarias
+    #attachments.inline["#{photo.asset_file_name}"] = File.read("#{photo.asset.path}")
+    mail to: email, bcc: nil, subject: "#{text_subject}"
+
+  end
+
 end
