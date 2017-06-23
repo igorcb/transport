@@ -3,7 +3,7 @@ class OrdemServiceMailer < ActionMailer::Base
 
   def notification_delivery(ordem_service)
     @ordem_service = ordem_service
-    email = "paulogaldino@l7logistica.com.br, igor.batista@l7logistica.com.br"
+    email = "josiana.diana@ype.ind.br, marcelo.soares@ype.ind.br, paulogaldino@l7logistica.com.br, igor.batista@l7logistica.com.br"
     text_subject = "NOTIFICAÇÃO DE ENTREGA - NF: #{@ordem_service.danfes} "
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
 
