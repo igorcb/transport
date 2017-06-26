@@ -111,7 +111,7 @@ class Boarding < ActiveRecord::Base
       # else
       #   positivo = false
       # end
-      positivo = ((item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO) or (item.ordem_service.status == OrdemService::TipoStatus::ENTREGA_EFETUADA))
+      positivo = ((item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO) or (item.ordem_service.status == OrdemService::TipoStatus::ENTREGA_EFETUADA) or (item.ordem_service.status == OrdemService::TipoStatus::FECHADO))
       return false if positivo == false
     end
     positivo
