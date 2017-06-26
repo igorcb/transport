@@ -28,6 +28,10 @@ class BoardingItemsController < ApplicationController
       @boarding_item.errors.add("Boarding Item", "Informe o valor do embarque")
       redirect_to boarding_url(@boarding_item.boarding), flash: { error: "Informe o valor do embarque" }
       return
+    elsif !@boarding_item.boarding.boarding_vehicles.present?
+      @boarding_item.errors.add("Boarding Item", "Informe o(s) veículos para o embarque")
+      redirect_to boarding_url(@boarding_item.boarding), flash: { error: "Informe o(s) veículos para o embarque" }
+      return
     end
     @boarding_item.boarding.close(@boarding_item.ordem_service_id)
     redirect_to boarding_url(@boarding_item.boarding), flash: { success: "Status update successfully..." }
