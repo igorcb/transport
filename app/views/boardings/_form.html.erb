@@ -1,4 +1,4 @@
-<%= form_for(@boarding) do |f| %>
+<%= form_for @boarding, html: {id: "form_boarding"} do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="form-group">
@@ -39,7 +39,7 @@
   <h3>Dados Veiculos</h3>
   <div class="cte_items">
     <%= f.fields_for :boarding_vehicles do |f| 
-        render 'boarding_vehicle_fields', f: f
+        render 'boarding_vehicle_fields', :f => f
     end -%> <br />
     <%= link_to_add_association 'Add Veiculo', f, :boarding_vehicles, class: "btn btn-success btn-sm" %> <br />
   </div>
@@ -52,5 +52,3 @@
     <%= link_to "Listar Todos", boardings_path, class: "btn btn-default" %>
   </div>
 <% end %>
-
-
