@@ -56,6 +56,15 @@
       <strong>Valor Carga:</strong>
       <%= number_to_currency(@boarding.valor_nota_fiscal, unit: "R$ ", separator: ",", delimiter: ".") %> 
     </p>
+    <p>
+      <strong>Peso Carga:</strong>
+      <%= number_with_precision(@boarding.peso_bruto, precision: 3, separator: ',', delimiter: '.') %>
+    </p>
+
+    <p>
+      <strong>Volume Carga:</strong>
+      <%= number_with_precision(@boarding.volume_total, precision: 2, separator: ',', delimiter: '.') %>
+    </p>          
 
 		<p>
 		  <strong>Observação:</strong>
