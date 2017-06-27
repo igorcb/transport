@@ -1,5 +1,5 @@
 class ControlPalletsController < ApplicationController
-  before_action :set_control_pallet, only: [:show, :edit, :update, :destroy]
+  before_action :set_control_pallet, only: [:show, :edit, :update, :destroy, :print]
 
   respond_to :html
 
@@ -59,6 +59,13 @@ class ControlPalletsController < ApplicationController
     respond_with(@control_pallet)
   end
 
+  def print
+    respond_to do |format|
+      format.html
+      format.pdf { render_print_boarding(@control_pallet) }
+    end
+  end
+
   private
     def set_control_pallet
       @control_pallet = ControlPallet.find(params[:id])
@@ -66,5 +73,33 @@ class ControlPalletsController < ApplicationController
 
     def control_pallet_params
       params.require(:control_pallet).permit(:data, :qte, :tipo, :historico, :nfe, :nfd, :nfe_original, :nfd_original, :client_id, :carrier_id, :ids)
+    end
+
+    def render_print_boarding(control_pallet)
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'pallets.tlf')
+      report.start_new_page
+
+      emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
+      nfe_xml = NfeXml.where(numero: control_pallet.nfe).first
+
+      ### cabecalho esquerdo
+      report.page.item(:vale_no).value("VALE Nº #{control_pallet.id}")
+      report.page.item(:motorista_nome).value(nfe_xml.input_control.driver.nome)
+      report.page.item(:motorista_cpf).value(nfe_xml.input_control.driver.cpf)
+      report.page.item(:veiculo).value(nfe_xml.input_control.place)
+      report.page.item(:data).value(date_br(control_pallet.data))
+      report.page.item(:transportadora).value("#{control_pallet.carrier.nome} CNPJ: #{control_pallet.carrier.cnpj}, Cidade: #{control_pallet.carrier.cidade}/#{control_pallet.carrier.estado}")
+      report.page.item(:nf_original).value(control_pallet.nfe)
+      report.page.item(:nf_devolucao).value(control_pallet.nfd)
+      report.page.item(:qtde_original).value(control_pallet.qte)
+      report.page.item(:qtde_devolucao).value(control_pallet.qte) if control_pallet.nfd_original.present?
+      report.page.item(:chave_nfe_original).value(control_pallet.nfe_original)
+      report.page.item(:chave_nfe_devolucao).value(control_pallet.nfd_original)
+
+      send_data report.generate, filename: "pallet_#{control_pallet.id}_.pdf", 
+                                   type: 'application/pdf', 
+                                   disposition: 'inline'
+
+
     end
 end

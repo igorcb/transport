@@ -81,7 +81,11 @@ Transport::Application.routes.draw do
 
   resources :sub_cost_center_threes
 
-  resources :control_pallets
+  resources :control_pallets do
+    member do
+      get :print
+    end
+  end
   
   resources :inventories
 

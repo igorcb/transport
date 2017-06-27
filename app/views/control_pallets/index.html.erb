@@ -33,7 +33,7 @@
               <td><%= pallet.nfd %></td>
               <td><%= link_to 'Show', pallet, class: "btn btn-info btn-xs" %></td>
               <td><%= link_to 'Edit', edit_control_pallet_path(pallet), class: "btn btn-primary btn-xs" %></td>
-              <td><%= link_to 'Destroy', pallet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+              <td><%= link_to 'Print', print_control_pallet_path(pallet, format: 'pdf'), class: "btn btn-default btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>
