@@ -84,6 +84,11 @@
 <% end %>
 
 <p>
+  <strong>Faturamento:</strong> 
+  <%= link_to "#{ @account_receivable.billing.id }", @account_receivable.billing if @account_receivable.billing.present? %> 
+</p>
+
+<p>
   <strong>Observacao:</strong>
   <pre><%= @account_receivable.observacao %></pre>
 </p>
