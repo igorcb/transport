@@ -79,7 +79,7 @@ class NfeXml < ActiveRecord::Base
   end
 
   def ordem_service
-    nfe_key = NfeKey.where(nfe: self.numero)
+    nfe_key = NfeKey.where(nfe_type: 'OrdemService', nfe: self.numero)
     ordem_service = nfe_key.present? ? nfe_key.first.ordem_service : nil
   end
 
