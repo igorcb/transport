@@ -174,7 +174,7 @@
       "x": 59,
       "y": 144.2,
       "width": 66,
-      "height": 8.5,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -200,7 +200,7 @@
       "x": 378,
       "y": 144.5,
       "width": 100,
-      "height": 8.5,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -226,7 +226,7 @@
       "x": 60,
       "y": 220,
       "width": 19.6,
-      "height": 8.5,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -252,7 +252,7 @@
       "x": 290,
       "y": 245,
       "width": 30,
-      "height": 8.5,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -278,7 +278,7 @@
       "x": 60,
       "y": 245,
       "width": 33,
-      "height": 8.5,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -304,7 +304,7 @@
       "x": 59.6,
       "y": 160,
       "width": 77.6,
-      "height": 8.5,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -330,7 +330,7 @@
       "x": 275,
       "y": 144.5,
       "width": 17.9,
-      "height": 8.5,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -432,8 +432,8 @@
       "description": "",
       "x": 60,
       "y": 177,
-      "width": 124.7,
-      "height": 8.5,
+      "width": 125.3,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -459,7 +459,7 @@
       "x": 290,
       "y": 297,
       "width": 30,
-      "height": 8.5,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -485,7 +485,7 @@
       "x": 60,
       "y": 297,
       "width": 33,
-      "height": 8.5,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -511,7 +511,7 @@
       "x": 60,
       "y": 273,
       "width": 19.3,
-      "height": 8.5,
+      "height": 9,
       "style": {
         "font-family": [
           "IPAPGothic"
@@ -581,7 +581,7 @@
       "description": "",
       "x": 59.7,
       "y": 204.7,
-      "width": 197.2,
+      "width": 198,
       "height": 11,
       "style": {
         "font-family": [
@@ -1075,9 +1075,9 @@
       "type": "image-block",
       "display": true,
       "description": "",
-      "x": 243,
+      "x": 322,
       "y": 216,
-      "width": 300,
+      "width": 223,
       "height": 27,
       "style": {
         "position-x": "center",
@@ -1091,7 +1091,7 @@
       "description": "",
       "x": 322,
       "y": 267,
-      "width": 223.1,
+      "width": 223,
       "height": 27,
       "style": {
         "position-x": "center",
