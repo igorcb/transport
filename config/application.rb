@@ -6,6 +6,11 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "sprockets/railtie"
 require 'csv'
+require 'barby/barcode/ean_13'
+require 'barby/barcode/ean_8'
+require 'barby/barcode/code_128'
+require 'barby/outputter/png_outputter'
+
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems

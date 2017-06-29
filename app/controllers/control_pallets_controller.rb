@@ -62,7 +62,7 @@ class ControlPalletsController < ApplicationController
   def print
     respond_to do |format|
       format.html
-      format.pdf { render_print_boarding(@control_pallet) }
+      format.pdf { render_print_pallet(@control_pallet) }
     end
   end
 
@@ -75,7 +75,22 @@ class ControlPalletsController < ApplicationController
       params.require(:control_pallet).permit(:data, :qte, :tipo, :historico, :nfe, :nfd, :nfe_original, :nfd_original, :client_id, :carrier_id, :ids)
     end
 
-    def render_print_boarding(control_pallet)
+    def render_print_pallet(control_pallet)
+
+      def barcode(type, data, png_opts = {})
+        code = case type
+        when :ean_13
+          Barby::EAN13.new(data)
+        when :ean_8
+          Barby::EAN8.new(data)
+        when :ean_128
+          Barby::Code128C.new(data)
+        when :qr_code
+          Barby::QrCode.new(data)
+        end
+        StringIO.new(code.to_png(png_opts))
+      end
+
       report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'pallets.tlf')
       report.start_new_page
 
@@ -95,7 +110,8 @@ class ControlPalletsController < ApplicationController
       report.page.item(:qtde_devolucao).value(control_pallet.qte) if control_pallet.nfd_original.present?
       report.page.item(:chave_nfe_original).value(control_pallet.nfe_original)
       report.page.item(:chave_nfe_devolucao).value(control_pallet.nfd_original)
-
+      report.page.item(:cod_bar_nfe_original).src(barcode(:ean_128, control_pallet.nfe_original))
+      report.page.item(:cod_bar_nfe_devolucao).src(barcode(:ean_128, control_pallet.nfd_original)) if control_pallet.nfd_original.present? 
       send_data report.generate, filename: "pallet_#{control_pallet.id}_.pdf", 
                                    type: 'application/pdf', 
                                    disposition: 'inline'
