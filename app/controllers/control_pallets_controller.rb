@@ -104,6 +104,7 @@ class ControlPalletsController < ApplicationController
       report.page.item(:motorista_nome).value(nfe_xml.input_control.driver.nome)
       report.page.item(:motorista_cpf).value(nfe_xml.input_control.driver.cpf)
       report.page.item(:veiculo).value(nfe_xml.input_control.place)
+      report.page.item(:data).value(date_br(control_pallet.data))
       report.page.item(:issue_date).value(local_data)
       report.page.item(:transportadora).value("#{control_pallet.carrier.nome} CNPJ: #{control_pallet.carrier.cnpj}, Cidade: #{control_pallet.carrier.cidade}/#{control_pallet.carrier.estado}")
       report.page.item(:nf_original).value(control_pallet.nfe)
