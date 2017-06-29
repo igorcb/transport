@@ -190,7 +190,7 @@ class InputControl < ActiveRecord::Base
     source_client = nfe_xmls.first.source_client
     ActiveRecord::Base.transaction do
       nfe_xmls.each do |nfe|
-        ControlPallet.create!(
+        control_pallet = ControlPallet.create!(
                       client_id: source_client.id,
                      carrier_id: input_control.carrier.id,
                            data: input_control.date_receipt,
@@ -201,10 +201,13 @@ class InputControl < ActiveRecord::Base
                            peso: nfe.peso,
                          volume: nfe.volume,
                          status: ControlPallet::TipoStatus::ABERTO,
+               input_control_id: input_control.id,
                       historico: "Entrada de Paletes pela Remessa de Entrada. No: #{input_control.id} "
                             )
         NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM)
+        ControlPalletMailer.notification_pallets(control_pallet).deliver!
       end
+
     end
   end    
 

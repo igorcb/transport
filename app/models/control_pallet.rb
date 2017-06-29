@@ -1,6 +1,7 @@
 class ControlPallet < ActiveRecord::Base
   belongs_to :client
   belongs_to :carrier
+  belongs_to :input_control
   
   validates :client_id, :data, :tipo, :qte, presence: true
   validates :carrier_id, presence: true
