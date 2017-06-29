@@ -48,6 +48,10 @@
     <%= f.label :tipo_carroceria %><br>
     <%= f.select( :tipo_carroceria, select_tipo_carroceria, {include_blank: :true}, {class: "form-control"} ) %>      
   </div>
+  <div class="form-group">
+    <%= f.label :tipo_piso_assoalho %><br>
+    <%= f.select( :tipo_piso_assoalho, select_tipo_piso_assoalho, {include_blank: true}, {class: "form-control"} ) %>      
+  </div>
 
   <div class="form-group">
     <%= f.label :municipio_emplacamento %><br>
@@ -66,9 +70,10 @@
     <%= f.text_field :qtde_paletes, class: "form-control numericOnly" %>
   </div>
   <div class="form-group">
-    <%= f.label :capacidade %><br>
+    <%= f.label :capacidade, "Capcidade em TON" %><br>
     <%= f.text_field :capacidade, class: "form-control" %>
   </div>
+
   <div class="form-group">
     <%= f.label :antt %><br>
     <%= f.text_field :antt, class: "form-control" %>

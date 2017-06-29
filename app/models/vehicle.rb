@@ -68,6 +68,12 @@ class Vehicle < ActiveRecord::Base
     VAN = 8
     NAOAPLICAVEL = 9
 	end
+
+  module TipoAssoalho
+    FERRO = 0
+    MADEIRA = 1
+  end
+
   #validations
   def tipo_reboque?
     puts ">>>>>>>>>>>>>> tipo_reboque: #{self.tipo}"
@@ -85,6 +91,14 @@ class Vehicle < ActiveRecord::Base
       when 1 then "TRACAO"
     end
   end
+
+  def tipo_piso_assoalho_nome
+    case self.tipo_piso_assoalho
+      when 0 then "FERRO"
+      when 1 then "MADEIRA"
+    end
+  end
+
 
   def tipo_veiculo_nome
     case self.tipo_veiculo

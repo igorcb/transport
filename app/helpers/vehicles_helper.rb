@@ -13,4 +13,8 @@ module VehiclesHelper
     ([["ABERTA", 0],["FECHADA BAU", 1],["GRANELEIRA", 2],["PORTA CONTAINER", 3],["SIDER", 4],["NAO APLICAVEL", 5]])
   end
 
+  def select_tipo_piso_assoalho
+    ([["FERRO", 0],["MADEIRA", 1]])
+  end
+
 end
