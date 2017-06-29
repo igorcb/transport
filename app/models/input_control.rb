@@ -286,6 +286,22 @@ class InputControl < ActiveRecord::Base
     end
   end
 
+  def nfe_xmls_client(numero)
+    clients = []
+    self.nfe_xmls.where(numero: numero).each do |item|
+      clients << item.target_client.nome
+    end
+    clients
+  end
+
+  def nfe_xmls_city(numero)
+    cities = []
+    self.nfe_xmls.where(numero: numero).each do |item|
+      cities << "#{item.target_client.cidade}/#{item.target_client.estado}"
+    end
+    cities
+  end
+
   def nfe_xmls_clients
     clients = []
     nfes_number = self.comments.last.observation.gsub(" ","").gsub('[','').gsub(']','').split(',')
