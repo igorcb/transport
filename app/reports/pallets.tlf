@@ -6,8 +6,8 @@
       "type": "image",
       "display": true,
       "description": "",
-      "x": 434.2,
-      "y": 320,
+      "x": 445,
+      "y": 330,
       "width": 106.4,
       "height": 83.6,
       "data": {
@@ -413,7 +413,7 @@
       "type": "rect",
       "display": true,
       "description": "",
-      "x": 57.6,
+      "x": 54,
       "y": 360,
       "width": 234.5,
       "height": 58.5,
@@ -639,36 +639,6 @@
       },
       "texts": [
         "OBSERVAÇÕES:"
-      ]
-    },
-    {
-      "id": "",
-      "type": "text",
-      "display": true,
-      "description": "",
-      "x": 302.6,
-      "y": 385,
-      "width": 123.6,
-      "height": 8.2,
-      "style": {
-        "font-family": [
-          "IPAPGothic"
-        ],
-        "font-size": 7,
-        "color": "#000000",
-        "text-align": "left",
-        "vertical-align": "top",
-        "line-height": "",
-        "line-height-ratio": "",
-        "letter-spacing": "",
-        "font-style": [
-          "bold",
-          "italic",
-          "underline"
-        ]
-      },
-      "texts": [
-        "FORTALEZA , 29 DE JUNHO DE 2017"
       ]
     },
     {
@@ -1096,6 +1066,41 @@
       "style": {
         "position-x": "center",
         "position-y": "top"
+      }
+    },
+    {
+      "id": "issue_date",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 300,
+      "y": 385,
+      "width": 145,
+      "height": 8.5,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 8,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [],
+        "overflow": "truncate",
+        "word-wrap": "none"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": false,
+      "format": {
+        "base": "",
+        "type": "datetime",
+        "datetime": {
+          "format": "%A, %d de %B de %Y"
+        }
       }
     }
   ],

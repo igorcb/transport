@@ -76,6 +76,10 @@ class ControlPalletsController < ApplicationController
     end
 
     def render_print_pallet(control_pallet)
+      nfe_xml = NfeXml.where(numero: control_pallet.nfe).first
+
+      emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
+      local_data = "FORTALEZA, #{l control_pallet.data , format: :long }"
 
       def barcode(type, data, png_opts = {})
         code = case type
@@ -92,21 +96,15 @@ class ControlPalletsController < ApplicationController
         StringIO.new(code.to_png(xdim: 2, height: 70))
       end
 
-      #barcode = Barby::Code128C.new(control_pallet.nfe_original)
-      #outputter = Barby::PngOutputter.new(barcode)
-
       report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'pallets.tlf')
       report.start_new_page
-
-      emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
-      nfe_xml = NfeXml.where(numero: control_pallet.nfe).first
 
       ### cabecalho esquerdo
       report.page.item(:vale_no).value("VALE Nº #{control_pallet.id}")
       report.page.item(:motorista_nome).value(nfe_xml.input_control.driver.nome)
       report.page.item(:motorista_cpf).value(nfe_xml.input_control.driver.cpf)
       report.page.item(:veiculo).value(nfe_xml.input_control.place)
-      report.page.item(:data).value(date_br(control_pallet.data))
+      report.page.item(:issue_date).value(local_data)
       report.page.item(:transportadora).value("#{control_pallet.carrier.nome} CNPJ: #{control_pallet.carrier.cnpj}, Cidade: #{control_pallet.carrier.cidade}/#{control_pallet.carrier.estado}")
       report.page.item(:nf_original).value(control_pallet.nfe)
       report.page.item(:nf_devolucao).value(control_pallet.nfd)
