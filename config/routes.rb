@@ -27,6 +27,8 @@ Transport::Application.routes.draw do
     member do
       get :print
       get :comments
+      get :request_pallet
+      post :requisition
     end
     collection do
       #get :comments
