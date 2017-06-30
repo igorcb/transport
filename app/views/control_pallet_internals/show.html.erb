@@ -1,0 +1,44 @@
+<p>
+  <strong>Tipo:</strong>
+  <%= @control_pallet_internal.type_account_name %>
+</p>
+
+<p>
+  <strong>Responsavel:</strong>
+  <%= @control_pallet_internal.responsable.nome %>
+</p>
+
+<p>
+  <strong>Equipamento:</strong>
+  <%= @control_pallet_internal.equipament_name %>
+</p>
+
+<p>
+  <strong>Ent/Saida:</strong>
+  <%= @control_pallet_internal.credito_debito %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= date_br(@control_pallet_internal.date_launche) %>
+</p>
+
+<p>
+  <strong>Qtde:</strong>
+  <%= @control_pallet_internal.qtde %>
+</p>
+
+<p>
+  <strong>Historic:</strong>
+  <%= @control_pallet_internal.historic %>
+</p>
+
+<p>
+  <strong>Observation:</strong>
+  <%= @control_pallet_internal.observation %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Edit', edit_control_pallet_internal_path(@control_pallet_internal), class: "btn btn-primary" %>
+  <%= link_to 'Back', control_pallet_internals_path, class: "btn btn-default" %>
+</div>

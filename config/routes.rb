@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :control_pallet_internals
+
   resources :input_controls do
     member do
       get 'select_nfe'
