@@ -27,7 +27,7 @@ class Boarding < ActiveRecord::Base
 
   has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
   #has_many :commentaries, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
-
+  has_many :control_pallet_internals
 
   scope :status_open, -> { where(status: [TipoStatus::ABERTO, TipoStatus::EMBARCADO]).order("id desc") }
 
@@ -253,20 +253,22 @@ class Boarding < ActiveRecord::Base
         ControlPalletInternal.create!(type_account: ControlPalletInternal::TypeAccount::CARRIER,
                                     responsable_type: "Carrier",
                                       responsable_id: 11, #Padrao L7
+                                      boarding_id: self.id,
                                       equipament: options[:equipament],
                                       type_launche: ControlPalletInternal::CreditDebit::DEBIT,
                                       date_launche: Date.current,
                                       qtde: options[:qtde],
-                                      historic: "SAIDA DE #{equipament} EMBARQUE No: #{self.id}"
+                                      historic: "SAIDA DE #{equipament}.upcase EMBARQUE No: #{self.id}"
                                     )
         ControlPalletInternal.create!(type_account: ControlPalletInternal::TypeAccount::DRIVER,
                                       responsable_type: "Driver",
                                       responsable_id: self.driver_id,
+                                      boarding_id: self.id,
                                       equipament: options[:equipament],
                                       type_launche: ControlPalletInternal::CreditDebit::CREDIT,
                                       date_launche: Date.current,
                                       qtde: options[:qtde],
-                                      historic: "ENTRADA DE #{equipament} EMBARQUE No: #{self.id}"
+                                      historic: "ENTRADA DE #{equipament}.upcase EMBARQUE No: #{self.id}"
                                     )
         return true
       end

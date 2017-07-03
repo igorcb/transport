@@ -6,7 +6,9 @@ class ControlPalletInternal < ActiveRecord::Base
 	validates :qtde, presence: true
 	validates :equipament, presence: true
 
+  belongs_to :boarding
   belongs_to :responsable, class_name: "Supplier", foreign_key: "responsable_id", polymorphic: true
+  
 
   before_save :set_responsable_type
 
