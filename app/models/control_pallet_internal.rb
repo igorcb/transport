@@ -17,6 +17,19 @@ class ControlPalletInternal < ActiveRecord::Base
   	CHAPATEX = 4
   end
 
+  module CreditDebit
+    ENTRADA = 1
+    SAIDA   = -1
+  end
+
+  module TypeAccount
+    SUPPLIER = 1
+    DRIVER   = 2
+    CLIENT   = 3
+    EMPLOYEE = 4
+    CARRIER  = 5
+  end
+
   def type_account_name
     case self.type_account
       when 1  then "Fornecedor"
