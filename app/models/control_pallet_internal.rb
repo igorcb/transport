@@ -8,7 +8,10 @@ class ControlPalletInternal < ActiveRecord::Base
 
   belongs_to :boarding
   belongs_to :responsable, class_name: "Supplier", foreign_key: "responsable_id", polymorphic: true
-  
+
+  default_scope { order(date_launche: :desc) }
+  scope :credit, -> { where(type_launche: CreditDebit::CREDIT) }
+  scope :debit, -> { where(type_launche: CreditDebit::DEBIT) }
 
   before_save :set_responsable_type
 

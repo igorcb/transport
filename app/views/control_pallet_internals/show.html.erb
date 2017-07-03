@@ -1,4 +1,9 @@
 <p>
+  <strong>Embarque:</strong>
+  <%= link_to @control_pallet_internal.boarding.id, @control_pallet_internal.boarding if @control_pallet_internal.boarding.present?%>
+</p>
+
+<p>
   <strong>Tipo:</strong>
   <%= @control_pallet_internal.type_account_name %>
 </p>
@@ -39,6 +44,6 @@
 </p>
 
 <div class="form-group">
-  <%= link_to 'Edit', edit_control_pallet_internal_path(@control_pallet_internal), class: "btn btn-primary" %>
-  <%= link_to 'Back', control_pallet_internals_path, class: "btn btn-default" %>
+  <%= link_to 'Editar', edit_control_pallet_internal_path(@control_pallet_internal), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', control_pallet_internals_path, class: "btn btn-default" %>
 </div>

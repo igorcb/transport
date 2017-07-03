@@ -53,11 +53,6 @@
     </p>
 
     <p>
-      <strong>Qtde paletes Solictado:</strong>
-      <%= @boarding.qtde_boarding %>
-    </p>
-
-    <p>
       <strong>Valor Carga:</strong>
       <%= number_to_currency(@boarding.valor_nota_fiscal, unit: "R$ ", separator: ",", delimiter: ".") %> 
     </p>
@@ -77,6 +72,25 @@
 		</p>
   </div>
 </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFive">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Equipamentos Solicitados
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+      <div class="panel-body">
+
+        <% @boarding.control_pallet_internals.debit.each do |control_pallet_internal| %>
+          <%= render 'control_pallet_internals/summary', control_pallet_internal: control_pallet_internal %>
+        <% end %>         
+
+      </div>
+    </div>
+  </div>
 
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingSix">
