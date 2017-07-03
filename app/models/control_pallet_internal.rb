@@ -18,8 +18,8 @@ class ControlPalletInternal < ActiveRecord::Base
   end
 
   module CreditDebit
-    ENTRADA = 1
-    SAIDA   = -1
+    CREDIT = 1
+    DEBIT   = -1
   end
 
   module TypeAccount
@@ -43,10 +43,10 @@ class ControlPalletInternal < ActiveRecord::Base
 
   def equipament_name
     case self.equipament
-      when 1  then "Pallet"
-      when 2  then "Big Bag"
-      when 3  then "Caixa"
-      when 4  then "ChapaTex"
+      when 1 then "Pallet"
+      when 2 then "Big Bag"
+      when 3 then "Caixa"
+      when 4 then "ChapaTex"
       else "*"
     end
   end
@@ -59,6 +59,15 @@ class ControlPalletInternal < ActiveRecord::Base
   	end
   end
 
+  def self.get_equipament(type)
+    case type.to_i
+      when 1 then "Pallet"
+      when 2 then "Big Bag"
+      when 3 then "Caixa"
+      when 4 then "ChapaTex"
+      else "*"
+    end
+  end
 
   protected
 
