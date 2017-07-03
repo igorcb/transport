@@ -1,0 +1,29 @@
+<h2>Solicitar Pallet</h2>
+
+<%= form_tag({:controller => "boardings", :action => "requisition"}, :method => "post", :name => "boardingForm") do %>
+	<p>
+		<strong>Embarque:</strong>
+		<%= @boarding.id %>
+	</p>
+
+	<p>
+	  <strong>Qtde Palete do veículo:</strong>
+	  <%= @boarding.capacidade_paletes %>
+	</p>
+	
+	<div class="form-group">
+		<%= label_tag "Motorista" %>
+		<%= text_field_tag :boarding_driver_id, @boarding.driver.nome, disabled: true, class: "form-control", placeholder: 28 %>
+		<%= hidden_field_tag :driver_id, @boarding.driver_id %>
+	</div>
+	<div class="form-group">
+		<%= label_tag "Equipamento" %>
+  	<%= select_tag :equipament, options_for_select(select_type_equipament), :prompt => "Selecione um Tipo de Equipamento", class: "form-control" %>
+	</div>
+	<div class="form-group">
+		<%= label_tag "Qtde" %>
+  	<%= number_field_tag :qtde, nil, class: "form-control" %>
+	</div>
+
+	<%= submit_tag("Solicitar", class: "btn btn-primary") %> 
+<% end %>

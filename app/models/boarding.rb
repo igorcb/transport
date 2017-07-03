@@ -17,7 +17,7 @@ class Boarding < ActiveRecord::Base
   has_many :boarding_vehicles
   has_many :vehicles, :through => :boarding_vehicles
   accepts_nested_attributes_for :boarding_vehicles, allow_destroy: true, :reject_if => :all_blank
-
+ 
   has_many :cte_keys, class_name: "CteKey", foreign_key: "cte_id", :as => :cte, dependent: :destroy
   accepts_nested_attributes_for :cte_keys, allow_destroy: true, :reject_if => :all_blank
 
@@ -239,6 +239,42 @@ class Boarding < ActiveRecord::Base
       result << item.vehicle.type_and_place
     end
     result
+  end
+
+  def requisition?(options={})
+    #Atualizar qtde pallets boarding
+    #fazer lancamento de debito para L7 Logistica ou Transportadora
+    #Fazer lancamento de crédito para o motorista e ou responsavel
+    puts ">>>>>>>>>>>>>>>>>>>> #{options}"
+    equipament = ControlPalletInternal.get_equipament(options[:equipament])
+    begin
+      ActiveRecord::Base.transaction do
+        Boarding.where(id: self.id).update_all(qtde_boarding: options[:qtde])
+        ControlPalletInternal.create!(type_account: ControlPalletInternal::TypeAccount::CARRIER,
+                                    responsable_type: "Carrier",
+                                      responsable_id: 11, #Padrao L7
+                                      equipament: options[:equipament],
+                                      type_launche: ControlPalletInternal::CreditDebit::DEBIT,
+                                      date_launche: Date.current,
+                                      qtde: options[:qtde],
+                                      historic: "SAIDA DE #{equipament} EMBARQUE No: #{self.id}"
+                                    )
+        ControlPalletInternal.create!(type_account: ControlPalletInternal::TypeAccount::DRIVER,
+                                      responsable_type: "Driver",
+                                      responsable_id: self.driver_id,
+                                      equipament: options[:equipament],
+                                      type_launche: ControlPalletInternal::CreditDebit::CREDIT,
+                                      date_launche: Date.current,
+                                      qtde: options[:qtde],
+                                      historic: "ENTRADA DE #{equipament} EMBARQUE No: #{self.id}"
+                                    )
+        return true
+      end
+      rescue Exception => e
+        puts e.message
+        self.errors.add(:boarding, e.message)
+        return false 
+    end
   end
 
   private
