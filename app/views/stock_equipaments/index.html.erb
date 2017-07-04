@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Estoque de Equipamentos </div>
+  <div class="panel-body">
+    <ul class="list-group">
+			<% ControlPalletInternal.all_equipament.each do |equipament| %>        
+        <li class="list-group-item"><%= ControlPalletInternal.get_equipament(equipament.equipament) %>
+        	<span class="badge">Saldo: <%= ControlPalletInternal.equipament_saldo(equipament.equipament) %></span>
+        </li>
+        <table class="table table-striped">
+        	<thead>
+	        	<th>Tipo</th>
+	        	<th>Nome</th>
+	        	<th>Entada</th>
+	        	<th>Saida</th>
+	        	<th>Saldo</th>
+        	</thead>
+
+        	<tbody>
+	        		<% ControlPalletInternal.select(:type_account, :responsable_id, :responsable_type).by_equipament(equipament.equipament).uniq.reorder(:type_account, :responsable_id, :responsable_type).each do |control_pallet| %>
+           		<tr>
+								<td><%= control_pallet.type_account_name %></td>
+								<td><%= control_pallet.responsable.nome %></td>
+								<td><%= ControlPalletInternal.equipament_and_credit_and_responsable(equipament.equipament, control_pallet.type_account, control_pallet.responsable_id) %></td>
+								<td><%= ControlPalletInternal.equipament_and_debit_and_responsable(equipament.equipament, control_pallet.type_account, control_pallet.responsable_id) %></td>
+								<td><%= ControlPalletInternal.equipament_saldo_and_responsable(equipament.equipament, control_pallet.type_account, control_pallet.responsable_id) %></td>
+          		</tr>
+	        		<% end %>
+        	</tbody>
+
+        </table>
+      <% end %>
+    </ul>
+          
+    </div>    
+  </div>
+</div>

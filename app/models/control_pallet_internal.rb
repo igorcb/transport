@@ -9,11 +9,42 @@ class ControlPalletInternal < ActiveRecord::Base
   belongs_to :boarding
   belongs_to :responsable, class_name: "Supplier", foreign_key: "responsable_id", polymorphic: true
 
-  default_scope { order(date_launche: :desc, id: :desc) }
+  #default_scope { order(date_launche: :desc, id: :desc) }
   scope :credit, -> { where(type_launche: CreditDebit::CREDIT) }
-  scope :debit, -> { where(type_launche: CreditDebit::DEBIT) }
+  scope :debit,  -> { where(type_launche: CreditDebit::DEBIT)  }
+  scope :all_equipament, -> { select(:equipament).uniq(:equipament).reorder(equipament: :asc) }
+  scope :by_equipament, ->(equipament_id) { where(equipament: equipament_id)}
+  scope :by_type_and_responsable, ->(type, responsable) { where(type_account: type, responsable_id: responsable)}
+
+  scope :ordered, -> { order(date_launche: :desc, id: :desc) }
+
+  default_scope { ordered }
 
   before_save :set_responsable_type
+  
+  def saldo
+    Cash.where(cash_account_id: self.id).sum('valor*tipo')
+  end  
+
+  # def self.equipament_and_credit_and_responsable
+  #   ControlPalletInternal.credit.by_equipament(1).sum("type_launche*qtde")
+  # end
+
+  def self.equipament_and_credit_and_responsable(equipament, responsable_type, responsable)
+    ControlPalletInternal.credit.by_equipament(equipament).by_type_and_responsable(responsable_type, responsable).sum("type_launche*qtde")
+  end
+
+  def self.equipament_and_debit_and_responsable(equipament, responsable_type, responsable)
+    ControlPalletInternal.debit.by_equipament(equipament).by_type_and_responsable(responsable_type, responsable).sum("type_launche*qtde")
+  end
+
+  def self.equipament_saldo_and_responsable(equipament, responsable_type, responsable)
+    ControlPalletInternal.by_equipament(equipament).by_type_and_responsable(responsable_type, responsable).sum("type_launche*qtde")
+  end
+
+  def self.equipament_saldo(equipament)
+    ControlPalletInternal.by_equipament(equipament).sum("type_launche*qtde")
+  end
 
   module TypeEquipament
   	PALLET = 1

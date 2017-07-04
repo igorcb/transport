@@ -1,4 +1,8 @@
 Transport::Application.routes.draw do
+
+  #match :stock_equipaments, :as => :stock_equipaments,  via: [:get]
+  match :stock_equipaments,  to: 'stock_equipaments#index',  via: [:get]
+
   resources :transfer_equipaments, only: [:new] do
     collection do
       post :create
