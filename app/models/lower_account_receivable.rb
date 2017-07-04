@@ -16,8 +16,10 @@ class LowerAccountReceivable < ActiveRecord::Base
   def check_full_receivable_billing?
   	positivo = true
   	accounts = AccountReceivable.where(billing_id: self.account_receivable.billing_id)
+    puts ">>>>>>>>>>>>>Account: #{self.account_receivable.valor.to_f}"
   	accounts.order(:id).each do |account|
   		puts ">>>>>>>>>>>>> Doc: #{account.documento} - Status: #{account.status}"
+      puts ">>>>>>>>>>>>> Lower: #{account.valor_pago.to_f}"
 			positivo = account.status == AccountReceivable::TipoStatus::PAGO
 			return false if positivo == false
   	end

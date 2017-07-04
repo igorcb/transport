@@ -91,11 +91,13 @@ class AccountReceivable < ActiveRecord::Base
       vr_total_pago = valor_total_pago + options[:valor_pago].to_f
 
       if vr_total_pago >= self.valor
+        puts ">>>>>>>>>>>> status: PAGO"
         self.status = TipoStatus::PAGO
         # if self.ordem_service_type_service.present?
         #   OrdemServiceTypeService.update(self.ordem_service_type_service, status: OrdemServiceTypeService::TipoStatus::PAGO) 
         # end
       elsif vr_total_pago < self.valor
+        puts ">>>>>>>>>>>> status: PAGOPARCIAL"
         self.status = TipoStatus::PAGOPARCIAL
       end
 
