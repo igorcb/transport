@@ -3,13 +3,13 @@
   <%= @activity.descricao %>
 </p>
 
-<h2>Fornecedore</h2>
+<h2>Fornecedores</h2>
 <% if @activity.suppliers.any? %>
   <table class="table table-striped">
     <tbody>
       <% @activity.suppliers.each do |supplier| %>
         <tr>
-          <td><%= supplier.nome %></td>
+          <td><%= link_to supplier.nome, supplier if supplier.present? %></td>
           <td><%= supplier.cidade %> - <%= supplier.estado %></td>
         </tr>
       <% end %>

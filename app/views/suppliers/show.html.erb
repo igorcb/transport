@@ -81,7 +81,7 @@
     <tbody>
       <% @supplier.activities.each do |activity| %>
         <tr>
-          <td><%= activity.descricao %></td>
+          <td><%= link_to activity.descricao, activity if activity.present? %></td>
         </tr>
       <% end %>
 
