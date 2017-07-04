@@ -1,0 +1,190 @@
+<h1>New Transfer Equipament</h1>
+
+<%= form_for( :transfer_source , :html => {:role => "form"}, url: transfer_equipaments_path) do |f| %>
+  <div class="form-group">
+    <%= f.label :equipament, "Equipamento" %><br>
+    <%= f.select( :equipament, select_type_equipament, {include_blank: false}, {class: "form-control"} )%>
+  </div>
+  <div class="form-group">
+    <%= f.label :date_launche, "Data" %><br>
+    <%= f.text_field :date_launche, value: date_br(Date.current), class: "form-control data" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :qtde %><br>
+    <%= f.number_field :qtde,class: "form-control numericOnly" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :historic, "Historico" %><br>
+    <%= f.text_field :historic, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :observation, "Observacao" %><br>
+    <%= f.text_area :observation, class: "form-control" %>
+  </div>
+  
+  <hr>
+
+  <div class="form-group">
+  	<%#= label_tag :source_responsable_id, "Responsavel Origem" %>
+	  <%#= text_field_tag "transfer_origem[source_responsable_id]", nil, class: "form-control" %>
+  </div>
+
+  <div class="">
+    <%= label_tag "transfer_source[source_type_account]", "Tipo de Conta Origem" %>
+  </div>
+
+  <div class="radio">
+    <label class="radio-inline"> 
+      <%= radio_button_tag "transfer_source[source_type_account]", "1" %> Fornecedor 
+    </label>
+
+    <label class="radio-inline"> 
+      <%= radio_button_tag "transfer_source[source_type_account]", "2" %> Motorista
+    </label>
+
+    <label class="radio-inline"> 
+      <%= radio_button_tag "transfer_source[source_type_account]", "3" %> Cliente
+    </label>
+
+    <label class="radio-inline"> 
+      <%= radio_button_tag "transfer_source[source_type_account]", "4" %> Funcionario
+    </label>
+
+    <label class="radio-inline"> 
+      <%= radio_button_tag "transfer_source[source_type_account]", "5" %> Transportadora
+    </label>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "transfer_source[source_responsable_id]", "Responsavel Origem" %>
+    <%= select_tag "transfer_source[source_responsable_id]", {prompt: "SELECT O TIPO DE CONTA"}, {class: "form-control"}  %>
+  </div>
+
+  <div id="div_result_person_source">
+    
+  </div>
+
+
+  <div class="form-group">
+  	<%#= label_tag :target_responsable_id, "Responsavel Destino" %>
+  	<%#= text_field_tag "transfer_origem[target_responsable_id]", nil, class: "form-control" %>
+  </div>
+
+  <div class="">
+    <%= label_tag :type_account_target, "Tipo de Conta Destino" %>
+  </div>
+
+  <div class="radio">
+    <label class="radio-inline"> 
+      <%= radio_button_tag "transfer_source[target_type_account]", "1" %> Fornecedor 
+    </label>
+
+    <label class="radio-inline"> 
+      <%= radio_button_tag "transfer_source[target_type_account]", "2" %> Motorista
+    </label>
+
+    <label class="radio-inline"> 
+      <%= radio_button_tag "transfer_source[target_type_account]", "3" %> Cliente
+    </label>
+
+    <label class="radio-inline"> 
+      <%= radio_button_tag "transfer_source[target_type_account]", "4" %> Funcionario
+    </label>
+
+    <label class="radio-inline"> 
+      <%= radio_button_tag "transfer_source[target_type_account]", "5" %> Transportadora
+    </label>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "transfer_source[target_responsable_id]", "Responsavel Destinno" %>
+    <%= select_tag "transfer_source[target_responsable_id]", {prompt: "SELECT O TIPO DE CONTA"}, {class: "form-control"}  %>
+  </div>
+
+  <div id="div_result_target">
+    
+  </div>
+
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+    $('input[name="transfer_source[source_type_account]"]').change(function(){
+      var type_id = "type_id="+$(this).val();
+      console.log(type_id);
+      $.getJSON('/type_account_select', type_id, function(data){
+        var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#transfer_source_source_responsable_id").html(options);
+      });
+    });     
+  });
+
+</script>
+
+<script type="text/javascript">
+  $(function(){
+    $('input[name="transfer_source[target_type_account]"]').change(function(){
+      var type_id = "type_id="+$(this).val();
+      console.log(type_id);
+      $.getJSON('/type_account_select', type_id, function(data){
+        var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#transfer_source_target_responsable_id").html(options);
+      });
+    });     
+  });
+
+</script>
+
+
+<script type="text/javascript">
+jQuery(function($) {
+  // when the #country field changes
+  var type = -1;
+
+  $(function() {
+    $('input[name="transfer_source[source_type_account]"]').change(function() {
+      type = ($(this).val());
+    });
+  });
+  
+  $("#transfer_source_source_responsable_id").change(function() {
+    // make a POST call and replace the content
+    var url_name = "";
+    var id = $('select#transfer_source_source_responsable_id :selected').val();
+    if(id == "") 
+      id="0";
+    //console.log("url:" + url_name + ' - type: ' + type)  ;
+    console.log("type:" + type);
+    if (type == 1)
+      url_name = "/suppliers/get_supplier_by_id";
+    else if (type == 2)
+      url_name = "/drivers/get_driver_by_id";
+    else if (type == 3)
+      url_name = "/clients/get_client_by_id";
+    else if (type == 4)
+      url_name = "/employees/get_employee_by_id";
+    else if (type == 5)
+      url_name = "/carriers/get_carrier_by_id";
+    else url_name = '/';
+     //"\""+url_name+"\""
+    console.log("url: " + url_name);
+    $.ajax({
+      type: "GET",
+      data: {id: id},
+      url: url_name
+    });
+    return false;
+  });
+})
+</script>
+

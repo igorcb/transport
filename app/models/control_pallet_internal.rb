@@ -9,7 +9,7 @@ class ControlPalletInternal < ActiveRecord::Base
   belongs_to :boarding
   belongs_to :responsable, class_name: "Supplier", foreign_key: "responsable_id", polymorphic: true
 
-  default_scope { order(date_launche: :desc) }
+  default_scope { order(date_launche: :desc, id: :desc) }
   scope :credit, -> { where(type_launche: CreditDebit::CREDIT) }
   scope :debit, -> { where(type_launche: CreditDebit::DEBIT) }
 
@@ -72,6 +72,21 @@ class ControlPalletInternal < ActiveRecord::Base
       when 4 then "ChapaTex"
       else "*"
     end
+  end
+
+  def self.transfer(source, target)
+    ActiveRecord::Base.transaction do
+      @source = source
+      @target = target
+      @source.save!
+      @target.save!
+      return true
+    end
+    rescue Exception => e
+      puts e.message
+      @source.errors.add(:ControlPalletInternal, e.message)
+      @target.errors.add(:ControlPalletInternal, e.message)
+      return false 
   end
 
   protected

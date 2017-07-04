@@ -1,5 +1,13 @@
 Transport::Application.routes.draw do
-  resources :control_pallet_internals
+  resources :transfer_equipaments, only: [:new] do
+    collection do
+      post :create
+    end
+  end
+  
+  resources :control_pallet_internals do
+
+  end
 
   resources :input_controls do
     member do

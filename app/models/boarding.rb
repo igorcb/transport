@@ -245,7 +245,6 @@ class Boarding < ActiveRecord::Base
     #Atualizar qtde pallets boarding
     #fazer lancamento de debito para L7 Logistica ou Transportadora
     #Fazer lancamento de crédito para o motorista e ou responsavel
-    puts ">>>>>>>>>>>>>>>>>>>> #{options}"
     equipament = ControlPalletInternal.get_equipament(options[:equipament])
     begin
       ActiveRecord::Base.transaction do
@@ -258,7 +257,7 @@ class Boarding < ActiveRecord::Base
                                       type_launche: ControlPalletInternal::CreditDebit::DEBIT,
                                       date_launche: Date.current,
                                       qtde: options[:qtde],
-                                      historic: "SAIDA DE #{equipament}.upcase EMBARQUE No: #{self.id}"
+                                      historic: "SAIDA DE #{equipament.upcase} EMBARQUE No: #{self.id}"
                                     )
         ControlPalletInternal.create!(type_account: ControlPalletInternal::TypeAccount::DRIVER,
                                       responsable_type: "Driver",
@@ -268,7 +267,7 @@ class Boarding < ActiveRecord::Base
                                       type_launche: ControlPalletInternal::CreditDebit::CREDIT,
                                       date_launche: Date.current,
                                       qtde: options[:qtde],
-                                      historic: "ENTRADA DE #{equipament}.upcase EMBARQUE No: #{self.id}"
+                                      historic: "ENTRADA DE #{equipament.upcase} EMBARQUE No: #{self.id}"
                                     )
         return true
       end
