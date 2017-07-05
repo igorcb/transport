@@ -61,6 +61,8 @@ gem 'thinreports-rails', '~> 0.3.0'
 
 gem 'barby', '~> 0.6.5'
 
+gem "cpf_cnpj"
+
 # group :development, :test do
 #   # gem 'sqlite3', '1.3.5'
 #   gem 'rspec-rails', '2.11.0'
