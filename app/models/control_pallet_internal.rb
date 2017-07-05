@@ -97,6 +97,10 @@ class ControlPalletInternal < ActiveRecord::Base
     ControlPalletInternal.by_equipament(equipament).sum("type_launche*qtde")
   end
 
+  def print_term?
+    self.boarding.present? && self.responsable_type == "Driver" ? true : false
+  end
+
   def self.transfer(source, target)
     ActiveRecord::Base.transaction do
       @source = source
