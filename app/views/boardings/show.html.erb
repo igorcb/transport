@@ -84,7 +84,7 @@
     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
       <div class="panel-body">
 
-        <% @boarding.control_pallet_internals.debit.each do |control_pallet_internal| %>
+        <% @boarding.control_pallet_internals.credit.each do |control_pallet_internal| %>
           <%= render 'control_pallet_internals/summary', control_pallet_internal: control_pallet_internal %>
         <% end %>         
 
