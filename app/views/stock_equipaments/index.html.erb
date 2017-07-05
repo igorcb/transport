@@ -4,8 +4,8 @@
     <ul class="list-group">
     
       <li class="list-group-item active">
-        <span class="badge">Geral: <%= Pallet.entrada - Pallet.saida + ControlPalletInternal.equipament_saldo(ControlPalletInternal::TypeEquipament::PALLET) %></span>
-        Arazenagem de Cliente: <%= Pallet.entrada - Pallet.saida  %>
+        <span class="badge">Geral: <%= ControlPallet.entrada - ControlPallet.saida + ControlPalletInternal.equipament_saldo(ControlPalletInternal::TypeEquipament::PALLET) %></span>
+        Arazenagem de Cliente: <%= ControlPallet.entrada - ControlPallet.saida  %>
       </li>
 
 			<% ControlPalletInternal.all_equipament.each do |equipament| %>        
