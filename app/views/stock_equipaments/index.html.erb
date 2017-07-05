@@ -2,8 +2,14 @@
   <div class="panel-heading">Estoque de Equipamentos </div>
   <div class="panel-body">
     <ul class="list-group">
+    
+      <li class="list-group-item active">
+        <span class="badge">Geral: <%= Pallet.entrada - Pallet.saida + ControlPalletInternal.equipament_saldo(ControlPalletInternal::TypeEquipament::PALLET) %></span>
+        Arazenagem de Cliente: <%= Pallet.entrada - Pallet.saida  %>
+      </li>
+
 			<% ControlPalletInternal.all_equipament.each do |equipament| %>        
-        <li class="list-group-item"><%= ControlPalletInternal.get_equipament(equipament.equipament) %>
+        <li class="list-group-item list-group-item-info"><%= ControlPalletInternal.get_equipament(equipament.equipament) %>
         	<span class="badge">Saldo: <%= ControlPalletInternal.equipament_saldo(equipament.equipament) %></span>
         </li>
         <table class="table table-striped">

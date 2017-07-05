@@ -22,30 +22,6 @@ class ControlPalletInternal < ActiveRecord::Base
 
   before_save :set_responsable_type
   
-  def saldo
-    Cash.where(cash_account_id: self.id).sum('valor*tipo')
-  end  
-
-  # def self.equipament_and_credit_and_responsable
-  #   ControlPalletInternal.credit.by_equipament(1).sum("type_launche*qtde")
-  # end
-
-  def self.equipament_and_credit_and_responsable(equipament, responsable_type, responsable)
-    ControlPalletInternal.credit.by_equipament(equipament).by_type_and_responsable(responsable_type, responsable).sum("type_launche*qtde")
-  end
-
-  def self.equipament_and_debit_and_responsable(equipament, responsable_type, responsable)
-    ControlPalletInternal.debit.by_equipament(equipament).by_type_and_responsable(responsable_type, responsable).sum("type_launche*qtde")
-  end
-
-  def self.equipament_saldo_and_responsable(equipament, responsable_type, responsable)
-    ControlPalletInternal.by_equipament(equipament).by_type_and_responsable(responsable_type, responsable).sum("type_launche*qtde")
-  end
-
-  def self.equipament_saldo(equipament)
-    ControlPalletInternal.by_equipament(equipament).sum("type_launche*qtde")
-  end
-
   module TypeEquipament
   	PALLET = 1
   	BIG_BAG = 2
@@ -103,6 +79,22 @@ class ControlPalletInternal < ActiveRecord::Base
       when 4 then "ChapaTex"
       else "*"
     end
+  end
+
+  def self.equipament_and_credit_and_responsable(equipament, responsable_type, responsable)
+    ControlPalletInternal.credit.by_equipament(equipament).by_type_and_responsable(responsable_type, responsable).sum("type_launche*qtde")
+  end
+
+  def self.equipament_and_debit_and_responsable(equipament, responsable_type, responsable)
+    ControlPalletInternal.debit.by_equipament(equipament).by_type_and_responsable(responsable_type, responsable).sum("type_launche*qtde")
+  end
+
+  def self.equipament_saldo_and_responsable(equipament, responsable_type, responsable)
+    ControlPalletInternal.by_equipament(equipament).by_type_and_responsable(responsable_type, responsable).sum("type_launche*qtde")
+  end
+
+  def self.equipament_saldo(equipament)
+    ControlPalletInternal.by_equipament(equipament).sum("type_launche*qtde")
   end
 
   def self.transfer(source, target)
