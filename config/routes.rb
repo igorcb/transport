@@ -10,7 +10,9 @@ Transport::Application.routes.draw do
   end
   
   resources :control_pallet_internals do
-
+    member do
+      get :term_pallet
+    end
   end
 
   resources :input_controls do
