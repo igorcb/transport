@@ -255,6 +255,16 @@ class Boarding < ActiveRecord::Base
     result
   end
 
+  def vehicle_tracao
+    vehicle_temp = self.boarding_vehicles.joins(:vehicle).where("vehicles.tipo = ? ", Vehicle::Tipo::TRACAO).first
+    vehicle_temp.nil? ? nil : Vehicle.find(vehicle_temp.vehicle_id)
+  end
+
+  def vehicle_reboque
+    vehicle_temp = self.boarding_vehicles.joins(:vehicle).where("vehicles.tipo = ? ", Vehicle::Tipo::REBOQUE).first
+    vehicle_temp.nil? ? nil : Vehicle.find(vehicle_temp.vehicle_id)
+  end
+
   def requisition?(options={})
     #Atualizar qtde pallets boarding
     #fazer lancamento de debito para L7 Logistica ou Transportadora

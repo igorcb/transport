@@ -43,6 +43,7 @@ Transport::Application.routes.draw do
       get :comments
       get :request_pallet
       post :requisition
+      get :letter_freight
     end
     collection do
       #get :comments

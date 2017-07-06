@@ -161,8 +161,10 @@
   <%= link_to 'Editar', edit_boarding_path(@boarding), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', boardings_path, class: "btn btn-default" %>
   <%= link_to 'Imprimir Embarque', print_boarding_path(@boarding, format: 'pdf'), class: "btn btn-primary" %>
+  <%= link_to 'Imprimir Frete', letter_freight_boarding_path(@boarding, format: 'pdf'), class: "btn btn-primary" %>
   <%= link_to 'Gerar Ocorrência', comments_boarding_path(@boarding), class: "btn btn-warning" %>
   <%= link_to 'Solictar Equipamento', request_pallet_boarding_path(@boarding), class: "btn btn-yellow" %>
+
 </div>
 
 <div class="panel panel-default">

@@ -1,6 +1,6 @@
 class BoardingsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_boarding, only: [:show, :edit, :update, :destroy, :lower, :print]
+  before_action :set_boarding, only: [:show, :edit, :update, :destroy, :lower, :print, :letter_freight]
   load_and_authorize_resource
   #respond_to :js, :html, :json, :pdf
 
@@ -68,6 +68,14 @@ class BoardingsController < ApplicationController
       format.html { redirect_to boardings_url }
       format.json { head :no_content }
     end
+  end
+
+  def letter_freight
+    respond_to do |format|
+      format.html
+      format.pdf { render_letter_freight(@boarding) }
+    end
+    
   end
 
   def print
@@ -142,6 +150,52 @@ class BoardingsController < ApplicationController
         boarding_vehicles_attributes: [:boarding_vehicles_id, :vehicle_id, :id, :_destroy]
 
       	)
+    end
+
+    def render_letter_freight(boarding)
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'carta_frete.tlf')
+      report.start_new_page
+
+      emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
+      owner = @boarding.vehicle_tracao.owners.first
+      local_data = "FORTALEZA, #{l boarding.date_boarding , format: :long }"
+
+      report.page.item(:no_contrato).value(boarding.id)
+      report.page.item(:valor_frete).value(boarding.value_boarding)
+      report.page.item(:valor_pedagio).value("")
+      report.page.item(:valor_adiantamento).value("")
+      report.page.item(:valor_saldo).value("")
+      report.page.item(:no_manifesto).value("000000")
+      report.page.item(:data_expedicao).value(local_data)
+
+      report.page.item(:owner_name).value(owner.nome)
+      report.page.item(:owner_cpf).value(owner.cpf_cnpj)
+      report.page.item(:owner_address).value(owner.endereco + ',' + owner.numero)
+      report.page.item(:owner_complement).value(owner.complemento)
+      report.page.item(:owner_district_city).value(owner.distric_city_state_cep)
+
+      report.page.item(:tracao_marca).value("MARCA: #{@boarding.vehicle_tracao.marca}")
+      report.page.item(:tracao_renavan).value("RENAVAN: #{@boarding.vehicle_tracao.renavan}")
+      report.page.item(:tracao_chassi).value("CHASSI: #{@boarding.vehicle_tracao.chassi}")
+      report.page.item(:tracao_placa).value("PLACA: #{@boarding.vehicle_tracao.placa}")
+  
+      if @boarding.vehicle_reboque.present?
+        report.page.item(:reboque_marca).value("MARCA: #{@boarding.vehicle_reboque.marca}")
+        report.page.item(:reboque_renavan).value("RENAVAN: #{@boarding.vehicle_reboque.renavan}")
+        report.page.item(:reboque_chassi).value("CHASSI: #{@boarding.vehicle_reboque.chassi}")
+        report.page.item(:reboque_placa).value("PLACA: #{@boarding.vehicle_reboque.placa}")
+      end
+
+      report.page.item(:driver_name).value(boarding.driver.nome)
+      report.page.item(:driver_cpf).value(boarding.driver.cpf)
+      report.page.item(:driver_address).value(boarding.driver.endereco + ',' + boarding.driver.numero)
+      report.page.item(:driver_complement).value(boarding.driver.complemento)
+      report.page.item(:driver_district_city).value(boarding.driver.distric_city_state_cep)
+      report.page.item(:data_and_hora).value(emitido)
+
+      send_data report.generate, filename: "letter_freight_#{boarding.id}_.pdf", 
+                                   type: 'application/pdf', 
+                                   disposition: 'inline'
     end
 
     def render_print_boarding(boarding)
