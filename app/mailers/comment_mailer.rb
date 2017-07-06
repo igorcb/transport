@@ -10,7 +10,12 @@ class CommentMailer < ActionMailer::Base
     @ordem_service = ordem_service
     @comments = @ordem_service.comments
     comment  = @comments.last
-    email = "#{comment.email_destino}, igor.batista@l7logistica.com.br"
+    if Rails.env.development?
+      email = ENV['RAILS_MAIL_DESTINATION']
+    end
+    if Rails.env.production?
+      email = "#{comment.email_destino}"
+    end     
     #text_subject = @comments.count < 1 ? "Nova Ocorrência OS. No: #{@ordem_service.id}" : "Nova Interação OS No: #{@ordem_service.id}"
     cte = @ordem_service.cte_keys.present? ? "CT-e: #{@ordem_service.cte_keys.first.cte}" : "CTE: ?"
     placa = @ordem_service.ordem_service_logistics.present? ? @ordem_service.ordem_service_logistic.placa : @ordem_service.placa  
@@ -22,7 +27,12 @@ class CommentMailer < ActionMailer::Base
     @boarding = boarding
     @comments = @boarding.comments
     comment  = @comments.last
-    email = "#{comment.email_destino}, igor.batista@l7logistica.com.br"
+    if Rails.env.development?
+      email = ENV['RAILS_MAIL_DESTINATION']
+    end
+    if Rails.env.production?
+      email = "#{comment.email_destino}"
+    end     
     text_subject = "OCORRENCIA: NF #{comment.observation}"
     #anexar imagens
     photo = Asset.last
@@ -43,7 +53,12 @@ class CommentMailer < ActionMailer::Base
     @input_control = input_control
     @comments = @input_control.comments
     comment  = @comments.last
-    email = "#{comment.email_destino}, igor.batista@l7logistica.com.br"
+    if Rails.env.development?
+      email = ENV['RAILS_MAIL_DESTINATION']
+    end
+    if Rails.env.production?
+      email = "#{comment.email_destino}"
+    end     
     text_subject = "OCORRENCIA: NF #{comment.observation}"
     #anexar imagens
     photo = Asset.last
