@@ -35,11 +35,11 @@
 		</tr>
 		<tr>
 			<td>Cliente</td>
-			<td align="center" style="color:#1f497d"><%= @boarding.boarding_items.first.ordem_service.client.nome %></td>
+			<td align="center" style="color:#1f497d"><%= @boarding.items_select_clients %></td>
 		</tr>
 		<tr>
 			<td>Volume Total da NF</td>
-			<td align="center" style="color:#1f497d"><%= @boarding.volume_total %></td>
+			<td align="center" style="color:#1f497d"><%= @boarding.volume_total(@boarding.comments.last.observation) %></td>
 		</tr>
 		<tr>
 			<td>Ocorrência</td>

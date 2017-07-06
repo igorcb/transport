@@ -151,8 +151,13 @@ class Boarding < ActiveRecord::Base
     boarding_items.joins(:ordem_service).sum("ordem_services.peso")
   end
 
-  def volume_total
-    boarding_items.joins(:ordem_service).sum("ordem_services.qtde_volume")
+  def volume_total(nfe_keys=nil)
+    if nfe_keys.nil?
+      boarding_items.joins(:ordem_service).sum("ordem_services.qtde_volume")
+    else
+      nfe_keys = self.comments.last.observation.gsub(" ","").gsub('[','').gsub(']','').split(',')
+      self.nfe_keys.where(nfe: nfe_keys).sum("nfe_keys.volume")
+    end
   end
 
   def valor_total
@@ -227,6 +232,15 @@ class Boarding < ActiveRecord::Base
       cities << item.ordem_service.client.cidade
     end
     cities
+  end
+
+  def items_select_clients
+    clients = []
+    nfes_number = self.comments.last.observation.gsub(" ","").gsub('[','').gsub(']','').split(',')
+    self.nfe_keys.where(nfe: nfes_number).each do |item|
+      clients << item.ordem_service.client.nome
+    end
+    clients
   end
 
   def feed
