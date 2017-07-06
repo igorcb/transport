@@ -23,5 +23,9 @@ class Owner < ActiveRecord::Base
   has_many :ownerships
   has_many :vehicles, :through => :ownerships
   accepts_nested_attributes_for :ownerships, allow_destroy: true, reject_if: :all_blank  
+
+  def distric_city_state_cep
+    "#{bairro} - #{cidade} - #{estado} - CEP: #{cep}"
+  end
   
 end
