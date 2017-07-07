@@ -164,8 +164,17 @@ class InputControlsController < ApplicationController
     @comment = Comment.new
   end
 
+  def received_weight_search
+    @input_controls = InputControl.where("date_receipt >= ? and date_receipt <= ?", params[:start_date], params[:end_date])
+                                  .select_date_receipt
+    respond_with(@input_controls) do |format|
+      format.js
+    end
+  end
+
   def received_weight
     @input_controls = InputControl.select_date_receipt
+    respond_with(@input_controls)
   end
 
   private

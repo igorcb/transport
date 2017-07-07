@@ -1,0 +1,25 @@
+<table class="table table-striped">
+  <thead>
+    
+    <%= render 'header' %>
+
+  </thead>
+
+  <tbody>
+            
+	<% @input_controls.each do |input_control| %>
+	  <tr>
+	    <td><%= input_control[0] %></td>
+	    <td align="right"><%= number_with_precision(input_control[1], precision: 3, separator: ',', delimiter: '.') %></td>
+	    <td align="right"><%= number_with_precision(input_control[2], precision: 3, separator: ',', delimiter: '.') %></td>
+	    <td align="right"><%= calculation_discharge(input_control[1]) %></td>
+	    <td align="right"><%= calculation_discharge(input_control[2]) %></td>
+	  </tr>
+	<% end %>
+
+  </tbody>
+</table>
+
+    
+
+

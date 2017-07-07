@@ -28,6 +28,8 @@ Transport::Application.routes.draw do
       get :comments
     end
     get :received_weight, on: :collection 
+    get :received_weight_search, on: :collection 
+    #match "/cashes_search" => "cashes#search", via: [:get]
     #match :finish_typing, :as => :update_status, :via => [:get, :put]  
     #match "input_controls/finish_typing" => "input_controlsr#finish_typing", as: :finish_typing, via: [:post]
   end

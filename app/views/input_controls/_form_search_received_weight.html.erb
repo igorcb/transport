@@ -1,0 +1,15 @@
+<div class="panel-body">
+  <%#= form_tag remote: true, url: received_weight_search_input_controls_path, :method => :get do |f| %>
+  <%= form_tag(received_weight_search_input_controls_url, :method => :get, remote: true) do %>
+     <div class="form-group">
+      <%= label_tag :start_date, "Período de " %>
+      <%= text_field_tag :start_date, nil, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+    </div>
+     <div class="form-group">
+      <%= label_tag :end_date, "até" %>
+      <%= text_field_tag :end_date, nil, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+    </div>
+
+    <div class="actions"><%= submit_tag "Search" %></div>
+  <% end %>
+</div>
