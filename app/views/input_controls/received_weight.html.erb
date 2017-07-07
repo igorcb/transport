@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Relatorio de Recebimentos de Mercadoria (Peso por Data)</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <td align="right"><strong>Peso Bruto</strong></td>
+            <td align="right"><strong>Peso Liquido</strong></td>
+            <td align="right"><strong>Valor Bruto</strong></td>
+            <td align="right"><strong>Valor Liquido</strong></td>
+         </tr>
+        </thead>
+
+        <tbody>
+          <% @input_controls.each do |input_control| %>
+            <tr>
+              <td><%= input_control[0] %></td>
+              <td align="right"><%= number_with_precision(input_control[1], precision: 3, separator: ',', delimiter: '.') %></td>
+              <td align="right"><%= number_with_precision(input_control[2], precision: 3, separator: ',', delimiter: '.') %></td>
+              <td align="right"><%= calculation_discharge(input_control[1]) %></td>
+              <td align="right"><%= calculation_discharge(input_control[2]) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

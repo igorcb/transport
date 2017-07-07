@@ -164,6 +164,10 @@ class InputControlsController < ApplicationController
     @comment = Comment.new
   end
 
+  def received_weight
+    @input_controls = InputControl.select_date_receipt
+  end
+
   private
     def set_input_control
       @input_control = InputControl.find(params[:id])

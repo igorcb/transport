@@ -23,6 +23,13 @@ class InputControl < ActiveRecord::Base
 
   has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
 
+  scope :not_discharge_weight, -> { where(not_discharge: false) }
+  # scope :select_date_receipt, -> { joins(:nfe_xmls).where(not_discharge: false)
+  #                                                  .group(:date_receipt)
+  #                                                  .sum("nfe_xmls.peso")
+  #                                                   }
+
+  #scope :red, -> { where(color: 'red') }
 
   #before_save { |item| item.email = email.downcase }
   RECEBIMENTO_DESCARGA_HISTORIC = 100
@@ -30,6 +37,8 @@ class InputControl < ActiveRecord::Base
   RECEBIMENTO_DESCARGA_COST_CENTER = 81
   RECEBIMENTO_DESCARGA_SUB_COST_CENTER = 269
   RECEBIMENTO_DESCARGA_SUB_COST_CENTER_THREE = 160
+
+  VALUE_DISCHARGE = 0.88 #POR TONELADA
 
   before_save do |item| 
     item.place = place.upcase 
@@ -338,6 +347,22 @@ class InputControl < ActiveRecord::Base
   def feed_cancellations
     Cancellation.where("cancellation_type = ? and cancellation_id = ?", "InputControl", self.id)
   end
+
+  def self.select_date_receipt
+    # Location.group(:city, :province, :country)
+    #     .select(:city, :province, :country, "SUM(images_girl_count) as sum_images_count")
+    #     .order("sum_images_count DESC")
+    #     .collect{ |location| [location.city, location.province, location.country, location.sum_images_count] }                                 
+
+    InputControl.joins(:nfe_xmls).where(not_discharge: false).where.not(date_receipt: nil)
+                                 .select(:date_receipt, "SUM(nfe_xmls.peso) as peso", "coalesce(SUM(nfe_xmls.peso_liquido),0) AS peso_liquido")
+                                 .group(:date_receipt)
+                                 .order(date_receipt: :desc)
+                                 .collect {|input| [input.date_receipt, input.peso, input.peso_liquido]}
+                                 
+
+  end
+
 
 #  private
     def get_number_nfe_xmls

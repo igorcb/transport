@@ -22,6 +22,11 @@ module InputControlsHelper
     end
   end
 
+  def calculation_discharge(value)
+    calc = value * (InputControl::VALUE_DISCHARGE / 1000)
+    number_to_currency(calc, precision: 2, unit: "R$ ", separator: ",", delimiter: ".")
+  end
+
 end
 
   # def alert_color(ordem_service, alert)
