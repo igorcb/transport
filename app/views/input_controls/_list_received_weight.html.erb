@@ -14,6 +14,7 @@
 	    <td align="right"><%= number_with_precision(input_control[2], precision: 3, separator: ',', delimiter: '.') %></td>
 	    <td align="right"><%= calculation_discharge(input_control[1]) %></td>
 	    <td align="right"><%= calculation_discharge(input_control[2]) %></td>
+	    <td align="right"><%= number_with_precision(input_control[3], precision: 3, separator: ',', delimiter: '.') %></td>
 	  </tr>
 	<% end %>
 	  <tr>
@@ -22,6 +23,7 @@
 	  	<td align="right"><strong><%= number_with_precision(@input_control_total[0][1], precision: 3, separator: ',', delimiter: '.') %></strong></td>
 	  	<td align="right"><strong><%= number_with_precision(calculation_discharge(@input_control_total[0][0]), precision: 3, separator: ',', delimiter: '.') %></strong></td>
 	  	<td align="right"><strong><%= number_with_precision(calculation_discharge(@input_control_total[0][1]), precision: 3, separator: ',', delimiter: '.') %></strong></td>
+	  	<td align="right"><strong><%#= number_with_precision(@input_control_total[0][1], precision: 3, separator: ',', delimiter: '.') %><strong></td>
 	  </tr>
 		<tr>
 	  	<td><strong>Media realizada do período:</strong></td>
