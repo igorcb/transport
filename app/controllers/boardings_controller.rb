@@ -19,7 +19,7 @@ class BoardingsController < ApplicationController
   end
 
   def index
-    @q = Boarding.search(params[:q])
+    @q = Boarding.where(status: -1).search(params[:q])
     @boardings = Boarding.the_day
   end
 
