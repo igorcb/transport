@@ -667,6 +667,40 @@
         "base": "",
         "type": ""
       }
+    },
+    {
+      "id": "data_and_hora",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 20,
+      "y": 790,
+      "width": 555.2,
+      "height": 16,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 8,
+        "color": "#7f7f7f",
+        "text-align": "center",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [
+          "bold"
+        ],
+        "overflow": "truncate",
+        "word-wrap": "break-word"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": true,
+      "format": {
+        "base": "",
+        "type": ""
+      }
     }
   ],
   "state": {

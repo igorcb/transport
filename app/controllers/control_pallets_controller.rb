@@ -115,6 +115,8 @@ class ControlPalletsController < ApplicationController
       report.page.item(:chave_nfe_devolucao).value(control_pallet.nfd_original)
       report.page.item(:cod_bar_nfe_original).src(barcode(:ean_128, control_pallet.nfe_original))
       report.page.item(:cod_bar_nfe_devolucao).src(barcode(:ean_128, control_pallet.nfd_original)) if control_pallet.nfd_original.present? 
+      report.page.item(:data_and_hora).value(emitido)
+
       send_data report.generate, filename: "pallet_#{control_pallet.id}_.pdf", 
                                    type: 'application/pdf', 
                                    disposition: 'inline'

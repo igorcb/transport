@@ -87,6 +87,8 @@ class ControlPalletInternalsController < ApplicationController
       report.page.item(:notas_fiscais).value("#{control.boarding.get_number_nfe}")
       report.page.item(:text_complete).value(texto)
       
+      report.page.item(:data_and_hora).value(emitido)      
+
       send_data report.generate, filename: "term_pallet_#{control.id}_.pdf", 
                                    type: 'application/pdf', 
                                    disposition: 'inline'
