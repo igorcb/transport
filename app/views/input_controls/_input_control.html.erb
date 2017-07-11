@@ -1,0 +1,10 @@
+<td><%= input_control.id %></td>
+<td><%= input_control.carrier.nome %></td>
+<td><%= input_control.driver.nome %></td>
+<td><%= date_br input_control.date_entry %>&nbsp<%= time_br input_control.time_entry %></td>
+<td><%= date_br input_control.date_receipt %></td>
+<td><%= input_control.palletized_status %></td>
+<td><%= input_control.quantity_pallets %></td>
+<td><%= truncate(input_control.status_name, length: 12) %></td>
+<td><%= link_to 'Show', input_control, class: "btn btn-info btn-xs" %></td>
+<td><%= link_to 'Edit', edit_input_control_path(input_control), class: "btn btn-primary btn-xs"  %></td>

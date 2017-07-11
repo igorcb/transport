@@ -27,6 +27,9 @@ Transport::Application.routes.draw do
       get 'quitter'
       get :comments
     end
+    collection do
+      get :search
+    end
     get :received_weight, on: :collection 
     get :received_weight_search, on: :collection 
     #match "/cashes_search" => "cashes#search", via: [:get]

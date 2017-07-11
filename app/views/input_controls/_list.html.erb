@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listing input_controls</div>
+  <div class="panel-body">
+    <%= link_to 'New Input control', new_input_control_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <%= render 'header' %>
+         </tr>
+        </thead>
+
+        <tbody>
+          <% @input_controls.each do |input_control| %>
+            <tr>
+              <%= render input_control %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

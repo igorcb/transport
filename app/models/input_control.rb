@@ -62,7 +62,7 @@ class InputControl < ActiveRecord::Base
   end #ordem do processo OPEN, FINISH TYPING, CLOSE, BILLIED
 
   def self.ransackable_attributes(auth_object = nil)
-    ['date_entry', "date_receipt"]
+    ['id','carrier','driver','place','date_entry', 'date_receipt', 'status']
   end
 
   def self.select_date_receipt

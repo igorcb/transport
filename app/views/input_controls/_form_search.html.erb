@@ -1,0 +1,51 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+        <div class="panel-body">
+          <%= search_form_for @q, remote: true, url: search_input_controls_path, :method => :get do |f| %>
+            <div class="form-group">
+              <%= f.label :id_eq, "No Remessa " %>
+              <%= f.search_field :id_eq, class: "form-control", placeholder: "" %>  
+            </div>
+            <div class="form-group">
+              <%= f.label :date_entry_eq, "Data Entrada" %>
+              <%= f.search_field :date_entry_eq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+            </div>
+            <div class="form-group">
+              <%= f.label :date_receipt_eq, "Data recebimento " %>
+              <%= f.search_field :date_receipt_eq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+            </div>
+            <div class="form-group">
+              <%= f.label :carrier_id_eq, "Transportadora" %>
+              <%= f.collection_select :carrier_id_eq, Carrier.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+            </div>
+            <div class="form-group">
+              <%= f.label :driver_id_eq, "Motorista" %>
+              <%= f.collection_select :driver_id_eq, Driver.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+            </div>
+            <div class="form-group">
+              <%= f.label :place_eq, "Placa" %>
+              <%= f.search_field :place_eq, class: "form-control", placeholder: "Informe a placa" %>  
+            </div>
+            <div class="form-group">
+              <%= f.label :status_eq, "Status" %>
+              <%= f.select( :status_eq, select_status_input_control, {include_blank: true}, {class: "form-control"} ) %> 
+            </div>
+            <div class="actions"><%= f.submit "Search" %></div>
+          <% end %>
+        </div>
+
+    </div>
+  </div>
+
+</div>

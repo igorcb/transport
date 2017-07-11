@@ -6,7 +6,7 @@ class InputControlsController < ApplicationController
   before_action :set_input_control, only: [:show, :edit, :update, :destroy, :select_nfe]
   load_and_authorize_resource  
 
-  respond_to :html
+  respond_to :html, :js
 
   def quitter
     #respond_with(@input_control)
@@ -98,8 +98,19 @@ class InputControlsController < ApplicationController
 
 
   def index
-    @input_controls = InputControl.order(date_entry: :desc, time_entry: :desc)
+    #@input_controls = InputControl.order(date_entry: :desc, time_entry: :desc)
+    #@q = Boarding.where(status: -1).search(params[:q])
+    @q = InputControl.where(status: -1).search(params[:q])
+    @input_controls = InputControl.includes(:carrier, :driver).order(date_entry: :desc, time_entry: :desc)
     respond_with(@input_controls)
+  end
+
+  def search
+    @q = InputControl.includes(:carrier, :driver).order(date_entry: :desc, time_entry: :desc).search(params[:query])
+    @input_controls = @q.result
+    respond_with(@input_controls) do |format|
+      format.js
+    end
   end
 
   def show
