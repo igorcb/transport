@@ -66,7 +66,7 @@ class InputControl < ActiveRecord::Base
   end
 
   def self.select_date_receipt
-    InputControl.joins(:nfe_xmls).where(not_discharge: false).where.not(date_receipt: nil)
+    InputControl.joins(:nfe_xmls).where(not_discharge: false, :nfe_xmls => {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL}).where.not(date_receipt: nil)
                 .select(:date_receipt, "SUM(nfe_xmls.peso) as peso", "coalesce(SUM(nfe_xmls.peso_liquido),0) AS peso_liquido")
                 .group(:date_receipt)
                 .order(date_receipt: :desc)
