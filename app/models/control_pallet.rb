@@ -8,6 +8,8 @@ class ControlPallet < ActiveRecord::Base
 
   scope :order_desc, -> { order(id: :desc) }
   scope :open_entry, -> { where(tipo: CreditoDebito::ENTRADA, status: TipoStatus::ABERTO).order(id: :desc) }
+  scope :not_generate_ordem_service, -> { where(generate_ordem_service: false) }
+  scope :generate_ordem_service, -> { where(generate_ordem_service: true) }
 
   module TipoStatus
     ABERTO    = 0 # pallete que tem em stok
@@ -44,6 +46,7 @@ class ControlPallet < ActiveRecord::Base
     qtde_total = 0
     hash_ids = options[:ids]
     ActiveRecord::Base.transaction do
+
       ordem_service = OrdemService.create!(source_client_id: source_client.id, 
                                            target_client_id: target_client.id, 
                                                        tipo: OrdemService::TipoOS::LOGISTICA,
@@ -56,7 +59,10 @@ class ControlPallet < ActiveRecord::Base
       hash_ids.each do |i|
         id = i[0].to_i 
         qtde_total += i[1].to_f
+        ControlPallet.where(id: id).update_all(generate_ordem_service: true)
         control_pallet = ControlPallet.find(id)
+        # control_pallet.generate_ordem_service = true
+        # control_pallet.save!
         ordem_service.nfe_keys.create!(nfe: control_pallet.nfe, chave: control_pallet.nfe_original, volume: control_pallet.qte, peso: control_pallet.peso)
         ControlPallet.create!(client_id: control_pallet.client_id, 
                                    data: Date.today, 
@@ -66,7 +72,7 @@ class ControlPallet < ActiveRecord::Base
                                     nfd: control_pallet.nfd,
                            nfe_original: control_pallet.nfe_original,
                            nfd_original: control_pallet.nfd_original,
-                              historico: "Sainda de Pallets OS: #{ordem_service.id}", 
+                              historico: "Saida de Pallets OS: #{ordem_service.id}", 
                                    peso: control_pallet.peso,
                                  volume: control_pallet.volume,
                                  status: TipoStatus::ABERTO,

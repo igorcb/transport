@@ -4,7 +4,7 @@ class ControlPalletsController < ApplicationController
   respond_to :html
 
   def selection_pallet
-    @control_pallets = ControlPallet.open_entry
+    @control_pallets = ControlPallet.not_generate_ordem_service.open_entry
   end
 
   def generate_ordem_service
