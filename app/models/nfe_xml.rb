@@ -130,6 +130,7 @@ class NfeXml < ActiveRecord::Base
                                              estado: nfe.dest.endereco_destinatario.UF).find_or_create_by(cpf_cnpj: cnpj_target)
         peso = nfe.vol.pesoB.nil? ? nfe.vol.pesoL : nfe.vol.pesoB
         nfe_xml.update_attributes(peso: peso, 
+                          peso_liquido: nfe.vol.pesoL,
                                 volume: nfe.vol.qVol, 
                                 numero: nfe.ide.nNF,
                                  chave: nfe.infoProt.chNFe,
