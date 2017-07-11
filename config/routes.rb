@@ -49,7 +49,7 @@ Transport::Application.routes.draw do
       get :letter_freight
     end
     collection do
-      #get :comments
+      get :search
     end
     resources :boarding_items do
       post :update_row_order, on: :collection    

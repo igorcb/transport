@@ -2,7 +2,7 @@ class BoardingsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_boarding, only: [:show, :edit, :update, :destroy, :lower, :print, :letter_freight]
   load_and_authorize_resource
-  #respond_to :js, :html, :json, :pdf
+  respond_to :js, :html
 
 	def selection_shipment
 		@ordem_services = OrdemService.where(status: OrdemService::TipoStatus::ABERTO)
@@ -16,13 +16,19 @@ class BoardingsController < ApplicationController
 	end
 
   def cancellation
-    #@boarding.cancel
-    #redirect_to boarding_url(@boarding_item), flash: { success: "Status update successfully..." }
   end
 
   def index
-    @boardings = Boarding.order(id: :desc)
-    #@boardings = Boarding.status_open
+    @q = Boarding.search(params[:q])
+    @boardings = Boarding.the_day
+  end
+
+  def search
+    @q = Boarding.joins(:driver).order(id: :desc).paginate(:page => params[:page]).search(params[:query])
+    @boardings = @q.result
+    respond_with(@boardings) do |format|
+      format.js
+    end
   end
 
 	def show

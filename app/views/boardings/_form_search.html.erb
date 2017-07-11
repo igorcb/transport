@@ -1,0 +1,39 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+        <div class="panel-body">
+          <%= search_form_for @q, remote: true, url: search_boardings_path, :method => :get do |f| %>
+            <div class="form-group">
+              <%= f.label :id_eq, "No: Embarque " %>
+              <%= f.search_field :id_eq, class: "form-control", placeholder: "" %>  
+            </div>
+            <div class="form-group">
+              <%= f.label :date_boarding_eq, "Data Embarque " %>
+              <%= f.search_field :date_boarding_eq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+            </div>
+            <div class="form-group">
+              <%= f.label :driver_id_eq, "Motorista" %>
+              <%= f.collection_select :driver_id_eq, Driver.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+            </div>
+            <div class="form-group">
+              <%= f.label :status_eq, "Status" %>
+              <%= f.select( :status_eq, select_status_boarding, {include_blank: true}, {class: "form-control"} ) %> 
+            </div>
+            <div class="actions"><%= f.submit "Search" %></div>
+          <% end %>
+        </div>
+
+    </div>
+  </div>
+
+</div>

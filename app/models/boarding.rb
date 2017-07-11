@@ -29,7 +29,8 @@ class Boarding < ActiveRecord::Base
   #has_many :commentaries, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
   has_many :control_pallet_internals
 
-  scope :status_open, -> { where(status: [TipoStatus::ABERTO, TipoStatus::EMBARCADO]).order("id desc") }
+  scope :status_open, -> { includes(:driver).where(status: [TipoStatus::ABERTO, TipoStatus::EMBARCADO]).order("id desc") }
+  scope :the_day, -> { includes(:driver).where(date_boarding: Date.current).order("id desc") }
 
   before_destroy :erase_boarding_items
 
@@ -54,6 +55,10 @@ class Boarding < ActiveRecord::Base
       when 3 then "Cancelado"
       else "Não Informado"
     end
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ['id', 'date_boarding', 'driver_id' ,'status']
   end
 
   def value_zero?

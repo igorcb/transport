@@ -1,0 +1,24 @@
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Embarques</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <%= render 'header' %>
+          </tr>
+        </thead>
+
+        <tbody>
+            <% @boardings.each do |boarding| %>
+              <tr>
+                <%= render boarding %>
+              </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

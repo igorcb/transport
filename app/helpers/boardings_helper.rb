@@ -12,4 +12,15 @@ module BoardingsHelper
      ])
   end
 
+  def select_status_boarding
+    ([["Aberto", 0], 
+      ["Embarcado", 1],
+      ["Entregue", 2]
+     ])
+  end
+
 end
+
+      # when 0 then "Aberto"
+      # when 1 then "Embarcado"
+      # when 2 then "Entregue"

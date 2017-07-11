@@ -1,0 +1,8 @@
+<td><%= boarding.id %></td>
+<td><%= date_br (boarding.date_boarding) %></td>
+<td><%= boarding.driver.nome if boarding.driver.present?  %></td>
+<td><%= number_to_currency(boarding.value_boarding, unit: "R$ ", separator: ",", delimiter: ".") %> </td>
+<td><%= number_with_precision(boarding.peso_bruto, precision: 3, separator: ',', delimiter: '.') %></td>
+<td><%= boarding.status_name %></td>
+<td><%= link_to 'Show', boarding, class: "btn btn-info btn-xs" %></td>
+<td><%= link_to 'Edit', edit_boarding_path(boarding), class: "btn btn-primary btn-xs" %></td>

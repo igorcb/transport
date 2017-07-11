@@ -1,0 +1,2 @@
+$('#result_input').empty();
+$("#result_input").append("<%= j(render(:partial => 'list', :locals => {boarding: @input_controls} )) %>");
