@@ -167,6 +167,8 @@ class InputControlsController < ApplicationController
   def received_weight_search
     @input_controls = InputControl.where("date_receipt >= ? and date_receipt <= ?", params[:start_date], params[:end_date])
                                   .select_date_receipt
+    @input_control_total = InputControl.where("date_receipt >= ? and date_receipt <= ?", params[:start_date], params[:end_date])
+                                  .select_date_receipt_total
     respond_with(@input_controls) do |format|
       format.js
     end
@@ -174,6 +176,7 @@ class InputControlsController < ApplicationController
 
   def received_weight
     @input_controls = InputControl.select_date_receipt
+    @input_control_total = InputControl.select_date_receipt_total
     respond_with(@input_controls)
   end
 

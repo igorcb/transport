@@ -74,6 +74,12 @@ class InputControl < ActiveRecord::Base
 
   end
 
+ def self.select_date_receipt_total
+    InputControl.joins(:nfe_xmls).where(not_discharge: false, :nfe_xmls => {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL}).where.not(date_receipt: nil)
+                .select("SUM(nfe_xmls.peso) as peso", "coalesce(SUM(nfe_xmls.peso_liquido),0) AS peso_liquido, AVG(nfe_xmls.peso) as media")
+                .collect {|input| [input.peso, input.peso_liquido, input.media]}
+
+  end
 
 
   def status_received?
