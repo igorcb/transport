@@ -24,7 +24,7 @@ class BoardingsController < ApplicationController
   end
 
   def search
-    @q = Boarding.joins(:driver).order(id: :desc).paginate(:page => params[:page]).search(params[:query])
+    @q = Boarding.joins(:driver).order(date_boarding: :desc, id: :desc).paginate(:page => params[:page]).search(params[:query])
     @boardings = @q.result
     respond_with(@boardings) do |format|
       format.js
