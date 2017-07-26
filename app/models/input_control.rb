@@ -87,6 +87,14 @@ class InputControl < ActiveRecord::Base
     self.status == TypeStatus::RECEIVED
   end
 
+  def charge_discharge_status
+    case self.charge_discharge
+      when false then "Nao"
+      when true then "Sim"
+      else "Nao Informado"
+    end
+  end
+
   def palletized_status
     case self.palletized
       when false then "Nao"
