@@ -189,24 +189,27 @@ class InputControl < ActiveRecord::Base
     begin
       ActiveRecord::Base.transaction do
         #criar contas a receber
-        AccountReceivable.create!(
-                               type_account: AccountReceivable::TypeAccount::MOTORISTA,
-                                client_type: AccountReceivable::TypeAccountName::MOTORISTA,
-                                  client_id: self.driver_id,
-                           input_control_id: self.id,
-                             cost_center_id: RECEBIMENTO_DESCARGA_COST_CENTER,
-                         sub_cost_center_id: RECEBIMENTO_DESCARGA_SUB_COST_CENTER,
-                   sub_cost_center_three_id: RECEBIMENTO_DESCARGA_SUB_COST_CENTER_THREE,
-                          payment_method_id: RECEBIMENTO_DESCARGA_PAYMENT_METHOD, 
-                                historic_id: RECEBIMENTO_DESCARGA_HISTORIC,
-                            data_vencimento: Date.today,
-                                  documento: self.id,
-                                      valor: self.value_total,
-                                 observacao: "RECEBIMENTO DE DESCARGA REMESSA No: #{self.id}, NF-e: #{get_number_nfe_xmls}",
-                                     status: AccountReceivable::TipoStatus::ABERTO
-                               )
-        #colocar remessa como digitação finalizada
-        self.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
+        if self.charge_discharge?
+          AccountReceivable.create!(
+                                 type_account: AccountReceivable::TypeAccount::MOTORISTA,
+                                  client_type: AccountReceivable::TypeAccountName::MOTORISTA,
+                                    client_id: self.driver_id,
+                             input_control_id: self.id,
+                               cost_center_id: RECEBIMENTO_DESCARGA_COST_CENTER,
+                           sub_cost_center_id: RECEBIMENTO_DESCARGA_SUB_COST_CENTER,
+                     sub_cost_center_three_id: RECEBIMENTO_DESCARGA_SUB_COST_CENTER_THREE,
+                            payment_method_id: RECEBIMENTO_DESCARGA_PAYMENT_METHOD, 
+                                  historic_id: RECEBIMENTO_DESCARGA_HISTORIC,
+                              data_vencimento: Date.today,
+                                    documento: self.id,
+                                        valor: self.value_total,
+                                   observacao: "RECEBIMENTO DE DESCARGA REMESSA No: #{self.id}, NF-e: #{get_number_nfe_xmls}",
+                                       status: AccountReceivable::TipoStatus::ABERTO
+                                 )
+          #colocar remessa como digitação finalizada
+          self.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
+        end
+        return_value = true
       end
     rescue exception
       return_value = false
