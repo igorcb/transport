@@ -1,7 +1,5 @@
 Transport::Application.routes.draw do
 
-  resources :direct_charges
-
   #match :stock_equipaments, :as => :stock_equipaments,  via: [:get]
   match :stock_equipaments,  to: 'stock_equipaments#index',  via: [:get]
 
@@ -14,6 +12,13 @@ Transport::Application.routes.draw do
   resources :control_pallet_internals do
     member do
       get :term_pallet
+    end
+  end
+
+  resources :direct_charges do
+    member do
+      get :finish_typing
+      
     end
   end
 

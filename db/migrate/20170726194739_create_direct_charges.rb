@@ -15,7 +15,7 @@ class CreateDirectCharges < ActiveRecord::Migration
       t.decimal :value_ton, precision: 20, scale: 4
       t.decimal :value_kg, precision: 20, scale: 4
       t.decimal :value_total, precision: 20, scale: 4
-      t.integer :status
+      t.integer :status, default: 0
       t.date    :date_closing
       t.text    :observation
       t.string  :source_state

@@ -3,6 +3,16 @@ class DirectChargesController < ApplicationController
 
   respond_to :html
 
+  def finish_typing
+    if @direct_charge.finish_typing
+      flash[:success] = "Direct Charge was successfully received"
+    else
+      flash[:success] = "Error finish typing Direct Charge."
+    end
+    redirect_to direct_charge_path(@direct_charge)
+  end
+
+
   def index
     @direct_charges = DirectCharge.all
     respond_with(@direct_charges)
