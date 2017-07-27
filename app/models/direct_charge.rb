@@ -149,7 +149,7 @@ class DirectCharge < ActiveRecord::Base
         #   #colocar remessa como digitação finalizada
         #   self.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
         # end
-        self.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
+        self.update_attributes(status: DirectCharge::TypeStatus::FINISH_TYPING)
         return_value = true
       end
     rescue exception
@@ -157,5 +157,70 @@ class DirectCharge < ActiveRecord::Base
       raise ActiveRecord::Rollback
     end
   end
+
+  def status_finish_typing?
+    self.status == TypeStatus::FINISH_TYPING
+  end
+
+  def self.create_ordem_service_input_controls(params = {})
+    puts ">>>>>>>>>>>>  params: #{params.to_s}"
+    input_control = DirectCharge.find(params[:id])
+    nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
+    target_client = nfe_xmls.first.target_client
+    source_client = nfe_xmls.first.source_client
+    carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
+    ActiveRecord::Base.transaction do
+      puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico"
+      ordem_service = OrdemService.create!( tipo: OrdemService::TipoOS::LOGISTICA,
+                                direct_charge_id: input_control.id,
+                                target_client_id: target_client.id, 
+                                source_client_id: source_client.id,
+                               billing_client_id: source_client.id,
+                                      carrier_id: carrier.id,
+                                carrier_entry_id: input_control.carrier.id,
+                                            peso: input_control.weight, 
+                                     qtde_volume: input_control.volume,
+                                          estado: target_client.estado,
+                                          cidade: target_client.cidade,
+                                      date_entry: input_control.date_charge,
+                                      observacao: ""
+                                                 )
+      puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico Logistica"
+      ordem_service.ordem_service_logistics.create!(driver_id: input_control.driver.id, 
+                                                        placa: input_control.place, 
+                                                         peso: input_control.weight, 
+                                                  qtde_volume: input_control.volume)
+      puts ">>>>>>>>>>>>>>>> Importar dados da NFE XML para NFE Keys"
+      nfe_xmls.each do |nfe|
+        ordem_service.nfe_keys.create!(nfe: nfe.numero,
+                                    chave: nfe.chave,
+                                   nfe_id: ordem_service.id,
+                                 nfe_type: "OrdemService",
+                                     peso: nfe.peso,
+                                   volume: nfe.volume
+                                    )
+
+        puts ">>>>>>>>>>>>>>>> Importar produtos"
+        nfe.item_input_controls.each do |item|
+          ordem_service.item_ordem_services.create!( product_id: item.product_id,
+                                                         number: item.number_nfe,
+                                                           qtde: item.qtde_trib,
+                                                          valor: item.valor,
+                                                    unid_medida: item.unid_medida,
+                                                 valor_unitario: item.valor_unitario,
+                                           valor_unitario_comer: item.valor_unitario_comer
+                                      )
+          puts ">>>>>>>>>>>>>>>>> se nota de palete lançar no controle de palete"
+
+        end
+        
+        NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM)
+      end
+      puts ">>>>>>>>>>>>>>>> update peso e volume"
+      ordem_service.set_peso_and_volume
+
+    end
+  end
+
 
 end

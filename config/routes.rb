@@ -18,7 +18,8 @@ Transport::Application.routes.draw do
   resources :direct_charges do
     member do
       get :finish_typing
-      
+      get :select_nfe
+      post :create_ordem_service
     end
   end
 

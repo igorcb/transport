@@ -1,0 +1,88 @@
+<div id="ordem_service_type_service_id">
+	<%= form_tag({:controller => "direct_charges", :action => "create_ordem_service"}, :method => "post", id: "selectNfeForm", :html => { onsubmit: "checkForm(this);" }) do %>
+	<%= hidden_field_tag "id", @direct_charge.id %>																																												
+		<div class="panel panel-default">
+		  <div class="panel-heading">Selecionar notas para geraração da Ordem de Serviço.</div>
+		  <div class="panel-body">
+		    <div class="table-responsive">
+		      <table class="table table-striped">
+		        <thead>
+		          <tr>
+		          	<th></th>
+		            <th>OS.Criada</th>
+								<%= render 'nfe_xmls/nfe_header' %>
+		            <th>Remetente</th>
+		            <th>Destinatario</th>
+		          </tr>
+		        </thead>
+
+		        <tbody>
+		          <% @direct_charge.nfe_xmls.nfe.each do |nfe_xml| %>
+		            <tr>
+		            	<td><%= check_box_tag "nfe[ids][#{nfe_xml.id}]", nfe_xml.id, false, onchange:"checkTotal()", class: "escolha" if nfe_xml.create_os == NfeXml::TipoOsCriada::NAO %></td>
+		              <td><%= truncate(nfe_xml.status_os_create, length: 20) %></td>
+		              <%= render nfe_xml %>
+		              <td><%= truncate(nfe_xml.source_client.nome, length: 50) %></td>
+		              <td><%= truncate(nfe_xml.target_client.nome, length: 50) %></td>
+		            </tr>
+		          <% end %>
+		        </tbody>
+		      </table>
+		    </div>    
+		  </div>
+		</div>
+  <%= link_to 'Show', direct_charge_path(@direct_charge), class: "btn btn-primary btn-xs" %> 
+  
+	<%= submit_tag("Criar Ordem de Serviço", class: "btn btn-success ", id: "button_create_ordem_service", name: "button_create", onclick: "checkForm(this)") %> 
+
+	<% end %>
+
+</div>
+
+<script type="text/javascript">
+  function checkTotal() {
+    var elements = document.getElementsByClassName('escolha');
+    var label = document.getElementById('valor_total');
+    var sum = 0;
+    // console.log(elements[i].value);
+    for (i=0;i< elements.length;i++) {
+      if (elements[i].checked) {
+        sum = sum + parseFloat(elements[i].value);
+        console.log(elements[i].value);
+      }
+    }
+    document.getElementById('valor_total').value = 'R$ ' + sum.formatMoney(2, ',', '.');
+  }
+</script>
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+		$('selectNfeForm#id').submit(function(e){
+		    $(this).children('input[type=submit]').attr('disabled', 'disabled');
+		    // this is just for demonstration
+		    e.preventDefault();    
+		    console.log('disabled button submit');
+		 });
+  });
+</script>
+
+<script type="text/javascript">
+  //$("button_create_ordem_service").attr("disabled", true).delay(2000).attr("disabled", false);
+  function checkForm(form)
+  {
+    //
+    // validate form fields
+    //
+    
+		form.disabled = true;
+		console.log("desabilitado");
+    //form.button_create_ordem_service.disabled = true;
+    form.delay = 5000;
+    console.log("espera 5s");
+    form.disabled = false;
+    console.log("habilitado 5s");
+    return true;
+  }
+
+</script>

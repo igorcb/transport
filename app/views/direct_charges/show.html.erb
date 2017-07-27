@@ -5,7 +5,7 @@
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           Dados da Carga Direta No:
           <%= @direct_charge.id %> -
-          <%#= @direct_charge.status_name %>
+          <%= @direct_charge.status_name %>
         </a>
       </h4>
     </div>
@@ -177,7 +177,7 @@
   <%= link_to 'Editar', edit_direct_charge_path(@direct_charge), class: "btn btn-primary" %> 
   <%= link_to 'Listar Todos', direct_charges_path, class: "btn btn-default" %>
   <%= link_to 'Finalizar Digitação', finish_typing_direct_charge_path(@direct_charge), class: "btn btn-info" if @direct_charge.status == DirectCharge::TypeStatus::OPEN %>
-  <%#= link_to 'Gerar Ordem Servico', select_nfe_direct_charge_path, class: "btn btn-success"%>
+  <%= link_to 'Gerar Ordem Servico', select_nfe_direct_charge_path, class: "btn btn-success"%>
   <%#= link_to 'Armazenar Paletes', select_pallets_input_control_path, class: "btn btn-yellow"%>
   <%#= link_to 'Gerar Ocorrência', comments_input_control_path(@input_control), class: "btn btn-warning" %>
   <%#= link_to 'Print', input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %> 

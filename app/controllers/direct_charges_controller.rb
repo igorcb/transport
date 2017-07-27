@@ -1,7 +1,44 @@
 class DirectChargesController < ApplicationController
-  before_action :set_direct_charge, only: [:show, :edit, :update, :destroy]
+  include ApplicationHelper
+  include ActionView::Helpers::NumberHelper
+
+  before_filter :authenticate_user!
+  before_action :set_direct_charge, only: [:show, :edit, :update, :destroy, :select_nfe, :finish_typing]
+  #load_and_authorize_resource  
 
   respond_to :html
+
+  def create_ordem_service
+    @direct_charge = DirectCharge.find(params[:id])
+
+    puts ">>>>>>>>>>>>>>>>>>>>> DirectCharge: #{@direct_charge.id}"
+
+    if params[:nfe].blank?
+      flash[:danger] = "Select at least one nfe to generate the ordem service."
+      respond_with(@direct_charge)
+      return
+    end
+    if !@direct_charge.status_finish_typing?
+      flash[:danger] = "First declare that you finish_typing"
+      respond_with(@direct_charge)
+      return
+    elsif @direct_charge.date_charge.blank?
+      flash[:danger] = "Date Charge can not be blank."
+      respond_with(@direct_charge)
+      return
+    end
+    # criar um modulo para get_hash_ids e check_client_billing
+    ids = OrdemService.get_hash_ids(params[:nfe][:ids])
+    puts ">>>>>>>>>>>>>>>>>>>>>>> check_client_billing: #{InputControl.check_client_billing?(ids)} <<<<<<<<<<<<<<<<<<<<<<<<"
+    if !InputControl.check_client_billing?(ids)
+      flash[:danger] = "Customer invoices are not the same."
+      respond_with(@direct_charge)
+      return
+    end
+    DirectCharge.create_ordem_service_input_controls({id: params[:id], nfe: ids})
+    puts ">>>>>>>>>>>>>ID Direct Charge: #{@direct_charge.id} "
+    respond_with(@direct_charge)
+  end
 
   def finish_typing
     if @direct_charge.finish_typing
