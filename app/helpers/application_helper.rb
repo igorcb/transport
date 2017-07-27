@@ -74,4 +74,8 @@ module ApplicationHelper
     ([["Fornecedor", 1],["Motorista", 2], ["Cliente", 3], ["Funcionario", 4], 
       ["Transportadora", 5]])
   end
+
+  def city_of_state(uf)
+    City.where(uf: uf)
+  end
 end
