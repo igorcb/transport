@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :direct_charges
+
   #match :stock_equipaments, :as => :stock_equipaments,  via: [:get]
   match :stock_equipaments,  to: 'stock_equipaments#index',  via: [:get]
 
@@ -142,6 +144,8 @@ Transport::Application.routes.draw do
   resources :current_accounts
 
   resources :cash_accounts
+
+  match "/get_city_by_uf", :controller => "address", :action => "get_city_by_uf", via: [:get]
   
   match '/get_address_by_cep', :controller => 'address', :action => 'get_address_by_cep', via: [:get]
   match '/dashboard_visit', :controller => 'static_pages', :action => 'dashboard_visit', via: [:get, :post]

@@ -2,14 +2,12 @@ require 'nfe'
 class NfeXml < ActiveRecord::Base
 	has_attached_file :asset
 	validates_attachment :asset, uniqueness: true, attachment_presence: true, :content_type => { :content_type => "text/xml" }
-	validates :asset_file_name, uniqueness: true
-  validates :chave, uniqueness: true
+	validates :asset_file_name, uniqueness: { scope: :nfe_type } 
+  validates :chave, uniqueness: { scope: :nfe_type } 
 
-  #belongs_to :input_control, polymorphic: true
   belongs_to :input_control, class_name: "InputControl", foreign_key: "nfe_id"
   belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id"
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id"
-  #belongs_to :ordem_service, class_name: "NfeKey", foreign_key: "nfe_id"
 
   has_many :item_input_controls
   

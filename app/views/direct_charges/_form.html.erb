@@ -1,0 +1,191 @@
+<%= form_for(@direct_charge) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= label_tag :carrier_id, "Transportadora" %><br>
+    <% if @direct_charge.new_record? %>
+      <%= text_field_tag :carrier_cnpj, nil, class: "form-control cnpj" %>
+    <% else %>
+      <%= text_field_tag :carrier_cnpj, @direct_charge.carrier.cnpj, class: "form-control cnpj", disabled: true %>
+      <%= render partial: "carriers/result_carrier", locals: { carrier: @direct_charge.carrier } %>
+    <% end %>
+  </div>
+  
+  <div id="carrier_cnpj_result">
+
+  </div>  
+
+  <div class="form-group">
+    <%= label_tag :driver_id, "Motorista" %><br>
+    <% if @direct_charge.new_record? %>
+      <%= text_field_tag :driver_cpf, nil, class: "form-control cpf" %>
+    <% else %>
+      <%= text_field_tag :driver_cpf, @direct_charge.driver.cpf, class: "form-control cpf", disabled: true %>
+      <%= render partial: "drivers/result_driver", locals: { driver: @direct_charge.driver } %>
+    <% end %>
+  </div>
+
+  <div id="driver_cpf_result">
+
+  </div>  
+
+  <div class="form-group">
+    <%= f.label :place, "Placa" %>
+    <%= f.text_field :place, class: "form-control placa" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :place_cart, "Placa Carreta" %>
+    <%= f.text_field :place_cart, class: "form-control placa" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :place_cart_2, "Placa Carreta 2" %>
+    <%= f.text_field :place_cart_2, class: "form-control placa" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :date_charge, "Data Carregamento" %>
+    <%= f.text_field :date_charge, class: "form-control data", value: date_br(@direct_charge.date_charge) %>
+    
+  </div>
+
+  <div class="form-group">
+    <%= f.check_box :palletized %> Carga Paletizada?
+  </div>
+
+  <div class="form-group">
+    <%= f.label :quantity_pallets, "Qtde Paletes" %>
+    <%= f.text_field :quantity_pallets, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :source_state, "Estado de Origem" %>
+    <%= f.select(:source_state, State.order(:name).collect {|c| [c.name, c.uf]}, {prompt: "SELECT STATE"}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :source_city, "Cidade de Origem" %>
+    <% if @direct_charge.source_state.present? %>
+      <%= f.collection_select :source_city, city_of_state(@direct_charge.source_state), :name, :name, {prompt: "SELECIONE CIDADE ORIGEM"}, {class: "form-control"} %>
+    <% else %>
+      <%= f.collection_select :source_city, [], :name, :name, {prompt: "SELECIONE CIDADE ORIGEM"}, {class: "form-control"}  %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :target_state, "Estado de Destino" %>
+    <%= f.select(:target_state, State.order(:name).collect {|c| [c.name, c.uf]}, {prompt: "SELECT STATE"}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :target_city, "Cidade de Destino" %>
+    <% if @direct_charge.target_city.present? %>
+      <%= f.collection_select :target_city, city_of_state(@direct_charge.target_city), :name, :name, {prompt: "SELECIONE CIDADE DESTINO"}, {class: "form-control"} %>
+    <% else %>
+      <%= f.collection_select :target_city, [], :name, :name, {prompt: "SELECIONE CIDADE DESTINO"}, {class: "form-control"}  %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :observation, "Observação" %>
+    <%= f.text_area :observation, class: "form-control" %>
+  </div>
+
+  <h3>NF-e</h3> 
+  <div class="documents_itens">
+    <%= f.nested_fields_for :nfe_xmls do |f| 
+      render 'nfe_xml_fields', f: f
+    end -%> <br />
+    <%= link_to_add_association 'Add NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm"  %> <br />
+    <%#= if @direct_charge.status == InputControl::TypeStatus::OPEN %>
+  </div> <br />
+  
+  <h3>Documentos</h3> 
+  <div id="documents">
+    <div class="items">
+      <%#= f.nested_fields_for :assets do |f| 
+        render 'shared/asset', f: f
+      end  -%>
+    </div>
+      <!-- <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>   -->
+  </div>
+
+  <hr />
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  direct_charge_path(@direct_charge), class: "btn btn-info" if !@direct_charge.new_record? %>
+    <%= link_to "Listar Todos", direct_charges_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+    $("#direct_charge_source_state").change(function(){
+      var uf = "uf="+$(this).val();
+      console.log(uf);
+      $.getJSON('/get_city_by_uf', uf, function(data){
+        var options = '<option value="">Selecione a cidade de origem</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#direct_charge_source_city").html(options);
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(function(){
+    $("#direct_charge_target_state").change(function(){
+      var uf = "uf="+$(this).val();
+      console.log(uf);
+      $.getJSON('/get_city_by_uf', uf, function(data){
+        var options = '<option value="">Selecione a cidade de destino</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#direct_charge_target_city").html(options);
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#carrier_cnpj").focusout(function() {
+      var cnpj = $('#carrier_cnpj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cnpj: cnpj},
+        dataType : 'html',
+        url: '/carriers/get_carrier_by_cnpj',
+        success: function(data){
+            $('#carrier_cnpj_result').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#driver_cpf").focusout(function() {
+      var cpf = $('#driver_cpf').val();
+      console.log(cpf);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cpf},
+        dataType : 'html',
+        url: '/drivers/get_driver_by_cpf',
+        success: function(data){
+            $('#driver_cpf_result').html(data);
+        },
+      });
+    });
+  });
+</script>
+

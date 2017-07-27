@@ -1,0 +1,9 @@
+<td><%= direct_charge.id %></td>
+<td><%= direct_charge.carrier.nome %></td>
+<td><%= direct_charge.driver.nome %></td>
+<td><%= date_br direct_charge.date_charge %></td>
+<td><%= direct_charge.palletized_status %></td>
+<td><%= direct_charge.quantity_pallets %></td>
+<td><%= truncate(direct_charge.status_name, length: 12) %></td>
+<td><%= link_to 'Show', direct_charge, class: "btn btn-info btn-xs" %></td>
+<td><%= link_to 'Edit', edit_direct_charge_path(direct_charge), class: "btn btn-primary btn-xs"  %></td>

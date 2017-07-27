@@ -1,0 +1,73 @@
+    <p>
+      <strong>Placa:</strong>
+      <%= @direct_charge.place %> |
+      <strong>Placa Carreta:</strong>
+      <%= @direct_charge.place_cart %> |
+      <strong>Placa Carreta 2:</strong>
+      <%= @direct_charge.place_cart_2 %>
+    </p>
+
+    <p>
+      <strong>Date Entrada NF-e:</strong>
+      <%= date_br @direct_charge.date_charge %>
+    </p>
+
+    <p>
+      <strong>Cobrar Descarga:</strong>
+      <%#= @direct_charge.charge_discharge_status %>
+    </p>
+
+    <p>
+      <strong>Carga Peletizada:</strong>
+      <%= @direct_charge.palletized_status %>
+    </p>
+
+    <p>
+      <strong>Qtde Paletes:</strong>
+      <%= @direct_charge.quantity_pallets %>
+    </p>
+    <hr>
+    <p>
+      <strong>Peso:</strong>
+      <%= number_to_currency(@direct_charge.weight, precision: 3, unit: "", separator: ",", delimiter: ".") %>
+    </p>
+
+    <p>
+      <strong>Volume:</strong>
+      <%= number_to_currency(@direct_charge.volume, precision: 3, unit: "", separator: ",", delimiter: ".") %>
+    </p>
+
+    <p>
+      <strong>Valor Tonelada:</strong>
+      <%= number_to_currency(@direct_charge.value_ton, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
+
+    <p>
+      <strong>Value p/ kg:</strong>
+      <%= number_to_currency(@direct_charge.value_kg, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
+
+    <p>
+      <strong>Valor Descarga:</strong>
+      <%= number_to_currency(@direct_charge.value_total, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
+
+    <p>
+      <strong>Contas a Receber:</strong>
+      <%= link_to @direct_charge.account_receivable.id, @direct_charge.account_receivable if @direct_charge.account_receivable.present? %>
+      <strong>Status:</strong>
+      <%= @direct_charge.account_receivable.status_name if @direct_charge.account_receivable.present? %>    
+    </p>
+
+    <hr>
+    
+    <p>
+      <strong>Criado por:</strong>
+      <%= @direct_charge.user.email if @direct_charge.user.present? %>
+    </p>
+
+    <p>
+      <strong>Observation:</strong>
+      <pre><%= @direct_charge.observation %></pre>
+    </p>
+

@@ -72,7 +72,11 @@
   </div>
 
   <div class="form-group">
-    <%= f.check_box :charge_discharge, checked: true %> Cobrar descarga?
+    <% if @input_control.new_record? %>
+      <%= f.check_box :charge_discharge, checked: true %> Cobrar descarga?
+    <% else %>
+      <%= f.check_box :charge_discharge %> Cobrar descarga?
+    <% end %>
   </div>
   
   <div class="form-group">
