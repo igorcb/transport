@@ -281,6 +281,7 @@ class InputControl < ActiveRecord::Base
                                    nfe_id: ordem_service.id,
                                  nfe_type: "OrdemService",
                           nfe_source_type: nfe.nfe_type,
+                              remessa_ype: input_control.shipment,
                                      peso: nfe.peso,
                                    volume: nfe.volume
                                     )
