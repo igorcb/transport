@@ -99,7 +99,7 @@ class DirectChargesController < ApplicationController
     def direct_charge_params
       params.require(:direct_charge).permit(:carrier_id, :driver_id, :place, :place_cart, :place_cart_2, :date_charge, :palletized, 
         :quantity_pallets, :weight, :volume, :source_state, :source_city, :target_state, :target_city, 
-        :observation, :user_id,
+        :observation, :user_id, :shipment,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy] 
 
         )
