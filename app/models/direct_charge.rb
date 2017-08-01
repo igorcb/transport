@@ -25,6 +25,8 @@ class DirectCharge < ActiveRecord::Base
 
   has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
 
+  default_scope { order(date_charge: :desc, id: :desc) } 
+
   #before_save { |item| item.email = email.downcase }
   RECEBIMENTO_DESCARGA_HISTORIC = 100
   RECEBIMENTO_DESCARGA_PAYMENT_METHOD = 2
