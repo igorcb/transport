@@ -206,9 +206,9 @@ class InputControl < ActiveRecord::Base
                                    observacao: "RECEBIMENTO DE DESCARGA REMESSA No: #{self.id}, NF-e: #{get_number_nfe_xmls}",
                                        status: AccountReceivable::TipoStatus::ABERTO
                                  )
-          #colocar remessa como digitação finalizada
-          self.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
         end
+        #colocar remessa como digitação finalizada
+        self.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
         return_value = true
       end
     rescue exception
