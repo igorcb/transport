@@ -99,7 +99,7 @@ class DirectCharge < ActiveRecord::Base
     valor_total = peso * valor_kg
     ActiveRecord::Base.transaction do
       puts "peso: #{peso} and volume: #{volume}"
-      InputControl.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
+      DirectCharge.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
     end
   end
 
