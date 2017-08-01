@@ -162,6 +162,7 @@ class DirectCharge < ActiveRecord::Base
     self.status == TypeStatus::FINISH_TYPING
   end
 
+  #mudar o nome do metodo para create_ordem_service_direct_charge
   def self.create_ordem_service_input_controls(params = {})
     puts ">>>>>>>>>>>>  params: #{params.to_s}"
     input_control = DirectCharge.find(params[:id])
@@ -196,6 +197,7 @@ class DirectCharge < ActiveRecord::Base
                                     chave: nfe.chave,
                                    nfe_id: ordem_service.id,
                                  nfe_type: "OrdemService",
+                          nfe_source_type: nfe.nfe_type,
                                      peso: nfe.peso,
                                    volume: nfe.volume
                                     )

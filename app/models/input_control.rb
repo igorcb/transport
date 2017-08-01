@@ -280,6 +280,7 @@ class InputControl < ActiveRecord::Base
                                     chave: nfe.chave,
                                    nfe_id: ordem_service.id,
                                  nfe_type: "OrdemService",
+                          nfe_source_type: nfe.nfe_type,
                                      peso: nfe.peso,
                                    volume: nfe.volume
                                     )
