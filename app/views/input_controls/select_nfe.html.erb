@@ -10,9 +10,9 @@
 		          <tr>
 		          	<th></th>
 		            <th>OS.Criada</th>
-								<%= render 'nfe_xmls/nfe_header' %>
 		            <th>Remetente</th>
 		            <th>Destinatario</th>
+								<%= render 'nfe_xmls/nfe_header' %>
 		          </tr>
 		        </thead>
 
@@ -21,9 +21,9 @@
 		            <tr>
 		            	<td><%= check_box_tag "nfe[ids][#{nfe_xml.id}]", nfe_xml.id, false, onchange:"checkTotal()", class: "escolha" if nfe_xml.create_os == NfeXml::TipoOsCriada::NAO %></td>
 		              <td><%= truncate(nfe_xml.status_os_create, length: 20) %></td>
-		              <%= render nfe_xml %>
 		              <td><%= truncate(nfe_xml.source_client.nome, length: 50) %></td>
 		              <td><%= truncate(nfe_xml.target_client.nome, length: 50) %></td>
+		              <%= render nfe_xml %>
 		            </tr>
 		          <% end %>
 		        </tbody>
