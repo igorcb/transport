@@ -1,0 +1,66 @@
+<%= form_for(@scheduling) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :client, "Cliente" %><br>
+    <% if @scheduling.new_record? %>
+      <%= f.text_field :client, value: "QUIMICA AMPARO",class: "form-control" %>
+    <% else %>
+      <%= f.text_field :client, class: "form-control" %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label :type_modal %><br>
+    <%= f.select( :type_modal, select_modal, {selected: "CONTAINER 40"}, { class: "form-control"} ) %>      
+    <%#= f.select :project_id, @project_select, :selected => f.object.project_id %>
+  </div>
+
+  <div class="form-group">
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.label :date_scheduling, "Dt Agen. L7" %><br>
+      <% if @scheduling.new_record? %>
+        <%= f.text_field :date_scheduling, class: "form-control data" %>
+      <% else %>
+        <%= f.text_field :date_scheduling, class: "form-control data", value: date_br(@scheduling.date_scheduling) %>
+      <% end %>
+    </div>
+    <div class="col-xs-2">
+      <%= f.label :time_scheduling, "Hora" %><br>
+      <%= f.text_field :time_scheduling, class: "form-control time" %>
+    </div>
+  </div>
+  </div>
+
+  <div class="form-group">
+    <div class="row">
+      <div class="col-xs-2">
+        <%= f.label :date_scheduling_client, "Dt Agen. Cliente" %><br>
+        <% if @scheduling.new_record? %>
+          <%= f.text_field :date_scheduling_client, class: "form-control data" %>
+        <% else %>
+          <%= f.text_field :date_scheduling_client, class: "form-control data", value: date_br(@scheduling.date_scheduling_client) %>
+        <% end %>
+      </div>
+      <div class="col-xs-2">
+        <%= f.label :time_scheduling_client, "Hora" %><br>
+        <%= f.text_field :time_scheduling_client, class: "form-control time" %>
+      </div>
+    </div>
+  </div>
+
+  <h3>NF-e</h3> 
+  <div class="documents_itens">
+    <%= f.nested_fields_for :nfe_xmls do |f| 
+      render 'nfe_xml_fields', f: f
+    end -%> <br />
+    <%= link_to_add_association 'Add NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm"  %> <br />
+  </div> <br />
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  scheduling_path(@scheduling), class: "btn btn-info" if !@scheduling.new_record? %>
+    <%= link_to "Listar Todos", schedulings_path, class: "btn btn-default" %>
+  </div>
+  
+<% end %>

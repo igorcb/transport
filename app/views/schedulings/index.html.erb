@@ -1,0 +1,39 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">Listing schedulings</div>
+  <div class="panel-body">
+    <%= link_to 'New schedulings', new_scheduling_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Type modal</th>
+            <th>Dt. Agend. L7</th>
+            <th>Hr. Agend. L7</th>
+            <th>Dt. Agend. Client</th>
+            <th>Hr. Agend. Client</th>
+            <th>Qtde NF-e</th>
+            <th collspam="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @schedulings.each do |scheduling| %>
+            <tr>
+              <td><%= scheduling.client %></td>
+              <td><%= scheduling.type_modal %></td>
+              <td><%= date_br scheduling.date_scheduling %></td>
+              <td><%= time_br scheduling.time_scheduling %></td>
+              <td><%= date_br scheduling.date_scheduling_client %></td>
+              <td><%= time_br scheduling.time_scheduling_client %></td>
+              <td><%= scheduling.nfe_xmls.count %></td>
+              <td><%= link_to 'Show', scheduling, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_scheduling_path(scheduling), class: "btn btn-primary btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

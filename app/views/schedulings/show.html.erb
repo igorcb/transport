@@ -1,0 +1,87 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Scheduling No:
+          <%= @scheduling.id %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+          <div class="panel panel-default">
+
+            <div class="panel-body"> 
+							<p>
+							  <strong>Client:</strong>
+							  <%= @scheduling.client %>
+							</p>
+
+							<p>
+							  <strong>Type modal:</strong>
+							  <%= @scheduling.type_modal %>
+							</p>
+
+							<p>
+							  <strong>Data Agen L7:</strong>
+							  <%= date_br @scheduling.date_scheduling %> | <%= time_br @scheduling.time_scheduling %>
+							</p>
+
+							<p>
+							  <strong>Data Agen Cliente:</strong>
+							  <%= date_br @scheduling.date_scheduling_client %> | <%= time_br @scheduling.time_scheduling_client %>
+							</p>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSeven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          Listagem de XML de NF-e Paletes
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+      <div class="panel-body">
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <%= render 'nfe_xmls/nfe_header' %>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @scheduling.nfe_xmls.each do |nfe_xml| %>
+                <tr>
+                  <%= render nfe_xml %>
+                </tr>
+              <% end %>
+              <tr>
+                <td><strong>Qtde NF-e: </strong> <%= @scheduling.nfe_xmls.count %></td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>    
+
+      </div>
+    </div>
+  </div>
+<!-- Fim collapse  --> 
+</div>
+
+
+<%= link_to 'Editar', edit_scheduling_path(@scheduling), class: "btn btn-primary" %>
+<%= link_to 'Listar Todos', schedulings_path, class: "btn btn-default" %>

@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :schedulings
+
   #match :stock_equipaments, :as => :stock_equipaments,  via: [:get]
   match :stock_equipaments,  to: 'stock_equipaments#index',  via: [:get]
 
