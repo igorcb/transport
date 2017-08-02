@@ -3,7 +3,7 @@ class NfeXml < ActiveRecord::Base
 	has_attached_file :asset
 	validates_attachment :asset, uniqueness: true, attachment_presence: true, :content_type => { :content_type => "text/xml" }
 	validates :asset_file_name, uniqueness: { scope: :nfe_type } 
-  validates :chave, uniqueness: { scope: :nfe_type } 
+  validates :chave, uniqueness: { scope: :nfe_type }, allow_blank: true
 
   belongs_to :input_control, class_name: "InputControl", foreign_key: "nfe_id"
   belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id"
