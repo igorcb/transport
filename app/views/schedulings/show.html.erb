@@ -41,6 +41,25 @@
 							</p>
 
               <p>
+                <strong>Free Time:</strong>
+                <%= date_br @scheduling.free_time %>
+              </p>
+
+              <p>
+                <strong>Status:</strong>
+                <%= @scheduling.status_name %>
+              </p>
+
+              <p>
+                <strong>Data Recebimento em:</strong>
+                <%= date_br @scheduling.date_receipt_at %>
+                <strong> as: </strong>
+                <%= time_br @scheduling.date_receipt_at %>
+                <strong> por: </strong>
+                <%= @scheduling.user.email if @scheduling.user.present? %>
+              </p>
+
+              <p>
                 <strong>Observação:</strong>
                 <%= @scheduling.obs %>
               </p>

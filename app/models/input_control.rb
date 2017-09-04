@@ -160,9 +160,7 @@ class InputControl < ActiveRecord::Base
     positivo = true
     clients = NfeXml.where(id: ids)
     client = clients.first
-    puts ">>>>>>>>>>>> first: #{client.source_client_id}"
     clients.order(:id).each do |os|
-      puts ">>>>>>>>>>>>. #{client.source_client_id} - #{os.source_client_id} - #{client.source_client_id == os.source_client_id}"
       positivo = client.source_client_id == os.source_client_id
       return false if positivo == false
     end
@@ -177,6 +175,10 @@ class InputControl < ActiveRecord::Base
       ActiveRecord::Base.transaction do
         return_value = true
         self.update_attributes(date_receipt: Date.current, status: InputControl::TypeStatus::RECEIVED)
+
+        nfe_input_control = self.nfe_xmls.first
+        nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_input_control.numero).first
+        Scheduling.where(id: nfe_scheduling.nfe_id).update_all(status: Scheduling::TypeStatus::RECEIVED)
       end
     rescue exception
       return_value = false

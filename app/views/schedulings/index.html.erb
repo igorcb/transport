@@ -15,7 +15,8 @@
             <th>Dt. Agend. Client</th>
             <th>Hr. Agend. Client</th>
             <th>Qtde NF-e</th>
-            <th collspam="3"></th>
+            <th>Status</th>
+            <th collspam="2"></th>
           </tr>
         </thead>
 
@@ -30,8 +31,9 @@
               <td><%= date_br scheduling.date_scheduling_client %></td>
               <td><%= time_br scheduling.time_scheduling_client %></td>
               <td><%= scheduling.nfe_xmls.count %></td>
-              <td><%= link_to 'Show', scheduling, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_scheduling_path(scheduling), class: "btn btn-primary btn-sm" %></td>
+              <td><%= scheduling.status_name %></td>
+              <td><%= link_to 'Show', scheduling, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_scheduling_path(scheduling), class: "btn btn-primary btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>
