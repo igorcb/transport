@@ -61,7 +61,7 @@ class SchedulingsController < ApplicationController
 
     def scheduling_params
       params.require(:scheduling).permit(:client, :type_modal, :date_scheduling, :time_scheduling, :date_scheduling_client, 
-        :time_scheduling_client,
+        :time_scheduling_client, :container, :obs,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         )
     end

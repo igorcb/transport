@@ -25,6 +25,11 @@
 							  <%= @scheduling.type_modal %>
 							</p>
 
+              <p>
+                <strong>Container:</strong>
+                <%= @scheduling.container %>
+              </p>
+
 							<p>
 							  <strong>Data Agen L7:</strong>
 							  <%= date_br @scheduling.date_scheduling %> | <%= time_br @scheduling.time_scheduling %>
@@ -34,6 +39,12 @@
 							  <strong>Data Agen Cliente:</strong>
 							  <%= date_br @scheduling.date_scheduling_client %> | <%= time_br @scheduling.time_scheduling_client %>
 							</p>
+
+              <p>
+                <strong>Observação:</strong>
+                <%= @scheduling.obs %>
+              </p>
+
             </div>
           </div>
         
