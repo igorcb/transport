@@ -23,7 +23,7 @@ class LowerAccountPayable < ActiveRecord::Base
                               data: data,  
                               valor: self.total_pago,
                               tipo: Cash::TipoLancamento::CREDITO,
-                              historico: "ESTORNO CONTA A PAGAR: " + self.account_payable.documento,
+                              historico: "ESTORNO CONTA A PAGAR: " + account.documento,
                               cost_center_id: self.account_payable.cost_center_id,
                               payment_method_id: self.account_payable.payment_method_id,
                               sub_cost_center_id: self.account_payable.sub_cost_center_id,
