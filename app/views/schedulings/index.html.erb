@@ -16,7 +16,7 @@
             <th>Hr. Agend. Client</th>
             <th>Qtde NF-e</th>
             <th>Status</th>
-            <th collspam="2"></th>
+            <th colspan="2"></th>
           </tr>
         </thead>
 
@@ -34,6 +34,9 @@
               <td><%= scheduling.status_name %></td>
               <td><%= link_to 'Show', scheduling, class: "btn btn-info btn-xs" %></td>
               <td><%= link_to 'Edit', edit_scheduling_path(scheduling), class: "btn btn-primary btn-xs" %></td>
+              <tr>
+                <td colspan="11"><strong>NFE:</strong><%= scheduling.get_number_nfe %></td>
+              </tr>
             </tr>
           <% end %>
         </tbody>

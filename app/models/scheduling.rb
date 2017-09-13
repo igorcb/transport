@@ -32,4 +32,12 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
+  def get_number_nfe
+    nfes = []
+    self.nfe_xmls.each do |n|
+      nfes << n.numero if n.numero.present?
+    end
+    nfes
+  end
+
 end
