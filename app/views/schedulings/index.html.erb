@@ -7,6 +7,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>Numero</th>
             <th>Client</th>
             <th>Type modal</th>
             <th>Container</th>
@@ -23,6 +24,7 @@
         <tbody>
           <% @schedulings.each do |scheduling| %>
             <tr>
+              <td><%= scheduling.id %></td>
               <td><%= scheduling.client %></td>
               <td><%= scheduling.type_modal %></td>
               <td><%= scheduling.container %></td>
