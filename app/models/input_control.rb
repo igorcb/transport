@@ -178,7 +178,7 @@ class InputControl < ActiveRecord::Base
 
         nfe_input_control = self.nfe_xmls.first
         nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_input_control.numero).first
-        Scheduling.where(id: nfe_scheduling.nfe_id).update_all(date_receipt_at: Time.current, status: Scheduling::TypeStatus::RECEIVED)
+        Scheduling.where(id: nfe_scheduling.nfe_id).update_all(date_receipt_at: Time.current, status: Scheduling::TypeStatus::RECEIVED) if nfe_scheduling.present?
       end
     rescue exception
       return_value = false
