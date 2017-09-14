@@ -255,8 +255,13 @@ class InputControl < ActiveRecord::Base
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
     carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
+    puts ">>>>>>>>>>>>>>>> Selecionar Agendamento pela NF-e buscando a data de agendamento no cliente"
+    nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_xmls.first.numero)
+    puts ">>>>>>>>>>>>>>>> Selecionar NFE: #{nfe_scheduling.count} "
+    scheduling = nfe_scheduling.first.scheduling if nfe_scheduling.present?
+    data_scheduling = scheduling.date_scheduling_client.present? ? scheduling.date_scheduling_client : nil
     ActiveRecord::Base.transaction do
-      puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico"
+      #puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico"
       ordem_service = OrdemService.create!( tipo: OrdemService::TipoOS::LOGISTICA,
                                 input_control_id: input_control.id,
                                 target_client_id: target_client.id, 
@@ -269,14 +274,15 @@ class InputControl < ActiveRecord::Base
                                           estado: target_client.estado,
                                           cidade: target_client.cidade,
                                       date_entry: input_control.date_receipt,
+                                            data: data_scheduling,
                                       observacao: ""
                                                  )
-      puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico Logistica"
+      #puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico Logistica"
       ordem_service.ordem_service_logistics.create!(driver_id: input_control.driver.id, 
                                                         placa: input_control.place, 
                                                          peso: input_control.weight, 
                                                   qtde_volume: input_control.volume)
-      puts ">>>>>>>>>>>>>>>> Importar dados da NFE XML para NFE Keys"
+      #puts ">>>>>>>>>>>>>>>> Importar dados da NFE XML para NFE Keys"
       nfe_xmls.each do |nfe|
         ordem_service.nfe_keys.create!(nfe: nfe.numero,
                                     chave: nfe.chave,
@@ -288,7 +294,7 @@ class InputControl < ActiveRecord::Base
                                    volume: nfe.volume
                                     )
 
-        puts ">>>>>>>>>>>>>>>> Importar produtos"
+        #puts ">>>>>>>>>>>>>>>> Importar produtos"
         nfe.item_input_controls.each do |item|
           ordem_service.item_ordem_services.create!( product_id: item.product_id,
                                                          number: item.number_nfe,
@@ -298,7 +304,7 @@ class InputControl < ActiveRecord::Base
                                                  valor_unitario: item.valor_unitario,
                                            valor_unitario_comer: item.valor_unitario_comer
                                       )
-          puts ">>>>>>>>>>>>>>>>> se nota de palete lançar no controle de palete"
+          #puts ">>>>>>>>>>>>>>>>> se nota de palete lançar no controle de palete"
           # if nfe.equipamento == NfeXml::TipoEquipamento::PALETE
           #   ControlPallet.create!(
           #                         client_id: source_client.id,
@@ -319,7 +325,7 @@ class InputControl < ActiveRecord::Base
         
         NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM)
       end
-      puts ">>>>>>>>>>>>>>>> update peso e volume"
+      puts ">>>>>>>>>>>>>>>> update peso e volume:"
       ordem_service.set_peso_and_volume
 
     end

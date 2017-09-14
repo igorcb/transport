@@ -5,6 +5,7 @@ class NfeXml < ActiveRecord::Base
 	validates :asset_file_name, uniqueness: { scope: :nfe_type } 
   validates :chave, uniqueness: { scope: :nfe_type }, allow_blank: true
 
+  belongs_to :scheduling, class_name: "Scheduling", foreign_key: "nfe_id"
   belongs_to :input_control, class_name: "InputControl", foreign_key: "nfe_id"
   belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id"
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id"
