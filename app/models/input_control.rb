@@ -175,12 +175,15 @@ class InputControl < ActiveRecord::Base
       ActiveRecord::Base.transaction do
         return_value = true
         self.update_attributes(date_receipt: Date.current, status: InputControl::TypeStatus::RECEIVED)
-
+        puts ">>>>>>>>>>>>>>>> Received Input Control:"
         nfe_input_control = self.nfe_xmls.first
         nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_input_control.numero).first
+        puts ">>>>>>>>>>>>>>>> Nfe Scheduling: #{nfe_scheduling.class}, count: nfe_scheduling.count"
         Scheduling.where(id: nfe_scheduling.nfe_id).update_all(date_receipt_at: Time.current, status: Scheduling::TypeStatus::RECEIVED) if nfe_scheduling.present?
+        return_value = true
       end
     rescue exception
+      self.update_attributes(date_receipt: nil, status: InputControl::TypeStatus::FINISH_TYPING)
       return_value = false
       raise ActiveRecord::Rollback
     end
