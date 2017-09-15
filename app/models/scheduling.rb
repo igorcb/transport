@@ -13,6 +13,8 @@ class Scheduling < ActiveRecord::Base
   after_save :processa_nfe_xmls
 
   default_scope { order(date_scheduling: :desc, time_scheduling: :desc, id: :desc) } 
+  #scope :the_day, -> { where(date_scheduling: Date.current).order(date_scheduling: :desc, time_scheduling: :desc, id: :desc) }
+  scope :the_day, -> { where(date_scheduling: Date.current) }
 
   module TypeStatus
     NOT_RECEIVED = 0

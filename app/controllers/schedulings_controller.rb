@@ -5,8 +5,8 @@ class SchedulingsController < ApplicationController
   respond_to :html
 
   def index
-    @q = Scheduling.order(date_scheduling: :desc).search(params[:query])
-    @schedulings = Scheduling.all
+    @q = Scheduling.where(status: -1).search(params[:query])
+    @schedulings = Scheduling.the_day
     respond_with(@schedulings)
   end
 
@@ -34,8 +34,6 @@ class SchedulingsController < ApplicationController
         format.json { render json: @owner.scheduling, status: :unprocessable_entity }
       end
     end
-
-    
   end
 
   def update
@@ -48,7 +46,6 @@ class SchedulingsController < ApplicationController
         format.json { render json: @scheduling.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   def destroy
@@ -57,7 +54,7 @@ class SchedulingsController < ApplicationController
   end
 
   def search
-    @q = Scheduling.order(date_scheduling: :desc).search(params[:query])
+    @q = Scheduling.search(params[:query])
     @schedulings = @q.result
     respond_with(@schedulings) do |format|
      format.js
