@@ -12,6 +12,8 @@ class Scheduling < ActiveRecord::Base
 
   after_save :processa_nfe_xmls
 
+  default_scope { order(date_scheduling: :desc, id: :desc) } 
+
   module TypeStatus
     NOT_RECEIVED = 0
     RECEIVED     = 1
