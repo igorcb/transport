@@ -258,11 +258,13 @@ class InputControl < ActiveRecord::Base
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
     carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
-    puts ">>>>>>>>>>>>>>>> Selecionar Agendamento pela NF-e buscando a data de agendamento no cliente"
-    nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_xmls.first.numero)
-    puts ">>>>>>>>>>>>>>>> Selecionar NFE: #{nfe_scheduling.count} "
-    scheduling = nfe_scheduling.first.scheduling if nfe_scheduling.present?
-    data_scheduling = scheduling.date_scheduling_client.present? ? scheduling.date_scheduling_client : nil
+    nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_xmls.first.numero).first
+
+    data_scheduling = nil
+    if nfe_scheduling.present?
+      data_scheduling = nfe_scheduling.scheduling.date_scheduling_client.present? ? nfe_scheduling.scheduling.date_scheduling_client : nil
+    end
+
     ActiveRecord::Base.transaction do
       #puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico"
       ordem_service = OrdemService.create!( tipo: OrdemService::TipoOS::LOGISTICA,
