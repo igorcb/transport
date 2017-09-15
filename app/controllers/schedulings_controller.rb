@@ -1,9 +1,11 @@
 class SchedulingsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_scheduling, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   respond_to :html
 
   def index
+    @q = Scheduling.order(date_scheduling: :desc).search(params[:query])
     @schedulings = Scheduling.all
     respond_with(@schedulings)
   end
@@ -53,6 +55,15 @@ class SchedulingsController < ApplicationController
     @scheduling.destroy
     respond_with(@scheduling)
   end
+
+  def search
+    @q = Scheduling.order(date_scheduling: :desc).search(params[:query])
+    @schedulings = @q.result
+    respond_with(@schedulings) do |format|
+     format.js
+    end
+  end
+
 
   private
     def set_scheduling

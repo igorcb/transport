@@ -1,0 +1,17 @@
+<tr>
+  <td><%= scheduling.id %></td>
+  <td><%= scheduling.client %></td>
+  <td><%= scheduling.type_modal %></td>
+  <td><%= scheduling.container %></td>
+  <td><%= date_br scheduling.date_scheduling %></td>
+  <td><%= time_br scheduling.time_scheduling %></td>
+  <td><%= date_br scheduling.date_scheduling_client %></td>
+  <td><%= time_br scheduling.time_scheduling_client %></td>
+  <td><%= scheduling.nfe_xmls.count %></td>
+  <td><%= scheduling.status_name %></td>
+  <td><%= link_to 'Show', scheduling, class: "btn btn-info btn-xs" %></td>
+  <td><%= link_to 'Edit', edit_scheduling_path(scheduling), class: "btn btn-primary btn-xs" %></td>
+  <tr>
+    <td colspan="11"><strong>NFE:</strong><%= scheduling.get_number_nfe %></td>
+  </tr>
+</tr>

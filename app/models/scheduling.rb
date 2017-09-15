@@ -28,6 +28,10 @@ class Scheduling < ActiveRecord::Base
   	end
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ['client', 'date_scheduling',  'status']
+  end
+
   def processa_nfe_xmls
     self.nfe_xmls.each do |nfe|
       NfeXml.processa_xml_input_control(nfe)
