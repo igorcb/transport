@@ -11,7 +11,11 @@
     <p>
       <strong>Embarque No.:</strong>
       <%= link_to @ordem_service.boarding_item.boarding_id, @ordem_service.boarding_item.boarding if @ordem_service.boarding_item.present? %>
+    </p>
 
+    <p>
+      <strong>Carga Direta.:</strong>
+      <%= link_to @ordem_service.direct_charge_id, @ordem_service.direct_charge if @ordem_service.direct_charge.present? %>
     </p>
 
     <p>
