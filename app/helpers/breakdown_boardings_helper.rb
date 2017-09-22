@@ -1,0 +1,2 @@
+module BreakdownBoardingsHelper
+end

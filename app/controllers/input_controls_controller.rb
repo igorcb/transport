@@ -3,10 +3,14 @@ class InputControlsController < ApplicationController
   include ActionView::Helpers::NumberHelper
 
   before_filter :authenticate_user!
-  before_action :set_input_control, only: [:show, :edit, :update, :destroy, :select_nfe]
+  before_action :set_input_control, only: [:show, :edit, :update, :destroy, :select_nfe, :question]
   load_and_authorize_resource  
 
   respond_to :html, :js
+
+  def question
+    
+  end
 
   def quitter
     #respond_with(@input_control)

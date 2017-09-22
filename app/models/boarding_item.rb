@@ -9,4 +9,7 @@ class BoardingItem < ActiveRecord::Base
   belongs_to :boarding
   belongs_to :ordem_service
 
+  has_many :item_ordem_services, :through => :ordem_service
+  has_many :products, :through => :item_ordem_services
+
 end

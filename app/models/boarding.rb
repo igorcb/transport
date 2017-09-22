@@ -29,6 +29,9 @@ class Boarding < ActiveRecord::Base
   #has_many :commentaries, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
   has_many :control_pallet_internals
 
+  has_many :breakdowns, as: :breakdown, dependent: :destroy
+  accepts_nested_attributes_for :breakdowns, allow_destroy: true, reject_if: :all_blank  
+
   scope :status_open, -> { includes(:driver).where(status: [TipoStatus::ABERTO, TipoStatus::EMBARCADO]).order("id desc") }
   scope :the_day, -> { includes(:driver).where(date_boarding: Date.current).order("id desc") }
 

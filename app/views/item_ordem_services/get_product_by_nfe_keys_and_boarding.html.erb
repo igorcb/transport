@@ -1,0 +1,37 @@
+<% if @item_product.present? %>
+
+  <div class="panel panel-default">
+  	  <div class="panel-heading">
+  	    <h2 class="panel-title"> </h2>
+  	  </div>
+  	  <div class="panel-body">
+
+        <p>
+          <strong><%= @item_product.product.descricao %></strong>
+        </p>
+        <p>
+          <strong>Qtde:</strong>
+          <%= @item_product.qtde_trib %>
+        </p>
+        <p>
+          <strong>Uni. Medida:</strong>
+          <%= @item_product.unid_medida %>
+        </p>
+
+  	  </div>
+  </div>
+
+<% else %>
+
+  <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title"> </h2>
+      </div>
+      <div class="panel-body">
+
+        <div class='alert alert-error'>Nao foi possivel localizar esse produto.</div>
+
+      </div>
+  </div>
+
+<% end %>

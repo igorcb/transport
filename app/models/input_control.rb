@@ -8,7 +8,7 @@ class InputControl < ActiveRecord::Base
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
-  
+
   has_many :ordem_services
   has_many :item_input_controls
 
@@ -22,6 +22,9 @@ class InputControl < ActiveRecord::Base
   accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
 
   has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+
+  has_many :breakdowns, as: :breakdown, dependent: :destroy
+  accepts_nested_attributes_for :breakdowns, allow_destroy: true, reject_if: :all_blank  
 
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
 

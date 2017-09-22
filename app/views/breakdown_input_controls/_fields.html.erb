@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-xs-3">
+    <%= f.select(:type_breakdown, select_type_breakdown, {include_blank: "Informe o Tipo"}, {class: "form-control"} ) %>
+  </div>
+</div>
+
+<br />
+
+<div class="row">
+  <div class="col-xs-2">
+    <%= f.text_field :nfe_xml_id, class: "form-control input-sm", placeholder: "NF-e" %>
+  </div>
+
+  <div class="col-xs-2">
+    <%= f.text_field :product_id, class: "form-control input-sm", placeholder: "Cod.Prod." %>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xs-8">
+    <div id="result_product" class="form-group">
+
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-xs-2">
+    <%= f.label :sobras %>
+    <%= f.text_field :sobras, class: "form-control input-sm", placeholder: "Sobras" %> 
+  </div>
+
+  <div class="col-xs-2">
+    <%= f.label :faltas %>
+    <%= f.text_field :faltas, class: "form-control input-sm", placeholder: "Faltas" %>
+  </div>
+  
+  <div class="col-xs-2">
+    <%= f.label :avarias %>
+    <%= f.text_field :avarias, class: "form-control input-sm", placeholder: "Avarias" %>
+  </div>

@@ -22,6 +22,12 @@ class NfeXml < ActiveRecord::Base
     cte.create_os = 0
 	end 
 
+  module TypeNfe
+    SCHEDULING   = "Scheduling"
+    INPUTCONTROL = "InputControl"
+    DIRECTCHARGE = "DirectCharge"
+  end
+
 	module TipoStatus
 		NAO_PROCESSADO = 0
 		EM_PROCESSAMENTO = 1
