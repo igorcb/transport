@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :breakdowns
+
   resources :schedulings do
     collection do
       get :search
@@ -30,6 +32,7 @@ Transport::Application.routes.draw do
   end
 
   resources :input_controls do
+    resources :breakdown_input_controls
     member do
       get 'select_nfe'
       get 'select_pallets'
@@ -40,10 +43,14 @@ Transport::Application.routes.draw do
       get 'finish_typing'
       get 'quitter'
       get :comments
+      get :question
     end
     collection do
       get :search
+
     end
+    
+
     get :received_weight, on: :collection 
     get :received_weight_search, on: :collection 
     #match "/cashes_search" => "cashes#search", via: [:get]
@@ -58,6 +65,7 @@ Transport::Application.routes.draw do
   end
 
   resources :boardings do
+    resources :breakdown_boardings
     member do
       get :print
       get :comments
@@ -170,6 +178,10 @@ Transport::Application.routes.draw do
   #match "/sub_centro_custo_by_custo" => "account_payables#sub_centro_custo_by_custo", via: [:get]
   match "/sub_centro_custo_by_custo", :controller => "account_payables", :action => "sub_centro_custo_by_custo", via: [:get]
   match "/sub_centro_custo_three_by_custo", :controller => "account_payables", :action => "sub_centro_custo_three_by_custo", via: [:get]
+  match "/get_product_by_nfe_xmls_and_product", :controller => "item_input_controls", :action => "get_product_by_nfe_xmls_and_product", via: [:get]
+  match "/get_nfe_xmls", :controller => "item_input_controls", :action => "get_nfe_xmls", via: [:get]
+  match "/get_nfe_keys_by_boarding", :controller => "nfe_keys", :action => "get_nfe_keys_by_boarding", via: [:get]
+  match "/get_product_by_nfe_keys_and_boarding", :controller => "item_ordem_services", :action => "get_product_by_nfe_keys_and_boarding", via: [:get]
   match "/account_payables_search" => "account_payables#search", via: [:get]
   match "/cashes_search" => "cashes#search", via: [:get]
   match "/schedulings_search" => "schedulings#search", via: [:get]
