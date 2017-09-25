@@ -32,6 +32,7 @@ Transport::Application.routes.draw do
   end
 
   resources :input_controls do
+    resources :breakdowns
     resources :breakdown_input_controls
     member do
       get 'select_nfe'
@@ -179,6 +180,7 @@ Transport::Application.routes.draw do
   match "/sub_centro_custo_by_custo", :controller => "account_payables", :action => "sub_centro_custo_by_custo", via: [:get]
   match "/sub_centro_custo_three_by_custo", :controller => "account_payables", :action => "sub_centro_custo_three_by_custo", via: [:get]
   match "/get_product_by_nfe_xmls_and_product", :controller => "item_input_controls", :action => "get_product_by_nfe_xmls_and_product", via: [:get]
+  match "/get_product_by_cod_prod", :controller => "products", :action => "get_product_by_cod_prod", via: [:get]
   match "/get_nfe_xmls", :controller => "item_input_controls", :action => "get_nfe_xmls", via: [:get]
   match "/get_nfe_keys_by_boarding", :controller => "nfe_keys", :action => "get_nfe_keys_by_boarding", via: [:get]
   match "/get_product_by_nfe_keys_and_boarding", :controller => "item_ordem_services", :action => "get_product_by_nfe_keys_and_boarding", via: [:get]
