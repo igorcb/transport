@@ -5,7 +5,6 @@ class Breakdown < ActiveRecord::Base
   belongs_to :product
 
   validates :type_breakdown, presence: true
-  validates :nfe_xml_id, presence: true
   validates :product_id, presence: true
 
   module TypeBreakdown

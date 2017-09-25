@@ -27,7 +27,7 @@
               <td><%= breakdown.sobras %></td>
               <td><%= breakdown.faltas %></td>
               <td><%= breakdown.avarias %></td>
-              <td><%#= link_to 'Delete', boarding_breakdown_boarding_path([@boarding, breakdown]), method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: "btn btn-danger btn-xs" %></td>
+              <td><%= link_to 'Delete', [breakdown], method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: "btn btn-danger btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>

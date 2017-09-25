@@ -9,6 +9,7 @@ class BreakdownInputControlsController < ApplicationController
   end
 
   def create
+    @breakdown = @input_control.breakdowns.build
     @number_nfe = params[:breakdown][:nfe_xml_id]
     @nfe_xml = NfeXml.where(nfe_type: NfeXml::TypeNfe::INPUTCONTROL, numero: @number_nfe).first
     if @nfe_xml.nil?

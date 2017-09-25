@@ -1,41 +1,4 @@
-<div class="panel panel-default">
-  <div class="panel-heading">Listagem de Produtos com Sobras/Faltas/Avarias</div>
-  <div class="panel-body">
-    <%#= link_to 'Novo Link', new_link_path, class: "btn btn-primary btn-lg btn-block" %>
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Type Breakdown</th>
-            <th>Tipo</th>
-            <th>Numero</th>
-            <th>NF-e</th>
-            <th>Cod.Prod</th>
-            <th>Descrição</th>
-            <th>Sobras</th>
-            <th>Faltas</th>
-            <th>Avarias</th>
-            <th></th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% @breakdowns.each do |breakdown| %>
-            <tr id="id_breakdown_<%= breakdown.id %>">
-              <td><%= breakdown.type_breakdown_name %></td>
-              <td><%= breakdown.breakdown_type %></td>
-              <td><%= breakdown.breakdown_id %></td>
-              <td><%=  %></td>
-              <td><%= breakdown.product.cod_prod %></td>
-              <td><%= breakdown.product.descricao %></td>
-              <td><%= breakdown.sobras %></td>
-              <td><%= breakdown.faltas %></td>
-              <td><%= breakdown.avarias %></td>
-              <td><%#= link_to 'Delete', [@input_control, breakdown], method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: "btn btn-danger btn-xs" %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>    
-  </div>
-</div>
+<div id="breakdowns_form"><%= render "form" %></div>
+<br />
+<div id="breakdowns_list"><%= render "breakdowns", breakdowns: @breakdowns %></div>
