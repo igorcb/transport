@@ -244,6 +244,7 @@ class InputControl < ActiveRecord::Base
                            peso: nfe.peso,
                          volume: nfe.volume,
                          status: ControlPallet::TipoStatus::ABERTO,
+         generate_ordem_service: false,
                input_control_id: input_control.id,
                       historico: "Entrada de Paletes pela Remessa de Entrada. No: #{input_control.id} "
                             )
