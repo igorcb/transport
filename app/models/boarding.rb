@@ -42,12 +42,17 @@ class Boarding < ActiveRecord::Base
   DRIVER_NOT_INFORMATION = 105
   CARRIER_NOT_INFORMATION = 3
 
-
   module TipoStatus
   	ABERTO = 0
   	EMBARCADO = 1
   	ENTREGUE = 2
     CANCELADO = 3
+  end
+
+  module TypeLocalEmbarque
+    FORTALEZA = 1
+    JUAZEIRO_DO_NORTE = 2
+    SIMOES_FILHO = 3
   end
 
   def status_name
@@ -56,6 +61,15 @@ class Boarding < ActiveRecord::Base
       when 1 then "Embarcado"
       when 2 then "Entregue"
       when 3 then "Cancelado"
+      else "Não Informado"
+    end
+  end
+
+  def local_embarque_name
+    case local_embarque
+      when 1 then "Fortaleza/CE"
+      when 2 then "Juazeiro do Norte/CE"
+      when 3 then "Simões Filho/BA"
       else "Não Informado"
     end
   end

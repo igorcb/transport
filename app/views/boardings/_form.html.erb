@@ -30,6 +30,19 @@
     <%= f.label :number_tranking, "Numero Rastreador Correios" %><br>
     <%= f.text_field :number_tranking, class: "form-control" %>
   </div>
+  <div class="form-group">
+    <%= f.label :local_embarque  %>
+    <%= f.select( :local_embarque, select_local_embarque, {include_blank: "Selecione o Local do Embarque"}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :manifesto, "Manifesto No:" %><br>
+    <%= f.text_field :manifesto, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :chave_manifesto, "Chave Manifesto: " %><br>
+    <%= f.text_field :chave_manifesto, class: "form-control" %>
+  </div>
 
   <div class="form-group">
     <%= f.label :obs, "Observação" %>

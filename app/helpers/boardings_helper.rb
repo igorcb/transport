@@ -19,6 +19,13 @@ module BoardingsHelper
      ])
   end
 
+  def select_local_embarque
+    ([["Fortaleza/CE", 1], 
+      ["Juazeiro do Norte/CE", 2],
+      ["Simões Filho/BA", 3]
+     ])
+  end
+
 end
 
       # when 0 then "Aberto"
