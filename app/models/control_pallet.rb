@@ -76,6 +76,7 @@ class ControlPallet < ActiveRecord::Base
                                    peso: control_pallet.peso,
                                  volume: control_pallet.volume,
                                  status: TipoStatus::ABERTO,
+                 generate_ordem_service: false,
                               carrier_id: 3 #carrier_id: 3 nao identificado
                               )
         ordem_service.set_peso_and_volume
