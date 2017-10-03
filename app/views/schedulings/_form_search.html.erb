@@ -2,7 +2,7 @@
   <%= search_form_for @q, remote: true, url: schedulings_search_path, :method => :get do |f| %>
     <div class="form-group">
       <%= f.label :client_eq, "Cliente" %>
-      <%= f.search_field :client_eq, class: "form-control" %>  
+      <%= f.search_field :client_cont, class: "form-control" %>  
     </div>
     
     <div class="form-group">
