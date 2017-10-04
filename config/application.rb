@@ -19,7 +19,7 @@ Bundler.require(:default, Rails.env)
 
 module Transport
   class Application < Rails::Application
-    config.middleware.use Apartment::Elevators::Subdomain
+    #config.middleware.use Apartment::Elevators::Subdomain
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -42,3 +42,7 @@ module Transport
     config.watchable_dirs['lib'] = [:rb]
   end
 end
+
+Rails.application.config.middleware.use Apartment::Elevators::Subdomain
+
+Apartment::Elevators::Subdomain.excluded_subdomains = ['www']
