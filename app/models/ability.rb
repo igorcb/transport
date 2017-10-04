@@ -1,6 +1,30 @@
 class Ability
   include CanCan::Ability
 
+  # def self.levels
+  #   [Admin, Oper, Visit, Client, Agent]
+  # end
+
+  # def prepare
+  #   puts "Classe Preparadora de alguma coisa"
+  #   self.class.levels.each do |level|
+  #     puts ">>>>>>>>>>>> #{level.is_a}"
+
+  #     if level.is_a? Admin
+  #       puts "Classe admin"
+  #       level.create_access_admin
+  #     end
+        
+  #     # elsif level.is_a? :oper
+  #     #   level.create_access_oper
+  #     # elsif level.is_a? :visit
+  #     #   level.create_access_visit
+  #     # elsif level.is_a? :agent
+  #     #   level.create_access_agent
+  #     # end
+  #   end
+  # end
+
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
@@ -38,4 +62,35 @@ class Ability
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
   end
+
+  class Admin
+    def create_access_admin
+      puts "Criando acesso para create_access_admin"
+    end
+  end
+
+  class Oper
+    def create_access_oper
+      puts "Criando acesso para create_access_oper"
+    end
+  end
+
+  class Client
+    def create_access_client
+      puts "Criando acesso para create_access_client"
+    end
+  end
+
+  class Visit
+    def create_access_visit
+      puts "Criando acesso para create_access_visit"
+    end
+  end
+
+  class Agent
+    def create_access_agent
+      puts "Criando acesso para create_access_agent"
+    end
+  end
+
 end
