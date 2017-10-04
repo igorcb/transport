@@ -8,6 +8,14 @@ module InputControlsHelper
     ([["NOTA_FISCAL", 0],["PALETE", 1], ["CINTA", 2], ["CHAPATEX", 3]])
   end
 
+  def select_team #ver final do arquivo
+    ([["IMBATIVEIS", 1],["UNIDOS VENCEREMOS", 2], ["DIARISTA", 3]])
+  end
+
+  def select_dock 
+    ([["1", 1],["2", 2], ["3", 3], ["4", 4], ["5", 5]])
+  end
+
   def link_to_ordem_service(number)
 		nfe_key = NfeKey.where(nfe_type: 'OrdemService', nfe: number)
 		if nfe_key.present?
@@ -33,15 +41,10 @@ module InputControlsHelper
 
 end
 
-  # def alert_color(ordem_service, alert)
-  #   case alert
-  #     when 0 then link_to "Alert", ordem_service, {:target => "_blank"}.merge(class: "btn btn-danger btn-xs")
-  #     when 1 then link_to "Alto" , ordem_service, {:target => "_blank"}.merge(class: "btn btn-warning btn-xs")
-  #     when 2 then link_to "Medio", ordem_service, {:target => "_blank"}.merge(class: "btn btn-yellow btn-xs")
-  #     when 3 then link_to "Baixo", ordem_service, {:target => "_blank"}.merge(class: "btn btn-green btn-xs")
-  #     when 4 then link_to "Normal", ordem_service, {:target => "_blank"}.merge(class: "btn btn-default btn-xs")
-  #   end
-    
-    
-  # end
-
+  # Fazer testes com esses helper
+  #options_for_select([ "VISA", "MasterCard", "Discover" ], ["VISA", "Discover"])
+  #options_for_select([ "Denmark", ["USA", {class: 'bold'}], "Sweden" ], ["USA", "Sweden"])
+  #options_for_select([["Dollar", "$", {class: "bold"}], ["Kroner", "DKK", {onclick: "alert('HI');"}]])
+  #options_for_select(["Free", "Basic", "Advanced", "Super Platinum"], disabled: "Super Platinum")
+  #options_for_select(["Free", "Basic", "Advanced", "Super Platinum"], disabled: ["Advanced", "Super Platinum"])
+  #options_for_select(["Free", "Basic", "Advanced", "Super Platinum"], selected: "Free", disabled: "Super Platinum")

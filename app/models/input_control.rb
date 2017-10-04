@@ -64,6 +64,12 @@ class InputControl < ActiveRecord::Base
     FINISH_TYPING = 4
   end #ordem do processo OPEN, FINISH TYPING, CLOSE, BILLIED
 
+  module TypeTeam
+    IMBATIVEIS = 1
+    UNIDOS_VENCEREMOS = 2
+    DIARISTA = 3
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ['id','carrier','driver','place','date_entry', 'date_receipt', 'status']
   end
@@ -113,6 +119,15 @@ class InputControl < ActiveRecord::Base
       when 2 then "Fechado"
       when 3 then "Faturado"
       when 4 then "Dig.Finalizada"
+      else "Nao Informado"
+    end
+  end
+
+  def team_name
+    case self.team
+      when 1 then "IMBATIVEIS"
+      when 2 then "UNIDOS_VENCEREMOS"
+      when 3 then "DIARISTA"
       else "Nao Informado"
     end
   end

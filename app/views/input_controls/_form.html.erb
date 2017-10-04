@@ -94,6 +94,16 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :team, "Equipe" %>
+    <%= f.select( :team, select_team, {include_blank: "Selecione uma Equipe"}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :dock, "Doca" %>
+    <%= f.select( :dock, select_dock, {include_blank: "Selecione uma doca"}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :observation, "Observação" %>
     <%= f.text_area :observation, class: "form-control" %>
   </div>
