@@ -16,6 +16,10 @@ module InputControlsHelper
     ([["1", 1],["2", 2], ["3", 3], ["4", 4], ["5", 5]])
   end
 
+  def select_hangar
+    ([["1", 1],["2", 2]])
+  end
+
   def link_to_ordem_service(number)
 		nfe_key = NfeKey.where(nfe_type: 'OrdemService', nfe: number)
 		if nfe_key.present?

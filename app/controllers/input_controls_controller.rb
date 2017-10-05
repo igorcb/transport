@@ -203,7 +203,7 @@ class InputControlsController < ApplicationController
     def input_control_params
       params.require(:input_control).permit(:carrier_id, :driver_id, :place, :place_cart, 
         :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets, 
-        :observation, :charge_discharge, :shipment, :team, :dock,
+        :observation, :charge_discharge, :shipment, :team, :dock, :hangar,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )
@@ -247,7 +247,7 @@ class InputControlsController < ApplicationController
       #report.page.item(:placa_reboque_2).value(@input_control.place_cart_2)
       report.page.item(:carrier_name).value(@input_control.carrier.nome)
       report.page.item(:carrier_cnpj).value(@input_control.carrier.cnpj)
-      #report.page.item(:galpao).value(@input_control.hangar)
+      report.page.item(:galpao).value(@input_control.hangar)
       report.page.item(:doca).value(@input_control.dock)
       report.page.item(:equipe).value(@input_control.team_name)
     end
