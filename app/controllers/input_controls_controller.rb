@@ -13,7 +13,6 @@ class InputControlsController < ApplicationController
   end
 
   def quitter
-    #respond_with(@input_control)
     respond_to do |format|
       format.html
       # Example: Basic Usage
@@ -210,6 +209,22 @@ class InputControlsController < ApplicationController
     end
 
     def render_input_control(task)
+        if task.hangar.blank?
+          flash[:danger] = "Select hangar on input_controls"
+          redirect_to input_control_path(task)
+          return
+        end
+        if task.dock.blank?
+          flash[:danger] = "Select dock on input_controls"
+          redirect_to input_control_path(task)
+          return
+        end
+        if task.team.blank?
+          flash[:danger] = "Select team on input_controls"
+          redirect_to input_control_path(task)
+          return
+        end
+
         report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
         
         report.start_new_page
