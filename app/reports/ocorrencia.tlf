@@ -1195,7 +1195,7 @@
         ],
         "font-size": 11,
         "color": "#000000",
-        "text-align": "left",
+        "text-align": "right",
         "vertical-align": "top",
         "line-height": "",
         "line-height-ratio": "",
@@ -1364,7 +1364,7 @@
       "description": "",
       "x": 165,
       "y": 140,
-      "width": 50.8,
+      "width": 40,
       "height": 17,
       "style": {
         "font-family": [
@@ -1388,7 +1388,7 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 325,
+      "x": 300,
       "y": 140,
       "width": 51.4,
       "height": 17,
@@ -1414,7 +1414,7 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 220,
+      "x": 210,
       "y": 136,
       "width": 85,
       "height": 17,
@@ -1448,7 +1448,7 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 380,
+      "x": 355,
       "y": 136,
       "width": 85,
       "height": 17,
@@ -1541,7 +1541,7 @@
         ],
         "font-size": 10,
         "color": "#000000",
-        "text-align": "left",
+        "text-align": "right",
         "vertical-align": "top",
         "line-height": "",
         "line-height-ratio": "",
@@ -1551,6 +1551,186 @@
       "texts": [
         "pag:"
       ]
+    },
+    {
+      "id": "galpao",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 500,
+      "y": 135.3,
+      "width": 22,
+      "height": 17,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 11,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "middle",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [
+          "bold"
+        ],
+        "overflow": "truncate",
+        "word-wrap": "break-word"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": true,
+      "format": {
+        "base": "",
+        "type": ""
+      }
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 445,
+      "y": 140,
+      "width": 51.4,
+      "height": 17,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 11,
+        "color": "#000000",
+        "text-align": "right",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": []
+      },
+      "texts": [
+        "GALPAO:"
+      ]
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 525,
+      "y": 140,
+      "width": 40,
+      "height": 17,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 11,
+        "color": "#000000",
+        "text-align": "right",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": []
+      },
+      "texts": [
+        "DOCA:"
+      ]
+    },
+    {
+      "id": "doca",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 570,
+      "y": 135.3,
+      "width": 22,
+      "height": 17,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 11,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "middle",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [
+          "bold"
+        ],
+        "overflow": "truncate",
+        "word-wrap": "break-word"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": true,
+      "format": {
+        "base": "",
+        "type": ""
+      }
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 595,
+      "y": 140,
+      "width": 44.9,
+      "height": 17,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 11,
+        "color": "#000000",
+        "text-align": "right",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": []
+      },
+      "texts": [
+        "EQUIPE:"
+      ]
+    },
+    {
+      "id": "equipe",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 640,
+      "y": 135,
+      "width": 170,
+      "height": 16,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 12,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [
+          "bold"
+        ],
+        "overflow": "fit",
+        "word-wrap": "break-word"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": true,
+      "format": {
+        "base": "",
+        "type": ""
+      }
     }
   ],
   "state": {

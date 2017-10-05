@@ -247,6 +247,9 @@ class InputControlsController < ApplicationController
       #report.page.item(:placa_reboque_2).value(@input_control.place_cart_2)
       report.page.item(:carrier_name).value(@input_control.carrier.nome)
       report.page.item(:carrier_cnpj).value(@input_control.carrier.cnpj)
+      #report.page.item(:galpao).value(@input_control.hangar)
+      report.page.item(:doca).value(@input_control.dock)
+      report.page.item(:equipe).value(@input_control.team_name)
     end
 
 end
