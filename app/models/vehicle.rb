@@ -48,25 +48,43 @@ class Vehicle < ActiveRecord::Base
   end
 
   module TipoCarroceria
-    ABERTA = 0
-    FECHADA_BAU = 1
+    # ABERTA = 0
+    # FECHADA_BAU = 1
+    # GRANELEIRA = 2
+    # PORTA_CONTAINER = 3
+    # SIDER = 4
+    # NAO_APLICAVEL = 5
+    BAU = 1
     GRANELEIRA = 2
-    PORTA_CONTAINER = 3
+    BUG_PORTA_CONTAINER = 3
     SIDER = 4
-    NAO_APLICAVEL = 5
+    BAU_FRIGORIFICO =5
+    CACAMBA = 6
+    GRADE_BAIXA = 7
+    CAVAQUEIRA = 8
+    PRANCHA = 9
+    MUNK = 9
+    SILO = 10
+    TANQUE = 11
+    GAIOLA = 12
+    CEGONHEIRO = 13
+    APENAS_CAVALO = 14
   end
 
 	module TipoVeiculo
-		STANDARD = 0
-		LS = 1
-		BAU = 2
+		#STANDARD = 0
+		CARRETA_LS = 1
+		VLC = 2
 		TRUK = 3
 		TOCO = 4
     CARRETA = 5
-    CAVALO_MECANICO = 6
+    TRES_QUARTOS = 6
     UTILITARIO = 7
     VAN = 8
-    NAOAPLICAVEL = 9
+    BITRUCK = 9
+    RODOTREM = 10
+    BITREM = 11
+    NAOAPLICAVEL = 99
 	end
 
   module TipoAssoalho
@@ -102,27 +120,42 @@ class Vehicle < ActiveRecord::Base
 
   def tipo_veiculo_nome
     case self.tipo_veiculo
-      when 0 then "STANDARD"
-      when 1 then "LS"
-      when 2 then "BAU"
+      #when 0 then "STANDARD"
+      when 1 then "CARRETA_LS"
+      when 2 then "VLC"
       when 3 then "TRUK"
       when 4 then "TOCO"
       when 5 then "CARRETA"
-      when 6 then "CAVALO MECÂNICO"
+      when 6 then "3/4"
       when 7 then "UTILITARIO"
       when 8 then "VAN"
+      when 9 then "BITRUCK"
+      when 10 then "RODOTREM"
+      when 11 then "BITREM"
       else "NAO APLICAVEL"
     end
   end
 
   def tipo_carroceria_name
     case self.tipo_carroceria
-      when 0 then "ABERTA"
-      when 1 then "FECHADA BAU"
+      #when 0 then "ABERTA"
+      #when 1 then "FECHADA BAU"
+      when 1 then "BAÚ"
       when 2 then "GRANELEIRA"
-      when 3 then "PORTA_CONTAINER"
+      when 3 then "Bug Porta Container"
       when 4 then "SIDER"
-      else "NAO APLICAVEL"
+      when 5 then "BAÚ FRIGORIFICO"
+      when 6 then "CAÇAMBA"
+      when 7 then "GRADE BAIXA"
+      when 8 then "CAVAQUEIRA"
+      when 9 then "PRANCHA"
+      when 10 then "MUNK"
+      when 11 then "SILO"
+      when 12 then "TANQUE"
+      when 13 then "GAIOLA"
+      when 14 then "CEGONHEIRO"
+      when 15 then "APENAS CAVALO"
+     else "NAO APLICAVEL"
     end
   end
 
