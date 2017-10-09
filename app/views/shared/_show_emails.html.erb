@@ -2,20 +2,22 @@
 <% if object.emails.any? %>
   <table class="table table-striped">
     <thead>
-      <th>Setor</th>
+      <th>TipoSetor</th>
       <th>Contato</th>
       <th>Responsavel pela carga</th>
       <th>Comprovante</th>
+      <th>Historico</th>
       <th>E-mail</th>
     </thead>
 
     <tbody>
       <% object.emails.each do |e| %>
         <tr>
-          <td><%= e.setor %></td>
+          <td><%= e.sector.name if e.sector.present? %></td>
           <td><%= e.contato %></td>
           <td><%= extenso_boolean (e.responsavel_carga) %></td>
           <td><%= extenso_boolean (e.comprovante) %></td>
+          <td><%= e.setor %></td>
           <td><%= e.email %></td>
         </tr>
       <% end %>

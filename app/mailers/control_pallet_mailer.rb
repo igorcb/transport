@@ -9,14 +9,17 @@ class ControlPalletMailer < ActionMailer::Base
     puts ">>>>>>>>>>>>>>>>>> Enviar Notificacao pallets"
     @control_pallet = control_pallet
     if Rails.env.development?
-      email = "igor.batista@gmail.com, paulogaldino@l7logistica.com.br"
+      #email = "igor.batista@gmail.com, paulogaldino@l7logistica.com.br"
+      email = @control_pallet.client.emails.type_sector(Sector::TypeSector::PALLETS).pluck(:email)*","
     end
     if Rails.env.production?
-      email = "pallets@l7logistica.com.br"
+      #email = "pallets@l7logistica.com.br"
+      email = @control_pallet.client.emails.type_sector(Sector::TypeSector::PALLETS).pluck(:email)*","
+      
     end 
     text_subject = "NOTIFICAÇÃO DE ARMAZENAMENTO - NF: #{@control_pallet.nfe} "
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
-
+    puts ">>>>>>>>>>>>>>>>>>>> Envio de Email para #{email}"
     #send mail
     mail to: email, bcc: nil, subject: "#{text_subject}"  end
 end

@@ -2,16 +2,21 @@
 
   <div class="row">
     <div class="col-xs-3">
-      <%= f.text_field :setor, class: "form-control input-sm", placeholder: "Setor" %>
-    </div>
+      <%= f.collection_select :sector_id, Sector.order(:name), :id, :name, {include_blank: "Selecione o Setor"}, {class: "form-control input-sm"} %>
+    </div>  
 
-    <div class="col-xs-3">
+    <div class="col-xs-2">
       <%= f.text_field :contato, class: "form-control input-sm", placeholder: "Contato" %>
     </div>
     
-    <div class="col-xs-4">
+    <div class="col-xs-3">
       <%= f.text_field :email, class: "form-control input-sm", placeholder: "e-mail" %>
     </div>
+
+    <div class="col-xs-2">
+      <%= f.text_field :setor, class: "form-control input-sm", placeholder: "Historico" %>
+    </div>
+
 
     <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
   </div> 

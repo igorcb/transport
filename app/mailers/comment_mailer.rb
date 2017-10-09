@@ -57,8 +57,8 @@ class CommentMailer < ActionMailer::Base
       email = ENV['RAILS_MAIL_DESTINATION']
     end
     if Rails.env.production?
-      email = "#{comment.email_destino}"
-    end     
+      email = @control_pallet.client.emails.type_sector(Sector::TypeSector::PALLETS).pluck(:email)*","
+    end 
     text_subject = "OCORRENCIA: NF #{comment.observation}"
     #anexar imagens
     photo = Asset.last

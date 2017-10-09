@@ -4,11 +4,11 @@ class OrdemServiceMailer < ActionMailer::Base
   def notification_delivery(ordem_service)
     @ordem_service = ordem_service
     if Rails.env.development?
-    	email = "igor.batista@gmail.com"
+      email = ENV['RAILS_MAIL_DESTINATION']
     end
     if Rails.env.production?
-    	email = "larissa.fonceca@ype.ind.br, josiana.diana@ype.ind.br, paulogaldino@l7logistica.com.br"
-    end	
+      email = @control_pallet.client.emails.type_sector(Sector::TypeSector::PALLETS).pluck(:email)*","
+    end 
     text_subject = "NOTIFICAÇÃO DE ENTREGA - NF: #{@ordem_service.danfes} "
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
 
