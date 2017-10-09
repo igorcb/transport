@@ -2,8 +2,6 @@ class Sector < ActiveRecord::Base
 
 	validates :name, uniqueness: true
 	
-	scope :type_sector, -> { where(id: TypeSector::ADMINISTRATIVO) }
-
 	module TypeSector
 		ADMINISTRATIVO = 1
 		COMERCIAL = 2
