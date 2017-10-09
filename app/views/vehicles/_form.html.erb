@@ -52,6 +52,10 @@
     <%= f.label :tipo_piso_assoalho %><br>
     <%= f.select( :tipo_piso_assoalho, select_tipo_piso_assoalho, {include_blank: true}, {class: "form-control"} ) %>      
   </div>
+  <div class="form-group">
+    <%= f.label :tracked, "Rastreado" %><br>
+    <%= f.select( :tracked, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+  </div>
 
   <div class="form-group">
     <%= f.label :municipio_emplacamento %><br>
@@ -97,7 +101,6 @@
   <div class="form-group">
     <%= f.label :grade %><br>
     <%= f.select( :grade, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
-    
   </div>
 
   <div class="form-group">
