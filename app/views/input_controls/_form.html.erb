@@ -41,6 +41,21 @@
   </div>  
 
   <div class="form-group">
+    <%= label_tag :billing_client_cpf_cpnj, "CPF/CNPJ Tomador do Serviço" %><br>
+    <% if @input_control.new_record? %>
+      <%= text_field_tag :billing_client_cpf_cpnj, nil, class: "form-control" %>
+    <% else %>
+      <%= text_field_tag :billing_client_cpf_cpnj, @input_control.billing_client.cpf_cnpj, class: "form-control", disabled: true %>
+      <%= render partial: "clients/result_client", locals: { client: @input_control.billing_client } %>
+    <% end %>
+  </div>
+  
+  <div id="billing_client_cnpj_result">
+
+  </div>  
+
+
+  <div class="form-group">
     <%= f.label :place, "Placa" %>
     <%= f.text_field :place, class: "form-control placa" %>
   </div>
@@ -172,6 +187,25 @@
         url: '/drivers/get_driver_by_cpf',
         success: function(data){
             $('#driver_cpf_result').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#billing_client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#billing_client_cpf_cpnj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj},
+        dataType : 'html',
+        url: '/clients/get_client_by_cnpj',
+        success: function(data){
+            $('#billing_client_cnpj_result').html(data);
         },
       });
     });

@@ -85,11 +85,38 @@
     <div class="panel-heading" role="tab" id="headingFour">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          Documentos
+          Dados do tomador do servico
         </a>
       </h4>
     </div>
     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">Dados tomador do servico</h2>
+            </div>
+
+            <div class="panel-body"> 
+              <%= render 'clients/client_data', object: @input_control.billing_client if @input_control.billing_client.present? %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFive">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Documentos
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
 
         <div class="panel-body"> 
           <%= render 'shared/document', object: @input_control %>
@@ -99,14 +126,14 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingFive">
+    <div class="panel-heading" role="tab" id="headingSix">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="false" aria-controls="collapse">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
           Ocorrencias
         </a>
       </h4>
     </div>
-    <div id="collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
       <div class="panel-body">
 
       <%= render 'comments/feed', comments: @input_control.feed %>
@@ -119,14 +146,14 @@
 
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingSix">
+    <div class="panel-heading" role="tab" id="headingSeven">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
           Dados do Cancelamento
         </a>
       </h4>
     </div>
-    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
       <div class="panel-body">
 
       <%= render 'cancellations/feed', cancellations: @input_control.feed_cancellations %>
@@ -139,14 +166,14 @@
 
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingSeven">
+    <div class="panel-heading" role="tab" id="headingEight">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
           Listagem de XML de NF-e Paletes
         </a>
       </h4>
     </div>
-    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
       <div class="panel-body">
 
         <div class="table-responsive">

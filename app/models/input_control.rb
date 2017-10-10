@@ -5,6 +5,7 @@ class InputControl < ActiveRecord::Base
   belongs_to :carrier
   belongs_to :driver
   belongs_to :user_received, class_name: "User", foreign_key: "received_user_id"
+  belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id"
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank

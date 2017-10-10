@@ -140,9 +140,11 @@ class InputControlsController < ApplicationController
     # respond_with(@input_control)
     driver  = Driver.find_by_cpf(params[:driver_cpf])
     carrier = Carrier.find_by_cnpj(params[:carrier_cnpj])
+    billing_client  = Client.find_by_cpf_cnpj(params[:billing_client_cpf_cpnj])
     @input_control.driver_id = driver.id
     @input_control.carrier_id = carrier.id
     @input_control.user_id = current_user.id
+    @input_control.billing_client_id = billing_client.id
     respond_to do |format|
       if @input_control.save                               
         format.html { redirect_to @input_control, flash: { success: "Input Control was successfully created." } }
@@ -200,7 +202,7 @@ class InputControlsController < ApplicationController
     end
 
     def input_control_params
-      params.require(:input_control).permit(:carrier_id, :driver_id, :place, :place_cart, 
+      params.require(:input_control).permit(:carrier_id, :driver_id, :billing_client_id, :place, :place_cart, 
         :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets, 
         :observation, :charge_discharge, :shipment, :team, :dock, :hangar,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
