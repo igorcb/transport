@@ -235,10 +235,16 @@ class InputControl < ActiveRecord::Base
         self.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
         return_value = true
       end
-    rescue exception
+    # rescue Exception => e
+    #   return_value = false
+    #   raise ActiveRecord::Rollback
+    # end
+    rescue Exception => e
+      puts e.message
+      self.errors[:base] << e.message
       return_value = false
-      raise ActiveRecord::Rollback
-    end
+      return false
+    end    
   end
 
   def self.create_stok_pallets(params = {})
