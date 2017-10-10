@@ -7,7 +7,7 @@
   #   Sector.find_or_create_by!(name: "LOGISTICA_REVERSA")
   #   Sector.find_or_create_by!(name: "REGISTROS_OCORRENCIA")
 	#   Sector.find_or_create_by!(name: "CONFIRMACAO_ENTREGA")
-
+#sectors = Sector.order(:id)
 # Tenant.all.each do |t|
 #   Apartment::Tenant.switch!(t.subdomain)
 #   sectors.each do |s|
