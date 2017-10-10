@@ -32,6 +32,7 @@ class CommentMailer < ActionMailer::Base
     end
     if Rails.env.production?
       email = "#{comment.email_destino}"
+      #email = @comment.input_control.billing_client.emails.type_sector(Sector::TypeSector::REGISTROS_OCORRENCIA).pluck(:email)*","
     end     
     text_subject = "OCORRENCIA: NF #{comment.observation}"
     #anexar imagens
@@ -57,7 +58,7 @@ class CommentMailer < ActionMailer::Base
       email = ENV['RAILS_MAIL_DESTINATION']
     end
     if Rails.env.production?
-      email = @control_pallet.client.emails.type_sector(Sector::TypeSector::PALLETS).pluck(:email)*","
+      email = @comment.input_control.billing_client.emails.type_sector(Sector::TypeSector::REGISTROS_OCORRENCIA).pluck(:email)*","
     end 
     text_subject = "OCORRENCIA: NF #{comment.observation}"
     #anexar imagens
