@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
   belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "comment_id", polymorphic: true, dependent: :destroy
 	belongs_to :boarding, class_name: "Boarding", foreign_key: "comment_id", polymorphic: true, dependent: :destroy
+  belongs_to :input_control, class_name: "InputControl", foreign_key: "comment_id", polymorphic: true, dependent: :destroy
   validates :content, presence: true
 
   
