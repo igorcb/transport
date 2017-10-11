@@ -7,7 +7,7 @@ class OrdemServiceMailer < ActionMailer::Base
       email = ENV['RAILS_MAIL_DESTINATION']
     end
     if Rails.env.production?
-      email = @control_pallet.client.emails.type_sector(Sector::TypeSector::PALLETS).pluck(:email)*","
+      email = @ordem_service.client.emails.type_sector(Sector::TypeSector::CONFIRMACAO_ENTREGA).pluck(:email)*","
     end 
     text_subject = "NOTIFICAÇÃO DE ENTREGA - NF: #{@ordem_service.danfes} "
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
