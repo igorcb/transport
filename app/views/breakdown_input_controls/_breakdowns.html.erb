@@ -28,6 +28,11 @@
               <td><%= breakdown.faltas %></td>
               <td><%= breakdown.avarias %></td>
               <td><%= link_to 'Delete', [@input_control, breakdown], method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: "btn btn-danger btn-xs" %></td>
+              <% if breakdown.assets.present? %>               
+              <td><%= link_to 'Image', input_control_breakdown_input_control_product_path(@input_control, breakdown.id), class: "btn btn-warning btn-xs" %></td>
+              <% else %>
+              <td><%= link_to 'Image', input_control_breakdown_input_control_product_path(@input_control, breakdown.id), class: "btn btn-default btn-xs" %></td>
+              <% end %>              
             </tr>
           <% end %>
         </tbody>

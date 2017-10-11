@@ -4,6 +4,9 @@ class Breakdown < ActiveRecord::Base
   belongs_to :nfe_xml
   belongs_to :product
 
+  has_many :assets, as: :asset, dependent: :destroy
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
+
   validates :type_breakdown, presence: true
   validates :product_id, presence: true
 

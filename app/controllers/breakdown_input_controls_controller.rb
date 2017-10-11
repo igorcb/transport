@@ -41,6 +41,25 @@ class BreakdownInputControlsController < ApplicationController
 
   end
 
+  def update
+    @breakdown = Breakdown.find(params[:breakdown_id])
+    respond_to do |format|
+      if @breakdown.update(breakdown_params)
+        format.html { redirect_to input_control_breakdown_input_controls_path(@input_control), flash: { success: "Breakdowns was successfully updated." }  }
+        # input_control_breakdown_input_controls_path(@input_control)
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @boarding.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def product
+    #"input_control_id"=>"443", "breakdown_input_control_id"=>"59"
+    @breakdown = Breakdown.where(id: params[:breakdown_input_control_id]).first
+  end
+
   def destroy
     @breakdown = @input_control.breakdowns.find(params[:id])
     @breakdown.destroy
@@ -50,7 +69,9 @@ class BreakdownInputControlsController < ApplicationController
   private
 
     def breakdown_params
-      params.require(:breakdown).permit(:nfe_xml_id, :product_id, :type_breakdown, :sobras, :faltas, :avarias)
+      params.require(:breakdown).permit(:nfe_xml_id, :product_id, :type_breakdown, :sobras, :faltas, :avarias,
+        assets_attributes: [:asset, :id, :_destroy]
+        )
     end
 
     def load_all

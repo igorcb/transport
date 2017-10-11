@@ -33,7 +33,10 @@ Transport::Application.routes.draw do
 
   resources :input_controls do
     resources :breakdowns
-    resources :breakdown_input_controls
+    resources :breakdown_input_controls do
+      get :product
+      post :update_product, on: :collection    
+    end
     member do
       get 'select_nfe'
       get 'select_pallets'
