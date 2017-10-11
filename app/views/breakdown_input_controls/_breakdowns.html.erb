@@ -10,6 +10,7 @@
             <th>NF-e</th>
             <th>Cod.Prod</th>
             <th>Descrição</th>
+            <th>UnMed</th>
             <th>Sobras</th>
             <th>Faltas</th>
             <th>Avarias</th>
@@ -24,6 +25,7 @@
               <td><%= breakdown.nfe_xml.numero if breakdown.nfe_xml.present? %></td>
               <td><%= breakdown.product.cod_prod %></td>
               <td><%= breakdown.product.descricao %></td>
+              <td><%= breakdown.unid_medida if breakdown.unid_medida.present? %></td>
               <td><%= breakdown.sobras %></td>
               <td><%= breakdown.faltas %></td>
               <td><%= breakdown.avarias %></td>

@@ -1,4 +1,10 @@
 class Breakdown < ActiveRecord::Base
+  #extend Enumerize
+  #enumerize :role, in: [:user, :admin], default: :user
+  #enumerize :unid_medida, in: [:un, :cx, :frd, :pc, :pct]
+
+  #UN: Unidade, CX: Caixa, FRD: Fardo, PC: PEÇA, PCT: PACOTE
+
   belongs_to :boarding, class_name: "Boarding", foreign_key: "breakdown_id", polymorphic: true
   belongs_to :input_control, class_name: "InputControl", foreign_key: "breakdown_id", polymorphic: true
   belongs_to :nfe_xml
@@ -9,6 +15,7 @@ class Breakdown < ActiveRecord::Base
 
   validates :type_breakdown, presence: true
   validates :product_id, presence: true
+  validates :unid_medida, presence: true
 
   module TypeBreakdown
   	PRIMEIRA_PERNA_L7 = 0

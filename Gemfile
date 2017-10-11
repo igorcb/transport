@@ -65,6 +65,7 @@ gem "cpf_cnpj"
 gem 'migration_data'
 
 gem 'apartment'
+gem 'enumerize'
 
 # group :development, :test do
 #   # gem 'sqlite3', '1.3.5'

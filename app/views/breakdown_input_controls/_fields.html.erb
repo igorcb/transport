@@ -28,6 +28,11 @@
 <div class="row">
 
   <div class="col-xs-2">
+    <%= f.label :unid_medida, "UN Med." %>
+    <%= f.select(:unid_medida, select_unidade_medida, {include_blank: ""}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="col-xs-2">
     <%= f.label :sobras %>
     <%= f.text_field :sobras, value: 0, class: "form-control input-sm", placeholder: "Sobras" %> 
   </div>
@@ -41,3 +46,4 @@
     <%= f.label :avarias %>
     <%= f.text_field :avarias, value: 0, class: "form-control input-sm", placeholder: "Avarias" %>
   </div>
+
