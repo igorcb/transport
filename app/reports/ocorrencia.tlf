@@ -314,7 +314,42 @@
           "x": 0.8,
           "y": -115
         },
-        "items": []
+        "items": [
+          {
+            "id": "qtde",
+            "type": "text-block",
+            "display": true,
+            "description": "",
+            "x": 24.2,
+            "y": 305,
+            "width": 42.9,
+            "height": 14,
+            "style": {
+              "font-family": [
+                "Helvetica"
+              ],
+              "font-size": 10,
+              "color": "#000000",
+              "text-align": "right",
+              "vertical-align": "middle",
+              "line-height": "",
+              "line-height-ratio": "",
+              "letter-spacing": "",
+              "font-style": [
+                "bold"
+              ],
+              "overflow": "fit",
+              "word-wrap": "break-word"
+            },
+            "reference-id": "",
+            "value": "",
+            "multiple-line": true,
+            "format": {
+              "base": "",
+              "type": ""
+            }
+          }
+        ]
       },
       "detail": {
         "height": 20,
@@ -328,9 +363,9 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 83.4,
+            "x": 114.2,
             "y": 337.9,
-            "width": 418.9,
+            "width": 390,
             "height": 14,
             "style": {
               "font-family": [
@@ -397,9 +432,9 @@
               "border-width": 1,
               "border-style": "solid"
             },
-            "x1": 524.2,
+            "x1": 509.2,
             "y1": 335.2,
-            "x2": 524.2,
+            "x2": 509.2,
             "y2": 355.2
           },
           {
@@ -412,9 +447,9 @@
               "border-width": 1,
               "border-style": "solid"
             },
-            "x1": 580,
+            "x1": 614.2,
             "y1": 335.2,
-            "x2": 580,
+            "x2": 614.2,
             "y2": 355.2
           },
           {
@@ -427,9 +462,9 @@
               "border-width": 1,
               "border-style": "solid"
             },
-            "x1": 635,
+            "x1": 664.2,
             "y1": 335.2,
-            "x2": 635,
+            "x2": 664.2,
             "y2": 355.2
           },
           {
@@ -442,9 +477,9 @@
               "border-width": 1,
               "border-style": "solid"
             },
-            "x1": 750,
+            "x1": 769.2,
             "y1": 335.2,
-            "x2": 750,
+            "x2": 769.2,
             "y2": 355.2
           },
           {
@@ -467,7 +502,7 @@
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 529.2,
+            "x": 514.2,
             "y": 337.9,
             "width": 42.9,
             "height": 14,
@@ -497,13 +532,43 @@
             }
           },
           {
-            "id": "prod_und",
+            "id": "",
+            "type": "line",
+            "display": true,
+            "description": "",
+            "style": {
+              "border-color": "#000000",
+              "border-width": 1,
+              "border-style": "solid"
+            },
+            "x1": 719.2,
+            "y1": 335.2,
+            "x2": 719.2,
+            "y2": 355.2
+          },
+          {
+            "id": "",
+            "type": "line",
+            "display": true,
+            "description": "",
+            "style": {
+              "border-color": "#000000",
+              "border-width": 1,
+              "border-style": "solid"
+            },
+            "x1": 569.2,
+            "y1": 335.2,
+            "x2": 569.2,
+            "y2": 355.2
+          },
+          {
+            "id": "qtde",
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 585,
+            "x": 619.2,
             "y": 337.9,
-            "width": 42.9,
+            "width": 40,
             "height": 14,
             "style": {
               "font-family": [
@@ -511,7 +576,7 @@
               ],
               "font-size": 10,
               "color": "#000000",
-              "text-align": "center",
+              "text-align": "right",
               "vertical-align": "middle",
               "line-height": "",
               "line-height-ratio": "",
@@ -531,19 +596,140 @@
             }
           },
           {
-            "id": "",
-            "type": "line",
+            "id": "sobras",
+            "type": "text-block",
             "display": true,
             "description": "",
+            "x": 669.2,
+            "y": 337.9,
+            "width": 42.9,
+            "height": 14,
             "style": {
-              "border-color": "#000000",
-              "border-width": 1,
-              "border-style": "solid"
+              "font-family": [
+                "Helvetica"
+              ],
+              "font-size": 10,
+              "color": "#000000",
+              "text-align": "right",
+              "vertical-align": "middle",
+              "line-height": "",
+              "line-height-ratio": "",
+              "letter-spacing": "",
+              "font-style": [
+                "bold"
+              ],
+              "overflow": "fit",
+              "word-wrap": "break-word"
             },
-            "x1": 695,
-            "y1": 335.2,
-            "x2": 695,
-            "y2": 355.2
+            "reference-id": "",
+            "value": "",
+            "multiple-line": true,
+            "format": {
+              "base": "",
+              "type": ""
+            }
+          },
+          {
+            "id": "faltas",
+            "type": "text-block",
+            "display": true,
+            "description": "",
+            "x": 724.2,
+            "y": 337.9,
+            "width": 42.9,
+            "height": 14,
+            "style": {
+              "font-family": [
+                "Helvetica"
+              ],
+              "font-size": 10,
+              "color": "#000000",
+              "text-align": "right",
+              "vertical-align": "middle",
+              "line-height": "",
+              "line-height-ratio": "",
+              "letter-spacing": "",
+              "font-style": [
+                "bold"
+              ],
+              "overflow": "fit",
+              "word-wrap": "break-word"
+            },
+            "reference-id": "",
+            "value": "",
+            "multiple-line": true,
+            "format": {
+              "base": "",
+              "type": ""
+            }
+          },
+          {
+            "id": "avarias",
+            "type": "text-block",
+            "display": true,
+            "description": "",
+            "x": 774.2,
+            "y": 337.9,
+            "width": 42.9,
+            "height": 14,
+            "style": {
+              "font-family": [
+                "Helvetica"
+              ],
+              "font-size": 10,
+              "color": "#000000",
+              "text-align": "right",
+              "vertical-align": "middle",
+              "line-height": "",
+              "line-height-ratio": "",
+              "letter-spacing": "",
+              "font-style": [
+                "bold"
+              ],
+              "overflow": "fit",
+              "word-wrap": "break-word"
+            },
+            "reference-id": "",
+            "value": "",
+            "multiple-line": true,
+            "format": {
+              "base": "",
+              "type": ""
+            }
+          },
+          {
+            "id": "und_med",
+            "type": "text-block",
+            "display": true,
+            "description": "",
+            "x": 573.2,
+            "y": 337.9,
+            "width": 35,
+            "height": 14,
+            "style": {
+              "font-family": [
+                "Helvetica"
+              ],
+              "font-size": 10,
+              "color": "#000000",
+              "text-align": "left",
+              "vertical-align": "middle",
+              "line-height": "",
+              "line-height-ratio": "",
+              "letter-spacing": "",
+              "font-style": [
+                "bold"
+              ],
+              "overflow": "fit",
+              "word-wrap": "break-word"
+            },
+            "reference-id": "",
+            "value": "",
+            "multiple-line": true,
+            "format": {
+              "base": "",
+              "type": ""
+            }
           }
         ]
       },
@@ -573,9 +759,9 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 580,
-      "y": 190,
-      "width": 55,
+      "x": 570,
+      "y": 189,
+      "width": 45,
       "height": 17,
       "style": {
         "font-family": [
@@ -599,7 +785,7 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 635,
+      "x": 665,
       "y": 190,
       "width": 55,
       "height": 17,
@@ -625,7 +811,7 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 695,
+      "x": 715,
       "y": 190,
       "width": 55,
       "height": 17,
@@ -651,7 +837,7 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 755.5,
+      "x": 770,
       "y": 190,
       "width": 55,
       "height": 17,
@@ -677,9 +863,9 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 525,
+      "x": 620,
       "y": 190,
-      "width": 55,
+      "width": 45,
       "height": 17,
       "style": {
         "font-family": [
@@ -695,7 +881,7 @@
         "font-style": []
       },
       "texts": [
-        "TOTAL"
+        "QTDE"
       ]
     },
     {
@@ -1731,6 +1917,32 @@
         "base": "",
         "type": ""
       }
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 520,
+      "y": 189,
+      "width": 45,
+      "height": 17,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 11,
+        "color": "#000000",
+        "text-align": "center",
+        "vertical-align": "middle",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": []
+      },
+      "texts": [
+        "TOTAL"
+      ]
     }
   ],
   "state": {

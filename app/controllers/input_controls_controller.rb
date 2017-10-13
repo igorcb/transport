@@ -240,10 +240,19 @@ class InputControlsController < ApplicationController
           report.page.item(:client_cidade).value(nfe.target_client.cidade)
           nfe.item_input_controls.joins(:product).order("products.cod_prod").each do |item|
             report.list.add_row do |row|
+              breakdown = Breakdown.where(breakdown_type: 'InputControl', breakdown_id: item.input_control_id, product_id: item.product_id).first
+              sobras = breakdown.nil? ? nil : breakdown.sobras
+              faltas = breakdown.nil? ? nil : breakdown.faltas
+              avarias = breakdown.nil? ? nil : breakdown.avarias
+              und_med = breakdown.nil? ? item.unid_medida : breakdown.unid_medida
               row.values prod_id: item.product.cod_prod, 
                      prod_name: item.product.descricao,
-                     prod_total: item.qtde,
-                     prod_und: item.unid_medida
+                     prod_total: item.qtde_trib,
+                     qtde: item.qtde,
+                     sobras: sobras,
+                     faltas: faltas,
+                     avarias: avarias,
+                     und_med: item.unid_medida
               end
           end
           report.start_new_page
