@@ -35,7 +35,7 @@ class AccountBank < ActiveRecord::Base
       "Nao Definido"
     else  
   	  bank = Bank.where(id: self.banco).first
-  	  bank.banco
+  	  bank.present? ? bank.banco : 0
     end
   end
 end
