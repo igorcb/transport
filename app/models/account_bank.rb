@@ -34,7 +34,7 @@ class AccountBank < ActiveRecord::Base
     if self.banco.to_i == 0
       "Nao Definido"
     else  
-  	  bank = Bank.find (self.banco)
+  	  bank = Bank.where(id: self.banco).first
   	  bank.banco
     end
   end
