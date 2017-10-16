@@ -102,18 +102,18 @@
     <%= f.nested_fields_for :nfe_xmls do |f| 
       render 'nfe_xml_fields', f: f
     end -%> <br />
-    <%= link_to_add_association 'Add NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm"  %> <br />
+    <%= link_to_add_association '[+] NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm"  %> <br />
     <%#= if @direct_charge.status == InputControl::TypeStatus::OPEN %>
   </div> <br />
   
   <h3>Documentos</h3> 
   <div id="documents">
     <div class="items">
-      <%#= f.nested_fields_for :assets do |f| 
+      <%= f.nested_fields_for :assets do |f| 
         render 'shared/asset', f: f
       end  -%>
     </div>
-      <!-- <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>   -->
+       <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>   
   </div>
 
   <hr />
