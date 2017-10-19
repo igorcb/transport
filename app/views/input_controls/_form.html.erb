@@ -43,9 +43,9 @@
   <div class="form-group">
     <%= label_tag :billing_client_cpf_cpnj, "CPF/CNPJ Tomador do Serviço" %><br>
     <% if @input_control.new_record? %>
-      <%= text_field_tag :billing_client_cpf_cpnj, nil, class: "form-control" %>
+      <%= text_field_tag :billing_client_cpf_cpnj, nil, class: "form-control cnpj" %>
     <% else %>
-      <%= text_field_tag :billing_client_cpf_cpnj, @input_control.billing_client.cpf_cnpj, class: "form-control", disabled: true %>
+      <%= text_field_tag :billing_client_cpf_cpnj, @input_control.billing_client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
       <%= render partial: "clients/result_client", locals: { client: @input_control.billing_client } %>
     <% end %>
   </div>
