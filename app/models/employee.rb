@@ -29,6 +29,10 @@ class Employee < ActiveRecord::Base
   has_attached_file :avatar, styles: lambda { |a| a.instance.avatar_content_type =~ %r(image) ? { mini: "144x90>"} : {} }
   #validates_attachment_presence :avatar
 
+  has_many :emails, class_name: "Email", foreign_key: "email_id", :as => :email, dependent: :destroy
+  accepts_nested_attributes_for :emails, allow_destroy: true
+
+
   has_many :account_payables, class_name: "AccountPayable", foreign_key: "supplier_id"
   before_destroy :can_destroy?
 

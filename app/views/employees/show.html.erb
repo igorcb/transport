@@ -119,6 +119,8 @@
  
 <%= render 'shared/show_contacts', object: @employee %>
 
+<%= render 'shared/show_emails', object: @employee %>
+
 <h2>Tabela de Preços</h2>
 <% if @employee.table_prices.any? %>
   <table class="table table-striped">
