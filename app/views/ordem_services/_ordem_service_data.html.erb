@@ -1,4 +1,9 @@
     <p>
+      <strong>Ação Fiscal.:</strong>
+      <%= @ordem_service.boarding_item.boarding.action_inspector if @ordem_service.boarding_item.boarding.present? %>
+    </p>
+
+    <p>
       <strong>Faturamento No.:</strong>
       <%= link_to @ordem_service.billing_id, @ordem_service.billing if @ordem_service.billing.present? %>
     </p>
