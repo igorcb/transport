@@ -163,4 +163,5 @@ class Vehicle < ActiveRecord::Base
     "#{tipo_nome}/#{placa}"
   end
 
+
 end
