@@ -267,6 +267,8 @@ Transport::Application.routes.draw do
       get 'tag'
       get 'cancel'
       post 'update_cancel'
+      get 'left_handed'
+      patch 'update_left_handed'
       #get 'request_cancelation_nfs'
     end
     match 'search' => 'people#search', via: [:get, :post], as: :search

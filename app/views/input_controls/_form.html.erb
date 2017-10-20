@@ -133,7 +133,7 @@
     <%= f.nested_fields_for :nfe_xmls do |f| 
       render 'nfe_xml_fields', f: f
     end -%> <br />
-    <%= link_to_add_association 'Add NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm" if @input_control.status == InputControl::TypeStatus::OPEN %> <br />
+    <%= link_to_add_association 'Add NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm" %> <br />
   </div> <br />
   
   <h3>Documentos</h3> 

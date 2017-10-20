@@ -312,6 +312,13 @@ class OrdemServicesController < ApplicationController
   end
 
   def close
+    puts ">>>>>>>>>>>>>>>>>>>>>>> Close: #{@ordem_service.check_left_handed?}"
+    if !@ordem_service.check_left_handed?
+      flash[:danger] = "Informe todos os canhotos da nf-e"
+      redirect_to left_handed_ordem_service_path(@ordem_service)
+      return
+    end
+    
     if params[:ordem_service].present?
       respond_to do |format|
         #if @ordem_service.update(ordem_service_params) && OrdemService.close_os(params[:id])
@@ -387,10 +394,26 @@ class OrdemServicesController < ApplicationController
     #redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful..............." }
   end
 
+  def left_handed
+    
+  end
+
+  def update_left_handed
+    respond_to do |format|
+      if @ordem_service.update(ordem_service_params)
+        format.html { redirect_to @ordem_service, flash: { success: "Ordem Service left_handed was successful." } }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'left_handed' }
+        format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def faturamento
     @type_services = TypeService.logistica
     @ordem_service = OrdemService.new
-    @ordem_services = OrdemService.where(status: OrdemService::TipoStatus::FECHADO).order('id')
+    @ordem_services = OrdemService.where(status: OrdemService::TipoStatus::FECHADO).order(:id)
     respond_with(@ordem_services)
   end
 

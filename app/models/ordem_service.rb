@@ -357,6 +357,18 @@ class OrdemService < ActiveRecord::Base
     end
   end
 
+  def check_left_handed?
+    positivo = true
+    nfes = NfeKey.where(nfe_type: "OrdemService", nfe_id: self.id)
+    puts ">>>>>>>>>>>>>>>>>>> Check Left Handed NF-e"
+    nfes.each do |nfe|
+      puts ">>>>>>>>>>>>>>>>>>> NF-e: #{nfe.asset.present?}"
+      positivo = nfe.asset.present? 
+      return false if positivo == false
+    end
+    positivo
+  end
+
   def self.check_client_billing?(ids)
     # verifica se o cliente da fatura é o mesmo para todas as os
     positivo = true

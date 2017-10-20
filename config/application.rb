@@ -36,7 +36,8 @@ module Transport
     #config.i18n.enforce_available_locales = true
     config.time_zone = 'Brasilia'
     #config.assets.prefix = '/assets'
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.js)
+    #config.assets.precompile << %r(bootstrap-sass/assets/fonts/bootstrap/[\w-]+\.(?:eot|svg|ttf|woff2?)$)
     Paperclip.options[:command_path] = "/usr/bin/"
     #config.autoload_paths += %W(#{config.root}/lib)
     config.watchable_dirs['lib'] = [:rb]
