@@ -115,6 +115,7 @@ class DriversController < ApplicationController
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
         account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
+        emails_attributes: [:sector_id, :setor, :contato, :email, :responsavel_carga, :comprovante, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy],
         driver_restrictions_attributes: [:client_id, :restriction, :observation, :id, :_destroy],
         drivings_attributes: [:vehicle_id, :id, :_destroy]

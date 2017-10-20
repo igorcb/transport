@@ -138,6 +138,26 @@
     </fieldset>
   </div>
 
+  <div id="emails">
+    <fieldset>
+      <legend>E-Mail</legend>
+
+      <div class="items">
+        <%= f.nested_fields_for :emails do |f| 
+          render 'shared/email', f: f
+        end -%>
+      </div>
+      <div class="row">
+        <div class="col-xs-2">
+          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>  
+        </div>  
+      </div>
+
+    </fieldset>
+
+  </div>
+  
+
   <div id="accounts">
     <fieldset>
       <legend>Contas Bancarias</legend>

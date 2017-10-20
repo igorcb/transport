@@ -40,6 +40,9 @@ class Driver < ActiveRecord::Base
   has_many :driver_restrictions, class_name: "DriverRestriction", foreign_key: "driver_id", dependent: :destroy
   accepts_nested_attributes_for :driver_restrictions, allow_destroy: true
 
+  has_many :emails, class_name: "Email", foreign_key: "email_id", :as => :email, dependent: :destroy
+  accepts_nested_attributes_for :emails, allow_destroy: true
+
   has_attached_file :avatar, styles: lambda { |a| a.instance.avatar_content_type =~ %r(image) ? { mini: "144x>90"} : {} }
   #validates_attachment_presence :avatar
 

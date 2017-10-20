@@ -120,6 +120,8 @@
 
 <%= render 'shared/show_contacts', object: @driver %>
 
+<%= render 'shared/show_emails', object: @driver %>
+
 <h2>Restrições</h2>
 <% if @driver.driver_restrictions.any? %>
   <table class="table table-striped">
