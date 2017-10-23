@@ -1,0 +1,47 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de oferta de carga</div>
+  <div class="panel-body">
+    <%= link_to 'Nova Ofereta de Carga', new_offer_charge_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Embarcador</th>
+            <th>Data</th>
+            <th>Remssa</th>
+            <th>Local</th>
+            <th>Veiculo</th>
+            <th>Situatacao</th>
+            <th>FreteMin</th>
+            <th>FreteMax</th>
+            <th>Peso</th>
+            <th>Volume</th>
+            <th>Status</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @offer_charges.each do |offer_charge| %>
+            <tr>
+              <td><%= offer_charge.shipper %></td>
+              <td><%= date_br offer_charge.date_shipment %></td>
+              <td><%= offer_charge.shipping %></td>
+              <td><%= offer_charge.local_loading %></td>
+              <td><%= offer_charge.type_vehicle %></td>
+              <td><%= offer_charge.vehicle_situation_name %></td>
+              <td><%= offer_charge.freight_min %></td>
+              <td><%= offer_charge.freight_max %></td>
+              <td><%= offer_charge.weight %></td>
+              <td><%= offer_charge.volume %></td>
+              <td><%= offer_charge.status_name %></td>
+              <td><%= link_to 'Show', offer_charge, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_offer_charge_path(offer_charge), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Destroy', offer_charge, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

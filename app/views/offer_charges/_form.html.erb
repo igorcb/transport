@@ -1,0 +1,66 @@
+<%= form_for(@offer_charge) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :shipper, "Embarcador" %><br>
+    <%= f.text_field :shipper, class: "form-control" %>
+  </div>
+  <div class="form-group">
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.label :date_shipment, "Data" %><br>
+      <% if @offer_charge.new_record? %>
+        <%= f.text_field :date_shipment, class: "form-control data" %>
+      <% else %>
+        <%= f.text_field :date_shipment, class: "form-control data", value: date_br(@offer_charge.date_shipment) %>
+      <% end %>
+    </div>
+    <div class="col-xs-2">
+      <%= f.label :time_shipment, "Hora" %><br>
+      <%= f.text_field :time_shipment, class: "form-control time" %>
+    </div>
+  </div>
+  </div>  
+  <div class="form-group">
+    <%= f.label :shipping, "Remessa" %><br>
+    <%= f.text_field :shipping, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :local_loading, "Local Embarque" %><br>
+    <%= f.text_field :local_loading, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :type_vehicle, "Tipo Veículo" %><br>
+    <%= f.text_field :type_vehicle, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :vehicle_detail, "Detalhe Veiculo" %><br>
+    <%= f.text_field :vehicle_detail, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :vehicle_situation, "Situacao do Veiculo" %><br>
+    <%= f.select( :vehicle_situation, select_vehicle_situation, {include_blank: false}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :freight_min, "Valor Frete Minimo" %><br>
+    <%= f.text_field :freight_min, class: "form-control money2", value: to_real(f.object.freight_min) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :freight_max, "Valor Frete Maximo" %><br>
+    <%= f.text_field :freight_max, class: "form-control money2", value: to_real(f.object.freight_max) %>
+  </div>
+
+  <h3>Clientes</h3>
+  <div class="cte_items">
+    <%= f.fields_for :offer_items do |f| 
+        render 'offer_item_fields', f: f
+    end -%> <br />
+    <%= link_to_add_association 'Add Client', f, :offer_items, class: "btn btn-success btn-sm" %> <br />
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  offer_charge_path(@offer_charge), class: "btn btn-info" if !@offer_charge.new_record? %>
+    <%= link_to "Listar Todos", offer_charges_path, class: "btn btn-default" %>
+  </div>
+<% end %>

@@ -1,0 +1,43 @@
+<div class='nested-fields'>
+  
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.select( :state, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+    </div>
+
+    <div class="col-xs-2">
+      <%= f.text_field :city, class: "form-control input-sm", placeholder: "Cidade"   %>
+    </div>
+
+    <div class="col-xs-4">
+      <%= f.text_field :client, class: "form-control input-sm", placeholder: "Cliente"   %>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-xs-2">
+      <%= f.text_field :qtde_pallets, size: 5, class: "form-control input-sm", value: f.object.qtde_pallets, placeholder: "Qtde Pallets" %>
+    </div>
+    <div class="col-xs-2">
+      <%= f.text_field :weight, size: 5, class: "form-control input-sm money3", value: to_decimal(f.object.weight), placeholder: "Peso" %>
+    </div>
+
+    <div class="col-xs-2">
+      <%= f.text_field :volume, size: 5, class: "form-control input-sm", value: f.object.volume, placeholder: "Volume" %>
+    </div>
+
+    <div class="col-xs-2">
+      <%= f.text_field :date_schedule, class: "form-control input-sm data", placeholder: "Data Agendamento"   %>
+    </div>
+    
+    <div class="col-xs-2">
+      <%= f.text_field :time_schedule, class: "form-control input-sm time", placeholder: "Hora Agendamento"   %>
+    </div>
+    <%= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+  </div>
+
+  
+
+  
+</div>

@@ -1,0 +1,66 @@
+<p>
+  <strong>Embarcador:</strong>
+  <%= @offer_charge.shipper %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= date_br @offer_charge.date_shipment %>
+</p>
+
+<p>
+  <strong>Remessa:</strong>
+  <%= @offer_charge.shipping %>
+</p>
+
+<p>
+  <strong>Local Carregamento:</strong>
+  <%= @offer_charge.local_loading %>
+</p>
+
+<p>
+  <strong>Tipo Veiculo:</strong>
+  <%= @offer_charge.type_vehicle %>
+</p>
+
+<p>
+  <strong>Detalhes do Veiculos:</strong>
+  <%= @offer_charge.vehicle_detail %>
+</p>
+
+<p>
+  <strong>Veiculo Situação:</strong>
+  <%= @offer_charge.vehicle_situation_name %>
+</p>
+
+<p>
+  <strong>Frete Min:</strong>
+  <%= @offer_charge.freight_min %>
+</p>
+
+<p>
+  <strong>Frete Max:</strong>
+  <%= @offer_charge.freight_max %>
+</p>
+
+<p>
+  <strong>Qtde Pallets:</strong>
+  <%= @offer_charge.qtde_pallets %>
+</p>
+
+<p>
+  <strong>Peso:</strong>
+  <%= number_to_currency( @offer_charge.weight, unit: "", separator: ",", delimiter: ".", precision: 3)  %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= number_to_currency( @offer_charge.volume, unit: "", separator: ",", delimiter: ".", precision: 3)  %>
+</p>
+
+<p>
+  <strong>Criado por:</strong>
+  <%= @offer_charge.user.email %>
+</p>
+
+

@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :offer_charges
+
   resources :breakdowns
 
   resources :schedulings do
