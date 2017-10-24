@@ -6,4 +6,11 @@ module OfferChargesHelper
      ["Rejeitado", 2]
     ])
 	end
+
+	def select_status_offer
+	 ([["Aberto", 0], 
+     ["Fechado", 1],
+     ["Cancelado", 2]
+    ])
+	end
 end

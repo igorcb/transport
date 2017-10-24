@@ -1,0 +1,33 @@
+<div class="panel-body">
+  <%= search_form_for @q, remote: true, url: search_offer_charges_path, :method => :get do |f| %>
+    <div class="form-group">
+      <%= f.label :shipper_cont, "Embarcador" %>
+      <%= f.search_field :shipper_cont, class: "form-control" %>  
+    </div>
+    <div class="form-group">
+      <%= f.label :shipping_eq, "Remessa" %>
+      <%= f.search_field :shipping_eq, class: "form-control" %>  
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :date_shipment_gteq, "Período de " %>
+      <%= f.search_field :date_shipment_gteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+    </div>
+     <div class="form-group">
+      <%= f.label :date_shipment_lteq, "até" %>
+      <%= f.search_field :date_shipment_lteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+    </div>
+
+    <div class="form-group">
+      <%= f.label :vehicle_situation_eq, "Situação" %>
+      <%= f.select( :vehicle_situation_eq, select_vehicle_situation, {include_blank: true}, {class: "form-control"} ) %> 
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :status_eq, "Status" %>
+      <%= f.select( :status_eq, select_status_offer, {include_blank: true}, {class: "form-control"} ) %> 
+    </div>
+
+    <div class="actions"><%= f.submit "Search" %></div>
+  <% end %>
+</div>

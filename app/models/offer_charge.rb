@@ -52,6 +52,10 @@ class OfferCharge < ActiveRecord::Base
 		end
 	end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ['shipper', 'shipping', 'date_shipment', 'vehicle_situation', 'status']
+  end	
+
 	def qtde_pallets
 		self.offer_items.sum(:qtde_pallets).to_i
 	end

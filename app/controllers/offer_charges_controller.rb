@@ -5,6 +5,7 @@ class OfferChargesController < ApplicationController
   respond_to :html
 
   def index
+    @q = OfferCharge.where(status: -1).search(params[:query])
     @offer_charges = OfferCharge.all
     respond_with(@offer_charges)
   end
@@ -36,6 +37,14 @@ class OfferChargesController < ApplicationController
   def destroy
     @offer_charge.destroy
     respond_with(@offer_charge)
+  end
+
+  def search
+    @q = OfferCharge.search(params[:query])
+    @offer_charges = @q.result
+    respond_with(@offer_charges) do |format|
+     format.js
+    end
   end
 
   private

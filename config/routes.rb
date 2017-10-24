@@ -1,6 +1,10 @@
 Transport::Application.routes.draw do
 
-  resources :offer_charges
+  resources :offer_charges do
+    collection do
+      get :search
+    end
+  end
 
   resources :breakdowns
 

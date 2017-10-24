@@ -1,0 +1,16 @@
+<tr>
+<td><%= offer_charge.shipper %></td>
+<td><%= date_br offer_charge.date_shipment %></td>
+<td><%= offer_charge.shipping %></td>
+<td><%= offer_charge.local_loading %></td>
+<td><%= %></td>
+<td><%= offer_charge.type_vehicle %></td>
+<td><%= offer_charge.vehicle_situation_name %></td>
+<td><%= offer_charge.freight_min %></td>
+<td><%= offer_charge.weight %></td>
+<td><%= offer_charge.volume %></td>
+<td><%= offer_charge.status_name %></td>
+<td><%= link_to 'Show', offer_charge, class: "btn btn-info btn-xs" %></td>
+<td><%= link_to 'Edit', edit_offer_charge_path(offer_charge), class: "btn btn-primary btn-xs" %></td>
+<td><%= link_to 'Destroy', offer_charge, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+</tr>
