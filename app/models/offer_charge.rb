@@ -43,6 +43,7 @@ class OfferCharge < ActiveRecord::Base
 			when 0 then "Aguardando"
 			when 1 then "Confirmado"
 			when 2 then "Rejeitado"
+			when 3 then "No Show"
 		end
 	end
 
