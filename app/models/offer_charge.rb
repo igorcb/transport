@@ -1,7 +1,7 @@
 class OfferCharge < ActiveRecord::Base
   validates :shipper, presence: true
   validates :date_shipment, presence: true
-	validates :shipping, presence: true
+	validates :shipping, presence: true, uniqueness: true
 	validates :local_loading, presence: true
   validates :type_vehicle, presence: true
 
@@ -19,7 +19,7 @@ class OfferCharge < ActiveRecord::Base
 	end
 
 	before_create do |offer|
-		offer.vehicle_situation = TypeVehicleSituation::ACEITE
+		offer.vehicle_situation = TypeVehicleSituation::WAITING
 		offer.status = TypeStatus::OPEN
 	end
 
@@ -27,6 +27,7 @@ class OfferCharge < ActiveRecord::Base
 		WAITING = 0
 		ACEITE  = 1
 		REJECT  = 2
+		NOSHOW  = 3
 	end
 
 	module TypeStatus
