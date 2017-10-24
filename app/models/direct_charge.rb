@@ -7,6 +7,7 @@ class DirectCharge < ActiveRecord::Base
   belongs_to :user, class_name: "User", foreign_key: "user_id"
 
   #belongs_to :supplier, class_name: "Supplier", foreign_key: "supplier_id", polymorphic: true
+  has_one :offer_charge
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
@@ -39,6 +40,10 @@ class DirectCharge < ActiveRecord::Base
 
   after_save :processa_nfe_xmls
 
+  after_create do |offer|
+    update_offer_charge
+  end
+  
   before_create do |cte|
    set_values
   end 
@@ -100,6 +105,14 @@ class DirectCharge < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       puts "peso: #{peso} and volume: #{volume}"
       DirectCharge.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
+    end
+  end
+
+  def update_offer_charge
+    ActiveRecord::Base.transaction do
+      offer = OfferCharge.where(shipping: self.shipment).first
+      OfferCharge.where(shipping: self.shipment).update_all(direct_charge_id: self.id, status: OfferCharge::TypeStatus::CLOSE)
+      DirectCharge.where(id: self.id).update_all(offer_charge_id: offer.id)      
     end
   end
 

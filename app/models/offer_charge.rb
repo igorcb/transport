@@ -6,8 +6,8 @@ class OfferCharge < ActiveRecord::Base
   validates :type_vehicle, presence: true
 
   belongs_to :user
+	has_one :direct_charge
 	has_many :offer_items
-  #has_many :offer_items, class_name: "NfeKey", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :offer_items, allow_destroy: true, :reject_if => :all_blank	
 
 	before_save do |offer| 
