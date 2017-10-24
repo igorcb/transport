@@ -23,6 +23,8 @@ class OfferCharge < ActiveRecord::Base
 		offer.status = TypeStatus::OPEN
 	end
 
+	default_scope { order(date_shipment: :desc, id: :desc) } 
+
 	module TypeVehicleSituation
 		WAITING = 0
 		ACEITE  = 1
