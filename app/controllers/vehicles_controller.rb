@@ -91,7 +91,7 @@ class VehiclesController < ApplicationController
     def vehicle_params
       params.require(:vehicle).permit(:marca, :modelo, :ano, :cor, :tipo, :tipo_veiculo, :tipo_carroceria, :municipio_emplacamento, :estado, :renavan, :chassi, :capacidade, :placa,
         :especie, :numero_eixos, :numero_loks, :grade, :cordas, :lonas, :capacitacao, :kit_quimico, :largura, :altura, :comprimento, 
-        :obs, :antt, :qtde_paletes, :tipo_piso_assoalho, :tracked,
+        :obs, :antt, :qtde_paletes, :tipo_piso_assoalho, :tracked, :capacity,
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy],
         drivings_attributes: [:driver_id, :id, :_destroy],

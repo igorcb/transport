@@ -116,6 +116,18 @@ class DirectCharge < ActiveRecord::Base
     end
   end
 
+  def vehicle_horse
+    Vehicle.where(placa: self.place).first 
+  end
+
+  def vehicle_cart_first
+    Vehicle.where(placa: self.place_cart).first 
+  end
+
+  def vehicle_cart_second
+    Vehicle.where(placa: self.place_cart_2).first 
+  end
+
   def valor_tonelada
   	VALOR_DA_TONELADA
   end

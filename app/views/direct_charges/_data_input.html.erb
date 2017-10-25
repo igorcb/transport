@@ -5,18 +5,27 @@
 
     <p>
       <strong>Motorista:</strong>
-      <%= @direct_charge.driver.nome %> | 
+      <%= link_to @direct_charge.driver.nome, @direct_charge.driver %> | 
       <strong>CPF:</strong>
       <%= @direct_charge.driver.cpf %>      
     </p>
     
-    <p>
+    <p> <!-- Primeira Placa -->
       <strong>Placa:</strong>
-      <%= @direct_charge.place %> |
-      <strong>Placa Carreta:</strong>
-      <%= @direct_charge.place_cart %> |
-      <strong>Placa Carreta 2:</strong>
-      <%= @direct_charge.place_cart_2 %>
+      <%= link_to @direct_charge.vehicle_horse.placa, @direct_charge.vehicle_horse if @direct_charge.vehicle_horse.present? %> |
+      <strong>Capacidade:</strong> <span style="color: red; font-weight: bold;"><%= @direct_charge.vehicle_horse.capacity if @direct_charge.vehicle_horse.present? %></span>
+    </p>
+
+    <p> <!-- Segunda Placa -->
+      <strong>Placa:</strong>
+      <%= link_to @direct_charge.vehicle_cart_first.placa, @direct_charge.vehicle_cart_first if @direct_charge.vehicle_cart_first.present? %> |
+      <strong>Capacidade:</strong> <span style="color: red; font-weight: bold;"><%= @direct_charge.vehicle_cart_first.capacity if @direct_charge.vehicle_cart_first.present? %></span>
+    </p>
+
+    <p> <!-- Terceira Placa -->
+      <strong>Placa:</strong>
+      <%= link_to @direct_charge.vehicle_cart_second.placa, @direct_charge.vehicle_cart_second if @direct_charge.vehicle_cart_second.present? %> |
+      <strong>Capacidade:</strong> <span style="color: red; font-weight: bold;"><%= @direct_charge.vehicle_cart_second.capacity if @direct_charge.vehicle_cart_second.present? %></span>
     </p>
 
     <p>

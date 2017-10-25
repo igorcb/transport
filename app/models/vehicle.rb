@@ -10,8 +10,9 @@ class Vehicle < ActiveRecord::Base
   validates :estado, presence: true, length: { maximum: 2 }
   validates :renavan, presence: true, length: { maximum: 20 }, uniqueness: true
   validates :chassi, presence: true, length: { maximum: 20 }
-  validates :capacidade, presence: true
-  validates :placa, presence: true, length: { maximum: 7 }, uniqueness: true
+  #validates :capacidade, presence: true
+  validates :capacity, presence: true
+  validates :placa, presence: true, length: { maximum: 8 }, uniqueness: true
   validates :especie, presence: true
   validates :numero_eixos, presence: true
   validates :numero_loks, presence: true
@@ -41,6 +42,8 @@ class Vehicle < ActiveRecord::Base
   accepts_nested_attributes_for :ownerships, allow_destroy: true, reject_if: :all_blank
 
   scope :driver_all, -> (driver) { joins(:drivings).where("drivings.driver_id = ?", driver.id) }
+  
+  before_save {|v| v.placa = v.placa.upcase}
 
   module Tipo
     REBOQUE = 0

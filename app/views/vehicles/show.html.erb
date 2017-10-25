@@ -83,7 +83,7 @@
 
 <p>
   <strong>Capacidade:</strong>
-  <%= @vehicle.capacidade %>
+  <%= number_to_currency( @vehicle.capacity, unit: "", separator: ",", delimiter: ".", precision: 3)  %>
 </p>
 
 <p>
