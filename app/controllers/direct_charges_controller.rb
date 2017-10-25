@@ -56,6 +56,18 @@ class DirectChargesController < ApplicationController
   end
 
   def show
+    #respond_with(@direct_charge)
+    # se a capacidade do veículo for menor que o peso da nota mostra alert
+    @warnings = []
+    if @direct_charge.vehicle_horse.present?
+      @warnings.push("Capacity of the traction vehicle does not support the weight of the load.") if @direct_charge.vehicle_horse.capacity.to_f < @direct_charge.weight
+    end
+    if @direct_charge.vehicle_cart_first.present?
+      @warnings.push("Capacity of the first cart does not support the weight of the load.") if @direct_charge.vehicle_cart_first.capacity.to_f < @direct_charge.weight
+    end
+    if @direct_charge.vehicle_cart_second.present?
+      warning << "Capacity of the first cart does not support the weight of the load" if @direct_charge.vehicle_cart_second.capacity.to_f < @direct_charge.weight
+    end
     respond_with(@direct_charge)
   end
 
