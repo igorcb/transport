@@ -43,7 +43,10 @@ class Vehicle < ActiveRecord::Base
 
   scope :driver_all, -> (driver) { joins(:drivings).where("drivings.driver_id = ?", driver.id) }
   
-  before_save {|v| v.placa = v.placa.upcase}
+  before_save do |v| 
+    v.placa = v.placa.upcase
+    v.capacidade = "0.00"
+  end
 
   module Tipo
     REBOQUE = 0
