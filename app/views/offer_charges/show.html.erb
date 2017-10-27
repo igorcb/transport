@@ -85,7 +85,7 @@
     </div>
     <div id="collapseTree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTree">
       <div class="panel-body">
-        <%= link_to '[+] Motorista', '#new_offer_drivers', 'data-toggle' => 'modal', class: "btn btn-success btn-sm" %>
+        <%= link_to '[+] Motorista', '#new_offer_drivers', 'data-toggle' => 'modal', class: "btn btn-success btn-sm" if !@offer_charge.offer_drivers.waiting.present? %>
         <div class="table-responsive">
           <table class="table table-striped" id="table_offer_drivers">
             <thead>

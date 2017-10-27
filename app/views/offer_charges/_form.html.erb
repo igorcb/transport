@@ -42,10 +42,6 @@
     <%= f.text_field :vehicle_detail, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :vehicle_situation, "Situacao do Veiculo" %><br>
-    <%= f.select( :vehicle_situation, select_vehicle_situation, {include_blank: false}, {class: "form-control"} ) %>      
-  </div>
-  <div class="form-group">
     <%= f.label :freight_min, "Valor Frete Minimo" %><br>
     <%= f.text_field :freight_min, class: "form-control money2", value: to_real(f.object.freight_min) %>
   </div>

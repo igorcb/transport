@@ -8,7 +8,8 @@ class OfferDriver < ActiveRecord::Base
   #validates :place_cart_first, length: { maximum: 8 } if: lambda { |d| d.place_cart_first.present? }
   #validates :place_cart_second, length: { maximum: 8 } if: Proc.new { |d| d.place_cart_second.present? }
   #validates :status, presence: true
-
+	#validates_uniqueness_of :status, conditions: -> { where(status: TypeStatus::WAITING) }
+	
   belongs_to :offer_charge
   belongs_to :user
 
@@ -20,6 +21,11 @@ class OfferDriver < ActiveRecord::Base
  		offer.place_cart_second = offer.place_cart_second.upcase
 		offer.status = TypeStatus::WAITING
 	end
+
+	#before_save :normalize_card_number, if: :paid_with_card?
+	#before_save :if_not_waiting, :if => Proc.new {|offer_driver| offer_driver.if_not_waiting? }
+
+	scope :waiting, -> { where(status: TypeStatus::WAITING) }
 
 	module TypeStatus
 		WAITING   = 0
@@ -66,5 +72,7 @@ class OfferDriver < ActiveRecord::Base
       OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::OPEN)
     end
 	end
+
+
 end
 

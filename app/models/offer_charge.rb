@@ -67,5 +67,4 @@ class OfferCharge < ActiveRecord::Base
 	def volume
 		self.offer_items.sum(:volume).to_f
 	end
-
 end
