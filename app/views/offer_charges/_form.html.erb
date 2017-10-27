@@ -62,14 +62,6 @@
     <%= link_to_add_association 'Add Client', f, :offer_items, class: "btn btn-success btn-sm" %> <br />
   </div>
 
-  <h3>Motoristas</h3>
-  <div class="nfe_items">
-    <%= f.fields_for :offer_drivers do |f| 
-        render 'offer_driver_fields', f: f
-    end -%> <br />
-    <%= link_to_add_association 'Add Drivers', f, :offer_drivers, class: "btn btn-success btn-sm" %> <br />
-  </div>
-
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  offer_charge_path(@offer_charge), class: "btn btn-info" if !@offer_charge.new_record? %>
