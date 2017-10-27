@@ -45,5 +45,19 @@ class OfferDriver < ActiveRecord::Base
       OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::CLOSE)
     end
 	end
+
+	def self.reject(offer_driver)
+    ActiveRecord::Base.transaction do
+    	OfferDriver.where(id: offer_driver.id).update_all(status: TypeStatus::REJECT)
+      OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::OPEN)
+    end
+	end
+
+	def self.noshow(offer_driver)
+    ActiveRecord::Base.transaction do
+    	OfferDriver.where(id: offer_driver.id).update_all(status: TypeStatus::NOSHOW)
+      OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::OPEN)
+    end
+	end
 end
 
