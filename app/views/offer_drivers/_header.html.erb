@@ -5,4 +5,6 @@
 <th>Place 1</th>
 <th>Place 2</th>
 <th>Status</th>
-<th colspan="4">Options</th>
+<% if @offer_charge.status == OfferCharge::TypeStatus::OPEN %>
+  <th colspan="4">Options</th>
+<% end %>

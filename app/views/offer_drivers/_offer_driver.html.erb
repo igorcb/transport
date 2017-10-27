@@ -5,25 +5,27 @@
     <td><%= offer_driver.type_vehicle %></td>
     <td><%= offer_driver.place_horse %></td>
     <td><%= offer_driver.place_cart_first %></td>
-    <td><%= offer_driver.status_name %></td>
-    <td>
-			<%= link_to confirmed_offer_driver_path(offer_driver) do %>
-			    <span class="fa fa-check fa-2x" style='color: LimeGreen' aria-hidden='true'></span> 
-			<% end %>    
-   	</td>
-   	<td>
-			<%= link_to reject_offer_driver_path(offer_driver) do %>
-			    <span class="fa fa-times fa-2x" style='color: red' aria-hidden='true'></span> 
-			<% end %>    
-   	</td>
-   	<td>
-			<%= link_to noshow_offer_driver_path(offer_driver) do %>
-			    <span class="fa fa-square-o fa-2x" style='color: red' aria-hidden='true'></span> 
-			<% end %>    
-   	</td>
-  	<td>
-			<%= link_to nonsuit_offer_driver_path(offer_driver) do %>
-			    <span class="fa fa-minus-square fa-2x" style='color: orange' aria-hidden='true'></span> 
-			<% end %>    
-   	</td>
+    <td><%= status_driver_color(offer_driver.status, offer_driver.status_name) %></td>
+    <% if offer_driver.offer_charge.status == OfferCharge::TypeStatus::OPEN %>
+      <td>
+  			<%= link_to confirmed_offer_driver_path(offer_driver) do %>
+  			    <span class="fa fa-check fa-2x" style='color: LimeGreen' aria-hidden='true'></span> 
+  			<% end %>    
+     	</td>
+     	<td>
+  			<%= link_to reject_offer_driver_path(offer_driver) do %>
+  			    <span class="fa fa-times fa-2x" style='color: red' aria-hidden='true'></span> 
+  			<% end %>    
+     	</td>
+     	<td>
+  			<%= link_to noshow_offer_driver_path(offer_driver) do %>
+  			    <span class="fa fa-square-o fa-2x" style='color: red' aria-hidden='true'></span> 
+  			<% end %>    
+     	</td>
+    	<td>
+  			<%= link_to nonsuit_offer_driver_path(offer_driver) do %>
+  			    <span class="fa fa-minus-square fa-2x" style='color: orange' aria-hidden='true'></span> 
+  			<% end %>  
+     	</td>
+    <% end %>    
 </tr>
