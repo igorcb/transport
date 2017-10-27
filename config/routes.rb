@@ -1,6 +1,10 @@
 Transport::Application.routes.draw do
 
-  resources :offer_drivers
+  resources :offer_drivers do
+    member do
+      get :confirmed
+    end    
+  end
 
   resources :offer_charges do
     collection do

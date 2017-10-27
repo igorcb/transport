@@ -1,6 +1,6 @@
 class OfferDriversController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_offer_driver, only: [:show, :edit, :update, :destroy]
+  before_action :set_offer_driver, only: [:show, :edit, :update, :destroy, :confirmed]
   load_and_authorize_resource
   respond_to :html
 
@@ -48,6 +48,11 @@ class OfferDriversController < ApplicationController
   def destroy
     @offer_driver.destroy
     respond_with(@offer_driver)
+  end
+
+  def confirmed
+    OfferDriver.confirmed(@offer_driver)
+    redirect_to offer_charge_path(@offer_driver.offer_charge)
   end
 
   private

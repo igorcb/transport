@@ -22,21 +22,28 @@ class OfferDriver < ActiveRecord::Base
 	end
 
 	module TypeStatus
-		WAITING = 0
-		ACEITE  = 1
-		REJECT  = 2
-		NOSHOW  = 3
-		NONSUIT = 4
+		WAITING   = 0
+		CONFIRMED = 1
+		REJECT    = 2
+		NOSHOW    = 3
+		NONSUIT   = 4
 	end
 
 	def status_name
 		case status
 			when 0 then "Aguardando"
 			when 1 then "Confirmado"
-			when 2 then "Rejeitado"
-			when 3 then "No Show"
+			when 2 then "Rejeitado"	  
+			when 3 then "No Show"			
 			when 4 then "Desistência"
 		end
+	end
+
+	def self.confirmed(offer_driver)
+    ActiveRecord::Base.transaction do
+    	OfferDriver.where(id: offer_driver.id).update_all(status: TypeStatus::CONFIRMED)
+      OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::CLOSE)
+    end
 	end
 end
 
