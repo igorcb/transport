@@ -1,0 +1,14 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<%= form_for(@offer_driver, remote: true, html: {role: :form, 'data-model' => 'offer_driver'}) do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+
+  <%= render 'offer_drivers/fields', f: f %>
+
+  <div class="actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+  </div>
+
+<% end %>

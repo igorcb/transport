@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Offer charge:</strong>
+  <%= @offer_driver.offer_charge %>
+</p>
+
+<p>
+  <strong>Date incoming:</strong>
+  <%= @offer_driver.date_incoming %>
+</p>
+
+<p>
+  <strong>Time incoming:</strong>
+  <%= @offer_driver.time_incoming %>
+</p>
+
+<p>
+  <strong>Driver:</strong>
+  <%= @offer_driver.driver %>
+</p>
+
+<p>
+  <strong>Type vehicle:</strong>
+  <%= @offer_driver.type_vehicle %>
+</p>
+
+<p>
+  <strong>Place horse:</strong>
+  <%= @offer_driver.place_horse %>
+</p>
+
+<p>
+  <strong>Place cart first:</strong>
+  <%= @offer_driver.place_cart_first %>
+</p>
+
+<p>
+  <strong>Place cart second:</strong>
+  <%= @offer_driver.place_cart_second %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @offer_driver.status %>
+</p>
+
+<%= link_to 'Edit', edit_offer_driver_path(@offer_driver) %> |
+<%= link_to 'Back', offer_drivers_path %>

@@ -28,14 +28,14 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingSeven">
+    <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           Listagem de Clientes
         </a>
       </h4>
     </div>
-    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
         
         <div class="table-responsive">
@@ -74,10 +74,63 @@
       </div>
     </div>
   </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTree" aria-expanded="false" aria-controls="collapseTree">
+          Listagem de Motoristas
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTree">
+      <div class="panel-body">
+        <%= link_to '[+] Motorista', '#new_offer_drivers', 'data-toggle' => 'modal', class: "btn btn-success btn-sm" %>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <%= render 'offer_drivers/header' %>
+              </tr>
+            </thead>
+
+            <tbody>
+                <%#= render @offer_charge.offer_drivers %>
+              <% @offer_charge.offer_drivers.each do |offer_driver| %>
+                <%= render partial: 'offer_drivers/offer_driver', locals: {offer_driver: offer_driver} %>
+              <% end %>                    
+            </tbody>
+          </table>
+        </div>    
+
+      </div>
+    </div>
+  </div>
+
+
 <!-- Fim collapse  --> 
 </div>
 
 <div class="form-group">
   <%= link_to 'Editar', edit_offer_charge_path(@offer_charge), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', offer_charges_path, class: "btn btn-default" %>
+</div>
+
+<div class="modal fade" id="new_offer_drivers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Novo Motorista para Oferta de Carga</h4>
+      </div>
+      <div class="modal-body">
+        <%# Render the new person form (passing modal => true to enable remote => true) %>
+       
+        <%= render 'offer_drivers/form_js', modal: true %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

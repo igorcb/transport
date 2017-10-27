@@ -7,8 +7,12 @@ class OfferCharge < ActiveRecord::Base
 
   belongs_to :user
 	has_one :direct_charge
+	
 	has_many :offer_items
   accepts_nested_attributes_for :offer_items, allow_destroy: true, :reject_if => :all_blank	
+
+	has_many :offer_drivers
+  accepts_nested_attributes_for :offer_drivers, allow_destroy: true, :reject_if => :all_blank	
 
 	before_save do |offer| 
 		offer.shipper = offer.shipper.upcase
