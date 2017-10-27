@@ -25,8 +25,8 @@ class OfferDriversController < ApplicationController
     @offer_driver = OfferDriver.new(offer_driver_params)
     @offer_driver.save
     respond_with(@offer_driver)
-    @offer_driver = OfferDriver.new(offer_driver_params)
 
+    #@offer_driver = OfferDriver.new(offer_driver_params)
     # respond_to do |format|
     #   if @offer_driver.save
     #     format.html { redirect_to @offer_driver, flash: { success: "Offer Driver was successfully created." } }
