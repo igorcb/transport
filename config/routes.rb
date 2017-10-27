@@ -5,6 +5,7 @@ Transport::Application.routes.draw do
       get :confirmed
       get :reject
       get :noshow
+      get :nonsuit
     end    
   end
 

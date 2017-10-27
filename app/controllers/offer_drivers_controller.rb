@@ -65,6 +65,11 @@ class OfferDriversController < ApplicationController
     redirect_to offer_charge_path(@offer_driver.offer_charge)
   end
 
+  def nonsuit
+    OfferDriver.nonsuit(@offer_driver)
+    redirect_to offer_charge_path(@offer_driver.offer_charge)
+  end
+
   private
     def set_offer_driver
       @offer_driver = OfferDriver.find(params[:id])

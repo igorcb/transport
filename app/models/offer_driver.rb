@@ -59,5 +59,12 @@ class OfferDriver < ActiveRecord::Base
       OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::OPEN)
     end
 	end
+
+	def self.nonsuit(offer_driver)
+    ActiveRecord::Base.transaction do
+    	OfferDriver.where(id: offer_driver.id).update_all(status: TypeStatus::NONSUIT)
+      OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::OPEN)
+    end
+	end
 end
 

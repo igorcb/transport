@@ -29,13 +29,6 @@ class OfferCharge < ActiveRecord::Base
 
 	default_scope { order(date_shipment: :desc, id: :desc) } 
 
-	module TypeVehicleSituation
-		WAITING = 0
-		ACEITE  = 1
-		REJECT  = 2
-		NOSHOW  = 3
-	end
-
 	module TypeStatus
 		OPEN = 0
 		CLOSE = 1
