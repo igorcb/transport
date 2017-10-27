@@ -1,21 +1,9 @@
 <% modal ||= false %>
 <% remote = modal ? true : false %>
 <%= form_for(@offer_driver, remote: true, html: {role: :form, 'data-model' => 'offer_driver'}) do |f| %>
-	<%#= render 'shared/error_messages', object: f.object %>
+	<%= render 'shared/error_messages', object: f.object %>
 
-  <%#= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-
-	<% if @offer_driver.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
-
-      <ul>
-      <% @offer_driver.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>  
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
   <%= render 'offer_drivers/fields', f: f %>
 
