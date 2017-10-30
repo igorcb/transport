@@ -48,13 +48,17 @@
 </p>
 
 <p>
-  <strong>Placa:</strong>
-  <%= @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_first if @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_first.present? %>
+  <% if @offer_charge.offer_drivers.waiting_or_confirmed.present? %>
+    <strong>Placa:</strong>
+    <%= @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_first if @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_first.present? %>
+  <% end %>
 </p>
 
 <p>
-  <strong>Placa:</strong>
-  <%= @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_second if @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_second.present? %>
+  <% if @offer_charge.offer_drivers.waiting_or_confirmed.present? %>
+    <strong>Placa:</strong>
+    <%= @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_second if @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_second.present? %>
+  <% end %>
 </p>
 
 <p>
