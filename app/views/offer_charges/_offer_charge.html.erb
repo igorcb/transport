@@ -10,7 +10,7 @@
 <td><%= offer_charge.weight %></td>
 <td><%= offer_charge.volume %></td>
 <td><%= offer_charge.status_name %></td>
-<td><%= offer_charge.offer_drivers.waiting_or_confirmed.first.driver if offer_charge.offer_drivers.present? %></td>
+<td><%= offer_charge.offer_drivers.waiting_or_confirmed.first.driver if offer_charge.offer_drivers.waiting_or_confirmed.present? %></td>
 <td><%= link_to 'Show', offer_charge, class: "btn btn-info btn-xs" %></td>
 <td><%= link_to 'Edit', edit_offer_charge_path(offer_charge), class: "btn btn-primary btn-xs" %></td>
 <td><%= link_to 'Destroy', offer_charge, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
