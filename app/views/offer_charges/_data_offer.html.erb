@@ -43,6 +43,21 @@
 </p>
 
 <p>
+  <strong>Placa:</strong>
+  <td><%= @offer_charge.offer_drivers.waiting_or_confirmed.first.place_horse if @offer_charge.offer_drivers.waiting_or_confirmed.present? %></td>
+</p>
+
+<p>
+  <strong>Placa:</strong>
+  <%= @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_first if @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_first.present? %>
+</p>
+
+<p>
+  <strong>Placa:</strong>
+  <%= @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_second if @offer_charge.offer_drivers.waiting_or_confirmed.first.place_cart_second.present? %>
+</p>
+
+<p>
   <strong>Veiculo Situação:</strong>
   <%= @offer_charge.vehicle_situation_name %>
 </p>
