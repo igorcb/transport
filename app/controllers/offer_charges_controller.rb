@@ -6,7 +6,7 @@ class OfferChargesController < ApplicationController
 
   def index
     @q = OfferCharge.where(status: -1).search(params[:query])
-    @offer_charges = OfferCharge.all
+    @offer_charges = OfferCharge.only_open
     respond_with(@offer_charges)
   end
 
