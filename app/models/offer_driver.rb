@@ -26,6 +26,7 @@ class OfferDriver < ActiveRecord::Base
 	#before_save :if_not_waiting, :if => Proc.new {|offer_driver| offer_driver.if_not_waiting? }
 
 	scope :waiting, -> { where(status: TypeStatus::WAITING) }
+	scope :waiting_or_confirmed, -> { where(status: [TypeStatus::WAITING, TypeStatus::CONFIRMED]) }
 
 	module TypeStatus
 		WAITING   = 0

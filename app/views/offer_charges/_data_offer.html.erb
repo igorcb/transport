@@ -38,6 +38,11 @@
 </p>
 
 <p>
+  <strong>Motorista:</strong>
+  <%= @offer_charge.offer_drivers.waiting_or_confirmed.first.driver if offer_charge.offer_drivers.present? %>
+</p>
+
+<p>
   <strong>Veiculo Situação:</strong>
   <%= @offer_charge.vehicle_situation_name %>
 </p>
