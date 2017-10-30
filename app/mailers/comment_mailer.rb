@@ -28,11 +28,12 @@ class CommentMailer < ActionMailer::Base
     @comments = @boarding.comments
     comment  = @comments.last
     if Rails.env.development?
-      email = ENV['RAILS_MAIL_DESTINATION']
+      #email = ENV['RAILS_MAIL_DESTINATION']
+      email = "#{comment.email_destino}, #{ENV['RAILS_MAIL_DESTINATION']}"
     end
     if Rails.env.production?
-      email = "#{comment.email_destino}"
-      #email = @comment.boarding.billing_client.emails.type_sector(Sector::TypeSector::REGISTROS_OCORRENCIA).pluck(:email)*","
+      #email = "#{comment.email_destino}"
+      email = "#{comment.email_destino}, #{comment.boarding.boarding_items.first.ordem_service.billing_client.emails.type_sector(Sector::TypeSector::REGISTROS_OCORRENCIA).pluck(:email)*', '}"
     end     
     text_subject = "OCORRENCIA: NF #{comment.observation}"
     #anexar imagens
