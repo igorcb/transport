@@ -27,7 +27,7 @@ class OfferCharge < ActiveRecord::Base
 		offer.status = TypeStatus::OPEN
 	end
 
-	default_scope { order(date_shipment: :desc, id: :desc) } 
+	default_scope { where(status: TypeStatus::OPEN).order(date_shipment: :desc, id: :desc) } 
 
 	module TypeStatus
 		OPEN = 0
