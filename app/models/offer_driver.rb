@@ -74,6 +74,8 @@ class OfferDriver < ActiveRecord::Base
     end
 	end
 
-
+	def waiting_or_confirmed_status?
+		(self.status == TypeStatus::WAITING) or (self.status == TypeStatus::CONFIRMED)
+	end
 end
 
