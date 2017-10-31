@@ -5,6 +5,7 @@ class OfferDriver < ActiveRecord::Base
   validates :date_incoming, presence: true
   validates :type_vehicle, presence: true
 	validates :place_horse, presence: true, length: { maximum: 8 }  
+	validates :observation, length: { minimum: 15 }, if: Proc.new {|c| not c.observation.blank?}
   #validates :place_cart_first, length: { maximum: 8 } if: lambda { |d| d.place_cart_first.present? }
   #validates :place_cart_second, length: { maximum: 8 } if: Proc.new { |d| d.place_cart_second.present? }
   #validates :status, presence: true
@@ -54,10 +55,21 @@ class OfferDriver < ActiveRecord::Base
 	end
 
 	def self.reject(offer_driver)
-    ActiveRecord::Base.transaction do
-    	OfferDriver.where(id: offer_driver.id).update_all(status: TypeStatus::REJECT)
-      OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::OPEN)
-    end
+    # ActiveRecord::Base.transaction do
+    # 	OfferDriver.where(id: offer_driver.id).update_all(status: TypeStatus::REJECT)
+    #   OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::OPEN)
+    # end
+		begin
+      ActiveRecord::Base.transaction do
+    	  OfferDriver.where(id: offer_driver.id).update_all(status: TypeStatus::REJECT)
+        OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::OPEN)
+        return true
+      end
+      rescue Exception => e
+        puts e.message
+        self.errors.add(:offer_driver, e.message)
+        return false        
+    end    
 	end
 
 	def self.noshow(offer_driver)

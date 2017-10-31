@@ -3,7 +3,8 @@ Transport::Application.routes.draw do
   resources :offer_drivers do
     member do
       get :confirmed
-      get :reject
+      get :reject_form
+      patch :reject
       get :noshow
       get :nonsuit
     end    

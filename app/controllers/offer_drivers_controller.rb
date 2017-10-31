@@ -55,9 +55,20 @@ class OfferDriversController < ApplicationController
     redirect_to offer_charge_path(@offer_driver.offer_charge)
   end
 
+  def reject_form
+
+  end
+
   def reject
-    OfferDriver.reject(@offer_driver)
-    redirect_to offer_charge_path(@offer_driver.offer_charge)
+    respond_to do |format|
+      if @offer_driver.update(offer_driver_params) && OfferDriver.reject(@offer_driver)
+        format.html { redirect_to offer_charge_path(@offer_driver.offer_charge), flash: { success: "Reject was successfully update." } }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'reject_form' }
+        format.json { head :no_content }
+      end
+    end
   end
 
   def noshow
@@ -76,6 +87,7 @@ class OfferDriversController < ApplicationController
     end
 
     def offer_driver_params
-      params.require(:offer_driver).permit(:offer_charge_id, :user_id, :date_incoming, :time_incoming, :driver, :type_vehicle, :place_horse, :place_cart_first, :place_cart_second, :status)
+      params.require(:offer_driver).permit(:offer_charge_id, :user_id, :date_incoming, :time_incoming, :driver, :type_vehicle, 
+        :place_horse, :place_cart_first, :place_cart_second, :observation, :status)
     end
 end
