@@ -42,7 +42,7 @@ class OfferChargesController < ApplicationController
   end
 
   def search
-    @q = OfferCharge.search(params[:query])
+    @q = OfferCharge.search(params[:query]).reorder
     @offer_charges = @q.result
     respond_with(@offer_charges) do |format|
      format.js

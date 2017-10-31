@@ -32,6 +32,7 @@ class OfferCharge < ActiveRecord::Base
 	end
 
 	scope :only_open, -> { where(status: TypeStatus::OPEN).order(date_shipment: :desc, id: :desc) }
+	scope :reorder, -> { order(date_shipment: :desc, id: :desc) }
 
 	module TypeStatus
 		OPEN = 0
