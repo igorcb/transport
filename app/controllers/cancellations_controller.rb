@@ -58,6 +58,7 @@ class CancellationsController < ApplicationController
         when "AccountPayable" then AccountPayable.find(params[:cancellation][:cancellation_id])
         when "NfsKey" then NfsKey.find(params[:cancellation][:cancellation_id])
         when "InputControl" then InputControl.find(params[:cancellation][:cancellation_id])
+        when "OfferCharge" then OfferCharge.find(params[:cancellation][:cancellation_id])
       end
     end
 
@@ -69,6 +70,7 @@ class CancellationsController < ApplicationController
         when "AccountPayable" then redirect_to account_payable_path (@model)
         when "NfsKey" then redirect_to ordem_service_path (NfsKey.ordem_service(@model))
         when "InputControl" then redirect_to input_control_path (@model)
+        when "OfferCharge" then redirect_to offer_charge_path (@model)
       end
     end
 

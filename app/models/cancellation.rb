@@ -34,6 +34,7 @@ class Cancellation < ActiveRecord::Base
       when "AccountPayable" then "Ct. a Pagar"
       when "Billing" then "Faturamento"
       when "NfsKey" then "NFS"
+      when "OfferCharge" then "Oferta de Carga"
     end
   end
 
@@ -45,6 +46,7 @@ class Cancellation < ActiveRecord::Base
       when "AccountPayable" then model = AccountPayable.find(self.cancellation_id)
       when "NfsKey" then model = NfsKey.find(self.cancellation_id)
       when "InputControl" then model = InputControl.find(self.cancellation_id)
+      when "OfferCharge" then model = OfferCharge.find(self.cancellation_id)
     end     
     model
   end
@@ -57,6 +59,7 @@ class Cancellation < ActiveRecord::Base
       when "AccountPayable" then model = AccountPayable.find(self.cancellation_id)
       when "NfsKey" then model = NfsKey.ordem_service(self.cancellation_id)
       when "InputControl" then model = InputControl.find(self.cancellation_id)
+      when "OfferCharge" then model = OfferCharge.find(self.cancellation_id)
     end     
     model
   end
@@ -84,6 +87,7 @@ class Cancellation < ActiveRecord::Base
       when AccountPayable then cancel.cancel_account_payable(cancel, user)
       when NfsKey then cancel.cancel_nfs_key(cancel, user)
       when InputControl then cancel.cancel_input_control(cancel, user)
+      when OfferCharge then cancel.cancel_offercharge_control(cancel, user)
     end
     #cancel.send_notification_cancellation
   end
@@ -175,4 +179,18 @@ class Cancellation < ActiveRecord::Base
     end
   end
 
+  def cancel_offercharge_control(cancel, user)
+    begin
+      ActiveRecord::Base.transaction do
+        offer_charge = cancel.cancellation_model
+        OfferCharge.where(id: offer_charge.id).update_all(status: OfferCharge::TypeStatus::CANCEL)
+        Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
+        return true
+      end
+      rescue Exception => e
+        puts e.message
+        self.errors.add(:cancellation, e.message)
+        return false        
+    end
+  end
 end

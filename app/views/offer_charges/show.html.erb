@@ -107,6 +107,26 @@
     </div>
   </div>
 
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Dados do Cancelamento
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="panel-body">
+
+      <%= render 'cancellations/feed', cancellations: @offer_charge.feed_cancellations %>
+
+      <%= render 'cancellations/form_cancellation_offer_charge' %>
+      
+      </div>
+    </div>
+  </div>
+
+
 
 <!-- Fim collapse  --> 
 </div>

@@ -14,6 +14,10 @@ class OfferCharge < ActiveRecord::Base
 	has_many :offer_drivers
   accepts_nested_attributes_for :offer_drivers, allow_destroy: true, :reject_if => :all_blank	
 
+  has_one :cancellation, class_name: "Cancellation", foreign_key: "cancellation_id"
+  has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
+  accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
+
 	before_save do |offer| 
 		offer.shipper = offer.shipper.upcase
 		offer.shipping = offer.shipping.upcase
@@ -67,4 +71,9 @@ class OfferCharge < ActiveRecord::Base
 	def volume
 		self.offer_items.sum(:volume).to_f
 	end
+
+  def feed_cancellations
+    Cancellation.where("cancellation_type = ? and cancellation_id = ?", "OfferCharge", self.id)
+  end
+
 end

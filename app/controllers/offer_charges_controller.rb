@@ -12,6 +12,7 @@ class OfferChargesController < ApplicationController
 
   def show
     @offer_driver = OfferDriver.new
+    @cancellation = @offer_charge.cancellations.build
     respond_with(@offer_charge)
   end
 
