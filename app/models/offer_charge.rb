@@ -23,7 +23,7 @@ class OfferCharge < ActiveRecord::Base
 	end
 
 	before_create do |offer|
-		offer.vehicle_situation = OfferDriver::TypeVehicleSituation::WAITING
+		offer.vehicle_situation = '0'
 		offer.status = TypeStatus::OPEN
 	end
 
