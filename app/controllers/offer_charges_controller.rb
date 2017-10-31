@@ -56,7 +56,7 @@ class OfferChargesController < ApplicationController
 
     def offer_charge_params
       params.require(:offer_charge).permit(:shipper, :date_shipment, :time_shipment, :shipping, :local_loading, 
-        :type_vehicle, :vehicle_detail, :vehicle_situation, :freight_min, :freight_max, :local_landing,
+        :type_vehicle, :vehicle_detail, :vehicle_situation, :freight_min, :freight_max, :local_landing, :palletized,
         offer_items_attributes: [:offer_charge_id, :city, :state, :client, :date_schedule,:time_schedule, :qtde_pallets, :volume, :weight, :id, :_destroy],
         offer_drivers_attributes: [:offer_charge_id, :date_incoming, :time_incoming, :driver, :type_vehicle, :place_horse, :place_cart_first, :place_cart_second, :user_id, :id, :_destroy]
         )

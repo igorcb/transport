@@ -56,6 +56,14 @@ class OfferCharge < ActiveRecord::Base
 		end
 	end
 
+  def palletized_status
+    case self.palletized
+      when false then "Nao"
+      when true then "Sim"
+      else "Nao Informado"
+    end
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ['shipper', 'shipping', 'date_shipment', 'vehicle_situation', 'status']
   end	
