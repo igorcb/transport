@@ -1,7 +1,8 @@
 class DirectCharge < ActiveRecord::Base
   validates :carrier_id, :driver_id, presence: true
 	validates :place, :date_charge, presence: true
-
+  validates :shipping, presence: true, uniqueness: true
+  
   belongs_to :carrier
   belongs_to :driver
   belongs_to :user, class_name: "User", foreign_key: "user_id"
