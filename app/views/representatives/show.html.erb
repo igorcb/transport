@@ -1,0 +1,108 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Dados do Motorista</div>
+  <div class="panel-body">
+
+    <p>
+      <strong>Tipo pessoa:</strong>
+      <%= @representative.tipo_pessoa %>
+    </p>
+
+    <p>
+      <strong>Cpf cnpj:</strong>
+      <%= @representative.cpf_cnpj %>
+    </p>
+
+    <p>
+      <strong>Nome:</strong>
+      <%= @representative.nome %>
+    </p>
+
+    <p>
+      <strong>Fantasia:</strong>
+      <%= @representative.fantasia %>
+    </p>
+
+    <p>
+      <strong>Inscricao estadual:</strong>
+      <%= @representative.inscricao_estadual %>
+    </p>
+
+    <p>
+      <strong>Inscricao municipal:</strong>
+      <%= @representative.inscricao_municipal %>
+    </p>
+
+    <p>
+      <strong>Endereco:</strong>
+      <%= @representative.endereco %>
+    </p>
+
+    <p>
+      <strong>Numero:</strong>
+      <%= @representative.numero %>
+    </p>
+
+    <p>
+      <strong>Complemento:</strong>
+      <%= @representative.complemento %>
+    </p>
+
+    <p>
+      <strong>Bairro:</strong>
+      <%= @representative.bairro %>
+    </p>
+
+    <p>
+      <strong>Cidade:</strong>
+      <%= @representative.cidade %>
+    </p>
+
+    <p>
+      <strong>Estado:</strong>
+      <%= @representative.estado %>
+    </p>
+
+    <p>
+      <strong>Cep:</strong>
+      <%= @representative.cep %>
+    </p>
+
+    <p>
+      <strong>Rg:</strong>
+      <%= @representative.rg %>
+    </p>
+
+    <p>
+      <strong>Data emissao:</strong>
+      <%= @representative.data_emissao %>
+    </p>
+
+    <p>
+      <strong>Orgao emissor:</strong>
+      <%= @representative.orgao_emissor %>
+    </p>
+
+    <p>
+      <strong>Observação:</strong>
+      <pre><%= @representative.observacao %></pre>
+    </p>
+
+  </div>
+</div>
+
+
+
+<%#= render 'shared/show_contacts', object: @representative %>
+
+<%#= render 'shared/show_emails', object: @representative %>
+
+<%#= render 'shared/show_account_bank', object: @representative %>
+
+<%#= render 'shared/document', object: @representative %>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_representative_path(@representative), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos',  representatives_path, class: "btn btn-default" %>
+</div>

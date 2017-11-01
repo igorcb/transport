@@ -1,0 +1,154 @@
+<%= form_for @representative, html: {multipart: true, role: "form" } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :tipo_pessoa %> <br />
+    <div class="radio-inline">
+      <%= f.radio_button :tipo_pessoa, "0"%>CPF
+    </div>
+
+    <div class="radio-inline">
+      <%= f.radio_button :tipo_pessoa, "1"%>CNPJ
+    </div>
+  </div>
+
+  <div id="representative_cpf_cpnj" class="form-group">
+
+  </div>
+
+  <div class="form-group">
+    <%= f.label :nome %><br>
+    <%= f.text_field :nome, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :fantasia %><br>
+    <%= f.text_field :fantasia, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :inscricao_estadual %><br>
+    <%= f.text_field :inscricao_estadual, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :inscricao_municipal %><br>
+    <%= f.text_field :inscricao_municipal, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :endereco %><br>
+    <%= f.text_field :endereco, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :numero %><br>
+    <%= f.text_field :numero, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :complemento %><br>
+    <%= f.text_field :complemento, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :bairro %><br>
+    <%= f.text_field :bairro, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :estado, "Estado" %>
+    <%= f.select(:estado, State.order(:name).collect {|c| [c.name, c.uf]}, {prompt: "SELECT STATE"}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cidade, "Cidade" %>
+    <% if @representative.estado.present? %>
+      <%= f.collection_select :cidade, city_of_state(@representative.estado), :name, :name, {prompt: "SELECIONE CIDADE"}, {class: "form-control"} %>
+    <% else %>
+      <%= f.collection_select :cidade, [], :name, :name, {prompt: "SELECIONE CIDADE"}, {class: "form-control"}  %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cep %><br>
+    <%= f.text_field :cep, class: "form-control cep" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :rg %><br>
+    <%= f.text_field :rg, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :orgao_emissor %><br>
+    <%= f.text_field :orgao_emissor, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :data_emissao %>
+    <%= f.text_field :data_emissao, class: "form-control data", value: date_br(@representative.data_emissao) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :observacao %><br>
+    <%= f.text_area :observacao, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  representative_path(@representative), class: "btn btn-info" if !@representative.new_record? %>
+    <%= link_to "Listar Todos", representatives_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+    $("#representative_estado").change(function(){
+      var uf = "uf="+$(this).val();
+      console.log(uf);
+      $.getJSON('/get_city_by_uf', uf, function(data){
+        var options = '<option value="">Selecione a cidade de origem</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#representative_cidade").html(options);
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  <% if @representative.new_record? %>
+    $(document).ready(function() {
+      $('input[name="representative[tipo_pessoa]"]').change(function() {
+        var tipo = $(this).val();
+        var cpf_ou_cnpj = "cpf_cnpj="+$(this).val();
+        $('#representative_cpf_cpnj').empty(); 
+        if (tipo === '0') {
+          $('#representative_cpf_cpnj').append("<div class='form-group'> <label for='representative_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='representative_cpf_cnpj' name='representative[cpf_cnpj]' type='text'> </div>");
+        } else {
+          $('#representative_cpf_cpnj').append("<div class='form-group'> <label for='representative_cpf_cnpj'>CNPJ</label> <input class='form-control cnpj' id='representative_cpf_cnpj' name='representative[cpf_cnpj]' type='text'> </div>");
+        }
+       console.log(cpf_ou_cnpj);
+       document.getElementById("representative_cpf_cnpj").setAttribute('value', cpf_ou_cnpj);
+
+      });
+    });
+  <% else %>
+    var tipo = '<%= @representative.tipo_pessoa %>'
+    var cpf_ou_cnpj = '<%= @representative.cpf_cnpj %>'
+    console.log(tipo);
+   if (tipo === '0') {
+      $('#representative_cpf_cpnj').append("<div class='form-group'> <label for='representative_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='representative_cpf_cnpj' name='representative[cpf_cnpj]' type='text'> </div>");
+    } else {
+      $('#representative_cpf_cpnj').append("<div class='form-group'> <label for='representative_cpf_cnpj'>CNPJ</label> <input class='form-control cnpj' id='representative_cpf_cnpj' name='representative[cpf_cnpj]' type='text'> </div>");
+    }
+    document.getElementById("representative_cpf_cnpj").setAttribute('value', cpf_ou_cnpj);
+
+    $(document).ready(function() {
+      $('input[name="representative[tipo_pessoa]"]').change(function() {
+        var tipo = $(this).val();
+        var cpf_ou_cnpj = '<%= @representative.cpf_cnpj %>'
+        console.log(cpf_ou_cnpj);
+        $('#representative_cpf_cpnj').empty(); 
+        if (tipo === '0') {
+          $('#representative_cpf_cpnj').append("<div class='form-group'> <label for='representative_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='representative_cpf_cnpj' name='representative[cpf_cnpj]' type='text'> </div>");
+        } else {
+          $('#representative_cpf_cpnj').append("<div class='form-group'> <label for='representative_cpf_cnpj'>CNPJ</label> <input class='form-control cnpj' id='representative_cpf_cnpj' name='representative[cpf_cnpj]' type='text'> </div>");
+        }
+       document.getElementById("representative_cpf_cnpj").setAttribute('value', cpf_ou_cnpj);
+
+      });
+    });
+
+  <% end %>
+</script>

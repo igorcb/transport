@@ -1,0 +1,1 @@
+json.extract! @representative, :id, :tipo_pessoa, :cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :rg, :orgao_emissor, :data_emissao, :observacao, :created_at, :updated_at
