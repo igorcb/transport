@@ -147,9 +147,24 @@
 
 <%#= render 'representatives/representative', locals: {representative: @client.representatives}  %>
 
-<%# @representatives.each do |representative| %>
-  <%#= render partial: 'representative', locals: {representative: representative} %>
-<%# end %>
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Representantes</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <%= render 'representatives/header' %>
+        </thead>
+
+        <tbody>
+          <% @client.representatives.each do |representative| %>
+            <%= render partial: 'representatives/representative', locals: {representative: representative} %>
+          <% end %>  
+       </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
 
 <%= render 'shared/show_contacts', object: @client %>
 
