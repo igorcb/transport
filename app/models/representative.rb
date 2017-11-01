@@ -14,7 +14,11 @@ class Representative < ActiveRecord::Base
   validates :inscricao_estadual, length: { maximum: 20 }
   validates :inscricao_municipal, length: { maximum: 20 }	
 
+  has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy
+  accepts_nested_attributes_for :contacts, allow_destroy: true
+  
   has_many :emails, class_name: "Email", foreign_key: "email_id", :as => :email, dependent: :destroy
   accepts_nested_attributes_for :emails, allow_destroy: true
-  
+
+
 end

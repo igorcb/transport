@@ -81,6 +81,22 @@
     <%= f.label :observacao %><br>
     <%= f.text_area :observacao, class: "form-control" %>
   </div>
+  
+  <div id="phones">
+    <fieldset>
+      <legend>Contatos</legend>
+        <div class="items">
+          <%= f.nested_fields_for :contacts do |f| 
+            render 'shared/contact', f: f
+          end -%>
+        </div>
+        <div class="row">
+          <div class="col-xs-2">
+            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>  
+          </div>  
+        </div>
+    </fieldset>
+  </div>
 
   <div id="emails">
     <fieldset>
