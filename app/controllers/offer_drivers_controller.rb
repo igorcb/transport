@@ -71,6 +71,10 @@ class OfferDriversController < ApplicationController
     end
   end
 
+  def reject_observation
+    
+  end
+
   def noshow
     OfferDriver.noshow(@offer_driver)
     redirect_to offer_charge_path(@offer_driver.offer_charge)

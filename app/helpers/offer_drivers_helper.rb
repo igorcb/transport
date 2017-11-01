@@ -25,7 +25,7 @@ module OfferDriversHelper
   def link_to_reject(offer_driver)
     #link_to "Reject", reject_observation_offer_driver_path(offer_driver), {:target => "_blank"}.merge(class: "fa fa-times danger'")
     link_to reject_observation_offer_driver_path(offer_driver) do
-      "<span title='Rejeitar' class='fa fa-times' style='color: red' aria-hidden='true'></span> Reject".html_safe
+      "<span title='Rejeitar' class='fa fa-times' style='color: red' aria-hidden='true'></span> Rejeitado".html_safe
     end    
   end
 end
