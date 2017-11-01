@@ -44,6 +44,9 @@ class RepresentativesController < ApplicationController
     end
 
     def representative_params
-      params.require(:representative).permit(:tipo_pessoa, :cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, :bairro, :cep, :cidade, :estado, :rg, :orgao_emissor, :data_emissao, :observacao)
+      params.require(:representative).permit(:tipo_pessoa, :cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, :bairro, :cep, :cidade, :estado, :rg, :orgao_emissor, 
+                     :data_emissao, :observacao,
+        emails_attributes: [:sector_id, :setor, :contato, :email, :responsavel_carga, :comprovante, :id, :_destroy]
+      )
     end
 end
