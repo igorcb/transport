@@ -7,6 +7,7 @@ Transport::Application.routes.draw do
       patch :reject
       get :noshow
       get :nonsuit
+      get :reject_observation
     end    
   end
 

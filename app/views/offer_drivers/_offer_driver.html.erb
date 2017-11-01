@@ -5,7 +5,7 @@
     <td><%= offer_driver.type_vehicle %></td>
     <td><%= offer_driver.place_horse %></td>
     <td><%= offer_driver.place_cart_first %></td>
-    <td><%= status_driver_color(offer_driver.status, offer_driver.status_name) %></td>
+    <td><%= status_driver_color(offer_driver, offer_driver.status, offer_driver.status_name) %></td>
     <% if offer_driver.status == OfferCharge::TypeStatus::OPEN %>
       <td>
         <% if offer_driver.waiting_or_confirmed_status?  %>

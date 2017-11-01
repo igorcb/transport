@@ -1,33 +1,4 @@
-<div class="panel panel-default">
-  <div class="panel-heading">Dados do Motorista</div>
-  <div class="panel-body">
-    <p>
-    	<strong>Motorista:</strong>
-    	<%= @offer_driver.driver %>
-    </p>
-
-    <p>
-    	<strong>Tipo Veículo:</strong>
-    	<%= @offer_driver.type_vehicle %>
-    </p>
-
-    <p>
-    	<strong>Placa:</strong>
-    	<%= @offer_driver.place_horse %>
-    </p>
-
-    <p>
-    	<strong>Placa:</strong>
-    	<%= @offer_driver.place_cart_first %>
-    </p>
-
-    <p>
-    	<strong>Placa:</strong>
-    	<%= @offer_driver.place_cart_second %>
-    </p>
-
-  </div>
-</div>
+<%= render 'data_driver' %>
 
 <%= form_for(@offer_driver, :url => reject_offer_driver_path, method: :patch, :html => { :multipart => true } ) do |f| %> 
   <%= render 'shared/error_messages', object: f.object %>
