@@ -36,6 +36,12 @@ class Client < ActiveRecord::Base
   has_many :account_banks, class_name: "AccountBank", foreign_key: "account_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :account_banks, allow_destroy: true
 
+  # has_many :representatives, class_name: "Representative", foreign_key: "representative_id", :as => :email, dependent: :destroy
+  # accepts_nested_attributes_for :emails, allow_destroy: true
+  has_many :client_representatives
+  #has_many :representatives, :through => :client_representatives
+  accepts_nested_attributes_for :client_representatives, allow_destroy: true, reject_if: :all_blank
+
   before_destroy :can_destroy?
 
   scope :billing, -> { where(faturar:true) }
@@ -110,6 +116,12 @@ class Client < ActiveRecord::Base
     "#{fantasia} - #{cidade} - #{estado}"
   end
 
+  def representatives
+    #representantes = ClientRepresentative.where(client_id: self.id)
+    #reps = Representative.where(id: representantes.ids)
+    reps = self.client_representatives.pluck(:representative_id)
+    representantes = Representative.where(id: reps)
+  end
 
   private 
     def can_destroy?

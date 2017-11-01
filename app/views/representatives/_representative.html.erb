@@ -1,0 +1,10 @@
+<tr>
+  <td><%= link_to representative.cpf_cnpj, representative %></td>
+  <td><%= link_to truncate(representative.nome, length: 25), representative, title: representative.nome %></td>
+  <td><%= link_to truncate(representative.fantasia, length: 25), representative, title: representative.fantasia %></td>
+  <td><%= representative.estado %></td>
+  <td><%= representative.cidade %></td>
+  <td><%= link_to 'Exibir', representative, class: "btn btn-info btn-xs" %></td>
+  <td><%= link_to 'Editar', edit_representative_path(representative), class: "btn btn-primary btn-xs" %></td>
+  <td><%= link_to 'Deletar', representative, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+</tr>

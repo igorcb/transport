@@ -145,6 +145,12 @@
   <pre><%= @client.obs %></pre>
 </p>
 
+<%#= render 'representatives/representative', locals: {representative: @client.representatives}  %>
+
+<%# @representatives.each do |representative| %>
+  <%#= render partial: 'representative', locals: {representative: representative} %>
+<%# end %>
+
 <%= render 'shared/show_contacts', object: @client %>
 
 <%= render 'shared/show_emails', object: @client %>

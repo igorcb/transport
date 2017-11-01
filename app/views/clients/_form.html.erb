@@ -129,6 +129,16 @@
     <%= f.text_field :suframa, class: "form-control" %> 
   </div>
 
+  <h2>Representantes</h2> 
+  <div id="representatives">
+    <div class="items">
+      <%= f.nested_fields_for :client_representatives do |f| 
+        render 'client_representatives', f: f
+      end  -%>
+    </div>
+    <a href="#" class="btn btn-success btn-sm add">Add Representantes</a>
+  </div>
+
   <div id="phones">
     <fieldset>
       <legend>Contatos</legend>
