@@ -157,8 +157,8 @@
         </thead>
 
         <tbody>
-          <% @client.representatives.each do |representative| %>
-            <%= render partial: 'representatives/representative', locals: {representative: representative} %>
+          <% @client.client_representatives.each do |rep| %>
+            <%= render partial: 'representatives/representative', locals: {representative: rep.representative} %>
           <% end %>  
        </tbody>
       </table>

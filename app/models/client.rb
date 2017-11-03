@@ -116,11 +116,12 @@ class Client < ActiveRecord::Base
     "#{fantasia} - #{cidade} - #{estado}"
   end
 
-  def representatives
-    #representantes = ClientRepresentative.where(client_id: self.id)
-    #reps = Representative.where(id: representantes.ids)
-    reps = self.client_representatives.pluck(:representative_id)
-    representantes = Representative.where(id: reps)
+  def representative(billing_client)
+    #pegar o representante do tomador do servico
+    #pegar o representante do tomador do servico e o representante do cliente destinatario
+    representative_billing = ClientRepresentative.where(client_id: billing_client.id).first
+    representative_client  = ClientRepresentative.where(client_id: self.id, representative_id: representative_billing.id).first if representative_billing.present?
+    representative = representative_billing.present? ? representative_client.representative : nil
   end
 
   private 
