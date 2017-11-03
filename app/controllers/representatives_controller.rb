@@ -11,6 +11,7 @@ class RepresentativesController < ApplicationController
   end
 
   def show
+    @client_representative = ClientRepresentative.new
     respond_with(@representative)
   end
 

@@ -1,102 +1,70 @@
 <p id="notice"><%= notice %></p>
 
-<div class="panel panel-default">
-  <div class="panel-heading">Dados do Representante</div>
-  <div class="panel-body">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Representante No:
+          <%= @representative.id %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
 
-    <p>
-      <strong>Tipo pessoa:</strong>
-      <%= @representative.tipo_pessoa %>
-    </p>
+          <div class="panel panel-default">
 
-    <p>
-      <strong>Cpf cnpj:</strong>
-      <%= @representative.cpf_cnpj %>
-    </p>
-
-    <p>
-      <strong>Nome:</strong>
-      <%= @representative.nome %>
-    </p>
-
-    <p>
-      <strong>Fantasia:</strong>
-      <%= @representative.fantasia %>
-    </p>
-
-    <p>
-      <strong>Inscricao estadual:</strong>
-      <%= @representative.inscricao_estadual %>
-    </p>
-
-    <p>
-      <strong>Inscricao municipal:</strong>
-      <%= @representative.inscricao_municipal %>
-    </p>
-
-    <p>
-      <strong>Endereco:</strong>
-      <%= @representative.endereco %>
-    </p>
-
-    <p>
-      <strong>Numero:</strong>
-      <%= @representative.numero %>
-    </p>
-
-    <p>
-      <strong>Complemento:</strong>
-      <%= @representative.complemento %>
-    </p>
-
-    <p>
-      <strong>Bairro:</strong>
-      <%= @representative.bairro %>
-    </p>
-
-    <p>
-      <strong>Cidade:</strong>
-      <%= @representative.cidade %>
-    </p>
-
-    <p>
-      <strong>Estado:</strong>
-      <%= @representative.estado %>
-    </p>
-
-    <p>
-      <strong>Cep:</strong>
-      <%= @representative.cep %>
-    </p>
-
-    <p>
-      <strong>Rg:</strong>
-      <%= @representative.rg %>
-    </p>
-
-    <p>
-      <strong>Data emissao:</strong>
-      <%= @representative.data_emissao %>
-    </p>
-
-    <p>
-      <strong>Orgao emissor:</strong>
-      <%= @representative.orgao_emissor %>
-    </p>
-
-    <p>
-      <strong>Observação:</strong>
-      <pre><%= @representative.observacao %></pre>
-    </p>
-
+            <div class="panel-body"> 
+              <%= render 'data_representative' %>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
   </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTree" aria-expanded="false" aria-controls="collapseTree">
+          Listagem de Clientes
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTree">
+      <div class="panel-body">
+        <%= link_to '[+] Cliente', '#new_client_representative', 'data-toggle' => 'modal', class: "btn btn-success btn-sm" %>
+        <div class="table-responsive">
+          <table class="table table-striped" id="table_client_representatives">
+            <thead>
+              <tr>
+                <%= render 'clients/header' %>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @representative.client_representatives.each do |c| %>
+                <tr>
+                  <%= render partial: 'clients/client', locals: {client: c.client} %>
+                </tr>
+              <% end %>                    
+            </tbody>
+          </table>
+        </div>    
+
+      </div>
+    </div>
+  </div>
+
 </div>
 
 
+<%#= render 'shared/show_contacts', object: @representative %>
 
-<%= render 'shared/show_contacts', object: @representative %>
-
-<%= render 'shared/show_emails', object: @representative %>
+<%#= render 'shared/show_emails', object: @representative %>
 
 <%#= render 'shared/show_account_bank', object: @representative %>
 
@@ -105,4 +73,24 @@
 <div class="form-group">
   <%= link_to 'Editar', edit_representative_path(@representative), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos',  representatives_path, class: "btn btn-default" %>
+</div>
+
+
+<div class="modal fade" id="new_client_representative" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Novo cliente para o representante</h4>
+      </div>
+      <div class="modal-body">
+        <%# Render the new person form (passing modal => true to enable remote => true) %>
+       
+        <%= render 'form_client_representative', modal: true %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

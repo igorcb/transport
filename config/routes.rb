@@ -1,4 +1,5 @@
 Transport::Application.routes.draw do
+  resources :client_representatives
 
   resources :representatives
 

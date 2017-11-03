@@ -6,11 +6,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Cpf cnpj</th>
-            <th>Nome</th>
-            <th>Fantasia</th>
-            <th>Estado</th>
-            <th>Cidade</th>
+            <%= render 'header' %>
             <th colspan="3">Opções</th>
           </tr>
         </thead>
@@ -18,11 +14,7 @@
         <tbody>
           <% @clients.each do |client| %>
             <tr>
-              <td><%= link_to client.cpf_cnpj, client %></td>
-              <td><%= link_to truncate(client.nome, length: 25), client, title: client.nome %></td>
-              <td><%= link_to truncate(client.fantasia, length: 25), client, title: client.fantasia %></td>
-              <td><%= client.estado %></td>
-              <td><%= client.cidade %></td>
+              <%= render "client", client: client %>
               <td><%= link_to 'Exibir', client, class: "btn btn-info btn-xs" %></td>
               <td><%= link_to 'Editar', edit_client_path(client), class: "btn btn-primary btn-xs" %></td>
               <td><%= link_to 'Deletar', client, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>

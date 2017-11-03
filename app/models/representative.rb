@@ -20,5 +20,8 @@ class Representative < ActiveRecord::Base
   has_many :emails, class_name: "Email", foreign_key: "email_id", :as => :email, dependent: :destroy
   accepts_nested_attributes_for :emails, allow_destroy: true
 
+  has_many :client_representatives
+  has_many :clients, :through => :client_representatives
+  accepts_nested_attributes_for :client_representatives, allow_destroy: true, reject_if: :all_blank
 
 end

@@ -1,12 +1,5 @@
-<% if client.present? %>
-<div style="background-color: #F5F5F5;border-radius: 5%; margin-top: 10px;">
-	
-<p>
-  <strong>Nome: &nbsp </strong> <%= client.nome %>
-</p>
-<p>
-	<strong>Estado: &nbsp </strong> <%= client.estado %> - <strong>Cidade: &nbsp </strong> <%= client.cidade %>
-</p>
-<% end %>
-
-</div>
+<td><%= link_to client.cpf_cnpj, client %></td>
+<td><%= link_to truncate(client.nome, length: 25), client, title: client.nome %></td>
+<td><%= link_to truncate(client.fantasia, length: 25), client, title: client.fantasia %></td>
+<td><%= client.estado %></td>
+<td><%= client.cidade %></td>
