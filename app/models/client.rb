@@ -119,9 +119,10 @@ class Client < ActiveRecord::Base
   def representative(billing_client)
     #pegar o representante do tomador do servico
     representative_billing = ClientRepresentative.where(client_id: billing_client.id).first
+    return nil unless representative_billing.nil?
     #pegar o representante do tomador do servico e o representante do cliente destinatario
     representative_client  = ClientRepresentative.where(client_id: self.id, representative_id: representative_billing.representative.id).first if representative_billing.present?
-    representative = representative_billing.present? ? representative_client.representative : nil
+    representative = representative_client.present? ? representative_client.representative : nil
   end
 
   private 
