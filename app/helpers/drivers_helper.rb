@@ -4,6 +4,6 @@ module DriversHelper
   end
 
   def select_restriction
-  	([["Carga", "0"],["Cliente","1"], [ "Seguradora","1"]])
+  	([["Carga", "0"],["Cliente","1"], [ "Seguradora","1"], ["Transportadora", "2"]])
   end
 end

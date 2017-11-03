@@ -16,6 +16,7 @@ class DriverRestriction < ActiveRecord::Base
   		when 0 then "Carga"
   		when 1 then "Cliente"
   		when 2 then "Seguradora"
+      when 3 then "Transportadora"
   		else "Nao Informado"
   	end
   end
