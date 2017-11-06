@@ -116,9 +116,9 @@ class Client < ActiveRecord::Base
     "#{fantasia} - #{cidade} - #{estado}"
   end
 
-  def representative(billing_client)
-    self.client_representatives.where(billing_client_id: billing_client).first
-  end
+  # def representative(billing_client)
+  #   self.client_representatives.where(billing_client_id: billing_client).first
+  # end
 
   private 
     def can_destroy?
