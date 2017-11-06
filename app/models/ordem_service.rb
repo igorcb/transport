@@ -22,7 +22,7 @@ class OrdemService < ActiveRecord::Base
   belongs_to :billing
   belongs_to :input_control
   belongs_to :direct_charge
-  
+
   has_one :boarding_item
   has_one :boarding, through: :boarding_item
 
@@ -607,7 +607,10 @@ class OrdemService < ActiveRecord::Base
     self.ordem_service_logistic.driver.nome
   end
 
-
+  def representative
+    self.client.client_representatives.where(billing_client_id: self.billing_client_id).first
+  end
+  
   private
     def can_destroy?
       if self.account_payable.present?
