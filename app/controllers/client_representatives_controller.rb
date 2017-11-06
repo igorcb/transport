@@ -14,8 +14,10 @@ class ClientRepresentativesController < ApplicationController
 
 	def create
     client  = Client.find_by_cpf_cnpj(params[:client_cpf_cpnj])
+    billing_client = Client.find_by_cpf_cnpj(params[:billing_client_cpf_cpnj])
     @client_representative = ClientRepresentative.new(client_representative_params)
     @client_representative.client_id = client.id
+    @client_representative.billing_client_id = billing_client.id
     respond_to do |format|
       if @client_representative.save!
         format.html { redirect_to @client_representative, flash: { success: "Client was successfully created." } }
@@ -35,7 +37,7 @@ class ClientRepresentativesController < ApplicationController
 		end
 
     def client_representative_params
-      params.require(:client_representative).permit(:representative_id, :client_id)
+      params.require(:client_representative).permit(:representative_id, :client_id, :billing_client)
     end
 
 end

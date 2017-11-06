@@ -116,20 +116,20 @@ class Client < ActiveRecord::Base
     "#{fantasia} - #{cidade} - #{estado}"
   end
 
-  def representative(billing_client)
-    #pegar o representante do tomador do servico
-    representative = nil
-    representative_billing = nil
-    representative_client = nil
-    representative_billing = ClientRepresentative.where(client_id: billing_client.id).first
-    if !representative_billing.nil?
-      representative_client  = ClientRepresentative.where(client_id: self.id, representative_id: representative_billing.representative.id).first if representative_billing.present?
-    end
-    if !representative_client.nil?
-      representative = representative_client.present? ? representative_client.representative : nil
-    end
-    representative
-  end
+  # def representative(billing_client)
+  #   #pegar o representante do tomador do servico
+  #   representative = nil
+  #   representative_billing = nil
+  #   representative_client = nil
+  #   representative_billing = ClientRepresentative.where(client_id: billing_client.id).first
+  #   if !representative_billing.nil?
+  #     representative_client  = ClientRepresentative.where(client_id: self.id, representative_id: representative_billing.representative.id).first if representative_billing.present?
+  #   end
+  #   if !representative_client.nil?
+  #     representative = representative_client.present? ? representative_client.representative : nil
+  #   end
+  #   representative
+  # end
 
   private 
     def can_destroy?

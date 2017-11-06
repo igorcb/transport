@@ -41,6 +41,8 @@
           <table class="table table-striped" id="table_client_representatives">
             <thead>
               <tr>
+                <td>CNPJ </td>
+                <td>Nome Tomador</td>
                 <%= render 'clients/header' %>
               </tr>
             </thead>
@@ -48,6 +50,8 @@
             <tbody>
               <% @representative.client_representatives.each do |c| %>
                 <tr>
+                  <td><%= c.billing_client.cpf_cnpj if c.billing_client.present? %></td>
+                  <td><%= c.billing_client.nome if c.billing_client.present?  %></td>
                   <%= render partial: 'clients/client', locals: {client: c.client} %>
                 </tr>
               <% end %>                    
