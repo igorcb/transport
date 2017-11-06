@@ -31,6 +31,14 @@ class ClientRepresentativesController < ApplicationController
     end
  	end
 
+  def destroy
+    @client_representative = ClientRepresentative.find(params[:id])
+    @representative = @client_representative.representative
+    @client_representative.destroy
+    #respond_with(@direct_charge)
+    redirect_to @representative, flash: { success: "Client was successfully deleted." }
+  end
+
 	private
 		def set_client_representative
       #@representative = Representative.find(params[:id])

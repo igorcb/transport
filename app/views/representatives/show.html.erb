@@ -44,6 +44,7 @@
                 <td>CNPJ </td>
                 <td>Nome Tomador</td>
                 <%= render 'clients/header' %>
+                <td>Options</td>
               </tr>
             </thead>
 
@@ -53,6 +54,7 @@
                   <td><%= c.billing_client.cpf_cnpj if c.billing_client.present? %></td>
                   <td><%= c.billing_client.nome if c.billing_client.present?  %></td>
                   <%= render partial: 'clients/client', locals: {client: c.client} %>
+                  <td><%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
                 </tr>
               <% end %>                    
             </tbody>
