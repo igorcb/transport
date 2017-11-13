@@ -68,6 +68,7 @@ Transport::Application.routes.draw do
       get 'quitter'
       get :comments
       get :question
+      get :tag
     end
     collection do
       get :search

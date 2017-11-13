@@ -20,6 +20,13 @@ class InputControlsController < ApplicationController
     end
   end
 
+  def tag
+    respond_to do |format|
+      format.html
+      format.pdf { render_tag_input_control(@input_control) }
+    end
+  end
+
   def finish_typing
     if @input_control.finish_typing
       #@input_control.update_attributes(received_user_id: current_user.id)
@@ -208,6 +215,31 @@ class InputControlsController < ApplicationController
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )
+    end
+
+    def render_tag_input_control(input_control)
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'tag.tlf')
+      report.start_new_page
+      tag_header(report, input_control)
+
+      input_control.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
+        report.page.item(:peso).value(nfe.peso)
+        report.page.item(:cidade).value("#{nfe.target_client.cidade}/#{nfe.target_client.estado}")
+        report.page.item(:nota_fiscal).value(nfe.numero)
+        report.page.item(:client).value(nfe.target_client.nome)
+        report.start_new_page
+        tag_header(report, input_control)
+      end
+      send_data report.generate, filename: "tag#{input_control.id}_.pdf", 
+                                 type: 'application/pdf', 
+                                 disposition: 'inline'
+
+    end
+
+    def tag_header(report, input_control)
+      report.page.item(:no_remessa).value(input_control.id)
+      report.page.item(:data_entrada).value(input_control.date_entry)
+      report.page.item(:equipe).value(input_control.team_name)
     end
 
     def render_input_control(task)
