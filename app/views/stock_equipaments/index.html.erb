@@ -25,7 +25,7 @@
 	        		<% ControlPalletInternal.select(:type_account, :responsable_id, :responsable_type).by_equipament(equipament.equipament).uniq.reorder(:type_account, :responsable_id, :responsable_type).each do |control_pallet| %>
            		<tr>
 								<td><%= control_pallet.type_account_name %></td>
-								<td><%= control_pallet.responsable.nome %></td>
+								<td><%= link_to control_pallet.responsable.nome, control_pallet.responsable%></td>
 								<td><%= ControlPalletInternal.equipament_and_credit_and_responsable(equipament.equipament, control_pallet.type_account, control_pallet.responsable_id) %></td>
 								<td><%= ControlPalletInternal.equipament_and_debit_and_responsable(equipament.equipament, control_pallet.type_account, control_pallet.responsable_id) %></td>
 								<td><%= ControlPalletInternal.equipament_saldo_and_responsable(equipament.equipament, control_pallet.type_account, control_pallet.responsable_id) %></td>
