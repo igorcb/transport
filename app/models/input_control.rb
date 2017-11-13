@@ -322,7 +322,8 @@ class InputControl < ActiveRecord::Base
                           nfe_source_type: nfe.nfe_type,
                               remessa_ype: input_control.shipment,
                                      peso: nfe.peso,
-                                   volume: nfe.volume
+                                   volume: nfe.volume,
+                              observation: nfe.observation
                                     )
 
         #puts ">>>>>>>>>>>>>>>> Importar produtos"

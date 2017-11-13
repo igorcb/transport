@@ -11,6 +11,9 @@
         <strong> Remessa Ype:</strong> <%= item.remessa_ype %> - 
         <strong> Peso:</strong> <%= number_to_currency( item.peso, unit: "", separator: ",", delimiter: ".", precision: 3)  %> - 
         <strong> Volume:</strong> <%= number_to_currency( item.volume, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+        <br />
+        <strong> Observacao:</strong>
+        <pre><%= item.observation %></pre> 
 
       </li>
     <% end %>

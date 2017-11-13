@@ -159,6 +159,7 @@ class NfeXml < ActiveRecord::Base
                             valor_nota: nfe.icms_tot.vNF,
                       source_client_id: source_client.id,
                       target_client_id: target_client.id,
+                           observation: nfe.info.infCpl,
                                 status: TipoStatus::PROCESSADO)
 
         #produtos da NFE
