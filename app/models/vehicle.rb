@@ -13,7 +13,7 @@ class Vehicle < ActiveRecord::Base
   #validates :capacidade, presence: true
   validates :capacity, presence: true
   validates :placa, presence: true, length: { maximum: 8 }, uniqueness: true
-  validates :especie, presence: true
+  validates :especie, presence: true, length: { maximum: 20 }
   validates :numero_eixos, presence: true
   validates :numero_loks, presence: true
   validates :qtde_paletes, presence: true
