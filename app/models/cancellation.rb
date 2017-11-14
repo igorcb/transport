@@ -34,6 +34,7 @@ class Cancellation < ActiveRecord::Base
       when "AccountPayable" then "Ct. a Pagar"
       when "Billing" then "Faturamento"
       when "NfsKey" then "NFS"
+      when "CteKey" then "CTE"
       when "OfferCharge" then "Oferta de Carga"
     end
   end
@@ -45,6 +46,7 @@ class Cancellation < ActiveRecord::Base
       when "OrdemService" then model = OrdemService.find(self.cancellation_id)
       when "AccountPayable" then model = AccountPayable.find(self.cancellation_id)
       when "NfsKey" then model = NfsKey.find(self.cancellation_id)
+      when "CteKey" then model = CteKey.find(self.cancellation_id)
       when "InputControl" then model = InputControl.find(self.cancellation_id)
       when "OfferCharge" then model = OfferCharge.find(self.cancellation_id)
     end     
@@ -58,6 +60,7 @@ class Cancellation < ActiveRecord::Base
       when "OrdemService" then model = OrdemService.find(self.cancellation_id)
       when "AccountPayable" then model = AccountPayable.find(self.cancellation_id)
       when "NfsKey" then model = NfsKey.ordem_service(self.cancellation_id)
+      when "CteKey" then model = CteKey.ordem_service(self.cancellation_id)
       when "InputControl" then model = InputControl.find(self.cancellation_id)
       when "OfferCharge" then model = OfferCharge.find(self.cancellation_id)
     end     
@@ -86,6 +89,7 @@ class Cancellation < ActiveRecord::Base
       when OrdemService then cancel.cancel_ordem_service(cancel, user)
       when AccountPayable then cancel.cancel_account_payable(cancel, user)
       when NfsKey then cancel.cancel_nfs_key(cancel, user)
+      when CteKey then cancel.cancel_cte_key(cancel, user)
       when InputControl then cancel.cancel_input_control(cancel, user)
       when OfferCharge then cancel.cancel_offercharge_control(cancel, user)
     end
@@ -153,6 +157,16 @@ class Cancellation < ActiveRecord::Base
     # colocar status do cancelamento como CONFIRMADO
     ActiveRecord::Base.transaction do
       nfs = cancel.cancellation_model
+      #NfsKey.where(id: nfs.id).update_all(status: "OrdemService::TipoStatus::CANCELADA")
+      Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
+    end
+  end
+
+  def cancel_cte_key(cancel, user)
+    # colocar status da ordem de servico como cancelada
+    # colocar status do cancelamento como CONFIRMADO
+    ActiveRecord::Base.transaction do
+      cte = cancel.cancellation_model
       #NfsKey.where(id: nfs.id).update_all(status: "OrdemService::TipoStatus::CANCELADA")
       Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
     end

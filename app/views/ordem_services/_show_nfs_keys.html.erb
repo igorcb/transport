@@ -8,7 +8,7 @@
         <strong>NFS-e:</strong> <%= item.nfs %> |
         <strong>Chave:</strong> <%= item.chave %> | 
         <strong>Status Cancelamento:</strong> <%= item.cancellations.first.status_name if item.cancellations.present? %> 
-				<%= link_to "Solicitar Cancelamento", ordem_service_nfs_key_request_cancelation_path(@ordem_service, item), class: "btn btn-warning btn-sm", data: {toggle: "modal"} unless item.cancellations.present? %>
+				<%= link_to "Solicitar Cancelamento", ordem_service_nfs_key_request_cancellation_path(@ordem_service, item), class: "btn btn-warning btn-sm", data: {toggle: "modal"} unless item.cancellations.present? %>
       </li>
     <% end %>
   </ul>

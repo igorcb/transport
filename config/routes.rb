@@ -272,7 +272,10 @@ Transport::Application.routes.draw do
 
   resources :ordem_services do
     resources :nfs_keys do
-      get 'request_cancelation' 
+      get :request_cancellation
+    end
+    resources :cte_keys do
+      get :request_cancellation
     end
     resources :inventories
     member do

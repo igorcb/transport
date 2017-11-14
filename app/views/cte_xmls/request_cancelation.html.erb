@@ -1,0 +1,17 @@
+<p>
+	<strong>Ordem de Servico: </strong>
+	<%= @ordem_service %>
+</p>
+
+<p>
+	<strong>NFS: </strong>
+	<%= @cte_key.cte%>
+</p>
+
+<p>
+	<strong>Chave: </strong>
+	<%= @cte_key.chave %>
+</p>
+
+
+<%= render 'cancellations/form_cancellation_nfs', object: {ordem_service: @ordem_service, item: @cte_key}  %>
