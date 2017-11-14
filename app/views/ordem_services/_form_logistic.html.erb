@@ -1,6 +1,8 @@
 <%= form_for(@ordem_service, :html => {id: 'new_ordem_service'}) do |f| %>
 
   <%= render 'shared/error_messages', object: f.object %>
+
+  <%= render 'shared/error_messages', object: f.object.cte_keys %>
   
   <%= hidden_field_tag "ordem_service[tipo]", @type_os %>
 

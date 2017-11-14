@@ -11,7 +11,7 @@ class Cancellation < ActiveRecord::Base
   module TipoStatus
   	PEDENDENTE = 0
   	CONFIRMADO = 1
-    REJEITADO = 1
+    REJEITADO = 2
   end
 
   def status_name

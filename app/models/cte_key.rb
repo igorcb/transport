@@ -10,6 +10,8 @@ class CteKey < ActiveRecord::Base
   has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
   accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
 
+  before_save :check_all_cte_canceled?
+
   def is_image?
     return false unless asset.content_type
     ['image/jpeg', 'image/jpg'].include?(asset.content_type)
@@ -29,6 +31,21 @@ class CteKey < ActiveRecord::Base
     puts " >>>>>>>>>>>>>> ID: #{id}"
     cte = CteKey.find(id)
     cte.ordem_service
+  end
+
+  def check_all_cte_canceled?
+    positivo = true
+    ordem_service = self.ordem_service
+    ordem_service.cte_keys.each  do |cte|
+      if cte.cancellations.first.present?
+        positivo = cte.cancellations.first.status == Cancellation::TipoStatus::CONFIRMADO
+        if positivo == false
+          errors.add(:ordem_service, "you can not include CT-e while it is not canceled")
+          #return false
+        end
+      end
+    end
+    positivo
   end
 
 end
