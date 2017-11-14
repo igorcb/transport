@@ -43,6 +43,8 @@ class CteKey < ActiveRecord::Base
           errors.add(:ordem_service, "you can not include CT-e while it is not canceled")
           #return false
         end
+      else 
+        positivo == false
       end
     end
     positivo
