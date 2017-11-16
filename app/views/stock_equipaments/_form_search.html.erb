@@ -1,0 +1,122 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+        <div class="panel-body">
+
+          <div class="">
+            <%= label_tag :type_account, "Tipo de Conta" %>
+          </div>
+
+          <div class="radio">
+            <label class="radio-inline"> 
+              <%= radio_button_tag :type_account, "1" %> Fornecedor 
+            </label>
+
+            <label class="radio-inline"> 
+              <%= radio_button_tag :type_account, "2" %> Motorista
+            </label>
+
+            <label class="radio-inline"> 
+              <%= radio_button_tag :type_account, "3" %> Cliente
+            </label>
+
+            <label class="radio-inline"> 
+              <%= radio_button_tag :type_account, "4" %> Funcionario
+            </label>
+
+            <label class="radio-inline"> 
+              <%= radio_button_tag :type_account, "5" %> Transportadora
+            </label>
+          </div>
+
+          <%= search_form_for @q, remote: true, url: "#", :method => :get do |f| %>
+            <div class="form-group">
+              <%= f.label :responsable_id_eq, "Responsavel" %>
+              <%= f.collection_select :responsable_id_eq, Carrier.order('nome').where(id: -1), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+            </div>
+
+            <div id="div_result_person">
+              
+            </div>            
+            
+            <div class="actions">
+              <%= f.submit "Search" %>
+            </div>
+
+          <% end %>
+        </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('input[name="type_account"]').change(function(){
+      var type_id = "type_id="+$(this).val();
+      console.log(type_id);
+      $.getJSON('/type_account_select', type_id, function(data){
+        var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#query_responsable_id_eq").html(options);
+      });
+    });     
+  });
+
+</script>
+
+<script type="text/javascript">
+jQuery(function($) {
+  // when the #country field changes
+  var type = -1;
+
+  $(function() {
+    $('input[name="type_account"]').change(function() {
+      type = ($(this).val());
+      console.log("type:" + type);
+    });
+  });
+  
+  $("#query_responsable_id_eq").change(function() {
+    // make a POST call and replace the content
+    var url_name = "";
+    var id = $('select#query_responsable_id_eq :selected').val();
+    if(id == "") 
+      id="0";
+    //console.log("url:" + url_name + ' - type: ' + type)  ;
+    console.log("type:" + type);
+    if (type == 1)
+      url_name = "/suppliers/get_supplier_by_id";
+    else if (type == 2)
+      url_name = "/drivers/get_driver_by_id";
+    else if (type == 3)
+      url_name = "/clients/get_client_by_id";
+    else if (type == 4)
+      url_name = "/employees/get_employee_by_id";
+    else if (type == 5)
+      url_name = "/carriers/get_carrier_by_id";
+    else url_name = '/';
+     //"\""+url_name+"\""
+    console.log("url: " + url_name);
+    $.ajax({
+      type: "GET",
+      data: {id: id},
+      url: url_name
+    });
+    return false;
+  });
+})
+</script>
