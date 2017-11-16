@@ -41,10 +41,12 @@ class CteKey < ActiveRecord::Base
         positivo = cte.cancellations.first.status == Cancellation::TipoStatus::CONFIRMADO
         if positivo == false
           errors.add(:ordem_service, "you can not include CT-e while it is not canceled")
-          #return false
+          return false
         end
       else 
         positivo == false
+        errors.add(:ordem_service, "you can not include CT-e while it is not canceled")
+        return false
       end
     end
     positivo
