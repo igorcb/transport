@@ -261,6 +261,11 @@ class InputControlsController < ApplicationController
 
         report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
         
+        # Thinreports::Report.generate filename: t.output_filename do |report|
+        #   report.use_layout t.layout_filename
+        #   report.list.header title: 'Prices'
+        # end
+        
         report.start_new_page
         data_input_control(report)
         task.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
