@@ -1,0 +1,1 @@
+json.extract! @company, :id, :razao_social, :cnpj, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :pais, :phone_first, :phone_second, :observacao, :created_at, :updated_at

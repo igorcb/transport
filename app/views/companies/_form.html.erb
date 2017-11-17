@@ -1,0 +1,69 @@
+<%= form_for(@company) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :razao_social %><br>
+    <%= f.text_field :razao_social, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cnpj %><br>
+    <%= f.text_field :cnpj, class: "form-control cnpj" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :inscricao_estadual %><br>
+    <%= f.text_field :inscricao_estadual, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :inscricao_municipal %><br>
+    <%= f.text_field :inscricao_municipal, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :endereco %><br>
+    <%= f.text_field :endereco, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :numero %><br>
+    <%= f.text_field :numero, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :complemento %><br>
+    <%= f.text_field :complemento, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :bairro %><br>
+    <%= f.text_field :bairro, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cidade %><br>
+    <%= f.text_field :cidade, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :estado %><br>
+    <%= f.text_field :estado, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cep %><br>
+    <%= f.text_field :cep, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :pais %><br>
+    <%= f.text_field :pais, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :phone_first %><br>
+    <%= f.text_field :phone_first, class: "form-control phone_with_ddd" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :phone_second %><br>
+    <%= f.text_field :phone_second, class: "form-control phone_with_ddd" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :observacao %><br>
+    <%= f.text_area :observacao, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  company_path(@company), class: "btn btn-info" if !@company.new_record? %>
+  </div>
+
+<% end %>

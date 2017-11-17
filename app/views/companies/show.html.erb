@@ -1,0 +1,88 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Dados da Empresa</h2>
+  </div>
+  <div class="panel-body">
+    <p>
+      <strong>Razao social:</strong>
+      <%= @company.razao_social %>
+    </p>
+
+    <p>
+      <strong>Cnpj:</strong>
+      <%= @company.cnpj %>
+    </p>
+
+    <p>
+      <strong>Inscricao estadual:</strong>
+      <%= @company.inscricao_estadual %>
+    </p>
+
+    <p>
+      <strong>Inscricao municipal:</strong>
+      <%= @company.inscricao_municipal %>
+    </p>
+
+    <p>
+      <strong>Endereco:</strong>
+      <%= @company.endereco %>
+    </p>
+
+    <p>
+      <strong>Numero:</strong>
+      <%= @company.numero %>
+    </p>
+
+    <p>
+      <strong>Complemento:</strong>
+      <%= @company.complemento %>
+    </p>
+
+    <p>
+      <strong>Bairro:</strong>
+      <%= @company.bairro %>
+    </p>
+
+    <p>
+      <strong>Cidade:</strong>
+      <%= @company.cidade %>
+    </p>
+
+    <p>
+      <strong>Estado:</strong>
+      <%= @company.estado %>
+    </p>
+
+    <p>
+      <strong>Cep:</strong>
+      <%= @company.cep %>
+    </p>
+
+    <p>
+      <strong>Pais:</strong>
+      <%= @company.pais %>
+    </p>
+
+    <p>
+      <strong>Phone first:</strong>
+      <%= @company.phone_first %>
+    </p>
+
+    <p>
+      <strong>Phone second:</strong>
+      <%= @company.phone_second %>
+    </p>
+
+    <p>
+      <strong>Observacao:</strong>
+      <%= @company.observacao %>
+    </p>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_company_path(@company), class: "btn btn-primary" %>
+</div>
+
