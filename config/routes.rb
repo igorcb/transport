@@ -1,4 +1,9 @@
 Transport::Application.routes.draw do
+
+  resources :companies, only: [:edit, :update, :show]
+
+  resources :config_systems
+
   resources :client_representatives
 
   resources :representatives

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Config System</h2>
+  </div>
+  <div class="panel-body">
+
+		<p>
+		  <strong>Config key:</strong>
+		  <%= @config_system.config_key %>
+		</p>
+
+		<p>
+		  <strong>Config value:</strong>
+		  <%= @config_system.config_value %>
+		</p>
+
+		<p>
+		  <strong>Config description:</strong>
+		  <pre><%= @config_system.config_description %></pre>
+		</p>
+	</div>
+</div>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_config_system_path(@config_system), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', config_systems_path, class: "btn btn-default" %>
+  <%= link_to 'Novo', new_config_system_path, class: "btn btn-success" %>
+</div>

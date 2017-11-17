@@ -1,0 +1,8 @@
+<tr>
+  <td><%= config_system.config_key %></td>
+  <td><%= config_system.config_value %></td>
+  <td><%= config_system.config_description %></td>
+  <td><%= link_to 'Show', config_system, class: "btn btn-info btn-xs" %></td>
+  <td><%= link_to 'Edit', edit_config_system_path(config_system), class: "btn btn-primary btn-xs" %></td>
+  <td><%= link_to 'Destroy', config_system, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+</tr>

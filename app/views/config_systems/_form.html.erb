@@ -1,0 +1,27 @@
+<div class="alert alert-danger" role="alert">
+  Sr(a) <%= current_user.email %> <br />
+  <strong>Este formulário serve para setar algumas configurações do sistema</strong><br />  
+  Por favor consultar e ou entrar em contato com o suporte do sistema para maiores informações. <br />
+</div>
+
+<%= form_for(@config_system) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :config_key %><br>
+    <%= f.text_field :config_key, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :config_value %><br>
+    <%= f.text_field :config_value, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :config_description %><br>
+    <%= f.text_area :config_description, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  config_system_path(@config_system), class: "btn btn-info" if !@config_system.new_record? %>
+    <%= link_to "Listar Todos", config_systems_path, class: "btn btn-default" %>
+  </div>
+<% end %>
