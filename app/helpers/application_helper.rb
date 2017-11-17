@@ -1,13 +1,23 @@
 module ApplicationHelper
   def full_title(page_title)
     company = Company.first
-    base_title = company.fantasia
+    base_title = company.razao_social
     if page_title.empty?
       base_title
     else
       "#{base_title} | #{page_title}"
     end
   end	
+
+  def fantasy_title(page_title)
+    company = Company.first
+    base_title = company.fantasia
+    if page_title.empty?
+      base_title
+    else
+      "#{base_title} | #{page_title}"
+    end
+  end 
 
   def select_uf
     ([["AC","AC"],["AL","AL"],["AM","AM"],["AP","AP"],["BA","BA"],["CE","CE"],["DF","DF"],["ES","ES"],  
