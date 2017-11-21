@@ -39,8 +39,8 @@ class Boarding < ActiveRecord::Base
 
   ZERO = 0.00
 
-  DRIVER_NOT_INFORMATION = 105
-  CARRIER_NOT_INFORMATION = 3
+  # DRIVER_NOT_INFORMATION = 105
+  # CARRIER_NOT_INFORMATION = 3
 
   module TipoStatus
   	ABERTO = 0
@@ -322,6 +322,16 @@ class Boarding < ActiveRecord::Base
         self.errors.add(:boarding, e.message)
         return false 
     end
+  end
+
+  def self.driver_not_information
+    conf = ConfigSystem.where(config_key: 'DRIVER_DEFAULT').first
+    conf.config_value.to_i
+  end
+
+  def carrier_not_information
+    conf = ConfigSystem.where(config_key: 'CARRIER_DEFAULT').first
+    conf.config_value.to_i
   end
 
   private

@@ -89,11 +89,11 @@ class BoardingsController < ApplicationController
       flash[:danger] = "Date of shipment not informed."
       redirect_to boarding_path(@boarding)
       return
-    elsif @boarding.driver_id == Boarding::DRIVER_NOT_INFORMATION
+    elsif @boarding.driver_id == Boarding.driver_not_information
       flash[:danger] = "Inform o driver."
       redirect_to boarding_path(@boarding)
       return
-    elsif @boarding.carrier == Boarding::CARRIER_NOT_INFORMATION
+    elsif @boarding.carrier == Boarding.carrier_not_information
       flash[:danger] = "Inform o carrier."
       redirect_to boarding_path(@boarding)
       return
