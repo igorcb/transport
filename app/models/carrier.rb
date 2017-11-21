@@ -38,6 +38,11 @@ class Carrier < ActiveRecord::Base
     "#{bairro} - #{cidade} - #{estado} - CEP: #{cep}"
   end
 
+  def self.carrier_default
+    conf = ConfigSystem.where(config_key: 'CARRIER_DEFAULT').first
+    conf.config_value.to_i
+  end
+
   private 
     def can_destroy?
       if self.ordem_services.present? || self.account_payables.present?
