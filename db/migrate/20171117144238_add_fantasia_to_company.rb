@@ -6,4 +6,5 @@ class AddFantasiaToCompany < ActiveRecord::Migration
   def data
     Company.update_all(fantasia: "FANTASIA")
   end  
+
 end
