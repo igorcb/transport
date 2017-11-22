@@ -1,4 +1,6 @@
 class Historic < ActiveRecord::Base
+  validates :descricao, presence: true, uniqueness: true
+
   has_many :account_payables
 
   before_destroy :can_destroy?

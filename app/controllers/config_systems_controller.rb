@@ -4,7 +4,7 @@ class ConfigSystemsController < ApplicationController
   respond_to :html
 
   def index
-    @config_systems = ConfigSystem.all
+    @config_systems = ConfigSystem.order(:id)
     respond_with(@config_systems)
   end
 

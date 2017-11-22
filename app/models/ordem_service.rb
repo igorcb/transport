@@ -92,10 +92,10 @@ class OrdemService < ActiveRecord::Base
 
   before_destroy :can_destroy?
 
-  RECEIVABLE_COST_CENTER = 58  #LOGISTICA
-  RECEIVABLE_SUB_COST_CENTER = 185 # OUTROS
-  RECEIVABLE_COST_CENTER_THREE = 175 # OUTROS FATURAMENTO
-  RECEIVABLE_PAYMENT_METHOD = 15 # TRANSFERENCIA BANCARIA
+  # RECEIVABLE_COST_CENTER = 58  #LOGISTICA
+  # RECEIVABLE_SUB_COST_CENTER = 185 # OUTROS
+  # RECEIVABLE_COST_CENTER_THREE = 175 # OUTROS FATURAMENTO
+  # RECEIVABLE_PAYMENT_METHOD = 15 # TRANSFERENCIA BANCARIA
 
   module TipoStatus
     ABERTO = 0
@@ -494,11 +494,11 @@ class OrdemService < ActiveRecord::Base
           valor = time == 0? (valor_das_parcelas + ajuste).round(2) : valor_das_parcelas.round(2)
           data_vencimento = time == 0? vencimento : (data_vencimento + os.billing_client.vencimento_para.days)
           AccountReceivable.create!(client_id: os.billing_client_id,
-                                  cost_center_id: RECEIVABLE_COST_CENTER,
-                                  sub_cost_center_id: RECEIVABLE_SUB_COST_CENTER,
-                                  sub_cost_center_three_id: RECEIVABLE_COST_CENTER_THREE,
-                                  historic_id: historic.id,
-                                  payment_method_id: RECEIVABLE_PAYMENT_METHOD,
+                                  cost_center_id: OrdemService.receivable_cost_center,
+                                  sub_cost_center_id: OrdemService.receivable_sub_cost_center,
+                                  sub_cost_center_three_id: OrdemService.receivable_cost_center_three,
+                                  payment_method_id: OrdemService.payment_method_default,
+                                  historic_id: Historic.historic_default,
                                   documento: os.id,
                                   valor: valor,
                                   data_vencimento: data_vencimento,
@@ -609,6 +609,26 @@ class OrdemService < ActiveRecord::Base
 
   def representative
     self.client.client_representatives.where(billing_client_id: self.billing_client_id).first
+  end
+
+  def self.receivable_cost_center
+    conf = ConfigSystem.where(config_key: 'ORDEM_SERVICE_COST_CENTER').first
+    conf.config_value.to_i
+  end
+  
+  def self.receivable_sub_cost_center 
+    conf = ConfigSystem.where(config_key: 'ORDEM_SERVICE_SUB_COST_CENTER').first
+    conf.config_value.to_i
+  end
+  
+  def self.receivable_sub_cost_center_three 
+    conf = ConfigSystem.where(config_key: 'ORDEM_SERVICE_SUB_COST_CENTER_THREE').first
+    conf.config_value.to_i
+  end
+
+  def self.receivable_payment_method
+    conf = ConfigSystem.where(config_key: 'ORDEM_SERVICE_PAYMENT_METHOD').first
+    conf.config_value.to_i
   end
   
   private

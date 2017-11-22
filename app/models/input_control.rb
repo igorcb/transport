@@ -30,11 +30,11 @@ class InputControl < ActiveRecord::Base
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
 
   #before_save { |item| item.email = email.downcase }
-  RECEBIMENTO_DESCARGA_HISTORIC = 100
-  RECEBIMENTO_DESCARGA_PAYMENT_METHOD = 2
-  RECEBIMENTO_DESCARGA_COST_CENTER = 81
-  RECEBIMENTO_DESCARGA_SUB_COST_CENTER = 269
-  RECEBIMENTO_DESCARGA_SUB_COST_CENTER_THREE = 160
+  # RECEBIMENTO_DESCARGA_HISTORIC = 100
+  # RECEBIMENTO_DESCARGA_PAYMENT_METHOD = 2
+  # RECEBIMENTO_DESCARGA_COST_CENTER = 81
+  # RECEBIMENTO_DESCARGA_SUB_COST_CENTER = 269
+  # RECEBIMENTO_DESCARGA_SUB_COST_CENTER_THREE = 160
 
   VALUE_DISCHARGE = 0.88 #POR TONELADA
 
@@ -219,11 +219,11 @@ class InputControl < ActiveRecord::Base
                                   client_type: AccountReceivable::TypeAccountName::MOTORISTA,
                                     client_id: self.driver_id,
                              input_control_id: self.id,
-                               cost_center_id: RECEBIMENTO_DESCARGA_COST_CENTER,
-                           sub_cost_center_id: RECEBIMENTO_DESCARGA_SUB_COST_CENTER,
-                     sub_cost_center_three_id: RECEBIMENTO_DESCARGA_SUB_COST_CENTER_THREE,
-                            payment_method_id: RECEBIMENTO_DESCARGA_PAYMENT_METHOD, 
-                                  historic_id: RECEBIMENTO_DESCARGA_HISTORIC,
+                               cost_center_id: InputControls.recebimento_descarga_cost_center,
+                           sub_cost_center_id: InputControls.recebimento_descarga_sub_cost_center,
+                     sub_cost_center_three_id: InputControls.recebimento_descarga_sub_cost_center_three,
+                            payment_method_id: PaymentMethod.payment_method, 
+                                  historic_id: InputControls.recebimento_descarga_historic,
                               data_vencimento: Date.today,
                                     documento: self.id,
                                         valor: self.value_total,
@@ -283,7 +283,7 @@ class InputControl < ActiveRecord::Base
     nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
-    carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
+    #carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
     nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_xmls.first.numero).first
 
     data_scheduling = nil
@@ -298,7 +298,7 @@ class InputControl < ActiveRecord::Base
                                 target_client_id: target_client.id, 
                                 source_client_id: source_client.id,
                                billing_client_id: source_client.id,
-                                      carrier_id: carrier.id,
+                                      carrier_id: Carrier.carrier_default,
                                 carrier_entry_id: input_control.carrier.id,
                                             peso: input_control.weight, 
                                      qtde_volume: input_control.volume,
@@ -357,7 +357,7 @@ class InputControl < ActiveRecord::Base
         
         NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM)
       end
-      puts ">>>>>>>>>>>>>>>> update peso e volume:"
+      #puts ">>>>>>>>>>>>>>>> update peso e volume:"
       ordem_service.set_peso_and_volume
 
     end
@@ -415,6 +415,27 @@ class InputControl < ActiveRecord::Base
   def feed_cancellations
     Cancellation.where("cancellation_type = ? and cancellation_id = ?", "InputControl", self.id)
   end
+
+  def self.recebimento_descarga_historic
+    conf = ConfigSystem.where(config_key: 'HISTORIC_RECEIVED_DISCHARGE_DEFAULT').first
+    conf.config_value.to_i
+  end
+
+  def self.recebimento_descarga_cost_center
+    conf = ConfigSystem.where(config_key: 'COST_CENTER_DEFAULT').first
+    conf.config_value.to_i
+  end
+
+  def self.recebimento_descarga_sub_cost_center
+    conf = ConfigSystem.where(config_key: 'SUB_COST_CENTER_DEFAULT').first
+    conf.config_value.to_i
+  end
+
+  def self.recebimento_descarga_sub_cost_center_three
+    conf = ConfigSystem.where(config_key: 'SUB_COST_CENTER_THREE_DEFAULT').first
+    conf.config_value.to_i
+  end
+
 
 #  private
     def get_number_nfe_xmls

@@ -1,7 +1,10 @@
 class SubCostCenter < ActiveRecord::Base
+  validates :descricao, presence: true, uniqueness: { scope: :cost_center }
+
   belongs_to :cost_center
   belongs_to :type_service
   has_many :account_payables
+  has_many :sub_cost_center_threes
   
   before_destroy :can_destroy?
 
