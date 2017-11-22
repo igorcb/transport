@@ -496,7 +496,7 @@ class OrdemService < ActiveRecord::Base
           AccountReceivable.create!(client_id: os.billing_client_id,
                                   cost_center_id: OrdemService.receivable_cost_center,
                                   sub_cost_center_id: OrdemService.receivable_sub_cost_center,
-                                  sub_cost_center_three_id: OrdemService.receivable_cost_center_three,
+                                  sub_cost_center_three_id: OrdemService.receivable_sub_cost_center_three ,
                                   payment_method_id: OrdemService.payment_method_default,
                                   historic_id: Historic.historic_default,
                                   documento: os.id,
