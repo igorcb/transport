@@ -101,8 +101,8 @@ class Boarding < ActiveRecord::Base
       hash_ids << i[0].to_i
     end
 
-    driver = Driver.driver_not_information #Motorista Padrao - Motorista Não Identificado
-    carrier = Carrier.carrier_not_information #Agent Padrao - Agent Não Identificado
+    driver = Boarding.driver_not_information #Motorista Padrao - Motorista Não Identificado
+    carrier = Boarding.carrier_not_information #Agent Padrao - Agent Não Identificado
     boarding = nil
     ActiveRecord::Base.transaction do
       boarding = Boarding.create!(driver_id: driver.id, carrier_id: carrier.id, status: TipoStatus::ABERTO)
