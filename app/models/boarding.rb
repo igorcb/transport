@@ -329,7 +329,7 @@ class Boarding < ActiveRecord::Base
     conf.config_value.to_i
   end
 
-  def carrier_not_information
+  def self.carrier_not_information
     conf = ConfigSystem.where(config_key: 'CARRIER_DEFAULT').first
     conf.config_value.to_i
   end
