@@ -105,7 +105,7 @@ class Boarding < ActiveRecord::Base
     carrier = Boarding.carrier_not_information #Agent Padrao - Agent Não Identificado
     boarding = nil
     ActiveRecord::Base.transaction do
-      boarding = Boarding.create!(driver_id: driver.id, carrier_id: carrier.id, status: TipoStatus::ABERTO)
+      boarding = Boarding.create!(driver_id: driver, carrier_id: carrier, status: TipoStatus::ABERTO)
       hash_ids.each do |os|
       	boarding.boarding_items.create!(ordem_service_id: os, delivery_number: 1)
       end
