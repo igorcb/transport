@@ -305,6 +305,10 @@ class OrdemServicesController < ApplicationController
       flash[:danger] = "Client billing can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return
+    elsif @ordem_service.send_email?
+      flash[:danger] = "Please defined email to delivery."
+      redirect_to ordem_service_path(@ordem_service)
+      return
     end
 
     OrdemService.information_delivery(params[:id])

@@ -611,6 +611,11 @@ class OrdemService < ActiveRecord::Base
     self.client.client_representatives.where(billing_client_id: self.billing_client_id).first
   end
 
+  def send_email?
+    list_email = self.billing_client.emails.type_sector(Sector::TypeSector::CONFIRMACAO_ENTREGA).pluck(:email)*","
+    list_email.size > 0
+  end
+
   def self.receivable_cost_center
     conf = ConfigSystem.where(config_key: 'ORDEM_SERVICE_COST_CENTER').first
     conf.config_value.to_i
