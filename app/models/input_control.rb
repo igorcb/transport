@@ -222,7 +222,7 @@ class InputControl < ActiveRecord::Base
                                cost_center_id: InputControl.recebimento_descarga_cost_center,
                            sub_cost_center_id: InputControl.recebimento_descarga_sub_cost_center,
                      sub_cost_center_three_id: InputControl.recebimento_descarga_sub_cost_center_three,
-                            payment_method_id: PaymentMethod.payment_method, 
+                            payment_method_id: PaymentMethod.payment_method_default, 
                                   historic_id: InputControl.recebimento_descarga_historic,
                               data_vencimento: Date.today,
                                     documento: self.id,

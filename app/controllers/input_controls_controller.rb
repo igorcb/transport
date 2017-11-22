@@ -32,7 +32,7 @@ class InputControlsController < ApplicationController
       #@input_control.update_attributes(received_user_id: current_user.id)
       flash[:success] = "Input Control was successfully finish typing"
     else
-      @input_control.errors.full_messages.each {|msg| flash[:danger] = msg a}
+      @input_control.errors.full_messages.each { |msg| flash[:danger] = msg }
     end
     redirect_to input_control_path(@input_control)
   end
