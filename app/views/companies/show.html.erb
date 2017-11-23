@@ -84,6 +84,11 @@
       <strong>Observacao:</strong>
       <pre><%= @company.observacao %></pre>
     </p>
+
+    <p>
+      <strong>Logo para impressão dos relatorios:</strong>
+      <%= image_tag @company.image.url %>
+    </p>
   </div>
 </div>
 

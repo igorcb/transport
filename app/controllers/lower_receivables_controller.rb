@@ -28,10 +28,13 @@ class LowerReceivablesController < ApplicationController
     def render_quitter(quitter)
       report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'recibo.tlf')
       @company = Company.first
+      src_image = @company.image.path
       valor = (quitter.total_pago.to_f * 100).to_i
       local_data = "FORTALEZA, #{l quitter.data_pagamento , format: :long }"
       report.start_new_page
       
+      #report.page.item(:image_logo).src('/path/to/image.png')
+      report.page.item(:image_logo).src(@company.image.path) #@company.image.url
       report.page.item(:emp_fantasia).value(@company.fantasia)
       report.page.item(:emp_razao_social).value(@company.razao_social)
       report.page.item(:emp_cnpj).value("CNPJ: " + @company.cnpj)

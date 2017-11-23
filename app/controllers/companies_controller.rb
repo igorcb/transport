@@ -21,6 +21,6 @@ class CompaniesController < ApplicationController
     end
 
     def company_params
-      params.require(:company).permit(:cnpj, :razao_social, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :pais, :phone_first, :phone_second, :observacao)
+      params.require(:company).permit(:cnpj, :razao_social, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :pais, :phone_first, :phone_second, :observacao, :image)
     end
 end
