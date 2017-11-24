@@ -473,9 +473,9 @@ class OrdemService < ActiveRecord::Base
         # Centro de Custo Galpao = 54 isso é apenas um informativo
         case os.tipo
           when TipoOS::LOGISTICA then 
-            cost_center = CostCenter.find(58)
+            cost_center = OrdemService.receivable_cost_center #CostCenter.find(58)
             valor = os.valor_ordem_service
-          when TipoOS::MUDANCA then cost_center = CostCenter.find(56)
+          when TipoOS::MUDANCA then cost_center = OrdemService.receivable_cost_center #CostCenter.find(56)
             #definir com o Paulo de onde vem o valor da Ordem de Serviço
               #soma dos itens
               #do preenchimento do valor do servico = ordem_service_change.valor_total
@@ -484,12 +484,13 @@ class OrdemService < ActiveRecord::Base
             cost_center = CostCenter.find(57)
             valor = os.ordem_service_air.valor_total
         end
-        sub_cost_center = cost_center.sub_cost_centers.first
-        historic = Historic.find(106) #Nao Definido
+        #sub_cost_center = cost_center.sub_cost_centers.first
+        #historic = Historic.find(106) #Nao Definido
         valor_das_parcelas = valor / os.billing_client.qtde_parcela
         ajuste = (valor - (valor_das_parcelas * os.billing_client.qtde_parcela)).round(2)
         vencimento = os.billing_to_client
         data_vencimento = nil
+        puts ">>>>>>>>>>>>> CostCenterAccountReceivable: #{OrdemService.receivable_cost_center}"
         os.billing_client.qtde_parcela.times do |time|
           valor = time == 0? (valor_das_parcelas + ajuste).round(2) : valor_das_parcelas.round(2)
           data_vencimento = time == 0? vencimento : (data_vencimento + os.billing_client.vencimento_para.days)
