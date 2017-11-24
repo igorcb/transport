@@ -213,6 +213,15 @@ class BoardingsController < ApplicationController
 
       emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
 
+      # cabecalho empresa
+      @company = Company.first
+      report.page.item(:image_logo).src(@company.image.path) #@company.image.url
+      report.page.item(:emp_fantasia).value(@company.fantasia)
+      report.page.item(:emp_razao_social).value(@company.razao_social)
+      report.page.item(:emp_cnpj).value("CNPJ: " + @company.cnpj)
+      report.page.item(:emp_fone).value("CONTATO: " + @company.phone_first)
+      report.page.item(:emp_cidade).value(@company.cidade_estado)
+
       # cabecalho esquerdo
       report.page.item(:emb).value("EMBARQUE Nº L7/CE #{boarding.id}")
       report.page.item(:emb_1).value(boarding.id)
