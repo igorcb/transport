@@ -57,6 +57,15 @@ class ControlPalletInternalsController < ApplicationController
       # valor = (quitter.total_pago.to_f * 100).to_i
       # local_data = "FORTALEZA, #{l Date.today , format: :long }"
       report.start_new_page
+      # cabecalho empresa
+
+      @company = Company.first
+      report.page.item(:image_logo).src(@company.image.path) #@company.image.url
+      report.page.item(:emp_fantasia).value(@company.fantasia)
+      report.page.item(:emp_razao_social).value(@company.razao_social)
+      report.page.item(:emp_cnpj).value("CNPJ: " + @company.cnpj)
+      report.page.item(:emp_fone).value("CONTATO: " + @company.phone_first)
+      report.page.item(:emp_cidade).value(@company.cidade_estado)
 
       item = control.boarding.boarding_vehicles.first
 
