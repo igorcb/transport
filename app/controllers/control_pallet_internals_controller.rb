@@ -74,10 +74,11 @@ class ControlPalletInternalsController < ApplicationController
       texto = "Eu, #{control.responsable.nome}, motorista, \n" \
               "portador da CNH #{control.responsable.cnh} e do CPF nº #{control.responsable.cpf},\n" \
               "venho por meio deste declarar que sou responsável pelos #{control.qtde} pallets BPR do\n" \
-              "embarque de Nº #{control.boarding_id}, realizado na empresa L7 Logística pessoa jurídica\n" \
-              "de direito privado, CNPJ 20.685.037/0001.08, estando ciente de que os\n" \
-              "pallets supracitados foram carregados em perfeito estado de conservação no\n" \
-              "meu veículo de PLACA #{item.vehicle.placa}, RENAVAN #{item.vehicle.renavan}, CHASSI #{item.vehicle.chassi}." \
+              "embarque de Nº #{control.boarding_id}, realizado na empresa #{@company.razao_social}\n" \
+              "pessoa jurídica de direito privado, CNPJ #{@company.cnpj}, estando ciente\n" \
+              "de que os pallets supracitados foram carregados em perfeito estado de \n" \
+              "conservação no meu veículo de PLACA #{item.vehicle.placa}, RENAVAN #{item.vehicle.renavan}, \n" \
+              "CHASSI #{item.vehicle.chassi}." \
               "\n \n" \
               "Dessa forma, caso ocorra a retenção dos pallets pelo cliente, irei solicitar\n" \
               "o vale pallets contendo a quantidade de pallets retidos e o numero desse\n" \
