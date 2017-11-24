@@ -77,6 +77,20 @@ class BoardingsController < ApplicationController
   end
 
   def letter_freight
+    if @boarding.date_boarding.nil?
+      flash[:danger] = "Date Boarding is not present."
+      redirect_to boarding_path(@boarding)
+      return
+    elsif !@boarding.vehicle_tracao.present?
+      flash[:danger] = "Vehicle Traction is not present.."
+      redirect_to boarding_path(@boarding)
+      return
+    elsif !@boarding.vehicle_tracao.owners.present?
+      flash[:danger] = "Vehicle Traction is not present does not have an owner."
+      redirect_to boarding_path(@boarding)
+      return
+    end
+
     respond_to do |format|
       format.html
       format.pdf { render_letter_freight(@boarding) }
@@ -162,6 +176,15 @@ class BoardingsController < ApplicationController
     def render_letter_freight(boarding)
       report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'carta_frete.tlf')
       report.start_new_page
+
+      # cabecalho empresa
+      @company = Company.first
+      report.page.item(:image_logo).src(@company.image.path) #@company.image.url
+      report.page.item(:emp_fantasia).value(@company.fantasia)
+      report.page.item(:emp_razao_social).value(@company.razao_social)
+      report.page.item(:emp_cnpj).value("CNPJ: " + @company.cnpj)
+      report.page.item(:emp_fone).value("CONTATO: " + @company.phone_first)
+      report.page.item(:emp_cidade).value(@company.cidade_estado)
 
       emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
       owner = @boarding.vehicle_tracao.owners.first
