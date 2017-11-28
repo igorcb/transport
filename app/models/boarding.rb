@@ -2,6 +2,7 @@ class Boarding < ActiveRecord::Base
   validates :carrier_id, presence: true
   validates :driver_id, presence: true
   validates :status, presence: true
+  validates_associated :ordem_services
     
   belongs_to :carrier
   belongs_to :driver

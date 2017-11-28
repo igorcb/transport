@@ -3,7 +3,7 @@ class BoardingItem < ActiveRecord::Base
   ranks :row_order	
 
   validates :boarding_id, presence: true
-  validates :ordem_service_id, presence: true
+  validates :ordem_service_id, presence: true, uniqueness: true
   validates :delivery_number, presence: true
 
   belongs_to :boarding
