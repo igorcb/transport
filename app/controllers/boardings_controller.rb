@@ -45,13 +45,18 @@ class BoardingsController < ApplicationController
 	end
 
 	def create
-    respond_to do |format|
-      if @boarding = Boarding.generate_shipping(params[:os][:ids]) #deve retornar o id
+    @boarding = Boarding.generate_shipping(params[:os][:ids]) #deve retornar o id
+    if @boarding.errors.present?
+      puts ">>>>>>>>>>>>>>>>>> BoardingController: #{@boarding.errors.full_messages.count}"
+      @boarding.errors.full_messages.each do |msg|
+        puts ">>>>>>>>>>>>>>>>> Error: #{msg}"
+        flash[:danger] = msg  
+      end
+      redirect_to boardings_path
+    else
+      respond_to do |format|
         format.html { redirect_to @boarding, flash: { success: "Boarding was successfully created." } }
         format.json { render action: 'show', status: :created, location: @boarding }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @carrier.errors, status: :unprocessable_entity }
       end
     end
 	end

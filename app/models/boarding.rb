@@ -96,23 +96,43 @@ class Boarding < ActiveRecord::Base
     end
   end
 
+    # begin
+    #   ActiveRecord::Base.transaction do
+    #     offer_charge = cancel.cancellation_model
+    #     OfferCharge.where(id: offer_charge.id).update_all(status: OfferCharge::TypeStatus::CANCEL)
+    #     Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
+    #     return true
+    #   end
+    #   rescue Exception => e
+    #     puts e.message
+    #     self.errors.add(:cancellation, e.message)
+    #     return false        
+    # end
+
+
   def self.generate_shipping(ids)
     hash_ids = []
     ids.each do |i|
       hash_ids << i[0].to_i
     end
-
-    driver = Boarding.driver_not_information #Motorista Padrao - Motorista Não Identificado
-    carrier = Boarding.carrier_not_information #Agent Padrao - Agent Não Identificado
-    boarding = nil
-    ActiveRecord::Base.transaction do
-      boarding = Boarding.create!(driver_id: driver, carrier_id: carrier, status: TipoStatus::ABERTO)
-      hash_ids.each do |os|
-      	boarding.boarding_items.create!(ordem_service_id: os, delivery_number: 1)
+    begin
+      driver = Boarding.driver_not_information #Motorista Padrao - Motorista Não Identificado
+      carrier = Boarding.carrier_not_information #Agent Padrao - Agent Não Identificado
+      boarding = nil
+      ActiveRecord::Base.transaction do
+        boarding = Boarding.create!(driver_id: driver, carrier_id: carrier, status: TipoStatus::ABERTO)
+        hash_ids.each do |os|
+        	boarding.boarding_items.create!(ordem_service_id: os, delivery_number: 1)
+        end
+        OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
+        boarding
       end
-      OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
+      rescue Exception => e
+        puts e.message
+        boarding.errors.add(:boarding, "#{e.message}. Por favor verificar se já foi gerado um embarque com a nota fiscal selecionada" )
+        #Por favor verificar se já foi gerado um embarque com a nota fiscal selecionada
+        boarding
     end
-    boarding
   end  
 
   def check_status_ordem_service?
