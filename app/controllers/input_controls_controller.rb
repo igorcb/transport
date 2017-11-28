@@ -103,6 +103,10 @@ class InputControlsController < ApplicationController
       flash[:danger] = "Receipt date can not be blank."
       redirect_to (@input_control)
       return
+    elsif @input_control.status != InputControl::TypeStatus::RECEIVED
+      flash[:danger] = "For pallet storage the InputControl must be in receipt status."
+      redirect_to (@input_control)
+      return
     end
   end
 
