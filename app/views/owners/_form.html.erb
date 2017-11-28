@@ -73,7 +73,7 @@
         render 'shared/contact', f: f
       end -%>
     </div>
-    <a href="#" class="add">add contact</a>
+    <a href="#" class="btn btn-success btn-sm add">add contact</a>
   </div>
 
   <h2>E-mail</h2>
@@ -83,7 +83,7 @@
         render 'shared/email', f: f
       end -%>
     </div>
-    <a href="#" class="add">add e-mail</a>
+    <a href="#" class="btn btn-success btn-sm add">add e-mail</a>
   </div>
 
   <h2>Veículos</h2>
@@ -93,9 +93,9 @@
         render 'vehicle', f: f
       end -%>
     </div>
-    <a href="#" class="add">add e-mail</a>
+    <a href="#" class="btn btn-success btn-sm add">add vehicles</a>
   </div>  
-
+  <br />
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  owner_path(@owner), class: "btn btn-info" if !@owner.new_record? %>
