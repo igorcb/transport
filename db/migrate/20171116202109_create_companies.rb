@@ -2,6 +2,7 @@ class CreateCompanies < ActiveRecord::Migration
   def change
     create_table :companies do |t|
       t.string :razao_social
+      t.string :fantasia
       t.string :cnpj
       t.string :inscricao_estadual
       t.string :inscricao_municipal
@@ -17,7 +18,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string :phone_second
       t.text :observacao
       t.attachment :image
-      
+
       t.timestamps
     end
   end
