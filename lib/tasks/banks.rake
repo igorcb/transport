@@ -1,7 +1,10 @@
 namespace :db do
   desc "Fill database with the data from the site of febradan"
   #  +   "http://www.febraban.org.br/arquivo/bancos/sitebancos2-0.asp"
-  task banks: :environment do
+  #task banks: :environment do
+  task :banks, [:tenant] => [:environment] do |t, args|
+    Apartment::Tenant.switch!(args.tenant)
+    puts "Banks, Fill database with the data from the site of febradan"    
     Bank.create!(banco:"104", nome: "Caixa Econômica Federal")
     Bank.create!(banco:"107", nome: "Banco BBM S.A.")
     Bank.create!(banco:"119", nome: "Banco Western Union do Brasil S.A.")
