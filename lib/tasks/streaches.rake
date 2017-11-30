@@ -1,7 +1,10 @@
 namespace :db do
   desc "Fill database with the data from the site of streach"
   #  +   "http://www.febraban.org.br/arquivo/bancos/sitebancos2-0.asp"
-  task streaches: :environment do
+  #task streaches: :environment do
+  task :streaches, [:tenant] => [:environment] do |t, args|
+    Apartment::Tenant.switch!(args.tenant)
+    puts "Fill database with the data from the site of streach"
     Stretch.find_or_create_by(cidade: "ARACAJU", estado: "SE", destino: "AJU")
     Stretch.find_or_create_by(cidade: "BELEM", estado: "PA", destino: "BEL")
     Stretch.find_or_create_by(cidade: "BELO HORIZONTE", estado: "MG", destino: "BHZ")
