@@ -1,7 +1,13 @@
 namespace :db do
 	desc "population database"
 	task :config_system, [:tenant] => [:environment] do |t, args|
+    puts "Load image rails"
+    image  = File.open(File.join(Rails.root,'public/rails_img.jpg'))
 		Apartment::Tenant.switch!(args.tenant)
+
+    puts "Data Company Tenant: #{args.tenant}"
+    Company.create_with(razao_social: "EMPRESA", fantasia: "FANTASIA", cnpj: "00.000.000/0000-00", inscricao_estadual: "XXXX", inscricao_municipal: "XXXX", endereco: "ENDERECO DA EMPRESA", numero: "000", complemento: "COMPLEMENTO", bairro: "BAIRRO", cidade: "CIDADE", estado: "ES", cep: "60.000-000", pais: "BRASIL", phone_first: "(85) 9.9999.9999", phone_second: "(85) 9.9999.9999", image: image).find_or_create_by(cnpj: "00.000.000/0000-00")
+
 		puts "Data ConfigSystem"
     ConfigSystem.create_with(config_key: "DRIVER_DEFAULT", config_value: "1", config_description: "Motorista padrão do sistema").find_or_create_by(config_key: "DRIVER_DEFAULT")
     ConfigSystem.create_with(config_key: "CARRIER_DEFAULT", config_value: "1", config_description: "Transportadora padrão do sistema").find_or_create_by(config_key: "CARRIER_DEFAULT")
