@@ -5,7 +5,11 @@ class NfeKey < ActiveRecord::Base
 	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "nfe_id", dependent: :destroy#, polymorphic: true
   belongs_to :pallet, class_name: "Pallet", foreign_key: "nfe_id", dependent: :destroy #, polymorphic: true
 
-  has_attached_file :asset
+  has_attached_file :asset, :styles => {medium: "300x300>", thumb: "100x100>", mini: "32x32>"}
+  # has_attached_file :asset,
+  # :styles => {:medium => "300x300>", :thumb => "100x100>"},
+  # :url => "assets/:class/:attachment/:id/:style/:basename.:extension",
+  # :path => ":rails_root/assets/:class/:attachment/:id/:style/:basename.:extension"   
   validates_attachment_content_type :asset, :content_type => /\Aimage\/.*\Z/, allow_blank: true
 
   def is_image?
@@ -28,7 +32,7 @@ class NfeKey < ActiveRecord::Base
   end
 
   # def input_control
-    
+
   # end
 
 

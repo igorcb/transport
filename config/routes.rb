@@ -1,6 +1,6 @@
 Transport::Application.routes.draw do
 
-  resources :nfe_keys, only: [:index] do
+  resources :nfe_keys, only: [:index, :edit, :update] do
     collection do
       get :search
     end
