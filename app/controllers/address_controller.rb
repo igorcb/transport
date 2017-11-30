@@ -6,7 +6,9 @@ class AddressController < ApplicationController
     puts ">>>>>>>>>>>>> localizando cep: #{params[:cep]}"
     retorno = 1
     begin
-      data = Cep.new.cep(params[:cep])
+      #data = Cep.new.cep(params[:cep])
+      address = Correios::CEP::AddressFinder.get(params[:cep])
+      data = {logradouro: address[:address], bairro: address[:neighborhood], localidade: address[:city], uf: address[:state], cep: address[:zipcode]}
     rescue
       retorno = 0
     ensure
