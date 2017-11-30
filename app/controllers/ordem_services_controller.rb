@@ -388,7 +388,8 @@ class OrdemServicesController < ApplicationController
           return
         end
       when OrdemService::TipoOS::MUDANCA 
-        @ordem_service.close_os
+        puts ">>>>>>>>>>>> CloseOs Mudanca."
+        @ordem_service.close_ordem_service
         redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful..." }
       when OrdemService::TipoOS::AEREO
         @ordem_service.close_os

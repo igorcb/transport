@@ -127,8 +127,10 @@ $(function(){
      var cep     = $(this).val().replace(/[^0-9]/, ''); 
      var boxes   = $("#boxCampos");
      var msgErro = $("#mensagemErro");
+     console.log('CEP: ' + cep)
      boxes.addClass('ocultar');
      msgErro.addClass('ocultar');
+
     if(cep !== ""){
         $.getJSON('/get_address_by_cep', 'cep=' + cep, function(data){
         	 console.log(data)

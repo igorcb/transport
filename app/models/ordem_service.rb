@@ -97,6 +97,8 @@ class OrdemService < ActiveRecord::Base
   # RECEIVABLE_COST_CENTER_THREE = 175 # OUTROS FATURAMENTO
   # RECEIVABLE_PAYMENT_METHOD = 15 # TRANSFERENCIA BANCARIA
 
+  UNIQ_PARC = 1
+
   module TipoStatus
     ABERTO = 0
     ENTREGA_EFETUADA = 1
@@ -400,23 +402,6 @@ class OrdemService < ActiveRecord::Base
       when TipoOS::MUDANCA then close_os_change # validacoes para fechamento
       when TipoOS::AEREO then close_os_air # validacoes para fechamento
     end
-
-    puts "Ordem de Servico fechada Model"
-    if self.errors.present?
-      puts "Errors: #{self.errors.messages}"
-    else
-      puts "Atualizando o Status para FECHADO e GERANDO o recebimento MODEL"
-      ActiveRecord::Base.transaction do
-        data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
-        OrdemService.update(self.id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
-        unless self.input_control_id.nil?
-          InputControl.update(self.input_control_id, date_closing: data_fechamento, status: InputControl::TypeStatus::CLOSED) if all_input_controls_closed
-        end
-        OrdemService.generate_billing(self.id)
-        puts "Gerou o recebimento"
-        return true
-      end
-    end
   end
 
   def self.close_os_agent(ordem_service)
@@ -475,23 +460,24 @@ class OrdemService < ActiveRecord::Base
           when TipoOS::LOGISTICA then 
             cost_center = OrdemService.receivable_cost_center #CostCenter.find(58)
             valor = os.valor_ordem_service
-          when TipoOS::MUDANCA then cost_center = OrdemService.receivable_cost_center #CostCenter.find(56)
+          when TipoOS::MUDANCA then 
+            cost_center = OrdemService.receivable_cost_center #CostCenter.find(56)
             #definir com o Paulo de onde vem o valor da Ordem de Serviço
               #soma dos itens
               #do preenchimento do valor do servico = ordem_service_change.valor_total
-            valor = os.valor_ordem_service
+            valor = os.valor_ordem_service.to_f
           when TipoOS::AEREO then 
             cost_center = CostCenter.find(57)
             valor = os.ordem_service_air.valor_total
         end
         #sub_cost_center = cost_center.sub_cost_centers.first
         #historic = Historic.find(106) #Nao Definido
-        valor_das_parcelas = valor / os.billing_client.qtde_parcela
-        ajuste = (valor - (valor_das_parcelas * os.billing_client.qtde_parcela)).round(2)
-        vencimento = os.billing_to_client
+        qtde_parcelas_billing = os.billing_client.qtde_parcela.nil? ? UNIQ_PARC : os.billing_client.qtde_parcela
+        valor_das_parcelas = valor / (qtde_parcelas_billing)
+        ajuste = (valor - (valor_das_parcelas * qtde_parcelas_billing)).round(2)
+        vencimento = os.billing_client.present? ? os.billing_to_client : Date.current
         data_vencimento = nil
-        puts ">>>>>>>>>>>>> CostCenterAccountReceivable: #{OrdemService.receivable_cost_center}"
-        os.billing_client.qtde_parcela.times do |time|
+        qtde_parcelas_billing.times do |time|
           valor = time == 0? (valor_das_parcelas + ajuste).round(2) : valor_das_parcelas.round(2)
           data_vencimento = time == 0? vencimento : (data_vencimento + os.billing_client.vencimento_para.days)
           AccountReceivable.create!(client_id: os.billing_client_id,
@@ -501,7 +487,7 @@ class OrdemService < ActiveRecord::Base
                                   payment_method_id: OrdemService.receivable_payment_method,
                                   historic_id: Historic.historic_default,
                                   documento: os.id,
-                                  valor: valor,
+                                  valor: valor.to_f,
                                   data_vencimento: data_vencimento,
                                   ordem_service_id: os.id,
                                   observacao: "FATURA GERADA AUTOMÁTICA NA CRIAÇÃO DA O.S.")
@@ -665,7 +651,7 @@ class OrdemService < ActiveRecord::Base
       # data_vencimento      
       #fim do calculo para faturar a cada x dias
       #client.faturar_cada = vencimento para x dias a partir da criação da os
-      data_vencimento = date_os + client.faturar_cada.days
+      data_vencimento = date_os + (client.faturar_cada.nil? ? UNIQ_PARC.days : client.faturar_cada.days)
       data_vencimento.to_s
     end
 
@@ -673,26 +659,57 @@ class OrdemService < ActiveRecord::Base
       self.ordem_service_change.source_endereco.present?
     end
 
+    # begin
+    #   ActiveRecord::Base.transaction do
+    #     offer_charge = cancel.cancellation_model
+    #     OfferCharge.where(id: offer_charge.id).update_all(status: OfferCharge::TypeStatus::CANCEL)
+    #     Cancellation.where(id: cancel.id).update_all(authorization_user_id: user, status: TipoStatus::CONFIRMADO)
+    #     return true
+    #   end
+    #   rescue Exception => e
+    #     puts e.message
+    #     self.errors.add(:cancellation, e.message)
+    #     return false        
+    # end
+
     def close_os_logistic
-      # self.cte_keys.each do |cte|
-      #   #puts ">>>>>>>>>>>>. Validando CTE: #{cte.cte} is image: #{cte.is_image?}"
-      #   self.errors.add("CTe-Keys", "#{cte.cte} is not image present") if !cte.asset.present?
-      #   self.errors.add("CTe-Keys", "#{cte.cte} is not image Valid") if !cte.is_image?
-      #   self.errors.add("CTe-Keys", "#{cte.cte} is not CT-e Valid") if !cte.tesseract_context?
-      # end
-      # self.nfe_keys.each do |nfe|
-      #   #puts ">>>>>>>>>>>>. Validando NF-e: #{nfr.nfr} is image: #{nfe.is_image?}"
-      #   self.errors.add("NFe-Keys", "#{nfe.nfe} is not image present") if !nfe.asset.present?
-      #   self.errors.add("NFe-Keys", "#{nfe.nfe} is not image Valid") if !nfe.is_image?
-      #   self.errors.add("NFe-Keys", "#{nfe.nfe} is not NF-e Valid") if !nfe.tesseract_context?
-      # end
-      puts ">>>>>>>>>>>> close_os_logistic Model <<<<<<<<<<<<<< "
-      true
+      if self.errors.present?
+        puts "Errors: #{self.errors.messages}"
+      else
+        begin
+          ActiveRecord::Base.transaction do
+            data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
+            OrdemService.update(self.id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
+            unless self.input_control_id.nil?
+              InputControl.update(self.input_control_id, date_closing: data_fechamento, status: InputControl::TypeStatus::CLOSED) if all_input_controls_closed
+            end
+            OrdemService.generate_billing(self.id)
+            return true
+          end
+          rescue Exception => e
+            puts e.message
+            self.errors.add(:ordem_service, e.message)
+            return false        
+        end
+      end
     end
 
 
     def close_os_change
       #fazer validacoes para fechamento
+      begin
+        puts "Iniciando fechamento da OS: #{self.id} - Mudanca"
+        ActiveRecord::Base.transaction do
+          data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
+          OrdemService.update(self.id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
+          OrdemService.generate_billing(self.id)
+          return true
+        end
+        rescue Exception => e
+          puts e.message
+          self.errors.add(:ordem_service, e.message)
+          return false        
+      end
     end
 
     def close_os_air
