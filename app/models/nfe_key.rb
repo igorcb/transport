@@ -23,4 +23,13 @@ class NfeKey < ActiveRecord::Base
     end
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ['nfe']
+  end
+
+  # def input_control
+    
+  # end
+
+
 end

@@ -1,0 +1,11 @@
+<div class="panel-body">
+  <%= search_form_for @q, remote: true, url: search_nfe_keys_path, :method => :get do |f| %>
+
+    <div class="form-group">
+      <%= f.label :nfe_eq, "NF-e" %>
+      <%= f.search_field :nfe_eq, class: "form-control" %>  
+    </div>
+    
+    <div class="actions"><%= f.submit "Search" %></div>
+  <% end %>
+</div>

@@ -1,0 +1,57 @@
+<tr>
+	<td><%= link_to nfe_key.ordem_service.id, nfe_key.ordem_service if nfe_key.ordem_service.present? %></td>
+	<!-- <td><%#= link_to nfe_key.input_control, nfe_key.input_control if nfe_key.input_control.present? %></td> -->
+	<td><%= nfe_key.nfe %></td>
+	<td><%= nfe_key.chave %></td>
+	<% if nfe_key.asset.present? %>
+		<td>
+			<i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i>
+		  <%= link_to image_tag( nfe_key.asset.url(:thumb)), "#", data: {:toggle=>"modal", :target=> "#myModal"}, title: nfe_key.asset_file_name %> 
+		</td>
+	<% else %>
+		<td><i class="fa fa-times fa-2x" style="color: red" aria-hidden="true"></i></td>
+	<% end %>
+</tr>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Documento: </h4>
+      </div>
+      <div class="modal-body">
+      <!-- Carousel -->
+
+      <div id="well">
+        <div id="myCarousel_<%= nfe_key.id %>" class="carousel slide">
+
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+
+              <div class="item active">
+                  <div class="">
+                    <div class="">
+                      <% if nfe_key.asset.present?  %>
+                         <%= image_tag nfe_key.asset.url(:original)  %>   
+                      <% end %>
+                    </div>
+                  </div>
+              </div>
+
+          </div><!--/carousel-inner-->
+
+          <a class="left carousel-control" href="#myCarousel_<%#= object.id %>" data-slide="prev">‹</a>
+          <a class="right carousel-control" href="#myCarousel_<%#= object.id %>" data-slide="next">›</a>
+        </div><!--/myCarousel-->
+
+      </div><!--/well-->
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

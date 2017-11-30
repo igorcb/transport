@@ -1,0 +1,59 @@
+<div class="alert alert-danger" role="alert">
+  Sr(a) <%= current_user.email %> <br />
+  <h3> <strong>Esta consulta é apenas para visualizar os canhotos da NF-e das Ordem de Serviço. </strong></h3>
+    <p>NF-e da Remessa de Entrada e Carga Direta serão visualizadas em uma outra funcionalidade do sistema.</p>
+</div>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="true" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+      <%= render "form_search" %>
+
+    </div>
+  </div>
+
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem do NF-e Keys</div>
+  <div class="panel-body">
+
+    <div class="table-responsive">
+      
+        <div id="result_nfe_keys">
+
+        <table class="table table-striped">
+          <thead>
+            <%= render 'header' %>
+
+          </thead>
+
+          <tbody>
+            <%#= render @schedulings %>
+            <%= render @nfe_keys %>
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>    
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.has_tooltip').tooltip();
+  });
+</script>
+

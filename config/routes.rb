@@ -1,5 +1,11 @@
 Transport::Application.routes.draw do
 
+  resources :nfe_keys, only: [:index] do
+    collection do
+      get :search
+    end
+  end
+
   resources :companies, only: [:edit, :update, :show]
 
   resources :config_systems
