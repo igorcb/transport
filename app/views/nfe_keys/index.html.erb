@@ -4,6 +4,10 @@
     <p>NF-e da Remessa de Entrada e Carga Direta serão visualizadas em uma outra funcionalidade do sistema.</p>
 </div>
 
+<div>
+  <%= will_paginate @nfe_keys, renderer: BootstrapPagination::Rails %>
+</div>
+
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
   <div class="panel panel-default">
@@ -24,19 +28,17 @@
 
 </div>
 
-
 <div class="panel panel-default">
   <div class="panel-heading">Listagem do NF-e Keys</div>
   <div class="panel-body">
 
     <div class="table-responsive">
-      
         <div id="result_nfe_keys">
-
+        
         <table class="table table-striped">
+
           <thead>
             <%= render 'header' %>
-
           </thead>
 
           <tbody>
@@ -50,6 +52,11 @@
     </div>    
   </div>
 </div>
+
+<div>
+  <%= will_paginate @nfe_keys, renderer: BootstrapPagination::Rails %>
+</div>
+
 
 <script type="text/javascript">
   $(document).ready(function() {

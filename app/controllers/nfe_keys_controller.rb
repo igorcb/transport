@@ -11,8 +11,8 @@ class NfeKeysController < ApplicationController
   end
 
   def index
-    @q = NfeKey.where(id: -1).search(params[:query])
-    @nfe_keys = NfeKey.where(id: -1)
+    @q = NfeKey.where(id: -1).paginate(:page => params[:page]).search(params[:query])
+    @nfe_keys = NfeKey.all.paginate(:page => params[:page])
     respond_with(@nfe_keys)
   end
 
@@ -35,7 +35,7 @@ class NfeKeysController < ApplicationController
   end
 
   def search
-    @q = NfeKey.where(nfe_source_type: "InputControl").search(params[:query])
+    @q = NfeKey.where(nfe_source_type: "InputControl").paginate(:page => params[:page]).search(params[:query])
     @nfe_keys = @q.result
     respond_with(@nfe_keys) do |format|
      format.js

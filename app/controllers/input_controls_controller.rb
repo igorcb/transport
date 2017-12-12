@@ -8,15 +8,22 @@ class InputControlsController < ApplicationController
 
   respond_to :html, :js
 
-  def question
-    
-  end
+  def printing; end
+
+  def question; end
 
   def quitter
     respond_to do |format|
       format.html
       # Example: Basic Usage
       format.pdf { render_quitter_input_control(@input_control) }
+    end
+  end
+
+  def print_blind
+    respond_to do |format|
+      format.html
+      format.pdf { render_blind_input_control(@input_control) }
     end
   end
 
@@ -244,6 +251,50 @@ class InputControlsController < ApplicationController
       report.page.item(:no_remessa).value(input_control.id)
       report.page.item(:data_entrada).value(input_control.date_entry)
       report.page.item(:equipe).value(input_control.team_name)
+    end
+
+    def render_blind_input_control(task)
+        if task.hangar.blank?
+          flash[:danger] = "Select hangar on input_controls"
+          redirect_to input_control_path(task)
+          return
+        end
+        if task.dock.blank?
+          flash[:danger] = "Select dock on input_controls"
+          redirect_to input_control_path(task)
+          return
+        end
+        if task.team.blank?
+          flash[:danger] = "Select team on input_controls"
+          redirect_to input_control_path(task)
+          return
+        end
+
+        report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
+        
+        report.start_new_page
+        data_input_control(report)
+        task.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
+          report.page.item(:nfe_numero).value(nfe.numero)
+          report.page.item(:nfe_peso).value("#{number_to_currency(nfe.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+          report.page.item(:nfe_volume).value("#{number_to_currency(nfe.volume, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+          report.page.item(:client_name).value(nfe.target_client.nome)
+          report.page.item(:client_cnpj).value(nfe.target_client.cpf_cnpj)
+          report.page.item(:client_cidade).value(nfe.target_client.cidade)
+          nfe.item_input_controls.joins(:product).order("products.cod_prod").each do |item|
+            report.list.add_row do |row|
+              breakdown = Breakdown.where(breakdown_type: 'InputControl', breakdown_id: item.input_control_id, product_id: item.product_id).first
+              row.values prod_id: item.product.cod_prod, 
+                     prod_name: item.product.descricao
+              end
+          end
+          report.start_new_page
+          data_input_control(report)
+        end
+        
+        send_data report.generate, filename: "blind#{task.id}_.pdf", 
+                                   type: 'application/pdf', 
+                                   disposition: 'attachment'
     end
 
     def render_input_control(task)

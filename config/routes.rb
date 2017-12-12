@@ -79,6 +79,8 @@ Transport::Application.routes.draw do
       get 'quitter'
       get :comments
       get :question
+      get :printing
+      get :print_blind
       get :tag
     end
     collection do

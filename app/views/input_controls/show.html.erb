@@ -212,7 +212,8 @@
   <%= link_to 'Gerar Ordem Servico', select_nfe_input_control_path, class: "btn btn-success"%>
   <%= link_to 'Armazenar Paletes', select_pallets_input_control_path, class: "btn btn-yellow"%>
   <%= link_to 'Gerar Ocorrência', comments_input_control_path(@input_control), class: "btn btn-warning" %>
-  <%= link_to 'Etiqueta', tag_input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %>
-  <%= link_to 'Print', input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %> 
   <%= link_to 'Informar Avarias', question_input_control_path(@input_control), class: "btn btn-primary" %>
+  <%#= link_to 'Etiqueta', tag_input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %>
+  <%#= link_to 'Print', input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %> 
+  <%= link_to 'Imprimir', printing_input_control_path(@input_control), class: "btn btn-default" %> 
 </div>
