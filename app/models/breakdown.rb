@@ -7,9 +7,10 @@ class Breakdown < ActiveRecord::Base
 
   belongs_to :boarding, class_name: "Boarding", foreign_key: "breakdown_id", polymorphic: true
   belongs_to :input_control, class_name: "InputControl", foreign_key: "breakdown_id", polymorphic: true
-  belongs_to :nfe_xml
+  belongs_to :nfe_xml, class_name: "NfeXml", foreign_key: "nfe_xml_id"
   belongs_to :product
-
+  
+  #has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_xml_id"
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 

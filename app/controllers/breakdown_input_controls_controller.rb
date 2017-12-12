@@ -76,7 +76,8 @@ class BreakdownInputControlsController < ApplicationController
 
     def load_all
 		 	@input_control = InputControl.find(params[:input_control_id])
-      @breakdowns = @input_control.breakdowns.order('id desc')
+      #@breakdowns = @input_control.breakdowns.order('id desc')
+      @breakdowns = Breakdown.joins(:nfe_xml).where(breakdown_type: "InputControl", breakdown_id: @input_control.id).order('breakdowns.type_breakdown', 'nfe_xmls.numero')
     end
 
 end

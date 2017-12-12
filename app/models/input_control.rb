@@ -25,6 +25,7 @@ class InputControl < ActiveRecord::Base
   has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
 
   has_many :breakdowns, as: :breakdown, dependent: :destroy
+  #has_many :breakdowns, -> { order(:lastname => :asc) }, as: :breakdown, dependent: :destroy
   accepts_nested_attributes_for :breakdowns, allow_destroy: true, reject_if: :all_blank  
 
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
