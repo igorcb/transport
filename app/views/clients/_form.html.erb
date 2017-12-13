@@ -38,6 +38,10 @@
     <%= f.text_field :inscricao_municipal, class: "form-control" %>
   </div>
   <div class="form-group">
+    <%= f.label :cep %>
+    <%= f.text_field :cep, class: "form-control" %>
+  </div>
+  <div class="form-group">
     <%= f.label :endereco %>
     <%= f.text_field :endereco, class: "form-control" %>
   </div>
@@ -60,10 +64,6 @@
   <div class="form-group">
     <%= f.label :estado  %>
     <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
-  </div>
-  <div class="form-group">
-    <%= f.label :cep %>
-    <%= f.text_field :cep, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :rg %>
@@ -259,3 +259,30 @@
   <% end %>
 </script>
 
+<script type="text/javascript">
+$(function(){
+   $("#client_cep").change(function(){
+     var cep     = $(this).val().replace(/[^0-9]/, ''); 
+     var boxes   = $("#boxCampos");
+     var msgErro = $("#mensagemErro");
+     console.log('CEP: ' + cep)
+     boxes.addClass('ocultar');
+     msgErro.addClass('ocultar');
+
+    if(cep !== ""){
+        $.getJSON('/get_address_by_cep', 'cep=' + cep, function(data){
+           console.log(data)
+           $("#client_endereco").val(data.logradouro);
+           $("#client_bairro").val(data.bairro);
+           $("#client_cidade").val(data.localidade);
+           $("#client_estado").val(data.uf);
+           $("#client_numero").focus();
+           boxes.removeClass('ocultar');
+          }).fail(function(){
+            //Não retornando um valor válido, ele mostra a mensagem
+          msgErro.removeClass('ocultar').html('CEP inexistente')
+       });
+       }
+   });
+});  
+</script>
