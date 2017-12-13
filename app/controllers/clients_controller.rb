@@ -34,7 +34,7 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     @client = Client.new(client_params)
-    #@client =
+    @client.user_created_id = current_user.id
     respond_to do |format|
       if @client.save
         format.html { redirect_to @client, flash: { success: "Client was successfully created." } }
@@ -50,6 +50,7 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1.json
   def update
     respond_to do |format|
+      @client.user_updated_id = current_user.id
       if @client.update(client_params)
         format.html { redirect_to @client, flash: { success: 'Client was successfully updated.' } }
         format.json { head :no_content }

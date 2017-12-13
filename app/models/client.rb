@@ -20,6 +20,10 @@ class Client < ActiveRecord::Base
   validates :qtde_parcela, presence: true, numericality: { greater_than: 0 }, if: :faturar?
 
   belongs_to :group_client
+  
+  belongs_to :user_created, class_name: "User", foreign_key: "user_created_id"
+  belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id"
+
   has_many :ordem_services
   has_many :pallets
   has_many :account_payables, class_name: "AccountPayable", foreign_key: "supplier_id"

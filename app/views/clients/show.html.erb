@@ -139,6 +139,15 @@
   <pre><%= @client.condicao_recebimento %></pre>
 </p>
 
+<p>
+  <strong>Criado em:</strong> <%= date_br @client.created_at %> as <%= time_br @client.created_at %> 
+  <strong>por</strong> <%= @client.user_created.email if @client.user_created.present? %>
+</p>
+
+<p>
+  <strong>Última atualização:</strong> <%= date_br @client.updated_at %> as <%= time_br @client.updated_at %> 
+  <strong>por</strong> <%= @client.user_updated.email if @client.user_updated.present? %>
+</p>
 
 <p>
   <strong>Observação:</strong>
