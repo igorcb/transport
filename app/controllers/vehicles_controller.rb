@@ -32,6 +32,7 @@ class VehiclesController < ApplicationController
   def create
     @vehicle = Vehicle.new(vehicle_params)
     @vehicle.user_id = current_user.id
+    @vehicle.user_created_id = current_user.id
     #@vehicle.tipo_veiculo = params[:vehicle][:tipo_veiculo].to_i
     respond_to do |format|
       if @vehicle.save
@@ -48,6 +49,7 @@ class VehiclesController < ApplicationController
   # PATCH/PUT /vehicles/1.json
   def update
     respond_to do |format|
+      @vehicle.user_updated_id = current_user.id
       if @vehicle.update(vehicle_params)
         format.html { redirect_to @vehicle,  flash: { success: "Vehicle was successfully updated." } }
         format.json { head :no_content }

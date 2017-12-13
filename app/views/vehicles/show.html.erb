@@ -144,10 +144,17 @@
   <strong>Cubagem:</strong>
   <%= @vehicle.cubagem %>
 </p>
+
 <p>
-  <strong>Criado por :</strong>
-  <%= @vehicle.user.email if @vehicle.user.present? %>
+  <strong>Criado em:</strong> <%= date_br @vehicle.created_at %> as <%= time_br @vehicle.created_at %> 
+  <strong>por</strong> <%= @vehicle.user_created.email if @vehicle.user_created.present? %>
 </p>
+
+<p>
+  <strong>Última atualização:</strong> <%= date_br @vehicle.updated_at %> as <%= time_br @vehicle.updated_at %> 
+  <strong>por</strong> <%= @vehicle.user_updated.email if @vehicle.user_updated.present? %>
+</p>
+
 
 <p>
   <strong>Observação:</strong>
