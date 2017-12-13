@@ -45,7 +45,7 @@ class DriversController < ApplicationController
   # POST /drivers.json
   def create
     @driver = Driver.new(driver_params)
-
+    @driver.user_created_id = current_user.id
     respond_to do |format|
       if @driver.save
         format.html { redirect_to @driver, flash: { success: "Driver was successfully created." } }
@@ -61,6 +61,7 @@ class DriversController < ApplicationController
   # PATCH/PUT /drivers/1.json
   def update
     respond_to do |format|
+      @driver.user_updated_id = current_user.id
       if @driver.update(driver_params)
         format.html { redirect_to @driver, flash: { success: "Driver was successfully updated." } }
         format.json { head :no_content }

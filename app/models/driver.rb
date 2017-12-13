@@ -23,6 +23,9 @@ class Driver < ActiveRecord::Base
   validates :nome_do_pai, presence: true, length: { maximum: 100 }
   validates :nome_da_mae, presence: true, length: { maximum: 100 }
 
+  belongs_to :user_created, class_name: "User", foreign_key: "user_created_id"
+  belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id"
+
   validates :categoria, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..8 }
 
   has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy

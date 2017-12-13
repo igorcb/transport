@@ -114,6 +114,16 @@
 </p>
 
 <p>
+  <strong>Criado em:</strong> <%= date_br @driver.created_at %> as <%= time_br @driver.created_at %> 
+  <strong>por</strong> <%= @driver.user_created.email if @driver.user_created.present? %>
+</p>
+
+<p>
+  <strong>Última atualização:</strong> <%= date_br @driver.updated_at %> as <%= time_br @driver.updated_at %> 
+  <strong>por</strong> <%= @driver.user_updated.email if @driver.user_updated.present? %>
+</p>
+
+<p>
   <strong>Observação:</strong>
   <pre><%= @driver.obs %></pre>
 </p>
