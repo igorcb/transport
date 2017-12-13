@@ -714,6 +714,19 @@ class OrdemService < ActiveRecord::Base
 
     def close_os_air
       #fazer validacoes para fechamento
+      begin
+        puts "Iniciando fechamento da OS: #{self.id} - Mudanca"
+        ActiveRecord::Base.transaction do
+          data_fechamento = Time.zone.now.strftime('%Y-%m-%d')
+          OrdemService.update(self.id, data_fechamento: data_fechamento, status: OrdemService::TipoStatus::FECHADO)
+          OrdemService.generate_billing(self.id)
+          return true
+        end
+        rescue Exception => e
+          puts e.message
+          self.errors.add(:ordem_service, e.message)
+          return false        
+      end
     end
 
 end

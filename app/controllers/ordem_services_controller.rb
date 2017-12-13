@@ -392,7 +392,7 @@ class OrdemServicesController < ApplicationController
         @ordem_service.close_ordem_service
         redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful..." }
       when OrdemService::TipoOS::AEREO
-        @ordem_service.close_os
+        @ordem_service.close_ordem_service
         redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful......" }
     end    
     #OrdemService.close_os(params[:id])
