@@ -35,6 +35,7 @@ class LowerReceivablesController < ApplicationController
       
       #report.page.item(:image_logo).src('/path/to/image.png')
       report.page.item(:image_logo).src(@company.image.path) #@company.image.url
+      report.page.item(:image_quitter).src(@company.quitter.path) #@company.image.url
       report.page.item(:emp_fantasia).value(@company.fantasia)
       report.page.item(:emp_razao_social).value(@company.razao_social)
       report.page.item(:emp_cnpj).value("CNPJ: " + @company.cnpj)

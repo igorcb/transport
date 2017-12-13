@@ -87,7 +87,12 @@
 
     <p>
       <strong>Logo para impressão dos relatorios:</strong>
-      <%= image_tag @company.image.url %>
+      <%= image_tag @company.image.url(:small) %>
+    </p>
+
+    <p>
+      <strong>Carimbo para Recibo de Quitação:</strong>
+      <%= image_tag @company.quitter.url(:small) %>
     </p>
   </div>
 </div>

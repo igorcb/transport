@@ -6,7 +6,7 @@
       "type": "image",
       "display": true,
       "description": "",
-      "x": 445,
+      "x": 457,
       "y": 280,
       "width": 109.4,
       "height": 90.8,
@@ -292,7 +292,7 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 190,
+      "x": 200,
       "y": 340,
       "width": 260.5,
       "height": 24,
@@ -712,6 +712,20 @@
       "y": 36,
       "width": 123,
       "height": 38,
+      "style": {
+        "position-x": "left",
+        "position-y": "top"
+      }
+    },
+    {
+      "id": "image_quitter",
+      "type": "image-block",
+      "display": true,
+      "description": "",
+      "x": 240,
+      "y": 295,
+      "width": 177.6,
+      "height": 53,
       "style": {
         "position-x": "left",
         "position-y": "top"
