@@ -277,10 +277,10 @@ class OrdemServicesController < ApplicationController
       flash[:danger] = "Ordem Service is already as delivered."
       redirect_to ordem_service_path(@ordem_service)
       return
-    elsif !@ordem_service.boarding.check_status_ordem_service_embarcado?
-      flash[:danger] = "To close a ordem service, all ordem services in boarding, must be as boarding."
-      redirect_to ordem_service_path(@ordem_service)
-      return
+    # elsif !@ordem_service.boarding.check_status_ordem_service_embarcado?
+    #   flash[:danger] = "To close a ordem service, all ordem services in boarding, must be as boarding."
+    #   redirect_to ordem_service_path(@ordem_service)
+    #   return
     elsif @ordem_service.status == OrdemService::TipoStatus::FECHADO
       flash[:danger] = "Ordem Service is already as closed."
       redirect_to ordem_service_path(@ordem_service)
