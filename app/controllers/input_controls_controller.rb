@@ -222,7 +222,7 @@ class InputControlsController < ApplicationController
     def input_control_params
       params.require(:input_control).permit(:carrier_id, :driver_id, :billing_client_id, :place, :place_cart, 
         :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets, 
-        :observation, :charge_discharge, :shipment, :team, :dock, :hangar,
+        :observation, :charge_discharge, :shipment, :team, :dock, :hangar, :container,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )
