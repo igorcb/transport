@@ -20,8 +20,8 @@
             <tr>
               <td><%= input_control.shipment %></td>
               <td><%= input_control.container %></td>
-              <td><%= input_control.scheduling_search.first.id if input_control.scheduling_search.present? %></td>
-              <td><%= input_control.id %></td>
+              <td><%= link_to input_control.scheduling_search.first.id, input_control.scheduling_search.first if input_control.scheduling_search.present? %></td>
+              <td><%= link_to input_control.id, input_control %></td>
               <td>Nao consigo pegar</td>
               <td>pois é outra tabela</td>
               <td>tabela filha dos items da nfe</td>
