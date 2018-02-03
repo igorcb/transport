@@ -6,6 +6,7 @@ class InputControl < ActiveRecord::Base
   belongs_to :driver
   belongs_to :user_received, class_name: "User", foreign_key: "received_user_id"
   belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id"
+  belongs_to :scheduling, class_name: "Scheduling", foreign_key: "conteiner_id"
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
@@ -27,6 +28,7 @@ class InputControl < ActiveRecord::Base
   has_many :breakdowns, as: :breakdown, dependent: :destroy
   #has_many :breakdowns, -> { order(:lastname => :asc) }, as: :breakdown, dependent: :destroy
   accepts_nested_attributes_for :breakdowns, allow_destroy: true, reject_if: :all_blank  
+
 
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
 
@@ -70,6 +72,10 @@ class InputControl < ActiveRecord::Base
     IMBATIVEIS = 1
     UNIDOS_VENCEREMOS = 2
     DIARISTA = 3
+  end
+
+  def scheduling_search
+    Scheduling.where(container: self.container)
   end
 
   def self.ransackable_attributes(auth_object = nil)
