@@ -14,7 +14,8 @@
 
     <p>
       <strong>No Container:</strong>
-      <%= @input_control.container %> 
+      <%#= @input_control.container %> 
+      <%= link_to @input_control.scheduling_search.first.id, @input_control.scheduling_search.first %>
     </p>
 
     <p>
