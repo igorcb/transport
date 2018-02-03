@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem Input with Scheduling</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Rem Client</th>
+            <th>Container</th>
+            <th>Ag. Conteiner</th>
+            <th>Rem. Entrada</th>
+            <th>O.S.</th>
+            <th>Faturamento</th>
+            <th>Tipo Servico</th>
+         </tr>
+        </thead>
+
+        <tbody>
+          <% @input_controls.each do |input_control| %>
+            <tr>
+              <td><%= input_control.shipment %></td>
+              <td><%= input_control.container %></td>
+              <td><%= input_control.scheduling_search.first.id if input_control.scheduling_search.present? %></td>
+              <td><%= input_control.id %></td>
+              <td>Nao consigo pegar</td>
+              <td>pois é outra tabela</td>
+              <td>tabela filha dos items da nfe</td>
+
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

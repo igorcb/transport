@@ -8,6 +8,10 @@ class InputControlsController < ApplicationController
 
   respond_to :html, :js
 
+  def list_input_scheduling
+    @input_controls = InputControl.where.not(container: nil)
+  end
+
   def printing; end
 
   def question; end
