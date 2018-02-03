@@ -30,6 +30,11 @@
                 <%= @scheduling.container %>
               </p>
 
+              <p>
+                <strong>Remessa de Entrada:</strong>
+                <%= link_to @scheduling.input_control.first.id, @scheduling.input_control.first if @scheduling.input_control.present? %>
+              </p>
+
 							<p>
 							  <strong>Data Agen L7:</strong>
 							  <%= date_br @scheduling.date_scheduling %> | <%= time_br @scheduling.time_scheduling %>

@@ -30,6 +30,10 @@ class Scheduling < ActiveRecord::Base
   	end
   end
 
+  def input_control
+    InputControl.where(container: self.container)
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ['client', 'date_scheduling',  'status']
   end
