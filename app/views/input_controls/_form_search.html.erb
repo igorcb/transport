@@ -42,6 +42,14 @@
               <%= f.search_field :nfe_xmls_numero_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NF-e ex: 123456" %>  
             </div>
             <div class="form-group">
+              <%= f.label :shipment_eq, "Remessa Cliente" %>
+              <%= f.search_field :shipment_eq, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :container_eq, "Container" %>
+              <%= f.search_field :container_eq, class: "form-control" %>
+            </div>
+            <div class="form-group">
               <%= f.label :status_eq, "Status" %>
               <%= f.select( :status_eq, select_status_input_control, {include_blank: true}, {class: "form-control"} ) %> 
             </div>

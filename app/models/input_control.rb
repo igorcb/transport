@@ -79,7 +79,7 @@ class InputControl < ActiveRecord::Base
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ['id','carrier','driver','place','date_entry', 'date_receipt', 'status']
+    ['id','carrier','driver','place','date_entry', 'date_receipt', 'status', 'shipment', 'container']
   end
 
   def self.select_date_receipt
@@ -368,6 +368,14 @@ class InputControl < ActiveRecord::Base
       ordem_service.set_peso_and_volume
 
     end
+  end
+
+  def get_ordem_services
+    # os = []
+    # self.nfe_xmls.each do |item|
+    #   clients << item.target_client.nome
+    # end
+    # clients
   end
 
   def nfe_xmls_client(numero)
