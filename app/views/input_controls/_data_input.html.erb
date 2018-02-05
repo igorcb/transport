@@ -19,7 +19,7 @@
 
     <p>
       <strong>Agenda Container:</strong>
-      <%= link_to @input_control.scheduling_search.first.id, @input_control.scheduling_search.first %>
+      <%= link_to @input_control.scheduling_search.first.id, @input_control.scheduling_search.first if @input_control.scheduling_search.present? %>
     </p>
 
     <p>
