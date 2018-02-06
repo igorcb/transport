@@ -21,6 +21,11 @@
     </div>
 
     <div class="form-group">
+      <%= f.label :nfe_xmls_numero_eq, "NF-e" %>
+      <%= f.search_field :nfe_xmls_numero_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NF-e ex: 123456" %>  
+    </div>    
+
+    <div class="form-group">
       <%= f.label :status_eq, "Status" %>
       <%= f.select( :status_eq, select_status_scheduling, {include_blank: true}, {class: "form-control"} ) %> 
     </div>
