@@ -35,7 +35,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ['client', 'date_scheduling',  'status']
+    ['client', 'date_scheduling',  'status', 'date_scheduling', 'date_scheduling_client', 'container']
   end
 
   def processa_nfe_xmls

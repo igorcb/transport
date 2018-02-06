@@ -11,6 +11,16 @@
     </div>
     
     <div class="form-group">
+      <%= f.label :date_scheduling_client_eq, "Dt. Client." %>
+      <%= f.search_field :date_scheduling_client_eq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+    </div>
+
+    <div class="form-group">
+      <%= f.label :container_eq, "Container" %>
+      <%= f.search_field :container_eq, class: "form-control", placeholder: "" %>  
+    </div>
+
+    <div class="form-group">
       <%= f.label :status_eq, "Status" %>
       <%= f.select( :status_eq, select_status_scheduling, {include_blank: true}, {class: "form-control"} ) %> 
     </div>
