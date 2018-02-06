@@ -1,0 +1,2 @@
+$('#result_tasks').empty();
+$("#result_tasks").append("<table class='table table-striped'><thead><%= j(render(:partial => 'header')) %></thead><tbody><%= j(render @tasks) %></tbody></table>");

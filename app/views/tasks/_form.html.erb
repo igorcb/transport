@@ -1,0 +1,62 @@
+<%= form_for(@task) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :employee_id, "Funcionário" %><br>
+    <%= f.select(:employee_id, Employee.order(:nome).collect {|g| [g.nome, g.id]}, {include_blank: "Selecione o Funcionário"}, {class: "form-control"} ) %>
+  </div>  
+  <div class="form-group">
+    <%= f.label :name, "Nome da Tarefa" %>
+    <%= f.text_field :name,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :body, "Detalhe da Tarefa" %>
+    <%= f.text_area :body,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :start_date, "Data Início" %>
+    <% if @task.new_record? %>
+      <%= f.text_field :start_date, class: "form-control data" %>
+    <% else %>
+      <%= f.text_field :start_date, class: "form-control data", value: date_br(@task.start_date) %>
+    <% end %>    
+  </div>
+  <div class="form-group">
+    <%= f.label :finish_date, "Data Final" %>
+    <% if @task.new_record? %>
+      <%= f.text_field :finish_date, class: "form-control data" %>
+    <% else %>
+      <%= f.text_field :finish_date, class: "form-control data", value: date_br(@task.finish_date) %>
+    <% end %>    
+  </div>
+  <div class="form-group">
+    <%= f.label :time_first,"Horas alocadas no primeiro mês" %>
+    <%= f.number_field :time_first,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label "", class: "checkbox-inline" do %>
+      <%= f.check_box :allocated, checked: false %> Está alocado em um só mês?  
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label :allocated_observation, "Observação do Alocado" %><br>
+    <%= f.text_area :allocated_observation,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :second_time, "Horas alocadas no segundo mês" %>
+    <%= f.number_field :second_time,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :status  %>
+    <%= f.select( :status, select_status, {include_blank: "Selecione o Status"}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :observation, "Observação" %>
+    <%= f.text_area :observation,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  task_path(@task), class: "btn btn-info" if !@task.new_record? %>
+    <%= link_to "Listar Todos", tasks_path, class: "btn btn-default" %>
+  </div>
+<% end %>

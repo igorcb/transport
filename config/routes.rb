@@ -1,5 +1,11 @@
 Transport::Application.routes.draw do
 
+  resources :tasks do
+    collection do
+      get :search
+    end
+  end
+
   match 'list_input_scheduling' => "input_controls#list_input_scheduling",  via: [:get]
 
   resources :nfe_keys, only: [:index, :edit, :update] do
