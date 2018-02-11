@@ -43,8 +43,8 @@
 
     <p>
       <strong>Status:</strong>
-      <%= @task.status_name %>
-    </p>
+      <%= @task.status_name  %>
+   </p>
 
     <p>
       <strong>Observation:</strong>
@@ -52,5 +52,8 @@
     </p>
     <%= link_to 'Editar', edit_task_path(@task), class: "btn btn-primary" %>
     <%= link_to 'Listar Todos', tasks_path, class: "btn btn-default" %>  
+    <%= link_to 'Iniciar Tarefa', start_task_path(@task), class: "btn btn-success" if !@task.started? %>
+    <%= link_to 'Finalizar Tarefa', finish_task_path(@task), class: "btn btn-warning" if !@task.finished? %>
+    <%#= if @input_control.status == InputControl::TypeStatus::OPEN %>
   </div>
 </div>

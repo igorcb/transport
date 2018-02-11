@@ -4,6 +4,10 @@ Transport::Application.routes.draw do
     collection do
       get :search
     end
+    member do
+      get :start
+      get :finish
+    end    
   end
 
   match 'list_input_scheduling' => "input_controls#list_input_scheduling",  via: [:get]

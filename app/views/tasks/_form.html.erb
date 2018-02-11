@@ -14,22 +14,6 @@
     <%= f.text_area :body,class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :start_date, "Data Início" %>
-    <% if @task.new_record? %>
-      <%= f.text_field :start_date, class: "form-control data" %>
-    <% else %>
-      <%= f.text_field :start_date, class: "form-control data", value: date_br(@task.start_date) %>
-    <% end %>    
-  </div>
-  <div class="form-group">
-    <%= f.label :finish_date, "Data Final" %>
-    <% if @task.new_record? %>
-      <%= f.text_field :finish_date, class: "form-control data" %>
-    <% else %>
-      <%= f.text_field :finish_date, class: "form-control data", value: date_br(@task.finish_date) %>
-    <% end %>    
-  </div>
-  <div class="form-group">
     <%= f.label :time_first,"Horas alocadas no primeiro mês" %>
     <%= f.number_field :time_first,class: "form-control" %>
   </div>
@@ -45,10 +29,6 @@
   <div class="form-group">
     <%= f.label :second_time, "Horas alocadas no segundo mês" %>
     <%= f.number_field :second_time,class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :status  %>
-    <%= f.select( :status, select_status, {include_blank: "Selecione o Status"}, {class: "form-control"} ) %>      
   </div>
   <div class="form-group">
     <%= f.label :observation, "Observação" %>

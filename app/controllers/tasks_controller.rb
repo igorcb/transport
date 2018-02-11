@@ -48,6 +48,44 @@ class TasksController < ApplicationController
     end
   end    
 
+  def start
+    if @task.started?
+      flash[:danger] = "Task already started."
+      redirect_to task_path(@task)  
+      return
+    end    
+    if @task.finished?
+      flash[:danger] = "Task already finished."
+      redirect_to task_path(@task)  
+      return
+    end    
+    if @task.start
+      flash[:success] = "Task was successfully start"
+    else
+      @task.errors.full_messages.each { |msg| flash[:danger] = msg }
+    end
+    redirect_to task_path(@task)    
+  end
+
+  def finish
+    if !@task.started?
+      flash[:danger] = "Can not end task that was not started."
+      redirect_to task_path(@task)  
+      return
+    end    
+    if @task.finished?
+      flash[:danger] = "Task already finished."
+      redirect_to task_path(@task)  
+      return
+    end    
+    if @task.finish
+      flash[:success] = "Task was successfully finish"
+    else
+      @task.errors.full_messages.each { |msg| flash[:danger] = msg }
+    end
+    redirect_to task_path(@task)    
+  end
+
   private
     def set_task
       @task = Task.find(params[:id])

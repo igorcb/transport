@@ -10,7 +10,7 @@ class Asset < ActiveRecord::Base
 	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :account_payable, class_name: "AccountPayable", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :lower_account_payable, class_name: "LowerAccountPayable", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
-    
+
   has_attached_file :asset, styles: lambda { |a| a.instance.asset_content_type =~ %r(image) ? { medium: "300x300>", thumb: "120x90>", mini: "64x64>"} : {} }
 	
 	def is_image?

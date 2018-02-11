@@ -8,7 +8,7 @@
   <td><%= task.allocated_and_observation %></td>
   <td><%= task.second_time %></td>
   <td><%= task.status_name %></td>
-  <td><%= task.observation %></td>
+  <td><%= truncate(task.observation, length: 20) %></td>
   <td><%= link_to 'Show', task, class: "btn btn-info btn-sm" %></td>
   <td><%= link_to 'Edit', edit_task_path(task), class: "btn btn-primary btn-sm" %></td>
   <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
