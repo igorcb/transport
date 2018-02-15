@@ -1,6 +1,8 @@
 class Task < ActiveRecord::Base
   validates :employee_id, presence: true
   validates :name, presence: true
+  validates :start_date, presence: true
+  validates :finish_date, presence: true
 
   belongs_to :employee
 
@@ -51,10 +53,10 @@ class Task < ActiveRecord::Base
     begin
       ActiveRecord::Base.transaction do
         return_value = true
-        self.update_attributes(start_date: Date.current, status: Task::TypeStatus::INICIADO)
+        self.update_attributes(status: Task::TypeStatus::INICIADO)
       end
     rescue exception
-      self.update_attributes(date_receipt: nil, status: Task::TypeStatus::NAO_INICIADO)
+      self.update_attributes(status: Task::TypeStatus::NAO_INICIADO)
       return_value = false
       raise ActiveRecord::Rollback
     end
@@ -64,19 +66,17 @@ class Task < ActiveRecord::Base
     # so pode informar recebimento se a remessa estiver no status FINISH_TYPING
     # fazer checagem se necessario
     return_value = false
-    qtde_dias = 5
-    date_limit = start_date + qtde_dias.days
     begin
       ActiveRecord::Base.transaction do
-        return_value = true
-        if date_limit > Date.current
-          self.update_attributes(finish_date: Date.current, status: Task::TypeStatus::CONCLUIDA_NO_PRAZO)
+        if finish_date > Date.current
+          self.update_attributes(date_finalization: Time.current, status: Task::TypeStatus::CONCLUIDA_NO_PRAZO)
         else
-          self.update_attributes(finish_date: Date.current, status: Task::TypeStatus::CONCLUIDA_FORA_PRAZO)
+          self.update_attributes(date_finalization: Time.current, status: Task::TypeStatus::CONCLUIDA_FORA_PRAZO)
         end
+        return_value = true
       end
     rescue exception
-      self.update_attributes(date_receipt: nil, status: Task::TypeStatus::NAO_INICIADO)
+      self.update_attributes(status: Task::TypeStatus::NAO_INICIADO)
       return_value = false
       raise ActiveRecord::Rollback
     end
