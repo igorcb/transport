@@ -49,14 +49,14 @@ class TasksController < ApplicationController
   end    
 
   def start
-    if @task.started?
+    if @task.status == Task::TypeStatus::INICIADO
       flash[:danger] = "Task already started."
-      redirect_to task_path(@task)  
+      redirect_to task_path(@task)
       return
     end    
     if @task.finished?
       flash[:danger] = "Task already finished."
-      redirect_to task_path(@task)  
+      redirect_to task_path(@task)
       return
     end    
     if @task.start
@@ -68,12 +68,12 @@ class TasksController < ApplicationController
   end
 
   def finish
-    if !@task.started?
+    if @task.status == Task::TypeStatus::NAO_INICIADO
       flash[:danger] = "Can not end task that was not started."
       redirect_to task_path(@task)  
       return
     end    
-    if @task.finished?
+    if @task.date_finalization.present?
       flash[:danger] = "Task already finished."
       redirect_to task_path(@task)  
       return

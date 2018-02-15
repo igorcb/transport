@@ -39,11 +39,12 @@ class Task < ActiveRecord::Base
   end
 
   def started?
-    start_date.blank? ? false : true
+    #start_date.blank? ? false : true
+    self.status == Task::TypeStatus::NAO_INICIADO
   end
 
   def finished?
-    finish_date.blank? ? false : true
+    self.status == Task::TypeStatus::INICIADO
   end
 
   def start
