@@ -1,0 +1,58 @@
+<p>
+  <strong>Solicitante:</strong>
+  <%= @task.requester.nome if @task.requester.present? %>
+</p>
+<p>
+  <strong>Funcionário:</strong>
+  <%= @task.employee.nome if @task.employee.present? %>
+</p>
+
+<p>
+  <strong>Nome da Tarefa:</strong>
+  <%= @task.name %>
+</p>
+
+<p>
+  <strong>Detalhe da Tarefa:</strong>
+  <%= @task.body %>
+</p>
+
+<p>
+  <strong>Data Início:</strong>
+  <%= date_br @task.start_date %>
+</p>
+
+<p>
+  <strong>Data Final:</strong>
+  <%= date_br @task.finish_date %>
+</p>
+
+<p>
+  <strong>Data Termino:</strong>
+  <%= date_br @task.date_finalization %>
+</p>
+
+<p>
+  <strong>Horas alocadas no primeiro mês:</strong>
+  <%= @task.time_first %>
+</p>
+
+<p>
+  <strong>Está alocado em um só mês?:</strong>
+  <%= @task.allocated_and_observation %>
+</p>
+
+<p>
+  <strong>Second time:</strong>
+  <%= @task.second_time %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @task.status_name  %>
+</p>
+
+<p>
+  <strong>Observation:</strong>
+  <pre><%= @task.observation %></pre>
+</p>

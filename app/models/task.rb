@@ -7,7 +7,9 @@ class Task < ActiveRecord::Base
 
   belongs_to :employee
   belongs_to :requester, class_name: "Employee", foreign_key: "requester_id"
-  #belongs_to :user_created, class_name: "User", foreign_key: "user_created_id"  
+
+  has_many :internal_comments, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+  has_many :internal_commentaries, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
 
   scope :the_day, -> {where('DATE(created_at) = ?', Date.current) }
 
@@ -92,6 +94,10 @@ class Task < ActiveRecord::Base
       return_value = false
       raise ActiveRecord::Rollback
     end
+  end
+
+  def feed_internal_comments
+    InternalComment.where("comment_type = ? and comment_id = ?", "Task", self.id)
   end
 
 end

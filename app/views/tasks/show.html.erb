@@ -1,68 +1,45 @@
-<div class="panel panel-default">
-  <div class="panel-heading">Dados da Tarefa</div>
-  <div class="panel-body">
-    <p>
-      <strong>Solicitante:</strong>
-      <%= @task.requester.nome if @task.requester.present? %>
-    </p>
-    <p>
-      <strong>Funcionário:</strong>
-      <%= @task.employee.nome if @task.employee.present? %>
-    </p>
-
-    <p>
-      <strong>Nome da Tarefa:</strong>
-      <%= @task.name %>
-    </p>
-
-    <p>
-      <strong>Detalhe da Tarefa:</strong>
-      <%= @task.body %>
-    </p>
-
-    <p>
-      <strong>Data Início:</strong>
-      <%= date_br @task.start_date %>
-    </p>
-
-    <p>
-      <strong>Data Final:</strong>
-      <%= date_br @task.finish_date %>
-    </p>
-
-    <p>
-      <strong>Data Termino:</strong>
-      <%= date_br @task.date_finalization %>
-    </p>
-
-    <p>
-      <strong>Horas alocadas no primeiro mês:</strong>
-      <%= @task.time_first %>
-    </p>
-
-    <p>
-      <strong>Está alocado em um só mês?:</strong>
-      <%= @task.allocated_and_observation %>
-    </p>
-
-    <p>
-      <strong>Second time:</strong>
-      <%= @task.second_time %>
-    </p>
-
-    <p>
-      <strong>Status:</strong>
-      <%= @task.status_name  %>
-   </p>
-
-    <p>
-      <strong>Observation:</strong>
-      <pre><%= @task.observation %></pre>
-    </p>
-    <%= link_to 'Editar', edit_task_path(@task), class: "btn btn-primary" %>
-    <%= link_to 'Listar Todos', tasks_path, class: "btn btn-default" %>  
-    <%= link_to 'Iniciar Tarefa', start_task_path(@task), class: "btn btn-success" if @task.started? %>
-    <%= link_to 'Finalizar Tarefa', finish_task_path(@task), class: "btn btn-warning" if @task.finished? %>
-    <%#= if @input_control.status == InputControl::TypeStatus::OPEN %>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Task: <%= @task.id %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse off" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+          <%= render 'data_task' %>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTen">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+          Comentarios Internos 
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
+      <div class="panel-body">
+
+      <%= render 'internal_comments/feed', comments: @task.feed_internal_comments %>
+
+      <%= render 'internal_comments/form_task' %>
+      
+      </div>
+    </div>
+  </div>
+
+
 </div>
+
+
+<%= link_to 'Editar', edit_task_path(@task), class: "btn btn-primary" %>
+<%= link_to 'Listar Todos', tasks_path, class: "btn btn-default" %>  
+<%= link_to 'Iniciar Tarefa', start_task_path(@task), class: "btn btn-success" if @task.started? %>
+<%= link_to 'Finalizar Tarefa', finish_task_path(@task), class: "btn btn-warning" if @task.finished? %>

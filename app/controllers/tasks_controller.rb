@@ -13,6 +13,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @internal_comment = @task.internal_comments.build
     respond_with(@task)
   end
 
