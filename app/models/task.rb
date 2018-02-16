@@ -6,7 +6,8 @@ class Task < ActiveRecord::Base
   validates :finish_date, presence: true
 
   belongs_to :employee
-  belongs_to :requester, class_name: "employee", foreign_key: "requester_id"
+  belongs_to :requester, class_name: "Employee", foreign_key: "requester_id"
+  #belongs_to :user_created, class_name: "User", foreign_key: "user_created_id"  
 
   scope :the_day, -> {where('DATE(created_at) = ?', Date.current) }
 

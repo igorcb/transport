@@ -1,6 +1,7 @@
 <tr>
   <td><%= task.name %></td>
   <td><%= truncate(task.body, length: 20)  %></td>
+  <td><%= task.requester.nome if task.requester.present? %></td>
   <td><%= task.employee.nome if task.employee.present? %></td>
   <td><%= date_br task.start_date %></td>
   <td><%= date_br task.finish_date %></td>

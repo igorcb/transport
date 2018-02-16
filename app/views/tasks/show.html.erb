@@ -2,6 +2,10 @@
   <div class="panel-heading">Dados da Tarefa</div>
   <div class="panel-body">
     <p>
+      <strong>Solicitante:</strong>
+      <%= @task.requester.nome if @task.requester.present? %>
+    </p>
+    <p>
       <strong>Funcionário:</strong>
       <%= @task.employee.nome if @task.employee.present? %>
     </p>
