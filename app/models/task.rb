@@ -1,10 +1,12 @@
 class Task < ActiveRecord::Base
   validates :employee_id, presence: true
+  validates :requester_id, presence: true
   validates :name, presence: true
   validates :start_date, presence: true
   validates :finish_date, presence: true
 
   belongs_to :employee
+  belongs_to :requester, class_name: "employee", foreign_key: "requester_id"
 
   scope :the_day, -> {where('DATE(created_at) = ?', Date.current) }
 
@@ -37,7 +39,7 @@ class Task < ActiveRecord::Base
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ['employee_id', 'name', 'body_cont', 'start_date', 'finish_date', 'status']
+    ['employee_id', 'name', 'body_cont', 'start_date', 'finish_date', 'status', 'requester_id']
   end
 
   def started?
