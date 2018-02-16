@@ -8,7 +8,7 @@ class Task < ActiveRecord::Base
 
   scope :the_day, -> {where('DATE(created_at) = ?', Date.current) }
 
-  before_save { |t| t.status = TypeStatus::NAO_INICIADO }
+  before_create { |t| t.status = TypeStatus::NAO_INICIADO }
 
   module TypeStatus
     NAO_INICIADO = 0
