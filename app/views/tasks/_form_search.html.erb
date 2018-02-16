@@ -1,14 +1,17 @@
 <div class="panel-body">
   <%= search_form_for @q, remote: true, url: search_tasks_path, :method => :get do |f| %>
-     <div class="form-group">
+    <div class="form-group">
       <%= f.label :employee_id_eq, "Funcionário" %>
       <%= f.collection_select :employee_id_eq, Employee.order(:nome).collect, :id, :nome, {include_blank: true}, {class: "form-control"} %>
-     </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :requester_id_eq, "Funcionário" %>
+      <%= f.collection_select :requester_id_eq, Employee.order(:nome).collect, :id, :nome, {include_blank: true}, {class: "form-control"} %>
+    </div>
     <div class="form-group">
       <%= f.label :name_eq, "Nome da Tarefa" %>
       <%= f.search_field :name_eq, class: "form-control" %>  
     </div>
-    
     <div class="form-group">
       <%= f.label :body_cont, "Detalhe da Tarefa" %>
       <%= f.search_field :body_cont, class: "form-control" %>  
