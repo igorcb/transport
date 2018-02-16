@@ -54,12 +54,15 @@ class Task < ActiveRecord::Base
     # fazer checagem se necessario
     return_value = false
     begin
+      puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>> INICIADO"
       ActiveRecord::Base.transaction do
         return_value = true
-        self.update_attributes(status: Task::TypeStatus::INICIADO)
+        #self.update_attributes(status: Task::TypeStatus::INICIADO)
+        Task.where(id: self.id).update_all(status: Task::TypeStatus::INICIADO)
       end
     rescue exception
-      self.update_attributes(status: Task::TypeStatus::NAO_INICIADO)
+      puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>> NAO INICIADO"
+      Task.where(id: self.id).update_all(status: Task::TypeStatus::NAO_INICIADO)
       return_value = false
       raise ActiveRecord::Rollback
     end
@@ -72,14 +75,17 @@ class Task < ActiveRecord::Base
     begin
       ActiveRecord::Base.transaction do
         if finish_date > Date.current
-          self.update_attributes(date_finalization: Time.current, status: Task::TypeStatus::CONCLUIDA_NO_PRAZO)
+          #self.update_attributes(date_finalization: Time.current, status: Task::TypeStatus::CONCLUIDA_NO_PRAZO)
+          Task.where(id: self.id).update_all(date_finalization: Time.current, status: Task::TypeStatus::CONCLUIDA_NO_PRAZO)
         else
-          self.update_attributes(date_finalization: Time.current, status: Task::TypeStatus::CONCLUIDA_FORA_PRAZO)
+          #self.update_attributes(date_finalization: Time.current, status: Task::TypeStatus::CONCLUIDA_FORA_PRAZO)
+          Task.where(id: self.id).update_all(date_finalization: Time.current, status: Task::TypeStatus::CONCLUIDA_FORA_PRAZO)
         end
         return_value = true
       end
     rescue exception
-      self.update_attributes(status: Task::TypeStatus::NAO_INICIADO)
+#      self.update_attributes(status: Task::TypeStatus::NAO_INICIADO)
+      Task.where(id: self.id).update_all(status: Task::TypeStatus::NAO_INICIADO)
       return_value = false
       raise ActiveRecord::Rollback
     end
