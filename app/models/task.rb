@@ -79,7 +79,7 @@ class Task < ActiveRecord::Base
     return_value = false
     begin
       ActiveRecord::Base.transaction do
-        if finish_date > Date.current
+        if finish_date >= Date.current
           #self.update_attributes(date_finalization: Time.current, status: Task::TypeStatus::CONCLUIDA_NO_PRAZO)
           Task.where(id: self.id).update_all(date_finalization: Time.current, status: Task::TypeStatus::CONCLUIDA_NO_PRAZO)
         else
