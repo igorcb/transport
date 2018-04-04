@@ -15,6 +15,9 @@ class Driver < ActiveRecord::Base
   validates :data_nascimento, presence: true
   validates :municipio_nascimento, presence: true, length: { maximum: 100 }
   validates :estado_nascimento, presence: true, length: { maximum: 2 }
+  validates :estado_civil, presence: true
+  validates :cor_da_pele, presence: true
+  validates :tipo_contrato, presence: true 
   validates :inss, presence: true, length: { maximum: 20 }
   validates :cnh, presence: true, length: { maximum: 20 }
   validates :registro_cnh, presence: true,length: { maximum: 20 }
@@ -71,6 +74,36 @@ class Driver < ActiveRecord::Base
   	AE = 8
   end
 
+  module EstadoCivil
+    SOLTEIRO = 1
+    CASADO_COMUNIAO_UNIVERSAL = 2
+    CASADO_COMUNIAO_PARCIAL = 3
+    CASADO_SEPARACAO_DE_BENS = 4
+    VIUVO = 5
+    SEPARADO_JUDICIALMENTE = 6
+    DIVORCIADO = 7 
+    CASADO_REGIME_TOTAL = 8
+  end
+
+  module CorDaPele
+    INDIGENA = 1
+    BRANCA = 2
+    PRETA = 4
+    AMARELA = 6
+    PARDA = 8
+  end
+
+  module TipoContrato
+    TERCEIRIZADO = 0
+    PROPRIO = 1
+    TERCEIRIZADO_PLENO = 2
+    PROPRIO_PLENO = 3
+    TERCEIRIZADO_210M = 4
+    PROPRIO_210M = 5
+    TERCEIRIZADO_SENIOR = 6
+    PROPRIO_SENIOR = 7
+  end
+
   def categoria_nome
     case self.categoria
       when 0 then "A"
@@ -82,6 +115,42 @@ class Driver < ActiveRecord::Base
       when 6 then "AC"
       when 7 then "AD"
       when 8 then "AE"
+    end
+  end
+
+  def estado_civil_nome
+    case self.estado_civil
+      when 1 then "Solteiro"
+      when 2 then "Casado(comunião universal)"
+      when 3 then "Casado(comunião parcial)"
+      when 4 then "Casado(separação de bens)"
+      when 5 then "Viúvo"
+      when 6 then "Separado Judicialmente"
+      when 7 then "Divorciado"
+      when 8 then "Casado(Regime Total)"
+    end
+  end
+
+  def cor_da_pele_nome
+    case self.cor_da_pele
+      when 0 then "Indigena"
+      when 2 then "Branca"
+      when 4 then "Preta"
+      when 6 then "Amarela"
+      when 8 then "Parda"
+    end
+  end
+
+  def tipo_de_contrato_nome
+    case self.tipo_contrato
+      when 0 then "Terceirizado"
+      when 1 then "Proprio"
+      when 2 then "Terceirizado (pleno)"
+      when 3 then "Proprio (pleno)"
+      when 4 then "Terceirizado (210M)"
+      when 5 then "Proprio (210M)"
+      when 6 then "Terceirizado (sênior)"
+      when 7 then "Proprio (sênior)"
     end
   end
   

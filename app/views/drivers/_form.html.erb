@@ -73,6 +73,18 @@
     <%= f.select( :estado_nascimento, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
   </div>
   <div class="form-group">
+    <%= f.label :estado_civil  %>
+    <%= f.select( :estado_civil, select_estado_civil, {include_blank: "Selecione o Estado Civil"}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :cor_da_pele  %>
+    <%= f.select( :cor_da_pele, select_cor_da_pele, {include_blank: "Selecione a cor da pele"}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
+    <%= f.label :tipo_contrato  %>
+    <%= f.select( :tipo_contrato, select_tipo_contrato, {include_blank: "Selecione a tipo de contrato"}, {class: "form-control"} ) %>      
+  </div>
+  <div class="form-group">
     <%= f.label :cnh %><br>
     <%= f.text_field :cnh, class: "form-control" %>
   </div>

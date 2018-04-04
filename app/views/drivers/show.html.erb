@@ -79,6 +79,21 @@
 </p> 
 
 <p>
+  <strong>Estado Civil:</strong>
+  <%= @driver.estado_civil_nome if @driver.estado_civil.present? %>
+</p> 
+
+<p>
+  <strong>Cor da pele:</strong>
+  <%= @driver.cor_da_pele_nome if @driver.cor_da_pele.present? %> 
+</p> 
+
+<p>
+  <strong>Tipo de Contrato:</strong>
+  <%= @driver.tipo_de_contrato_nome if @driver.tipo_contrato.present? %> 
+</p> 
+
+<p>
   <strong>Inss:</strong>
   <%= @driver.inss %>
 </p> 

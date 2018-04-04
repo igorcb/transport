@@ -113,6 +113,7 @@ class DriversController < ApplicationController
         :bairro, :cidade, :estado, :cep, :rg, :data_emissao_rg, :orgao_expeditor, :obs,
         :data_nascimento, :municipio_nascimento, :estado_nascimento, :inss, 
         :cnh, :registro_cnh, :categoria, :validade_cnh, :nome_do_pai, :nome_da_mae, :avatar,
+        :estado_civil, :cor_da_pele, :tipo_contrato,
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
         account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
