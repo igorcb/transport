@@ -67,7 +67,10 @@ class OwnersController < ApplicationController
   end
 
   def get_owner_by_cpf_cnpj
-    
+    @owner = Owner.find_by_cpf_cnpj(params[:cpf_cpnj])
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

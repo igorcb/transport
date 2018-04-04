@@ -60,6 +60,8 @@ class Driver < ActiveRecord::Base
   has_many :ordem_services
   has_many :ocurrences
 
+  belongs_to :owner
+
   before_destroy :can_destroy?
 
   module Categoria

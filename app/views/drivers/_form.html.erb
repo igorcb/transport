@@ -112,7 +112,6 @@
     <%= f.label :nome_da_mae %><br>
     <%= f.text_field :nome_da_mae, class: "form-control" %>
   </div>
-  <!-------------------------------------------->
   <div class="form-group">
     <%= f.label :date_expiration_medical, "Data validade exame médico" %><br>
     <%= f.text_field :date_expiration_medical , value: date_br(@driver.date_expiration_medical), class: "form-control data" %>
@@ -137,6 +136,20 @@
     <%= f.label :date_expiration_mopp, "Data validade M.O.P.P" %><br>
     <%= f.text_field :date_expiration_mopp , value: date_br(@driver.date_expiration_mopp), class: "form-control data" %>
   </div>
+  <div class="form-group">
+    <%= label_tag :owner_id, "Agregado/Proprietário" %><br>
+    <% if @driver.new_record? %>
+      <%= text_field_tag :owner_cpf, nil, class: "form-control cpf" %>
+    <% else %>
+      <%= text_field_tag :owner_cpf, @driver.owner.cpf_cnpj, class: "form-control cpf", disabled: true %>
+      <%= render partial: "owners/result_owner", locals: { owner: @driver.owner } %>
+    <% end %>
+  </div>
+
+  <div id="owner_cpf_result">
+
+  </div>  
+
   <div class="form-group">
     <%= f.label :obs, "Observação" %>
     <%= f.text_area :obs, class: "form-control"  %>
@@ -289,4 +302,23 @@ $(function(){
        }
    });
 });  
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#owner_cpf").focusout(function() {
+      var cpf = $('#owner_cpf').val();
+      console.log(cpf);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cpf},
+        dataType : 'html',
+        url: '/owners/get_owner_by_cpf_cnpj',
+        success: function(data){
+            $('#owner_cpf_result').html(data);
+        },
+      });
+    });
+  });
 </script>

@@ -154,6 +154,11 @@
 </p>
 
 <p>
+  <strong>Agregado/Proprietário:</strong>
+  <%= link_to @driver.owner.nome, @driver.owner if @driver.owner.present? %>
+</p>
+
+<p>
   <strong>Criado em:</strong> <%= date_br @driver.created_at %> as <%= time_br @driver.created_at %> 
   <strong>por</strong> <%= @driver.user_created.email if @driver.user_created.present? %>
 </p>

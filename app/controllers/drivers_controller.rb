@@ -44,7 +44,9 @@ class DriversController < ApplicationController
   # POST /drivers
   # POST /drivers.json
   def create
+    owner = Owner.find_by_cpf_cnpj(params[:owner_cpf])
     @driver = Driver.new(driver_params)
+    @driver.owner_id = owner.id if owner.present?
     @driver.user_created_id = current_user.id
     respond_to do |format|
       if @driver.save
