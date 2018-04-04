@@ -65,12 +65,12 @@
 
 <p>
   <strong>Data de Emissão:</strong>
-  <%= @driver.data_emissao_rg %>
+  <%= date_br @driver.data_emissao_rg %>
 </p>
 
 <p>
   <strong>Data de Nascimento:</strong>
-  <%= @driver.data_nascimento %>
+  <%= date_br @driver.data_nascimento %>
 </p> 
 
 <p>
@@ -115,7 +115,7 @@
 
 <p>
   <strong>Validade cnh:</strong>
-  <%= @driver.validade_cnh %>
+  <%= date_br @driver.validade_cnh %>
 </p>
 
 <p>
@@ -126,6 +126,31 @@
 <p>
   <strong>Nome da Mãe:</strong>
   <%= @driver.nome_da_mae %>
+</p>
+
+<p>
+  <strong>Data validade exame médico:</strong>
+  <%= date_br @driver.date_expiration_medical %>
+</p>
+
+<p>
+  <strong>Data consulta seguro:</strong>
+  <%= date_br  @driver.date_query_secure %>
+</p>
+
+<p>
+  <strong>No Liberação Seguradora:</strong>
+  <%= @driver.number_secure %>
+</p>
+
+<p>
+  <strong>No M.O.P.P:</strong>
+  <%= @driver.number_mopp %>
+</p>
+
+<p>
+  <strong>Data validade M.O.P.P:</strong>
+  <%= date_br @driver.date_expiration_mopp %>
 </p>
 
 <p>
