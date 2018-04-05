@@ -10,6 +10,11 @@
     <%= f.label :cpf %><br>
     <%= f.text_field :cpf, class: "form-control cpf" %>
   </div>
+
+  <div id="driver_result">
+
+  </div>  
+
   <div class="form-group">
     <%= f.label :nome %><br>
     <%= f.text_field :nome, class: "form-control" %>
@@ -141,7 +146,7 @@
     <% if @driver.new_record? %>
       <%= text_field_tag :owner_cpf, nil, class: "form-control cpf" %>
     <% else %>
-      <%= text_field_tag :owner_cpf, @driver.owner.cpf_cnpj, class: "form-control cpf", disabled: true %>
+      <%= text_field_tag :owner_cpf, @driver.owner.cpf_cnpj, class: "form-control cpf", disabled: true if @driver.owner.present? %>
       <%= render partial: "owners/result_owner", locals: { owner: @driver.owner } %>
     <% end %>
   </div>
@@ -317,6 +322,24 @@ $(function(){
         url: '/owners/get_owner_by_cpf_cnpj',
         success: function(data){
             $('#owner_cpf_result').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#driver_cpf").focusout(function() {
+      var cpf = $('#driver_cpf').val();
+      console.log(cpf);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cpf},
+        dataType : 'html',
+        url: '/drivers/get_driver_by_cpf_exist',
+        success: function(data){
+            $('#driver_result').html(data);
         },
       });
     });
