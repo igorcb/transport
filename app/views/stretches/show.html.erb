@@ -1,0 +1,20 @@
+<p>
+  <strong>Estado</strong>
+  <%= @stretch.estado %> 
+</p>
+
+<p>
+  <strong>Cidade</strong>
+  <%= @stretch.cidade %> 
+</p>
+
+<p>
+  <strong>Sigla</strong>
+  <%= @stretch.destino %> 
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_stretch_path(@stretch), class: "btn btn-primary" %> 
+  <%= link_to 'Listagem', stretches_path, class: "btn btn-default" %>
+  <%= link_to 'Novo', stretch_path, class: "btn btn-success" %>
+</div>
