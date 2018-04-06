@@ -1,4 +1,5 @@
 class SubCostCenterThreesController < ApplicationController
+  before_filter :authenticate_user! 
   before_action :set_sub_cost_center_three, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
