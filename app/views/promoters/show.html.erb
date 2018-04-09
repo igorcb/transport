@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= @promoter.cpf %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @promoter.nome %>
+</p>
+
+<p>
+  <strong>Fantasia:</strong>
+  <%= @promoter.fantasia %>
+</p>
+
+<p>
+  <strong>Endereco:</strong>
+  <%= @promoter.endereco %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @promoter.numero %>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <%= @promoter.complemento %>
+</p>
+
+<p>
+  <strong>Bairro:</strong>
+  <%= @promoter.bairro %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @promoter.cidade %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @promoter.estado %>
+</p>
+
+<p>
+  <strong>Cep:</strong>
+  <%= @promoter.cep %>
+</p>
+
+<%= render 'shared/show_contacts', object: @promoter %>
+
+<%= render 'shared/show_emails', object: @promoter %>
+
+<%= render 'shared/show_account_bank', object: @promoter %>
+
+<%= render 'shared/document', object: @promoter %>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_promoter_path(@promoter), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', promoters_path, class: "btn btn-default" %>
+</div>

@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :promoters
+
   resources :stretch_routes
 
   resources :stretches

@@ -6,6 +6,7 @@ class Asset < ActiveRecord::Base
 	belongs_to :vehicle, class_name: "Vehicle", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :employee, class_name: "Employee", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :supplier, class_name: "Supplier", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
+	belongs_to :promoter, class_name: "Promoter", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :operating, class_name: "Operating", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "asset_id", polymorphic: true, dependent: :destroy
 	belongs_to :account_payable, class_name: "AccountPayable", foreign_key: "asset_id", polymorphic: true, dependent: :destroy

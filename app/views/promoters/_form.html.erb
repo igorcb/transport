@@ -1,0 +1,115 @@
+<%= form_for(@promoter) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :cpf %>
+    <%= f.text_field :cpf, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :nome %>
+    <%= f.text_field :nome, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :fantasia %>
+    <%= f.text_field :fantasia, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cep %>
+    <%= f.text_field :cep, class: "form-control" %>
+  </div>  
+  <div class="form-group">
+    <%= f.label :endereco %>
+    <%= f.text_field :endereco, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :numero %>
+    <%= f.text_field :numero, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :complemento %>
+    <%= f.text_field :complemento, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :bairro %>
+    <%= f.text_field :bairro, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cidade %>
+    <%= f.text_field :cidade, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :estado  %>
+    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+  </div>
+
+  <div id="phones">
+    <fieldset>
+      <legend>Contatos</legend>
+        <div class="items">
+          <%= f.nested_fields_for :contacts do |f| 
+            render 'shared/contact', f: f
+          end -%>
+        </div>
+        <div class="row">
+          <div class="col-xs-2">
+            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>  
+          </div>  
+        </div>
+    </fieldset>
+  </div>
+
+  <div id="emails">
+    <fieldset>
+      <legend>E-Mail</legend>
+
+      <div class="items">
+        <%= f.nested_fields_for :emails do |f| 
+          render 'shared/email', f: f
+        end -%>
+      </div>
+      <div class="row">
+        <div class="col-xs-2">
+          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>  
+        </div>  
+      </div>
+    </fieldset>
+  </div>
+
+  <div id="accounts">
+    <fieldset>
+      <legend>Contas Bancarias</legend>
+      <div class="items">
+        <%= f.nested_fields_for :account_banks do |f| %>
+          <%= render "shared/form_account_bank", f: f %> 
+        <% end %>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-2">
+          <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>  
+        </div>  
+      </div>
+    
+    </fieldset>
+  </div>  
+
+  <h2>Documentos</h2> 
+  <div id="documents">
+    <div class="items">
+      <%= f.nested_fields_for :assets do |f| 
+        render 'shared/asset', f: f
+      end  -%>
+    </div>
+      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+  </div>
+
+  <hr />  
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  promoter_path(@promoter), class: "btn btn-info" if !@promoter.new_record? %>
+    <%= link_to "Listar Todos", promoters_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>
+
