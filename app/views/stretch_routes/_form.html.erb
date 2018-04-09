@@ -1,0 +1,53 @@
+<%= form_for(@stretch_route) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :stretch_source_id, "Trecho Origem" %>s
+    <%= f.select(:stretch_source_id, Stretch.order(:estado, :cidade).collect {|c| [c.description, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :stretch_target_id, "Trecho Destino" %>
+    <%= f.select(:stretch_target_id, Stretch.order(:estado, :cidade).collect {|c| [c.description, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :tax_rate %>
+    <%= f.text_field :tax_rate, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :non_tax_rate %>
+    <%= f.text_field :non_tax_rate, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :secure_rate %>
+    <%= f.text_field :secure_rate, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :secure_rate_filch %>
+    <%= f.text_field :secure_rate_filch, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :secure_rate_aggravated %>
+    <%= f.text_field :secure_rate_aggravated, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :travel_time, "Tempo de viagem em horas" %>
+    <%= f.number_field :travel_time, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :distance, "Distancia em km" %>
+    <%= f.number_field :distance, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cost_kg %>
+    <%= f.text_field :cost_kg, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :tax_iss %>
+    <%= f.text_field :tax_iss, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  stretch_route_path(@stretch_route), class: "btn btn-info" if !@stretch_route.new_record? %>
+    <%= link_to "Listar Todos", stretch_routes_path, class: "btn btn-default" %>
+  </div>
+<% end %>

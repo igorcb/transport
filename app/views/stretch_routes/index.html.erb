@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listing stretch_routes</div>
+  <div class="panel-body">
+    <%= link_to 'New Stretch route', new_stretch_route_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Origem</th>
+            <th>Destio</th>
+            <th>Aliq.Cont.</th>
+            <th>Aliq.No.Cont</th>
+            <th>Seguro</th>
+            <th>Seguro Roubo</th>
+            <th>Seguro Aggravated</th>
+            <th>Tempo</th>
+            <th>Dist. KM</th>
+            <th>Vr.p/KG</th>
+            <th>Iss</th>
+            <th colspan="2">Opções</th>
+          </tr>
+        </thead>
+          <% @stretch_routes.each do |stretch_route| %>
+            <tr>
+              <td><%= stretch_route.stretch_source.description %></td>
+              <td><%= stretch_route.stretch_target.description %></td>
+              <td><%= stretch_route.tax_rate %></td>
+              <td><%= stretch_route.non_tax_rate %></td>
+              <td><%= stretch_route.secure_rate %></td>
+              <td><%= stretch_route.secure_rate_filch %></td>
+              <td><%= stretch_route.secure_rate_aggravated %></td>
+              <td><%= stretch_route.travel_time %></td>
+              <td><%= stretch_route.distance %></td>
+              <td><%= stretch_route.cost_kg %></td>
+              <td><%= stretch_route.tax_iss %></td>
+              <td><%= link_to 'Show', stretch_route, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_stretch_route_path(stretch_route), class: "btn btn-primary btn-xs" %></td>
+            </tr>
+          <% end %>
+        <tbody>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

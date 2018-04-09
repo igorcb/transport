@@ -1,5 +1,9 @@
 Transport::Application.routes.draw do
 
+  resources :stretch_routes
+
+  resources :stretches
+  
   resources :tasks do
     collection do
       get :search

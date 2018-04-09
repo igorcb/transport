@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Origem:</strong>
+  <%= @stretch_route.stretch_source.description %>
+</p>
+
+<p>
+  <strong>Destino:</strong>
+  <%= @stretch_route.stretch_target.description %>
+</p>
+
+<p>
+  <strong>Aliquota Contribuinte.:</strong>
+  <%= @stretch_route.tax_rate %>
+</p>
+
+<p>
+  <strong>Aliquota Não Contribuinte:</strong>
+  <%= @stretch_route.non_tax_rate %>
+</p>
+
+<p>
+  <strong>Seguro:</strong>
+  <%= @stretch_route.secure_rate %>
+</p>
+
+<p>
+  <strong>Seguro Roubo:</strong>
+  <%= @stretch_route.secure_rate_filch %>
+</p>
+
+<p>
+  <strong>Seguro Roubo Agravado:</strong>
+  <%= @stretch_route.secure_rate_aggravated %>
+</p>
+
+<p>
+  <strong>Tempo:</strong>
+  <%= @stretch_route.travel_time %>
+</p>
+
+<p>
+  <strong>Distancia em KM:</strong>
+  <%= @stretch_route.distance %>
+</p>
+
+<p>
+  <strong>Custo por Kg:</strong>
+  <%= @stretch_route.cost_kg %>
+</p>
+
+<p>
+  <strong>Tax iss:</strong>
+  <%= @stretch_route.tax_iss %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_stretch_route_path(@stretch_route), class: "btn btn-primary" %> 
+  <%= link_to 'Listagem', stretch_routes_path, class: "btn btn-default" %>
+  <%= link_to 'Novo', stretch_route_path, class: "btn btn-success" %>
+</div>
+
