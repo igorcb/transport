@@ -20,6 +20,10 @@
     <%= f.label :group_client_id, "Grupo de Cliente" %><br>
     <%= f.select(:group_client_id, GroupClient.order(:descricao).collect {|g| [g.descricao, g.id]}, {include_blank: "Informe o Grupo"}, {class: "form-control"} ) %>
   </div>
+  <div class="form-group">
+    <%= f.label :tipo_cliente %>
+    <%= f.select :tipo_cliente, select_tipo_cliente, {include_blank: true}, {class: "form-control"} %>      
+  </div>
 
   <div class="form-group">
     <%= f.label :nome %>
@@ -127,6 +131,16 @@
   <div class="form-group">
     <%= f.label :suframa %>
     <%= f.text_field :suframa, class: "form-control" %> 
+  </div>
+  <div class="form-group">
+    <%= f.label "", class: "checkbox-inline" do %>
+      <%= f.check_box :orgao_publico %> Orgao Público?
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label "", class: "checkbox-inline" do %>
+      <%= f.check_box :icms_contribuinte %> Contribuinte ICMS
+    <% end %>
   </div>
 
   <h2>Representantes</h2> 

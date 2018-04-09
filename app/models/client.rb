@@ -19,6 +19,8 @@ class Client < ActiveRecord::Base
   validates :vencimento_para, presence: true, if: :faturar?
   validates :qtde_parcela, presence: true, numericality: { greater_than: 0 }, if: :faturar?
 
+  validates :tipo_cliente, presence: true
+
   belongs_to :group_client
   
   belongs_to :user_created, class_name: "User", foreign_key: "user_created_id"
@@ -53,6 +55,18 @@ class Client < ActiveRecord::Base
   module TipoPessoa
   	FISICA = 0
   	JURIDICA = 1
+  end
+  
+  module TipoCliente 
+    NORMAL = 0
+    ESPECIAL = 1
+  end
+
+  def tipo_cliente_nome
+    case self.tipo_cliente
+      when 0 then "Normal"
+      when 1 then "Especial"
+    end
   end
 
   # if pode_faturar?

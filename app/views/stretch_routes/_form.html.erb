@@ -10,23 +10,23 @@
     <%= f.select(:stretch_target_id, Stretch.order(:estado, :cidade).collect {|c| [c.description, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
-    <%= f.label :tax_rate %>
+    <%= f.label :tax_rate, "Aliquota Contribuinte %" %>
     <%= f.text_field :tax_rate, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :non_tax_rate %>
+    <%= f.label :non_tax_rate, "Aliquota Não Contribuinte %" %>
     <%= f.text_field :non_tax_rate, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :secure_rate %>
+    <%= f.label :secure_rate, "Seguro RCTR-C %" %>
     <%= f.text_field :secure_rate, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :secure_rate_filch %>
+    <%= f.label :secure_rate_filch, "Seguro Roubo %" %>
     <%= f.text_field :secure_rate_filch, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :secure_rate_aggravated %>
+    <%= f.label :secure_rate_aggravated, "Seguro Roubo Agravante %" %>
     <%= f.text_field :secure_rate_aggravated, class: "form-control" %>
   </div>
   <div class="form-group">
@@ -38,11 +38,11 @@
     <%= f.number_field :distance, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :cost_kg %>
+    <%= f.label :cost_kg, "Preço por Kg" %>
     <%= f.text_field :cost_kg, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :tax_iss %>
+    <%= f.label :tax_iss, "Iss %" %>
     <%= f.text_field :tax_iss, class: "form-control" %>
   </div>
   <div class="form-group">

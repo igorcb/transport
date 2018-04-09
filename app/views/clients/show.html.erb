@@ -9,6 +9,12 @@
 </p>
 
 <p>
+  <strong>Tipo Cliente:</strong>
+  <%= @client.tipo_cliente_nome %>
+</p>
+
+
+<p>
   <strong>Cpf cnpj:</strong>
   <%= @client.cpf_cnpj %>
 </p>
@@ -127,6 +133,16 @@
 <p>
   <strong>Suframa:</strong> 
   <%= @client.suframa %>
+</p>
+
+<p>
+  <strong>Orgão Público:</strong>
+  <%= extenso_boolean @client.orgao_publico %>
+</p>
+
+<p>
+  <strong>Contribuinte ICMS:</strong>
+  <%= extenso_boolean @client.icms_contribuinte %>
 </p>
 
 <p>
