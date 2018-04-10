@@ -3,6 +3,8 @@ class DriversController < ApplicationController
   before_action :set_driver, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
+  respond_to :html, :js
+
   def nome_banco
     bank_id = params[:id].to_i
     # banks = Bank.where(:id => bank_id)
@@ -19,7 +21,8 @@ class DriversController < ApplicationController
   # GET /drivers
   # GET /drivers.json
   def index
-    @drivers = Driver.all
+    @drivers = Driver.limit(50)
+    @q = Driver.where(id: -1).search(params[:query])
   end
 
   # GET /drivers/1
@@ -87,6 +90,14 @@ class DriversController < ApplicationController
       redirect_to drivers_url
     end
   end
+
+  def search
+    @q = Driver.search(params[:query])
+    @drivers = @q.result
+    respond_with(@drivers) do |format|
+     format.js
+    end  
+  end  
 
   def get_driver_by_id
     @driver = Driver.find(params[:id])

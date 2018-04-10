@@ -155,6 +155,10 @@ class Driver < ActiveRecord::Base
       when 7 then "Proprio (sênior)"
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ['nome', 'cpf', 'fantasia']
+  end  
   
   #methods for validations
   def expiration_validade_cnh
@@ -162,7 +166,6 @@ class Driver < ActiveRecord::Base
       errors.add(:validade_cnh, "expiration")
     end
   end
-
 
   #methods do model
   def distric_city_state_cep
