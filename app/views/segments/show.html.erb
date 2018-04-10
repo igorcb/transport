@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @segment.name %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_segment_path(@segment), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', segments_path, class: "btn btn-default" %>
+</div>
