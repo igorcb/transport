@@ -18,34 +18,28 @@
 
 </div>
 
-
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Cliente</div>
   <div class="panel-body">
+
     <%= link_to 'Novo Cliente', new_client_path, class: "btn btn-primary btn-lg btn-block" %>
     <div class="table-responsive">
+      
+        <div id="result_client">
 
-      <div id="result_client">
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
+        <table class="table table-striped">
+          <thead>
             <%= render 'header' %>
-            <th colspan="3">Opções</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% @clients.each do |client| %>
-            <tr>
-              <%= render "client", client: client %>
-              <td><%= link_to 'Exibir', client, class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Editar', edit_client_path(client), class: "btn btn-primary btn-xs" %></td>
-              <td><%= link_to 'Deletar', client, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            <%= render @clients %>
+          </tbody>
+
+        </table>
+      </div>
+
     </div>    
   </div>
 </div>
@@ -55,3 +49,4 @@
     $('.has_tooltip').tooltip();
   });
 </script>
+
