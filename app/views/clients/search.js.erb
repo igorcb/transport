@@ -1,0 +1,3 @@
+$('#result_client').empty();
+$("#result_client").append("<table class='table table-striped'><thead><%= j(render(:partial => 'header')) %></thead><tbody><%= j(render @clients) %></tbody></table>");
+

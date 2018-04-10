@@ -371,19 +371,39 @@ Transport::Application.routes.draw do
 
   resources :owners
 
-  resources :carriers
-
-  resources :employees do
-    get 'gallery'
+  resources :carriers do
+    collection do
+      get :search
+    end
   end
 
-  resources :vehicles
+  resources :employees do
+    get :gallery
+  end
 
-  resources :drivers
+  resources :vehicles do
+    collection do
+      get :search
+    end
+  end
 
-  resources :suppliers
+  resources :drivers do
+    collection do
+      get :search
+    end
+  end
 
-  resources :clients
+  resources :suppliers do
+    collection do
+      get :search
+    end
+  end
+
+  resources :clients do
+    collection do
+      get :search
+    end
+  end
   
   resource :user, only: [:edit] do
     collection do

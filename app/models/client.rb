@@ -72,6 +72,9 @@ class Client < ActiveRecord::Base
   # if pode_faturar?
   #    self.faturar
   # end
+  def self.ransackable_attributes(auth_object = nil)
+    ['nome', 'cpf_cnpj', 'fantasia']
+  end
 
   def self.search_numero(numero)
     #desacentualize(pla_descricao)

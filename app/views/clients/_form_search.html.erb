@@ -1,0 +1,20 @@
+<div class="panel-body">
+  <%= search_form_for @q, remote: true, url: search_clients_path, :method => :get do |f| %>
+    <div class="form-group">
+      <%= f.label :cpf_cnpj_eq, "CPF/CNPJ" %>
+      <%= f.search_field :cpf_cnpj_eq, class: "form-control", placeholder: "" %>  
+    </div>    
+
+    <div class="form-group">
+      <%= f.label :nome_cont, "Cliente" %>
+      <%= f.search_field :nome_cont, class: "form-control" %>  
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :fantasia_cont, "Fantasia" %>
+      <%= f.search_field :fantasia_cont, class: "form-control" %>  
+    </div>
+
+    <div class="actions"><%= f.submit "Search" %></div>
+  <% end %>
+</div>

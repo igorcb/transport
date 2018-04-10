@@ -6,10 +6,13 @@ class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
+  respond_to :html, :js
+
   # GET /clients
   # GET /clients.json
   def index
     @clients = Client.all
+    @q = Client.where(id: -1).search(params[:query])
   end
 
   # GET /clients/1
@@ -73,6 +76,14 @@ class ClientsController < ApplicationController
       flash[:danger] = "The deletion failed because: " + @client.errors.full_messages.to_sentence
       redirect_to clients_url
     end
+  end
+
+  def search
+    @q = Client.search(params[:query])
+    @clients = @q.result
+    respond_with(@clients) do |format|
+     format.js
+    end  
   end
 
   def get_client_by_cnpj
