@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @nature_freight.name %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_nature_freight_path(@nature_freight), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', nature_freights_path, class: "btn btn-default" %>
+</div>

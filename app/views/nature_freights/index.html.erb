@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Nature Freights</div>
+  <div class="panel-body">
+    <%= link_to 'New Nature freight', new_nature_freight_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @nature_freights.each do |nature_freight| %>
+            <tr>
+              <td><%= nature_freight.name %></td>
+              <td><%= link_to 'Show', nature_freight, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_nature_freight_path(nature_freight), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', nature_freight, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

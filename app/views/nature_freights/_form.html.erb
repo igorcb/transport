@@ -1,0 +1,13 @@
+<%= form_for(@nature_freight) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  nature_freight_path(@nature_freight), class: "btn btn-info" if !@nature_freight.new_record? %>
+    <%= link_to "Listar Todos", nature_freights_path, class: "btn btn-default" %>
+  </div>
+<% end %>

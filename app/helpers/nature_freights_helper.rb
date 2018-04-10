@@ -1,0 +1,2 @@
+module NatureFreightsHelper
+end

@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :nature_freights
+
   resources :segments
 
   resources :promoters
