@@ -79,7 +79,7 @@ class InputControl < ActiveRecord::Base
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ['id','carrier','driver','place','date_entry', 'date_receipt', 'status', 'shipment', 'container']
+    ['id', 'carrier', 'driver_id','place','date_entry', 'date_receipt', 'status', 'shipment', 'container']
   end
 
   def self.select_date_receipt
