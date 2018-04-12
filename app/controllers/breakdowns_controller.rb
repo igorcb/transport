@@ -36,7 +36,7 @@ class BreakdownsController < ApplicationController
   private
 
     def breakdown_params
-      params.require(:breakdown).permit(:input_control_id, :nfe_xml_id, :product_id, :type_breakdown, :sobras, :faltas, :avarias)
+      params.require(:breakdown).permit(:input_control_id, :nfe_xml_id, :product_id, :type_breakdown, :unid_medida, :sobras, :faltas, :avarias)
     end
 
     def load_all
