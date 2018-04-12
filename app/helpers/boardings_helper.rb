@@ -8,7 +8,9 @@ module BoardingsHelper
     	["DIVERGÊNCIA NA NOTAS FISCAL", 5],
       ["FALTA DE PEDIDO", 6],
     	["FALTA NO RECEBIMENTO EM NOSSO CD", 7],
-    	["SEM PREVISÃO DE DESCARGA", 8]
+    	["SEM PREVISÃO DE DESCARGA", 8],
+      ["FALTA E SOBRA NO RECEBIMENTO EM NOSSO CD", 9],
+      ["SOBRA NO RECEBIMENTO EM NOSSO CD", 10]
      ])
   end
 
