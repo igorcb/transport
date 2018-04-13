@@ -1,0 +1,163 @@
+<%= form_for(@client_table_price) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <fieldset>
+    <legend>Componentes do Frete</legend>
+
+    <div class="form-group">
+      <%= f.label :client_id %>
+      <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :stretch_route_id, "Trecho" %>
+      <%= f.select(:stretch_route_id, StretchRoute.all.collect {|c| [c.stretch_source_and_target_long, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :type_service_id, "Tipo de Serviço" %>
+      <%= f.select(:type_service_id, TypeService.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :freight_weight, "Frete Peso" %>
+      <%= f.text_field :freight_weight, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :freight_value, "Frete Valor" %>
+      <%= f.text_field :freight_value, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :freight_volume, "Frete Volume" %>
+      <%= f.text_field :freight_volume, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :freight_dispatch, "Despacho" %>
+      <%= f.text_field :freight_dispatch, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :freight_toll, "Pedágio" %>
+      <%= f.text_field :freight_toll, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :freight_type_gris, "Tipo GRIS" %>
+      <%= f.select :freight_type_gris, select_value_percent, {include_blank: false}, {class: "form-control"} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :freight_gris, "GRIS" %>
+      <%= f.text_field :freight_gris, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :freight_type_trt, "Tipo TRT" %>
+      <%= f.select :freight_type_trt, select_value_percent, {include_blank: false}, {class: "form-control"} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :freight_trt, "TRT" %>
+      <%= f.text_field :freight_trt, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :use_aliquot_consumer_last, "Usar Alíquota (Consumidor Final)" %>
+      <%= f.select :use_aliquot_consumer_last, select_use_aliquot, {include_blank: false}, {class: "form-control"} %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Valores Mínimos</legend>
+
+    <div class="form-group">
+      <%= f.label :minimum_total_freight, "Total Frete" %>
+      <%= f.text_field :minimum_total_freight, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :minimum_weiht, "Frete Peso" %>
+      <%= f.text_field :minimum_weiht, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :minimum_value, "Frete Valor" %>
+      <%= f.text_field :minimum_value, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :minimum_gris, "GRIS" %>
+      <%= f.text_field :minimum_gris, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :minimum_trt, "TRT" %>
+      <%= f.text_field :minimum_trt, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :minimum_weight_kg, "Peso KG" %>
+      <%= f.text_field :minimum_weight_kg, class: "form-control" %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Coleta/Entregas</legend>
+
+    <div class="form-group">
+      <%= f.label :collection_delivery_incidence, "Incidência" %>
+      <%= f.select :collection_delivery_incidence, select_incidence, {include_blank: false}, {class: "form-control"} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :collection_delivery_ad_icms_value_frete, "Adição de ICMS ao valor do frete" %>
+      <%= f.select :collection_delivery_ad_icms_value_frete, select_add_icms_value_frete, {include_blank: false}, {class: "form-control"} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :collection_delivery_ad_value_minimum, "Adição de ICMS ao valor do mínimo" %>
+      <%= f.select :collection_delivery_ad_value_minimum, select_add_icms_value_minimum, {include_blank: false}, {class: "form-control"} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :collection_delivery_icms_taxpayer, "ICMS Contribuinte" %>
+      <%= f.text_field :collection_delivery_icms_taxpayer, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :collection_delivery_non_taxpayer, "ICMS Não Contribuinte" %>
+      <%= f.text_field :collection_delivery_non_taxpayer, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :collection_delivery_iss, "ISS" %>
+      <%= f.text_field :collection_delivery_iss, class: "form-control" %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Vigência</legend>
+
+    <div class="form-group">
+      <%= f.label :validity_status, "Status" %>
+      <%= f.select :validity_status, select_status_validity, {include_blank: false}, {class: "form-control"} %>
+    </div>
+    <div class="form-group ">
+      <%= f.label :validity_start, "Data Início" %>
+      <%= f.text_field :validity_start, class: "form-control data" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :validity_end, "Data Final" %>
+      <%= f.text_field :validity_end, class: "form-control data" %>
+    </div>
+  </fieldset>
+
+  <fieldset>  
+    <legend>Dados do Seguro</legend>
+    <div class="form-group">
+      <%= f.label :secure_rate, "Taxa Seguro" %>
+      <%= f.text_field :secure_rate, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :secure_rate_filch, "Taxa Seguro Roubo" %>
+      <%= f.text_field :secure_rate_filch, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :secure_rate_aggravated, "Taxa Seguro Agravante" %>
+      <%= f.text_field :secure_rate_aggravated, class: "form-control"  %>
+    </div>
+  </fieldset>
+  
+  <div class="form-group">
+    <%= f.label "", class: "checkbox-inline" do %>
+      <%= f.check_box :reset %> Zerar esta tabela de preço?
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  client_table_price_path(@client_table_price), class: "btn btn-info" if !@client_table_price.new_record? %>
+    <%= link_to "Listar Todos", client_table_prices_path, class: "btn btn-default" %>
+  </div>
+<% end %>

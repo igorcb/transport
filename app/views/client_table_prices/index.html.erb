@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listing client table prices</div>
+  <div class="panel-body">
+    <%= link_to 'New Client table price', new_client_table_price_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Type service</th>
+            <th>Weight</th>
+            <th>Value</th>
+            <th>Volume</th>
+            <th>Dispatch</th>
+            <th>Toll</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @client_table_prices.each do |client_table_price| %>
+            <tr>
+              <td><%= client_table_price.client %></td>
+              <td><%= client_table_price.type_service %></td>
+              <td><%= client_table_price.freight_weight %></td>
+              <td><%= client_table_price.freight_value %></td>
+              <td><%= client_table_price.freight_volume %></td>
+              <td><%= client_table_price.freight_dispatch %></td>
+              <td><%= client_table_price.freight_toll %></td>
+              <td><%= link_to 'Show', client_table_price, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_client_table_price_path(client_table_price), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', client_table_price, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

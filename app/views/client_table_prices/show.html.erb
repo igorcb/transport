@@ -1,0 +1,163 @@
+<p id="notice"><%= notice %></p>
+<legend>Componentes do Frete</legend>
+<p>
+  <strong>Client:</strong>
+  <%= @client_table_price.client.nome %>
+</p>
+
+<p>
+  <strong>Trecho:</strong>
+  <%= @client_table_price.stretch_route.stretch_source_and_target_long %>
+</p>
+
+<p>
+  <strong>Tipo de Serviço:</strong>
+  <%= @client_table_price.type_service.descricao %>
+</p>
+
+<p>
+  <strong>Frete Peso:</strong>
+  <%= @client_table_price.freight_weight %>
+</p>
+
+<p>
+  <strong>Frete Valor:</strong>
+  <%= @client_table_price.freight_value %>
+</p> 
+
+<p>
+  <strong>Frete Volume:</strong>
+  <%= @client_table_price.freight_volume %>
+</p>
+
+<p>
+  <strong>Despacho:</strong>
+  <%= @client_table_price.freight_dispatch %>
+</p>
+
+<p>
+  <strong>Pedágio:</strong>
+  <%= @client_table_price.freight_toll %>
+</p>
+
+<p>
+  <strong>Freight type gris:</strong>
+  <%= @client_table_price.freight_type_gris_name %>
+</p>
+
+<p>
+  <strong>GRIS:</strong>
+  <%= @client_table_price.freight_gris %>
+</p>
+
+<p>
+  <strong>Freight type trt:</strong>
+  <%= @client_table_price.freight_type_trt_name %>
+</p>
+
+<p>
+  <strong>Freight trt:</strong>
+  <%= @client_table_price.freight_trt %>
+</p>
+<legend>Valores Mínimos</legend>
+<p>
+  <strong>Total Frete:</strong>
+  <%= @client_table_price.minimum_total_freight %>
+</p>
+
+<p>
+  <strong>Frete Peso:</strong>
+  <%= @client_table_price.minimum_weiht %>
+</p>
+
+<p>
+  <strong>Frete Valor:</strong>
+  <%= @client_table_price.minimum_value %>
+</p>
+
+<p>
+  <strong>GRIS:</strong>
+  <%= @client_table_price.minimum_gris %>
+</p>
+
+<p>
+  <strong>TRT:</strong>
+  <%= @client_table_price.minimum_trt %>
+</p>
+
+<p>
+  <strong>Peso KG:</strong>
+  <%= @client_table_price.minimum_weight_kg %>
+</p>
+
+<legend>Coleta/Entrega</legend>
+
+<p>
+  <strong>Incidência:</strong>
+  <%= @client_table_price.collection_delivery_incidence_name %>
+</p>
+
+<p>
+  <strong>Adição de ICMS ao valor do frete:</strong>
+  <%= @client_table_price.collection_delivery_add_icms_value_frete_name %>
+</p>
+
+<p>
+  <strong>Adição de ICMS ao valor do mínimo</strong>
+  <%= @client_table_price.collection_delivery_add_icms_value_minimum_name %>
+</p>
+
+<p>
+  <strong>ICMS Contribuinte:</strong>
+  <%= @client_table_price.collection_delivery_icms_taxpayer %>
+</p>
+
+<p>
+  <strong>ICMS Não Contribuinte:</strong>
+  <%= @client_table_price.collection_delivery_non_taxpayer %>
+</p>
+
+<p>
+  <strong>ISS:</strong>
+  <%= @client_table_price.collection_delivery_iss %>
+</p>
+
+<p>
+  <strong>Usar Alíquota (Consumidor Final):</strong>
+  <%= @client_table_price.use_aliquot_consumer_last_name %>
+</p>
+
+<p>
+  <strong>Validity status:</strong>
+  <%= @client_table_price.validity_status_name %>
+</p>
+
+<p>
+  <strong>Período de:</strong>
+  <%= date_br @client_table_price.validity_start %> até <%= date_br @client_table_price.validity_end %>
+</p>
+
+<p>
+  <strong>Taxa Seguro:</strong>
+  <%= @client_table_price.secure_rate %>
+</p>
+
+<p>
+  <strong>Taxa Seguro Roubo:</strong>
+  <%= @client_table_price.secure_rate_filch %>
+</p>
+
+<p>
+  <strong>Taxa Seguro Agravante:</strong>
+  <%= @client_table_price.secure_rate_aggravated %>
+</p>
+
+<p>
+  <strong>Tabela de preço zerada?:</strong>
+  <%= @client_table_price.reset %>
+</p>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_client_table_price_path(@client_table_price), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', client_table_prices_path, class: "btn btn-default" %>
+</div>

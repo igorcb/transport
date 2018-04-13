@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :client_table_prices
+
   resources :nature_freights
 
   resources :segments

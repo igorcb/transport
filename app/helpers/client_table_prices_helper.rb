@@ -1,0 +1,2 @@
+module ClientTablePricesHelper
+end
