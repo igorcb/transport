@@ -48,9 +48,12 @@ class Client < ActiveRecord::Base
   #has_many :representatives, :through => :client_representatives
   accepts_nested_attributes_for :client_representatives, allow_destroy: true, reject_if: :all_blank
 
+  has_one :client_table_price
+
   before_destroy :can_destroy?
 
   scope :billing, -> { where(faturar:true) }
+  scope :client_table_price_reset, -> { joins(:client_table_price).where(client_table_prices: {reset: true}) }
 
   module TipoPessoa
   	FISICA = 0
@@ -140,6 +143,10 @@ class Client < ActiveRecord::Base
   # def representative(billing_client)
   #   self.client_representatives.where(billing_client_id: billing_client).first
   # end
+
+  def client_table_price_reset
+    ClientTablePrice.where(client_id: self.id, reset: true).first
+  end
 
   private 
     def can_destroy?
