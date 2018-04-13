@@ -53,6 +53,10 @@
       <%= f.text_field :freight_trt, class: "form-control" %>
     </div>
     <div class="form-group">
+      <%= f.label :payment_discharges, "Pagamento de Descarga" %>
+      <%= f.text_field :payment_discharges, class: "form-control" %>
+    </div>
+    <div class="form-group">
       <%= f.label :use_aliquot_consumer_last, "Usar Alíquota (Consumidor Final)" %>
       <%= f.select :use_aliquot_consumer_last, select_use_aliquot, {include_blank: false}, {class: "form-control"} %>
     </div>
