@@ -140,6 +140,7 @@ class NfeXml < ActiveRecord::Base
                                              estado: nfe.emit.endereco_emitente.UF).find_or_create_by(cpf_cnpj: cnpj_source)
         target_client = Client.create_with(
                                         tipo_pessoa: 1, 
+                                        tipo_cliente: Client::TipoCliente::NORMAL, 
                                     group_client_id: 7, 
                                                nome: nfe.dest.xNome, 
                                            fantasia: nfe.dest.xNome, 
