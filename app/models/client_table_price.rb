@@ -9,9 +9,9 @@ class ClientTablePrice < ActiveRecord::Base
   end
 
   module CollectionDeliveryIncidence
-		 NAO_ADICIONA = 0
-		 ADICIONA_GERAL = 1
-		 ADICIONA_INDIVIDUAL = 2
+		NAO_ADICIONA = 0
+		ADICIONA_GERAL = 1
+		ADICIONA_INDIVIDUAL = 2
   end
 
   module AddIcmsValueFete
@@ -91,5 +91,5 @@ class ClientTablePrice < ActiveRecord::Base
   	end
   end
 
-  private
+  
 end
