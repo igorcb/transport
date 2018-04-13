@@ -306,7 +306,7 @@ class InputControl < ActiveRecord::Base
                                 target_client_id: target_client.id, 
                                 source_client_id: source_client.id,
                                billing_client_id: billing_client.id,
-                           client_table_price_id: billing_client.client_table_pricereset.id,
+                           client_table_price_id: billing_client.client_table_price_reset.id,
                                       carrier_id: Carrier.carrier_default,
                                 carrier_entry_id: input_control.carrier.id,
                                             peso: input_control.weight, 
