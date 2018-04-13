@@ -127,6 +127,7 @@ class NfeXml < ActiveRecord::Base
         cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
 
         source_client = Client.create_with(    
+                                        tipo_cliente: Client::TipoCliente::NORMAL, 
                                         tipo_pessoa: 1, 
                                     group_client_id: 7, 
                                                nome: nfe.emit.xNome, 
@@ -139,8 +140,8 @@ class NfeXml < ActiveRecord::Base
                                              cidade: nfe.emit.endereco_emitente.xMun, 
                                              estado: nfe.emit.endereco_emitente.UF).find_or_create_by(cpf_cnpj: cnpj_source)
         target_client = Client.create_with(
-                                        tipo_pessoa: 1, 
                                         tipo_cliente: Client::TipoCliente::NORMAL, 
+                                        tipo_pessoa: 1, 
                                     group_client_id: 7, 
                                                nome: nfe.dest.xNome, 
                                            fantasia: nfe.dest.xNome, 
