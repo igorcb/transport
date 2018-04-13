@@ -290,6 +290,7 @@ class InputControl < ActiveRecord::Base
     nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
+    billing_client = input_control.billing_client
     #carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
     nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_xmls.first.numero).first
 
@@ -304,8 +305,8 @@ class InputControl < ActiveRecord::Base
                                 input_control_id: input_control.id,
                                 target_client_id: target_client.id, 
                                 source_client_id: source_client.id,
-                           client_table_price_id: source_client.client_table_pricereset.id,
-                               billing_client_id: source_client.id,
+                               billing_client_id: billing_client.id,
+                           client_table_price_id: billing_client.client_table_pricereset.id,
                                       carrier_id: Carrier.carrier_default,
                                 carrier_entry_id: input_control.carrier.id,
                                             peso: input_control.weight, 
