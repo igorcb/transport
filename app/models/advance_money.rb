@@ -5,7 +5,6 @@ class AdvanceMoney < ActiveRecord::Base
 	end
 
 	def balance_value
-		puts ">>>>>>>>>>>>>>>>>>>> Total: #{self.price.to_f}"
 		(self.price.to_f - total_service_value.to_f).to_f
 	end
 

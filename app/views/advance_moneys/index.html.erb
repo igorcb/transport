@@ -19,8 +19,8 @@
               <td><%= date_br advance_money.date_advance %></td>
               <td><%= advance_money.number %></td>
               <td><%= number_to_currency(advance_money.price, unit: "R$ ", separator: ",", delimiter: ".") %></td>
-              <td><%= number_to_currency(0.00, unit: "R$ ", separator: ",", delimiter: ".") %></td>
-              <td><%= number_to_currency(0.00, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+              <td><%= number_to_currency(advance_money.total_service_value, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+              <td><%= number_to_currency(advance_money.balance_value, unit: "R$ ", separator: ",", delimiter: ".") %></td>
 
               <td><%= link_to 'Show', advance_money, class: "btn btn-info btn-xs" %></td>
               <td><%= link_to 'Edit', edit_advance_money_path(advance_money), class: "btn btn-primary btn-xs" %></td>
