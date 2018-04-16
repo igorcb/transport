@@ -239,7 +239,7 @@ class NfeXml < ActiveRecord::Base
       ordem_service = OrdemService.create!( tipo: OrdemService::TipoOS::LOGISTICA,
       													target_client_id: target_client.id, 
            											source_client_id: source_client.id,
-                               billing_client_id: billing_client.id,
+                               #billing_client_id: billing_client.id,
       															  carrier_id: 11, #A MOURA DO NASCIMENTO - ME  # 3 - Nao Identificado
                                             peso: nfe.vol.pesoB, 
                                      qtde_volume: nfe.vol.qVol,
