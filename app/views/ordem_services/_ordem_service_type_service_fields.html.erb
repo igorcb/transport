@@ -17,9 +17,13 @@
       <% value_qtde_recebida = @ordem_service.new_record? ? nil : f.object.qtde_recebida %>
       <%= f.text_field :qtde_recebida, value: value_qtde_recebida, class: "form-control input-sm", placeholder: "Qtde Recebida" %>
     </div>
-     <div class="col-xs-2">
+    <div class="col-xs-2">
       <%= f.text_field :valor, class: "form-control input-sm money2", value: to_real(f.object.valor), placeholder: "Valor do Serviço" %>
     </div>
+    <div class="col-xs-2">
+      <%= f.text_field :advance_money_number, class: "form-control input-sm", placeholder: "Nº 000000/2018" %>
+    </div>
+
 <!-- 
     <div class="col-xs-2">
       <%#= f.text_field :valor_pago, class: "form-control input-sm money2", value: to_real(f.object.valor_pago), placeholder: "Valor Pago" %>
