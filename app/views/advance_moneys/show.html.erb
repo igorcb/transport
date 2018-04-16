@@ -1,0 +1,98 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title"> 
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					Dados do Adiantamento
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+          <div class="panel panel-default">
+
+						<p>
+						  <strong>Data:</strong>
+						  <%= date_br @advance_money.date_advance %>
+						</p>
+
+						<p>
+						  <strong>Numero:</strong>
+						  <%= @advance_money.number %>
+						</p>
+
+						<p>
+						  <strong>Valor:</strong>
+						  <%= number_to_currency(@advance_money.price, unit: "R$ ", separator: ",", delimiter: ".") %>
+						</p>
+
+						<p>
+						  <strong>Vr. Serviço:</strong>
+						  <%= number_to_currency(@advance_money.total_service_value, unit: "R$ ", separator: ",", delimiter: ".") %>
+						</p>
+
+						<p>
+						  <strong>Saldo:</strong>
+						  <%= number_to_currency(@advance_money.balance_value, unit: "R$ ", separator: ",", delimiter: ".") %>
+						</p>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Listagem Ordem de Servico
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        
+        <div class="panel-body">
+          <div class="panel panel-default">
+
+				    <div class="table-responsive">
+				      <table class="table table-striped">
+				        <thead>
+				          <tr>
+				            <th>O.S.</th>
+				            <th>Rem. Cliente</th>
+				            <th>Container</th>
+				            <th>Valor</th>
+				          </tr>
+				        </thead>
+				          <% @advance_money.ordem_service_type_services.each do |type_service| %>
+				            <tr>
+				              <td><%= link_to type_service.ordem_service.id, type_service.ordem_service %></td>
+											<td><%= link_to type_service.ordem_service.input_control.shipment, type_service.ordem_service.input_control if type_service.ordem_service.input_control.present? %></td>					              
+				              <td><%= link_to type_service.ordem_service.input_control.container, type_service.ordem_service.input_control if type_service.ordem_service.input_control.present? %></td>
+				              <td><%= number_to_currency(type_service.valor, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+				            </tr>
+				          <% end %>
+				        <tbody>
+				        </tbody>
+				      </table>
+				    </div>    
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+	<div class="form-group">
+    <%= link_to 'Editar', edit_advance_money_path(@advance_money), class: "btn btn-primary" %>
+    <%= link_to 'Listar Todos', advance_moneys_path , class: "btn btn-default" %>
+  </div>
+

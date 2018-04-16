@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Adiantamentos</div>
+  <div class="panel-body">
+    <%= link_to 'New advance money', new_advance_money_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Numero</th>
+            <th>Valor</th>
+            <th>Vr. Serviço</th>
+            <th>Saldo</th>
+            <th colspan="2">Opções</th>
+          </tr>
+        </thead>
+          <% @advance_moneys.each do |advance_money| %>
+            <tr>
+              <td><%= date_br advance_money.date_advance %></td>
+              <td><%= advance_money.number %></td>
+              <td><%= number_to_currency(advance_money.price, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+              <td><%= number_to_currency(0.00, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+              <td><%= number_to_currency(0.00, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+
+              <td><%= link_to 'Show', advance_money, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_advance_money_path(advance_money), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Destroy', advance_money, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+            </tr>
+          <% end %>
+        <tbody>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

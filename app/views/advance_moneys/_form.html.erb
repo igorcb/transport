@@ -1,0 +1,26 @@
+<%= form_for(@advance_money) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :date_advance %><br>
+    <% if @advance_money.new_record? %>
+      <%= f.text_field :date_advance, class: "form-control data" %>
+    <% else %>
+      <%= f.text_field :date_advance, class: "form-control data", value: date_br(@advance_money.date_advance) %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label :number %>
+    <%= f.text_field :number, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :price %>
+    <%= f.text_field :price, class: "form-control money2" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  advance_money_path(@advance_money), class: "btn btn-info" if !@advance_money.new_record? %>
+    <%= link_to "Listar Todos", advance_moneys_path, class: "btn btn-default" %>
+  </div>
+<% end %>
