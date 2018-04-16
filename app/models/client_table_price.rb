@@ -3,6 +3,8 @@ class ClientTablePrice < ActiveRecord::Base
   belongs_to :type_service
   belongs_to :stretch_route
 
+  scope :stretch_of_client, -> { ClientTablePrice.joins(stretch_route: [ :stretch_source, :stretch_target ]).order("stretches.destino") }
+
   module TypeValuePercent
 		VALOR =  0
 		PERCENTUAL = 1

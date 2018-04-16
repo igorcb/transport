@@ -1,4 +1,5 @@
 class ClientTablePricesController < ApplicationController
+  include OrdemServiceHelper
   before_action :set_client_table_price, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -35,6 +36,16 @@ class ClientTablePricesController < ApplicationController
     @client_table_price.destroy
     respond_with(@client_table_price)
   end
+
+  def get_client_table_price_of_client
+    #client_table_prices = ClientTablePrice.stretch_of_client.where(client_id: params[:client_id])
+    client_table_prices = table_price_of_billing_client(params[:client_id])
+    array = []
+    client_table_prices.each do |c|
+      array << {:client_table_price_id => c.id, :n => c.trecho}
+    end
+    render :text => array.to_json
+  end    
 
   private
     def set_client_table_price

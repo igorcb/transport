@@ -38,9 +38,14 @@ module OrdemServiceHelper
       when 3 then link_to "Baixo", ordem_service, {:target => "_blank"}.merge(class: "btn btn-green btn-xs")
       when 4 then link_to "Normal", ordem_service, {:target => "_blank"}.merge(class: "btn btn-default btn-xs")
     end
-    
-    
   end
 
- 
+  def table_price_of_billing_client(client)
+    ClientTablePrice.stretch_of_client.where(client_id: client)
+                                      .select("client_table_prices.id as client_table_price_id", 
+                                      "stretches.destino || '/' || stretch_targets_stretch_routes.destino as trecho")
+  end
+
+
+
 end

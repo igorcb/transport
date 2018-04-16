@@ -22,6 +22,7 @@ class OrdemService < ActiveRecord::Base
   belongs_to :billing
   belongs_to :input_control
   belongs_to :direct_charge
+  belongs_to :client_table_price
 
   has_one :boarding_item
   has_one :boarding, through: :boarding_item

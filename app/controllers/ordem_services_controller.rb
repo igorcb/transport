@@ -499,7 +499,7 @@ class OrdemServicesController < ApplicationController
     end
 
     def ordem_service_params
-      params.require(:ordem_service).permit(:billing_client_id, :data, :estado, :cidade, :valor_receita, :valor_despesas, :valor_liquido, 
+      params.require(:ordem_service).permit(:billing_client_id, :client_table_price_id, :data, :estado, :cidade, :valor_receita, :valor_despesas, :valor_liquido, 
         :observacao, :status, :hora_agendamento, :data_entrega_servico, :carrier_id, :tipo, :date_shipping, :date_entry, :date_otif, :lead_time,
 
         ordem_service_airs_attributes: [:source_stretch_id, :target_stretch_id, :solicitante, :target_agent_id, :airline_carrier_id, 

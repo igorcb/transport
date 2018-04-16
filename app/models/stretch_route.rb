@@ -17,4 +17,7 @@ class StretchRoute < ActiveRecord::Base
 		"#{stretch_source.destino}/#{stretch_target.destino}"
 	end
 
+	#StretchRoute.joins(:stretch_source, :stretch_target)
+
+
 end
