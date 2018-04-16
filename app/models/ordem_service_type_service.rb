@@ -12,6 +12,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   scope :close, -> { joins(:type_service, :ordem_service).where(status: 2).order('ordem_services.data desc') }
 #  scope :everyday, ->(date) { both.where("ordem_services.data = ?", date ) }
 
+
   module TipoStatus
     ABERTO = 0
     PENDENTE = 1

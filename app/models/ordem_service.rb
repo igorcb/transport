@@ -88,6 +88,9 @@ class OrdemService < ActiveRecord::Base
                       }
   
   before_save :set_values, :validates_type_service
+  
+  #before_save :validates_client_table_price, :validates_client_table_price_and_type_service 
+
   after_save :set_peso_and_volume #:generate_billing 
 
   before_destroy :can_destroy?
@@ -142,6 +145,20 @@ class OrdemService < ActiveRecord::Base
   def validates_type_service
 #    puts ">>>>>>>>>>>>>>.. Validates"
 #    self.errors.add("Type Services", "can't be blank") if self.ordem_service_type_service.blank?
+  end
+
+  def validates_client_table_price
+     self.errors.add("Type Services", "can't be table price") if !self.billing_client.client_table_price.present?
+  end
+
+  def validates_client_table_price_and_type_service
+    puts ">>>>>>>>>>>>>>>>> Register: #{self.ordem_service_type_service.present?} | Count: #{self.ordem_service_type_service.count}"
+    client_id = self.billing_client_id
+    self.ordem_service_type_service.each do |service|
+      puts "client_id: #{client_id} - #{service.type_service_id}"
+      table_price = ClientTablePrice.where(client_id: client_id, type_service_id: service.type_service_id)
+      self.errors.add("Type Services", "can't be table price") if table_price.present?
+    end
   end
 
   def validate_danfe

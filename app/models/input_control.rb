@@ -291,6 +291,7 @@ class InputControl < ActiveRecord::Base
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
     billing_client = input_control.billing_client
+    
     #carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
     nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_xmls.first.numero).first
 
