@@ -46,5 +46,9 @@ class OrdemServiceTypeService < ActiveRecord::Base
     #Cobranca.notificar_financeiro_f13(cobranca) 
   end
 
+  def advance_money
+    AdvanceMoney.where(number: self.advance_money_number).first
+  end
+
 end
 
