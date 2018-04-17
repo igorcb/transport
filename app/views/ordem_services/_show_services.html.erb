@@ -25,7 +25,9 @@
         <td><%= item.qtde_recebida if !item.type_service.nil? %></td>
         <td><%= number_to_currency(item.valor, unit: "R$ ", separator: ",", delimiter: ".") if item.type_service.present? %> </td>
         <td><%= number_to_currency(item.valor_pago, unit: "R$ ", separator: ",", delimiter: ".") if item.type_service.present? %> </td>
-        <td><%= link_to item.advance_money_number, item.advance_money if item.advance_money.present? %> </td>
+        <td>
+          <%= item.advance_money.present? ? (link_to item.advance_money_number, item.advance_money) : item.advance_money %> 
+        </td>
         <td><%= item.status_name %></td>
         <td><%= link_to "#{ item.account_payable.id }", account_payable_path(item.account_payable.id) if item.account_payable.present? %> </td>
       </tr>
