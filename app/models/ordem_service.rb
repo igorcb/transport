@@ -77,6 +77,8 @@ class OrdemService < ActiveRecord::Base
 
   has_many :inventories
 
+  has_one :ordem_service_table_price
+
   #scope :is_not_billed, -> { joins(:ordem_service_type_services).where(status: [0,1]).order('ordem_services.data desc') }
   scope :status_open, -> { where(status: [TipoStatus::ABERTO, TipoStatus::AGUARDANDO_EMBARQUE]).order("id desc") }
   scope :is_not_billed, -> { joins(:driver, :ordem_service_type_service, :type_service).where(status: [0,1]) }
@@ -90,7 +92,9 @@ class OrdemService < ActiveRecord::Base
   
   before_save :set_values, :validates_type_service
   
-  #before_save :validates_client_table_price, :validates_client_table_price_and_type_service 
+  before_save :validates_client_table_price, :validates_client_table_price_and_type_service, if: :table_price_exist?
+
+  before_save :create_or_update_table_price
 
   after_save :set_peso_and_volume #:generate_billing 
 
@@ -148,17 +152,44 @@ class OrdemService < ActiveRecord::Base
 #    self.errors.add("Type Services", "can't be blank") if self.ordem_service_type_service.blank?
   end
 
+  def table_price_exist?
+    self.client_table_price_id.present?
+  end
+
   def validates_client_table_price
      self.errors.add("Type Services", "can't be table price") if !self.billing_client.client_table_price.present?
   end
 
   def validates_client_table_price_and_type_service
-    puts ">>>>>>>>>>>>>>>>> Register: #{self.ordem_service_type_service.present?} | Count: #{self.ordem_service_type_service.count}"
     client_id = self.billing_client_id
+    client_table_price = self.client_table_price_id
     self.ordem_service_type_service.each do |service|
-      puts "client_id: #{client_id} - #{service.type_service_id}"
-      table_price = ClientTablePrice.where(client_id: client_id, type_service_id: service.type_service_id)
-      self.errors.add("Type Services", "can't be table price") if table_price.present?
+      table_price = ClientTablePrice.where(id: client_table_price, client_id: client_id, type_service_id: service.type_service_id)
+      if table_price.present? == false
+        self.errors.add("Type Services", "Does not exist for this client, route and service.") 
+        return false
+      end
+    end
+  end
+
+  def create_or_update_table_price
+    client_id = self.billing_client_id
+    client_table_price = self.client_table_price_id
+    self.ordem_service_type_service.each do |service|
+      table_price = ClientTablePrice.where(id: client_table_price, client_id: client_id, type_service_id: service.type_service_id).first
+      OrdemServiceTablePrice.create_with(
+                               ordem_service_id: client_id,
+                                type_service_id: service.type_service_id,
+                          client_table_price_id: table_price.id,
+                  ordem_service_type_service_id: service.id,
+                                     iss_tax: table_price.collection_delivery_iss,
+                                   iss_value: service.calculate_iss,
+                            margin_lucre_tax: table_price.margin_lucre,
+                          margin_lucre_value: service.calculate_margin_lucre,
+                               total_service: service.total_service).find_or_create_by(ordem_service_id: client_id,
+                                                                                            type_service_id: service.type_service_id,
+                                                                                      client_table_price_id: table_price.id,
+                                                                              ordem_service_type_service_id: service.id)
     end
   end
 

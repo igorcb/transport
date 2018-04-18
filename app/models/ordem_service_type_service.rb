@@ -6,6 +6,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   belongs_to :ordem_service
   belongs_to :type_service
   has_one :account_payable
+  has_one :ordem_service_table_price
 
   scope :both, -> { joins(:type_service, :ordem_service).order('ordem_services.data desc') }
   scope :open, -> { joins(:type_service, :ordem_service).where(status: [0, 1]).order('ordem_services.data desc') }
@@ -48,6 +49,22 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   def advance_money
     AdvanceMoney.where(number: self.advance_money_number).first
+  end
+
+  def total_service
+    if self.ordem_service.client_table_price.present?
+      self.valor + calculate_margin_lucre + calculate_iss
+    end
+  end
+
+  def calculate_margin_lucre
+    margin_lucre = (self.valor * self.ordem_service.client_table_price.margin_lucre) / 100.00
+  end
+
+  def calculate_iss
+    margin_lucre = calculate_margin_lucre
+    perc_iss = 1 - (self.ordem_service.client_table_price.collection_delivery_iss / 100)
+    value_iss = ((self.valor + margin_lucre) / perc_iss) - (self.valor + margin_lucre) 
   end
 
 end
