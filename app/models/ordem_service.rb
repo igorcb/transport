@@ -163,6 +163,7 @@ class OrdemService < ActiveRecord::Base
     client_table_price = self.client_table_price_id
     self.ordem_service_type_service.each do |service|
       table_price = ClientTablePrice.where(id: client_table_price, client_id: client_id, type_service_id: service.type_service_id)
+      puts ">>>>>>>>>>>>>>>>>>>>>>>>>> TablePrice present?: #{table_price.present?}"
       if table_price.present? == false
         self.errors.add("Type Services", "Does not exist for this client, route and service.") 
         return false
