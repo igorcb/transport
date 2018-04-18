@@ -94,8 +94,6 @@ class OrdemService < ActiveRecord::Base
   
   before_save :validates_client_table_price, :validates_client_table_price_and_type_service, if: :table_price_exist?
 
-  before_save :create_or_update_table_price
-
   after_save :set_peso_and_volume #:generate_billing 
 
   before_destroy :can_destroy?
@@ -169,27 +167,6 @@ class OrdemService < ActiveRecord::Base
         self.errors.add("Type Services", "Does not exist for this client, route and service.") 
         return false
       end
-    end
-  end
-
-  def create_or_update_table_price
-    client_id = self.billing_client_id
-    client_table_price = self.client_table_price_id
-    self.ordem_service_type_service.each do |service|
-      table_price = ClientTablePrice.where(id: client_table_price, client_id: client_id, type_service_id: service.type_service_id).first
-      OrdemServiceTablePrice.create_with(
-                               ordem_service_id: client_id,
-                                type_service_id: service.type_service_id,
-                          client_table_price_id: table_price.id,
-                  ordem_service_type_service_id: service.id,
-                                     iss_tax: table_price.collection_delivery_iss,
-                                   iss_value: service.calculate_iss,
-                            margin_lucre_tax: table_price.margin_lucre,
-                          margin_lucre_value: service.calculate_margin_lucre,
-                               total_service: service.total_service).find_or_create_by(ordem_service_id: client_id,
-                                                                                            type_service_id: service.type_service_id,
-                                                                                      client_table_price_id: table_price.id,
-                                                                              ordem_service_type_service_id: service.id)
     end
   end
 

@@ -13,6 +13,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   scope :close, -> { joins(:type_service, :ordem_service).where(status: 2).order('ordem_services.data desc') }
 #  scope :everyday, ->(date) { both.where("ordem_services.data = ?", date ) }
 
+  after_save :create_or_update_table_price
 
   module TipoStatus
     ABERTO = 0
@@ -66,6 +67,23 @@ class OrdemServiceTypeService < ActiveRecord::Base
     perc_iss = 1 - (self.ordem_service.client_table_price.collection_delivery_iss / 100)
     value_iss = ((self.valor + margin_lucre) / perc_iss) - (self.valor + margin_lucre) 
   end
+
+  def create_or_update_table_price
+    client_id = self.ordem_service.billing_client_id
+    client_table_price = self.ordem_service.client_table_price_id
+    table_price = ClientTablePrice.where(id: client_table_price, client_id: client_id, type_service_id: self.type_service_id).first
+    ordem_service_table_price = OrdemServiceTablePrice.where(ordem_service_id: client_id, 
+                                                              type_service_id: self.type_service_id,
+                                                        client_table_price_id: table_price.id,
+                                                ordem_service_type_service_id: self.id)
+                                                      .update_or_create(
+                                                                      iss_tax: table_price.collection_delivery_iss,
+                                                                    iss_value: self.calculate_iss,
+                                                             margin_lucre_tax: table_price.margin_lucre,
+                                                           margin_lucre_value: self.calculate_margin_lucre,
+                                                                total_service: self.total_service)
+  end
+
 
 end
 
