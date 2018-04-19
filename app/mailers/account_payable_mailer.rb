@@ -8,7 +8,7 @@ class AccountPayableMailer < ActionMailer::Base
       email = "igor.batista@gmail.com"  #ENV['RAILS_MAIL_DESTINATION']
     end
     if Rails.env.production?
-      email = "#{comment.email_destino}"
+      #email = "#{comment.email_destino}"
       email = "igor.batista@gmail.com"  #ENV['RAILS_MAIL_DESTINATION']
     end     
     #Assunto do e-mail colocar o numero do container - cliente de destino
