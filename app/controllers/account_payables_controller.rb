@@ -170,6 +170,11 @@ class AccountPayablesController < ApplicationController
   end
 
   def send_mail
+    if !@account_payable.ordem_service.billing_client.emails.where(sector_id: Sector::TypeSector::FINANCEIRO).present?
+      flash[:danger] = "email for financial sector is not configured."
+      redirect_to @account_payable
+      return
+    end
     respond_to do |format|
       @account_payable.send_mail_notification
       format.html { redirect_to @account_payable, flash: { success: "Email AccountsPayable send successful." } }
