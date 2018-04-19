@@ -22,7 +22,7 @@ class AccountPayableMailer < ActionMailer::Base
     #attachments[@account.assets.first.asset_file_name] = File.read("#{Rails.root}#{@account.assets.first.asset.path}")
     #File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
     
-    attachments[0] = File.read(Rails.root.join(@account.assets.first.asset.path)) if File.exist?(Rails.root.join(@account.assets.first.asset.path))
+    attachments[:report] = File.read(Rails.root.join(@account.assets.first.asset.path)) if File.exist?(Rails.root.join(@account.assets.first.asset.path))
     # arr = @account.assets.pluck(:asset_file_name)
     # arr.each do |a|
     #   puts ">>>>>>>>>>>>>>>>>>>>>> File: #{a.url}"
