@@ -8,7 +8,7 @@ class AccountPayableMailer < ActionMailer::Base
       email = ENV['RAILS_MAIL_DESTINATION']
     end
     if Rails.env.production?
-      @account.ordem_service.billing_client.emails.where(sector_id: Sector::TypeSector::FINANCEIRO).pluck(:email)
+      email = @account.ordem_service.billing_client.emails.where(sector_id: Sector::TypeSector::FINANCEIRO).pluck(:email)
     end     
     #Assunto do e-mail colocar o numero do container - cliente de destino
     if @account.ordem_service.input_control.present?
