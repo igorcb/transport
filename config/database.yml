@@ -29,7 +29,7 @@ development:
   database: transport
   username: i4
   password: q2w3e4
-  host: localhost
+  host: localhost #177.70.27.63
   encoding: UTF8    
 
 test:

@@ -172,6 +172,7 @@ Transport::Application.routes.draw do
     member do
       get 'lower'
       post 'pay'
+      get :send_mail
       #delete 'lower_payable/id'
     end    
     collection do

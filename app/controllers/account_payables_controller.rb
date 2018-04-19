@@ -1,6 +1,6 @@
 class AccountPayablesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_account_payable, only: [:show, :edit, :update, :destroy, :lower, :pay]
+  before_action :set_account_payable, only: [:show, :edit, :update, :destroy, :lower, :pay, :send_mail]
   load_and_authorize_resource
   respond_to :html
 
@@ -166,6 +166,13 @@ class AccountPayablesController < ApplicationController
         format.html { redirect_to @account_payable, flash: { danger: "Could not lower accounts payable was successful." }}
         format.json { render json: @account_payable.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def send_mail
+    respond_to do |format|
+      @account_payable.send_mail_notification
+      format.html { redirect_to @account_payable, flash: { success: "Email AccountsPayable send successful." } }
     end
   end
 

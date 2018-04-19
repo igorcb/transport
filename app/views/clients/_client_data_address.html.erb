@@ -1,0 +1,28 @@
+<p>
+  <strong>Nome:</strong>
+  <label class="fields"> 
+    <%= link_to "#{ object.nome }", object %> 
+  </label>
+  <strong>CPF/CNPJ:</strong>
+  <label class="fields"><%= object.cpf_cnpj %></label>
+</p>
+  
+<p>
+  <strong>Endereco:</strong>
+  <label class="fields"><%= object.endereco %>, <%= object.numero %></label>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <label class="fields"><%= object.complemento %></label>
+</p>
+
+<p>
+  <strong>Bairro:</strong>
+  <label class="fields"><%= object.bairro %></label> - 
+  <strong>Municipio:</strong>
+  <label class="fields"><%= object.cidade %></label>
+  <strong>Estado:</strong>
+  <label class="fields"><%= object.estado %></label>
+</p>
+

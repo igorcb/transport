@@ -143,6 +143,11 @@ class AccountPayable < ActiveRecord::Base
     end
   end
 
+  def send_mail_notification
+    AccountPayableMailer.notification(self).deliver!
+    #CommentMailer.notification(model).deliver!
+  end
+
   def check_balance
     self.status = self.lower_account_payables.sum(:valor_pago).to_f > 0.0 ? 
                   TipoStatus::PAGOPARCIAL : self.status = TipoStatus::ABERTO
