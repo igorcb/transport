@@ -27,17 +27,17 @@ class CreateStates < ActiveRecord::Migration
 		State.create!(code_uf: 15, name: 'Pará', uf: 'PA', region_id: 1)
 		State.create!(code_uf: 25, name: 'Paraíba', uf: 'PB', region_id: 2)
 		State.create!(code_uf: 41, name: 'Paraná', uf: 'PR' , region_id: 4)
-		State.create!(code_uf: 26, name: 'Pernambuco', uf: 'PE', region_id: 2);
-		State.create!(code_uf: 22, name: 'Piauí', uf: 'PI', region_id: 2);
-		State.create!(code_uf: 33, name: 'Rio de Janeiro', uf: 'RJ', region_id: 3);
-		State.create!(code_uf: 24, name: 'Rio Grande do Norte', uf: 'RN', region_id: 2);
-		State.create!(code_uf: 43, name: 'Rio Grande do Sul', uf: 'RS', region_id: 4);
-		State.create!(code_uf: 11, name: 'Rondônia', uf: 'RO', region_id: 1);
-		State.create!(code_uf: 14, name: 'Roraima', uf: 'RR', region_id: 1);
-		State.create!(code_uf: 42, name: 'Santa Catarina', uf: 'SC', region_id: 4);
-		State.create!(code_uf: 35, name: 'São Paulo', uf: 'SP', region_id: 3);
-		State.create!(code_uf: 28, name: 'Sergipe', uf: 'SE', region_id: 2);
-		State.create!(code_uf: 17, name: 'Tocantins', uf: 'TO', region_id: 1);  
+		State.create!(code_uf: 26, name: 'Pernambuco', uf: 'PE', region_id: 2)
+		State.create!(code_uf: 22, name: 'Piauí', uf: 'PI', region_id: 2)
+		State.create!(code_uf: 33, name: 'Rio de Janeiro', uf: 'RJ', region_id: 3)
+		State.create!(code_uf: 24, name: 'Rio Grande do Norte', uf: 'RN', region_id: 2)
+		State.create!(code_uf: 43, name: 'Rio Grande do Sul', uf: 'RS', region_id: 4)
+		State.create!(code_uf: 11, name: 'Rondônia', uf: 'RO', region_id: 1)
+		State.create!(code_uf: 14, name: 'Roraima', uf: 'RR', region_id: 1)
+		State.create!(code_uf: 42, name: 'Santa Catarina', uf: 'SC', region_id: 4)
+		State.create!(code_uf: 35, name: 'São Paulo', uf: 'SP', region_id: 3)
+		State.create!(code_uf: 28, name: 'Sergipe', uf: 'SE', region_id: 2)
+		State.create!(code_uf: 17, name: 'Tocantins', uf: 'TO', region_id: 1)
 	end
 
 end
