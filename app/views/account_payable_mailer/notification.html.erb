@@ -1,47 +1,44 @@
-		<p>
-			<strong>Nº Rem. Cliente:</strong>
-			<%= @account.ordem_service.input_control.shipment %>	
-		</p>
+	<h3>COMPROVANTE DE PAGAMENTO</h3>
+	
+	<p>
+		<strong>Nº Rem. Cliente:</strong>
+		<%= @account.ordem_service.input_control.shipment %>	
+	</p>
 
-		<p>
-			<strong>Nº Container:</strong>
-			<%= @account.ordem_service.input_control.container %>	
-		</p>
+	<p>
+		<strong>Nº Container:</strong>
+		<%= @account.ordem_service.input_control.container %>	
+	</p>
 
-		<p>
-			<strong>Valor Pago:</strong>
-			<%= number_to_currency(@account.total_pago, unit: "R$ ", separator: ",", delimiter: ".")  %>	
-		</p>
+	<p>
+		<strong>Valor Pago:</strong>
+		<%= number_to_currency(@account.total_pago, unit: "R$ ", separator: ",", delimiter: ".")  %>	
+	</p>
 
-		<p>
-			<strong>Remetente:</strong>
-			<%= render 'clients/client_data_address', object: @account.ordem_service.source_client if @account.ordem_service.source_client.present? %>
-		</p>
+	<p>
+		<strong>Remetente:</strong>
+		<%= render 'clients/client_data_address', object: @account.ordem_service.source_client if @account.ordem_service.source_client.present? %>
+	</p>
 
-		<p>
-			<strong>Destinatario:</strong>
-			<%= render 'clients/client_data_address', object: @account.ordem_service.client if @account.ordem_service.client.present? %>
-		</p>
-<!--
-		    border-collapse: collapse;
-		    border: 1px solid black;
--->
-		<table border-collapse="collapse" border="1px solid black">
-			<thead>
-				<th>Cidade</th>
-				<th>NF-e</th>
-				<th>Chave</th>
-			</thead>
-			<tbody>
-		  	<% @account.ordem_service.input_control.nfe_xmls.each do |nfe| %>
-		   		<tr>
-			  		<td><%= nfe.target_client.cidade if nfe.target_client.present? %></td>
-			  		<td><%= nfe.numero if nfe.numero.present? %></td>
-						<td><%= nfe.chave if nfe.chave.present? %></td>
-		  		</tr>
-		    <% end %>
-			</tbody>
-		</table>
+	<p>
+		<strong>Destinatario:</strong>
+		<%= render 'clients/client_data_address', object: @account.ordem_service.client if @account.ordem_service.client.present? %>
+	</p>
 
-  </body>
-</html>
+	<table border-collapse="collapse" border="1px solid black">
+		<thead>
+			<th>Cidade</th>
+			<th>NF-e</th>
+			<th>Chave</th>
+		</thead>
+		<tbody>
+	  	<% @account.ordem_service.input_control.nfe_xmls.each do |nfe| %>
+	   		<tr>
+		  		<td><%= nfe.target_client.cidade if nfe.target_client.present? %></td>
+		  		<td><%= nfe.numero if nfe.numero.present? %></td>
+					<td><%= nfe.chave if nfe.chave.present? %></td>
+	  		</tr>
+	    <% end %>
+		</tbody>
+	</table>
+
