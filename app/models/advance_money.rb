@@ -1,7 +1,7 @@
 class AdvanceMoney < ActiveRecord::Base
 
 	def total_service_value
-		OrdemServiceTypeService.where(advance_money_number: self.number).sum(:valor).to_f
+		OrdemServiceTypeService.joins(:ordem_service_table_price).where(advance_money_number: self.number).sum("ordem_service_table_prices.total_service").to_f
 	end
 
 	def balance_value
