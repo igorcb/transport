@@ -864,7 +864,7 @@ namespace :db do
     City.create!(code: '2211407', name: 'Várzea Grande', uf: 'PI')
     City.create!(code: '2211506', name: 'Vera Mendes', uf: 'PI')
     City.create!(code: '2211605', name: 'Vila Nova do Piauí', uf: 'PI')
-    City.create!(code: '2211704', name: 'Wall Ferraz', uf: 'PI')  end
+    City.create!(code: '2211704', name: 'Wall Ferraz', uf: 'PI')
     puts "Cidades do Rio Grande do Norte"
     City.create!(code: '2400109', name: 'Acari', uf:'RN')
     City.create!(code: '2400208', name: 'Açu', uf:'RN')
@@ -1622,7 +1622,7 @@ namespace :db do
     City.create!(code: '2807402', name: 'Tobias Barreto', uf: 'SE')
     City.create!(code: '2807501', name: 'Tomar do Geru', uf: 'SE')
     City.create!(code: '2807600', name: 'Umbaúba', uf: 'SE')   
-    puts "End script cities"
+    puts "End script"
   end
 end
 
