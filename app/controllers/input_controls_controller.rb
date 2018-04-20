@@ -324,8 +324,16 @@ class InputControlsController < ApplicationController
         #   report.use_layout t.layout_filename
         #   report.list.header title: 'Prices'
         # end
-        
         report.start_new_page
+
+        @company = Company.first
+        report.page.item(:image_logo).src(@company.image.path) #@company.image.url
+        report.page.item(:emp_fantasia).value(@company.fantasia)
+        report.page.item(:emp_razao_social).value(@company.razao_social)
+        report.page.item(:emp_cnpj).value("CNPJ: " + @company.cnpj)
+        report.page.item(:emp_fone).value("CONTATO: " + @company.phone_first)
+        report.page.item(:emp_cidade).value(@company.cidade_estado)
+        
         data_input_control(report)
         task.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
           report.page.item(:nfe_numero).value(nfe.numero)
