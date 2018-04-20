@@ -174,6 +174,10 @@ class AccountPayablesController < ApplicationController
       flash[:danger] = "email for financial sector is not configured."
       redirect_to @account_payable
       return
+    elsif !@account_payable.lower_account_payables.present?
+      flash[:danger] = "Make the payment so you can send the email."
+      redirect_to @account_payable
+      return
     end
     respond_to do |format|
       @account_payable.send_mail_notification
