@@ -36,7 +36,9 @@
   <%= link_to 'Editar',edit_account_payable_path(@account_payable), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', account_payables_path, class: "btn btn-default" %>
   <%= link_to 'Baixar', lower_account_payable_path(@account_payable), class: "btn btn-default" %>
-  <%= link_to 'Enviar E-mail', send_mail_account_payable_path(@account_payable), class: "btn btn-success" %>
+  <%= link_to send_mail_account_payable_path(@account_payable), class: "btn btn-success" do %>
+  	Enviar E-Mail <%= content_tag :span, @account_payable.count_email, class: 'badge' %>
+  <% end %>  
 </div>
 
 <%= render "payments" %>
