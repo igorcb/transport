@@ -58,7 +58,7 @@
                     <div class="">
                       <!-- <a href="ligue-1212x180-cinza" class="thumbnail"><img src="<%#= asset_path( 'ligue-1212x180-cinza.jpg' ) %>" alt="Oil Barrons" style="max-width:100%;" /></a></div> -->
                       <h4 class="modal-title" id="myModalLabel"> <%= asset.asset_file_name %> </h4>
-                      <%= image_tag (asset.asset.url(:original)), alt: "Oil Barrons", style:"max-width:100%; vertical-align: middle;" if asset.assets.present? %>
+                      <%= image_tag (asset.asset.url(:original)), alt: "Oil Barrons", style:"max-width:100%; vertical-align: middle;" if asset.asset.present? %>
                     </div>
                   </div>
               </div>
