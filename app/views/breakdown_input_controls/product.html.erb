@@ -1,8 +1,6 @@
 <%= render 'products/result_product', product: @breakdown.product %>
 
-<%#= form_for(@breakdown) do |f| %>
-<div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
-	<%= form_for([@input_control, @breakdown], method: :put, :url => update_product_input_control_breakdown_input_controls_path, :remote => true) do |f| %>
+<%= form_for([@input_control, @breakdown], method: :put, :url => update_product_input_control_breakdown_input_controls_path, :remote => true) do |f| %>
 		<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 		<%= hidden_field_tag :breakdown_id, @breakdown.id %>
 	  <h2>Imagens</h2> 
@@ -22,11 +20,25 @@
 	  	<%= f.submit "Salvar", class: "btn btn-primary"  %>
 	  </div>	
 
-	<% end %>
-</div>    
-<br /> 
+<% end %>
 
-<div class="modal fade" id="gallery-car" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<hr>
+
+<div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
+  <% @breakdown.assets.each do |asset| %>
+    <% if asset.is_image? %>
+      <%= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"}, title: asset.asset_file_name %> 
+    <% else %>
+      <%= link_to image_tag("image_pdf.png", size: "120x90"), asset.asset.url(:original, false) %>
+    <% end  %>
+    <%= label_tag :asset_file_name, asset.asset_file_name %>     
+    <br />
+  <% end %>
+</div>    
+
+<br />  
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
