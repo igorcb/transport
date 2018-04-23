@@ -1,25 +1,82 @@
 <%= render 'products/result_product', product: @breakdown.product %>
 
 <%#= form_for(@breakdown) do |f| %>
-<%= form_for([@input_control, @breakdown], method: :put, :url => update_product_input_control_breakdown_input_controls_path, :remote => true) do |f| %>
-	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-	<%= hidden_field_tag :breakdown_id, @breakdown.id %>
-  <h2>Imagens</h2> 
-	  <div id="documents">
-	    <div class="items">
-	    	<div class="form-group">
-		      <%= f.nested_fields_for :assets do |f| 
-		        render 'shared/asset', f: f
-		      end  -%>
-	      </div>
-	    </div>
-	      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
-	  </div>
-  
-	<br />
-	<div class="form-group">
-  	<%= f.submit "Salvar", class: "btn btn-primary"  %>
-  </div>	
+<div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
+	<%= form_for([@input_control, @breakdown], method: :put, :url => update_product_input_control_breakdown_input_controls_path, :remote => true) do |f| %>
+		<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+		<%= hidden_field_tag :breakdown_id, @breakdown.id %>
+	  <h2>Imagens</h2> 
+		  <div id="documents">
+		    <div class="items">
+		    	<div class="form-group">
+			      <%= f.nested_fields_for :assets do |f| 
+			        render 'shared/asset', f: f
+			      end  -%>
+		      </div>
+		    </div>
+		      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+		  </div>
+	  
+		<br />
+		<div class="form-group">
+	  	<%= f.submit "Salvar", class: "btn btn-primary"  %>
+	  </div>	
 
-<% end %>
+	<% end %>
+</div>    
+<br /> 
 
+<div class="modal fade" id="gallery-car" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Documento: </h4>
+      </div>
+      <div class="modal-body">
+      <!-- Carousel -->
+
+      <div id="well">
+        <div id="myCarousel_<%= @breakdown.id %>" class="carousel slide">
+
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+
+              <div class="item active">
+                  <div class="">
+                    <div class="">
+                      <% if @breakdown.assets.present?  %>
+                         <%= image_tag @breakdown.assets.first.asset.url(:original)  %>   
+                      <% end %>
+                    </div>
+                  </div>
+              </div>
+
+          <% @breakdown.assets.each do |asset|  %>
+              <div class="item">
+                  <div class="">
+                    <div class="">
+                      <!-- <a href="ligue-1212x180-cinza" class="thumbnail"><img src="<%#= asset_path( 'ligue-1212x180-cinza.jpg' ) %>" alt="Oil Barrons" style="max-width:100%;" /></a></div> -->
+                      <h4 class="modal-title" id="myModalLabel"> <%= asset.asset_file_name %> </h4>
+                      <%= image_tag (asset.asset.url(:original)), alt: "Oil Barrons", style:"max-width:100%; vertical-align: middle;" if object.assets.present? %>
+                    </div>
+                  </div>
+              </div>
+            <% end  %>
+
+          </div><!--/carousel-inner-->
+
+          <a class="left carousel-control" href="#myCarousel_<%= @breakdown.id %>" data-slide="prev">‹</a>
+          <a class="right carousel-control" href="#myCarousel_<%= @breakdown.id %>" data-slide="next">›</a>
+        </div><!--/myCarousel-->
+
+      </div><!--/well-->
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
