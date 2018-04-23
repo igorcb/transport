@@ -9,7 +9,8 @@ class AccountPayableMailer < ActionMailer::Base
     if Rails.env.production?
       email_billing_client = @account.ordem_service.billing_client.emails.where(sector_id: Sector::TypeSector::FINANCEIRO).pluck(:email)
       email_target_client  = @account.ordem_service.client.emails.where(sector_id: Sector::TypeSector::FINANCEIRO).pluck(:email)
-      email = email_billing_client + email_target_client
+      email_carrier = @account.ordem_service.input_control.carrier.emails.where(sector_id: Sector::TypeSector::FINANCEIRO).pluck(:email) if @account.ordem_service.input_control.carrier.present?
+      email = email_billing_client + email_target_client + email_carrier
     end     
     
     if @account.ordem_service.input_control.present?

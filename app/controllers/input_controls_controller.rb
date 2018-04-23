@@ -235,6 +235,10 @@ class InputControlsController < ApplicationController
     def render_tag_input_control(input_control)
       report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'tag.tlf')
       report.start_new_page
+
+      @company = Company.first
+      report.page.item(:image_logo).src(@company.image.path) #@company.image.url
+
       tag_header(report, input_control)
 
       input_control.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
@@ -277,6 +281,9 @@ class InputControlsController < ApplicationController
         report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
         
         report.start_new_page
+
+        print_header_pdf(report)
+
         data_input_control(report)
         task.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
           report.page.item(:nfe_numero).value(nfe.numero)
@@ -326,14 +333,8 @@ class InputControlsController < ApplicationController
         # end
         report.start_new_page
 
-        @company = Company.first
-        report.page.item(:image_logo).src(@company.image.path) #@company.image.url
-        report.page.item(:emp_fantasia).value(@company.fantasia)
-        report.page.item(:emp_razao_social).value(@company.razao_social)
-        report.page.item(:emp_cnpj).value("CNPJ: " + @company.cnpj)
-        report.page.item(:emp_fone).value("CONTATO: " + @company.phone_first)
-        report.page.item(:emp_cidade).value(@company.cidade_estado)
-        
+        print_header_pdf(report)
+  
         data_input_control(report)
         task.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
           report.page.item(:nfe_numero).value(nfe.numero)

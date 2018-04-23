@@ -48,5 +48,15 @@ class ApplicationController < ActionController::Base
     method = "#{resource}_params"
     params[resource] &&= send(method) if respond_to?(method, true)
   end  
+
+  def print_header_pdf(report)
+    @company = Company.first
+    report.page.item(:image_logo).src(@company.image.path) #@company.image.url
+    report.page.item(:emp_fantasia).value(@company.fantasia)
+    report.page.item(:emp_razao_social).value(@company.razao_social)
+    report.page.item(:emp_cnpj).value("CNPJ: " + @company.cnpj)
+    report.page.item(:emp_fone).value("CONTATO: " + @company.phone_first)
+    report.page.item(:emp_cidade).value(@company.cidade_estado)
+  end
   
 end
