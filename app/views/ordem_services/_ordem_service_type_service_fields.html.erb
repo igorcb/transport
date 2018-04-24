@@ -1,5 +1,17 @@
 <div class='nested-fields'>
   <div class="row">
+    <div class="col-xs-10">
+    <%= f.label :client_table_price_id, "Trecho" %>
+    <% if @ordem_service.billing_client_id.present? %>
+      <%#= f.collection_select :client_table_price_id, table_price_of_billing_client(@ordem_service.billing_client_id), :client_table_price_id, :trecho, {prompt: "SELECIONE CIDADE ORIGEM"}, {class: "form-control input-sm"} %>
+      <%= f.collection_select :client_table_price_id, table_price_of_billing_client(@ordem_service.billing_client_id), :client_table_price_id, :trecho, {prompt: "SELECIONE CIDADE ORIGEM"}, {class: "form-control input-sm"} %>
+    <% else %>
+      <%= f.collection_select :client_table_price_id, [], :name, :name, {prompt: "SELECIONE CIDADE ORIGEM"}, {class: "form-control input-sm"}  %>
+    <% end %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
     <div class="col-xs-3">
       <% if @type_os == OrdemService::TipoOS::LOGISTICA %> 
         <%= f.select( :type_service_id, TypeService.logistica.collect {|p| [ p.descricao, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>

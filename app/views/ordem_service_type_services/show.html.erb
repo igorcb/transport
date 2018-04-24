@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Tabela de Preço</div>
+  <div class="panel-body">
+
+    <p>
+      <strong>O.S.:</strong>
+      <%= @ordem_service_type_service.ordem_service_id %>
+    </p>
+    <p>
+      <strong>Client:</strong>
+      <%= @ordem_service_type_service.ordem_service.billing_client.nome %>
+    </p>
+    <p>
+      <strong>Iss:</strong>
+      <%= @ordem_service_type_service.ordem_service_table_price.iss_value %>
+    </p>
+    <p>
+      <strong>Margem Lucro:</strong>
+      <%= @ordem_service_type_service.ordem_service_table_price.margin_lucre_value %>
+    </p>
+    <p>
+      <strong>Frete Peso:</strong>
+      <%= @ordem_service_type_service.ordem_service_table_price.freight_weight_value %>
+    </p>
+    <p>
+      <strong>Total Serviço:</strong>
+      <%= @ordem_service_type_service.ordem_service_table_price.total_service %>
+    </p>
+
+    
+  </div>
+</div>

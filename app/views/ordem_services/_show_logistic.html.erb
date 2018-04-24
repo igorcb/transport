@@ -167,8 +167,9 @@
     </div>
     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
       <div class="panel-body">
-  			<%= render 'value_services', object: @ordem_service %>
-  			<%= render 'show_services', object: @ordem_service %>
+  			<%#= render 'value_services', object: @ordem_service %>
+  			<%#= render 'show_services', object: @ordem_service %>
+        <%= render 'show_services', ordem_service_type_service: @ordem_service.ordem_service_type_service %>
       </div>
     </div>
   </div>

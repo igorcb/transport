@@ -1,64 +1,36 @@
-<% if object.ordem_service_type_service.present? %>
-
-<p>
-  <strong>Tabela de Preço:</strong>
-  <%#= object.client_table_price.stretch_route.stretch_source_and_target_short %>
-</p>
-
-<table class="table table-striped">
+<%= link_to 'New Service', '#new_type_service', 'data-toggle' => 'modal', class: "btn btn-success btn-sm" %>
+<table class="table table-striped" id='account_payables_table'>
   <thead>
-<!-- 
-    <th>Type Service</th>
-    <th>Qtde </th>
-    <th>Qtde Rec.</th>
-    <th>Valor</th>
-    <th>Vr. Pago</th>
-    <th>No: Adiant.</th>
-    <th>Status</th>
-    <th>C. Pagar</th>
- -->   
-    <th>Type Service</th>
-    <th>No: Adiant.</th>
+    <th>Trecho</th>
+    <th>Servico </th>
+    <th>No Adiant.</th>
     <th>Valor</th>
     <th>Lucro</th>
-    <th>ISS</th>
+    <th>Iss</th>
     <th>Total</th>
+    <th colspan="2">Opções</th>
   </thead>
 
   <tbody>
-    <% object.ordem_service_type_service.each do |item| %>
-      <tr>
-<!-- 
-        <td><%#= item.type_service.descricao if !item.type_service.nil? %></td>
-        <td><%#= item.qtde  if !item.type_service.nil?%></td>
-        <td><%#= item.qtde_recebida if !item.type_service.nil? %></td>
-        <td><%#= number_to_currency(item.valor, unit: "R$ ", separator: ",", delimiter: ".") if item.type_service.present? %> </td>
-        <td><%#= number_to_currency(item.valor_pago, unit: "R$ ", separator: ",", delimiter: ".") if item.type_service.present? %> </td>
-        <td>
-          <%#= item.advance_money.present? ? (link_to item.advance_money_number, item.advance_money) : item.advance_money %> 
-        </td>
-        <td><%#= item.status_name %></td>
-        <td><%#= link_to "#{ item.account_payable.id }", account_payable_path(item.account_payable.id) if item.account_payable.present? %> </td>
- -->
-        <td><%= item.type_service.descricao if !item.type_service.nil? %></td>
-        <td>
-          <%= item.advance_money.present? ? (link_to item.advance_money_number, item.advance_money) : item.advance_money %> 
-        </td>
-        <td><%= number_to_currency(item.valor, unit: "R$ ", separator: ",", delimiter: ".") if item.type_service.present? %> </td>
-        <td><%= number_to_currency(item.ordem_service_table_price.margin_lucre_value, unit: "R$ ", separator: ",", delimiter: ".") if item.ordem_service_table_price.present? %> </td>
-        <td><%= number_to_currency(item.ordem_service_table_price.iss_value, unit: "R$ ", separator: ",", delimiter: ".") if item.ordem_service_table_price.present? %> </td>
-        <td><%= number_to_currency(item.ordem_service_table_price.total_service, unit: "R$ ", separator: ",", delimiter: ".") if item.ordem_service_table_price.present? %> </td>
-
-       </tr>
-    <% end %>
-    <td colspan="3"> <strong>Total</strong> </td>
-    <td><strong><%= number_to_currency( object.ordem_service_type_service.sum(:valor), unit: "R$ ", separator: ",", delimiter: ".")  %></strong> </td>
-    <td><strong><%= number_to_currency( object.ordem_service_type_service.sum(:valor_pago), unit: "R$ ", separator: ",", delimiter: ".")  %></strong> </td>
-    <td colspan="3"> </td>
-
+    <% ordem_service_type_service.each do |type_service| %>
+      <%= render partial: 'ordem_service_type_services/table_row', locals: {item: type_service} %>
+    <% end %>    
   </tbody>
-
 </table>
-<% else %>
-  <h2 class="panel-title"> ---- </h2>
-<% end %>
+
+<div class="modal fade" id="new_type_service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Adicionar Serviço</h4>
+      </div>
+      <div class="modal-body">
+        <%= render 'ordem_service_type_services/form_js', modal: true %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

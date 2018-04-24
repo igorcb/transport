@@ -1,0 +1,66 @@
+
+	<%= hidden_field_tag "ordem_service_type_service[ordem_service_id]", @ordem_service.id if !@ordem_service.nil? %>  
+	<%= render 'shared/error_messages', object: f.object %>
+  
+<!--     
+    <div class="col-xs-1">
+      <%# value_qtde_recebida = @ordem_service.new_record? ? nil : f.object.qtde_recebida %>
+      <%#= f.text_field :qtde_recebida, value: value_qtde_recebida, class: "form-control input-sm", placeholder: "Qtde Recebida" %>
+    </div>
+ -->
+  <div class="form-group">
+    <div class="row">
+      <div class="col-xs-2">
+        <%= label_tag :client_id, "Cliente" %>
+        <%= text_field_tag :client_id, @ordem_service.billing_client.id, class: "form-control input-sm", disabled: true %>
+      </div>
+      <div class="col-xs-8">
+        <%= label_tag :client_name, "Nome" %>
+        <%= text_field_tag :client_name, @ordem_service.billing_client.nome, class: "form-control input-sm", disabled: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :client_table_price_id, "Trecho" %>
+    <% if @ordem_service.billing_client_id.present? %>
+      <%= f.collection_select :client_table_price_id, table_price_of_billing_client(@ordem_service.billing_client_id), :client_table_price_id, :trecho, {prompt: "SELECIONE CIDADE ORIGEM"}, {class: "form-control input-sm"} %>
+    <% else %>
+      <%= f.collection_select :client_table_price_id, [], :name, :name, {prompt: "SELECIONE CIDADE ORIGEM"}, {class: "form-control input-sm"}  %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+		<%= f.label :type_service_id, "Serviço" %>
+    <% if @ordem_service.tipo == OrdemService::TipoOS::LOGISTICA %> 
+      <%= f.select( :type_service_id, TypeService.logistica.collect {|p| [ p.descricao, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>
+    <% elsif @ordem_service.tipo == OrdemService::TipoOS::MUDANCA %>       
+      <%= f.select( :type_service_id, TypeService.mudanca.collect {|p| [ p.descricao, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>
+    <% end %>
+  </div>
+    
+  <div class="form-group">
+  	<%= f.label :advance_money_number, "No. Adiantamento" %>
+    <%= f.text_field :advance_money_number, class: "form-control input-sm", placeholder: "Nº 000000/2018" %>
+  </div>
+
+  <div class="form-group">
+  	<%= f.label :valor, "Valor do Serviço" %>
+    <%= f.text_field :valor, class: "form-control input-sm money2", value: to_real(f.object.valor), placeholder: "Valor do Serviço" %>
+  </div>
+ 
+<script type="text/javascript">
+  $(function(){
+    $("#ordem_service_type_service_client_table_price_id").change(function(){
+      var client_id = "client_id="+$(this).val();
+      console.log(client_id);
+      $.getJSON('/get_client_table_price_of_client_service', client_id, function(data){
+        var options = '<option value="">SELECIONE O SERVICO</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#ordem_service_type_service_type_service_id").html(options);
+      });
+    });
+  });
+</script>

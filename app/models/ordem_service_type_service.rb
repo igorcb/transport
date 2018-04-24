@@ -68,6 +68,10 @@ class OrdemServiceTypeService < ActiveRecord::Base
     value_iss = ((self.valor + margin_lucre) / perc_iss) - (self.valor + margin_lucre) 
   end
 
+  def calculate_freight_weight
+    self.ordem_service.client_table_price.freight_weight * self.ordem_service.peso
+  end
+
   def create_or_update_table_price
     client_id = self.ordem_service.billing_client_id
     client_table_price = self.ordem_service.client_table_price_id
@@ -81,6 +85,8 @@ class OrdemServiceTypeService < ActiveRecord::Base
                                                                     iss_value: self.calculate_iss,
                                                              margin_lucre_tax: table_price.margin_lucre,
                                                            margin_lucre_value: self.calculate_margin_lucre,
+                                                           freight_weight_tax: self.ordem_service.client_table_price.freight_weight,
+                                                         freight_weight_value: self.calculate_freight_weight,
                                                                 total_service: self.total_service)
   end
 

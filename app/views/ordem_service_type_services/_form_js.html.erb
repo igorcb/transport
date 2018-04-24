@@ -1,0 +1,14 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<%= form_for(@ordem_service_type_service, remote: true, html: {role: :form, 'data-model' => 'ordem_service_type_service'}) do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+
+  <%= render 'ordem_service_type_services/fields', f: f %>
+
+  <div class="actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+  </div>
+
+<% end %>

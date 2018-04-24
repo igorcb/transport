@@ -5,6 +5,7 @@ Transport::Application.routes.draw do
   resources :client_table_prices
 
   match "/get_client_table_price_of_client", :controller => "client_table_prices", :action => "get_client_table_price_of_client", via: [:get]
+  match "/get_client_table_price_of_client_service", :controller => "client_table_prices", :action => "get_client_table_price_of_client_service", via: [:get]
 
   resources :nature_freights
 

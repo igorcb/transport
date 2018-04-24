@@ -1,0 +1,12 @@
+<tr>
+  <td><%= item.type_service.descricao if !item.type_service.nil? %></td>
+  <td>
+    <%= item.advance_money.present? ? (link_to item.advance_money_number, item.advance_money) : item.advance_money %> 
+  </td>
+  <td><%= number_to_currency(item.valor, unit: "R$ ", separator: ",", delimiter: ".") if item.type_service.present? %> </td>
+  <td><%= number_to_currency(item.ordem_service_table_price.margin_lucre_value, unit: "R$ ", separator: ",", delimiter: ".") if item.ordem_service_table_price.present? %> </td>
+  <td><%= number_to_currency(item.ordem_service_table_price.iss_value, unit: "R$ ", separator: ",", delimiter: ".") if item.ordem_service_table_price.present? %> </td>
+  <td><%= number_to_currency(item.ordem_service_table_price.total_service, unit: "R$ ", separator: ",", delimiter: ".") if item.ordem_service_table_price.present? %> </td>
+  <td><%= link_to 'Show', item, class: "btn btn-info btn-xs" %></td>
+  <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+</tr>
