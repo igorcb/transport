@@ -154,6 +154,11 @@ class InputControlsController < ApplicationController
   end
 
   def edit
+    if @input_control.status != InputControl::TypeStatus::OPEN
+      flash[:danger] = "You can not edit an input control that has already been fed into the CD."
+      redirect_to @input_control
+      return
+    end
   end
 
   def create
