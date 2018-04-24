@@ -12,11 +12,11 @@
     <div class="row">
       <div class="col-xs-2">
         <%= label_tag :client_id, "Cliente" %>
-        <%= text_field_tag :client_id, @ordem_service.billing_client.id, class: "form-control input-sm", disabled: true %>
+        <%= text_field_tag :client_id, @ordem_service.billing_client.id, disabled: true, class: "form-control input-sm" if @ordem_service.billing_client.present? %>
       </div>
       <div class="col-xs-8">
         <%= label_tag :client_name, "Nome" %>
-        <%= text_field_tag :client_name, @ordem_service.billing_client.nome, class: "form-control input-sm", disabled: true %>
+        <%= text_field_tag :client_name, @ordem_service.billing_client.nome, disabled: true, class: "form-control input-sm" if @ordem_service.billing_client.present?  %>
       </div>
     </div>
   </div>
