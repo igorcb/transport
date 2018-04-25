@@ -40,6 +40,16 @@ module OrdemServiceHelper
     end
   end
 
+  def select_status_login
+    ([ ["CANCELADO", 0], 
+       ["FATURADO", 1], 
+       ["FECHADO", 2], 
+       ["LIBERADO PAGAMENTO", 3], 
+       ["PENDENTE", 4], 
+       ["PENDENTE PDF", 5] 
+    ])
+  end
+
   def table_price_of_billing_client(client)
     ClientTablePrice.joins(:type_service).stretch_of_client.where(client_id: client)
                                       .select("client_table_prices.id as client_table_price_id", 

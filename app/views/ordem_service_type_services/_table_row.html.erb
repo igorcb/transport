@@ -1,5 +1,6 @@
 <tr>
-  <td><%= item.type_service.descricao if !item.type_service.nil? %></td>
+  <td><%= item.client_table_price.stretch_route.stretch_source_and_target_short if item.client_table_price.present? %></td>
+  <td><%= item.type_service.descricao if item.type_service.present? %></td>
   <td>
     <%= item.advance_money.present? ? (link_to item.advance_money_number, item.advance_money) : item.advance_money %> 
   </td>

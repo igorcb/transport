@@ -1,0 +1,36 @@
+    <p>
+      <strong>O.S:</strong>
+      <%= link_to @ordem_service_type_service.ordem_service_id, @ordem_service_type_service.ordem_service %>
+    </p>
+    <p>
+      <strong>Client:</strong>
+      <%= @ordem_service_type_service.ordem_service.billing_client.nome %>
+    </p>
+    <p>
+      <strong>Trecho:</strong>
+      <%= @ordem_service_type_service.client_table_price.stretch_route.stretch_source_and_target_short if @ordem_service_type_service.client_table_price.present? %>
+    </p>
+    <p>
+      <strong>Tipo de Serviço:</strong>
+      <%= @ordem_service_type_service.type_service.descricao if @ordem_service_type_service.type_service.present? %>
+    </p>
+    <p>
+      <strong>Iss:</strong>
+      <%= @ordem_service_type_service.ordem_service_table_price.iss_value %>
+    </p>
+    <p>
+      <strong>Margem Lucro:</strong>
+      <%= @ordem_service_type_service.ordem_service_table_price.margin_lucre_value %>
+    </p>
+    <p>
+      <strong>Frete Peso:</strong>
+      <%= @ordem_service_type_service.ordem_service_table_price.freight_weight_value %>
+    </p>
+    <p>
+      <strong>Total Serviço:</strong>
+      <%= @ordem_service_type_service.ordem_service_table_price.total_service %>
+    </p>
+    <p>
+      <strong>Status Login:</strong>
+      <%= @ordem_service_type_service.status_login_name %>
+    </p>    

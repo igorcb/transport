@@ -29,6 +29,10 @@ class OrdemServiceTypeServicesController < ApplicationController
     respond_with(@ordem_service_type_service)
   end
 
+  def edit
+    
+  end
+
   def create
     @ordem_service_type_service = OrdemServiceTypeService.new(ordem_service_type_service_params)
     respond_to do |format|
@@ -39,6 +43,19 @@ class OrdemServiceTypeServicesController < ApplicationController
       end
     end    
   end
+
+  def update
+    respond_to do |format|
+      if @ordem_service_type_service.update(ordem_service_type_service_params)
+        format.html { redirect_to @ordem_service_type_service, flash: { success: 'OrdemServiceTypeService was successfully updated.' } }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @ordem_service_type_service.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   def destroy
     @ordem_service_type_service.destroy
@@ -52,6 +69,6 @@ class OrdemServiceTypeServicesController < ApplicationController
     end
 
     def ordem_service_type_service_params
-      params.require(:ordem_service_type_service).permit(:ordem_service_id, :client_table_price_id, :type_service_id, :advance_money_number, :valor)
+      params.require(:ordem_service_type_service).permit(:ordem_service_id, :client_table_price_id, :type_service_id, :advance_money_number, :valor, :status_login)
     end
 end

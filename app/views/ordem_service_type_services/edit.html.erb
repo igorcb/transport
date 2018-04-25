@@ -1,0 +1,15 @@
+<h3>Editar Tipo de Servico</h3>
+<%= form_for(@ordem_service_type_service) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+	<%= render "data_ordem_service_type_service" %> 
+	
+  <div class="form-group">
+    <%= f.label :status_login, "Status Login"%>
+    <%= f.select :status_login, select_status_login, {include_blank: true}, {class: "form-control"} %>      
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>  
+  </div>
+<% end %>

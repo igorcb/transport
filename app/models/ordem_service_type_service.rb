@@ -5,6 +5,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   belongs_to :ordem_service
   belongs_to :type_service
+  belongs_to :client_table_price
   has_one :account_payable
   has_one :ordem_service_table_price
 
@@ -21,11 +22,32 @@ class OrdemServiceTypeService < ActiveRecord::Base
     PAGO = 2
   end
 
+  module StatusLogin
+    CANCELADO = 0
+    FATURADO  = 1
+    FECHADO   = 2
+    LIBERADO_PAGAMENTO = 3
+    PENDENTE = 4
+    PENDENTE_PDF =5
+  end
+
   def status_name
     case self.status
       when 0  then "Aberto"
       when 1  then "Pendente"
       when 2  then "Pago"
+    else "Nao Definido"
+    end
+  end 
+
+  def status_login_name
+    case self.status_login
+      when 0  then "CANCELADO"
+      when 1  then "FATURADO"
+      when 2  then "FECHADO"
+      when 3  then "LIBERADO_PAGAMENTO"
+      when 4  then "PENDENTE"
+      when 5  then "PENDENTE_PDF"
     else "Nao Definido"
     end
   end 
@@ -85,7 +107,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
                                                                     iss_value: self.calculate_iss,
                                                              margin_lucre_tax: table_price.margin_lucre,
                                                            margin_lucre_value: self.calculate_margin_lucre,
-                                                           freight_weight_tax: self.ordem_service.client_table_price.freight_weight,
+                                                           freight_weight_tax: table_price.freight_weight,
                                                          freight_weight_value: self.calculate_freight_weight,
                                                                 total_service: self.total_service)
   end
