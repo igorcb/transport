@@ -38,6 +38,7 @@ class OrdemServiceTypeServicesController < ApplicationController
     respond_to do |format|
       if @ordem_service_type_service.save
         format.json { render action: 'show', status: :created, location: @ordem_service_type_service }
+        format.js   { render action: 'show', status: :created, location: @ordem_service_type_service }
       else
         format.json { render json: @ordem_service_type_service.errors, status: :unprocessable_entity }
       end
