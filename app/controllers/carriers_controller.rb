@@ -88,7 +88,7 @@ class CarriersController < ApplicationController
     def carrier_params
       params.require(:carrier).permit(:cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, :bairro, 
       :cidade, :estado, :cep, :obs, :partner, :aereo, :antt, :antt_categoria,
-      emails_attributes: [:setor, :contato, :email, :comprovante, :responsavel_carga, :id, :_destroy],
+      emails_attributes: [:setor, :contato, :email, :comprovante, :sector_id, :responsavel_carga, :id, :_destroy],
       contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
       account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
       assets_attributes: [:asset, :id, :_destroy]
