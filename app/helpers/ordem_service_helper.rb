@@ -47,6 +47,9 @@ module OrdemServiceHelper
        ["LIBERADO PAGAMENTO", 3], 
        ["PENDENTE", 4], 
        ["PENDENTE PDF", 5] 
+       ["APROVADO", 6] 
+       ["REPROVADO", 7] 
+       ["PEND. XML", 8] 
     ])
   end
 

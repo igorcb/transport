@@ -29,6 +29,9 @@ class OrdemServiceTypeService < ActiveRecord::Base
     LIBERADO_PAGAMENTO = 3
     PENDENTE = 4
     PENDENTE_PDF =5
+    APROVADO = 6 
+    REPROVADO = 7 
+    PEND_XML = 8
   end
 
   def status_name
@@ -48,6 +51,9 @@ class OrdemServiceTypeService < ActiveRecord::Base
       when 3  then "LIBERADO_PAGAMENTO"
       when 4  then "PENDENTE"
       when 5  then "PENDENTE_PDF"
+      when 6  then "APROVADO"
+      when 7  then "REPROVADO"
+      when 8  then "PEND. XML"
     else "Nao Definido"
     end
   end 
