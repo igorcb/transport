@@ -81,9 +81,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   end
 
   def total_service
-    if self.client_table_price.present?
       self.valor + calculate_margin_lucre + calculate_iss
-    end
   end
 
   def calculate_margin_lucre
