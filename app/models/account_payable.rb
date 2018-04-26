@@ -7,7 +7,7 @@ class AccountPayable < ActiveRecord::Base
   validates :sub_cost_center_three_id, presence: true
   validates :payment_method_id, presence: true
   validates :historic_id, presence: true
-  validates :documento, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }
+  validates :documento, presence: true, length: { maximum: 20 }
   validates :data_vencimento, presence: true
   validates :valor, presence: true, numericality: { greater_than: 0 }
   validates :observacao, presence: true
