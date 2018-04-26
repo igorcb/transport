@@ -86,14 +86,14 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   def calculate_margin_lucre
     perc_margem = 0.00
-    perc_margem ||= self.client_table_price.margin_lucre if self.client_table_price.present?
+    perc_margem = self.client_table_price.margin_lucre if self.client_table_price.present?
     margin_lucre = (self.valor * perc_margem ) / 100.00
   end
 
   def calculate_iss
     margin_lucre = calculate_margin_lucre
     iss = 0.00
-    iss ||= self.client_table_price.collection_delivery_iss
+    iss = self.client_table_price.collection_delivery_iss if self.client_table_price.present?
     perc_iss = 1 - ( iss / 100)
     value_iss = ((self.valor + margin_lucre) / perc_iss) - (self.valor + margin_lucre) 
   end
