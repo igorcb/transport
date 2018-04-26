@@ -81,7 +81,11 @@ class OrdemServiceTypeService < ActiveRecord::Base
   end
 
   def total_service
-      self.valor + calculate_margin_lucre + calculate_iss
+    if (self.valor + calculate_margin_lucre + calculate_iss) < self.client_table_price.minimum_total_freight
+      self.client_table_price.minimum_total_freight
+    else
+      (self.valor + calculate_margin_lucre + calculate_iss)
+    end
   end
 
   def calculate_margin_lucre
@@ -101,6 +105,10 @@ class OrdemServiceTypeService < ActiveRecord::Base
   def calculate_freight_weight
     self.client_table_price.freight_weight * self.ordem_service.peso
   end
+
+  # def calculate_minimum_total_freight
+  #   self.client_table_price.freight_weight * self.ordem_service.peso
+  # end
 
   def create_or_update_table_price
     table_price = ClientTablePrice.where(id: self.client_table_price_id, client_id: self.ordem_service.billing_client_id, type_service_id: self.type_service_id).first
