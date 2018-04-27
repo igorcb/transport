@@ -5,7 +5,7 @@ class AdvanceMoneysController < ApplicationController
   respond_to :html
 
   def index
-    @advance_moneys = AdvanceMoney.all
+    @advance_moneys = AdvanceMoney.order(date_advance: :desc)
     respond_with(@advance_moneys)
   end
 
