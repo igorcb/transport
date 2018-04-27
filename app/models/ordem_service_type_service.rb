@@ -80,8 +80,12 @@ class OrdemServiceTypeService < ActiveRecord::Base
     AdvanceMoney.where(number: self.advance_money_number).first
   end
 
+  def sum_total
+    self.valor + calculate_margin_lucre + calculate_iss + calculate_freight_weight
+  end
+
   def total_service
-    if (self.valor + calculate_margin_lucre + calculate_iss) < self.client_table_price.minimum_total_freight
+    if sum_total < self.client_table_price.minimum_total_freight
       self.client_table_price.minimum_total_freight
     else
       (self.valor + calculate_margin_lucre + calculate_iss)
@@ -106,9 +110,12 @@ class OrdemServiceTypeService < ActiveRecord::Base
     self.client_table_price.freight_weight * self.ordem_service.peso
   end
 
-  # def calculate_minimum_total_freight
-  #   self.client_table_price.freight_weight * self.ordem_service.peso
-  # end
+  def calculate_icms
+    icms = 0.00
+    icms = self.client_table_price.collection_delivery_icms_taxpayer if self.client_table_price.present?
+    perc_icms = 1 - ( icms / 100)
+    value_iss = ((self.valor) / perc_icms) - (self.valor) 
+  end
 
   def create_or_update_table_price
     table_price = ClientTablePrice.where(id: self.client_table_price_id, client_id: self.ordem_service.billing_client_id, type_service_id: self.type_service_id).first
