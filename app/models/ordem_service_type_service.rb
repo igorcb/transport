@@ -1,7 +1,7 @@
 class OrdemServiceTypeService < ActiveRecord::Base
   #validates :ordem_service, presence: true
   validates :type_service, presence: true
-  validates :valor, presence: true, numericality: { greater_than: 0 }
+  validates :valor, presence: true, numericality: { greater_than: 0 }, if: :value_service?
 
   belongs_to :ordem_service
   belongs_to :type_service
@@ -78,6 +78,10 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   def advance_money
     AdvanceMoney.where(number: self.advance_money_number).first
+  end
+
+  def value_service?
+    self.client_table_price.type_calc == ClientTablePrice::TypeCalc::VALOR_SERVICO
   end
 
   def sum_total
