@@ -88,7 +88,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
     if sum_total < self.client_table_price.minimum_total_freight
       self.client_table_price.minimum_total_freight
     else
-      (self.valor + calculate_margin_lucre + calculate_iss)
+      (sum_total)
     end
   end
 
@@ -113,8 +113,10 @@ class OrdemServiceTypeService < ActiveRecord::Base
   def calculate_icms
     icms = 0.00
     icms = self.client_table_price.collection_delivery_icms_taxpayer if self.client_table_price.present?
-    perc_icms = 1 - ( icms / 100)
-    value_iss = ((self.valor) / perc_icms) - (self.valor) 
+    perc_icms = 1 - ( icms / 100) 
+    valor_nota = 0.00
+    valor_calc = self.client_table_price == ClientTablePrice::TypeCalc::VALOR_NOTA ? valor_nota : self.valor
+    value_iss = ((self.valor) / perc_icms) - (valor_calc) 
   end
 
   def create_or_update_table_price
