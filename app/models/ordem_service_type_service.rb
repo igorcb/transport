@@ -81,15 +81,21 @@ class OrdemServiceTypeService < ActiveRecord::Base
   end
 
   def sum_total
-    self.valor + calculate_margin_lucre + calculate_iss + calculate_freight_weight
+    self.valor +
+      calculate_margin_lucre +
+      calculate_iss +
+      calculate_freight_weight +
+      calculate_freight_value
   end
 
   def total_service
-    if sum_total < self.client_table_price.minimum_total_freight
-      self.client_table_price.minimum_total_freight
-    else
-      (sum_total)
-    end
+    # if sum_total < self.client_table_price.minimum_total_freight
+    #   self.client_table_price.minimum_total_freight
+    # else
+    #   (sum_total)
+    # end
+    #sum_total < self.client_table_price.minimum_total_freight ? self.client_table_price.minimum_total_freight : (sum_total)
+    sum_total
   end
 
   def calculate_margin_lucre
@@ -108,6 +114,10 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   def calculate_freight_weight
     self.client_table_price.freight_weight * self.ordem_service.peso
+  end
+
+  def calculate_freight_value
+    (self.client_table_price.freight_value * self.ordem_service.valor_nota_fiscal) / 100
   end
 
   def calculate_icms
@@ -133,6 +143,8 @@ class OrdemServiceTypeService < ActiveRecord::Base
                                                            margin_lucre_value: self.calculate_margin_lucre,
                                                            freight_weight_tax: table_price.freight_weight,
                                                          freight_weight_value: self.calculate_freight_weight,
+                                                            freight_value_tax: table_price.freight_value,
+                                                                freight_value: self.calculate_freight_value,
                                                                 total_service: self.total_service)
   end
 
