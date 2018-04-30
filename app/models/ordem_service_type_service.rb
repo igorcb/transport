@@ -85,6 +85,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
       calculate_margin_lucre +
       calculate_iss +
       calculate_freight_weight +
+      calculate_freight_volume +
       calculate_freight_value
   end
 
@@ -116,6 +117,10 @@ class OrdemServiceTypeService < ActiveRecord::Base
     self.client_table_price.freight_weight * self.ordem_service.peso
   end
 
+  def calculate_freight_volume
+    self.client_table_price.freight_volume * self.ordem_service.qtde_volume
+  end
+
   def calculate_freight_value
     (self.client_table_price.freight_value * self.ordem_service.valor_nota_fiscal) / 100
   end
@@ -125,7 +130,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
     icms = self.client_table_price.collection_delivery_icms_taxpayer if self.client_table_price.present?
     perc_icms = 1 - ( icms / 100) 
     valor_nota = 0.00
-    valor_calc = self.client_table_price == ClientTablePrice::TypeCalc::VALOR_NOTA ? valor_nota : self.valor
+    valor_calc = self.client_table_price == ClientTablePrice::TypeCalc::VALOR_NOTA ? sum_total : self.valor
     value_iss = ((self.valor) / perc_icms) - (valor_calc) 
   end
 
@@ -143,6 +148,8 @@ class OrdemServiceTypeService < ActiveRecord::Base
                                                            margin_lucre_value: self.calculate_margin_lucre,
                                                            freight_weight_tax: table_price.freight_weight,
                                                          freight_weight_value: self.calculate_freight_weight,
+                                                           freight_volume_tax: table_price.freight_volume,
+                                                         freight_volume_value: self.calculate_freight_volume,
                                                             freight_value_tax: table_price.freight_value,
                                                                 freight_value: self.calculate_freight_value,
                                                                 total_service: self.total_service)
