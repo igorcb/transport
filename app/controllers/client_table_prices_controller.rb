@@ -66,7 +66,7 @@ class ClientTablePricesController < ApplicationController
     end
 
     def client_table_price_params
-      params.require(:client_table_price).permit(:client_id, :type_service_id, :stretch_route_id,
+      params.require(:client_table_price).permit(:client_id, :type_service_id, :stretch_route_id, :type_calc,
         :freight_weight, :freight_value, :freight_volume, :freight_dispatch, :freight_toll, :freight_type_gris, :freight_gris, :freight_type_trt, :freight_trt, :payment_discharges, :margin_lucre,
         :minimum_total_freight, :minimum_weiht, :minimum_value, :minimum_gris, :minimum_trt, :minimum_weight_kg, 
         :collection_delivery_incidence, :collection_delivery_ad_icms_value_frete, :collection_delivery_ad_value_minimum, :collection_delivery_icms_taxpayer, :collection_delivery_non_taxpayer, :collection_delivery_iss, 

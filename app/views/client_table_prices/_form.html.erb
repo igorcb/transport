@@ -17,6 +17,10 @@
       <%= f.select(:type_service_id, TypeService.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
     </div>
     <div class="form-group">
+      <%= f.label :type_calc, "Calculo em cima do" %>
+      <%= f.select :type_calc, select_type_calc, {include_blank: false}, {class: "form-control"} %>
+    </div>
+    <div class="form-group">
       <%= f.label :freight_weight, "Frete Peso" %>
       <%= f.text_field :freight_weight, class: "form-control" %>
     </div>

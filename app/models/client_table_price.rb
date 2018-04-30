@@ -5,6 +5,13 @@ class ClientTablePrice < ActiveRecord::Base
 
   scope :stretch_of_client, -> { ClientTablePrice.joins(stretch_route: [ :stretch_source, :stretch_target ]).order("stretches.destino") }
 
+  module TypeCalc
+    #Tipo de Calculo valor em cima da nota ou em cima do valor de servico
+    #pegando da tabela ordem_service_type_service
+    VALOR_NOTA =  0
+    VALOR_SERVICO = 1
+  end
+
   module TypeValuePercent
 		VALOR =  0
 		PERCENTUAL = 1
@@ -37,6 +44,13 @@ class ClientTablePrice < ActiveRecord::Base
   	LIBERADO = 0
   	BLOQUEADO = 1
   	VENCIDO = 2
+  end
+
+  def type_calc_name
+    case self.type_calc
+      when 0 then "Valor Nota"
+      when 1 then "Valor Servico"
+    end
   end
 
   def value_and_percent_name(type)
