@@ -94,7 +94,10 @@ class OrdemServiceTypeService < ActiveRecord::Base
   end
 
   def total_service
-    sum_total + calculate_icms
+    value_total = 0.00
+    s_total = sum_total
+    value_total = (s_total >= self.client_table_price.minimum_total_freight) ? s_total : self.client_table_price.minimum_total_freight
+    value_total + calculate_icms
   end
 
   def calculate_margin_lucre
