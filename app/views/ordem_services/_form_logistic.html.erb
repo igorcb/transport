@@ -118,18 +118,6 @@
     <%= link_to_add_association 'Add NF-e', f, :nfe_keys, class: "btn btn-success btn-sm" %> <br />
   </div>
    
-  <h3>Serviços</h3>
-  <div id="result_calculate_freight">
-
-  </div>
-
-  <div class="ordem_service_type_service_items">
-      <%= f.fields_for :ordem_service_type_service do |f| 
-        render 'ordem_service_type_service_fields', f: f
-      end  -%> <br />
-      <%= link_to_add_association 'Add Serviço', f, :ordem_service_type_service, class: "btn btn-success btn-sm" %> <br />
-  </div>
-  
   <h3>Account Banks</h3>
   <div class="account_banks_items">
     <%= f.fields_for :account_banks do |f| 
