@@ -60,6 +60,16 @@ class ClientTablePricesController < ApplicationController
     render :text => array.to_json
   end    
 
+  def get_client_table_price_of_by_cnpj
+    puts ">>>>>>>>>>>>>>>>>>>>> get_client_table_price_of_client_service_cnpj <<<<<<<<<<<<<<<<<<<<<<<<<<"
+    client = Client.where(cpf_cnpj: params[:cpf_cnpj]).first
+    array = []
+    client.client_table_prices.each do |c|
+      array << {:id => c.type_service.id, :n => c.type_service.descricao}
+    end
+    render :text => array.to_json
+  end
+
   private
     def set_client_table_price
       @client_table_price = ClientTablePrice.find(params[:id])

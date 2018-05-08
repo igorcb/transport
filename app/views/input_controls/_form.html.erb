@@ -56,6 +56,16 @@
 
 
   <div class="form-group">
+    <%= f.label :client_table_price_id, "Trecho" %>
+    <% if @input_control.billing_client_id.present? %>
+      <%= f.collection_select :client_table_price_id, table_price_of_billing_client(@input_control.billing_client_id), :client_table_price_id, :trecho, {prompt: "SELECIONE TABELA DE PRECO"}, {class: "form-control"} %>
+    <% else %>
+      <%= f.collection_select :client_table_price_id, [], :name, :name, {prompt: "SELECIONE TABELA DE PRECO"}, {class: "form-control"}  %>
+    <% end %>
+  </div>
+
+
+  <div class="form-group">
     <%= f.label :place, "Placa" %>
     <%= f.text_field :place, class: "form-control placa" %>
   </div>
@@ -211,6 +221,24 @@
         url: '/clients/get_client_by_cnpj',
         success: function(data){
             $('#billing_client_cnpj_result').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#billing_client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#billing_client_cpf_cpnj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj, id: nil},
+        dataType : 'html',
+        url: '/client_table_prices/get_client_table_price_of_by_cnpj',
+        success: function(data){
+            $('#input_control_client_table_price_id').html(data);
         },
       });
     });
