@@ -1,6 +1,6 @@
 class ClientTablePricesController < ApplicationController
   include OrdemServiceHelper
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
   
   before_action :set_client_table_price, only: [:show, :edit, :update, :destroy]
 
@@ -42,7 +42,6 @@ class ClientTablePricesController < ApplicationController
   def get_client_table_price_of_client
     #client_table_prices = ClientTablePrice.stretch_of_client.where(client_id: params[:client_id])
     client_table_prices = table_price_of_billing_client(params[:client_id])
-    client_table_prices
     array = []
     client_table_prices.each do |c|
       array << {:client_table_price_id => c.id, :n => c.trecho}
@@ -63,16 +62,17 @@ class ClientTablePricesController < ApplicationController
   def get_client_table_price_of_by_cnpj
     puts ">>>>>>>>>>>>>>>>>>>>> get_client_table_price_of_client_service_cnpj <<<<<<<<<<<<<<<<<<<<<<<<<<"
     client = Client.where(cpf_cnpj: params[:cpf_cnpj]).first
+    client_table_prices = table_price_of_billing_client(client.id)
     array = []
-    client.client_table_prices.each do |c|
-      array << {:id => c.type_service.id, :n => c.type_service.descricao}
+    client_table_prices.each do |c|
+      array << {:client_table_price_id => c.id, :n => c.trecho}
     end
     render :text => array.to_json
   end
 
   private
     def set_client_table_price
-      @client_table_price = ClientTablePrice.find(params[:id])
+      @client_table_price = ClientTablePrice.find(params[:id]) 
     end
 
     def client_table_price_params

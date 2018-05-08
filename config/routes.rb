@@ -3,7 +3,7 @@ Transport::Application.routes.draw do
   resources :advance_moneys
 
   resources :client_table_prices
-
+  
   match "/get_client_table_price_of_by_cnpj", :controller => "client_table_prices", :action => "get_client_table_price_of_by_cnpj", via: [:get]
   match "/get_client_table_price_of_client", :controller => "client_table_prices", :action => "get_client_table_price_of_client", via: [:get]
   match "/get_client_table_price_of_client_service", :controller => "client_table_prices", :action => "get_client_table_price_of_client_service", via: [:get]
