@@ -50,6 +50,8 @@ class Client < ActiveRecord::Base
 
   has_one :client_table_price
 
+  has_many :client_table_prices
+
   before_destroy :can_destroy?
 
   scope :billing, -> { where(faturar:true) }
