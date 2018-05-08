@@ -7,7 +7,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   belongs_to :type_service
   belongs_to :client_table_price
   has_one :account_payable
-  has_one :ordem_service_table_price
+  has_one :ordem_service_table_price, dependent: :destroy
 
   scope :both, -> { joins(:type_service, :ordem_service).order('ordem_services.data desc') }
   scope :open, -> { joins(:type_service, :ordem_service).where(status: [0, 1]).order('ordem_services.data desc') }
@@ -85,7 +85,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   end
 
   def sum_total
-    self.valor +
+    self.valor +  
       calculate_margin_lucre +
       calculate_iss +
       calculate_freight_weight +

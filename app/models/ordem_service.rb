@@ -77,7 +77,7 @@ class OrdemService < ActiveRecord::Base
 
   has_many :inventories
 
-  has_one :ordem_service_table_price
+  has_many :ordem_service_table_prices
 
   #scope :is_not_billed, -> { joins(:ordem_service_type_services).where(status: [0,1]).order('ordem_services.data desc') }
   scope :status_open, -> { where(status: [TipoStatus::ABERTO, TipoStatus::AGUARDANDO_EMBARQUE]).order("id desc") }
@@ -250,7 +250,9 @@ class OrdemService < ActiveRecord::Base
   end
 
   def valor_ordem_service
-    self.ordem_service_type_service.sum(:valor)
+    #Foi trocado para pegar o valor do servico da tabela de orderm_service_table_price
+    #self.ordem_service_type_service.sum(:valor)
+    self.ordem_service_table_prices.sum(:total_service)
   end
 
   def valor_os(type_service)
