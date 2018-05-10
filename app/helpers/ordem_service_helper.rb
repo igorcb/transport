@@ -54,7 +54,7 @@ module OrdemServiceHelper
   end
 
   def table_price_of_billing_client(client)
-    ClientTablePrice.joins(:type_service).stretch_of_client.where(client_id: client).uniq
+    ClientTablePrice.joins(:type_service).stretch_of_client.where(client_id: client)
                                       .select("client_table_prices.id as client_table_price_id", 
                                       "stretches.destino || '/' || stretch_targets_stretch_routes.destino || '/' || type_services.descricao as trecho")
   end
