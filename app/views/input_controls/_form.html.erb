@@ -54,10 +54,30 @@
 
   </div>  
 
+<!--   
+  <div class="form-group">
+    <%#= f.label :stretch_route_id, "Trecho" %>
+    <%#= f.select(:stretch_route_id, StretchRoute.all.collect {|c| [c.stretch_source_and_target_long, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+-->
+
   <div class="form-group">
     <%= f.label :stretch_route_id, "Trecho" %>
-    <%= f.select(:stretch_route_id, StretchRoute.all.collect {|c| [c.stretch_source_and_target_long, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
-  </div>
+    <% if @input_control.stretch_route_id.present? %>
+      <%= f.collection_select :stretch_route_id, input_stretch_route(@input_control.billing_client_id), :id, :stretch_source_and_target_long, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "form-control input-sm"} %>
+    <% else %>
+      <%= f.collection_select :stretch_route_id, [], :name, :name, {prompt: "SELECIONE TRECHO"}, {class: "form-control input-sm"}  %>
+    <% end %>
+  </div>  
+
+  <div class="form-group">
+    <%= f.label :type_service_id, "Tipo de Servico" %>
+    <% if @input_control.type_service_id.present? %>
+      <%= f.collection_select :type_service_id, input_type_service(@input_control.billing_client_id, @input_control.stretch_route_id ), :id, :descricao, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "form-control input-sm"} %>
+    <% else %>
+      <%= f.collection_select :type_service_id, [], :id, :name, {prompt: "SELECIONE O SERVICO"}, {class: "form-control input-sm"}  %>
+    <% end %>
+  </div>  
 
   <div class="form-group">
     <%= f.label :place, "Placa" %>
@@ -225,12 +245,30 @@
     $("#billing_client_cpf_cpnj").change(function(){
       var client_id = "cpf_cnpj="+$(this).val();
       console.log(client_id);
-      $.getJSON('/get_client_table_price_of_by_cnpj', client_id, function(data){
+      $.getJSON('/get_stretch_routes_from_client_cnpj', client_id, function(data){
         var options = '<option value="">SELECIONE O TRECHO</option>'; 
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
-        $("#input_control_stretch_route").html(options);
+        $("#input_control_stretch_route_id").html(options);
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(function(){
+    $("#input_control_stretch_route_id").change(function(){
+      var cpf_cnpj = $("#billing_client_cpf_cpnj").val();
+      var stretch_route_id = $(this).val();
+      var client_and_stretch_route = {'cpf_cnpj': cpf_cnpj, 'stretch_route_id': stretch_route_id}
+      console.log(client_and_stretch_route);
+      $.getJSON('/get_client_table_price_of_by_client_cnpj_and_stretch_route', client_and_stretch_route, function(data){
+        var options = '<option value="">SELECIONE O TIPO DE SERVICO</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#input_control_type_service_id").html(options);
       });
     });
   });

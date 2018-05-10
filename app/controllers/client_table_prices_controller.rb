@@ -50,7 +50,6 @@ class ClientTablePricesController < ApplicationController
   end    
 
   def get_client_table_price_of_client_service
-    puts ">>>>>>>>>>>>>>>>>>>>> get_client_table_price_of_client_service <<<<<<<<<<<<<<<<<<<<<<<<<<"
     client_table_price = ClientTablePrice.where(id: params[:client_id])
     array = []
     client_table_price.each do |c|
@@ -59,13 +58,12 @@ class ClientTablePricesController < ApplicationController
     render :text => array.to_json
   end    
 
-  def get_client_table_price_of_by_cnpj
-    puts ">>>>>>>>>>>>>>>>>>>>> get_client_table_price_of_client_service_cnpj <<<<<<<<<<<<<<<<<<<<<<<<<<"
+  def get_client_table_price_of_by_client_cnpj_and_stretch_route
     client = Client.where(cpf_cnpj: params[:cpf_cnpj]).first
-    client_table_prices = table_price_of_billing_client(client.id)
+    client_table_prices = ClientTablePrice.where(client_id: client.id, stretch_route_id: params[:stretch_route_id])
     array = []
     client_table_prices.each do |c|
-      array << {:client_table_price_id => c.id, :n => c.trecho}
+      array << {:id => c.type_service.id, :n => c.type_service.descricao}
     end
     render :text => array.to_json
   end

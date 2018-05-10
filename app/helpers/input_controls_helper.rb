@@ -43,6 +43,18 @@ module InputControlsHelper
     number_to_currency(calc, precision: 2, unit: "R$ ", separator: ",", delimiter: ".")
   end
 
+  def input_stretch_route(client_id)
+    #client = Client.where(cpf_cnpj: params[:cpf_cnpj]).first
+    client = Client.where(id: client_id).first
+    StretchRoute.where(id: client.client_table_prices.select(:stretch_route_id).uniq.pluck(:stretch_route_id))
+  end
+
+  def input_type_service(client_id, stretch_route_id )
+    #StretchRoute.where(id: client.client_table_prices.select(:stretch_route_id).uniq.pluck(:stretch_route_id))
+    type_service_ids = ClientTablePrice.select(:type_service_id).where(client_id: client_id, stretch_route_id: stretch_route_id).pluck(:type_service_id)
+    TypeService.where(id: type_service_ids)
+  end
+
 end
 
   # Fazer testes com esses helper

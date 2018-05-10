@@ -162,16 +162,19 @@ class InputControlsController < ApplicationController
   end
 
   def create
-    # @input_control = InputControl.new(input_control_params)
-    # @input_control.save
-    # respond_with(@input_control)
     driver  = Driver.find_by_cpf(params[:driver_cpf])
     carrier = Carrier.find_by_cnpj(params[:carrier_cnpj])
     billing_client  = Client.find_by_cpf_cnpj(params[:billing_client_cpf_cpnj])
+
     @input_control.driver_id = driver.id
     @input_control.carrier_id = carrier.id
     @input_control.user_id = current_user.id
     @input_control.billing_client_id = billing_client.id
+    if params[:input_control][:stretch_route_id].present? && params[:input_control][:type_service_id].present?
+      client_table_price = get_client_table_price
+      @input_control.client_table_price_id = client_table_price.id
+    end
+
     respond_to do |format|
       if @input_control.save                               
         format.html { redirect_to @input_control, flash: { success: "Input Control was successfully created." } }
@@ -185,9 +188,11 @@ class InputControlsController < ApplicationController
   end
 
   def update
-    # @input_control.update(input_control_params)
-    # respond_with(@input_control)
-   respond_to do |format|
+    respond_to do |format|
+      if params[:input_control][:stretch_route_id].present? && params[:input_control][:type_service_id].present?
+        client_table_price = get_client_table_price
+        @input_control.client_table_price_id = client_table_price.id
+      end
       if @input_control.update(input_control_params) 
         format.html { redirect_to @input_control, flash: { success: "Input Control client was successfully updated." } }
         format.json { head :no_content }
@@ -231,10 +236,18 @@ class InputControlsController < ApplicationController
     def input_control_params
       params.require(:input_control).permit(:carrier_id, :driver_id, :billing_client_id, :place, :place_cart, 
         :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets, 
-        :observation, :charge_discharge, :shipment, :team, :dock, :hangar, :container, :client_table_price_id,
+        :observation, :charge_discharge, :shipment, :team, :dock, :hangar, :container, 
+        :stretch_route_id, :type_service_id,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )
+    end
+
+    def get_client_table_price
+      client_table_price = ClientTablePrice.where(client_id: @input_control.billing_client_id, 
+                                           stretch_route_id: params[:input_control][:stretch_route_id],
+                                            type_service_id: params[:input_control][:type_service_id]).first
+      client_table_price
     end
 
     def render_tag_input_control(input_control)
