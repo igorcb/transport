@@ -27,6 +27,38 @@
 
   <div id="driver_cpf_result">
 
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :billing_client_cpf_cpnj, "CPF/CNPJ Tomador do Serviço" %><br>
+    <% if @direct_charge.new_record? %>
+      <%= text_field_tag :billing_client_cpf_cpnj, nil, class: "form-control cnpj" %>
+    <% else %>
+      <%= text_field_tag :billing_client_cpf_cpnj, @direct_charge.billing_client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= render partial: "clients/result_client", locals: { client: @direct_charge.billing_client } %>
+    <% end %>
+  </div>    
+
+  <div id="billing_client_cnpj_result">
+
+  </div>  
+
+  <div class="form-group">
+    <%= f.label :stretch_route_id, "Trecho" %>
+    <% if @direct_charge.stretch_route_id.present? %>
+      <%= f.collection_select :stretch_route_id, input_stretch_route(@direct_charge.billing_client_id), :id, :stretch_source_and_target_long, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "form-control input-sm"} %>
+    <% else %>
+      <%= f.collection_select :stretch_route_id, [], :name, :name, {prompt: "SELECIONE TRECHO"}, {class: "form-control input-sm"}  %>
+    <% end %>
+  </div>  
+
+  <div class="form-group">
+    <%= f.label :type_service_id, "Tipo de Servico" %>
+    <% if @direct_charge.type_service_id.present? %>
+      <%= f.collection_select :type_service_id, input_type_service(@direct_charge.billing_client_id, @direct_charge.stretch_route_id ), :id, :descricao, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "form-control input-sm"} %>
+    <% else %>
+      <%= f.collection_select :type_service_id, [], :id, :name, {prompt: "SELECIONE O SERVICO"}, {class: "form-control input-sm"}  %>
+    <% end %>
   </div>  
 
   <div class="form-group">
@@ -193,3 +225,53 @@
   });
 </script>
 
+<script type="text/javascript">
+  $(function() {
+   $("#billing_client_cpf_cpnj").focusout(function() {
+      var cnpj = $('#billing_client_cpf_cpnj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cpnj: cnpj},
+        dataType : 'html',
+        url: '/clients/get_client_by_cnpj',
+        success: function(data){
+            $('#billing_client_cnpj_result').html(data);
+        },
+      });
+    });
+</script>
+
+<script type="text/javascript">
+  $(function(){
+    $("#billing_client_cpf_cpnj").change(function(){
+      var client_id = "cpf_cnpj="+$(this).val();
+      console.log(client_id);
+      $.getJSON('/get_stretch_routes_from_client_cnpj', client_id, function(data){
+        var options = '<option value="">SELECIONE O TRECHO</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#direct_charge_stretch_route_id").html(options);
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(function(){
+    $("#direct_charge_stretch_route_id").change(function(){
+      var cpf_cnpj = $("#billing_client_cpf_cpnj").val();
+      var stretch_route_id = $(this).val();
+      var client_and_stretch_route = {'cpf_cnpj': cpf_cnpj, 'stretch_route_id': stretch_route_id}
+      console.log(client_and_stretch_route);
+      $.getJSON('/get_client_table_price_of_by_client_cnpj_and_stretch_route', client_and_stretch_route, function(data){
+        var options = '<option value="">SELECIONE O TIPO DE SERVICO</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#direct_charge_type_service_id").html(options);
+      });
+    });
+  });
+</script>

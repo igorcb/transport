@@ -82,11 +82,14 @@ class DirectChargesController < ApplicationController
   def create
     driver  = Driver.find_by_cpf(params[:driver_cpf])
     carrier = Carrier.find_by_cnpj(params[:carrier_cnpj])
-
+    billing_client  = Client.find_by_cpf_cnpj(params[:billing_client_cpf_cpnj])
     @direct_charge = DirectCharge.new(direct_charge_params)
 
+    client_table_price = get_client_table_price.id
     @direct_charge.driver_id = driver.id
     @direct_charge.carrier_id = carrier.id
+    @direct_charge.billing_client_id = billing_client.id
+    @direct_charge.client_table_price_id = billing_client.id
     @direct_charge.user_id = current_user.id
 
     @direct_charge.save
@@ -108,10 +111,18 @@ class DirectChargesController < ApplicationController
       @direct_charge = DirectCharge.find(params[:id])
     end
 
+    def get_client_table_price
+      client_table_price = ClientTablePrice.where(client_id: @direct_charge.billing_client_id, 
+                                           stretch_route_id: params[:stretch_route_id],
+                                            type_service_id: params[:type_service_id]).first
+      puts ">>>>>>>>>>>>>> TablePrice: #{client_table_price.id}"
+      client_table_price
+    end
+
     def direct_charge_params
       params.require(:direct_charge).permit(:carrier_id, :driver_id, :place, :place_cart, :place_cart_2, :date_charge, :palletized, 
         :quantity_pallets, :weight, :volume, :source_state, :source_city, :target_state, :target_city, 
-        :observation, :user_id, :shipment,
+        :observation, :user_id, :shipment, :stretch_route_id, :type_service_id, 
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         assets_attributes: [:asset, :user_id, :id, :_destroy]
 
