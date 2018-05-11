@@ -7,6 +7,7 @@ class InputControl < ActiveRecord::Base
   belongs_to :user_received, class_name: "User", foreign_key: "received_user_id"
   belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id"
   belongs_to :scheduling, class_name: "Scheduling", foreign_key: "conteiner_id"
+  belongs_to :client_table_price
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
@@ -28,7 +29,6 @@ class InputControl < ActiveRecord::Base
   has_many :breakdowns, as: :breakdown, dependent: :destroy
   #has_many :breakdowns, -> { order(:lastname => :asc) }, as: :breakdown, dependent: :destroy
   accepts_nested_attributes_for :breakdowns, allow_destroy: true, reject_if: :all_blank  
-
 
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
 
@@ -288,10 +288,19 @@ class InputControl < ActiveRecord::Base
     puts ">>>>>>>>>>>>  params: #{params.to_s}"
     input_control = InputControl.find(params[:id])
     nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
+    total_weight = input_control.nfe_xmls.nfe.sum(:peso).to_f
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
     billing_client = input_control.billing_client
     
+    value_weight_average = BigDecimal.new(0)  
+
+    if input_control.client_table_price.present?
+      value_weight_average = input_control.client_table_price.minimum_total_freight / total_weight
+    end
+    puts ">>>>>>>>>>>>>>>>>>>> Frete: #{input_control.client_table_price.minimum_total_freight.to_f}"
+    puts ">>>>>>>>>>>>>>>>>>>>  Peso: #{total_weight.to_f}"
+    puts ">>>>>>>>>>>>>>>>>>>> Calculate Average: #{value_weight_average}"
     #carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
     nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_xmls.first.numero).first
 
@@ -333,6 +342,7 @@ class InputControl < ActiveRecord::Base
                               remessa_ype: input_control.shipment,
                                      peso: nfe.peso,
                                    volume: nfe.volume,
+                                  average: value_weight_average,
                               observation: nfe.observation
                                     )
 
