@@ -25,7 +25,7 @@ class AddressController < ApplicationController
     cities.each do |s|
       city_array << {:id => s.name, :n => s.name}
     end
-    puts ">>>>>>>>>>>>>> #{city_array.to_json}"
-    render :text => city_array.to_json
+    #puts ">>>>>>>>>>>>>> #{city_array.to_json}"
+    render :text => city_array.to_json.force_encoding("UTF-8")
   end
 end
