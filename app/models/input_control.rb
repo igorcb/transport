@@ -285,7 +285,6 @@ class InputControl < ActiveRecord::Base
   end    
 
   def self.create_ordem_service_input_controls(params = {})
-    puts ">>>>>>>>>>>>  params: #{params.to_s}"
     input_control = InputControl.find(params[:id])
     nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
     total_weight = input_control.nfe_xmls.nfe.sum(:peso).to_f
@@ -298,9 +297,6 @@ class InputControl < ActiveRecord::Base
     if input_control.client_table_price.present?
       value_weight_average = input_control.client_table_price.minimum_total_freight / total_weight
     end
-    puts ">>>>>>>>>>>>>>>>>>>> Frete: #{input_control.client_table_price.minimum_total_freight.to_f}"
-    puts ">>>>>>>>>>>>>>>>>>>>  Peso: #{total_weight.to_f}"
-    puts ">>>>>>>>>>>>>>>>>>>> Calculate Average: #{value_weight_average}"
     #carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
     nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_xmls.first.numero).first
 
