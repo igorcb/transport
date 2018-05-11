@@ -52,7 +52,31 @@
       <strong>Qtde Paletes:</strong>
       <%= @direct_charge.quantity_pallets %>
     </p>
+    
     <hr>
+    
+    <p>
+      <strong>Trecho:</strong>
+      <%= @direct_charge.stretch_route.stretch_source_and_target_long %>
+    </p>
+
+    <p>
+      <strong>Tipo de Serviço:</strong>
+      <%= @direct_charge.type_service.descricao %>
+    </p>
+
+    <p>
+      <strong>Origem:</strong>
+      <%= @direct_charge.source_city %>/<%= @direct_charge.source_state %>
+    </p>
+        
+    <p>
+      <strong>Destino:</strong>
+      <%= @direct_charge.target_city %>/<%= @direct_charge.target_state %>
+    </p>
+
+    <hr>
+    
     <p>
       <strong>Peso:</strong>
       <%= number_to_currency(@direct_charge.weight, precision: 3, unit: "", separator: ",", delimiter: ".") %>
@@ -84,9 +108,9 @@
       <strong>Status:</strong>
       <%= @direct_charge.account_receivable.status_name if @direct_charge.account_receivable.present? %>    
     </p>
-
-    <hr>
     
+    <hr>
+
     <p>
       <strong>Criado por:</strong>
       <%= @direct_charge.user.email if @direct_charge.user.present? %>

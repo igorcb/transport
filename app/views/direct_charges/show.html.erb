@@ -95,6 +95,33 @@
     <div class="panel-heading" role="tab" id="headingFour">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Dados do tomador do servico
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">Dados tomador do servico</h2>
+            </div>
+
+            <div class="panel-body"> 
+              <%= render 'clients/client_data', object: @direct_charge.billing_client if @direct_charge.billing_client.present? %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
           Documentos
         </a>
       </h4>
