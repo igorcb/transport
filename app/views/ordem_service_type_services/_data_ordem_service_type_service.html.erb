@@ -1,4 +1,9 @@
     <p>
+      <strong>ClientTablePrice:</strong>
+      <%= link_to @ordem_service_type_service.ordem_service_table_price.client_table_price.id, @ordem_service_type_service.ordem_service_table_price.client_table_price if @ordem_service_type_service.ordem_service_table_price.client_table_price.present? %>
+    </p>
+
+    <p>
       <strong>O.S:</strong>
       <%= link_to @ordem_service_type_service.ordem_service_id, @ordem_service_type_service.ordem_service %>
     </p>
