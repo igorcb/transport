@@ -31,6 +31,10 @@ class NfeKey < ActiveRecord::Base
     ['nfe']
   end
 
+  def freight_average
+    self.peso * self.average
+  end
+
   # def input_control
 
   # end
