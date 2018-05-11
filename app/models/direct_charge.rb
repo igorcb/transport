@@ -6,6 +6,10 @@ class DirectCharge < ActiveRecord::Base
   belongs_to :carrier
   belongs_to :driver
   belongs_to :user, class_name: "User", foreign_key: "user_id"
+  belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id"
+  belongs_to :client_table_price
+  belongs_to :type_service
+  belongs_to :stretch_route
 
   #belongs_to :supplier, class_name: "Supplier", foreign_key: "supplier_id", polymorphic: true
   has_one :offer_charge
@@ -113,7 +117,7 @@ class DirectCharge < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       offer = OfferCharge.where(shipping: self.shipment).first
       OfferCharge.where(shipping: self.shipment).update_all(direct_charge_id: self.id, status: OfferCharge::TypeStatus::CLOSE)
-      DirectCharge.where(id: self.id).update_all(offer_charge_id: offer.id)      
+      DirectCharge.where(id: self.id).update_all(offer_charge_id: offer.id) if offer.present?
     end
   end
 
@@ -195,8 +199,17 @@ class DirectCharge < ActiveRecord::Base
     puts ">>>>>>>>>>>>  params: #{params.to_s}"
     input_control = DirectCharge.find(params[:id])
     nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
+    total_weight = input_control.nfe_xmls.nfe.sum(:peso).to_f
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
+    billing_client = input_control.billing_client
+
+    value_weight_average = BigDecimal.new(0)
+
+    if input_control.client_table_price.present?
+      value_weight_average = input_control.client_table_price.minimum_total_freight / total_weight
+    end
+
     #carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
     ActiveRecord::Base.transaction do
       puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico"
@@ -228,6 +241,7 @@ class DirectCharge < ActiveRecord::Base
                           nfe_source_type: nfe.nfe_type,
                               remessa_ype: input_control.shipment,
                                      peso: nfe.peso,
+                                  average: value_weight_average,                                     
                                    volume: nfe.volume
                                     )
 

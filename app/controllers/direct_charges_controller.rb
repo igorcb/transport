@@ -84,12 +84,14 @@ class DirectChargesController < ApplicationController
     carrier = Carrier.find_by_cnpj(params[:carrier_cnpj])
     billing_client  = Client.find_by_cpf_cnpj(params[:billing_client_cpf_cpnj])
     @direct_charge = DirectCharge.new(direct_charge_params)
-
-    client_table_price = get_client_table_price.id
+    
     @direct_charge.driver_id = driver.id
     @direct_charge.carrier_id = carrier.id
     @direct_charge.billing_client_id = billing_client.id
-    @direct_charge.client_table_price_id = billing_client.id
+    
+    client_table_price = get_client_table_price(billing_client.id)
+    @direct_charge.client_table_price_id = client_table_price.id
+
     @direct_charge.user_id = current_user.id
 
     @direct_charge.save
@@ -111,11 +113,10 @@ class DirectChargesController < ApplicationController
       @direct_charge = DirectCharge.find(params[:id])
     end
 
-    def get_client_table_price
-      client_table_price = ClientTablePrice.where(client_id: @direct_charge.billing_client_id, 
-                                           stretch_route_id: params[:stretch_route_id],
-                                            type_service_id: params[:type_service_id]).first
-      puts ">>>>>>>>>>>>>> TablePrice: #{client_table_price.id}"
+    def get_client_table_price(client_id)
+      client_table_price = ClientTablePrice.where(client_id: client_id, 
+                                           stretch_route_id: params[:direct_charge][:stretch_route_id],
+                                            type_service_id: params[:direct_charge][:type_service_id]).first
       client_table_price
     end
 
