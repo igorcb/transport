@@ -33,6 +33,16 @@
     </p>
 
     <p>
+      <strong>Rota:</strong>
+      <%= @input_control.strecht_route.stretch_source_and_target_long %>
+    </p>
+
+    <p>
+      <strong>Tipo Servico:</strong>
+      <%= @input_control.type_service.descricao %>
+    </p>
+
+    <p>
       <strong>Equipe:</strong>
       <%= @input_control.team_name %>
     </p>
@@ -61,7 +71,9 @@
       <strong>Qtde Paletes:</strong>
       <%= @input_control.quantity_pallets %>
     </p>
+    
     <hr>
+
     <p>
       <strong>Peso:</strong>
       <%= number_to_currency(@input_control.weight, precision: 3, unit: "", separator: ",", delimiter: ".") %>

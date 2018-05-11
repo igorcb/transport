@@ -9,8 +9,9 @@
         <strong>Chave:</strong> <%= item.chave %> 
         <br />
         <strong> Remessa Ype:</strong> <%= item.remessa_ype %> - 
+        <strong> Volume:</strong> <%= number_to_currency( item.volume, unit: "", separator: ",", delimiter: ".", precision: 2) %> -
         <strong> Peso:</strong> <%= number_to_currency( item.peso, unit: "", separator: ",", delimiter: ".", precision: 3)  %> - 
-        <strong> Volume:</strong> <%= number_to_currency( item.volume, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+        <strong> Frete:</strong> <%= number_to_currency( item.freight_average, unit: "R$ ", separator: ",", delimiter: ".", precision: 4)  %>
         <br />
         <strong> Observacao:</strong>
         <pre><%= item.observation %></pre> 
@@ -21,6 +22,3 @@
 <% else %>  
   <h2 class="panel-title"> is not exist nfe association </h2>
 <% end %>
-
-
-
