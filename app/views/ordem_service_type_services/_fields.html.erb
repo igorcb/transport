@@ -12,26 +12,26 @@
     <div class="row">
       <div class="col-xs-2">
         <%= label_tag :client_id, "Cliente" %>
-        <%= text_field_tag :client_id, @ordem_service.billing_client.id, disabled: false, class: "form-control input-sm" if @ordem_service.billing_client.present? %>
+        <%= text_field_tag :client_id, @ordem_service.billing_client.id, disabled: true, class: "form-control input-sm" if @ordem_service.billing_client.present? %>
       </div>
       <div class="col-xs-4">
         <%= label_tag :billing_cpf_cpnj, "CNPJ" %>
-        <%= text_field_tag :billing_cpf_cpnj, @ordem_service.billing_client.cpf_cnpj, disabled: false, class: "form-control input-sm" if @ordem_service.billing_client.present?  %>
+        <%= text_field_tag :billing_cpf_cpnj, @ordem_service.billing_client.cpf_cnpj, disabled: true, class: "form-control input-sm" if @ordem_service.billing_client.present?  %>
       </div>
     </div>
   </div>
 
   <div class="form-group">
     <%= label_tag :client_name, "Nome" %>
-    <%= text_field_tag :client_name, @ordem_service.billing_client.nome, disabled: false, class: "form-control input-sm" if @ordem_service.billing_client.present?  %>
+    <%= text_field_tag :client_name, @ordem_service.billing_client.nome, disabled: true, class: "form-control input-sm" if @ordem_service.billing_client.present?  %>
   </div>
 
   <div class="form-group">
     <%= f.label :stretch_route_id, "Trecho" %>
     <% if @ordem_service_type_service.stretch_route_id.present? %>
-      <%= f.collection_select :stretch_route_id, ordem_service_stretch_route(@ordem_service.billing_client_id), :id, :stretch_source_and_target_long, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "form-control input-sm"} %>
+      <%= f.collection_select :stretch_route_id, ordem_service_stretch_route(@ordem_service.billing_client_id), :id, :stretch_source_and_target_long, {prompt: "SELECIONE TRECHO ORIGEM"}, {autofocus: true, class: "form-control input-sm"} %>
     <% else %>
-      <%= f.collection_select :stretch_route_id, [], :name, :name, {prompt: "SELECIONE TRECHO"}, {class: "form-control input-sm"}  %>
+      <%= f.collection_select :stretch_route_id, [], :name, :name, {prompt: "SELECIONE TRECHO"}, {autofocus: true, class: "form-control input-sm"}  %>
     <% end %>
   </div> 
 
@@ -56,7 +56,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $("#billing_cpf_cpnj").focusout(function() {
+    $("#ordem_service_type_service_stretch_route_id").focusin(function() {
       var client_id = "cpf_cnpj="+$('#billing_cpf_cpnj').val();
       console.log(client_id);
       $.getJSON('/get_stretch_routes_from_client_cnpj', client_id, function(data){
