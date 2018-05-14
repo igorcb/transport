@@ -59,6 +59,14 @@ module OrdemServiceHelper
                                       "stretches.destino || '/' || stretch_targets_stretch_routes.destino || '/' || type_services.descricao as trecho")
   end
 
+  def ordem_service_stretch_route
+    client = Client.where(id: client_id).first
+    StretchRoute.where(id: client.client_table_prices.select(:stretch_route_id).uniq.pluck(:stretch_route_id))    
+  end
 
-
+  def input_type_service(client_id, stretch_route_id )
+    #StretchRoute.where(id: client.client_table_prices.select(:stretch_route_id).uniq.pluck(:stretch_route_id))
+    type_service_ids = ClientTablePrice.select(:type_service_id).where(client_id: client_id, stretch_route_id: stretch_route_id).pluck(:type_service_id)
+    TypeService.where(id: type_service_ids)
+  end
 end

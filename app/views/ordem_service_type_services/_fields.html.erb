@@ -12,32 +12,37 @@
     <div class="row">
       <div class="col-xs-2">
         <%= label_tag :client_id, "Cliente" %>
-        <%= text_field_tag :client_id, @ordem_service.billing_client.id, disabled: true, class: "form-control input-sm" if @ordem_service.billing_client.present? %>
+        <%= text_field_tag :client_id, @ordem_service.billing_client.id, disabled: false, class: "form-control input-sm" if @ordem_service.billing_client.present? %>
       </div>
-      <div class="col-xs-8">
-        <%= label_tag :client_name, "Nome" %>
-        <%= text_field_tag :client_name, @ordem_service.billing_client.nome, disabled: true, class: "form-control input-sm" if @ordem_service.billing_client.present?  %>
+      <div class="col-xs-4">
+        <%= label_tag :billing_cpf_cpnj, "CNPJ" %>
+        <%= text_field_tag :billing_cpf_cpnj, @ordem_service.billing_client.cpf_cnpj, disabled: false, class: "form-control input-sm" if @ordem_service.billing_client.present?  %>
       </div>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :client_table_price_id, "Trecho" %>
-    <% if @ordem_service.billing_client_id.present? %>
-      <%= f.collection_select :client_table_price_id, table_price_of_billing_client(@ordem_service.billing_client_id), :client_table_price_id, :trecho, {prompt: "SELECIONE CIDADE ORIGEM"}, {class: "form-control input-sm"} %>
-    <% else %>
-      <%= f.collection_select :client_table_price_id, [], :name, :name, {prompt: "SELECIONE CIDADE ORIGEM"}, {class: "form-control input-sm"}  %>
-    <% end %>
+    <%= label_tag :client_name, "Nome" %>
+    <%= text_field_tag :client_name, @ordem_service.billing_client.nome, disabled: false, class: "form-control input-sm" if @ordem_service.billing_client.present?  %>
   </div>
 
   <div class="form-group">
-		<%= f.label :type_service_id, "Serviço" %>
-    <% if @ordem_service.tipo == OrdemService::TipoOS::LOGISTICA %> 
-      <%= f.select( :type_service_id, TypeService.logistica.collect {|p| [ p.descricao, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>
-    <% elsif @ordem_service.tipo == OrdemService::TipoOS::MUDANCA %>       
-      <%= f.select( :type_service_id, TypeService.mudanca.collect {|p| [ p.descricao, p.id ] }, {include_blank: true}, {class: "form-control input-sm" } ) %>
+    <%= f.label :stretch_route_id, "Trecho" %>
+    <% if @ordem_service_type_service.stretch_route_id.present? %>
+      <%= f.collection_select :stretch_route_id, ordem_service_stretch_route(@ordem_service.billing_client_id), :id, :stretch_source_and_target_long, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "form-control input-sm"} %>
+    <% else %>
+      <%= f.collection_select :stretch_route_id, [], :name, :name, {prompt: "SELECIONE TRECHO"}, {class: "form-control input-sm"}  %>
     <% end %>
-  </div>
+  </div> 
+
+  <div class="form-group">
+    <%= f.label :type_service_id, "Tipo de Servico" %>
+    <% if @ordem_service_type_service.type_service_id.present? %>
+      <%= f.collection_select :type_service_id, ordem_service_type_service(@ordem_service_type_service.billing_client_id, @ordem_service_type_service.stretch_route_id ), :id, :descricao, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "form-control input-sm"} %>
+    <% else %>
+      <%= f.collection_select :type_service_id, [], :id, :name, {prompt: "SELECIONE O SERVICO"}, {class: "form-control input-sm"}  %>
+    <% end %>
+  </div> 
     
   <div class="form-group">
   	<%= f.label :advance_money_number, "No. Adiantamento" %>
@@ -48,19 +53,38 @@
   	<%= f.label :valor, "Valor do Serviço" %>
     <%= f.text_field :valor, class: "form-control input-sm money2", value: to_real(f.object.valor), placeholder: "Valor do Serviço" %>
   </div>
- 
+
 <script type="text/javascript">
-  $(function(){
-    $("#ordem_service_type_service_client_table_price_id").change(function(){
-      var client_id = "client_id="+$(this).val();
+  $(document).ready(function() {
+    $("#billing_cpf_cpnj").focusout(function() {
+      var client_id = "cpf_cnpj="+$('#billing_cpf_cpnj').val();
       console.log(client_id);
-      $.getJSON('/get_client_table_price_of_client_service', client_id, function(data){
-        var options = '<option value="">SELECIONE O SERVICO</option>'; 
+      $.getJSON('/get_stretch_routes_from_client_cnpj', client_id, function(data){
+        var options = '<option value="">SELECIONE O TRECHO</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#ordem_service_type_service_stretch_route_id").html(options);
+
+      });    
+    });    
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#ordem_service_type_service_stretch_route_id").change(function() {
+      var cpf_cnpj = $("#billing_cpf_cpnj").val();
+      var stretch_route_id = $("#ordem_service_type_service_stretch_route_id").val();
+      var client_and_stretch_route = {'cpf_cnpj': cpf_cnpj, 'stretch_route_id': stretch_route_id}
+      console.log(client_and_stretch_route);
+      $.getJSON('/get_client_table_price_of_by_client_cnpj_and_stretch_route', client_and_stretch_route, function(data){
+        var options = '<option value="">SELECIONE O TIPO DE SERVICO</option>'; 
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
         $("#ordem_service_type_service_type_service_id").html(options);
       });
-    });
+    }); 
   });
 </script>
