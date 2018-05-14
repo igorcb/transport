@@ -12,8 +12,8 @@ class AddressController < ApplicationController
     rescue
       retorno = 0
     ensure
-      puts ">>>>>>>>> Endereco: #{data.to_json}"
-      data = data.nil? ? nil : data.to_json
+      puts ">>>>>>>>> Endereco: #{data.to_json.force_encoding("UTF-8")}"
+      data = data.nil? ? nil : data.to_json.force_encoding("UTF-8")
       render :text => data
     end
   end
