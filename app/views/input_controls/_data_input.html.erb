@@ -34,12 +34,12 @@
 
     <p>
       <strong>Rota:</strong>
-      <%= @input_control.strecht_route.stretch_source_and_target_long %>
+      <%= @input_control.strecht_route.stretch_source_and_target_long if @input_control.strecht_route.present? %>
     </p>
 
     <p>
       <strong>Tipo Servico:</strong>
-      <%= @input_control.type_service.descricao %>
+      <%= @input_control.type_service.descricao if @input_control.type_service.present? %>
     </p>
 
     <p>
