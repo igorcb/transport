@@ -200,14 +200,18 @@ class DirectCharge < ActiveRecord::Base
     input_control = DirectCharge.find(params[:id])
     nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
     total_weight = input_control.nfe_xmls.nfe.sum(:peso).to_f
+    total_weight_nfe_select = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe]).sum(:peso)
+
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
     billing_client = input_control.billing_client
 
     value_weight_average = BigDecimal.new(0)
+    value_weight_average_select = BigDecimal.new(0)
 
     if input_control.client_table_price.present?
       value_weight_average = input_control.client_table_price.minimum_total_freight / total_weight
+      value_freight_select = total_weight_nfe_select * value_weight_average
     end
 
     #carrier = Carrier.find(3) #DEFAULT NÃO INFORMADO, ATUALIZAR NO EMBARQUE
@@ -217,7 +221,7 @@ class DirectCharge < ActiveRecord::Base
                                 direct_charge_id: input_control.id,
                                 target_client_id: target_client.id, 
                                 source_client_id: source_client.id,
-                               billing_client_id: source_client.id,
+                               billing_client_id: billing_client.id,
                                       carrier_id: Carrier.carrier_default,
                                 carrier_entry_id: input_control.carrier.id,
                                             peso: input_control.weight, 
@@ -232,6 +236,12 @@ class DirectCharge < ActiveRecord::Base
                                                         placa: input_control.place, 
                                                          peso: input_control.weight, 
                                                   qtde_volume: input_control.volume)
+      # puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico Tipo de Servico"
+      # ordem_service.ordem_service_type_service.create!(type_service_id: input_control.client_table_price.type_service_id,
+      #                                            client_table_price_id: input_control.client_table_price_id,
+      #                                                            valor: value_freight_select
+      #                                                  )
+
       puts ">>>>>>>>>>>>>>>> Importar dados da NFE XML para NFE Keys"
       nfe_xmls.each do |nfe|
         ordem_service.nfe_keys.create!(nfe: nfe.numero,

@@ -135,7 +135,13 @@ class OrdemServiceTypeService < ActiveRecord::Base
   end
 
   def create_or_update_table_price
+    puts ">>>>>>>>>>>>>>>>>>> Client: #{self.ordem_service.billing_client_id} <<<<<<<<<<<<<<<<<<<<"
+    puts ">>>>>>>>>>>>>> TypeService: #{self.type_service_id} <<<<<<<<<<<<<<<<<<<<"
+    puts ">>>>>>>>> ClientTablePrice: #{self.client_table_price_id} <<<<<<<<<<<<<<<<<<<<"
+
     table_price = ClientTablePrice.where(id: self.client_table_price_id, client_id: self.ordem_service.billing_client_id, type_service_id: self.type_service_id).first
+    
+    puts ">>>>>>>>>>>>>>>>>>> Table Price ISS: #{table_price.present?} <<<<<<<<<<<<<<<<<<<<"
 
     ordem_service_table_price = OrdemServiceTablePrice.where(ordem_service_id: self.ordem_service_id, 
                                                               type_service_id: self.type_service_id,
