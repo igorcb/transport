@@ -8,6 +8,8 @@ class InputControl < ActiveRecord::Base
   belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id"
   belongs_to :scheduling, class_name: "Scheduling", foreign_key: "conteiner_id"
   belongs_to :client_table_price
+  belongs_to :strecht_route
+  belongs_to :type_service
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
