@@ -35,6 +35,11 @@ class OrdemServiceTypeServicesController < ApplicationController
 
   def create
     @ordem_service_type_service = OrdemServiceTypeService.new(ordem_service_type_service_params)
+    client_table_price = ClientTablePrice.where(client_id: @ordem_service_type_service.ordem_service.billing_client, 
+                                          type_service_id: @ordem_service_type_service.type_service_id,
+                                         stretch_route_id: @ordem_service_type_service.stretch_route_id).first
+    puts ">>>>>>>>>>>>>>>>>>> ClientTablePrice: #{client_table_price.id}"
+    @ordem_service_type_service.client_table_price_id = client_table_price.id
     respond_to do |format|
       if @ordem_service_type_service.save
         format.json { render action: 'show', status: :created, location: @ordem_service_type_service }
@@ -70,6 +75,6 @@ class OrdemServiceTypeServicesController < ApplicationController
     end
 
     def ordem_service_type_service_params
-      params.require(:ordem_service_type_service).permit(:ordem_service_id, :client_table_price_id, :type_service_id, :advance_money_number, :valor, :status_login)
+      params.require(:ordem_service_type_service).permit(:ordem_service_id, :stretch_route_id, :type_service_id, :advance_money_number, :valor, :status_login)
     end
 end

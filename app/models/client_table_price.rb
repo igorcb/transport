@@ -94,7 +94,7 @@ class ClientTablePrice < ActiveRecord::Base
 
   def use_aliquot_consumer_last_name
   	case self.use_aliquot_consumer_last
-  		when 0 then "Alíquito da Tabela (Padrão)"
+  		when 0 then "Alíquota da Tabela (Padrão)"
   		when 1 then "Alíquota interna UF destino (quando for maior)"
 		end
   end

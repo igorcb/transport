@@ -6,6 +6,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   belongs_to :ordem_service
   belongs_to :type_service
   belongs_to :client_table_price
+  belongs_to :stretch_route
   has_one :account_payable
   has_one :ordem_service_table_price, dependent: :destroy
 
@@ -93,56 +94,76 @@ class OrdemServiceTypeService < ActiveRecord::Base
       calculate_freight_value
   end
 
-  def total_service
+  def calc_minimum_total_freight
     value_total = 0.00
     s_total = sum_total
     value_total = (s_total >= self.client_table_price.minimum_total_freight) ? s_total : self.client_table_price.minimum_total_freight
-    value_total + calculate_icms
+  end
+
+  def total_service
+    value_total = 0.00
+    value_total = calc_minimum_total_freight + calculate_icms
   end
 
   def calculate_margin_lucre
     perc_margem = 0.00
-    perc_margem = self.client_table_price.margin_lucre if self.client_table_price.present?
-    margin_lucre = (self.valor * perc_margem ) / 100.00
+    #if self.client_table_price.present?
+      perc_margem = self.client_table_price.margin_lucre if self.client_table_price.present?
+      margin_lucre = (self.valor * perc_margem ) / 100.00
+    #end
   end
 
   def calculate_iss
-    margin_lucre = calculate_margin_lucre
     iss = 0.00
-    iss = self.client_table_price.collection_delivery_iss if self.client_table_price.present?
-    perc_iss = 1 - ( iss / 100)
-    value_iss = ((self.valor + margin_lucre) / perc_iss) - (self.valor + margin_lucre) 
+    #if self.client_table_price.present?
+      margin_lucre = calculate_margin_lucre
+      iss = self.client_table_price.collection_delivery_iss if self.client_table_price.present?
+      perc_iss = 1 - ( iss / 100)
+      value_iss = ((self.valor + margin_lucre) / perc_iss) - (self.valor + margin_lucre) 
+    #end
   end
 
   def calculate_freight_weight
-    self.client_table_price.freight_weight * self.ordem_service.peso
+    value_total = 0.00
+    self.client_table_price.freight_weight * self.ordem_service.peso #if self.client_table_price.present?
   end
 
   def calculate_freight_volume
-    self.client_table_price.freight_volume * self.ordem_service.qtde_volume
+    value_total = 0.00
+    self.client_table_price.freight_volume * self.ordem_service.qtde_volume #if self.client_table_price.present?
   end
 
   def calculate_freight_value
-    (self.client_table_price.freight_value * self.ordem_service.valor_nota_fiscal) / 100
+    value_total = 0.00
+    (self.client_table_price.freight_value * self.ordem_service.valor_nota_fiscal) / 100 #if self.client_table_price.present?
   end
 
   def calculate_icms
     icms = 0.00
-    icms = self.client_table_price.collection_delivery_icms_taxpayer if self.client_table_price.present?
-    perc_icms = 1 - ( icms / 100) 
-    valor_calc = self.client_table_price.type_calc == ClientTablePrice::TypeCalc::VALOR_NOTA ? sum_total : self.valor 
-    value_icms = ((valor_calc) / perc_icms) - (valor_calc) 
+    #if self.client_table_price.present?
+      icms = self.client_table_price.collection_delivery_icms_taxpayer if self.client_table_price.present?
+      #valor_calc = self.client_table_price.type_calc == ClientTablePrice::TypeCalc::VALOR_NOTA ? sum_total : self.valor 
+      valor_calc = calc_minimum_total_freight
+
+      if self.client_table_price.collection_delivery_ad_icms_value_frete == ClientTablePrice::AddIcmsValueFete::SIM
+        puts ">>>>>>>>>>>>>>>>>>>>>> INCIDE O ICMS"
+        perc_icms = 1 - ( icms / 100) 
+        value_icms = ((valor_calc) / perc_icms) - (valor_calc) 
+      else
+        puts ">>>>>>>>>>>>>>>>>>>>>> ICMS NAO INCIDE NO VALOR:"
+        value_icms = ((valor_calc * icms) / 100)
+      end
+    puts ">>>>>>>>>>>>>>>>>>>>>> ICMS VALOR: #{value_icms.to_f}"
+    value_icms
+    #end
   end
 
   def create_or_update_table_price
-    puts ">>>>>>>>>>>>>>>>>>> Client: #{self.ordem_service.billing_client_id} <<<<<<<<<<<<<<<<<<<<"
-    puts ">>>>>>>>>>>>>> TypeService: #{self.type_service_id} <<<<<<<<<<<<<<<<<<<<"
-    puts ">>>>>>>>> ClientTablePrice: #{self.client_table_price_id} <<<<<<<<<<<<<<<<<<<<"
-
-    table_price = ClientTablePrice.where(id: self.client_table_price_id, client_id: self.ordem_service.billing_client_id, type_service_id: self.type_service_id).first
+    #table_price = ClientTablePrice.where(id: self.client_table_price_id, client_id: self.ordem_service.billing_client_id, type_service_id: self.type_service_id).first
+    table_price = ClientTablePrice.where(client_id: self.ordem_service.billing_client_id, 
+                                   type_service_id: self.type_service_id,
+                                  stretch_route_id: self.stretch_route_id).first
     
-    puts ">>>>>>>>>>>>>>>>>>> Table Price ISS: #{table_price.present?} <<<<<<<<<<<<<<<<<<<<"
-
     ordem_service_table_price = OrdemServiceTablePrice.where(ordem_service_id: self.ordem_service_id, 
                                                               type_service_id: self.type_service_id,
                                                         client_table_price_id: self.client_table_price_id,
