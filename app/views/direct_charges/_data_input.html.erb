@@ -57,12 +57,12 @@
     
     <p>
       <strong>Trecho:</strong>
-      <%= @direct_charge.stretch_route.stretch_source_and_target_long %>
+      <%= @direct_charge.stretch_route.stretch_source_and_target_long if @direct_charge.stretch_route.present? %>
     </p>
 
     <p>
       <strong>Tipo de Serviço:</strong>
-      <%= @direct_charge.type_service.descricao %>
+      <%= @direct_charge.type_service.descricao if @direct_charge.type_service.present? %>
     </p>
 
     <p>
