@@ -17,7 +17,7 @@ class AccountPayablesController < ApplicationController
     suppliers.each do |s|
       sup << {:id => s.id, :n => s.nome}
     end
-    render :text => sup.to_json
+    render :text => sup.to_json.force_encoding("UTF-8")
   end
 
   def sub_centro_custo_by_custo
@@ -29,7 +29,7 @@ class AccountPayablesController < ApplicationController
       sub << {:id => s.id, :n => s.descricao}
     end
     puts ">>>>>>>>>>>>>> #{sub.to_json}"
-    render :text => sub.to_json
+    render :text => sub.to_json.force_encoding("UTF-8")
   end
 
   def sub_centro_custo_three_by_custo
@@ -43,7 +43,7 @@ class AccountPayablesController < ApplicationController
       sub << {:id => s.id, :n => s.descricao}
     end
     puts ">>>>>>>>>>>>>> #{sub.to_json}"
-    render :text => sub.to_json
+    render :text => sub.to_json.force_encoding("UTF-8")
    
   end
   
