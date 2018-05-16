@@ -21,30 +21,24 @@ class AccountPayablesController < ApplicationController
   end
 
   def sub_centro_custo_by_custo
-    #puts ">>>>>>>>>>>>>>>> cost_center_id: #{params[:cost_center_id].to_i}"
     sub_cost_center_id = params[:cost_center_id].to_i
     subs = SubCostCenter.where(cost_center_id: sub_cost_center_id)
     sub = []
     subs.each do |s|
       sub << {:id => s.id, :n => s.descricao}
     end
-    puts ">>>>>>>>>>>>>> #{sub.to_json}"
     render :text => sub.to_json.force_encoding("UTF-8")
   end
 
   def sub_centro_custo_three_by_custo
     cost_center_id = params[:cost_center_id].to_i
     sub_cost_center_id = params[:sub_cost_center_id].to_i
-    puts ">>>>>>>>>>>>>> Cost: #{cost_center_id}"
-    puts ">>>>>>>>>>>>>>  Sub: #{sub_cost_center_id}"
     subs = SubCostCenterThree.where(cost_center_id: cost_center_id, sub_cost_center_id: sub_cost_center_id)
     sub = []
     subs.each do |s|
       sub << {:id => s.id, :n => s.descricao}
     end
-    puts ">>>>>>>>>>>>>> #{sub.to_json}"
     render :text => sub.to_json.force_encoding("UTF-8")
-   
   end
   
   #relatorio com quebra de centro de custo
