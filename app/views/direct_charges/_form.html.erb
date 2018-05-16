@@ -35,7 +35,7 @@
       <%= text_field_tag :billing_client_cpf_cpnj, nil, class: "form-control cnpj" %>
     <% else %>
       <% if @direct_charge.billing_client.present? %>
-        <%= text_field_tag :billing_client_cpf_cpnj, @direct_charge.billing_client.cpf, class: "form-control cnpj", disabled: true %>
+        <%= text_field_tag :billing_client_cpf_cpnj, @direct_charge.billing_client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
         <%= render partial: "clients/result_client", locals: { client: @direct_charge.billing_client } %>
       <% else %>
         <%= text_field_tag :billing_client_cpf_cpnj, nil, class: "form-control cnpj" %>
