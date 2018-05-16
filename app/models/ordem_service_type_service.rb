@@ -102,7 +102,11 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   def total_service
     value_total = 0.00
-    value_total = calc_minimum_total_freight + calculate_icms
+    if self.client_table_price.collection_delivery_ad_icms_value_frete == ClientTablePrice::AddIcmsValueFete::SIM
+      value_total = calc_minimum_total_freight + calculate_icms
+    else
+      value_total = calc_minimum_total_freight
+    end
   end
 
   def calculate_margin_lucre
@@ -145,15 +149,12 @@ class OrdemServiceTypeService < ActiveRecord::Base
       #valor_calc = self.client_table_price.type_calc == ClientTablePrice::TypeCalc::VALOR_NOTA ? sum_total : self.valor 
       valor_calc = calc_minimum_total_freight
 
-      if self.client_table_price.collection_delivery_ad_icms_value_frete == ClientTablePrice::AddIcmsValueFete::SIM
-        puts ">>>>>>>>>>>>>>>>>>>>>> INCIDE O ICMS"
+      #if self.client_table_price.collection_delivery_ad_icms_value_frete == ClientTablePrice::AddIcmsValueFete::SIM
         perc_icms = 1 - ( icms / 100) 
         value_icms = ((valor_calc) / perc_icms) - (valor_calc) 
-      else
-        puts ">>>>>>>>>>>>>>>>>>>>>> ICMS NAO INCIDE NO VALOR:"
-        value_icms = ((valor_calc * icms) / 100)
-      end
-    puts ">>>>>>>>>>>>>>>>>>>>>> ICMS VALOR: #{value_icms.to_f}"
+      #else
+      #  value_icms = ((valor_calc * icms) / 100)
+      #end
     value_icms
     #end
   end
