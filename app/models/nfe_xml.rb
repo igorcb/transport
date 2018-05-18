@@ -7,6 +7,7 @@ class NfeXml < ActiveRecord::Base
 
   belongs_to :scheduling, class_name: "Scheduling", foreign_key: "nfe_id"
   belongs_to :input_control, class_name: "InputControl", foreign_key: "nfe_id"
+  belongs_to :direct_charge, class_name: "DirectCharge", foreign_key: "nfe_id"
   belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id"
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id"
 
@@ -161,6 +162,7 @@ class NfeXml < ActiveRecord::Base
                             valor_nota: nfe.icms_tot.vNF,
                       source_client_id: source_client.id,
                       target_client_id: target_client.id,
+                                 place: nfe.veiculo.placa.insert(3,'-'),
                            observation: nfe.info.infCpl,
                                 status: TipoStatus::PROCESSADO)
 
