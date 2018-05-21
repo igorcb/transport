@@ -154,6 +154,9 @@ class NfeXml < ActiveRecord::Base
                                              cidade: nfe.dest.endereco_destinatario.xMun, 
                                              estado: nfe.dest.endereco_destinatario.UF).find_or_create_by(cpf_cnpj: cnpj_target)
         peso = nfe.vol.pesoB.nil? ? nfe.vol.pesoL : nfe.vol.pesoB
+        
+        place = nfe.veiculo.placa.blank? ? '' : nfe.veiculo.placa.insert(3,'-')
+        #place = nfe.veiculo.placa.insert(3,'-')
         nfe_xml.update_attributes(peso: peso, 
                           peso_liquido: nfe.vol.pesoL,
                                 volume: nfe.vol.qVol, 
@@ -162,7 +165,7 @@ class NfeXml < ActiveRecord::Base
                             valor_nota: nfe.icms_tot.vNF,
                       source_client_id: source_client.id,
                       target_client_id: target_client.id,
-                                 place: nfe.veiculo.placa.insert(3,'-'),
+                                 place: place,
                            observation: nfe.info.infCpl,
                                 status: TipoStatus::PROCESSADO)
 
