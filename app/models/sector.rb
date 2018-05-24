@@ -12,6 +12,7 @@ class Sector < ActiveRecord::Base
 		LOGISTICA_REVERSA = 7
 		REGISTROS_OCORRENCIA = 8
 		CONFIRMACAO_ENTREGA = 9
+		TAREFAS = 10
   end
 
 end
