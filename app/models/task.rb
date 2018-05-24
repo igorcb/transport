@@ -100,4 +100,8 @@ class Task < ActiveRecord::Base
     InternalComment.where("comment_type = ? and comment_id = ?", "Task", self.id)
   end
 
+  def send_email_requester
+    TaskMailer.notification_requester(self).deliver!
+  end
+
 end

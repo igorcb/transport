@@ -27,8 +27,16 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.save
-    respond_with(@task)
+    respond_to do |format|
+      if @task.save
+        @task.send_email_requester
+        format.html { redirect_to @task, flash: { success: "TASK was successfully created." } }
+        format.json { render action: 'show', status: :created, location: @task }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
+    end    
   end
 
   def update
