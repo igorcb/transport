@@ -69,6 +69,7 @@ class TasksController < ApplicationController
       return
     end    
     if @task.start
+      @task.send_email_requester
       flash[:success] = "Task was successfully start"
     else
       @task.errors.full_messages.each { |msg| flash[:danger] = msg }
@@ -88,6 +89,7 @@ class TasksController < ApplicationController
       return
     end    
     if @task.finish
+      @task.send_email_requester
       flash[:success] = "Task was successfully finish"
     else
       @task.errors.full_messages.each { |msg| flash[:danger] = msg }

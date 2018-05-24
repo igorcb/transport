@@ -104,4 +104,8 @@ class Task < ActiveRecord::Base
     TaskMailer.notification_employee(self).deliver!
   end
 
+  def send_email_requester
+    TaskMailer.notification_requester(self).deliver!
+  end
+
 end
