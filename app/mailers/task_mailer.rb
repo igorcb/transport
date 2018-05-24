@@ -10,7 +10,7 @@ class TaskMailer < ActionMailer::Base
     if Rails.env.production?
       email = @task.employee.emails.type_sector(Sector::TypeSector::CONFIRMACAO_ENTREGA).pluck(:email)*","
     end 
-    text_subject = "NEW TASK: #{@task.id} -Funcionário: #{@task.employee.nome.upcase} "
+    text_subject = "NEW TASK: #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
     
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
 
