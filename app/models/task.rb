@@ -89,7 +89,6 @@ class Task < ActiveRecord::Base
         return_value = true
       end
     rescue exception
-#      self.update_attributes(status: Task::TypeStatus::NAO_INICIADO)
       Task.where(id: self.id).update_all(status: Task::TypeStatus::NAO_INICIADO)
       return_value = false
       raise ActiveRecord::Rollback
@@ -106,6 +105,10 @@ class Task < ActiveRecord::Base
 
   def send_email_requester
     TaskMailer.notification_requester(self).deliver!
+  end
+
+  def send_email_employee_and_requester
+    TaskMailer.notification_employee_requester(self).deliver!
   end
 
 end
