@@ -5,6 +5,8 @@ class Task < ActiveRecord::Base
   validates :start_date, presence: true
   validates :finish_date, presence: true
 
+  validate :finish_date_less_start_date
+
   belongs_to :employee
   belongs_to :requester, class_name: "Employee", foreign_key: "requester_id"
 
@@ -21,6 +23,12 @@ class Task < ActiveRecord::Base
     CONCLUIDA_NO_PRAZO = 2
     CONCLUIDA_FORA_PRAZO = 3
     ATRASADA = 4
+  end
+
+  def finish_date_less_start_date
+    if finish_date < start_date
+      errors.add(:finish_date, "can not be less than the start date")
+    end
   end
 
   def status_name
