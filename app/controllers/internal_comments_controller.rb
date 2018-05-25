@@ -16,7 +16,8 @@ class InternalCommentsController < ApplicationController
 
     @comment.email = current_user.email
     if @comment.save
-      @task.send_email_employee_and_requester if @task.present?
+      #@task.send_email_employee_and_requester if @task.present?
+      @task.send_notification_email if @task.present?
       flash[:success] = "Internal Comment created!"
       case params[:internal_comment][:comment_type]
         when "OrdemService" then redirect_to ordem_service_path (@ordem_service)
