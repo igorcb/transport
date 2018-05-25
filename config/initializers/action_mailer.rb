@@ -22,7 +22,7 @@ if Rails.env.development?
 end
 
 if Rails.env.production?
-  Define settings for sendgrid
+  #Define settings for sendgrid
   Rails.application.config.action_mailer.tap do |action_mailer|
     action_mailer.delivery_method = :smtp
     action_mailer.perform_deliveries = true
