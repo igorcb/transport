@@ -41,10 +41,10 @@ class TaskMailer < ActionMailer::Base
     end
     if Rails.env.production?
       #email = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)*","
-      email_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)*","
-      email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)*","
+      email_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
       email = email_employee + email_requester
-      
+
     end 
     text_subject = "START/FINISH TASK: #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
     
