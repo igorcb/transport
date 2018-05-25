@@ -29,7 +29,8 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     respond_to do |format|
       if @task.save
-        @task.send_email_employee
+        #@task.send_email_employee
+        @task.send_notification_email
         format.html { redirect_to @task, flash: { success: "TASK was successfully created." } }
         format.json { render action: 'show', status: :created, location: @task }
       else
