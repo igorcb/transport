@@ -1,5 +1,27 @@
-<strong>Env:</strong>
-<p><%= Rails.env %></p>
+<p>
+  <strong>Env:</strong>
+  <%= Rails.env %>
+</p>
+
+<p>
+  <strong>address:</strong>
+  <%= ENV['RAILS_MAIL_HOST'] %> 
+</p>
+
+<p>
+  <strong>user_name:</strong>
+  <%= ENV['RAILS_MAIL_USERNAME'] %>
+</p>
+
+<p>
+  <strong>password:</strong>
+  <%=ENV['RAILS_MAIL_PASSWORD'] %>
+</p>
+
+<p>
+  <strong>domain:</strong>
+  <%= ENV['RAILS_MAIL_DOMAIN'] %>
+</p>
 
 <br />
 
