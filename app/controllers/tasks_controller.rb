@@ -70,6 +70,7 @@ class TasksController < ApplicationController
       return
     end    
     if @task.start
+      @task.reload
       @task.send_email_requester
       flash[:success] = "Task was successfully start"
     else
@@ -90,6 +91,7 @@ class TasksController < ApplicationController
       return
     end    
     if @task.finish
+      @task.reload
       @task.send_email_requester
       flash[:success] = "Task was successfully finish"
     else
