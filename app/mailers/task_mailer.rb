@@ -2,7 +2,13 @@ class TaskMailer < ActionMailer::Base
   default from: "sistema@l7logistica.com.br"
 
   def notification_delivery(task)
-    data_email
+    #data_email
+
+    puts ">>>>>>>>>> #{ENV['RAILS_MAIL_HOST']}"
+    puts ">>>>>>>>>> #{ENV['RAILS_MAIL_USERNAME']}"
+    puts ">>>>>>>>>> #{ENV['RAILS_MAIL_PASSWORD']}"
+    puts ">>>>>>>>>> #{ENV['RAILS_MAIL_DOMAIN']}"  
+    
     @task = task
 
     if Rails.env.development?
