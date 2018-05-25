@@ -28,7 +28,7 @@ if Rails.env.production?
     action_mailer.perform_deliveries = true
     action_mailer.raise_delivery_errors = true
     action_mailer.default :charset => "utf-8"
-    action_mailer.default_url_options = { host:'my_host.com.br' }
+    action_mailer.default_url_options = { host:'l7brasil.com.br' }
     action_mailer.smtp_settings = {
       port: '587',
       address: ENV['RAILS_MAIL_HOST'],
