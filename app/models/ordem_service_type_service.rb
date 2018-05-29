@@ -144,22 +144,15 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   def calculate_icms
     icms = 0.00
-    #if self.client_table_price.present?
-      icms = self.client_table_price.collection_delivery_icms_taxpayer if self.client_table_price.present?
-      #valor_calc = self.client_table_price.type_calc == ClientTablePrice::TypeCalc::VALOR_NOTA ? sum_total : self.valor 
-      valor_calc = calc_minimum_total_freight
-
-      #if self.client_table_price.collection_delivery_ad_icms_value_frete == ClientTablePrice::AddIcmsValueFete::SIM
-        perc_icms = 1 - ( icms / 100) 
-        value_icms = ((valor_calc) / perc_icms) - (valor_calc) 
-      #else
-      #  value_icms = ((valor_calc * icms) / 100)
-      #end
+    icms = self.client_table_price.collection_delivery_icms_taxpayer if self.client_table_price.present?
+    valor_calc = calc_minimum_total_freight
+    perc_icms = 1 - ( icms / 100) 
+    value_icms = ((valor_calc) / perc_icms) - (valor_calc) 
     value_icms
-    #end
   end
 
   def create_or_update_table_price
+    puts ">>>>>>>>>>>>> create_or_update"
     #table_price = ClientTablePrice.where(id: self.client_table_price_id, client_id: self.ordem_service.billing_client_id, type_service_id: self.type_service_id).first
     table_price = ClientTablePrice.where(client_id: self.ordem_service.billing_client_id, 
                                    type_service_id: self.type_service_id,

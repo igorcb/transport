@@ -12,7 +12,7 @@ class StretchRoute < ActiveRecord::Base
 
 
 	def stretch_source_and_target_long
-		"#{stretch_source.destino}/#{stretch_source.estado}/#{stretch_source.cidade} para #{stretch_target.destino}/#{stretch_target.estado}/#{stretch_target.cidade}}"
+		"#{stretch_source.destino}/#{stretch_source.estado}/#{stretch_source.cidade} para #{stretch_target.destino}/#{stretch_target.estado}/#{stretch_target.cidade}"
 	end
 
 	def stretch_source_and_target_short
