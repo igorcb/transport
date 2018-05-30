@@ -12,6 +12,12 @@
         <strong> Volume:</strong> <%= number_to_currency( item.volume, unit: "", separator: ",", delimiter: ".", precision: 2) %> -
         <strong> Peso:</strong> <%= number_to_currency( item.peso, unit: "", separator: ",", delimiter: ".", precision: 3)  %> - 
         <strong> Frete:</strong> <%= number_to_currency( item.freight_average, unit: "R$ ", separator: ",", delimiter: ".", precision: 4)  %>
+        <strong> Image:</strong>
+        <% if item.asset.present? %>                  
+          <%= link_to item.asset.url(:original, false) do %>
+            <i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i> 
+          <% end %>
+        <% end %>
         <br />
         <strong> Observacao:</strong>
         <pre><%= item.observation %></pre> 
