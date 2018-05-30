@@ -20,7 +20,7 @@
               	<td>
                   <%#= link_to '<i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i>'.html_safe, nfe.asset.url(:thumb, false) if nfe.asset.present? %>
                   <% if nfe.asset.present? %>                  
-                    <%= link_to nfe.asset.url(:thumb, false) do %>
+                    <%= link_to nfe.asset.url(:original, false) do %>
                       <i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i> 
                     <% end %>
                   <% end %>
