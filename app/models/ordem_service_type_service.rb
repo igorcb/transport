@@ -88,7 +88,6 @@ class OrdemServiceTypeService < ActiveRecord::Base
   def sum_total
     self.valor +  
       calculate_margin_lucre +
-      calculate_iss +
       calculate_freight_weight +
       calculate_freight_volume +
       calculate_freight_value
@@ -103,7 +102,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   def total_service
     value_total = 0.00
     if self.client_table_price.collection_delivery_ad_icms_value_frete == ClientTablePrice::AddIcmsValueFete::SIM
-      value_total = calc_minimum_total_freight + calculate_icms
+      value_total = calc_minimum_total_freight + calculate_icms + calculate_iss
     else
       value_total = calc_minimum_total_freight
     end
@@ -119,12 +118,10 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   def calculate_iss
     iss = 0.00
-    #if self.client_table_price.present?
-      margin_lucre = calculate_margin_lucre
-      iss = self.client_table_price.collection_delivery_iss if self.client_table_price.present?
-      perc_iss = 1 - ( iss / 100)
-      value_iss = ((self.valor + margin_lucre) / perc_iss) - (self.valor + margin_lucre) 
-    #end
+    margin_lucre = value_service? ? calculate_margin_lucre : calc_minimum_total_freight
+    iss = self.client_table_price.collection_delivery_iss if self.client_table_price.present?
+    perc_iss = 1 - ( iss / 100)
+    value_iss = ((self.valor + margin_lucre) / perc_iss) - (self.valor + margin_lucre) 
   end
 
   def calculate_freight_weight
