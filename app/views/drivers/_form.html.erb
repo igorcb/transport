@@ -144,10 +144,15 @@
   <div class="form-group">
     <%= label_tag :owner_id, "Agregado/Proprietário" %><br>
     <% if @driver.new_record? %>
-      <%= text_field_tag :owner_cpf, nil, class: "form-control cpf" %>
+      <%= text_field_tag :owner_cpf, nil, class: "form-control" %>
     <% else %>
-      <%= text_field_tag :owner_cpf, @driver.owner.cpf_cnpj, class: "form-control cpf", disabled: true if @driver.owner.present? %>
-      <%= render partial: "owners/result_owner", locals: { owner: @driver.owner } %>
+      <%#= text_field_tag :owner_cpf, @driver.owner.cpf_cnpj, class: "form-control cpf", disabled: true if @driver.owner.present? %>
+      <% if @driver.owner.present? %>
+        <%= text_field_tag :owner_cpf, @driver.owner.cpf_cnpj, class: "form-control", disabled: true %>
+      <% else %>    
+        <%= text_field_tag :owner_cpf, nil, class: "form-control" %>
+      <% end %>
+      <%= render partial: "owners/result_owner", locals: { owner: @driver.owner } if @driver.owner.present? %>
     <% end %>
   </div>
 

@@ -65,7 +65,9 @@ class DriversController < ApplicationController
   # PATCH/PUT /drivers/1
   # PATCH/PUT /drivers/1.json
   def update
+    owner = Owner.find_by_cpf_cnpj(params[:owner_cpf])
     respond_to do |format|
+      @driver.owner_id = owner.id if owner.present?
       @driver.user_updated_id = current_user.id
       if @driver.update(driver_params)
         format.html { redirect_to @driver, flash: { success: "Driver was successfully updated." } }
