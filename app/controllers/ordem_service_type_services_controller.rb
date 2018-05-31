@@ -42,7 +42,6 @@ class OrdemServiceTypeServicesController < ApplicationController
     @ordem_service_type_service.client_table_price_id = client_table_price.id
     respond_to do |format|
       if @ordem_service_type_service.save!
-        byebug
         format.json { render action: 'show', status: :created, location: @ordem_service_type_service }
         format.js   { render action: 'show', status: :created, location: @ordem_service_type_service }
       else
