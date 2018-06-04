@@ -64,8 +64,10 @@
 				        <thead>
 				          <tr>
 				            <th>O.S.</th>
+				            <th>Status</th>
 				            <th>Rem. Cliente</th>
 				            <th>Container</th>
+				            <th>NF-e</th>
 				            <th>Valor</th>
 				            <th>Status</th>
 				          </tr>
@@ -73,8 +75,10 @@
 				          <% @advance_money.ordem_service_type_services.each do |type_service| %>
 				            <tr>
 				              <td><%= link_to type_service.ordem_service.id, type_service.ordem_service %></td>
+				              <td><%= type_service.ordem_service.status_name %></td>
 											<td><%= link_to type_service.ordem_service.input_control.shipment, type_service.ordem_service.input_control if type_service.ordem_service.input_control.present? %></td>					              
 				              <td><%= link_to type_service.ordem_service.input_control.container, type_service.ordem_service.input_control if type_service.ordem_service.input_control.present? %></td>
+				              <td><%= type_service.ordem_service.get_number_nfe %></td>
 
 				              <td><%= number_to_currency(type_service.ordem_service_table_price.total_service, unit: "R$ ", separator: ",", delimiter: ".") %></td>
 				              <td><%= type_service.status_login_name if type_service.present? %></td>
