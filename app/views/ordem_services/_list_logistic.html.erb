@@ -39,7 +39,7 @@
             <% if ordem_service.ordem_service_type_service.present? %>
                <% ordem_service.ordem_service_type_service.each do |item| %>
                  <tr>
-                   <td colspan="13">Type Service: <%= item.type_service.descricao %> - Valor: <%= item.valor %></td>
+                   <td colspan="13">Type Service: <%= item.type_service.descricao %> - Valor: <%= number_to_currency(item.ordem_service_table_price.total_service, unit: "R$ ", separator: ",", delimiter: ".") if item.ordem_service_table_price.present? %></td>
                  </tr>
                <% end %>
             <% end %>
