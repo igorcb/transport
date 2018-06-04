@@ -52,6 +52,12 @@
         </tbody>
       </table>
       <%#= will_paginate class: "pagination"%>
-      <%#= will_paginate @ordem_services, renderer: BootstrapPagination::Rails %>
+      <%= will_paginate @ordem_services, renderer: BootstrapPagination::Rails %>
     </div>    
   </div>
+
+<script>
+$(function(){
+   $('.pagination a').attr('data-remote', 'true')
+});
+</script>
