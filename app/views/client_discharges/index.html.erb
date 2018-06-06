@@ -1,0 +1,46 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Tabela de Descargas</div>
+  <div class="panel-body">
+  	<div id="client">
+  		<%= render 'client' %>
+  	</div>
+
+    <%= link_to 'New Discharges', new_client_client_discharge_path, class: "btn btn-primary btn-sm btn-block" %>
+    <div class="table-responsive">
+    	<table class="table table-striped">
+        <div id="result_client">
+
+        <thead>
+          <tr>
+            <tr>
+              <th>CNPJ Rem.</th>
+              <th>Remetente</th>
+              <th>Tipo Unidade</th>
+              <th>Tipo Carga</th>
+              <th>Tipo Calculo</th>
+              <th>Valor</th>
+              <th colspan="3">Opções</th>
+            </tr>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @client.client_discharges.each do |discharge| %>
+            <tr>
+              <td><%= discharge.client_source.cpf_cnpj if discharge.client_source.present? %></td>
+              <td><%= discharge.client_source.nome if discharge.client_source.present? %></td>
+              <td><%= discharge.type_unit_name %></td>
+              <td><%= discharge.type_charge_name %></td>
+              <td><%= discharge.type_calc_name %></td>
+              <td><%= number_to_currency(discharge.price, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+              <td><%= link_to 'Show', client_client_discharge_path(@client, discharge), class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_client_client_discharge_path(@client, discharge), class: "btn btn-primary btn-xs" %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    </div>    
+  </div>
+</div>
