@@ -24,3 +24,6 @@
 	<strong>Valor:</strong>
 	<%= number_to_currency(@client_discharge.price, unit: "R$ ", separator: ",", delimiter: ".") %> por TON
 </p>
+
+<%= link_to "Editar", edit_client_client_discharge_path(@client, @client_discharge), class: "btn btn-primary" %>
+<%= link_to "Listar Todos", client_client_discharges_path(@client) , class: "btn btn-default" %>

@@ -35,8 +35,22 @@ class ClientDischargesController < ApplicationController
         format.js   { render json: @client_discharge.errors, status: :unprocessable_entity }
       end
     end
-
   end
+
+  def update
+    respond_to do |format|
+      if @client_discharge.update(client_discharge_params)
+        format.html { redirect_to [@client, @client_discharge] , flash: { success: "Client Discharge was successfully updated." } }
+        format.json { head :no_content }
+        format.js   { render action: 'show', status: :created, location: [@client, @client_discharge] }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @client_discharge.errors, status: :unprocessable_entity }
+        format.js   { render json: @client_discharge.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   private
   	def set_client_discharge
