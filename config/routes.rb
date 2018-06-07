@@ -1,5 +1,6 @@
 Transport::Application.routes.draw do
 
+  get "client_requirements/index"
   get "client_discharges/index"
   resources :advance_moneys
 
@@ -412,6 +413,7 @@ Transport::Application.routes.draw do
 
   resources :clients do
     resources :client_discharges
+    resources :client_requirements
     collection do
       get :search
     end

@@ -53,6 +53,7 @@ class Client < ActiveRecord::Base
   has_many :client_table_prices
 
   has_many :client_discharges
+  has_many :client_requirements
 
   before_destroy :can_destroy?
 
