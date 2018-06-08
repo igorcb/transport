@@ -10,6 +10,10 @@ class ClientDischarge < ActiveRecord::Base
   belongs_to :client
   belongs_to :client_source, class_name: "Client", foreign_key: :client_source_id
 
+  belongs_to :created_user, class_name: "User", foreign_key: :created_user_id
+  belongs_to :updated_user, class_name: "User", foreign_key: :updated_user_id
+
+
   module TypeUnit
   	BOX = 0
   	BURDEN = 1

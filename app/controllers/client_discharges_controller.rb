@@ -23,7 +23,7 @@ class ClientDischargesController < ApplicationController
   	@client_source = Client.where(cpf_cnpj: params[:client_source_cnpj]).first
     @client_discharge = @client.client_discharges.build(client_discharge_params)  	
     @client_discharge.client_source_id = @client_source.id if @client_source.present?
-
+    @client_discharge.created_user_id = current_user.id
     respond_to do |format|
       if @client_discharge.save
         format.html { redirect_to [@client, @client_discharge] , flash: { success: "Client Discharge was successfully created." } }
@@ -39,6 +39,7 @@ class ClientDischargesController < ApplicationController
 
   def update
     respond_to do |format|
+      @client_discharge.updated_user_id = current_user.id
       if @client_discharge.update(client_discharge_params)
         format.html { redirect_to [@client, @client_discharge] , flash: { success: "Client Discharge was successfully updated." } }
         format.json { head :no_content }
