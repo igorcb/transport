@@ -1,26 +1,35 @@
-<%= render 'client_discharges/client' %>
-<p>
-	<strong>Remetente</strong>
-	<%= @client_requirement.client_source.nome %> - 
-	<%= @client_requirement.client_source.cpf_cnpj %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">Panel heading without title</div>
+  <div class="panel-body">
+    <%= render 'client' %>
 
-<p>
-	<strong>Tipo de Veiculo:</strong>
-	<%= @client_requirement.type_vehicle_name %>
-</p>
+    <hr>
 
-<p>
-	<strong>Tipo de Carroceria:</strong>
-	<%= @client_requirement.type_body_name %>
-</p>
+		<p>
+			<strong>Remetente</strong>
+			<%= @client_requirement.client_source.nome %> - 
+			<%= @client_requirement.client_source.cpf_cnpj %>
+		</p>
 
-<p>
-	<strong>Tipo do piso do assoalho:</strong>
-	<%= @client_requirement.type_floor_name %>
-</p>
+		<p>
+			<strong>Tipo de Veiculo:</strong>
+			<%= @client_requirement.type_vehicle_name %>
+		</p>
 
-<%= render 'shared/user', object: @client_requirement %>
+		<p>
+			<strong>Tipo de Carroceria:</strong>
+			<%= @client_requirement.type_body_name %>
+		</p>
+
+		<p>
+			<strong>Tipo do piso do assoalho:</strong>
+			<%= @client_requirement.type_floor_name %>
+		</p>
+
+		<%= render 'shared/user', object: @client_requirement %>
+
+  </div>
+</div>
 
 <%= link_to "Editar", edit_client_client_requirement_path(@client, @client_requirement), class: "btn btn-primary" %>
 <%= link_to "Listar Todos", client_client_requirements_path(@client) , class: "btn btn-default" %>

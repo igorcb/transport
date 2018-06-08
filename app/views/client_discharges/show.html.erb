@@ -1,31 +1,40 @@
-<%= render 'client' %>
-<p>
-	<strong>Remetente</strong>
-	<%= @client_discharge.client_source.nome %> - 
-	<%= @client_discharge.client_source.cpf_cnpj %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">Client Discharges</div>
+  <div class="panel-body">
+    <%= render 'client' %>
 
-<p>
-	<strong>Tipo de Unidade</strong>
-	<%= @client_discharge.type_unit_name %>
-</p>
+    <hr>
 
-<p>
-	<strong>Tipo de Carga</strong>
-	<%= @client_discharge.type_charge_name %>
-</p>
+		<p>
+			<strong>Remetente:</strong>
+			<%= @client_discharge.client_source.nome %> - 
+			<%= @client_discharge.client_source.cpf_cnpj %>
+		</p>
 
-<p>
-	<strong>Tipo de Calculo</strong>
-	<%= @client_discharge.type_calc_name %>
-</p>
+		<p>
+			<strong>Tipo de Unidade:</strong>
+			<%= @client_discharge.type_unit_name %>
+		</p>
 
-<p>
-	<strong>Valor:</strong>
-	<%= number_to_currency(@client_discharge.price, unit: "R$ ", separator: ",", delimiter: ".") %> por TON
-</p>
+		<p>
+			<strong>Tipo de Carga:</strong>
+			<%= @client_discharge.type_charge_name %>
+		</p>
 
-<%= render 'shared/user', object: @client_discharge %>
+		<p>
+			<strong>Tipo de Calculo:</strong>
+			<%= @client_discharge.type_calc_name %>
+		</p>
+
+		<p>
+			<strong>Valor:</strong>
+			<%= number_to_currency(@client_discharge.price, unit: "R$ ", separator: ",", delimiter: ".") %> por TON
+		</p>
+
+		<%= render 'shared/user', object: @client_discharge %>
+
+  </div>
+</div>
 
 <%= link_to "Editar", edit_client_client_discharge_path(@client, @client_discharge), class: "btn btn-primary" %>
 <%= link_to "Listar Todos", client_client_discharges_path(@client) , class: "btn btn-default" %>
