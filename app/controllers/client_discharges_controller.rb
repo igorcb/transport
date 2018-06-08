@@ -25,7 +25,7 @@ class ClientDischargesController < ApplicationController
     @client_discharge.client_source_id = @client_source.id if @client_source.present?
 
     respond_to do |format|
-      if @client_discharge.save!
+      if @client_discharge.save
         format.html { redirect_to [@client, @client_discharge] , flash: { success: "Client Discharge was successfully created." } }
         format.json { render action: 'show', status: :created, location: [@client, @client_discharge] }
         format.js   { render action: 'show', status: :created, location: [@client, @client_discharge] }
