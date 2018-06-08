@@ -1,0 +1,9 @@
+<p>
+  <strong>Criado em:</strong> <%= date_br object.created_at %> as <%= time_br object.created_at %> 
+  <strong>por</strong> <%= object.created_user.email if object.created_user.present? %>
+</p>
+
+<p>
+  <strong>Última atualização:</strong> <%= date_br object.updated_at %> as <%= time_br object.updated_at %> 
+  <strong>por</strong> <%= object.updated_user.email if object.updated_user.present? %>
+</p>

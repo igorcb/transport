@@ -25,15 +25,7 @@
 	<%= number_to_currency(@client_discharge.price, unit: "R$ ", separator: ",", delimiter: ".") %> por TON
 </p>
 
-<p>
-  <strong>Criado em:</strong> <%= date_br @client_discharge.created_at %> as <%= time_br @client_discharge.created_at %> 
-  <strong>por</strong> <%= @client_discharge.created_user.email if @client_discharge.created_user.present? %>
-</p>
-
-<p>
-  <strong>Última atualização:</strong> <%= date_br @client_discharge.updated_at %> as <%= time_br @client_discharge.updated_at %> 
-  <strong>por</strong> <%= @client_discharge.updated_user.email if @client_discharge.updated_user.present? %>
-</p>
+<%= render 'shared/user', object: @client_discharge %>
 
 <%= link_to "Editar", edit_client_client_discharge_path(@client, @client_discharge), class: "btn btn-primary" %>
 <%= link_to "Listar Todos", client_client_discharges_path(@client) , class: "btn btn-default" %>
