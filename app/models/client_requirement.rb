@@ -1,4 +1,12 @@
 class ClientRequirement < ActiveRecord::Base
+  validates :client_id, presence: true
+  validates :client_source_id, presence: true
+  validates :type_vehicle, presence: true
+  validates :type_body, presence: true
+  validates :type_floor, presence: true
+  validates :client_source_id, uniqueness: { scope: [:client_id, :type_vehicle, :type_body], 
+                                           message: ": tabela de exigencias com tipo de veiculo, tipo de carroceria já estão em uso. "}
+
   belongs_to :client
   belongs_to :client_source, class_name: "Client", foreign_key: :client_source_id
 
@@ -45,7 +53,7 @@ class ClientRequirement < ActiveRecord::Base
   end
 
   def type_floor_name
-  	case self.type_floor
+  	case self.+
   		when TypeFloor::FERRO then "Ferro"
   		when TypeFloor::MADEIRA then "Madeira"
       when TypeFloor::TODOS then "Todos"

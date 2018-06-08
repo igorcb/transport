@@ -17,8 +17,8 @@ class ClientRequirementsController < ApplicationController
     @client_requirement.client_source_id = @client_source.id if @client_source.present?
 
     respond_to do |format|
-      if @client_requirement.save!
-        format.html { redirect_to [@client, @client_requirement] , flash: { success: "Client Requirement_params was successfully created." } }
+      if @client_requirement.save
+        format.html { redirect_to [@client, @client_requirement] , flash: { success: "Client Requirement was successfully created." } }
         format.json { render action: 'show', status: :created, location: [@client, @client_requirement] }
         format.js   { render action: 'show', status: :created, location: [@client, @client_requirement] }
       else
@@ -32,7 +32,7 @@ class ClientRequirementsController < ApplicationController
   def update
     respond_to do |format|
       if @client_requirement.update(client_requirement_params)
-        format.html { redirect_to [@client, @client_requirement] , flash: { success: "Client Requirement_params was successfully updated." } }
+        format.html { redirect_to [@client, @client_requirement] , flash: { success: "Client Requirement was successfully updated." } }
         format.json { head :no_content }
         format.js   { render action: 'show', status: :created, location: [@client, @client_requirement] }
       else
