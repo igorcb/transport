@@ -1,7 +1,14 @@
 class ClientDischarge < ActiveRecord::Base
+  validates :client_id, presence: true
+  validates :client_source_id, presence: true
+  validates :type_unit, presence: true
+  validates :type_charge, presence: true
+  validates :type_calc, presence: true
+  validates :client_source_id, uniqueness: { scope: [:client_id, :type_unit, :type_charge, :type_calc], 
+                                           message: ": tabela de descagar com tipo de unidade, tipo de carga, tipo de calculo já estão em uso. "}
+  
   belongs_to :client
   belongs_to :client_source, class_name: "Client", foreign_key: :client_source_id
-
 
   module TypeUnit
   	BOX = 0
