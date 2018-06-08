@@ -12,13 +12,24 @@
 
 <p>
 	<strong>Tipo de Carroceria:</strong>
-	<%= @client_requirement.type_body %>
+	<%= @client_requirement.type_body_name %>
 </p>
 
 <p>
 	<strong>Tipo do piso do assoalho:</strong>
 	<%= @client_requirement.type_floor_name %>
 </p>
+
+<p>
+  <strong>Criado em:</strong> <%= date_br @client_requirement.created_at %> as <%= time_br @client_requirement.created_at %> 
+  <strong>por</strong> <%= @client_requirement.created_user.email if @client_requirement.created_user.present? %>
+</p>
+
+<p>
+  <strong>Última atualização:</strong> <%= date_br @client_requirement.updated_at %> as <%= time_br @client_requirement.updated_at %> 
+  <strong>por</strong> <%= @client_requirement.updated_user.email if @client_requirement.updated_user.present? %>
+</p>
+
 
 <%= link_to "Editar", edit_client_client_requirement_path(@client, @client_requirement), class: "btn btn-primary" %>
 <%= link_to "Listar Todos", client_client_requirements_path(@client) , class: "btn btn-default" %>

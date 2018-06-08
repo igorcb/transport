@@ -15,7 +15,7 @@ class ClientRequirementsController < ApplicationController
     @client_source = Client.where(cpf_cnpj: params[:client_source_cnpj]).first
     @client_requirement = @client.client_requirements.build(client_requirement_params)    
     @client_requirement.client_source_id = @client_source.id if @client_source.present?
-
+    @client_requirement.created_user_id = current_user.id
     respond_to do |format|
       if @client_requirement.save
         format.html { redirect_to [@client, @client_requirement] , flash: { success: "Client Requirement was successfully created." } }
@@ -31,6 +31,7 @@ class ClientRequirementsController < ApplicationController
 
   def update
     respond_to do |format|
+      @client_requirement.updated_user_id = current_user.id
       if @client_requirement.update(client_requirement_params)
         format.html { redirect_to [@client, @client_requirement] , flash: { success: "Client Requirement was successfully updated." } }
         format.json { head :no_content }
