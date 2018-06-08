@@ -112,7 +112,7 @@ class ClientsController < ApplicationController
       params.require(:client).permit(:cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, 
       :bairro, :cidade, :estado, :cep, :tipo_pessoa, :rg, :orgao_emissor, :data_emissao_rg, :obs, :hora_descarga, :condicao_recebimento, :group_client_id,
       :valor_volume, :valor_peso, :faturar, :capital, :faturar_cada, :vencimento_para, :qtde_parcela, :valor_peso_1500, :suframa,
-      :orgao_publico, :icms_contribuinte, :tipo_cliente, 
+      :orgao_publico, :icms_contribuinte, :tipo_cliente, :accept_operational,
       client_representatives_attributes: [:representative_id, :id, :_destroy],
       contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
       emails_attributes: [:sector_id, :setor, :contato, :email, :responsavel_carga, :comprovante, :id, :_destroy],

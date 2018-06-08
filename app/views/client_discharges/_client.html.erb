@@ -7,4 +7,8 @@
 		<strong>Client:</strong>
 	  <%= link_to @client.nome, @client %>	
 	</p>
+	<p>
+	  <strong>Aceita operacional de fora?:</strong>
+	  <%= extenso_boolean @client.accept_operational %>
+	</p>	
 </div>
