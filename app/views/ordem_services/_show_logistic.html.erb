@@ -156,6 +156,22 @@
     </div>
   </div>
 
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThirteen">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+          Valores Descarga
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThirteen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThirteen">
+      <div class="panel-body">
+        <div class="panel panel-default">
+          <%= render 'show_discharges', object: @ordem_service %>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingFour">

@@ -13,6 +13,7 @@ class ClientDischarge < ActiveRecord::Base
   belongs_to :created_user, class_name: "User", foreign_key: :created_user_id
   belongs_to :updated_user, class_name: "User", foreign_key: :updated_user_id
 
+  scope :type_unit_charge_calc, -> { where(type_unit: TypeUnit::BOX, type_charge: TypeCharge::PALLETIZED, type_calc: TypeCalc::WEIGHT).first }
 
   module TypeUnit
   	BOX = 0
@@ -60,4 +61,13 @@ class ClientDischarge < ActiveRecord::Base
   	end
   end
 
+  def calc_weight(weight)
+    (self.price / 1000) * weight
+  end
 end
+
+# discharge = ClientDischarge.where(client_id: 116, 
+#                client_source_id: 260, 
+#                       type_unit: ClientDischarge::TypeUnit::BOX,
+#                     type_charge: ClientDischarge::TypeCharge::PALLETIZED,
+#                       type_calc: ClientDischarge::TypeCalc::WEIGHT)
