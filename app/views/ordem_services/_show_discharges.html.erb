@@ -1,0 +1,23 @@
+<h4>Valores da Descarga</h4>
+
+<p>
+	<strong>Peso:</strong>
+	<%= object.peso.to_f %>
+	<strong>Valor:</strong>
+	<%= object.client.client_discharges.where(client_source: object.source_client).type_unit_charge_calc.calc_weight(object.peso) %>
+</p>
+
+<p>
+	<strong>Unidade:</strong>
+	<%= object.valor_volume.to_f %>
+</p>
+
+<p>
+	<strong>Valor descarga Paletizada:</strong>
+	<%= object.client.client_discharges.where(client_source: object.source_client).count %>
+</p>
+
+<p>
+	<strong>Client:</strong>
+  <%= object.source_client.nome %>
+</p>
