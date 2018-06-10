@@ -4,7 +4,9 @@
 	<strong>Peso:</strong>
 	<%= object.peso.to_f %>
 	<strong>Valor:</strong>
+	<% if object.client.client_discharges.where(client_source: object.source_client).type_unit_charge_calc.present? %>
 	<%= object.client.client_discharges.where(client_source: object.source_client).type_unit_charge_calc.calc_weight(object.peso) %>
+	<% end %>
 </p>
 
 <p>
