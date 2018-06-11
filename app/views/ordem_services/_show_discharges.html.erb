@@ -1,25 +1,57 @@
-<h4>Valores da Descarga</h4>
+<% if ClientDischarge.where(client_id: object.client, client_source_id: object.source_client, type_unit: ClientDischarge::TypeUnit::BOX, type_box_palletized: ClientDischarge::TypeCharge::PALLETIZED) %>
+	<h4><strong>Tipo de Carga:</strong> Paletizada</h4>
+<% end %>
 
-<p>
-	<strong>Peso:</strong>
-	<%= object.peso.to_f %>
-	<strong>Valor:</strong>
-	<% if object.client.client_discharges.where(client_source: object.source_client).type_unit_charge_calc.present? %>
-	<%= object.client.client_discharges.where(client_source: object.source_client).type_unit_charge_calc.calc_weight(object.peso) %>
-	<% end %>
-</p>
+<% if ClientDischarge.type_box_palletized_weight({client_id: object.client, client_source_id: object.source_client}).present? %>
+ <p>
+		<strong>Peso:</strong>
+		<%= object.peso.to_f %>
+		<strong>Valor:</strong>
+		<%= number_to_currency(ClientDischarge.type_box_palletized_weight({client_id: object.client, client_source_id: object.source_client}).calc_weight(object.peso), precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
+  </p>
+<% end %>
 
-<p>
-	<strong>Unidade:</strong>
-	<%= object.valor_volume.to_f %>
-</p>
+<% if ClientDischarge.type_box_palletized_unit({client_id: object.client, client_source_id: object.source_client}).present? %>
+	<p>
+		<strong>Unidade:</strong>
+		<%= object.qtde_palets %>
+		<strong>Valor:</strong>
+		<%= number_to_currency(ClientDischarge.type_box_palletized_unit({client_id: object.client, client_source_id: object.source_client}).calc_unit(object.qtde_palets), precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
+	</p>
+<% end %>
 
-<p>
-	<strong>Valor descarga Paletizada:</strong>
-	<%= object.client.client_discharges.where(client_source: object.source_client).count %>
-</p>
+<% if ClientDischarge.type_box_palletized_value({client_id: object.client, client_source_id: object.source_client}).present? %>
+	<p>
+		<strong>Valor Acertado:</strong>
+		<%= number_to_currency(ClientDischarge.type_box_palletized_value({client_id: object.client, client_source_id: object.source_client}).price, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
+	</p>
+<% end %>
 
-<p>
-	<strong>Client:</strong>
-  <%= object.source_client.nome %>
-</p>
+<% if ClientDischarge.where(client_id: object.client, client_source_id: object.source_client, type_unit: ClientDischarge::TypeUnit::BOX, type_box_palletized: ClientDischarge::TypeCharge::SLAM) %>
+	<h4><strong>Tipo de Carga:</strong> Batida</h4>
+<% end %>
+
+<% if ClientDischarge.type_box_slam_weight({client_id: object.client, client_source_id: object.source_client}).present? %>
+ <p>
+		<strong>Peso:</strong>
+		<%= object.peso.to_f %>
+		<strong>Valor:</strong>
+		<%= number_to_currency(ClientDischarge.type_box_slam_weight({client_id: object.client, client_source_id: object.source_client}).calc_weight(object.peso), precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
+  </p>
+<% end %>
+
+<% if ClientDischarge.type_box_slam_unit({client_id: object.client, client_source_id: object.source_client}).present? %>
+ <p>
+		<strong>Unidade:</strong>
+		<%= object.qtde_volume.to_f %>
+		<strong>Valor:</strong>
+		<%= number_to_currency(ClientDischarge.type_box_slam_unit({client_id: object.client, client_source_id: object.source_client}).calc_unit(object.qtde_volume), precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
+  </p>
+<% end %>
+
+<% if ClientDischarge.type_box_slam_value({client_id: object.client, client_source_id: object.source_client}).present? %>
+ <p>
+		<strong>Valor Acertado:</strong>
+		<%= number_to_currency(ClientDischarge.type_box_slam_value({client_id: object.client, client_source_id: object.source_client}).price, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
+  </p>
+<% end %>
