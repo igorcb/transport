@@ -193,6 +193,7 @@ Transport::Application.routes.draw do
   match 'selection_pallet' => "control_pallets#selection_pallet",  via: [:get]
   match 'selection_pallet' => "control_pallets#selection_pallet",  via: [:get]
   match 'generate_ordem_service' => "control_pallets#generate_ordem_service",  via: [:post]
+  match 'request_payment/:id' => "ordem_services#request_payment", via: [:post]
 
   match 'selection_shipment' => "boardings#selection_shipment",  via: [:get]
   match 'generate_shipping' => "boardings#generate_shipping",  via: [:post]

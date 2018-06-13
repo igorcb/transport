@@ -1,57 +1,37 @@
-<% if ClientDischarge.where(client_id: object.client, client_source_id: object.source_client, type_unit: ClientDischarge::TypeUnit::BOX, type_box_palletized: ClientDischarge::TypeCharge::PALLETIZED) %>
-	<h4><strong>Tipo de Carga:</strong> Paletizada</h4>
-<% end %>
+<div id="ordem_service_type_service_id">
+  <%= form_tag({:controller => "ordem_services", :action => "request_payment"}, :method => "post", :name => "dischargeForm") do %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Tipo Unidade</th>
+            <th>Tipo Carga</th>
+            <th>Tipo Calculo</th>
+            <th>Valor da Descarga</th>
+          </tr>
+        </thead>
 
-<% if ClientDischarge.type_box_palletized_weight({client_id: object.client, client_source_id: object.source_client}).present? %>
- <p>
-		<strong>Peso:</strong>
-		<%= object.peso.to_f %>
-		<strong>Valor:</strong>
-		<%= number_to_currency(ClientDischarge.type_box_palletized_weight({client_id: object.client, client_source_id: object.source_client}).calc_weight(object.peso), precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
-  </p>
-<% end %>
-
-<% if ClientDischarge.type_box_palletized_unit({client_id: object.client, client_source_id: object.source_client}).present? %>
-	<p>
-		<strong>Unidade:</strong>
-		<%= object.qtde_palets %>
-		<strong>Valor:</strong>
-		<%= number_to_currency(ClientDischarge.type_box_palletized_unit({client_id: object.client, client_source_id: object.source_client}).calc_unit(object.qtde_palets), precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
-	</p>
-<% end %>
-
-<% if ClientDischarge.type_box_palletized_value({client_id: object.client, client_source_id: object.source_client}).present? %>
-	<p>
-		<strong>Valor Acertado:</strong>
-		<%= number_to_currency(ClientDischarge.type_box_palletized_value({client_id: object.client, client_source_id: object.source_client}).price, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
-	</p>
-<% end %>
-
-<% if ClientDischarge.where(client_id: object.client, client_source_id: object.source_client, type_unit: ClientDischarge::TypeUnit::BOX, type_box_palletized: ClientDischarge::TypeCharge::SLAM) %>
-	<h4><strong>Tipo de Carga:</strong> Batida</h4>
-<% end %>
-
-<% if ClientDischarge.type_box_slam_weight({client_id: object.client, client_source_id: object.source_client}).present? %>
- <p>
-		<strong>Peso:</strong>
-		<%= object.peso.to_f %>
-		<strong>Valor:</strong>
-		<%= number_to_currency(ClientDischarge.type_box_slam_weight({client_id: object.client, client_source_id: object.source_client}).calc_weight(object.peso), precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
-  </p>
-<% end %>
-
-<% if ClientDischarge.type_box_slam_unit({client_id: object.client, client_source_id: object.source_client}).present? %>
- <p>
-		<strong>Unidade:</strong>
-		<%= object.qtde_volume.to_f %>
-		<strong>Valor:</strong>
-		<%= number_to_currency(ClientDischarge.type_box_slam_unit({client_id: object.client, client_source_id: object.source_client}).calc_unit(object.qtde_volume), precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
-  </p>
-<% end %>
-
-<% if ClientDischarge.type_box_slam_value({client_id: object.client, client_source_id: object.source_client}).present? %>
- <p>
-		<strong>Valor Acertado:</strong>
-		<%= number_to_currency(ClientDischarge.type_box_slam_value({client_id: object.client, client_source_id: object.source_client}).price, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %>
-  </p>
-<% end %>
+        <tbody>
+          <% ClientDischarge.where(client_id: object.client, client_source_id: object.source_client).order(:type_unit, :type_charge, :type_calc).each do |discharge| %>
+            <tr>
+              <% value_discharge = calc_value_discharge({discharge: discharge, weight: object.peso, unit: object.qtde_palets}) %>
+              <td>
+                <%#= radio_button_tag "discharges", discharge.id, false, value: {"discharge": "#{discharge.id}", "value_discharge": "#{value_discharge.to_f}" } , onchange:"checkTotal();", class: "escolha" %>
+                <%= radio_button_tag "discharges", discharge.id, false, value: {discharge: discharge.id, value_discharge: value_discharge.to_f } , onchange:"checkTotal();", class: "escolha" %>
+              </td>              
+              <td><%= discharge.type_unit_name %></td>
+              <td><%= discharge.type_charge_name %></td>
+              <td><%= discharge.type_calc_name %></td>
+              <td><%= number_to_currency(value_discharge, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  
+  <br />
+  
+  <%= submit_tag("Solicitar Pagamento Descarga", class: "btn btn-success") %>   
+  <% end %>
+</div>

@@ -66,7 +66,7 @@ class ClientDischarge < ActiveRecord::Base
     if params[:client_id].present? && params[:client_source_id].present?
       ClientDischarge.where(client_id: params[:client_id], 
                    client_source_id: params[:client_source_id], 
-                          type_unit: TypeUnit::BOX, 
+                          type_unit: params[:type_unit], #TypeUnit::BOX, 
                         type_charge: TypeCharge::PALLETIZED, 
                           type_calc: TypeCalc::WEIGHT).first
     end

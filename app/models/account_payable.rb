@@ -43,6 +43,14 @@ class AccountPayable < ActiveRecord::Base
     CANCELADO = 4
   end
 
+  module TypeAccount
+    SUPPLIER = 1
+    DRIVER = 2
+    CLIENT = 3
+    EMPLOYEE = 4
+    CARRIER = 5
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ['data_vencimento', 'documento', 'supplier_id', 'supplier_type', 'type_account', 'status' ]
   end  
