@@ -452,7 +452,7 @@ class OrdemServicesController < ApplicationController
     @account_payable = @ordem_service.account_payables.build
     @account_payable.type_account = AccountPayable::TypeAccount::DRIVER
     @account_payable.supplier_type = "Driver"
-    @account_payable.supplier_id = @ordem_service.ordem_service_logistic.delivery_driver_id
+    @account_payable.supplier_id = nil#@ordem_service.ordem_service_logistic.delivery_driver_id
     @account_payable.cost_center_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_COST_CENTER').first.config_value
     @account_payable.sub_cost_center_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_SUB_COST_CENTER').first.config_value
     @account_payable.sub_cost_center_three_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_SUB_COST_CENTER_THREE').first.config_value
@@ -463,13 +463,21 @@ class OrdemServicesController < ApplicationController
     @account_payable.valor = hash[:value_discharge]
     @account_payable.observacao = "PAGAMENTO DE DESCARGA O.S No: #{@ordem_service.id}, NF-e: #{@ordem_service.get_number_nfe}"
     @account_payable.status = AccountPayable::TipoStatus::ABERTO
-    if @account_payable.save
+    #if @account_payable.save
       respond_with(@ordem_service)
-    else
-      @ordem_service.errors.full_messages.each do |msg|
-        flash[:error] = msg  
-        respond_with(@ordem_service)
-      end
+    # else
+    #   @ordem_service.errors.full_messages.each do |msg|
+    #     flash.now[:error] = msg  
+    #   end
+      #respond_with(@ordem_service)
+      #format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
+      # @ordem_service.errors.full_messages.each do |msg|
+      #   flash[:error] = msg  
+      #   respond_with(@ordem_services) do |format|
+      #     format.html { render :layout => !request.xhr?  }
+      #   end
+      #   #respond_with(@ordem_service)
+      # end
     end
   end
 
