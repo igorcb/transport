@@ -62,65 +62,65 @@ class ClientDischarge < ActiveRecord::Base
   	end
   end
 
-  def self.type_box_palletized_weight(params = {})
-    if params[:client_id].present? && params[:client_source_id].present?
-      ClientDischarge.where(client_id: params[:client_id], 
-                   client_source_id: params[:client_source_id], 
-                          type_unit: params[:type_unit], #TypeUnit::BOX, 
-                        type_charge: TypeCharge::PALLETIZED, 
-                          type_calc: TypeCalc::WEIGHT).first
-    end
-  end
+  # def self.type_box_palletized_weight(params = {})
+  #   if params[:client_id].present? && params[:client_source_id].present?
+  #     ClientDischarge.where(client_id: params[:client_id], 
+  #                  client_source_id: params[:client_source_id], 
+  #                         type_unit: params[:type_unit], #TypeUnit::BOX, 
+  #                       type_charge: TypeCharge::PALLETIZED, 
+  #                         type_calc: TypeCalc::WEIGHT).first
+  #   end
+  # end
 
-  def self.type_box_palletized_unit(params = {})
-    if params[:client_id].present? && params[:client_source_id].present?
-      ClientDischarge.where(client_id: params[:client_id], 
-                   client_source_id: params[:client_source_id], 
-                          type_unit: TypeUnit::BOX, 
-                        type_charge: TypeCharge::PALLETIZED, 
-                          type_calc: TypeCalc::UNIT).first
-    end
-  end
+  # def self.type_box_palletized_unit(params = {})
+  #   if params[:client_id].present? && params[:client_source_id].present?
+  #     ClientDischarge.where(client_id: params[:client_id], 
+  #                  client_source_id: params[:client_source_id], 
+  #                         type_unit: TypeUnit::BOX, 
+  #                       type_charge: TypeCharge::PALLETIZED, 
+  #                         type_calc: TypeCalc::UNIT).first
+  #   end
+  # end
 
-  def self.type_box_palletized_value(params = {})
-    if params[:client_id].present? && params[:client_source_id].present?
-      ClientDischarge.where(client_id: params[:client_id], 
-                   client_source_id: params[:client_source_id], 
-                          type_unit: TypeUnit::BOX, 
-                        type_charge: TypeCharge::PALLETIZED, 
-                          type_calc: TypeCalc::VALUE).first
-    end
-  end
+  # def self.type_box_palletized_value(params = {})
+  #   if params[:client_id].present? && params[:client_source_id].present?
+  #     ClientDischarge.where(client_id: params[:client_id], 
+  #                  client_source_id: params[:client_source_id], 
+  #                         type_unit: TypeUnit::BOX, 
+  #                       type_charge: TypeCharge::PALLETIZED, 
+  #                         type_calc: TypeCalc::VALUE).first
+  #   end
+  # end
 
-  def self.type_box_slam_weight(params = {})
-    if params[:client_id].present? && params[:client_source_id].present?
-      ClientDischarge.where(client_id: params[:client_id], 
-                   client_source_id: params[:client_source_id], 
-                          type_unit: TypeUnit::BOX, 
-                        type_charge: TypeCharge::SLAM, 
-                          type_calc: TypeCalc::WEIGHT).first
-    end
-  end  
+  # def self.type_box_slam_weight(params = {})
+  #   if params[:client_id].present? && params[:client_source_id].present?
+  #     ClientDischarge.where(client_id: params[:client_id], 
+  #                  client_source_id: params[:client_source_id], 
+  #                         type_unit: TypeUnit::BOX, 
+  #                       type_charge: TypeCharge::SLAM, 
+  #                         type_calc: TypeCalc::WEIGHT).first
+  #   end
+  # end  
 
-  def self.type_box_slam_unit(params = {})
-    if params[:client_id].present? && params[:client_source_id].present?
-      ClientDischarge.where(client_id: params[:client_id], 
-                   client_source_id: params[:client_source_id], 
-                          type_unit: TypeUnit::BOX, 
-                        type_charge: TypeCharge::SLAM, 
-                          type_calc: TypeCalc::UNIT).first
-    end
-  end    
+  # def self.type_box_slam_unit(params = {})
+  #   if params[:client_id].present? && params[:client_source_id].present?
+  #     ClientDischarge.where(client_id: params[:client_id], 
+  #                  client_source_id: params[:client_source_id], 
+  #                         type_unit: TypeUnit::BOX, 
+  #                       type_charge: TypeCharge::SLAM, 
+  #                         type_calc: TypeCalc::UNIT).first
+  #   end
+  # end    
 
-  def self.type_box_slam_value(params = {})
-    if params[:client_id].present? && params[:client_source_id].present?
-      ClientDischarge.where(client_id: params[:client_id], 
-                   client_source_id: params[:client_source_id], 
-                          type_unit: TypeUnit::BOX, 
-                        type_charge: TypeCharge::SLAM, 
-                          type_calc: TypeCalc::VALUE).first
-    end
-  end    
+  # def self.type_box_slam_value(params = {})
+  #   if params[:client_id].present? && params[:client_source_id].present?
+  #     ClientDischarge.where(client_id: params[:client_id], 
+  #                  client_source_id: params[:client_source_id], 
+  #                         type_unit: TypeUnit::BOX, 
+  #                       type_charge: TypeCharge::SLAM, 
+  #                         type_calc: TypeCalc::VALUE).first
+  #   end
+  # end    
 
   def calc_weight(weight)
     (self.price / 1000) * weight
@@ -131,6 +131,10 @@ class ClientDischarge < ActiveRecord::Base
     self.price  * units
   end
 
+  def calc_volume(volume)
+    units ||= 0
+    self.price  * volume
+  end
 end
 
 # discharge = ClientDischarge.where(client_id: 116, 

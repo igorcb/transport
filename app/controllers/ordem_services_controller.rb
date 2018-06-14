@@ -478,7 +478,7 @@ class OrdemServicesController < ApplicationController
       #   end
       #   #respond_with(@ordem_service)
       # end
-    end
+    #end
   end
 
   def index_agent

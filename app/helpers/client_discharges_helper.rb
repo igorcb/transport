@@ -89,7 +89,7 @@ module ClientDischargesHelper
   	if discharge.type_unit == ClientDischarge::TypeUnit::BOX &&
   		 discharge.type_charge == ClientDischarge::TypeCharge::SLAM &&
   		 discharge.type_calc == ClientDischarge::TypeCalc::UNIT
-  		value_calc = discharge.calc_unit(params[:weight])
+  		value_calc = discharge.calc_volume(params[:volume])
   		return value_calc
   	end
 
@@ -110,7 +110,7 @@ module ClientDischargesHelper
   	if discharge.type_unit == ClientDischarge::TypeUnit::BOX &&
   		 discharge.type_charge == ClientDischarge::TypeCharge::MIXED &&
   		 discharge.type_calc == ClientDischarge::TypeCalc::UNIT
-  		value_calc = discharge.calc_unit(params[:weight])
+  		value_calc = discharge.calc_unit(params[:unit])
   		return value_calc
   	end
 
