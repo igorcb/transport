@@ -452,7 +452,7 @@ class OrdemServicesController < ApplicationController
     @account_payable = @ordem_service.account_payables.build
     @account_payable.type_account = AccountPayable::TypeAccount::DRIVER
     @account_payable.supplier_type = "Driver"
-    @account_payable.supplier_id = nil#@ordem_service.ordem_service_logistic.delivery_driver_id
+    @account_payable.supplier_id = @ordem_service.ordem_service_logistic.delivery_driver_id
     @account_payable.cost_center_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_COST_CENTER').first.config_value
     @account_payable.sub_cost_center_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_SUB_COST_CENTER').first.config_value
     @account_payable.sub_cost_center_three_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_SUB_COST_CENTER_THREE').first.config_value
