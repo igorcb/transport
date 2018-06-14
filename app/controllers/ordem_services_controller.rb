@@ -463,8 +463,8 @@ class OrdemServicesController < ApplicationController
     @account_payable.valor = hash[:value_discharge]
     @account_payable.observacao = "PAGAMENTO DE DESCARGA O.S No: #{@ordem_service.id}, NF-e: #{@ordem_service.get_number_nfe}"
     @account_payable.status = AccountPayable::TipoStatus::ABERTO
-    #if @account_payable.save
-      respond_with(@ordem_service)
+    @account_payable.save
+    respond_with(@ordem_service)
     # else
     #   @ordem_service.errors.full_messages.each do |msg|
     #     flash.now[:error] = msg  
