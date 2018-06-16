@@ -182,6 +182,7 @@ Transport::Application.routes.draw do
     end    
     collection do
       get 'cost_centers'
+      get :search
     end
   end
 
@@ -256,7 +257,7 @@ Transport::Application.routes.draw do
   match "/get_nfe_xmls", :controller => "item_input_controls", :action => "get_nfe_xmls", via: [:get]
   match "/get_nfe_keys_by_boarding", :controller => "nfe_keys", :action => "get_nfe_keys_by_boarding", via: [:get]
   match "/get_product_by_nfe_keys_and_boarding", :controller => "item_ordem_services", :action => "get_product_by_nfe_keys_and_boarding", via: [:get]
-  match "/account_payables_search" => "account_payables#search", via: [:get]
+  #match "/account_payables_search" => "account_payables#search", via: [:get]
   match "/cashes_search" => "cashes#search", via: [:get]
   match "/schedulings_search" => "schedulings#search", via: [:get]
   match "/lower_payables" => "account_payables#lower_payables", via: [:get]

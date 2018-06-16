@@ -47,7 +47,8 @@ class AccountPayablesController < ApplicationController
   end
 
   def index
-    @account_payables = AccountPayable.order('data_vencimento desc')
+    @q = AccountPayable.where(id: -1).order(data_vencimento: :desc).search(params[:q])
+    @account_payables = AccountPayable.order('data_vencimento desc').limit(10)
     respond_with(@account_payables)
   end
 

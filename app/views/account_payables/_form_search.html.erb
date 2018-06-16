@@ -1,0 +1,56 @@
+<div class="panel-body">
+  <%= search_form_for @q, remote: true, url: search_account_payables_path, :method => :get do |f| %>
+	
+	  <div class="form-group">
+	    <%= f.label :type_account_eq, "Tipo Fornecedor" %>
+	    <%= f.select :type_account_eq, type_account_supplier, {prompt: 'SELECIONE UM TIPO DE FORNECEDOR'}, {class: "form-control"} %>
+	  </div>
+
+    <div class="form-group">
+      <%= f.label :supplier_id_eq, "Fornecedor" %>
+      <%= f.collection_select :supplier_id_eq, Supplier.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :documento_gteq, "Documento " %>
+      <%= f.search_field :documento_eq, class: "form-control" %>  
+    </div>
+
+    <div class="row form-group">
+      <div class="col-xs-6">
+        <%= f.label :data_vencimento_gteq, "Vencimento de " %>
+        <%= f.search_field :data_vencimento_gteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+      </div>
+
+      <div class="col-xs-6">
+        <%= f.label :data_vencimento_lteq, "até" %>
+        <%= f.search_field :data_vencimento_lteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+      </div>
+    </div>
+
+	  <div class="form-group">
+	    <%= f.label :status_eq, "Status" %>
+	    <%= f.select :status_eq, select_status_payables, {include_blank: true}, {class: "form-control"} %>
+	  </div>    
+
+
+    <div class="actions"><%= f.submit "Search" %></div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $("#query_type_account_eq").change(function(){
+      var type_id = "type_id="+$(this).val();
+      console.log(type_id);
+      $.getJSON('/type_account_select', type_id, function(data){
+        var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
+        console.log(data[0]);
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#query_supplier_id_eq").html(options);
+      });
+    });     
+  });
+</script>

@@ -8,47 +8,31 @@
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
-                <tr>
-                  <th></th>
-                  <th>Fornecedor</th>
-                  <th>Data vencimento</th>
-                  <th>Documento</th>
-                  <th>Valor</th>
-                  <th>Status</th>
-                  <th>Observacao</th>
-                </tr>
+                <%= render 'account_header' %>
               </thead>
 
               <tbody>
-                <% @account_payables.each do |account_payable| %>
-                  <tr>
-                    <td><%= check_box_tag "os[ids][#{account_payable.id}]", account_payable.id, false, value: account_payable.valor, onchange:"checkTotal()", class: "escolha" %></td>    
-                    <td><%= link_to truncate(account_payable.supplier.nome, length: 25), account_payable %></td>
-                    <td><%= link_to date_br(account_payable.data_vencimento ), account_payable %></td>
-                    <td><%= link_to account_payable.documento, account_payable %></td>
-                    <td><%= link_to number_to_currency(account_payable.valor, unit: "R$ ", separator: ",", delimiter: "."), account_payable %></td>
-                    <td><%= account_payable.status_name %></td>
-                    <td><%= link_to truncate(account_payable.observacao, length: 50), account_payable, title: account_payable.observacao  %></td>
-                  </tr>
-                <% end %>
+                <tbody>
+                  <%= render @account_payables %>
+                </tbody>
         
-                <tr>
+<!--                 <tr>
                   <td colspan="4"><strong>Total Selecionado</strong></td>
-                  <td><%= text_field_tag :valor_total, "", value: 0, disabled: true, size: 10, style: "text-align: Right"  %></td>
+                  <td><%#= text_field_tag :valor_total, "", value: 0, disabled: true, size: 10, style: "text-align: Right"  %></td>
                   <td colspan="2"><strong></strong></td>
                 </tr>
-
+ -->
               </tbody>
             </table>
           </div>    
         </div>
       </div>
 
-    <div class="form-group">
-      <%= collection_select(:cash_account, :cash_account_id, CashAccount.order(:nome), :id, :nome, {:prompt => 'Selecione uma conta para pagamento'}, class: "form-control")%>
+<!--     <div class="form-group">
+      <%#= collection_select(:cash_account, :cash_account_id, CashAccount.order(:nome), :id, :nome, {:prompt => 'Selecione uma conta para pagamento'}, class: "form-control")%>
     </div>
-    
-    <%= submit_tag("Efetuar Baixa", class: "btn btn-primary") %> 
+ -->    
+    <%#= submit_tag("Efetuar Baixa", class: "btn btn-primary") %> 
 
   <% end %>
 
