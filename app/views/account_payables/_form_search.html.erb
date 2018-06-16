@@ -3,12 +3,12 @@
 	
 	  <div class="form-group">
 	    <%= f.label :type_account_eq, "Tipo Fornecedor" %>
-	    <%= f.select :type_account_eq, type_account_select, {prompt: 'SELECIONE UM TIPO DE CLIENTE'}, {class: "form-control"} %>
+	    <%= f.select :type_account_eq, type_account_supplier, {prompt: 'SELECIONE UM TIPO DE FORNECEDOR'}, {class: "form-control"} %>
 	  </div>
 
     <div class="form-group">
-      <%= f.label :client_id_eq, "Fornecedor" %>
-      <%= f.collection_select :client_id_eq, Supplier.where(id: -1), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+      <%= f.label :supplier_id_eq, "Fornecedor" %>
+      <%= f.collection_select :supplier_id_eq, Supplier.where(id: -1), :id, :nome, {include_blank: true}, {class: "form-control"} %>
     </div>
 
     <div class="form-group">

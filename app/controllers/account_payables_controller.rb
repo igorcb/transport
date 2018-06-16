@@ -113,7 +113,7 @@ class AccountPayablesController < ApplicationController
   
   def search
     #@q = AccountPayable.where(status: AccountPayable::TipoStatus::ABERTO).order('id desc').search(params[:q])
-    @q = AccountPayable.order('data_vencimento desc').search(params[:query])
+    @q = AccountPayable.includes(:supplier, :payment_method).order(data_vencimento: :desc).search(params[:query])
     @account_payables = @q.result
   end
 
