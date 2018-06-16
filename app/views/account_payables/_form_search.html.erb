@@ -28,6 +28,24 @@
       </div>
     </div>
 
+    <div class="row form-group">
+      <div class="col-xs-6">
+        <%= f.label :lower_account_payables_data_pagamento_gteq, "Pagamento de " %>
+        <%= f.search_field :lower_account_payables_data_pagamento_gteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+      </div>
+
+      <div class="col-xs-6">
+        <%= f.label :lower_account_payables_data_pagamento_lteq, "até" %>
+        <%= f.search_field :lower_account_payables_data_pagamento_lteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+      </div>
+    </div>
+
+<!--     
+		<div class="form-group">
+      <%#= f.label :nfe_keys_nfe_eq, "NF-e" %>
+      <%#= f.search_field :nfe_keys_nfe_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NF-e ex: 123456" %>  
+    </div>
+ -->
 	  <div class="form-group">
 	    <%= f.label :status_eq, "Status" %>
 	    <%= f.select :status_eq, select_status_payables, {include_blank: true}, {class: "form-control"} %>
