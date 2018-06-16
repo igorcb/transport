@@ -170,6 +170,8 @@ Transport::Application.routes.draw do
     end    
     get :received_driver, on: :collection
     collection do
+      get :search
+      post :lower_all
     end
   end
 

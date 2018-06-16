@@ -13,8 +13,9 @@ class AccountReceivablesController < ApplicationController
   end
 
   def index
-    @account_receivables = AccountReceivable.order('data_vencimento desc')
-    respond_with(@account_receivables)
+    @q = AccountReceivable.where(id: -1).order(data_vencimento: :desc).search(params[:q])
+    @account_receivables = AccountReceivable.includes(:client).where(data_vencimento: (Date.today)..(Date.today + 1)).order(:data_vencimento)
+    respond_with(@account_receivables)  
   end
 
   def show
@@ -99,6 +100,16 @@ class AccountReceivablesController < ApplicationController
     end
   end
 
+  def lower_all
+    
+  end
+
+  def search
+    @q = AccountReceivable.includes(:client).order(:data_vencimento).search(params[:query])
+
+    puts ">>>>>>>>>>>>>>>>>>>>> Search: #{@q.result.count}"
+    @account_receivables = @q.result
+  end
 
   private
     def set_account_receivable

@@ -1,14 +1,14 @@
 <div class="panel-body">
-  <%= search_form_for @q, remote: true, url: search_account_payables_path, :method => :get do |f| %>
+  <%= search_form_for @q, remote: true, url: search_account_receivables_path, :method => :get do |f| %>
 	
 	  <div class="form-group">
-	    <%= f.label :type_account_eq, "Tipo Fornecedor" %>
-	    <%= f.select :type_account_eq, type_account_select, {prompt: 'SELECIONE UM TIPO DE CLIENTE'}, {class: "form-control"} %>
+	    <%= f.label :client_type_eq, "Tipo Fornecedor" %>
+	    <%= f.select :client_type_eq, type_account_supplier, {prompt: 'SELECIONE UM TIPO DE CLIENTE'}, {class: "form-control"} %>
 	  </div>
 
     <div class="form-group">
-      <%= f.label :client_id_eq, "Fornecedor" %>
-      <%= f.collection_select :client_id_eq, Supplier.where(id: -1), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+      <%= f.label :client_id_eq, "Cliente" %>
+      <%= f.collection_select :client_id_eq, Client.where(id: -1), :id, :nome, {include_blank: true}, {class: "form-control"} %>
     </div>
 
     <div class="form-group">
@@ -30,13 +30,13 @@
 
     <div class="row form-group">
       <div class="col-xs-6">
-        <%= f.label :lower_account_payables_data_pagamento_gteq, "Pagamento de " %>
-        <%= f.search_field :lower_account_payables_data_pagamento_gteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+        <%= f.label :lower_account_receivables_data_pagamento_gteq, "Pagamento de " %>
+        <%= f.search_field :lower_account_receivables_data_pagamento_gteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
       </div>
 
       <div class="col-xs-6">
-        <%= f.label :lower_account_payables_data_pagamento_lteq, "até" %>
-        <%= f.search_field :lower_account_payables_data_pagamento_lteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+        <%= f.label :lower_account_receivables_data_pagamento_lteq, "até" %>
+        <%= f.search_field :lower_account_receivables_data_pagamento_lteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
       </div>
     </div>
 
@@ -52,7 +52,7 @@
 
 <script type="text/javascript">
   $(function(){
-    $("#query_type_account_eq").change(function(){
+    $("#query_client_type_eq").change(function(){
       var type_id = "type_id="+$(this).val();
       console.log(type_id);
       $.getJSON('/type_account_select', type_id, function(data){
@@ -61,7 +61,7 @@
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
-        $("#query_supplier_id_eq").html(options);
+        $("#query_client_id_eq").html(options);
       });
     });     
   });

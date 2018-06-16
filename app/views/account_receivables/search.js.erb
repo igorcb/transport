@@ -1,0 +1,7 @@
+<% if @account_receivables.present? %>
+  $('#result_account_receivables').empty(); 
+  $("#result_account_receivables").append("<%= j(render(:partial => 'search')) %>");
+<% else %>
+  $('#result_account_receivables').empty();
+  $("#result_account_receivables").append("<%= j(content_tag(:div, content_tag(:p, 'Not found any accounts payable'), class: 'alert alert-danger')) %> ");
+<% end %>

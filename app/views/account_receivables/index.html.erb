@@ -1,8 +1,31 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+      <%= render "form_search" %>
+
+    </div>
+  </div>
+
+</div>
+
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Contas a Receber</div>
   <div class="panel-body">
     <%#= link_to 'Novo Recebimento', new_account_receivable_path, class: "btn btn-primary btn-lg btn-block" %>
     <div class="table-responsive">
+      
+      <div id="result_account_receivables">
+
       <table class="table table-striped">
         <thead>
           <%= render 'account_header' %>
