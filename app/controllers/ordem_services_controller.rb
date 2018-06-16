@@ -447,6 +447,20 @@ class OrdemServicesController < ApplicationController
   end
 
   def request_payment
+    if !@ordem_service.boarding.present?
+      flash[:danger] = "There is not boarding associated with this ordem service."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    elsif @ordem_service.ordem_service_logistic.delivery_driver_id.nil?
+      flash[:danger] = "Select a driver to request payment."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    elsif @ordem_service.ordem_service_logistic.delivery_driver_id == Driver::STANDARD
+      flash[:danger] = "Select a driver to request payment."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    end
+
     hash = eval(params[:discharges])
     
     @account_payable = @ordem_service.account_payables.build

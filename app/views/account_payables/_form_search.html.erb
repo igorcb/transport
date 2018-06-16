@@ -8,7 +8,7 @@
 
     <div class="form-group">
       <%= f.label :supplier_id_eq, "Fornecedor" %>
-      <%= f.collection_select :supplier_id_eq, Supplier.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+      <%= f.collection_select :supplier_id_eq, Supplier.where(id: -1), :id, :nome, {include_blank: true}, {class: "form-control"} %>
     </div>
 
     <div class="form-group">

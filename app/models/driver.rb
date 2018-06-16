@@ -64,6 +64,8 @@ class Driver < ActiveRecord::Base
 
   before_destroy :can_destroy?
 
+  STANDARD = 105
+
   module Categoria
   	A = 0
   	B = 1
