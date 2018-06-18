@@ -32,6 +32,10 @@ class InputControl < ActiveRecord::Base
   #has_many :breakdowns, -> { order(:lastname => :asc) }, as: :breakdown, dependent: :destroy
   accepts_nested_attributes_for :breakdowns, allow_destroy: true, reject_if: :all_blank  
 
+  has_one :action_inspector
+  has_many :action_inspectors
+  accepts_nested_attributes_for :action_inspectors, allow_destroy: true, :reject_if => :all_blank  
+
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
 
   #before_save { |item| item.email = email.downcase }

@@ -20,6 +20,9 @@
 
   </div>  
 
+  <%= f.fields_for :action_inspectors do |f| 
+      render 'action_inspector_fields', f: f
+  end -%>
   
 <!--   <div class="form-group">
     <%#= f.label :driver_id, "Motorista" %>

@@ -150,6 +150,7 @@ class InputControlsController < ApplicationController
 
   def new
     @input_control = InputControl.new
+    @input_control.action_inspectors.build
     respond_with(@input_control)
   end
 
@@ -159,6 +160,7 @@ class InputControlsController < ApplicationController
     #   redirect_to @input_control
     #   return
     # end
+    @input_control.action_inspectors.build if !@input_control.action_inspectors.present?
   end
 
   def create
@@ -239,6 +241,8 @@ class InputControlsController < ApplicationController
         :observation, :charge_discharge, :shipment, :team, :dock, :hangar, :container, 
         :stretch_route_id, :type_service_id,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
+        nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
+        action_inspectors_attributes: [:number, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )
     end

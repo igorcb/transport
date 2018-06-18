@@ -8,6 +8,12 @@
     </p>
 
     <p>
+      <strong>No Ação Fiscal:</strong>
+      <%#=  object: @ordem_service.ordem_service_logistic.delivery_driver if @ordem_service.ordem_service_logistic.delivery_driver.present? %> 
+      <%= @input_control.action_inspector.number if @input_control.action_inspector.present? %>
+    </p>
+
+    <p>
       <strong>No Remessa do Cliente:</strong>
       <%= @input_control.shipment %> 
     </p>
