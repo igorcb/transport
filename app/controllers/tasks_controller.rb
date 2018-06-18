@@ -106,6 +106,9 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:requester_id, :employee_id, :name, :body, :start_date, :finish_date, :time_first, :allocated, :allocated_observation, :second_time, :status, :observation)
+      params.require(:task).permit(:requester_id, :employee_id, :name, :body, :start_date, :finish_date, :time_first, :allocated, 
+        :allocated_observation, :second_time, :status, :observation,
+        assets_attributes: [:asset, :id, :_destroy]
+        )
     end
 end

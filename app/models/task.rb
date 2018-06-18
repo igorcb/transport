@@ -13,6 +13,9 @@ class Task < ActiveRecord::Base
   has_many :internal_comments, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
   has_many :internal_commentaries, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
 
+  has_many :assets, as: :asset, dependent: :destroy
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
+
   scope :the_day, -> {where('DATE(created_at) = ?', Date.current) }
 
   before_create { |t| t.status = TypeStatus::NAO_INICIADO }

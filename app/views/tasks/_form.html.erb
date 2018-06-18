@@ -54,9 +54,23 @@
     <%= f.label :observation, "Observação" %>
     <%= f.text_area :observation,class: "form-control" %>
   </div>
+
+  <h2>Documentos</h2> 
+  <div id="documents">
+    <div class="items">
+      <%= f.nested_fields_for :assets do |f| 
+        render 'shared/asset', f: f
+      end  -%>
+    </div>
+      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+  </div>
+
+  <hr />
+  
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  task_path(@task), class: "btn btn-info" if !@task.new_record? %>
     <%= link_to "Listar Todos", tasks_path, class: "btn btn-default" %>
   </div>
+
 <% end %>
