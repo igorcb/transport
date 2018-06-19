@@ -28,6 +28,8 @@ class Carrier < ActiveRecord::Base
 
   has_many :ordem_services
 
+  has_many :credentials, class_name: "CarrierCredential", foreign_key: "carrier_source_id"
+
   before_destroy :can_destroy?
 
   def name_state

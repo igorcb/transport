@@ -387,7 +387,10 @@ Transport::Application.routes.draw do
 
   resources :owners
 
+  resources :carrier_credentials
+
   resources :carriers do
+    resources :carrier_credentials
     collection do
       get :search
     end

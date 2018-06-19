@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Carrier Credentials</div>
+  <div class="panel-body">
+    
+    <%= render 'carrier' %>
+
+    <hr>
+
+		<p>
+			<strong>CNPJ:</strong>
+			<%= @carrier_credential.carrier_credential.cnpj %>
+		</p>
+		<p>
+			<strong>Transportadora:</strong>
+			<%= @carrier_credential.carrier_credential.nome %>
+		</p>
+	</div>
+</div>
+
+<%#= link_to "Editar", edit_client_client_discharge_path(@client, @client_discharge), class: "btn btn-primary" %>
+<%= link_to "Listar Todos", carrier_carrier_credentials_path(@carrier) , class: "btn btn-default" %>
+<%= link_to 'New Credentials', new_carrier_carrier_credential_path, class: "btn btn-primary btn-sm" %>

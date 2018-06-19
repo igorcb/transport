@@ -1,0 +1,36 @@
+<%#= debug @carrier %>
+<div class="panel panel-default">
+  <div class="panel-heading">Transportadoras Credenciadas</div>
+  <div class="panel-body">
+  	<div id="client">
+  		<%= render 'carrier' %>
+  	</div>
+
+    <%= link_to 'New Credentials', new_carrier_carrier_credential_path, class: "btn btn-primary btn-sm btn-block" %>
+    <div class="table-responsive">
+    	<table class="table table-striped">
+        <div id="result_client">
+
+        <thead>
+          <tr>
+            <tr>
+              <th>CNPJ</th>
+              <th>Transportadora</th>
+            </tr>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @carrier.credentials.each do |item| %>
+            <tr>
+              <td><%= item.carrier_credential.cnpj %></td>
+              <td><%= item.carrier_credential.nome %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    </div>    
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<%= form_for ([ @carrier, CarrierCredential.new ]) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= render 'carrier' %>
+
+  <div class="form-group">
+    <%#= f.label :carrier_credential_id, "CNPJ" %>
+    <%#= f.text_field :carrier_credential_id, class: "form-control" %>
+    <%= label_tag :carrier_credential_cnpj, "CNPJ" %><br>
+    <%= text_field_tag :carrier_credential_cnpj, nil, class: "form-control" %>
+  </div>
+
+  <div id="carrier_cnpj_result">
+
+  </div>  
+
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  carrier_carrier_credential_path(@carrier, @carrier_credential), class: "btn btn-info" if !@carrier_credential.new_record? %>
+    <%= link_to "Listar Todos", carrier_carrier_credentials_path(@carrier) , class: "btn btn-default" %>
+  </div>  
+
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#carrier_credential_cnpj").focusout(function() {
+      var cnpj = $('#carrier_credential_cnpj').val();
+      console.log(cnpj);
+      $.ajax({
+        type: "GET",
+        data: {cpf_cnpj: cnpj},
+        dataType : 'html',
+        url: '/carriers/get_carrier_by_cnpj',
+        success: function(data){
+            $('#carrier_cnpj_result').html(data);
+        },
+      });
+    });
+  });
+</script>

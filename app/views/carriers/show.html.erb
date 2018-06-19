@@ -89,5 +89,7 @@
 
 <div class="form-group">
   <%= link_to 'Editar', edit_carrier_path(@carrier), class: "btn btn-primary" %>
-  <%= link_to 'Listar Todos',  carriers_path, class: "btn btn-default" %>
+  <%= link_to 'Listar Todos', carriers_path, class: "btn btn-default" %>
+  <%= link_to 'Credenciados', carrier_carrier_credentials_path(@carrier), class: "btn btn-default" %>
+
 </div>
