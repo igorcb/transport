@@ -473,7 +473,7 @@ class OrdemServicesController < ApplicationController
     @account_payable.payment_method_id = ConfigSystem.where(config_key: 'PAYMENT_METHOD_DEFAULT').first.config_value
     @account_payable.historic_id = ConfigSystem.where(config_key: 'HISTORIC_DEFAULT').first.config_value
     @account_payable.data_vencimento = Date.today
-    @account_payable.documento = @ordem_service.id
+    @account_payable.documento = "#{@ordem_service.id}/#{@ordem_service.boarding.id}"
     @account_payable.valor = hash[:value_discharge]
     @account_payable.observacao = "PAGAMENTO DE DESCARGA O.S No: #{@ordem_service.id}, NF-e: #{@ordem_service.get_number_nfe}"
     @account_payable.status = AccountPayable::TipoStatus::ABERTO
