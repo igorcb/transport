@@ -34,7 +34,18 @@
           </thead>
 
           <tbody>
-            <%#= render @clients %>
+            <%#= render @action_inspectors %>
+            <% @action_inspectors.each do |nfe| %>
+            <tr>
+              <td><%= nfe.input_control.id %></td>
+              <td><%= nfe.target_client.cpf_cnpj %></td>
+              <td><%= nfe.target_client.nome %></td>
+              <td><%= nfe.numero %></td>
+              <td><%= nfe.action_inspector_number %></td>
+              <td><%=  %></td>
+              <td><%=  %></td>
+            </tr>
+            <% end %>
           </tbody>
 
         </table>

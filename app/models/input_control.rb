@@ -300,6 +300,7 @@ class InputControl < ActiveRecord::Base
   end
 
   def self.create_ordem_service_input_controls(params = {})
+    action_inspector_number = nil
     input_control = InputControl.find(params[:id])
     nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
     total_weight = input_control.nfe_xmls.nfe.sum(:peso).to_f
@@ -319,6 +320,8 @@ class InputControl < ActiveRecord::Base
     if nfe_scheduling.present?
       data_scheduling = nfe_scheduling.scheduling.date_scheduling_client.present? ? nfe_scheduling.scheduling.date_scheduling_client : nil
     end
+
+    action_inspector_number = input_control.action_inspector.number if input_control.action_inspector.present?
 
     ActiveRecord::Base.transaction do
       #puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico"
@@ -387,7 +390,9 @@ class InputControl < ActiveRecord::Base
 
         end
         
-        NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM, take_dae: take_dae)
+        NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM, 
+                              action_inspector_number: action_inspector_number,  
+                                             take_dae: take_dae)
       end
       #puts ">>>>>>>>>>>>>>>> update peso e volume:"
       ordem_service.set_peso_and_volume
