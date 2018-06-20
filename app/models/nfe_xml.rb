@@ -2,7 +2,11 @@ require 'nfe'
 class NfeXml < ActiveRecord::Base
 	has_attached_file :asset
 	validates_attachment :asset, uniqueness: true, attachment_presence: true, :content_type => { :content_type => "text/xml" }
-	validates :asset_file_name, uniqueness: { scope: :nfe_type } 
+  has_attached_file :action_inspector
+  #validates_attachment :action_inspector, uniqueness: true, attachment_presence: true, :content_type => { :content_type => "text/xml" }
+  #has_attached_file :asset, styles: lambda { |a| a.instance.asset_content_type =~ %r(image) ? { medium: "300x300>", thumb: "120x90>", mini: "64x64>"} : {} }
+	
+  validates :asset_file_name, uniqueness: { scope: :nfe_type } 
   validates :chave, uniqueness: { scope: :nfe_type }, allow_blank: true
 
   belongs_to :scheduling, class_name: "Scheduling", foreign_key: "nfe_id"
