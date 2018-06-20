@@ -16,6 +16,7 @@
             <tr>
               <th>CNPJ</th>
               <th>Transportadora</th>
+              <th>Cidade</th>
             </tr>
           </tr>
         </thead>
@@ -25,6 +26,7 @@
             <tr>
               <td><%= item.carrier_credential.cnpj %></td>
               <td><%= item.carrier_credential.nome %></td>
+              <td><%= item.carrier_credential.cidade %></td>
             </tr>
           <% end %>
         </tbody>
