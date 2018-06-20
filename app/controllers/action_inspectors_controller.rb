@@ -1,0 +1,2 @@
+class ActionInspectorsController < ApplicationController
+end

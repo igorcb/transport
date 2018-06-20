@@ -99,6 +99,10 @@ class NfeXml < ActiveRecord::Base
   #   ordem_service(type_os, number)
   # end
 
+  def self.client_ids
+    NfeXml.select(:target_client_id).pluck(:target_client_id).uniq
+  end
+
   def ordem_service(type_os)
     case type_os
       when 'direct_charges' then nfe_key = NfeKey.where(nfe_source_type: 'DirectCharge', nfe_type: 'OrdemService', nfe: self.numero)

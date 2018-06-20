@@ -1,7 +1,7 @@
 Transport::Application.routes.draw do
 
-  get "client_requirements/index"
-  get "client_discharges/index"
+  resources :action_inspectors, only: [:index, :edit, :update]
+
   resources :advance_moneys
 
   resources :client_table_prices

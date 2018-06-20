@@ -198,6 +198,10 @@ class InputControl < ActiveRecord::Base
     end
     positivo
   end
+  
+  def self.client_not_credentials_sefaz?(client_ids)
+    result = Client.where(id: [client_ids], client_credential_sefaz: false).present?
+  end  
 
   def received
     # so pode informar recebimento se a remessa estiver no status FINISH_TYPING
@@ -290,6 +294,11 @@ class InputControl < ActiveRecord::Base
     end
   end    
 
+  def carrier_credentials?
+    carrier_default = Carrier.where(cnpj: Company.first.cnpj).first
+    return carrier_default.credentials.where(carrier_credential: self.carrier).present?
+  end
+
   def self.create_ordem_service_input_controls(params = {})
     input_control = InputControl.find(params[:id])
     nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
@@ -336,6 +345,7 @@ class InputControl < ActiveRecord::Base
                                                   qtde_volume: input_control.volume)
       #puts ">>>>>>>>>>>>>>>> Importar dados da NFE XML para NFE Keys"
       nfe_xmls.each do |nfe|
+        take_dae = input_control.carrier_credentials? && target_client.client_credential_sefaz == false
         ordem_service.nfe_keys.create!(nfe: nfe.numero,
                                     chave: nfe.chave,
                                    nfe_id: ordem_service.id,
@@ -377,7 +387,7 @@ class InputControl < ActiveRecord::Base
 
         end
         
-        NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM)
+        NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM, take_dae: take_dae)
       end
       #puts ">>>>>>>>>>>>>>>> update peso e volume:"
       ordem_service.set_peso_and_volume

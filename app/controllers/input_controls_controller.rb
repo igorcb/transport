@@ -84,6 +84,15 @@ class InputControlsController < ApplicationController
       respond_with(@input_control)
       return
     end
+    if @input_control.carrier_credentials? 
+      if InputControl.client_not_credentials_sefaz?(@input_control.nfe_xmls.client_ids) &&
+        @input_control.action_inspector.blank? &&
+
+        flash[:danger] = "Existe cliente que não são credenciados a sefaz. Por favor inserir o No da Ação Fiscal"
+        respond_with(@input_control)
+        return
+      end
+    end
     InputControl.create_ordem_service_input_controls({id: params[:id], nfe: ids})
     puts ">>>>>>>>>>>>>ID Input Control: #{@input_control.id} "
     respond_with(@input_control)
