@@ -33,12 +33,6 @@ Transport::Application.routes.draw do
 
   match 'list_input_scheduling' => "input_controls#list_input_scheduling",  via: [:get]
 
-  resources :nfe_keys, only: [:index, :edit, :update] do
-    collection do
-      get :search
-    end
-  end
-
   resources :companies, only: [:edit, :update, :show]
 
   resources :config_systems
@@ -221,8 +215,16 @@ Transport::Application.routes.draw do
   resources :cashes do
   end
   
-  #resources :nfe_xmls, only: [:index, :new, :create]
+  resources :nfe_xmls#, only: [:index, :edit, :update]
   resources :cte_xmls, only: [:index, :new, :create]
+
+
+  resources :nfe_keys, only: [:index, :edit, :update] do
+    collection do
+      get :search
+    end
+  end
+
   
   get "internal_comments/create"
   resources :occurrences
