@@ -1,0 +1,29 @@
+<p>
+  <strong>Data Reunião:</strong>
+  <%= date_br(@meeting.date_event) %> as <%= time_br(@meeting.time_event) %>
+</p>
+
+<p>
+  <strong>Local:</strong>
+  <%= @meeting.local %>
+</p>
+
+<p>
+  <strong>Convocado por:</strong>
+  <%= @meeting.summoned %>
+</p>
+
+<p>
+  <strong>Facilitador:</strong>
+  <%= @meeting.facilitator %>
+</p>
+
+<p>
+  <strong>Secretario(a):</strong>
+  <%= @meeting.secretary %>
+</p>
+
+<p>
+  <strong>Objective:</strong>
+  <pre><%= @meeting.objective %></pre>
+</p>

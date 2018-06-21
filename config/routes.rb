@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :meetings
+
   resources :action_inspectors, only: [:index, :edit, :update]
 
   resources :advance_moneys

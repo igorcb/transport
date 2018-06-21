@@ -1,0 +1,39 @@
+<%= form_for(@meeting) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :date_event,"Data" %><br>
+    <%= f.text_field :date_event, class: "form-control data" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :time_event,"Hora" %><br>
+    <%= f.text_field :time_event, class: "form-control time" %>
+  </div>  
+  <div class="form-group">
+    <%= f.label :local, "Local" %><br>
+    <%= f.text_field :local, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :summoned, "Convocado por" %><br>
+    <%= f.text_field :summoned, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :facilitator, "Facilitador" %><br>
+    <%= f.text_field :facilitator, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :secretary, "Secretario(a)" %><br>
+    <%= f.text_field :secretary, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :objective, "Objetivo" %><br>
+    <%= f.text_area :objective, class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  meeting_path(@meeting), class: "btn btn-info" if !@meeting.new_record? %>
+    <%= link_to "Listar Todos", meetings_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>

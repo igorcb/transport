@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Dados da Reunião:
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+          <div class="panel panel-default">
+
+            <div class="panel-body"> 
+              <%= render 'data_meeting' %>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Assuntos Abordados
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+
+              </tr>
+            </thead>
+
+            <tbody>
+              <%# @offer_charge.offer_items.each do |item| %>
+                <tr>
+                  <td><%#= item.client %></td>
+                  <td><%#= item.city %>/<%#= item.state %></td>
+                  <td><%#= date_br item.date_schedule %> <%#= time_br item.time_schedule %> </td>
+                  <td><%#= item.qtde_pallets %></td>
+                  <td><%#= item.weight %></td>
+                  <td><%#= item.volume %></td>
+                </tr>
+              <%# end %>
+            </tbody>
+          </table>
+        </div>    
+
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Documentos
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+
+        <div class="panel-body"> 
+          <%#= render 'shared/document', object: @meeting %>
+        </div>
+
+    </div>
+  </div>
+
+<!-- Fim collapse  --> 
+</div>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_meeting_path(@meeting), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', meetings_path, class: "btn btn-default" %>
+</div>
