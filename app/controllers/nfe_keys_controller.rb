@@ -1,5 +1,6 @@
 class NfeKeysController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :set_nfe_key, only: [:edit, :update, :edit_action_inspector, :update_action_inspector]
   load_and_authorize_resource
   respond_to :html, :js, :json
 
@@ -17,7 +18,6 @@ class NfeKeysController < ApplicationController
   end
 
   def edit
-  	@nfe_key = NfeKey.find(params[:id])
   end
 
   def update
@@ -34,6 +34,19 @@ class NfeKeysController < ApplicationController
     end  	
   end
 
+  def edit_action_inspector
+  end
+
+  def update_action_inspector
+    respond_to do |format|
+      if @nfe_key.update(nfe_key_params)
+        format.html { redirect_to action_inspectors_path, flash: { success: "Confirm DAE was successfully updated." } }
+      else
+        format.html { render action: 'edit' }
+      end
+    end
+  end  
+
   def search
     @q = NfeKey.where(nfe_source_type: "InputControl").paginate(:page => params[:page]).search(params[:query])
     @nfe_keys = @q.result
@@ -43,7 +56,11 @@ class NfeKeysController < ApplicationController
   end
 
   private
+    def set_nfe_key
+      @nfe_key = NfeKey.find(params[:id])
+    end
+
     def nfe_key_params
-      params.require(:nfe_key).permit(:asset)
+      params.require(:nfe_key).permit(:asset, :action_inspector)
     end
 end

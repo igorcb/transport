@@ -358,6 +358,8 @@ class InputControl < ActiveRecord::Base
                                      peso: nfe.peso,
                                    volume: nfe.volume,
                                   average: value_weight_average,
+                  action_inspector_number: action_inspector_number,
+                                 take_dae: take_dae,
                               observation: nfe.observation
                                     )
 

@@ -1,0 +1,21 @@
+<h1>Adicionar Comprovante Pagamento DAE</h1>
+<%= form_for @nfe_key, url: update_action_inspector_nfe_key_path, method: :patch, :html => { :multipart => true }   do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+		<div class="form-group">
+      <%= f.label :nfe, "NF-e"  %>
+      <%= f.text_field :nfe, class: "form-control input-sm numericOnly", placeholder: "Nfe", disabled: true  %>
+	  </div>
+
+		<div class="form-group">
+			<%= f.label :chave  %>
+      <%= f.text_field :chave, maxlength: 44, class: "form-control input-sm", placeholder: "Chave", disabled: true  %>
+    </div>
+
+		<div class="form-group">
+      <%= f.file_field :action_inspector  %>
+    </div>
+		
+		<%= f.submit "Salvar", class: "btn btn-primary" %>
+
+<% end %>

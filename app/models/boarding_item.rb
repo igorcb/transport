@@ -12,4 +12,14 @@ class BoardingItem < ActiveRecord::Base
   has_many :item_ordem_services, :through => :ordem_service
   has_many :products, :through => :item_ordem_services
 
+  before_create :is_payment_of_dae
+
+  def is_payment_of_dae
+  	self.ordem_service.input_control
+  end
+
+  def input_control
+  	ordem_service.input_control
+  end
+
 end

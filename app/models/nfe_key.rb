@@ -6,6 +6,7 @@ class NfeKey < ActiveRecord::Base
   belongs_to :pallet, class_name: "Pallet", foreign_key: "nfe_id", dependent: :destroy #, polymorphic: true
 
   has_attached_file :asset, :styles => {medium: "300x300>", thumb: "100x100>", mini: "32x32>"}
+  has_attached_file :action_inspector
   # has_attached_file :asset,
   # :styles => {:medium => "300x300>", :thumb => "100x100>"},
   # :url => "assets/:class/:attachment/:id/:style/:basename.:extension",

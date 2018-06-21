@@ -37,12 +37,14 @@
             <%#= render @action_inspectors %>
             <% @action_inspectors.each do |nfe| %>
             <tr>
-              <td><%= nfe.input_control.id %></td>
-              <td><%= nfe.target_client.cpf_cnpj %></td>
-              <td><%= nfe.target_client.nome %></td>
-              <td><%= nfe.numero %></td>
+              <td><%= nfe.ordem_service.input_control.id %></td>
+              <td><%= nfe.ordem_service.id %></td>
+              <td><%= nfe.ordem_service.client.cpf_cnpj %></td>
+              <td><%= nfe.ordem_service.client.nome %></td>
+              <td><%= nfe.nfe %></td>
               <td><%= nfe.action_inspector_number %></td>
-              <td><%= link_to 'Confirm', edit_nfe_xml_path(nfe), class: "btn btn-primary btn-sm"  %> </td>
+              <td><%= link_to "Confirm", edit_action_inspector_nfe_key_path(nfe), class: "btn btn-primary btn-sm" %></td>
+
             </tr>
             <% end %>
           </tbody>

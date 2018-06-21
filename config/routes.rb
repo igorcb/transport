@@ -220,6 +220,10 @@ Transport::Application.routes.draw do
 
 
   resources :nfe_keys, only: [:index, :edit, :update] do
+    member do
+      get :edit_action_inspector
+      patch :update_action_inspector
+    end
     collection do
       get :search
     end
