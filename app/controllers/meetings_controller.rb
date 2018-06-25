@@ -7,7 +7,6 @@ class MeetingsController < ApplicationController
 
   def index
     @meetings = Meeting.all
-    #respond_with(@meetings)
   end
 
   def show
@@ -60,6 +59,9 @@ class MeetingsController < ApplicationController
     end
 
     def meeting_params
-      params.require(:meeting).permit(:date_event, :time_event, :local, :summoned, :facilitator, :secretary, :objective)
+      params.require(:meeting).permit(:date_event, :time_event, :local, :summoned, :facilitator, :secretary, :objective,
+        assets_attributes: [:asset, :id, :_destroy]
+        
+        )
     end
 end
