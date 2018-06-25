@@ -35,26 +35,26 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
-        
+        <%= link_to 'Novo Assunto', new_meeting_subject_path(@meeting), class: "btn btn-success" %>      
+
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
-
+                <th>Assunto</th>
+                <th>Duração</th>
+                <th>Responsavel</th>
               </tr>
             </thead>
 
             <tbody>
-              <%# @offer_charge.offer_items.each do |item| %>
+              <% @meeting.subjects.each do |subject| %>
                 <tr>
-                  <td><%#= item.client %></td>
-                  <td><%#= item.city %>/<%#= item.state %></td>
-                  <td><%#= date_br item.date_schedule %> <%#= time_br item.time_schedule %> </td>
-                  <td><%#= item.qtde_pallets %></td>
-                  <td><%#= item.weight %></td>
-                  <td><%#= item.volume %></td>
+                  <td><%= subject.title %></td>
+                  <td><%= time_br subject.time_meeting %> </td>
+                  <td><%= subject.responsible %></td>
                 </tr>
-              <%# end %>
+              <% end %>
             </tbody>
           </table>
         </div>    

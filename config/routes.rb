@@ -1,6 +1,8 @@
 Transport::Application.routes.draw do
 
-  resources :meetings
+  resources :meetings do
+    resources :subjects
+  end
 
   resources :action_inspectors, only: [:index, :edit, :update]
 
