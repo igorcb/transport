@@ -5,8 +5,40 @@
   </div>
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">Planos de Ação</div>
+  <div class="panel-body">
+  <%= link_to '[+] Plano de Ação', new_meeting_subject_subject_answer_path(@meeting, @subject), class: "btn btn-success btn-xs" %>  
+		<table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Prazo até</th>
+          <th>Responsavel</th>
+          <th>Acão</th>
+          <th colspan="3">Opções</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @subject.subject_answers.each do |asnwer| %>
+          <tr>
+            <td><%= date_br asnwer.deadline %></td>
+            <td><%= asnwer.responsible %></td>
+            <td>
+            	<%#= truncate(asnwer.action, length: 50) %>
+            	<%= asnwer.action %>
+            </td>
+            <td><%= link_to 'Show', meeting_subject_subject_answer_path(@meeting, @subject, asnwer), class: "btn btn-info btn-xs" %></td>
+            <td><%#= link_to 'Edit', edit_supplier_path(supplier), class: "btn btn-primary btn-sm" %></td>
+            <td><%#= link_to 'Destroy', supplier, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>    
+  </div>
+</div>
+
 <div class="form-group">
   <%= link_to 'Editar', edit_meeting_subject_path(@meeting, @subject), class: "btn btn-primary" %> 
   <%= link_to 'Listagem', meeting_path(@meeting), class: "btn btn-default" %>
-  <%#= link_to 'Novo', new_sub_cost_center_path, class: "btn btn-success" %>
 </div>

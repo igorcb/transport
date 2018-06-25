@@ -35,7 +35,7 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
-        <%= link_to 'Novo Assunto', new_meeting_subject_path(@meeting), class: "btn btn-success" %>      
+        <%= link_to '[+] Novo Assunto', new_meeting_subject_path(@meeting), class: "btn btn-success btn-xs" %>      
 
         <div class="table-responsive">
           <table class="table table-striped">
@@ -44,6 +44,7 @@
                 <th>Assunto</th>
                 <th>Duração</th>
                 <th>Responsavel</th>
+                <th>Options</th>
               </tr>
             </thead>
 
@@ -53,6 +54,8 @@
                   <td><%= subject.title %></td>
                   <td><%= time_br subject.time_meeting %> </td>
                   <td><%= subject.responsible %></td>
+                  <td><%= link_to 'Exibir', meeting_subject_path(@meeting, subject), class: "btn btn-info btn-xs" %></td>
+                  <td><%= link_to '[+] Plano de Ação', new_meeting_subject_subject_answer_path(@meeting, subject), class: "btn btn-primary btn-xs" %></td>
                 </tr>
               <% end %>
             </tbody>

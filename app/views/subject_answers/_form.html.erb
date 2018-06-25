@@ -1,0 +1,25 @@
+<%= form_for ([ @meeting, @subject, SubjectAnswer.new ]) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :deadline, "Prazo até" %>
+    <%= f.text_field :deadline, class: "form-control data" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :responsible, "Responsavel" %>
+    <%= f.text_field :responsible, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :action, "Ação" %>
+    <%= f.text_area :action, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  meeting_subject_subject_answers_path(@meeting, @subject, @subject_answer), class: "btn btn-info" if !@subject_answer.new_record? %>
+    <%= link_to 'Listagem', meeting_subject_path(@meeting, @subject), class: "btn btn-default" %>
+  </div>
+
+<% end %>
