@@ -13,6 +13,44 @@ class NfeKey < ActiveRecord::Base
   # :path => ":rails_root/assets/:class/:attachment/:id/:style/:basename.:extension"   
   validates_attachment_content_type :asset, :content_type => /\Aimage\/.*\Z/, allow_blank: true
 
+  module Retained
+    NAO = 0
+    SIM = 1
+  end
+
+  module TypeMotive
+    DIVERGENCIA_NFE = 1
+    AVARIA_SOBRA_FALTA = 2
+    CLIENTE_QUE_PAGAMENTO = 3
+    NAO_HOUVE_PAGAMENTO_DESCARGA = 4
+    DANOS_MATERIAIS_CLIENTE = 5
+    MOTORISTA_NÃO_ESPEROU_CANHOTO = 6
+    VENCIMENTO_BOLETO = 7
+    MERCADORIA_VENCIDA = 8
+    MERCADORIA_PROBLEMA_PRODUCAO = 9
+  end
+
+  def motive_name
+    case self.motive_id
+      when TypeMotive::DIVERGENCIA_NFE then "Divergencia de valores da nota fiscal"
+      when TypeMotive::AVARIA_SOBRA_FALTA then "Avaria, Sobra e ou Falta, Inversão de Mercadoria"
+      when TypeMotive::CLIENTE_QUE_PAGAMENTO then "Canhoto ficou retido porque o cliente que o pagamento da mercadoria (Avaria, Sobra e ou Falta)"
+      when TypeMotive::NAO_HOUVE_PAGAMENTO_DESCARGA then "Não Houve Pagamento da Descarga"
+      when TypeMotive::DANOS_MATERIAIS_CLIENTE then "Motorista gerou algum dano (material) para o cliente"
+      when TypeMotive::MOTORISTA_NÃO_ESPEROU_CANHOTO then "Motorista não esperou o canhoto"
+      when TypeMotive::VENCIMENTO_BOLETO then "Vencimento do boleto"
+      when TypeMotive::MERCADORIA_VENCIDA then "Mercadoria vencida"
+      when TypeMotive::MERCADORIA_PROBLEMA_PRODUCAO then "Mercadoria com problema de produção"
+    end
+  end
+
+  def retained_name
+    case self.retained 
+      when 0 then "Não"
+      when 1 then "Sim"
+    end
+  end
+
   def is_image?
     return false unless asset.content_type
     ['image/jpeg', 'image/jpg'].include?(asset.content_type)

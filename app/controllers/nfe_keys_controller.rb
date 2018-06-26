@@ -1,6 +1,6 @@
 class NfeKeysController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :set_nfe_key, only: [:edit, :update, :edit_action_inspector, :update_action_inspector]
+  before_filter :set_nfe_key, only: [:edit, :update, :edit_action_inspector, :update_action_inspector, :update_pending]
   load_and_authorize_resource
   respond_to :html, :js, :json
 
@@ -55,12 +55,30 @@ class NfeKeysController < ApplicationController
     end
   end
 
+  def pending
+    @nfe_key = NfeKey.find(params[:id])
+  end
+
+  def update_pending
+    @nfe_key.retained = NfeKey::Retained::SIM
+    @nfe_key.retained_created_user_id = current_user.id
+    respond_to do |format|
+      if @nfe_key.update(nfe_key_params)
+        format.html { redirect_to nfe_keys_path, flash: { success: "Pending was successfully updated." } }
+      else
+        format.html { render action: 'edit' }
+      end
+    end
+  end
+
+
   private
     def set_nfe_key
       @nfe_key = NfeKey.find(params[:id])
     end
 
     def nfe_key_params
-      params.require(:nfe_key).permit(:asset, :action_inspector)
+      params.require(:nfe_key).permit(:asset, :action_inspector, :motive_id, :motive_observation)
     end
+
 end

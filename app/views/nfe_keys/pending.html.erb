@@ -1,0 +1,18 @@
+<h1>Informar Pedências da NF-e</h1>
+
+<%= form_for @nfe_key, url: update_pending_nfe_key_path, method: :patch, :html => { :multipart => true }   do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  	<div class="form-group">
+			<%= f.label :motive_id, "Motivo para retenção de canhotos" %>
+      <%= f.select( :motive_id, select_motive, {include_blank: "Selecione o Motivo"}, {class: "form-control"} ) %>  
+    </div>
+
+		<div class="form-group">
+			<%= f.label :motive_observation  %>
+      <%= f.text_area :motive_observation, class: "form-control"   %>
+    </div>
+		
+		<%= f.submit "Salvar", class: "btn btn-primary" %>
+
+<% end %>

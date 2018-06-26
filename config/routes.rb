@@ -229,6 +229,8 @@ Transport::Application.routes.draw do
     member do
       get :edit_action_inspector
       patch :update_action_inspector
+      get :pending
+      patch :update_pending
     end
     collection do
       get :search
