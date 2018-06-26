@@ -7,7 +7,9 @@ class TaskMailer < ActionMailer::Base
       email = ENV['RAILS_MAIL_DESTINATION']
     end
     if Rails.env.production?
-      email = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)*","
+      primary_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) if @task.second_employee.present?
+      email = primary_employee + second_employee
     end 
     text_subject = "NEW TASK: #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
     
@@ -25,7 +27,8 @@ class TaskMailer < ActionMailer::Base
     if Rails.env.production?
       email_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
       email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
-      email = email_employee + email_requester
+      second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) if @task.second_employee.present?
+      email = email_employee + email_requester + second_employee
     end 
 
     text_subject = "START/FINISH TASK: #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
@@ -43,7 +46,8 @@ class TaskMailer < ActionMailer::Base
     if Rails.env.production?
       email_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
       email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
-      email = email_employee + email_requester
+      second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) if @task.second_employee.present?
+      email = email_employee + email_requester + second_employee
     end 
     text_subject = "FeedBack Task #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
     

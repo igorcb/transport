@@ -3,9 +3,15 @@
   <strong>Solicitante:</strong>
   <%= @task.requester.nome if @task.requester.present? %>
 </p>
+
 <p>
-  <strong>Solicitado:</strong>
+  <strong>Primeiro Solicitado:</strong>
   <%= @task.employee.nome if @task.employee.present? %>
+</p>
+
+<p>
+  <strong>Segundo Solicitado:</strong>
+  <%= @task.second_employee.nome if @task.second_employee.present? %>
 </p>
 
 <p>
