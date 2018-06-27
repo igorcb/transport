@@ -7,6 +7,36 @@
     </p>
 
     <p>
+    	<strong>Remessa de entrada:</strong>
+    	<%= link_to @nfe_key.ordem_service.input_control.id, @nfe_key.ordem_service.input_control if  @nfe_key.ordem_service.input_control.present? %>
+    </p>
+
+    <p>
+    	<strong>O.S:</strong>
+    	<%= link_to @nfe_key.ordem_service.id, @nfe_key.ordem_service %>
+    </p>
+ 
+    <p>
+    	<strong>Embarque:</strong>
+    	<%= link_to @nfe_key.ordem_service.boarding.id, @nfe_key.ordem_service.boarding if @nfe_key.ordem_service.boarding.present? %>
+    </p>
+
+    <p>
+    	<strong>Remetente:</strong>
+    	<%= link_to "#{@nfe_key.ordem_service.source_client.cpf_cnpj} - #{@nfe_key.ordem_service.source_client.nome}", @nfe_key.ordem_service.source_client if @nfe_key.ordem_service.source_client %>
+    </p>
+
+    <p>
+    	<strong>Destinatario:</strong>
+    	<%= link_to "#{@nfe_key.ordem_service.client.cpf_cnpj} - #{@nfe_key.ordem_service.client.nome}", @nfe_key.ordem_service.client if @nfe_key.ordem_service.client %>
+    </p>
+
+    <p>
+    	<strong>Tomador do Servico:</strong>
+    	<%= link_to "#{@nfe_key.ordem_service.billing_client.cpf_cnpj} - #{@nfe_key.ordem_service.billing_client.nome}", @nfe_key.ordem_service.billing_client if @nfe_key.ordem_service.billing_client%>
+    </p>
+
+    <p>
     	<strong>Peso:</strong>
     	<%= @nfe_key.peso %>
     </p>
@@ -47,11 +77,13 @@
 </div>
 
 <div class="form-group">
-  <%= link_to '[+] Canhoto', edit_nfe_key_path(@nfe_key), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', nfe_keys_path, class: "btn btn-default" %>
+  <%= link_to '[+] Canhoto', edit_nfe_key_path(@nfe_key), class: "btn btn-primary" %>
+  <%= link_to "[-] Baixar Acao Fiscal", edit_action_inspector_nfe_key_path(@nfe_key), class: "btn btn-info" %>
   <%= link_to '[+] Pendencia', pending_nfe_key_path(@nfe_key), class: "btn btn-warning"  %>
-  <%= link_to request_receipt_nfe_key_path(@nfe_key), class: "btn btn-success btn-sm" do %>
-    <i class="fa fa-envelope-square fa-2x" aria-hidden="true">Solicitar Declaracao</i> 
+
+  <%= link_to request_receipt_nfe_key_path(@nfe_key), class: "btn btn-success" do %>
+    <i class="fa fa-envelope-square fa-1x" aria-hidden="true">Solicitar Declaracao</i> 
   <% end %>
 </div>
 

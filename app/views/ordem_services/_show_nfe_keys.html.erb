@@ -5,8 +5,8 @@
     <% object.nfe_keys.each do |item| %>
       <li class="list-group-item" > 
         <strong> Qtde:</strong> <%= item.qtde %> - 
-        <strong> NF-e:</strong> <%= item.nfe %> - 
-        <strong>Chave:</strong> <%= item.chave %> 
+        <strong> NF-e:</strong> <%= link_to item.nfe, item %> - 
+        <strong>Chave:</strong> <%= link_to item.chave, item %> 
         <br />
         <strong> Remessa Ype:</strong> <%= item.remessa_ype %> - 
         <strong> Volume:</strong> <%= number_to_currency( item.volume, unit: "", separator: ",", delimiter: ".", precision: 2) %> -
