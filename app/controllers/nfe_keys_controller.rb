@@ -1,6 +1,6 @@
 class NfeKeysController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :set_nfe_key, only: [:edit, :update, :edit_action_inspector, :update_action_inspector, :update_pending]
+  before_filter :set_nfe_key, only: [:show, :edit, :update, :edit_action_inspector, :update_action_inspector, :update_pending]
   load_and_authorize_resource
   respond_to :html, :js, :json
 
@@ -15,6 +15,10 @@ class NfeKeysController < ApplicationController
     @q = NfeKey.where(id: -1).paginate(:page => params[:page]).search(params[:query])
     @nfe_keys = NfeKey.all.paginate(:page => params[:page])
     respond_with(@nfe_keys)
+  end
+
+  def show
+
   end
 
   def edit
@@ -68,6 +72,13 @@ class NfeKeysController < ApplicationController
       else
         format.html { render action: 'edit' }
       end
+    end
+  end
+
+  def request_receipt
+    respond_to do |format|
+      NfeKeyMailer.request_receipt(@nfe_key).deliver!
+      format.html { redirect_to nfe_keys_path, flash: { success: "Request Receipt was successfully updated." } }
     end
   end
 

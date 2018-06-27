@@ -51,6 +51,10 @@ class NfeKey < ActiveRecord::Base
     end
   end
 
+  def is_retained?
+    self.retained == Retained::SIM
+  end
+
   def is_image?
     return false unless asset.content_type
     ['image/jpeg', 'image/jpg'].include?(asset.content_type)

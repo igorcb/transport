@@ -225,12 +225,13 @@ Transport::Application.routes.draw do
   resources :cte_xmls, only: [:index, :new, :create]
 
 
-  resources :nfe_keys, only: [:index, :edit, :update] do
+  resources :nfe_keys, only: [:index, :show, :edit, :update] do
     member do
       get :edit_action_inspector
       patch :update_action_inspector
       get :pending
       patch :update_pending
+      get :request_receipt
     end
     collection do
       get :search
