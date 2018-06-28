@@ -16,9 +16,9 @@
 	<% if nfe_key.asset.present? %>
 		<td><%#= link_to image_tag( nfe_key.asset.url(:mini)), "#", data: {:toggle=>"modal", :target=> "#myModal"}, title: nfe_key.asset_file_name %></td>
 	<% else %>
-		<td><%= link_to 'Edit', edit_nfe_key_path(nfe_key), class: "btn btn-primary btn-sm"  %> </td>
+		<td> </td>
 	<% end %>
-  <td><%= link_to 'pending', pending_nfe_key_path(nfe_key), class: "btn btn-warning btn-sm"  %> </td>
+  <td><%= link_to 'Show', nfe_key, class: "btn btn-info btn-sm" %> </td>
 </tr>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

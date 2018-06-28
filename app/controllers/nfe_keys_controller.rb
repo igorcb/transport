@@ -43,6 +43,8 @@ class NfeKeysController < ApplicationController
 
   def update_action_inspector
     respond_to do |format|
+      @nfe_key.action_inspector_user_confirmed_id = current_user.id
+      @nfe_key.action_inspector_updated_confirmed = Time.current
       if @nfe_key.update(nfe_key_params)
         format.html { redirect_to action_inspectors_path, flash: { success: "Confirm DAE was successfully updated." } }
       else

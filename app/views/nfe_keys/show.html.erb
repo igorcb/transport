@@ -46,15 +46,30 @@
     	<%= @nfe_key.volume %>
     </p>
 
-    <p>
-    	<strong>Cobrar DAE:</strong>
-    	<%= extenso_boolean @nfe_key.take_dae %>
-    </p>
+    <% if @nfe_key.take_dae? %>
+      <p>
+      	<strong>Cobrar DAE:</strong>
+      	<%= extenso_boolean @nfe_key.take_dae %>
+      </p>
 
-    <p>
-    	<strong>Acao Fiscal:</strong>
-    	<%= @nfe_key.action_inspector_number %>
-    </p>
+      <p>
+      	<strong>Acao Fiscal:</strong>
+      	<%= @nfe_key.action_inspector_number %>
+      </p>
+
+      <p>
+        <strong>Situação:</strong>
+        <%= @nfe_key.action_inspector_status_name %>
+      </p>
+
+      <p>
+        <strong>Baixado por :</strong>
+        <%= @nfe_key.user_action_inspector_confirmed.email %> 
+        <strong>no dia</strong> <%= date_br @nfe_key.action_inspector_updated_confirmed %> 
+        <strong>as</strong> <%= time_br @nfe_key.action_inspector_updated_confirmed %>
+      </p>
+
+    <% end %>
 
     <p>
     	<strong>Retido:</strong>

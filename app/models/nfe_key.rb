@@ -4,6 +4,8 @@ class NfeKey < ActiveRecord::Base
 	
 	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "nfe_id", dependent: :destroy#, polymorphic: true
   belongs_to :pallet, class_name: "Pallet", foreign_key: "nfe_id", dependent: :destroy #, polymorphic: true
+  
+  belongs_to :user_action_inspector_confirmed, class_name: "User", foreign_key: "action_inspector_user_confirmed_id"
 
   has_attached_file :asset, :styles => {medium: "300x300>", thumb: "100x100>", mini: "32x32>"}
   has_attached_file :action_inspector
@@ -83,6 +85,13 @@ class NfeKey < ActiveRecord::Base
     self.peso * self.average
   end
 
+  def action_inspector_status_name
+    if self.action_inspector_file_name.present?
+      "Pago"
+    else
+      "Em Aberto"
+    end
+  end
   # def input_control
 
   # end
