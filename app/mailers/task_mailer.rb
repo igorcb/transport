@@ -3,10 +3,11 @@ class TaskMailer < ActionMailer::Base
 
   def notification_employee(task)
     @task = task
-    if Rails.env.development?
-      email = ENV['RAILS_MAIL_DESTINATION']
-    end
-    if Rails.env.production?
+    # if Rails.env.development?
+    #   email = ENV['RAILS_MAIL_DESTINATION']
+    # end
+#    if Rails.env.production?
+      byebug
       primary_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
       email = primary_employee
       if @task.second_employee.present?
@@ -14,7 +15,7 @@ class TaskMailer < ActionMailer::Base
         email = primary_employee + second_employee
       end
       email
-    end 
+    #end 
     text_subject = "NEW TASK: #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
     
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
