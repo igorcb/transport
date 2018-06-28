@@ -13,6 +13,11 @@ class NfeKey < ActiveRecord::Base
   # :path => ":rails_root/assets/:class/:attachment/:id/:style/:basename.:extension"   
   validates_attachment_content_type :asset, :content_type => /\Aimage\/.*\Z/, allow_blank: true
 
+  module TypeTakeDae
+    ABERTO = 1
+    PAGO   = 2
+  end
+
   module Retained
     NAO = 0
     SIM = 1

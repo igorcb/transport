@@ -13,4 +13,11 @@ module NfeKeysHelper
 			])
 		
 	end
+
+	def select_status_nfe_dae
+		([["Aberto", 1], 
+			["Pago", 2]
+			])
+
+	end
 end
