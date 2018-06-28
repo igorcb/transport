@@ -8,8 +8,12 @@ class TaskMailer < ActionMailer::Base
     end
     if Rails.env.production?
       primary_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
-      second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) if @task.second_employee.present?
-      email = primary_employee + second_employee
+      email = primary_employee
+      if @task.second_employee.present?
+        second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) 
+        email = primary_employee + second_employee
+      end
+      email
     end 
     text_subject = "NEW TASK: #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
     
