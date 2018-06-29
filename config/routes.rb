@@ -1,5 +1,4 @@
 Transport::Application.routes.draw do
-
   resources :meetings do
     resources :subjects do
       resources :subject_answers
