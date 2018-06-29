@@ -21,7 +21,7 @@
           <% @breakdowns.each do |breakdown| %>
             <tr id="id_breakdown_<%= breakdown.id %>">
               <td><%= breakdown.type_breakdown_name %></td>
-              <td><%= breakdown.nfe_xml.numero if breakdown.nfe_xml.present? %></td>
+              <td><%= breakdown.nfe_xml_id %></td>
               <td><%= breakdown.product.cod_prod if breakdown.product.present? %></td>
               <td><%= breakdown.product.descricao %></td>
               <td><%= breakdown.sobras %></td>
