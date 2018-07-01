@@ -181,6 +181,17 @@ class Boarding < ActiveRecord::Base
     end
   end
 
+  def self.confirmed(boarding_id)
+    boarding = Boarding.find(boarding_id)
+    ActiveRecord::Base.transaction do
+      Boarding.where(id: boarding.id).update_all(status: Boarding::TipoStatus::EMBARCADO)
+      boarding.boarding_items.each do |item|
+        OrdemService.where(id: item.ordem_service_id).update_all(status: OrdemService::TipoStatus::EMBARCADO)
+      end
+      #BoardingMailer.notification_confirmed(ordem_service).deliver! if ordem_service.input_control.present?
+    end
+  end
+
   def self.cancel(boarding_id)
     hash_ids = get_ordem_services_ids
     ActiveRecord::Base.transaction do

@@ -15,4 +15,8 @@ class StaticPagesController < ApplicationController
 	def dashboard_client
 		
 	end
+
+	def dashboard_oper
+		@boardings = Boarding.where(status: Boarding::TipoStatus::ABERTO)
+	end
 end

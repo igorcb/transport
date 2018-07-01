@@ -73,6 +73,11 @@ class BoardingsController < ApplicationController
     end
 	end
 
+  def confirmed
+    Boarding.confirmed(params[:id])
+    redirect_to dashboard_oper_path, flash: { success: "Boarding confirmed was successful" }
+  end
+
 	def destroy
     @boarding.destroy
     respond_to do |format|

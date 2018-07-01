@@ -32,6 +32,7 @@ class Ability
       can :manage, :all
     elsif  user.has_role? :oper
       #can :manage, OrdemService
+      can :manage, Boarding
     elsif  user.has_role? :visit
       can :manage, Pallet
     elsif  user.has_role? :client

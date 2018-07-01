@@ -142,6 +142,7 @@ Transport::Application.routes.draw do
       get :request_pallet
       post :requisition
       get :letter_freight
+      get :confirm
     end
     collection do
       get :search
@@ -260,6 +261,7 @@ Transport::Application.routes.draw do
   match '/get_address_by_cep', :controller => 'address', :action => 'get_address_by_cep', via: [:get]
   match '/dashboard_visit', :controller => 'static_pages', :action => 'dashboard_visit', via: [:get, :post]
   match '/dashboard_agent', :controller => 'static_pages', :action => 'dashboard_agent', via: [:get, :post]
+  match '/dashboard_oper', :controller => 'static_pages', :action => 'dashboard_oper', via: [:get, :post]
   match '/dashboard_client', :controller => 'static_pages', :action => 'dashboard_client', via: [:get, :post]
   #match '/client_ordem_service/:id', :controller=>'ordem_services', :action => '', via: [:get, :post]
   match '/client_ordem_service/:id', to: 'ordem_services#ordem_service_comments', as: 'client_ordem_service', via: [:get]

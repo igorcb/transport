@@ -12,4 +12,8 @@
 	  <%= render 'layouts/menu_agent' %>
 	<% end %>
 
+	<% if current_user.has_role? :oper %>
+	  <%= render 'layouts/menu_oper' %>
+	<% end %>
+
 <% end %>
