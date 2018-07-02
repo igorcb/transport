@@ -107,7 +107,7 @@ class BoardingsController < ApplicationController
       flash[:danger] = "Place is not present."
       redirect_to dashboard_oper_path
       return
-    elsif !@boarding.places.include?(params[:place])
+    elsif !@boarding.places.include?(params[:boarding][:place])
       flash[:danger] = "Place is not present on boarding."
       redirect_to dashboard_oper_path
       return
