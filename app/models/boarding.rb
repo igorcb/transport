@@ -48,6 +48,8 @@ class Boarding < ActiveRecord::Base
   	EMBARCADO = 1
   	ENTREGUE = 2
     CANCELADO = 3
+    INICIADO = 4
+    #FLOWUP - [Aberto, Iniciado, Embarcado, Entregue]
   end
 
   module TypeLocalEmbarque
@@ -168,7 +170,16 @@ class Boarding < ActiveRecord::Base
       return false if positivo == false
     end
     positivo
-  end  
+  end 
+
+  def date_scheduling_present?
+    positivo = true
+    self.boarding_items.order(:delivery_number).each do |item|
+      positivo = item.ordem_service.data.present?
+      return false if positivo == false
+    end
+    positivo
+  end 
 
   def close(ordem_service_id)
     ActiveRecord::Base.transaction do
@@ -186,9 +197,15 @@ class Boarding < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       Boarding.where(id: boarding.id).update_all(status: Boarding::TipoStatus::EMBARCADO)
       boarding.boarding_items.each do |item|
-        OrdemService.where(id: item.ordem_service_id).update_all(status: OrdemService::TipoStatus::EMBARCADO)
+        OrdemService.where(id: item.ordem_service_id).update_all(date_shipping: Date.current, status: OrdemService::TipoStatus::EMBARCADO)
       end
       #BoardingMailer.notification_confirmed(ordem_service).deliver! if ordem_service.input_control.present?
+    end
+  end
+
+  def self.start(boarding_id)
+    ActiveRecord::Base.transaction do
+      Boarding.where(id: boarding_id).update_all(status: Boarding::TipoStatus::INICIADO)
     end
   end
 
@@ -305,6 +322,14 @@ class Boarding < ActiveRecord::Base
     result = []
     self.boarding_vehicles.each do |item|
       result << item.vehicle.type_and_place
+    end
+    result
+  end
+
+  def places
+    result = []
+    self.boarding_vehicles.each do |item|
+      result << item.vehicle.placa
     end
     result
   end

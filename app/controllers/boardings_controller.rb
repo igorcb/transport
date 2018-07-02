@@ -78,6 +78,45 @@ class BoardingsController < ApplicationController
     redirect_to dashboard_oper_path, flash: { success: "Boarding confirmed was successful" }
   end
 
+  def start
+    if @boarding.date_boarding.nil?
+      flash[:danger] = "Date Boarding is not present."
+      redirect_to dashboard_oper_path
+      return
+    elsif @boarding.driver_id == Boarding.driver_not_information
+      flash[:danger] = "Inform o driver."
+      redirect_to dashboard_oper_path
+      return
+    elsif !@boarding.date_scheduling_present?
+      flash[:danger] = "Date Scheduling O.S. is not present."
+      redirect_to dashboard_oper_path
+      return
+    end    
+    #Boarding.start(params[:id])
+    #redirect_to dashboard_oper_path, flash: { success: "Boarding initializarion was successful" }
+    #redirect_to start_boarding(@boarding), flash: { success: "Boarding initializarion was successful" }
+  end
+
+  def update_start
+    byebug
+    if !@boarding.boarding_vehicles.present?
+      flash[:danger] = "Vehicle is not present."
+      redirect_to dashboard_oper_path
+      return
+    elsif params[:boarding][:place].blank?
+      flash[:danger] = "Place is not present."
+      redirect_to dashboard_oper_path
+      return
+    elsif !@boarding.places.include?(params[:place])
+      flash[:danger] = "Place is not present on boarding."
+      redirect_to dashboard_oper_path
+      return
+    end    
+    @boarding.update(boarding_params)
+    Boarding.start(params[:id])        
+    redirect_to dashboard_oper_path, flash: { success: "Boarding initialization was successful" }
+  end
+
 	def destroy
     @boarding.destroy
     respond_to do |format|
@@ -176,7 +215,7 @@ class BoardingsController < ApplicationController
     def boarding_params
       params.require(:boarding).permit(:date_boarding, :driver_id, :carrier_id, :value_boarding, :safe_rctr_c, 
         :safe_optional, :number_tranking, :obs, :qtde_boarding, :manifesto, :chave_manifesto, :local_embarque,
-        :action_inspector,
+        :action_inspector, :place,
         board_items_attributes: [:delivery_number, :ordem_service_id, :id, :_destroy],
         boarding_vehicles_attributes: [:boarding_vehicles_id, :vehicle_id, :id, :_destroy]
 

@@ -1,0 +1,11 @@
+<h1>Iniciar Embarque: <%= @boarding.id %></h1>
+<%= form_for @boarding, url: update_start_boarding_path, method: :patch, :html => { :multipart => true } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :place, "Placa" %><br>
+    <%= f.text_field :place, class: "form-control placa" %>
+  </div>    
+
+	<%= f.submit "Iniciar Embarque", class: "btn btn-primary" %>
+<% end %>
