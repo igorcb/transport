@@ -143,6 +143,7 @@ Transport::Application.routes.draw do
       post :requisition
       get :letter_freight
       get :confirmed
+      patch :update_confirmed
       get :start
       patch :update_start
     end

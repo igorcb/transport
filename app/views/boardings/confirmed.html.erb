@@ -1,0 +1,11 @@
+<h1>Iniciar Embarque: <%= @boarding.id %></h1>
+<%= form_for @boarding, url: update_confirmed_boarding_path, method: :patch, :html => { :multipart => true } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :qtde_pallets_shipped, "Qtde Palletes" %><br>
+    <%= f.number_field :qtde_pallets_shipped, class: "form-control" %>
+  </div>    
+
+	<%= f.submit "Confirmar Embarque", class: "btn btn-primary" %>
+<% end %>

@@ -74,9 +74,17 @@ class BoardingsController < ApplicationController
 	end
 
   def confirmed
+  end
+
+  def update_confirmed
+    if params[:boarding][:qtde_pallets_shipped].blank?
+      flash[:danger] = "Inform o qtde pallets."
+      redirect_to dashboard_oper_path
+      return
+    end
     Boarding.confirmed(params[:id])
     redirect_to dashboard_oper_path, flash: { success: "Boarding confirmed was successful" }
-  end
+  end  
 
   def start
     if @boarding.date_boarding.nil?
@@ -215,7 +223,7 @@ class BoardingsController < ApplicationController
     def boarding_params
       params.require(:boarding).permit(:date_boarding, :driver_id, :carrier_id, :value_boarding, :safe_rctr_c, 
         :safe_optional, :number_tranking, :obs, :qtde_boarding, :manifesto, :chave_manifesto, :local_embarque,
-        :action_inspector, :place,
+        :action_inspector, :place, :qtde_pallets_shipped,
         board_items_attributes: [:delivery_number, :ordem_service_id, :id, :_destroy],
         boarding_vehicles_attributes: [:boarding_vehicles_id, :vehicle_id, :id, :_destroy]
 
