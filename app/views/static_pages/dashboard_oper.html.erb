@@ -10,7 +10,7 @@
     <strong>Data: </strong><%= date_br (boarding.date_boarding) %><br />
     <strong>Motorista: </strong><%= boarding.driver.nome %><br />
     <strong>Cidades: </strong> <%= boarding.get_cities %><br />
-   	<%= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding), class: "btn btn-primary btn-xs" %>
+   	<%= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding), class: "btn btn-primary btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>
    	<%#= link_to 'Concluir', delivery_ordem_service_path, class: "btn btn-success" %>
   </li>
   <% end %>
