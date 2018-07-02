@@ -85,6 +85,11 @@ class NfeKeysController < ApplicationController
   end
 
   def request_receipt
+    if @nfe_key.ordem_service.client.emails.type_sector(Sector::TypeSector::FINANCEIRO).pluck(:email).blank?
+      flash[:danger] = "Could not request declaration. Make sure the customer has an email with the FINANCIAL sector."
+      redirect_to nfe_keys_path
+      return
+    end      
     respond_to do |format|
       NfeKeyMailer.request_receipt(@nfe_key).deliver!
       format.html { redirect_to nfe_keys_path, flash: { success: "Request Receipt was successfully updated." } }
