@@ -1,7 +1,11 @@
 <ul class="list-group">
 	<% @boardings.each do |boarding| %>
-  <li class="list-group-item">
-    <span class="badge">0<%=  %></span>
+  <% if boarding.status == Boarding::TipoStatus::EMBARCADO %>
+    <li class="list-group-item list-group-item-success">
+  <% else %>
+    <li class="list-group-item">
+  <% end %>
+    <span class="badge"><%= boarding.qtde_palets %></span>
     <strong>Embarque: </strong><%= boarding.id %><br />
     <strong>Data: </strong><%= date_br (boarding.date_boarding) %><br />
     <strong>Motorista: </strong><%= boarding.driver.nome %><br />
