@@ -9,7 +9,7 @@
   <% end %>
     <span class="badge"><%= boarding.qtde_palets %></span>
     <strong>Embarque: </strong><%= boarding.id %><br />
-    <span class="badge badge-primary"><%= boarding.qtde_pallets_shipped %></span>
+    <span class="badge badge-success"><%= boarding.qtde_pallets_shipped %></span>
     <strong>Data: </strong><%= date_br (boarding.date_boarding) %><br />
     <strong>Motorista: </strong><%= boarding.driver.nome %><br />
     <strong>Cidades: </strong> <%= boarding.get_cities %><br />
