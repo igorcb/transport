@@ -106,7 +106,6 @@ class BoardingsController < ApplicationController
   end
 
   def update_start
-    byebug
     if !@boarding.boarding_vehicles.present?
       flash[:danger] = "Vehicle is not present."
       redirect_to dashboard_oper_path
