@@ -9,9 +9,9 @@
   <% end %>
     <span class="badge"><%= boarding.qtde_palets %></span>
     <strong>Embarque: </strong><%= boarding.id %><br />
-    <span class="badge"><%= boarding.qtde_pallets_shipped %></span>
     <strong>Data: </strong><%= date_br (boarding.date_boarding) %><br />
     <strong>Motorista: </strong><%= boarding.driver.nome %><br />
+    <span class="badge"><%= boarding.qtde_pallets_shipped %></span>
     <strong>Cidades: </strong> <%= boarding.get_cities %><br />
     <%= link_to 'Iniciar Embarque', start_boarding_path(boarding), class: "btn btn-primary btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>
    	<%= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding), class: "btn btn-primary btn-xs" if boarding.status == Boarding::TipoStatus::INICIADO %>
