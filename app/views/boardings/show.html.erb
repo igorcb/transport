@@ -92,6 +92,60 @@
 		</p>
   </div>
 </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Dados da Confirmação de Embarque
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+
+        <p>
+          <strong>Placa:</strong>
+          <%= @boarding.place %>
+        </p>
+
+        <p>
+          <strong>Qtde Paletes Informado:</strong>
+          <%= @boarding.qtde_pallets_shipped %>
+        </p>
+
+        <p>
+          <strong>Equipe:</strong>
+          <%= @boarding.team_name %>
+        </p>
+
+        <p>
+          <strong>Galpão:</strong>
+          <%= @boarding.hangar %> /
+          <strong>Doca:</strong>
+          <%= @boarding.dock %>
+        </p>
+
+        <p>
+          <strong>Usuario </strong> <%= @boarding.started_user.email if @boarding.started_user.present? %> <strong>iniciou o embarque dia</strong> 
+          <%= date_br (@boarding.start_time_boarding) %> <strong>as</strong> 
+          <%= time_br (@boarding.start_time_boarding) %>
+        </p>
+
+        <p>
+          <strong>Usuario </strong> <%= @boarding.confirmed_user.email if @boarding.confirmed_user.present? %> <strong>terminou o embarque dia</strong> 
+          <%= date_br (@boarding.finish_time_boarding) %> <strong>as</strong> 
+          <%= time_br (@boarding.finish_time_boarding) %>
+        </p>
+
+        <p>
+          <strong>Tempo do carregamento:</strong>
+          <%= raw_date = TimeDifference.between(@boarding.start_time_boarding, @boarding.finish_time_boarding).humanize if @boarding.finish_time_boarding.present? %>
+        </p>
+
+      </div>
+    </div>
+  </div>
 
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingFive">

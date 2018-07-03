@@ -82,6 +82,8 @@ class BoardingsController < ApplicationController
       redirect_to dashboard_oper_path
       return
     end
+    @boarding.confirmed_user_id = current_user.id
+    @boarding.update(boarding_params)
     Boarding.confirmed(params[:id])
     redirect_to dashboard_oper_path, flash: { success: "Boarding confirmed was successful" }
   end  
@@ -100,9 +102,6 @@ class BoardingsController < ApplicationController
       redirect_to dashboard_oper_path
       return
     end    
-    #Boarding.start(params[:id])
-    #redirect_to dashboard_oper_path, flash: { success: "Boarding initializarion was successful" }
-    #redirect_to start_boarding(@boarding), flash: { success: "Boarding initializarion was successful" }
   end
 
   def update_start
@@ -114,11 +113,24 @@ class BoardingsController < ApplicationController
       flash[:danger] = "Place is not present."
       redirect_to dashboard_oper_path
       return
-    elsif !@boarding.places.include?(params[:boarding][:place])
+    elsif params[:boarding][:team].blank?
+      flash[:danger] = "Team is not present."
+      redirect_to dashboard_oper_path
+      return
+    elsif params[:boarding][:hangar].blank?
+      flash[:danger] = "Hangar is not present."
+      redirect_to dashboard_oper_path
+      return
+    elsif params[:boarding][:dock].blank?
+      flash[:danger] = "Dock is not present."
+      redirect_to dashboard_oper_path
+      return      
+    elsif !@boarding.places.include?(params[:boarding][:place].upcase)
       flash[:danger] = "Place is not present on boarding."
       redirect_to dashboard_oper_path
       return
     end    
+    @boarding.started_user_id = current_user.id
     @boarding.update(boarding_params)
     Boarding.start(params[:id])        
     redirect_to dashboard_oper_path, flash: { success: "Boarding initialization was successful" }
@@ -222,7 +234,7 @@ class BoardingsController < ApplicationController
     def boarding_params
       params.require(:boarding).permit(:date_boarding, :driver_id, :carrier_id, :value_boarding, :safe_rctr_c, 
         :safe_optional, :number_tranking, :obs, :qtde_boarding, :manifesto, :chave_manifesto, :local_embarque,
-        :action_inspector, :place, :qtde_pallets_shipped,
+        :action_inspector, :place, :qtde_pallets_shipped, :team, :hangar, :dock,
         board_items_attributes: [:delivery_number, :ordem_service_id, :id, :_destroy],
         boarding_vehicles_attributes: [:boarding_vehicles_id, :vehicle_id, :id, :_destroy]
 

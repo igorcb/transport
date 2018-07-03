@@ -6,6 +6,9 @@ class Boarding < ActiveRecord::Base
     
   belongs_to :carrier
   belongs_to :driver
+
+  belongs_to :started_user, class_name: "User", foreign_key: "started_user_id"
+  belongs_to :confirmed_user, class_name: "User", foreign_key: "confirmed_user_id"
   
   has_one :account_payable
   has_many :account_payables
@@ -74,6 +77,15 @@ class Boarding < ActiveRecord::Base
       when 2 then "Juazeiro do Norte/CE"
       when 3 then "Simões Filho/BA"
       else "Não Informado"
+    end
+  end
+
+  def team_name
+    case self.team
+      when 1 then "IMBATIVEIS"
+      when 2 then "UNIDOS_VENCEREMOS"
+      when 3 then "DIARISTA"
+      else "Nao Informado"
     end
   end
 
@@ -195,7 +207,7 @@ class Boarding < ActiveRecord::Base
   def self.confirmed(boarding_id)
     boarding = Boarding.find(boarding_id)
     ActiveRecord::Base.transaction do
-      Boarding.where(id: boarding.id).update_all(status: Boarding::TipoStatus::EMBARCADO)
+      Boarding.where(id: boarding.id).update_all(finish_time_boarding: Time.current, status: Boarding::TipoStatus::EMBARCADO)
       boarding.boarding_items.each do |item|
         OrdemService.where(id: item.ordem_service_id).update_all(date_shipping: Date.current, status: OrdemService::TipoStatus::EMBARCADO)
       end
@@ -205,7 +217,7 @@ class Boarding < ActiveRecord::Base
 
   def self.start(boarding_id)
     ActiveRecord::Base.transaction do
-      Boarding.where(id: boarding_id).update_all(status: Boarding::TipoStatus::INICIADO)
+      Boarding.where(id: boarding_id).update_all(start_time_boarding: Time.current, status: Boarding::TipoStatus::INICIADO)
     end
   end
 

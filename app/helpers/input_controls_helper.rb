@@ -13,11 +13,11 @@ module InputControlsHelper
   end
 
   def select_dock 
-    ([["1", 1],["2", 2], ["3", 3], ["4", 4], ["5", 5]])
+    ([["1", 1],["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7", 7]])
   end
 
   def select_hangar
-    ([["1", 1],["2", 2]])
+    ([["1", 1],["2", 2],["3", 3]])
   end
 
   def link_to_ordem_service(number)
