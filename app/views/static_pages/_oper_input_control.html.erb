@@ -4,3 +4,4 @@
 <strong>Motorista: </strong><%= input_control.driver.nome %><br />
 <strong>Container: </strong><%= input_control.container %><br />
 <strong>Palletizada: </strong><%= input_control.palletized_status %><br />
+<strong>Pgto Descarga: </strong><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %><br />
