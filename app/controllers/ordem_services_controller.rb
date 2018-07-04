@@ -306,8 +306,16 @@ class OrdemServicesController < ApplicationController
       flash[:danger] = "Client billing can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return
+    elsif !@ordem_service.billing_client_id.present? 
+      flash[:danger] = "Client billing can't be blank."
+      redirect_to ordem_service_path(@ordem_service)
+      return
     elsif !@ordem_service.send_email?
       flash[:danger] = "Please defined email to delivery."
+      redirect_to ordem_service_path(@ordem_service)
+      return
+    elsif !@ordem_service.ordem_service_logistics.delivery_driver_id.present?
+      flash[:danger] = "Driver to delivery can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return
     end
