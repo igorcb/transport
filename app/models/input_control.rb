@@ -137,7 +137,7 @@ class InputControl < ActiveRecord::Base
       when 2 then "Fechado"
       when 3 then "Faturado"
       when 4 then "Dig.Finalizada"
-      when 4 then "Descarregando"
+      when 5 then "Descarregando"
       else "Nao Informado"
     end
   end
