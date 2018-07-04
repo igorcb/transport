@@ -195,22 +195,30 @@ class Boarding < ActiveRecord::Base
   end 
 
   def close(ordem_service_id)
-    ActiveRecord::Base.transaction do
-      OrdemService.where(id: ordem_service_id).update_all(
-                                                      carrier_id: self.carrier_id,
-                                                   date_shipping: self.date_boarding,
-                                                          status: OrdemService::TipoStatus::EMBARCADO)
-      OrdemServiceLogistic.where(ordem_service_id: ordem_service_id).update_all(delivery_driver_id: self.driver_id)
-      Boarding.where(id: self.id).update_all(status: Boarding::TipoStatus::EMBARCADO) if self.check_status_ordem_service?
-    end
+    boarding = Boarding.find(boarding_id)
+    boarding.errors.add("Boarding", "DEPRECATED function. Please use the class confirmed function")
+    # ActiveRecord::Base.transaction do
+    #   OrdemService.where(id: ordem_service_id).update_all(
+    #                                                   carrier_id: self.carrier_id,
+    #                                                date_shipping: self.date_boarding,
+    #                                                       status: OrdemService::TipoStatus::EMBARCADO)
+    #   OrdemServiceLogistic.where(ordem_service_id: ordem_service_id).update_all(delivery_driver_id: self.driver_id)
+    #   Boarding.where(id: self.id).update_all(status: Boarding::TipoStatus::EMBARCADO) if self.check_status_ordem_service?
+    # end
   end
 
   def self.confirmed(boarding_id)
     boarding = Boarding.find(boarding_id)
     ActiveRecord::Base.transaction do
+      # OrdemService.where(id: ordem_service_id).update_all(
+      #                                                 carrier_id: self.carrier_id,
+      #                                              date_shipping: self.date_boarding,
+      #                                                     status: OrdemService::TipoStatus::EMBARCADO)
+      # OrdemServiceLogistic.where(ordem_service_id: ordem_service_id).update_all(delivery_driver_id: self.driver_id)
       Boarding.where(id: boarding.id).update_all(finish_time_boarding: Time.current, status: Boarding::TipoStatus::EMBARCADO)
       boarding.boarding_items.each do |item|
-        OrdemService.where(id: item.ordem_service_id).update_all(date_shipping: Date.current, status: OrdemService::TipoStatus::EMBARCADO)
+        OrdemService.where(id: item.ordem_service_id).update_all(carrier_id: boarding.carrier_id,  date_shipping: Date.current, status: OrdemService::TipoStatus::EMBARCADO)
+        OrdemServiceLogistic.where(ordem_service_id: item.ordem_service_id).update_all(delivery_driver_id: boarding.driver_id)
       end
       #BoardingMailer.notification_confirmed(ordem_service).deliver! if ordem_service.input_control.present?
     end
