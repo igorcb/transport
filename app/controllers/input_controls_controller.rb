@@ -48,7 +48,39 @@ class InputControlsController < ApplicationController
     redirect_to input_control_path(@input_control)
   end
 
+  def oper
+    @input_controls = InputControl.the_day
+  end
+
   def received
+  end
+
+  def update_start
+    if params[:input_control][:place_confirmed].blank?
+      flash[:danger] = "Place is not present."
+      redirect_to oper_input_controls_path
+      return
+    elsif params[:input_control][:team].blank?
+      flash[:danger] = "Team is not present."
+      redirect_to oper_input_controls_path
+      return
+    elsif params[:input_control][:hangar].blank?
+      flash[:danger] = "Hangar is not present."
+      redirect_to oper_input_controls_path
+      return
+    elsif params[:input_control][:dock].blank?
+      flash[:danger] = "Dock is not present."
+      redirect_to oper_input_controls_path
+      return  
+    elsif params[:input_control][:place_confirmed].upcase != @input_control.place.upcase
+      flash[:danger] = "Place is not present in Input Control."
+      redirect_to oper_input_controls_path
+      return
+    end
+    @input_control.started_user_id = current_user.id
+    @input_control.update(input_control_params)
+    InputControl.start(params[:id])        
+    redirect_to oper_input_controls_path, flash: { success: "Input Control was successfully started" }
   end
 
   def confirm_received
@@ -58,7 +90,7 @@ class InputControlsController < ApplicationController
     else
       flash[:danger] = "Error receiving input control."
     end
-    redirect_to input_control_path(@input_control)
+    redirect_to oper_input_controls_path
   end
 
   def create_ordem_service
@@ -248,7 +280,7 @@ class InputControlsController < ApplicationController
       params.require(:input_control).permit(:carrier_id, :driver_id, :billing_client_id, :place, :place_cart, 
         :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets, 
         :observation, :charge_discharge, :shipment, :team, :dock, :hangar, :container, 
-        :stretch_route_id, :type_service_id,
+        :stretch_route_id, :type_service_id, :place_confirmed,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         action_inspectors_attributes: [:number, :id, :_destroy],

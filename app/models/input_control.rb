@@ -36,6 +36,9 @@ class InputControl < ActiveRecord::Base
   has_many :action_inspectors
   accepts_nested_attributes_for :action_inspectors, allow_destroy: true, :reject_if => :all_blank  
 
+  scope :the_day, -> { includes(:driver).where(date_entry: Date.current).order("id desc") }
+  scope :received, -> { includes(:driver).where(date_entry: Date.current, status: TypeStatus::RECEIVED ).order("id desc") }
+  scope :pending, -> { includes(:driver).where("date_entry > ? and date_entry < ? and status = ?", (Date.current - 3.day), Date.current, TypeStatus::RECEIVED).order("id desc") }
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
 
   #before_save { |item| item.email = email.downcase }
@@ -72,7 +75,8 @@ class InputControl < ActiveRecord::Base
     CLOSED  = 2
     BILLED = 3
     FINISH_TYPING = 4
-  end #ordem do processo OPEN, FINISH TYPING, CLOSE, BILLIED
+    DISCHARGE = 5
+  end #ordem do processo OPEN, FINISH TYPING, DISCHARGE, CLOSE, BILLIED
 
   module TypeTeam
     IMBATIVEIS = 1
@@ -210,11 +214,9 @@ class InputControl < ActiveRecord::Base
     begin
       ActiveRecord::Base.transaction do
         return_value = true
-        self.update_attributes(date_receipt: Date.current, status: InputControl::TypeStatus::RECEIVED)
-        puts ">>>>>>>>>>>>>>>> Received Input Control:"
+        self.update_attributes(date_receipt: Date.current, finish_time_discharge: Time.current, status: InputControl::TypeStatus::RECEIVED)
         nfe_input_control = self.nfe_xmls.first
         nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_input_control.numero).first
-        puts ">>>>>>>>>>>>>>>> Nfe Scheduling: #{nfe_scheduling.class}, count: nfe_scheduling.count"
         Scheduling.where(id: nfe_scheduling.nfe_id).update_all(date_receipt_at: Time.current, status: Scheduling::TypeStatus::RECEIVED) if nfe_scheduling.present?
         return_value = true
       end
@@ -399,6 +401,12 @@ class InputControl < ActiveRecord::Base
       #puts ">>>>>>>>>>>>>>>> update peso e volume:"
       ordem_service.set_peso_and_volume
 
+    end
+  end
+
+  def self.start(input_control_id)
+    ActiveRecord::Base.transaction do
+      InputControl.where(id: input_control_id).update_all(start_time_discharge: Time.current, status: InputControl::TypeStatus::DISCHARGE)
     end
   end
 

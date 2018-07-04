@@ -38,6 +38,7 @@ class Boarding < ActiveRecord::Base
 
   scope :status_open, -> { includes(:driver).where(status: [TipoStatus::ABERTO, TipoStatus::EMBARCADO]).order("id desc") }
   scope :the_day, -> { includes(:driver).where(date_boarding: Date.current).order("id desc") }
+  scope :status_boarding, -> { includes(:driver).where(status: TipoStatus::EMBARCADO).order("id desc") }
 
   before_destroy :erase_boarding_items
 

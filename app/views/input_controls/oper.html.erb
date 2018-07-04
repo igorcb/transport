@@ -1,0 +1,17 @@
+<h2>Entradas</h2>
+<ul class="list-group">
+  <% @input_controls.each do |input_control| %>
+  <li class="list-group-item">
+    <span class="badge"><%#= input_control.qtde_palets %></span>
+    <%#= render 'oper_input_control', input_control: input_control %>
+    <strong>Embarque: </strong><%= input_control.id %><br />
+    <strong>Data: </strong><%= date_br (input_control.date_entry) %><br />
+    <strong>Motorista: </strong><%= input_control.driver.nome %><br />
+    <strong>Container: </strong><%= input_control.container %><br />
+    <strong>Palletizada: </strong><%= input_control.palletized_status %><br />
+
+    <%= link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-primary btn-xs" if input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
+    <%= link_to 'Confirmar Recebimento', confirm_received_input_control_path(input_control), class: "btn btn-primary btn-xs" if input_control.status == InputControl::TypeStatus::DISCHARGE %>
+  </li>
+  <% end %>
+</ul>
