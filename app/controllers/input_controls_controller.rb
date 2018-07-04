@@ -84,6 +84,11 @@ class InputControlsController < ApplicationController
   end
 
   def confirm_received
+    if params[:input_control][:quantity_pallets].blank?
+      flash[:danger] = "Qtde Pallets is not present."
+      redirect_to oper_input_controls_path
+      return
+    end
     if @input_control.received
       @input_control.update_attributes(received_user_id: current_user.id)
       flash[:success] = "Input Control was successfully received"

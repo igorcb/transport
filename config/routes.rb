@@ -105,8 +105,6 @@ Transport::Application.routes.draw do
       get 'select_pallets'
       post 'create_ordem_service'
       post 'create_stok_pallets'
-      get 'received'
-      get :confirm_received
       get 'finish_typing'
       get 'quitter'
       get :comments
@@ -116,6 +114,8 @@ Transport::Application.routes.draw do
       get :tag
       get :start
       patch :update_start
+      get :received
+      patch :confirm_received
     end
     collection do
       get :search

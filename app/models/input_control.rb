@@ -207,6 +207,12 @@ class InputControl < ActiveRecord::Base
     result = Client.where(id: [client_ids], client_credential_sefaz: false).present?
   end  
 
+  def self.start(input_control_id)
+    ActiveRecord::Base.transaction do
+      InputControl.where(id: input_control_id).update_all(start_time_discharge: Time.current, status: InputControl::TypeStatus::DISCHARGE)
+    end
+  end  
+
   def received
     # so pode informar recebimento se a remessa estiver no status FINISH_TYPING
     # fazer checagem se necessario
@@ -401,12 +407,6 @@ class InputControl < ActiveRecord::Base
       #puts ">>>>>>>>>>>>>>>> update peso e volume:"
       ordem_service.set_peso_and_volume
 
-    end
-  end
-
-  def self.start(input_control_id)
-    ActiveRecord::Base.transaction do
-      InputControl.where(id: input_control_id).update_all(start_time_discharge: Time.current, status: InputControl::TypeStatus::DISCHARGE)
     end
   end
 
