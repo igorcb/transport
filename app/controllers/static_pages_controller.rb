@@ -18,7 +18,6 @@ class StaticPagesController < ApplicationController
 	end
 
 	def dashboard_oper
-		@boardings = Boarding.the_day
-		#@boardings = Boarding.status_open
+
 	end
 end

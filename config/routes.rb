@@ -149,6 +149,7 @@ Transport::Application.routes.draw do
     end
     collection do
       get :search
+      get :oper
     end
     resources :boarding_items do
       post :update_row_order, on: :collection    

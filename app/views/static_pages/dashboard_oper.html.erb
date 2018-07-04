@@ -1,16 +1,23 @@
-<ul class="list-group">
-  <% @boardings.each do |boarding| %>
-  <% if boarding.status == Boarding::TipoStatus::INICIADO %>
-    <li class="list-group-item list-group-item-info">
-  <% elsif boarding.status == Boarding::TipoStatus::EMBARCADO %>
-    <li class="list-group-item list-group-item-success">
-  <% else %>
-    <li class="list-group-item">
-  <% end %>
-    <span class="badge"><%= boarding.qtde_palets %></span>
-    <%= render 'oper_boarding', boarding: boarding %>
-    <%= link_to 'Iniciar Embarque', start_boarding_path(boarding), class: "btn btn-primary btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>
-    <%= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding), class: "btn btn-primary btn-xs" if boarding.status == Boarding::TipoStatus::INICIADO %>
-  </li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="statcard statcard-primary p-4">
+      <h3 class="statcard-number">
+        <%= InputControl.received.count %> / 
+        <%= InputControl.the_day.count %> /
+        <%= InputControl.pending.count %>
+        <small class="delta-indicator delta-positive"></small>
+      </h3>
+      <span class="statcard-desc"><%= link_to 'Entradas', input_controls_path %></span>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="statcard statcard-success p-4">
+      <h3 class="statcard-number">
+        <%= Boarding.the_day.status_boarding.count %> /
+        <%= Boarding.the_day.count %>
+        <small class="delta-indicator delta-negative"></small>
+      </h3>
+      <span class="statcard-desc"><%= link_to 'Embarques', oper_boardings_path %></span>
+    </div>
+  </div>
+</div>

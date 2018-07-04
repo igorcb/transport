@@ -73,6 +73,11 @@ class BoardingsController < ApplicationController
     end
 	end
 
+  def oper
+    @boardings = Boarding.the_day
+    #@boardings = Boarding.status_open    
+  end
+
   def confirmed
   end
 
