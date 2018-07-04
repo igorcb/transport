@@ -1,0 +1,38 @@
+<p>
+  <strong>Placa:</strong>
+  <%= @input_control.place_confirmed %>
+</p>
+
+<p>
+  <strong>Qtde Paletes Informado:</strong>
+  <%= @input_control.quantity_pallets %>
+</p>
+
+<p>
+  <strong>Equipe:</strong>
+  <%= @input_control.team_name %>
+</p>
+
+<p>
+  <strong>Galpão:</strong>
+  <%= @input_control.hangar %> /
+  <strong>Doca:</strong>
+  <%= @input_control.dock %>
+</p>
+
+<p>
+  <strong>Usuario </strong> <%= @input_control.started_user.email if @input_control.started_user.present? %> <strong>iniciou o embarque dia</strong> 
+  <%= date_br (@input_control.start_time_discharge) %> <strong>as</strong> 
+  <%= time_br (@input_control.start_time_discharge) %>
+</p>
+
+<p>
+  <strong>Usuario </strong> <%= @input_control.user_received.email if @input_control.user_received.present? %> <strong>terminou o embarque dia</strong> 
+  <%= date_br (@input_control.finish_time_discharge) %> <strong>as</strong> 
+  <%= time_br (@input_control.finish_time_discharge) %>
+</p>
+
+<p>
+  <strong>Tempo do carregamento:</strong>
+  <%= raw_date = TimeDifference.between(@input_control.start_time_discharge, @input_control.finish_time_discharge).humanize if @input_control.finish_time_discharge.present? %>
+</p>

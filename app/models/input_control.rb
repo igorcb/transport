@@ -5,6 +5,7 @@ class InputControl < ActiveRecord::Base
   belongs_to :carrier
   belongs_to :driver
   belongs_to :user_received, class_name: "User", foreign_key: "received_user_id"
+  belongs_to :started_user, class_name: "User", foreign_key: "started_user_id"
   belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id"
   belongs_to :scheduling, class_name: "Scheduling", foreign_key: "conteiner_id"
   belongs_to :client_table_price
