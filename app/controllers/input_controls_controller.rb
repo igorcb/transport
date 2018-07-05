@@ -72,7 +72,7 @@ class InputControlsController < ApplicationController
       flash[:danger] = "Dock is not present."
       redirect_to oper_input_controls_path
       return  
-    elsif params[:input_control][:place_confirmed].upcase != @input_control.place.upcase
+    elsif params[:input_control][:place_confirmed].upcase != @input_control.place_cart.upcase
       flash[:danger] = "Place is not present in Input Control."
       redirect_to oper_input_controls_path
       return
