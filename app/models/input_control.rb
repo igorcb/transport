@@ -39,6 +39,7 @@ class InputControl < ActiveRecord::Base
 
   scope :the_day, -> { includes(:driver).where(date_entry: Date.current).order("id desc") }
   scope :received, -> { includes(:driver).where(date_entry: Date.current, status: TypeStatus::RECEIVED ).order("id desc") }
+  scope :discharge, -> { includes(:driver).where(date_entry: Date.current, status: TypeStatus::DISCHARGE ).order("id desc") }
   scope :pending, -> { includes(:driver).where("date_entry > ? and date_entry < ? and status = ?", (Date.current - 3.day), Date.current, TypeStatus::RECEIVED).order("id desc") }
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
 
