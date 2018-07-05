@@ -159,7 +159,7 @@ class Driver < ActiveRecord::Base
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ['nome', 'cpf', 'fantasia']
+    ['nome', 'cpf', 'fantasia', 'estado', 'cidade']
   end  
   
   #methods for validations
