@@ -64,9 +64,11 @@
 
       <p>
         <strong>Baixado por :</strong>
-        <%= @nfe_key.user_action_inspector_confirmed.email %> 
-        <strong>no dia</strong> <%= date_br @nfe_key.action_inspector_updated_confirmed %> 
-        <strong>as</strong> <%= time_br @nfe_key.action_inspector_updated_confirmed %>
+        <% if @nfe_key.user_action_inspector_confirmed.present?  %>
+          <% @nfe_key.user_action_inspector_confirmed.email %> 
+          <strong>no dia</strong> <%= date_br @nfe_key.action_inspector_updated_confirmed %> 
+          <strong>as</strong> <%= time_br @nfe_key.action_inspector_updated_confirmed %>
+        <% end %>
       </p>
 
     <% end %>
