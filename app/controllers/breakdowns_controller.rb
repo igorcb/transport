@@ -36,11 +36,12 @@ class BreakdownsController < ApplicationController
   private
 
     def breakdown_params
-      params.require(:breakdown).permit(:input_control_id, :nfe_xml_id, :product_id, :type_breakdown, :unid_medida, :sobras, :faltas, :avarias)
+      params.require(:breakdown).permit(:input_control_id, :nfe_xml_id, :product_id, :type_breakdown, :unid_medida, 
+        :sobras, :faltas, :avarias, :price, :ipi_tax, :ipi_value, :icms_tax, :icms_value)
     end
 
     def load_all
 	  	@input_control = InputControl.find(params[:input_control_id])
       @breakdowns = @input_control.breakdowns.order('id desc')
     end
-end
+end    

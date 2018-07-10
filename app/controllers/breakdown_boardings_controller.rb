@@ -54,6 +54,7 @@ class BreakdownBoardingsController < ApplicationController
     def breakdown_params
       #params.require(:breakdown).permit(:nfe_xml_id, :product_id, :type_breakdown, :sobras, :faltas, :avarias)
       params.require(:breakdown).permit(:nfe_xml_id, :product_id, :type_breakdown, :unid_medida, :sobras, :faltas, :avarias,
+        :price, :ipi_tax, :ipi_value, :icms_tax, :icms_value,
         assets_attributes: [:asset, :id, :_destroy]
         )
       
