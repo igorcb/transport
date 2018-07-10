@@ -195,12 +195,12 @@ class Boarding < ActiveRecord::Base
   end 
 
   def nfe_dae_pending?
-    positivo = true
+    positivo = false
     self.boarding_items.order(:delivery_number).each do |item|
       item.ordem_service.nfe_keys.each do |nfe|
         positivo = nfe.dae_pending?
+        return true if positivo == true
       end
-      return false if positivo == false
     end
     positivo
   end
