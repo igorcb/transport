@@ -1,6 +1,6 @@
 class InputControl < ActiveRecord::Base
   validates :carrier_id, :driver_id, presence: true
-	validates :place, :date_entry, :time_entry, presence: true
+	validates :place, :place_horse, :place_cart, :date_entry, :time_entry, presence: true
 
   belongs_to :carrier
   belongs_to :driver
@@ -54,6 +54,7 @@ class InputControl < ActiveRecord::Base
 
   before_save do |item| 
     item.place = place.upcase 
+    item.place_horse = place_horse.upcase 
     item.place_cart = place_cart.upcase 
     item.place_cart_2 = place_cart_2.upcase 
   end
