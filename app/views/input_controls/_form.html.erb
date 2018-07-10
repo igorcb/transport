@@ -83,8 +83,13 @@
   </div>  
 
   <div class="form-group">
-    <%= f.label :place, "Placa" %>
+    <%= f.label :place, "Placa NF-e" %>
     <%= f.text_field :place, class: "form-control placa" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :place_horse, "Placa Cavalo" %>
+    <%= f.text_field :place_horse, class: "form-control placa" %>
   </div>
 
   <div class="form-group">
@@ -120,7 +125,7 @@
 
   <div class="form-group">
     <%= f.label :date_receipt, "Data Recebimento" %>
-    <%= f.text_field :date_receipt, class: "form-control data", value: date_br(@input_control.date_receipt) %>
+    <%= f.text_field :date_receipt, class: "form-control data", value: date_br(@input_control.date_receipt), disabled: true %>
   </div>
 
   <div class="form-group">

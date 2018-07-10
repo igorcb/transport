@@ -121,10 +121,13 @@ class NfeXml < ActiveRecord::Base
 
   def self.processa_xml_input_control(params)
     if params.status == TipoStatus::NAO_PROCESSADO
+      
       ActiveRecord::Base.transaction do
         #processar xml - extrair os daddos da nfe 
         # - atualizar campos na tabela nfe_xml
         # - criar produtos na tabela item_input_control
+        puts ">>>>>>>>>>>>>>> Params: #{params.to_s}"
+        #input_control = 
         nfe_xml = params
         file = "#{Rails.root.join('public')}" + nfe_xml.asset.url(:original, timestamp: false)
         puts ">>>>>>>>>>>>>>>>>>>> Processando File #{file}"
@@ -161,10 +164,10 @@ class NfeXml < ActiveRecord::Base
                                              bairro: nfe.dest.endereco_destinatario.xBairro, 
                                              cidade: nfe.dest.endereco_destinatario.xMun, 
                                              estado: nfe.dest.endereco_destinatario.UF).find_or_create_by(cpf_cnpj: cnpj_target)
+
         peso = nfe.vol.pesoB.nil? ? nfe.vol.pesoL : nfe.vol.pesoB
+        place = nfe.veiculo.placa.blank? ? nfe_xml.input_control.place : nfe.veiculo.placa.insert(3,'-')
         
-        place = nfe.veiculo.placa.blank? ? '' : nfe.veiculo.placa.insert(3,'-')
-        #place = nfe.veiculo.placa.insert(3,'-')
         nfe_xml.update_attributes(peso: peso, 
                           peso_liquido: nfe.vol.pesoL,
                                 volume: nfe.vol.qVol, 
