@@ -92,9 +92,15 @@ class NfeKey < ActiveRecord::Base
       "Em Aberto"
     end
   end
-  # def input_control
 
-  # end
-
+  def dae_pending?
+    result = false
+    if self.take_dae?
+      if self.action_inspector_file_name.nil? 
+        result = true
+      end
+    end
+    result 
+  end
 
 end
