@@ -14,7 +14,17 @@ class InputControlsController < ApplicationController
 
   def printing; end
 
-  def question; end
+  def question; 
+    if @input_control.status != InputControl::TypeStatus::RECEIVED
+      flash[:danger] = "To send a comment or report breakdown the InputControl must be as RECEIVED"
+      redirect_to (@input_control)
+      return
+    elsif @input_control.date_receipt.blank?
+      flash[:danger] = "Receipt date can not be blank."
+      redirect_to (@input_control)
+      return
+    end        
+  end
 
   def quitter
     respond_to do |format|
@@ -266,6 +276,15 @@ class InputControlsController < ApplicationController
   end
 
   def comments
+    if @input_control.status != InputControl::TypeStatus::RECEIVED
+      flash[:danger] = "To send a comment or report breakdown the InputControl must be as RECEIVED"
+      redirect_to (@input_control)
+      return
+    elsif @input_control.date_receipt.blank?
+      flash[:danger] = "Receipt date can not be blank."
+      redirect_to (@input_control)
+      return
+    end    
     @comment = Comment.new
   end
 
