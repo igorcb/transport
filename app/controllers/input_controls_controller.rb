@@ -153,7 +153,7 @@ class InputControlsController < ApplicationController
   def select_nfe
     if @input_control.status == InputControl::TypeStatus::DISCHARGED
       flash[:danger] = "Can not generate Ordem Service while the Input Control is in Typing Digital."
-      redirect_to @input_control)
+      redirect_to (@input_control)
       return
     end    
     # if !@input_control.status_received?
