@@ -79,11 +79,12 @@ class BoardingsController < ApplicationController
   end
 
   def confirmed
+
   end
 
   def update_confirmed
     if params[:boarding][:qtde_pallets_shipped].blank?
-      flash[:danger] = "Inform o qtde pallets."
+      flash[:danger] = "Informar qtde pallets."
       redirect_to dashboard_oper_path
       return
     end
@@ -95,18 +96,23 @@ class BoardingsController < ApplicationController
 
   def start
     if @boarding.date_boarding.nil?
-      flash[:danger] = "Date Boarding is not present."
+      flash[:danger] = "Data do Embarque não está presente."
       redirect_to dashboard_oper_path
       return
     elsif @boarding.driver_id == Boarding.driver_not_information
-      flash[:danger] = "Inform o driver."
+      flash[:danger] = "Informe o motorista."
       redirect_to dashboard_oper_path
       return
     elsif !@boarding.date_scheduling_present?
-      flash[:danger] = "Date Scheduling O.S. is not present."
+      flash[:danger] = "Data Agendamento O.S. não está presente."
       redirect_to dashboard_oper_path
       return
-    end    
+    elsif @boarding.nfe_dae_pending?
+      flash[:danger] = "Existe NF-e com pendência de DAE."
+      redirect_to dashboard_oper_path
+      return
+    end
+
   end
 
   def update_start

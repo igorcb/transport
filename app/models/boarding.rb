@@ -205,6 +205,16 @@ class Boarding < ActiveRecord::Base
     positivo
   end
 
+  def get_dae_pending
+    array = []
+    self.boarding_items.order(:delivery_number).each do |item|
+      item.ordem_service.nfe_keys.each do |nfe|
+        array.append(nfe.nfe)
+      end
+    end
+    array
+  end
+
   def close(ordem_service_id)
     boarding = Boarding.find(boarding_id)
     boarding.errors.add("Boarding", "DEPRECATED function. Please use the class confirmed function")
