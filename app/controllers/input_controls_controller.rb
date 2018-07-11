@@ -151,7 +151,7 @@ class InputControlsController < ApplicationController
   end
 
   def select_nfe
-    if @input_control.status == InputControl::TypeStatus::FINISH_TYPING
+    if @input_control.status == InputControl::TypeStatus::OPEN
       flash[:danger] = "Can not generate Ordem Service while the Input Control is in Typing Digital."
       redirect_to (@input_control)
       return
