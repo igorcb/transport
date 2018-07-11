@@ -123,11 +123,11 @@ class InputControlsController < ApplicationController
       respond_with(@input_control)
       return
     end
-    if !@input_control.status_received?
-      flash[:danger] = "First declare that you received the products"
-      respond_with(@input_control)
-      return
-    end
+    # if !@input_control.status_received?
+    #   flash[:danger] = "First declare that you received the products"
+    #   respond_with(@input_control)
+    #   return
+    # end
     # criar um modulo para get_hash_ids e check_client_billing
     ids = OrdemService.get_hash_ids(params[:nfe][:ids])
     puts ">>>>>>>>>>>>>>>>>>>>>>> check_client_billing: #{InputControl.check_client_billing?(ids)} <<<<<<<<<<<<<<<<<<<<<<<<"
