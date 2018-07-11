@@ -95,7 +95,11 @@ class BoardingsController < ApplicationController
   end  
 
   def start
-    if @boarding.date_boarding.nil?
+    if @boarding.nfe_dae_pending?
+      flash[:danger] = "Existe NF-e com pendência de DAE."
+      redirect_to dashboard_oper_path
+      return    
+    elsif @boarding.date_boarding.nil?
       flash[:danger] = "Data do Embarque não está presente."
       redirect_to dashboard_oper_path
       return
@@ -105,10 +109,6 @@ class BoardingsController < ApplicationController
       return
     elsif !@boarding.date_scheduling_present?
       flash[:danger] = "Data Agendamento O.S. não está presente."
-      redirect_to dashboard_oper_path
-      return
-    elsif @boarding.nfe_dae_pending?
-      flash[:danger] = "Existe NF-e com pendência de DAE."
       redirect_to dashboard_oper_path
       return
     end
