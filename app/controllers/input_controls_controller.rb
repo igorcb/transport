@@ -127,10 +127,6 @@ class InputControlsController < ApplicationController
       flash[:danger] = "First declare that you received the products"
       respond_with(@input_control)
       return
-    elsif @input_control.date_receipt.blank?
-      flash[:danger] = "Receipt date can not be blank."
-      respond_with(@input_control)
-      return
     end
     # criar um modulo para get_hash_ids e check_client_billing
     ids = OrdemService.get_hash_ids(params[:nfe][:ids])
@@ -155,16 +151,16 @@ class InputControlsController < ApplicationController
   end
 
   def select_nfe
-    if !@input_control.status_received?
-      flash[:danger] = "First declare that you received the products"
-      redirect_to (@input_control)
-      return
-    end
-    if @input_control.date_receipt.blank?
-      flash[:danger] = "Receipt date can not be blank."
-      redirect_to (@input_control)
-      return
-    end
+    # if !@input_control.status_received?
+    #   flash[:danger] = "First declare that you received the products"
+    #   redirect_to (@input_control)
+    #   return
+    # end
+    # if @input_control.date_receipt.blank?
+    #   flash[:danger] = "Receipt date can not be blank."
+    #   redirect_to (@input_control)
+    #   return
+    # end
   end
 
   def create_stok_pallets
