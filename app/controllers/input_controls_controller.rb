@@ -39,11 +39,11 @@ class InputControlsController < ApplicationController
   end
 
   def finish_typing
-    if params[:place_horse].blank?
+    if @input_control.place_horse.blank?
       flash[:danger] = "Place Horse is not present."
       redirect_to input_control_path(@input_control)
       return
-    elsif params[:place_cart].blank?
+    elsif @input_control.place_cart.blank?
       flash[:danger] = "Place Cart is not present."
       redirect_to input_control_path(@input_control)
       return
