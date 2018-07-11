@@ -1,0 +1,35 @@
+
+<%= form_for @input_control, url: update_reschedule_input_control_path, method: :patch, :html => { :multipart => true } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">Dados da Entrada - No: <%= @input_control.id %></div>
+    <div class="panel-body">
+    
+    <%#= render 'static_pages/oper_input_control', input_control: @input_control %>
+    
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <%= f.label :date_scheduled, "Data" %><br>
+    <%= f.text_field :date_scheduled, value: nil, class: "form-control data" %>
+  </div>    
+
+  <div class="form-group">
+    <%= f.label :time_scheduled, "Hora" %><br>
+    <%= f.text_field :time_scheduled, value: nil, class: "form-control time" %>
+  </div>    
+
+  <div class="form-group">
+    <%= f.label :motive_scheduled, "Motivo" %><br>
+    <%= f.text_area :motive_scheduled, value: nil, class: "form-control" %>
+  </div>    
+
+  <div class="form-group">
+		<%= f.submit "Reagendar", class: "btn btn-primary" if @input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
+		<%= link_to 'Voltar', input_control_path(@input_control), class: "btn btn-default" %>
+  </div>
+
+<% end %>

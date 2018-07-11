@@ -38,6 +38,7 @@ class InputControl < ActiveRecord::Base
   accepts_nested_attributes_for :action_inspectors, allow_destroy: true, :reject_if => :all_blank  
 
   scope :the_day, -> { includes(:driver).where(date_entry: Date.current).order("id desc") }
+  scope :the_day_scheduled, -> { includes(:driver).where(date_scheduled: Date.current).order(date_scheduled: :desc, time_scheduled: :asc) }
   scope :received, -> { includes(:driver).where(date_entry: Date.current, status: TypeStatus::RECEIVED ).order("id desc") }
   scope :discharge, -> { includes(:driver).where(date_entry: Date.current, status: TypeStatus::DISCHARGE ).order("id desc") }
   scope :pending, -> { includes(:driver).where("date_entry > ? and date_entry < ? and status = ?", (Date.current - 3.day), Date.current, TypeStatus::RECEIVED).order("id desc") }
@@ -59,8 +60,10 @@ class InputControl < ActiveRecord::Base
     item.place_cart_2 = place_cart_2.upcase 
   end
   
-  before_create do |cte|
-   set_values
+  before_create do |item|
+    set_values
+    item.date_scheduled = date_entry
+    item.time_scheduled = time_entry
   end 
 
   after_save :processa_nfe_xmls
@@ -79,7 +82,7 @@ class InputControl < ActiveRecord::Base
     BILLED = 3
     FINISH_TYPING = 4
     DISCHARGE = 5
-  end #ordem do processo OPEN, FINISH TYPING, DISCHARGE, CLOSE, BILLIED
+  end #ordem do processo OPEN, FINISH TYPING, DISCHARGE, RECEIVED, CLOSE, BILLIED
 
   module TypeTeam
     IMBATIVEIS = 1

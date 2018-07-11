@@ -68,7 +68,7 @@ class InputControlsController < ApplicationController
   end
 
   def oper
-    @input_controls = InputControl.the_day
+    @input_controls = InputControl.the_day_scheduled
   end
 
   def received
@@ -115,6 +115,36 @@ class InputControlsController < ApplicationController
       flash[:danger] = "Error receiving input control."
     end
     redirect_to oper_input_controls_path
+  end
+
+  def reschedule
+    
+  end
+
+  def update_reschedule
+    if params[:input_control][:date_scheduled].blank?
+      flash[:danger] = "Date Scheduled is not present."
+      redirect_to reschedule_input_control_path(@input_control)
+      return
+    elsif params[:input_control][:time_scheduled].blank?
+      flash[:danger] = "Time Scheduled is not present."
+      redirect_to reschedule_input_control_path(@input_control)
+      return
+    elsif params[:input_control][:motive_scheduled].blank?
+      flash[:danger] = "Motive Scheduled is not present."
+      redirect_to reschedule_input_control_path(@input_control)
+      return
+    elsif params[:input_control][:motive_scheduled].length < 15
+      flash[:danger] = "Reschedule motive is less than 15 characters"
+      redirect_to reschedule_input_control_path(@input_control)
+      return
+    end
+    if @input_control.update(input_control_params)
+      flash[:success] = "Input Control was successfully reschedule"
+    else
+      flash[:danger] = "Error reschedule input control."
+    end
+    redirect_to(@input_control)
   end
 
   def create_ordem_service
@@ -314,7 +344,8 @@ class InputControlsController < ApplicationController
       params.require(:input_control).permit(:carrier_id, :driver_id, :billing_client_id, :place, :place_cart, 
         :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets, 
         :observation, :charge_discharge, :shipment, :team, :dock, :hangar, :container, 
-        :stretch_route_id, :type_service_id, :place_confirmed, :place_horse,
+        :stretch_route_id, :type_service_id, :place_confirmed, :place_horse, 
+        :date_scheduled, :time_scheduled, :motive_scheduled,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         action_inspectors_attributes: [:number, :id, :_destroy],
