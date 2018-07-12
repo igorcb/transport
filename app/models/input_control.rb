@@ -118,6 +118,10 @@ class InputControl < ActiveRecord::Base
     self.status == TypeStatus::RECEIVED
   end
 
+  def status_open_and_finish_typing_and_discharge
+    self.status == TypeStatus::OPEN || self.status == TypeStatus::FINISH_TYPING || self.status == TypeStatus::DISCHARGE
+  end
+
   def charge_discharge_status
     case self.charge_discharge
       when false then "Nao"
