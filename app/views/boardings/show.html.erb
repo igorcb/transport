@@ -145,6 +145,11 @@
           <%= raw_date = TimeDifference.between(@boarding.start_time_boarding, @boarding.finish_time_boarding).humanize if @boarding.finish_time_boarding.present? %>
         </p>
 
+        <p>
+          <strong>Observação:</strong>
+          <pre><%= @boarding.oper_observation %></pre>
+        </p>
+
       </div>
     </div>
   </div>
