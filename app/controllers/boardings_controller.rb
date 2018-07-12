@@ -95,24 +95,39 @@ class BoardingsController < ApplicationController
   end  
 
   def start
-    if @boarding.nfe_dae_pending?
-      flash[:danger] = "Existe NF-e com pendência de DAE."
-      redirect_to dashboard_oper_path
-      return    
-    elsif @boarding.date_boarding.nil?
-      flash[:danger] = "Data do Embarque não está presente."
-      redirect_to dashboard_oper_path
-      return
-    elsif @boarding.driver_id == Boarding.driver_not_information
-      flash[:danger] = "Informe o motorista."
-      redirect_to dashboard_oper_path
-      return
-    elsif !@boarding.date_scheduling_present?
-      flash[:danger] = "Data Agendamento O.S. não está presente."
-      redirect_to dashboard_oper_path
-      return
-    end
+    # if @boarding.ordem_service_pending?
+    #   flash[:danger] = "Existe Ordem de Serviço com remessa de entrada não recebida."
+    #   redirect_to dashboard_oper_path
+    #   return          
+    # elsif @boarding.nfe_dae_pending?
+    #   flash[:danger] = "Existe NF-e com pendência de DAE."
+    #   redirect_to dashboard_oper_path
+    #   return    
+    # elsif @boarding.date_boarding.nil?
+    #   flash[:danger] = "Data do Embarque não está presente."
+    #   redirect_to dashboard_oper_path
+    #   return
+    # elsif @boarding.driver_id == Boarding.driver_not_information
+    #   flash[:danger] = "Informe o motorista."
+    #   redirect_to dashboard_oper_path
+    #   return
+    # elsif @boarding.carrier_id == Boarding.carrier_not_information
+    #   flash[:danger] = "Agente não informado."
+    #   redirect_to dashboard_oper_path
+    #   return
+    # elsif !@boarding.date_scheduling_present?
+    #   flash[:danger] = "Data Agendamento O.S. não está presente."
+    #   redirect_to dashboard_oper_path
+    #   return
+    # end
 
+    # @boarding_item.errors.full_messages.each do |msg|
+    #   flash[:danger] = msg  
+    # end    
+    if @boarding.pending?
+      flash[:danger] = @boarding.pending
+      redirect_to oper_boardings_path 
+    end
   end
 
   def update_start

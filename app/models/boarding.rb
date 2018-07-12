@@ -193,6 +193,25 @@ class Boarding < ActiveRecord::Base
     end
     positivo
   end 
+  
+  def pending?
+    self.nfe_dae_pending? || 
+    self.ordem_service_pending? ||
+    self.date_boarding.blank? ||
+    self.carrier_id == Boarding.carrier_not_information
+    self.driver_id == Boarding.driver_not_information
+  end
+
+  def pending
+    pendings = []
+    pendings.append('Existe Ordem de Serviço com remessa de entrada não recebida.') if self.ordem_service_pending?
+    pendings.append('Existe NF-e com pendência de DAE.') if self.nfe_dae_pending?
+    pendings.append('Data do Embarque não está presente.') if self.date_boarding.blank?
+    pendings.append('Data Agendamento O.S. não está presente.') if self.date_scheduling_present?
+    pendings.append('Informe o motorista.') if self.driver_id == Boarding.driver_not_information
+    pendings.append('Agente não informado.') if self.carrier_id == Boarding.carrier_not_information
+    pendings
+  end
 
   def nfe_dae_pending?
     positivo = false
@@ -210,6 +229,25 @@ class Boarding < ActiveRecord::Base
     self.boarding_items.order(:delivery_number).each do |item|
       item.ordem_service.nfe_keys.each do |nfe|
         array.append(nfe.nfe)
+      end
+    end
+    array
+  end
+
+  def ordem_service_pending?
+    positivo = false
+    self.boarding_items.order(:delivery_number).each do |item|
+      positivo = item.ordem_service.input_control.status_open_and_finish_typing_and_discharge?
+      return true if positivo == true
+    end
+    positivo
+  end
+
+  def get_dae_pending
+    array = []
+    self.boarding_items.order(:delivery_number).each do |item|
+      if item.ordem_service.input_control.status_open_and_finish_typing_and_discharge?
+        array.append(item.ordem_service.id)
       end
     end
     array
