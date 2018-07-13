@@ -16,4 +16,8 @@
 	  <%= render 'layouts/menu_oper' %>
 	<% end %>
 
+	<% if current_user.has_role? :port %>
+	  <%= render 'layouts/menu_port' %>
+	<% end %>	
+
 <% end %>

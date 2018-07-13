@@ -26,6 +26,8 @@ class ApplicationController < ActionController::Base
       redirect_to dashboard_agent_path, flash: { danger: exception.message }
     elsif current_user.has_role? :oper
       redirect_to dashboard_oper_path, flash: { danger: exception.message }
+    elsif current_user.has_role? :port
+      redirect_to dashboard_port_path, flash: { danger: exception.message }
     else
       #root_path
     end
@@ -42,6 +44,8 @@ class ApplicationController < ActionController::Base
       dashboard_agent_path
     elsif current_user.has_role? :oper
       dashboard_oper_path    
+    elsif current_user.has_role? :port
+      dashboard_port_path    
     else
       #root_path
     end

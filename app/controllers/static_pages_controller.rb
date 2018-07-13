@@ -20,4 +20,8 @@ class StaticPagesController < ApplicationController
 	def dashboard_oper
 
 	end
+
+	def dashboard_oper
+
+	end	
 end

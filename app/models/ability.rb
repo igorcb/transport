@@ -28,13 +28,15 @@ class Ability
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
+
     if user.has_role? :admin
       can :manage, :all
     elsif  user.has_role? :oper
-      #can :manage, OrdemService
       can :manage, Boarding
       can :manage, InputControl
       can :manage, Task
+    elsif  user.has_role? :port
+      can :manage, Boarding
     elsif  user.has_role? :visit
       can :manage, Pallet
     elsif  user.has_role? :client
@@ -95,5 +97,11 @@ class Ability
       puts "Criando acesso para create_access_agent"
     end
   end
+
+  class Port
+    def create_access_port
+      puts "Criando acesso para create_access_port"
+    end
+  end  
 
 end
