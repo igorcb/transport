@@ -146,6 +146,8 @@ Transport::Application.routes.draw do
       patch :update_confirmed
       get :start
       patch :update_start
+      get :checkin
+      patch :update_checkin
     end
     collection do
       get :search

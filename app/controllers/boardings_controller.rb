@@ -95,35 +95,6 @@ class BoardingsController < ApplicationController
   end  
 
   def start
-    # if @boarding.ordem_service_pending?
-    #   flash[:danger] = "Existe Ordem de Serviço com remessa de entrada não recebida."
-    #   redirect_to dashboard_oper_path
-    #   return          
-    # elsif @boarding.nfe_dae_pending?
-    #   flash[:danger] = "Existe NF-e com pendência de DAE."
-    #   redirect_to dashboard_oper_path
-    #   return    
-    # elsif @boarding.date_boarding.nil?
-    #   flash[:danger] = "Data do Embarque não está presente."
-    #   redirect_to dashboard_oper_path
-    #   return
-    # elsif @boarding.driver_id == Boarding.driver_not_information
-    #   flash[:danger] = "Informe o motorista."
-    #   redirect_to dashboard_oper_path
-    #   return
-    # elsif @boarding.carrier_id == Boarding.carrier_not_information
-    #   flash[:danger] = "Agente não informado."
-    #   redirect_to dashboard_oper_path
-    #   return
-    # elsif !@boarding.date_scheduling_present?
-    #   flash[:danger] = "Data Agendamento O.S. não está presente."
-    #   redirect_to dashboard_oper_path
-    #   return
-    # end
-
-    # @boarding_item.errors.full_messages.each do |msg|
-    #   flash[:danger] = msg  
-    # end    
     if @boarding.pending?
       flash[:danger] = @boarding.pending
       redirect_to oper_boardings_path 
@@ -161,6 +132,32 @@ class BoardingsController < ApplicationController
     Boarding.start(params[:id])        
     redirect_to dashboard_oper_path, flash: { success: "Boarding initialization was successful" }
   end
+
+  def checkin
+    
+  end
+
+  def update_checkin
+    if params[:boarding][:driver_checkin_palce_horse].blank?
+      flash[:danger] = "Place is not present."
+      redirect_to dashboard_oper_path
+      return
+    elsif params[:boarding][:driver_checkin_palce_cart_1].blank?
+      flash[:danger] = "Place Cart 1  is not present."
+      redirect_to dashboard_oper_path
+      return
+    # elsif params[:boarding][:driver_checkin_palce_cart_2].blank?
+    #   flash[:danger] = "Place Cart 2 is not present."
+    #   redirect_to dashboard_oper_path
+    #   return
+    end
+
+    @boarding.driver_checkin_user_id = current_user.id
+    @boarding.update(boarding_params)
+    Boarding.checkin(params[:id])        
+    redirect_to dashboard_port_path, flash: { success: "Boarding Check IN was successful" }
+  end
+
 
 	def destroy
     @boarding.destroy
@@ -261,6 +258,7 @@ class BoardingsController < ApplicationController
       params.require(:boarding).permit(:date_boarding, :driver_id, :carrier_id, :value_boarding, :safe_rctr_c, 
         :safe_optional, :number_tranking, :obs, :qtde_boarding, :manifesto, :chave_manifesto, :local_embarque,
         :action_inspector, :place, :qtde_pallets_shipped, :team, :hangar, :dock, :oper_observation,
+        :driver_checkin_palce_horse, :driver_checkin_palce_cart_1, :driver_checkin_palce_cart_2,
         board_items_attributes: [:delivery_number, :ordem_service_id, :id, :_destroy],
         boarding_vehicles_attributes: [:boarding_vehicles_id, :vehicle_id, :id, :_destroy]
 

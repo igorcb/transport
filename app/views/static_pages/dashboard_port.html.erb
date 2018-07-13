@@ -1,5 +1,18 @@
-<h1>Dash Portaria</h1>
 
-<h3>CheckIn</h3>
+<h3>
+	<%= link_to "Embarques", dashboard_port_path %>
+	<span class="badge badge-blue"><%= @boardings.count %></span>
+</h3>
 
-<h3>CheckOut</h3>
+<ul class="list-group">
+  <% @boardings.each do |boarding| %>
+  <li>
+
+    <%= render 'static_pages/oper_boarding', boarding: boarding %>
+
+    <%= link_to 'Inicar CheckIN', checkin_boarding_path(boarding), class: "btn btn-primary btn-xs" if !boarding.driver_checkin %>
+
+  </li> <hr>
+
+  <% end %>
+</ul>

@@ -9,6 +9,7 @@ class Boarding < ActiveRecord::Base
 
   belongs_to :started_user, class_name: "User", foreign_key: "started_user_id"
   belongs_to :confirmed_user, class_name: "User", foreign_key: "confirmed_user_id"
+  belongs_to :driver_checkin_user, class_name: "User", foreign_key: "driver_checkin_user_id"
   
   has_one :account_payable
   has_many :account_payables
@@ -46,6 +47,16 @@ class Boarding < ActiveRecord::Base
 
   # DRIVER_NOT_INFORMATION = 105
   # CARRIER_NOT_INFORMATION = 3
+
+  before_save do |item| 
+    item.driver_checkin_palce_horse = driver_checkin_palce_horse.upcase if driver_checkin_palce_horse.present?
+    item.driver_checkin_palce_cart_1 = driver_checkin_palce_cart_1.upcase if driver_checkin_palce_cart_1.present?
+    item.driver_checkin_palce_cart_2 = driver_checkin_palce_cart_2.upcase if driver_checkin_palce_cart_2.present?
+  end  
+
+  before_create do |item| 
+    item.driver_checkin = false
+  end  
 
   module TipoStatus
   	ABERTO = 0
@@ -287,6 +298,12 @@ class Boarding < ActiveRecord::Base
   def self.start(boarding_id)
     ActiveRecord::Base.transaction do
       Boarding.where(id: boarding_id).update_all(start_time_boarding: Time.current, status: Boarding::TipoStatus::INICIADO)
+    end
+  end
+
+  def self.checkin(boarding_id)
+    ActiveRecord::Base.transaction do
+      Boarding.where(id: boarding_id).update_all(driver_checkin: true, driver_checkin_time: Time.current)
     end
   end
 
