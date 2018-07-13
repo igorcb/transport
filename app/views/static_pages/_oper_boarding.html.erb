@@ -10,17 +10,21 @@
 
 <strong>Cidades: </strong> <%= boarding.get_cities %><br />
 
-<% if !boarding.places.include?(boarding.driver_checkin_palce_horse) || !boarding.places.include?(boarding.driver_checkin_palce_cart_1) %>
-    <div class="alert alert-danger">
-    	<% if !boarding.places.include?(boarding.driver_checkin_palce_horse) %>
-      <p>
-				Placa Cavalo não está presente no embarque      	
-      </p>
-      <% end %>
-    	<% if !boarding.places.include?(boarding.driver_checkin_palce_cart_1) %>
-      <p>
-				Placa Carreta não está presente no embarque      	
-      </p>
-      <% end %>
-    </div>
+<% if boarding.driver_checkin %>
+
+	<% if !boarding.places.include?(boarding.driver_checkin_palce_horse) || !boarding.places.include?(boarding.driver_checkin_palce_cart_1) %>
+	    <div class="alert alert-danger">
+	    	<% if !boarding.places.include?(boarding.driver_checkin_palce_horse) %>
+	      <p>
+					Placa Cavalo não está presente no embarque      	
+	      </p>
+	      <% end %>
+	    	<% if !boarding.places.include?(boarding.driver_checkin_palce_cart_1) %>
+	      <p>
+					Placa Carreta não está presente no embarque      	
+	      </p>
+	      <% end %>
+	    </div>
+	<% end %>
+
 <% end %>
