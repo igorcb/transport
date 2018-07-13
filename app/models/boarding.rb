@@ -188,7 +188,7 @@ class Boarding < ActiveRecord::Base
   def date_scheduling_present?
     positivo = true
     self.boarding_items.order(:delivery_number).each do |item|
-      positivo = item.ordem_service.data.present?
+      positivo = item.ordem_service.data.blank?
       return false if positivo == false
     end
     positivo
@@ -196,9 +196,10 @@ class Boarding < ActiveRecord::Base
   
   def pending?
     self.nfe_dae_pending? || 
-    self.ordem_service_pending? ||
-    self.date_boarding.blank? ||
-    self.carrier_id == Boarding.carrier_not_information
+    self.ordem_service_pending? || 
+    self.date_scheduling_present? || 
+    self.date_boarding.blank? || 
+    self.carrier_id == Boarding.carrier_not_information || 
     self.driver_id == Boarding.driver_not_information
   end
 
