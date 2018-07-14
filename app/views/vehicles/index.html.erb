@@ -6,13 +6,13 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Tipo veiculo</th>
-            <th>Renavan</th>
-            <th>Chassi</th>
             <th>Placa</th>
+            <th>Tipo</th>
+            <th>Tipo veiculo</th>
+            <th>No.Eixo</th>
+            <th>Piso</th>
             <th>Motorista</th>
+            <th>Proprietário</th>
             <th colspan="3">Opções</th>
           </tr>
         </thead>
@@ -20,13 +20,13 @@
         <tbody>
           <% @vehicles.each do |vehicle| %>
             <tr>
-              <td><%= vehicle.marca %></td>
-              <td><%= vehicle.modelo %></td>
+              <td><%= vehicle.place_state %></td>
+              <td><%= vehicle.tipo_nome %></td>
               <td><%= vehicle.tipo_veiculo_nome %></td>
-              <td><%= vehicle.renavan %></td>
-              <td><%= vehicle.chassi %></td>
-              <td><%= vehicle.placa %></td>
+              <td align="center"><%= vehicle.numero_eixos %></td>
+              <td><%= vehicle.tipo_piso_assoalho_nome %></td>
               <td><%= vehicle.drivers.first.nome  if vehicle.drivers.present? %></td>
+              <td><%= vehicle.owners.first.nome  if vehicle.owners.present? %></td>
               <td><%= link_to 'Show', vehicle, class: "btn btn-info btn-xs" %></td>
               <td><%= link_to 'Edit', edit_vehicle_path(vehicle), class: "btn btn-primary btn-xs" %></td>
               <td><%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>

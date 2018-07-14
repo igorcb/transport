@@ -172,5 +172,8 @@ class Vehicle < ActiveRecord::Base
     "#{tipo_nome}/#{placa}"
   end
 
+  def place_state
+    "#{placa}/#{estado}"
+  end
 
 end
