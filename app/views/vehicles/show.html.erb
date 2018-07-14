@@ -183,6 +183,14 @@
 <% if @vehicle.drivers.any? %>
   <table class="table table-striped">
     <tbody>
+      <thead>
+        <tr>
+          <th>Motorista</th>
+          <th>Fantasia</th>
+          <th>CPF</th>
+        </tr>
+      </thead>   
+
       <% @vehicle.drivers.each do |driver| %>
         <tr>
           <td><%= link_to "#{driver.nome}", driver  %></td>
@@ -203,6 +211,14 @@
 <% if @vehicle.ownerships.any? %>
   <table class="table table-striped">
     <tbody>
+      <thead>
+        <tr>
+          <th>Proprietario</th>
+          <th>Favorecido</th>
+          <th>CPF/CNPJ</th>
+        </tr>
+      </thead>      
+
       <% @vehicle.owners.each do |owner| %>
         <tr>
           <td><%= link_to "#{owner.nome}", owner  %></td>
