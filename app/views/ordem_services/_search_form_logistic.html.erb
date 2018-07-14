@@ -102,8 +102,13 @@
       <%= f.collection_select :ordem_service_type_service_type_service_id_eq, TypeService.logistica.order('descricao'), :id, :descricao, {include_blank: true}, {class: "form-control"} %>
     </div>
     <div class="form-group">
-      <%= f.label :cidade_eq, "Cidade" %>
-      <%= f.search_field :cidade_cont, class: "form-control", placeholder: "Informe a cidade" %>  
+      <%= f.label :estado_eq, "Estado" %>
+      <%= f.select(:estado_eq, State.order(:name).collect {|c| [c.name, c.uf]}, {prompt: "SELECT STATE"}, {class: "form-control"} ) %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :cidade_cont, "Cidade" %>
+      <%= f.collection_select :cidade_cont, city_of_state('AA'), :name, :name, {prompt: "SELECIONE CIDADE"}, {class: "form-control"} %>
     </div>
     <div class="form-group">
       <%= f.label :status_eq, "Status" %>
@@ -118,3 +123,18 @@
   <%#= render :partial => 'list_logistic' %>
 </div>
 
+<script type="text/javascript">
+  $(function(){
+    $("#query_estado_eq").change(function(){
+      var uf = "uf="+$(this).val();
+      console.log(uf);
+      $.getJSON('/get_city_by_uf', uf, function(data){
+        var options = '<option value="">Selecione a cidade de origem</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#query_cidade_cont").html(options);
+      });
+    });
+  });
+</script>
