@@ -3,25 +3,27 @@
   <table class="table table-striped">
      <thead>
       <tr>
-        <th>Tp.Reb</th>
-        <th>Tp.Carroceria</th>
-        <th>Tp.Veiculo</th>
-        <th>Marca</th>
-        <th>Modelo</th>
         <th>Placa</th>
-        <th>Qtd Palets</th>
+        <th>Tipo</th>
+        <th>Tipo veiculo</th>
+        <th>No.Eixo</th>
+        <th>Qtde Pallets</th>
+        <th>Piso</th>
+        <th>Motorista</th>
+        <th>Proprietário</th>
       </tr>
     </thead>
     <tbody>
    <% object.vehicles.each do |vehicle| %>
         <tr>
-          <td><%= link_to "#{vehicle.tipo_nome}", vehicle %></td>
-          <td><%= link_to "#{vehicle.tipo_carroceria_name}", vehicle %></td>
-          <td><%= link_to "#{vehicle.tipo_veiculo_nome}", vehicle %></td>
-          <td><%= link_to "#{vehicle.marca}", vehicle %></td>
-          <td><%= link_to "#{vehicle.modelo}", vehicle %></td>
-          <td><%= link_to "#{vehicle.placa}/#{vehicle.estado}", vehicle %></td>
+          <td><%= link_to vehicle.place_state, vehicle %></td>
+          <td><%= link_to vehicle.tipo_nome, vehicle %></td>
+          <td><%= link_to vehicle.tipo_veiculo_nome, vehicle %></td>
+          <td align="center"><%= link_to vehicle.numero_eixos, vehicle %></td>
           <td><%= link_to "#{vehicle.qtde_paletes}", vehicle %></td>
+          <td><%= link_to vehicle.tipo_piso_assoalho_nome, vehicle %></td>
+          <td><%= link_to vehicle.drivers.first.nome, vehicle.drivers  if vehicle.drivers.present? %></td>
+          <td><%= link_to vehicle.owners.first.fantasia, vehicle.owners  if vehicle.owners.present? %></td>
         </tr>
       <% end %>
     </tbody>

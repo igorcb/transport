@@ -10,6 +10,7 @@
             <th>Tipo</th>
             <th>Tipo veiculo</th>
             <th>No.Eixo</th>
+            <th>Qtde Pallets</th>
             <th>Piso</th>
             <th>Motorista</th>
             <th>Proprietário</th>
@@ -20,13 +21,14 @@
         <tbody>
           <% @vehicles.each do |vehicle| %>
             <tr>
-              <td><%= vehicle.place_state %></td>
-              <td><%= vehicle.tipo_nome %></td>
-              <td><%= vehicle.tipo_veiculo_nome %></td>
-              <td align="center"><%= vehicle.numero_eixos %></td>
-              <td><%= vehicle.tipo_piso_assoalho_nome %></td>
-              <td><%= vehicle.drivers.first.nome  if vehicle.drivers.present? %></td>
-              <td><%= vehicle.owners.first.fantasia  if vehicle.owners.present? %></td>
+              <td><%= link_to vehicle.place_state, vehicle %></td>
+              <td><%= link_to vehicle.tipo_nome, vehicle if vehicle.tipo.present? %></td>
+              <td><%= link_to vehicle.tipo_veiculo_nome, vehicle %></td>
+              <td align="center"><%= link_to vehicle.numero_eixos, vehicle %></td>
+              <td><%= link_to "#{vehicle.qtde_paletes}", vehicle %></td>
+              <td><%= link_to vehicle.tipo_piso_assoalho_nome, vehicle if vehicle.tipo_piso_assoalho.present? %></td>
+              <td><%= link_to vehicle.drivers.first.nome, vehicle.drivers.first  if vehicle.drivers.present? %></td>
+              <td><%= link_to vehicle.owners.first.fantasia, vehicle.owners.first  if vehicle.owners.present? %></td>
               <td><%= link_to 'Show', vehicle, class: "btn btn-info btn-xs" %></td>
               <td><%= link_to 'Edit', edit_vehicle_path(vehicle), class: "btn btn-primary btn-xs" %></td>
               <td><%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
