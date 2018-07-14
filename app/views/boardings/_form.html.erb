@@ -14,6 +14,9 @@
     <%= f.label :driver_id, "Motorista" %><br>
     <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
+  <div id="div_result_person">
+    
+  </div>  
   <div class="form-group">
     <%= f.label :value_boarding, "Valor Embarque" %><br>
     <%= f.text_field :value_boarding, class: "form-control money2", value: to_real(f.object.value_boarding) %>
@@ -71,3 +74,26 @@
     <%= link_to "Listar Todos", boardings_path, class: "btn btn-default" %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+jQuery(function($) {
+  // when the #country field changes
+  var type = -1;
+
+  $("#boarding_driver_id").change(function() {
+    // make a POST call and replace the content
+    var url_name = "";
+    var id = $('select#boarding_driver_id :selected').val();
+    console.log("type:" + type);
+    url_name = "/drivers/get_driver_by_id";
+     //"\""+url_name+"\""
+    console.log("url: " + url_name);
+    $.ajax({
+      type: "GET",
+      data: {id: id},
+      url: url_name
+    });
+    return false;
+  });
+})
+</script>
