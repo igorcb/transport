@@ -9,6 +9,11 @@
   <li>
 
     <%= render 'static_pages/oper_boarding', boarding: boarding %>
+		<strong>Placas: </strong> <%= boarding.driver_checkin_palce_horse %> | 
+		<%= boarding.driver_checkin_palce_cart_1 %> |
+		<%= boarding.driver_checkin_palce_cart_2  %>
+		
+		<br />
 
     <%= link_to 'Inicar CheckIN', checkin_boarding_path(boarding), class: "btn btn-primary btn-xs" if !boarding.driver_checkin %>
 
