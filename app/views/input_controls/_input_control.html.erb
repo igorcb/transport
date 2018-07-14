@@ -1,7 +1,7 @@
 <td><%= input_control.id %></td>
 <td><%= link_to input_control.carrier.nome, input_control.carrier if input_control.carrier.present? %></td>
 <td><%= link_to input_control.driver.nome, input_control.driver if input_control.driver.present? %></td>
-<td><%= date_br input_control.date_entry %>&nbsp<%= time_br input_control.time_entry %></td>
+<td><%= date_br input_control.date_scheduled %>&nbsp<%= time_br input_control.time_scheduled %></td>
 <td><%= date_br input_control.date_receipt %></td>
 <td><%= input_control.palletized_status %></td>
 <td><%= input_control.quantity_pallets %></td>

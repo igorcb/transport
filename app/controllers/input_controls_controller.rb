@@ -222,7 +222,7 @@ class InputControlsController < ApplicationController
     #@input_controls = InputControl.order(date_entry: :desc, time_entry: :desc)
     #@q = Boarding.where(status: -1).search(params[:q])
     @q = InputControl.where(status: -1).search(params[:q])
-    @input_controls = InputControl.includes(:carrier, :driver).the_day.order(date_entry: :desc, time_entry: :desc)
+    @input_controls = InputControl.includes(:carrier, :driver).the_day_scheduled.order(date_scheduled: :desc, time_scheduled: :desc)
     respond_with(@input_controls)
   end
 

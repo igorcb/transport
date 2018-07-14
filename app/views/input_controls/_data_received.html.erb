@@ -21,13 +21,13 @@
 </p>
 
 <p>
-  <strong>Usuario </strong> <%= @input_control.started_user.email if @input_control.started_user.present? %> <strong>iniciou o embarque dia</strong> 
+  <strong>Usuario </strong> <%= @input_control.started_user.email if @input_control.started_user.present? %> <strong>iniciou a remessa de entrada dia</strong> 
   <%= date_br (@input_control.start_time_discharge) %> <strong>as</strong> 
   <%= time_br (@input_control.start_time_discharge) %>
 </p>
 
 <p>
-  <strong>Usuario </strong> <%= @input_control.user_received.email if @input_control.user_received.present? %> <strong>terminou o embarque dia</strong> 
+  <strong>Usuario </strong> <%= @input_control.user_received.email if @input_control.user_received.present? %> <strong>terminou a remessa de entrada dia</strong> 
   <%= date_br (@input_control.finish_time_discharge) %> <strong>as</strong> 
   <%= time_br (@input_control.finish_time_discharge) %>
 </p>
