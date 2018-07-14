@@ -22,8 +22,8 @@
           <td align="center"><%= link_to vehicle.numero_eixos, vehicle %></td>
           <td><%= link_to "#{vehicle.qtde_paletes}", vehicle %></td>
           <td><%= link_to vehicle.tipo_piso_assoalho_nome, vehicle %></td>
-          <td><%= link_to vehicle.drivers.first.nome, vehicle.drivers  if vehicle.drivers.present? %></td>
-          <td><%= link_to vehicle.owners.first.fantasia, vehicle.owners  if vehicle.owners.present? %></td>
+          <td><%= link_to vehicle.drivers.first.nome, vehicle.drivers.first  if vehicle.drivers.present? %></td>
+          <td><%= link_to vehicle.owners.first.fantasia, vehicle.owners.first  if vehicle.owners.present? %></td>
         </tr>
       <% end %>
     </tbody>
