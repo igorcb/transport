@@ -2,7 +2,7 @@ class Boarding < ActiveRecord::Base
   validates :carrier_id, presence: true
   validates :driver_id, presence: true
   validates :status, presence: true
-  validates_associated :ordem_services
+  #validates_associated :ordem_services
     
   belongs_to :carrier
   belongs_to :driver
@@ -54,9 +54,9 @@ class Boarding < ActiveRecord::Base
     item.driver_checkin_palce_cart_2 = driver_checkin_palce_cart_2.upcase if driver_checkin_palce_cart_2.present?
   end  
 
-  before_create do |item| 
-    item.driver_checkin = false
-  end  
+  # before_create do |item| 
+  #   item.driver_checkin = false
+  # end  
 
   module TipoStatus
   	ABERTO = 0
@@ -142,11 +142,12 @@ class Boarding < ActiveRecord::Base
       hash_ids << i[0].to_i
     end
     begin
+      #byebug
       driver = Boarding.driver_not_information #Motorista Padrao - Motorista Não Identificado
       carrier = Boarding.carrier_not_information #Agent Padrao - Agent Não Identificado
       boarding = nil
       ActiveRecord::Base.transaction do
-        boarding = Boarding.create!(driver_id: driver, carrier_id: carrier, status: TipoStatus::ABERTO)
+        boarding = Boarding.create(driver_id: driver, carrier_id: carrier, status: Boarding::TipoStatus::ABERTO)
         hash_ids.each do |os|
         	boarding.boarding_items.create!(ordem_service_id: os, delivery_number: 1)
         end
