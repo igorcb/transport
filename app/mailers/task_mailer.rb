@@ -3,6 +3,7 @@ class TaskMailer < ActionMailer::Base
 
   def notification_employee(task)
     @task = task
+    
     if Rails.env.development?
       email = ENV['RAILS_MAIL_DESTINATION']
     end
@@ -23,7 +24,6 @@ class TaskMailer < ActionMailer::Base
   end  
 
   def notification_requester(task)
-    #data_email
     @task = task
     if Rails.env.development?
       email = ENV['RAILS_MAIL_DESTINATION']
@@ -31,8 +31,12 @@ class TaskMailer < ActionMailer::Base
     if Rails.env.production?
       email_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
       email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
-      second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) if @task.second_employee.present?
-      email = email_employee + email_requester + second_employee
+      email = email_employee + email_requester
+      if @task.second_employee.present?
+        second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) 
+        email = email_employee + email_requester + second_employee
+      end
+      email
     end 
 
     text_subject = "START/FINISH TASK: #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
