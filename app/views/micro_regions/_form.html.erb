@@ -1,0 +1,15 @@
+<%= form_for(@micro_region) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control"  %>
+  </div>
+
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir", micro_region_path(@micro_region), class: "btn btn-info" if !@micro_region.new_record? %>
+    <%= link_to "Listar Todos", micro_regions_path, class: "btn btn-default" %>
+  </div>  
+<% end %>
