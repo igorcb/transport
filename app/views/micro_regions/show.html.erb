@@ -13,25 +13,12 @@
         
            <div class="panel-body"> 
 
-			        <div class="table-responsive">
-			          <table class="table table-striped">
-			            <thead>
-			              <tr>
-			                <%#= render 'nfe_xmls/nfe_header' %>
-			              </tr>
-			            </thead>
+           	<ul>
+           		<% @micro_region.micro_regions_cities.each do |micro_region|  %>
+           	    <li><%= micro_region.city.name %></li>
+           	  <% end %>
+           	</ul>
 
-			            <tbody>
-			              <%# @scheduling.nfe_xmls.each do |nfe_xml| %>
-			                <tr>
-			                  <%#= render nfe_xml %>
-			                </tr>
-			              <%# end %>
-			              
-			            </tbody>
-			          </table>
-			        </div>            		
-        
         </div>
       </div>
     </div>
@@ -43,4 +30,5 @@
 <div class="form-group">
   <%= link_to 'Editar', edit_micro_region_path(@micro_region), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', micro_regions_path, class: "btn btn-default" %>
+  <%= link_to 'Adicionar Cidade', micro_regions_path, class: "btn btn-success" %>
 </div>
