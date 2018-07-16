@@ -1,0 +1,2 @@
+module MicroRegionsCitiesHelper
+end

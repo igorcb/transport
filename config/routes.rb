@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
-  resources :micro_regions
+  resources :micro_regions do
+    resources :micro_regions_cities
+  end
 
   resources :meetings do
     resources :subjects do

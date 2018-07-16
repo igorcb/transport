@@ -30,5 +30,5 @@
 <div class="form-group">
   <%= link_to 'Editar', edit_micro_region_path(@micro_region), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos', micro_regions_path, class: "btn btn-default" %>
-  <%= link_to 'Adicionar Cidade', micro_regions_path, class: "btn btn-success" %>
+  <%= link_to 'Adicionar Cidade', new_micro_region_micro_regions_city_path(@micro_region), class: "btn btn-success" %>
 </div>
