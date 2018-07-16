@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
 
   def create
     @model = find_model
-
+    byebug
     case params[:comment][:comment_type]
       when "OrdemService" then result = false
       when "Occurrence" then result = false
@@ -21,6 +21,14 @@ class CommentsController < ApplicationController
       when "InputControl" then 
         if params[:nfe].blank?
           flash[:danger] = "Select at least one nfe to generate ocurrence."
+          redirect_to comments_boarding_path(@model)
+          return
+        elsif @model.billing_client.present?
+          flash[:danger] = "Select billing client."
+          redirect_to comments_boarding_path(@model)
+          return
+        elsif @model.billing_client.emails.type_sector(Sector::TypeSector::REGISTROS_OCORRENCIA).present?
+          flash[:danger] = "There is no email registered for the billing client."
           redirect_to comments_boarding_path(@model)
           return
         elsif params[:comment][:title].blank?
