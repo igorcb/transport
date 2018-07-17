@@ -161,6 +161,7 @@ Transport::Application.routes.draw do
       post :update_row_order, on: :collection    
     end
     #match :cancellation, :as => :cancellation, :via => [:get, :put]  
+    get :selection_shipment_search, on: :collection
   end
 
   resources :boarding_items do

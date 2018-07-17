@@ -5,8 +5,18 @@ class BoardingsController < ApplicationController
   respond_to :js, :html
 
 	def selection_shipment
-		@ordem_services = OrdemService.where(status: OrdemService::TipoStatus::ABERTO)
+    @q = OrdemService.includes(:client, :driver, :nfe_keys).where(status: OrdemService::TipoStatus::ABERTO).search(params[:query])
+		@ordem_services = @q.result
 	end
+
+  def selection_shipment_search
+    @q = OrdemService.includes(:client, :driver, :cte_keys, :nfe_keys, :nfs_keys, :ordem_service_logistics, :ordem_service_type_service).where(status: OrdemService::TipoStatus::ABERTO).search(params[:query])
+    #@q = OrdemService.joins(:client, :driver, :cte_keys, :nfe_keys, :nfs_keys, :ordem_service_logistics, :ordem_service_type_service).where(status: OrdemService::TipoStatus::ABERTO).order(id: :desc).search(params[:query])
+    @ordem_services = @q.result   
+    respond_with(@ordem_services) do |format|
+      format.js
+    end     
+  end
 
 	def search_ordem_service
 		@ordem_service = OrdemService.find(params[:boarding_items][:ordem_service_id])

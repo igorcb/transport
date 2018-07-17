@@ -1,0 +1,47 @@
+<div class="table-responsive">
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>No O.S.</th>
+        <th>Client</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th width:"10px">NF-e</th>
+        <th align="right">Peso</th>
+        <th align="right">Volume</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% i = 1 %>
+      <% @ordem_services.each do |ordem_service| %>
+        <tr>
+          <td>
+            <%= check_box_tag "os[ids][#{ordem_service.id}]", ordem_service.id, false, value: ordem_service.peso, onchange:"checkPesoTotal();", class: "escolha" %>
+          </td>
+          <td><%= link_to ordem_service.id, ordem_service %></td>
+          <td><%= link_to truncate(ordem_service.client.nome, length: 16), ordem_service %></td>
+          <td><%= link_to ordem_service.client.cidade, ordem_service %></td>
+          <td><%= link_to ordem_service.client.estado, ordem_service %></td>
+          <td><div><%= link_to ordem_service.get_number_nfe, ordem_service if ordem_service.nfe_keys.present? %></div></td>
+          <td><%= link_to number_to_currency(ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: "."), ordem_service if !ordem_service.peso.blank? %></td>
+          <td><%= link_to number_to_currency(ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: "."), ordem_service if !ordem_service.peso.blank? %></td>
+          <td><%= ordem_service.status_name %></td>
+        </tr>
+        <% i = i +1 %>
+      <% end %>
+   
+      <tr>
+        <td colspan="6"><strong>Total Selecionado</strong></td>
+        <td align="right"><%= text_field_tag :peso_total, "", value: 0, disabled: true, size: 10, style: "text-align: Right"  %></td>
+        <td colspan="4"><strong></strong></td>
+      </tr>
+
+    </tbody>
+   
+  </table>
+
+</div>        

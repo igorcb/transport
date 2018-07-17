@@ -23,8 +23,12 @@
           <% @ordem_services.each do |ordem_service| %>
             <tr>
               <td><%= link_to ordem_service.id, ordem_service %></td>
+              <% if ordem_service.ordem_service_logistic.present? %>
               <td><%= link_to ordem_service.ordem_service_logistic.placa, ordem_service if ordem_service.ordem_service_logistic.placa.present? %></td>
+              <% end %>
+              <% if ordem_service.ordem_service_logistic.present? %>
               <td><%= link_to truncate(ordem_service.ordem_service_logistic.delivery_driver.nome, length: 16), ordem_service if ordem_service.ordem_service_logistic.delivery_driver.present? %></td>
+              <% end %>
               <td><%= link_to truncate(ordem_service.client.nome, length: 16), ordem_service %></td>
               <td><%= link_to date_br(ordem_service.data), ordem_service %></td>
               <td><%= link_to ordem_service.cte_keys.first.cte, ordem_service if ordem_service.cte_keys.present? %></td>

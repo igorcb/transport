@@ -3,6 +3,35 @@
 </style>
 <h1>Gerar Embarque</h1>
 
+<%#= form_tag(selection_shipment_search_boardings_url, :method => :get, remote: true) do %>
+<%= search_form_for @q, remote: true, url: selection_shipment_search_boardings_path, :method => :get do |f| %>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">Pesquisar por</div>
+    <div class="panel-body">
+      
+      <div class="form-group">
+        <%= label_tag :estado, "Estado" %>
+        <%= select_tag :estado, options_from_collection_for_select(State.order(:name), :uf, :name, 'CE'), :prompt => "Selecione um estado", class: "form-control" %>
+
+      </div>
+
+      <div class="form-group">
+        <%= f.label :cidade_cont, "Cidade" %>
+        <%#= f.collection_select :cidade_cont, city_of_state('CE'), :name, :name, {prompt: "SELECIONE CIDADE"}, {class: "form-control"} %>
+        <%= f.text_field :cidade_cont, class: "form-control"  %>
+      </div>
+
+      <div class="form-group">
+        <%= submit_tag("Search") %> 
+      </div>
+
+    </div>
+
+  </div>
+
+<% end %>
+
 
 <div id="ordem_service_type_service_id">
   <%= form_tag({:controller => "boardings", :action => "create"}, :method => "post", :name => "boardingForm") do %>
@@ -10,48 +39,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">Selecione as OS para Embarque</div>
     <div class="panel-body">
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th></th>
-              <th>No O.S.</th>
-              <th>Client</th>
-              <th>Cidade</th>
-              <th>Estado</th>
-              <th width:"10px">NF-e</th>
-              <th>Peso</th>
-              <th>Volume</th>
-              <th>Status</th>
-            </tr>
-          </thead>
 
-          <tbody>
-            <% i = 1 %>
-            <% @ordem_services.each do |ordem_service| %>
-              <tr>
-                <td>
-                  <%= check_box_tag "os[ids][#{ordem_service.id}]", ordem_service.id, false, value: ordem_service.peso, onchange:"checkPesoTotal();", class: "escolha" %>
-                </td>
-                <td><%= link_to ordem_service.id, ordem_service %></td>
-                <td><%= link_to truncate(ordem_service.client.nome, length: 16), ordem_service %></td>
-                <td><%= link_to ordem_service.client.cidade, ordem_service %></td>
-                <td><%= link_to ordem_service.client.estado, ordem_service %></td>
-                <td><div><%= link_to ordem_service.get_number_nfe, ordem_service if ordem_service.nfe_keys.present? %></div></td>
-                <td align="right"><%= link_to number_to_currency(ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: "."), ordem_service if !ordem_service.peso.blank? %></td>
-                <td align="right"><%= link_to number_to_currency(ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: "."), ordem_service if !ordem_service.peso.blank? %></td>
-                <td><%= ordem_service.status_name %></td>
-              </tr>
-              <% i = i +1 %>
-            <% end %>
-   
-            <tr>
-              <td colspan="6"><strong>Total Selecionado</strong></td>
-              <td align="right"><%= text_field_tag :peso_total, "", value: 0, disabled: true, size: 10, style: "text-align: Right"  %></td>
-              <td colspan="4"><strong></strong></td>
-            </tr>
-   
-        </table>
+      <div id="result_input">
+
+        <%= render(partial: 'ordem_services', locals: {f: @ordem_services}) %>
+
       </div>    
     </div>
   </div>
@@ -122,4 +114,20 @@ jQuery(function($) {
     return false;
   });
 })
+</script>
+
+<script type="text/javascript">
+  $(function(){
+    $("#estado").change(function(){
+      var uf = "uf="+$(this).val();
+      console.log(uf);
+      $.getJSON('/get_city_by_uf', uf, function(data){
+        var options = '<option value="">Selecione a cidade de origem</option>'; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#query_cidade_cont").html(options);
+      });
+    });
+  });
 </script>
