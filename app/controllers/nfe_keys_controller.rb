@@ -96,6 +96,26 @@ class NfeKeysController < ApplicationController
     end
   end
 
+  def request_payment_dae
+    if !@nfe_key.take_dae?
+      flash[:danger] = "Can not send DAE charge, take_dae is false"
+      redirect_to @nfe_key
+      return
+    elsif @nfe_key.action_inspector_file_name.present?
+      flash[:danger] = "NF-e already has payment_dae"
+      redirect_to @nfe_key
+      return
+    elsif @nfe_key.ordem_service.client.emails.type_sector(Sector::TypeSector::FINANCEIRO).pluck(:email).blank?
+      flash[:danger] = "Could not request declaration. Make sure the customer has an email with the FINANCIAL sector."
+      redirect_to @nfe_key
+      return
+    end      
+    respond_to do |format|
+      NfeKeyMailer.request_payment_dae(@nfe_key).deliver!
+      format.html { redirect_to @nfe_key, flash: { success: "Request Payment DAE was successfully updated." } }
+    end
+  end  
+
 
   private
     def set_nfe_key

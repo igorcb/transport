@@ -243,6 +243,7 @@ Transport::Application.routes.draw do
       get :pending
       patch :update_pending
       get :request_receipt
+      get :request_payment_dae
     end
     collection do
       get :search
