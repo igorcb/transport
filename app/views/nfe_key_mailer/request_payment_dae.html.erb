@@ -1,0 +1,52 @@
+<h3>Prezados</h3>
+
+<p>
+	Venho informar que consta notas pendente de pagamentos de ICMS , caso tenha pago favor desconsiderar o aviso.
+	<br>
+	Verifique diretamente na SEFAZ pelo site abaixo.	
+</p>
+
+<p>
+	Comunicado importante: A mercadoria só será entregue após o envio do comprovante de pagamento pedimos que
+	<br>
+	nos envie para o e-mail: daepago@l7logistica.com.br
+</p>
+
+<p>
+	<%= link_to 'http://www2.sefaz.ce.gov.br/sitram-internet/masterDetailLancamento.do?method=prepareSearch&quiosque=n', 'http://www2.sefaz.ce.gov.br/sitram-internet/masterDetailLancamento.do?method=prepareSearch&quiosque=n' %>
+</p>
+
+<p>
+	Ação fiscal: <%= @nfe_key.action_inspector_number %>
+</p>
+
+<ul>
+	<% @nfe_keys.each do |nfe| %>
+		<p>
+			<strong>NF-e</strong>
+			<%= nfe.nfe %>
+		</p>
+
+		<p>
+			<strong>Estado</strong>
+			<%= nfe.ordem_service.estado %>
+		</p>
+
+		<p>
+			<strong>Cidade</strong>
+			<%= nfe.ordem_service.cidade %>
+		</p>
+
+		<p>
+			<strong>Fornecedor</strong>
+			<%= nfe.ordem_service.source_client.nome %>
+		</p>
+
+		<p>
+			<strong>Chave</strong>
+			<%= nfe.chave %>
+		</p>
+	<% end %>
+	<hr>
+</ul>       
+
