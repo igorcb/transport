@@ -116,6 +116,32 @@ class NfeKeysController < ApplicationController
     end
   end  
 
+  def take_dae
+
+  end
+
+  def update_take_dae
+    if params[:nfe_key][:action_inspector_number].blank?
+      flash[:danger] = "Action Inspector can not be blank"
+      #render action: 'take_dae'
+      redirect_to take_dae_nfe_key_path(@nfe_key)
+      return
+    elsif @nfe_key.take_dae?
+      flash[:danger] = "Can not DAE charge, take_dae is true"
+      redirect_to @nfe_key
+      return
+    end
+      
+    respond_to do |format|
+      if @nfe_key.update(nfe_key_params)
+        NfeKey.take_dae(@nfe_key)
+        format.html { redirect_to @nfe_key, flash: { success: "Take DAE was successfully updated." } }
+      else
+        format.html { render action: 'take_dae' }
+      end
+    end
+  end
+
 
   private
     def set_nfe_key
@@ -123,7 +149,7 @@ class NfeKeysController < ApplicationController
     end
 
     def nfe_key_params
-      params.require(:nfe_key).permit(:asset, :action_inspector, :motive_id, :motive_observation)
+      params.require(:nfe_key).permit(:asset, :action_inspector, :action_inspector_number, :motive_id, :motive_observation)
     end
 
 end

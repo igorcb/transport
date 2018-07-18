@@ -244,6 +244,8 @@ Transport::Application.routes.draw do
       patch :update_pending
       get :request_receipt
       get :request_payment_dae
+      get :take_dae
+      patch :update_take_dae
     end
     collection do
       get :search

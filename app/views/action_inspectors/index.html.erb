@@ -38,7 +38,7 @@
             <% @action_inspectors.each do |nfe| %>
 
             <tr>
-              <td><%= link_to nfe.ordem_service.input_control.id, nfe.ordem_service.input_control %></td>
+              <td><%= link_to nfe.ordem_service.input_control.id, nfe.ordem_service.input_control if nfe.ordem_service.input_control.present? %></td>
               <td><%= link_to nfe.ordem_service.id, nfe.ordem_service %></td>
               <td><%= link_to nfe.ordem_service.client.cpf_cnpj, nfe.ordem_service.client %></td>
               <td><%= link_to nfe.ordem_service.client.nome, nfe.ordem_service.client %></td>

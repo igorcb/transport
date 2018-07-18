@@ -1,0 +1,11 @@
+<%= form_for @nfe_key, url: update_take_dae_nfe_key_path, method: :patch, :html => { :multipart => true }   do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+		<div class="form-group">
+			<%= f.label :action_inspector_number  %>
+      <%= f.text_field :action_inspector_number, class: "form-control ", placeholder: "Ação Fiscal" %>
+    </div>
+
+		<%= f.submit "Cobrar DAE", class: "btn btn-primary" %>
+		<%= link_to 'Voltar', nfe_key_path(@nfe_key), class: "btn btn-default" %>
+<% end %>

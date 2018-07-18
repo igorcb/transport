@@ -93,6 +93,10 @@ class NfeKey < ActiveRecord::Base
     end
   end
 
+  def action_inspector_status_pay
+    self.action_inspector_file_name.present?
+  end
+
   def dae_pending?
     result = false
     if self.take_dae?
@@ -101,6 +105,12 @@ class NfeKey < ActiveRecord::Base
       end
     end
     result 
+  end
+
+  def self.take_dae(nfe_key)
+    ActiveRecord::Base.transaction do
+      NfeKey.where(id: nfe_key.id).update_all(take_dae: true)
+    end
   end
 
 end
