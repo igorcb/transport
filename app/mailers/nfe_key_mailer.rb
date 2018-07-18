@@ -18,13 +18,7 @@ class NfeKeyMailer < ActionMailer::Base
   end
 
   def request_payment_dae(nfe_key)
-    #@company = Company.first
-
     @nfe_key = nfe_key
-    @nfe_keys = NfeKey.where(nfe_type: "OrdemService", 
-                             take_dae: true, 
-              action_inspector_number: @nfe_key.action_inspector_number, 
-           action_inspector_file_name: nil)
     if Rails.env.development?
       email = ENV['RAILS_MAIL_DESTINATION']
     end
