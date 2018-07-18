@@ -1,8 +1,54 @@
+<div class="alert alert-warning" role="alert">
+	<p> Este Grupo de Cliente é apenas para informar quais empresas fazem parte deste grupo  <br />	 
+	como se fosse as filiais da empresa, e não colocar os clientes a qual o grupo atende. <br />
+  </p>
+</div>
 
-<p>
-  <strong>Descricao:</strong>
-  <%= @group_client.descricao %>
-</p>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Grupo de Cliente: <%= @group_client.descricao %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        
+          <div class="panel-body"> 
+
+				    <div class="table-responsive">
+				      <table class="table table-striped">
+				        <thead>
+				          <tr>
+				            <th>CNPJ</th>
+				            <th>Nome</th>
+				            <th>Estado</th>
+				            <th>Cidade</th>
+				          </tr>
+				        </thead>
+
+				        <tbody>
+				          <% @group_client.clients.each do |client| %>
+				            <tr>
+				              <td><%= client.cpf_cnpj %></td>
+				              <td><%= client.nome %></td>
+				              <td><%= client.estado %></td>
+				              <td><%= client.cidade %></td>
+				            </tr>
+				          <% end %>
+				        </tbody>
+				      </table>
+				    </div>    
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Fim collapse  --> 
+</div>
 
 <div class="form-group">
 	 <%= link_to 'Editar', edit_group_client_path(@group_client), class: "btn btn-primary" %> 
