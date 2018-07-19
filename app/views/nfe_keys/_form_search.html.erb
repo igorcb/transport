@@ -1,5 +1,21 @@
 <div class="panel-body">
   <%= search_form_for @q, remote: true, url: search_nfe_keys_path, :method => :get do |f| %>
+    <div class="form-group">
+      <%= label_tag :ordem_service_source_client_group_client_id_eq, "Grupo de Cliente Remetente" %>
+      <%= f.collection_select :ordem_service_source_client_group_client_id_eq, GroupClient.order(:descricao), :id, :descricao, {prompt: "SELECIONE O GRUPO DE CLIENTE"}, {class: "form-control"} %>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-xs-6">
+        <%= f.label :ordem_service_input_control_date_entry_gteq, "Data entrada da Remessa de Entrada" %>
+        <%= f.search_field :ordem_service_input_control_date_entry_gteq, class: "form-control data", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>  
+      </div>
+
+      <div class="col-xs-6">
+        <%= f.label :ordem_service_input_control_date_entry_lteq, "até" %>
+        <%= f.search_field :ordem_service_input_control_date_entry_lteq, class: "form-control data", placeholder: "Informe a Data do Entrada ex: 05-12-2014" %>  
+      </div>
+    </div>
 
     <div class="form-group">
       <%= f.label :nfe_eq, "NF-e" %>
