@@ -82,7 +82,9 @@ class NfeKey < ActiveRecord::Base
   end
 
   def freight_average
-    self.peso * self.average
+    result = 0.00
+    result = self.peso * self.average if self.peso.nil? || self.average.nil?
+    result
   end
 
   def action_inspector_status_name
