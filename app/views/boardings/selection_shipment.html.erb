@@ -11,8 +11,8 @@
     <div class="panel-body">
 
       <div class="form-group">
-        <%= label_tag :client_group_client_id_eq, "Grupo de Cliente" %>
-        <%= f.collection_select :client_group_client_id_eq, GroupClient.order(:descricao), :id, :descricao, {prompt: "SELECIONE O GRUPO DE CLIENTE"}, {class: "form-control"} %>
+        <%= label_tag :source_client_group_client_id_eq, "Grupo de Cliente" %>
+        <%= f.collection_select :source_client_group_client_id_eq, GroupClient.order(:descricao), :id, :descricao, {prompt: "SELECIONE O GRUPO DE CLIENTE"}, {class: "form-control"} %>
       </div>
       
       <div class="form-group">
