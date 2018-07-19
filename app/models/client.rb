@@ -81,7 +81,7 @@ class Client < ActiveRecord::Base
   #    self.faturar
   # end
   def self.ransackable_attributes(auth_object = nil)
-    ['nome', 'cpf_cnpj', 'fantasia']
+    ['nome', 'cpf_cnpj', 'fantasia', 'estado', 'cidade']
   end
 
   def self.search_numero(numero)
