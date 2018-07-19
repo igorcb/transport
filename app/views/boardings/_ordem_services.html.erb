@@ -35,6 +35,8 @@
       <% end %>
    
       <tr>
+        <td><strong>Total Registros: </strong></td>
+        <td><%= @ordem_services.count %></td>
         <td colspan="6"><strong>Total Selecionado</strong></td>
         <td align="right"><%= text_field_tag :peso_total, "", value: 0, disabled: true, size: 10, style: "text-align: Right"  %></td>
         <td colspan="4"><strong></strong></td>
