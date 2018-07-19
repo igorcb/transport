@@ -1,5 +1,11 @@
 <div class="panel-body">
   <%= search_form_for @q, :remote=>"true", url: ordem_services_search_logistic_path, :method => :get do |f| %>
+
+    <div class="form-group">
+      <%= label_tag :source_client_group_client_id_eq, "Grupo de Cliente Remetente" %>
+      <%= f.collection_select :source_client_group_client_id_eq, GroupClient.order(:descricao), :id, :descricao, {prompt: "SELECIONE O GRUPO DE CLIENTE"}, {class: "form-control"} %>
+    </div>
+
     <div class="form-group">
       <%= f.label :source_client_cpf_cnpj_eq, "CNPJ Remetente" %><br>
       <%= f.search_field :source_client_cpf_cnpj_eq, class: "form-control cnpj" %>
