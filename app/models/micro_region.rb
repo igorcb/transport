@@ -4,7 +4,7 @@ class MicroRegion < ActiveRecord::Base
 	def cities
 		array = []
 		self.micro_regions_cities.each do |city|
-			array.append(city.city.name)
+			array.append(city.city.name.upcase)
 		end
 		array
 	end
