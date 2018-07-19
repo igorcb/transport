@@ -10,7 +10,6 @@ class BoardingsController < ApplicationController
 	end
 
   def selection_shipment_search
-    byebug
     if params[:region].blank?
       @q = OrdemService.includes(:client, :driver, :cte_keys, :nfe_keys, :nfs_keys, :ordem_service_logistics, :ordem_service_type_service).where(status: OrdemService::TipoStatus::ABERTO).search(params[:query])
     else      
