@@ -27,6 +27,12 @@
 </p>
 
 <p>
+	<strong>Chave</strong>
+	<%= @nfe_key.chave %>
+</p>
+
+
+<p>
 	<strong>Estado</strong>
 	<%= @nfe_key.ordem_service.estado %>
 </p>
@@ -42,7 +48,7 @@
 </p>
 
 <p>
-	<strong>Chave</strong>
-	<%= @nfe_key.chave %>
+	<strong>Cliente</strong>
+	<%= @nfe_key.ordem_service.client.cpf_cnpj %> -
+	<%= @nfe_key.ordem_service.client.nome %>
 </p>
-
