@@ -13,13 +13,17 @@
       <div class="form-group">
         <%= label_tag :estado, "Estado" %>
         <%= select_tag :estado, options_from_collection_for_select(State.order(:name), :uf, :name, 'CE'), :prompt => "Selecione um estado", class: "form-control" %>
-
       </div>
 
       <div class="form-group">
-        <%= f.label :cidade_cont, "Cidade" %>
+        <%= f.label :cidade_cont_all, "Cidade" %>
         <%#= f.collection_select :cidade_cont, city_of_state('CE'), :name, :name, {prompt: "SELECIONE CIDADE"}, {class: "form-control"} %>
-        <%= f.text_field :cidade_cont, class: "form-control"  %>
+        <%= f.text_field :cidade_cont_all, class: "form-control"  %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :region, "Regiao" %>
+        <%= select_tag :region, options_from_collection_for_select(MicroRegion.order(:name), :id, :name), :prompt => "Selecione um estado", class: "form-control" %>
       </div>
 
       <div class="form-group">
@@ -31,6 +35,7 @@
   </div>
 
 <% end %>
+
 
 
 <div id="ordem_service_type_service_id">

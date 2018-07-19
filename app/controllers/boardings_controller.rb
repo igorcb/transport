@@ -10,8 +10,13 @@ class BoardingsController < ApplicationController
 	end
 
   def selection_shipment_search
-    @q = OrdemService.includes(:client, :driver, :cte_keys, :nfe_keys, :nfs_keys, :ordem_service_logistics, :ordem_service_type_service).where(status: OrdemService::TipoStatus::ABERTO).search(params[:query])
-    #@q = OrdemService.joins(:client, :driver, :cte_keys, :nfe_keys, :nfs_keys, :ordem_service_logistics, :ordem_service_type_service).where(status: OrdemService::TipoStatus::ABERTO).order(id: :desc).search(params[:query])
+    byebug
+    if params[:region].blank?
+      @q = OrdemService.includes(:client, :driver, :cte_keys, :nfe_keys, :nfs_keys, :ordem_service_logistics, :ordem_service_type_service).where(status: OrdemService::TipoStatus::ABERTO).search(params[:query])
+    else      
+      region = MicroRegion.find(params[:region])
+      @q = OrdemService.includes(:client, :driver, :cte_keys, :nfe_keys, :nfs_keys, :ordem_service_logistics, :ordem_service_type_service).where(status: OrdemService::TipoStatus::ABERTO).search(cidade_in: region.cities)
+    end
     @ordem_services = @q.result   
     respond_with(@ordem_services) do |format|
       format.js
