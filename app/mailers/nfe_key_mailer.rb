@@ -25,7 +25,7 @@ class NfeKeyMailer < ActionMailer::Base
     if Rails.env.production?
       email = @nfe_key.ordem_service.client.emails.type_sector(Sector::TypeSector::FINANCEIRO).pluck(:email)
     end 
-    text_subject = "Pagamento do DAE: #{@nfe_keys.pluck(:nfe)} "
+    text_subject = "Pagamento do DAE: #{@nfe_key.nfe} "
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
 
     #send mail
