@@ -31,7 +31,7 @@
     </div>
   
     <br />
-    <% object.boarding.present? %>
+    <% if object.boarding.present? %>
       <% if object.boarding.driver_checkin or object.status == OrdemService::TipoStatus::EMBARCADO %>
         <%= submit_tag("Solicitar Pagamento Descarga", class: "btn btn-success") %>   
       <% end %>
