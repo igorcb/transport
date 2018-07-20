@@ -30,8 +30,11 @@
       </table>
     </div>
   
-  <br />
+    <br />
+
+    <% if object.boarding.driver_checkin %>
+      <%= submit_tag("Solicitar Pagamento Descarga", class: "btn btn-success") %>   
+    <% end %>
   
-  <%= submit_tag("Solicitar Pagamento Descarga", class: "btn btn-success") %>   
   <% end %>
 </div>
