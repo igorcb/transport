@@ -1,0 +1,11 @@
+<%#= form_for @ordem_service, url: update_delivery_ordem_service_path, method: :patch, :html => { :multipart => true } do |f| %>
+<%= form_for @ordem_service, url: update_delivery_ordem_service_path, method: :patch, :html => { :multipart => true } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :data_entrega_servico, "Data da Entrega do Serviço" %><br>
+    <%= f.text_field :data_entrega_servico, class: "form-control data", value: date_br(Date.current) %>
+  </div>  
+
+	<%= f.submit "Efetuar Entrega", class: "btn btn-primary" %>
+<% end %>
