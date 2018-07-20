@@ -26,7 +26,7 @@ class OrdemServicesController < ApplicationController
       @comment = @ordem_service.comments.build
       @internal_comment = @ordem_service.internal_comments.build
       @cancellation = @ordem_service.cancellations.build
-      respond_with(@orrdem_service)
+      respond_with(@ordem_service)
     else
       redirect_to show_agent_ordem_service_path(@ordem_service)
     end
