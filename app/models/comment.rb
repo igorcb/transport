@@ -16,6 +16,9 @@ class Comment < ActiveRecord::Base
       when 6 then "FALTA DE PEDIDO"
       when 7 then "FALTA NO RECEBIMENTO EM NOSSO CD"
       when 8 then "SEM PREVISÃO DE DESCARGA"
+      when 9 then "FALTA E SOBRA NO RECEBIMENTO EM NOSSO CD"
+      when 10 then "SOBRA NO RECEBIMENTO EM NOSSO CD"
+      when 11 then "PAGAMENTO DE DESCARGA ACIMA DO VALOR BASE"
     end
   end
 
