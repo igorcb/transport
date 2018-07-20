@@ -362,7 +362,9 @@ Transport::Application.routes.draw do
     end
     resources :inventories
     member do
-      get 'delivery'
+      #get 'delivery'
+      get :delivery
+      patch :update_delivery
       get 'close_os'  
       patch 'close'  
       get 'edit_agent'
