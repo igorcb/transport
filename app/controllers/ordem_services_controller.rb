@@ -298,10 +298,6 @@ class OrdemServicesController < ApplicationController
       flash[:danger] = "Data Agendamento can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return
-    elsif !@ordem_service.data_entrega_servico.present? 
-      flash[:danger] = "Data Entrega Servico can't be blank."
-      redirect_to ordem_service_path(@ordem_service)
-      return
     elsif !@ordem_service.billing_client_id.present? 
       flash[:danger] = "Client billing can't be blank."
       redirect_to ordem_service_path(@ordem_service)
@@ -323,6 +319,11 @@ class OrdemServicesController < ApplicationController
   end
 
   def update_delivery
+    if params[:ordem_service][:data_entrega_servico].blank?
+      flash[:danger] = "Data Entrega Servico can't be blank."
+      redirect_to ordem_service_path(@ordem_service)
+      return    
+    end
     OrdemService.information_delivery(params[:id])
     redirect_to @ordem_service, flash: { success: "Ordem Service delivery was successful" }
   end
