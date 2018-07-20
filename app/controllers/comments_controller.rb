@@ -20,19 +20,19 @@ class CommentsController < ApplicationController
       when "InputControl" then 
         if params[:nfe].blank?
           flash[:danger] = "Select at least one nfe to generate ocurrence."
-          redirect_to comments_boarding_path(@model)
+          redirect_to comments_input_control_path(@model)
           return
-        elsif @model.billing_client.present?
+        elsif @model.billing_client.blank?
           flash[:danger] = "Select billing client."
-          redirect_to comments_boarding_path(@model)
+          redirect_to comments_input_control_path(@model)
           return
-        elsif @model.billing_client.emails.type_sector(Sector::TypeSector::REGISTROS_OCORRENCIA).present?
+        elsif @model.billing_client.emails.type_sector(Sector::TypeSector::REGISTROS_OCORRENCIA).blank?
           flash[:danger] = "There is no email registered for the billing client."
-          redirect_to comments_boarding_path(@model)
+          redirect_to comments_input_control_path(@model)
           return
         elsif params[:comment][:title].blank?
           flash[:danger] = "Select the type of occurrence."
-          redirect_to comments_boarding_path(@model)
+          redirect_to comments_input_control_path(@model)
           return
         end
     end
