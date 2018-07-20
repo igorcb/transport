@@ -4,7 +4,6 @@ class CommentsController < ApplicationController
 
   def create
     @model = find_model
-    byebug
     case params[:comment][:comment_type]
       when "OrdemService" then result = false
       when "Occurrence" then result = false
