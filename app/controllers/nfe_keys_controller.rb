@@ -55,11 +55,11 @@ class NfeKeysController < ApplicationController
 
   def search
     if params[:status].to_i == NfeKey::TypeTakeDae::ABERTO
-      @q = NfeKey.where(nfe_source_type: "InputControl", take_dae: true, action_inspector_file_name: nil).paginate(:page => params[:page]).search(params[:query])
+      @q = NfeKey.includes(:ordem_service).where(nfe_source_type: "InputControl", take_dae: true, action_inspector_file_name: nil).paginate(:page => params[:page]).search(params[:query])
     elsif params[:status].to_i == NfeKey::TypeTakeDae::PAGO
-      @q = NfeKey.where(nfe_source_type: "InputControl", take_dae: true).where.not(action_inspector_file_name: nil).paginate(:page => params[:page]).search(params[:query])
+      @q = NfeKey.includes(:ordem_service).where(nfe_source_type: "InputControl", take_dae: true).where.not(action_inspector_file_name: nil).paginate(:page => params[:page]).search(params[:query])
     else
-      @q = NfeKey.where(nfe_source_type: "InputControl").paginate(:page => params[:page]).search(params[:query])
+      @q = NfeKey.includes(:ordem_service).where(nfe_source_type: "InputControl").paginate(:page => params[:page]).search(params[:query])
     end
 
     @nfe_keys = @q.result
