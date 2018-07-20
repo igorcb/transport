@@ -37,6 +37,43 @@ class NfeKey < ActiveRecord::Base
     MERCADORIA_PROBLEMA_PRODUCAO = 9
   end
 
+  def status_nfe
+    # =byebug
+    result = ''
+    if self.ordem_service.data.blank?
+      #'QUANDO A DATA DE AGENDAMENTO DA O.S. ESTIVER EM BRANCO'
+      return result = "AGUARDANDO AGENDAMENTO"
+    end
+    if self.ordem_service.data.present?
+      #'QUANDO A DATA DE AGENDAMENTO DA O.S. ESTIVER EM BRANCO'
+      date = self.ordem_service.data.strftime('%d/%m/%Y')
+      result = "PREVISAO DE ENTREGA - #{date}"
+    end
+    if self.ordem_service.status == "CLIENTE_NAO_RECEBEU"
+      #"CRIAR STATUS DE QUE O CLIENTE NÃO RECEBEU A MERCADORIA"
+      return result = "CLIENTE NÃO RECEBEU MERCADORIA"
+    end
+    if self.ordem_service.status == "CHECKIN_CLIENTE"
+      #'QUANDO O STATUS DA O.S. ESTIVER EMBARCADO, CRIAR UM NOVO STATUS NA O.S. CHECKIN NO CLIENTE'
+      return status = "AGUARDANDO DESCARGAR NO CLIENTE"
+    end
+    if self.ordem_service.status == OrdemService::TipoStatus::EMBARCADO
+      #'QUANDO O STATUS DA O.S. ESTIVER EMBARCADO'
+      return result = "MERCADORIA EM ROTA PARA O CLIENTE"
+    end
+    #(os.status == OrdemService::TipoStatus::FECHADO) or (os.status == OrdemService::TipoStatus::FATURADO)
+    if ( (self.ordem_service.status == OrdemService::TipoStatus::ENTREGA_EFETUADA) ||
+         (self.ordem_service.status == OrdemService::TipoStatus::FECHADO) ||
+         (self.ordem_service.status == OrdemService::TipoStatus::FATURADO) )
+      #'ENTREGA EFETUADA' = 'QUANDO A O.S. ESTIVER COM STATUS ENTREGA EFETUADA '
+      date = self.ordem_service.data_entrega_servico.strftime('%d/%m/%Y')
+      return result = "ENTREGA EFETUADA - #{date}"
+    end
+    result
+    #'AGUARDANDO DESCARGAR NA L7' = 'PEGAR DA REMESSA DE ENTRADA QUANDO A DIGITALIZACAO ESTIVER FINALIZADA SE TIVER GERADO O.S.'
+
+  end
+
   def motive_name
     case self.motive_id
       when TypeMotive::DIVERGENCIA_NFE then "Divergencia de valores da nota fiscal"
@@ -116,3 +153,4 @@ class NfeKey < ActiveRecord::Base
   end
 
 end
+
