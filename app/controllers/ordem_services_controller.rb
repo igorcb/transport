@@ -314,7 +314,7 @@ class OrdemServicesController < ApplicationController
       flash[:danger] = "Please defined email to delivery."
       redirect_to ordem_service_path(@ordem_service)
       return
-    elsif !@ordem_service.ordem_service_logistics.delivery_driver_id.present?
+    elsif !@ordem_service.ordem_service_logistic.delivery_driver_id.present?
       flash[:danger] = "Driver to delivery can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return
