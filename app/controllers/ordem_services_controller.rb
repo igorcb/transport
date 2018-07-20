@@ -324,8 +324,13 @@ class OrdemServicesController < ApplicationController
       redirect_to ordem_service_path(@ordem_service)
       return    
     end
-    OrdemService.information_delivery(params[:id])
-    redirect_to @ordem_service, flash: { success: "Ordem Service delivery was successful" }
+    respond_to do |format|
+      if @ordem_service.update(ordem_service_params)
+        OrdemService.information_delivery(params[:id])
+        format.html { redirect_to @ordem_service, flash: { success: "Ordem Service delivery was successful." } }
+        format.json { head :no_content }
+      end
+    end
   end
 
   def close
