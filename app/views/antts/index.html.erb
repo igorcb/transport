@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de ANTT</div>
+  <div class="panel-body">
+    <%= link_to 'New Antt', new_antt_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Rntrc</th>
+            <th>Cpf cnpj</th>
+            <th>Nome</th>
+            <th>Date expiration</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @antts.each do |antt| %>
+            <tr>
+              <td><%= antt.rntrc %></td>
+              <td><%= antt.cpf_cnpj %></td>
+              <td><%= antt.name %></td>
+              <td><%= date_br antt.date_expiration %></td>
+              <td><%= link_to 'Show', antt, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_antt_path(antt), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Destroy', antt, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

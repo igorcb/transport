@@ -166,6 +166,13 @@ class InputControlsController < ApplicationController
       respond_with(@input_control)
       return
     end
+    ids = OrdemService.get_hash_ids(params[:nfe][:ids])
+    if !InputControl.check_client?(ids)
+      flash[:danger] = "Client source are not the same."
+      respond_with(@input_control)
+      return
+    end
+
     if @input_control.carrier_credentials? 
       if InputControl.client_not_credentials_sefaz?(@input_control.nfe_xmls.client_ids) &&
         @input_control.action_inspector.blank? &&

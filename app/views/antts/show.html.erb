@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Dados da ANTT
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        
+           <div class="panel-body"> 
+
+						<p>
+						  <strong>Rntrc:</strong>
+						  <%= @antt.rntrc %>
+						</p>
+
+						<p>
+						  <strong>Cpf cnpj:</strong>
+						  <%= @antt.cpf_cnpj %>
+						</p>
+
+						<p>
+						  <strong>Nome:</strong>
+						  <%= @antt.name %>
+						</p>
+
+						<p>
+						  <strong>Date expiration:</strong>
+						  <%= date_br @antt.date_expiration %>
+						</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Fim collapse  --> 
+</div>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_antt_path(@antt), class: "btn btn-primary" %> 
+  <%= link_to 'Voltar', antts_path, class: "btn btn-default" %>
+</div>
