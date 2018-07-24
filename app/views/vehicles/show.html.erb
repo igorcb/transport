@@ -82,11 +82,6 @@
 </p>
 
 <p>
-  <strong>ANTT:</strong>
-  <%= @vehicle.antt %>
-</p>
-
-<p>
   <strong>Espécie:</strong>
   <%= @vehicle.especie %>
 </p>
@@ -233,6 +228,28 @@
 <% else %>
   <p>This person has no owner yet.</p>
 <% end %>
+
+<h2>Dados da ANTT</h2>
+
+<% if @vehicle.antts.present? %>  
+  <p>
+    <strong>RNTRC:</strong>
+    <%= link_to @vehicle.antts.first.rntrc, @vehicle.antts.first %>
+  </p>
+  <p>
+    <strong>CPF/CNPJ:</strong>
+    <%= @vehicle.antts.first.cpf_cnpj %>
+  </p>
+  <p>
+    <strong>Nome:</strong>
+    <%= @vehicle.antts.first.name %>
+  </p>
+  <p>
+    <strong>Validade ANTT:</strong>
+    <%= date_br @vehicle.antts.first.date_expiration %>
+  </p>
+<% end %>
+
 
 <div class="form-group">
   <%= link_to 'Editar', edit_vehicle_path(@vehicle), class: "btn btn-primary" %>
