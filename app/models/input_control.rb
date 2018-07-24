@@ -212,6 +212,18 @@ class InputControl < ActiveRecord::Base
     positivo
   end
   
+  def self.check_client?(ids)
+    # verifica se o cliente da fatura é o mesmo para todas as nfe_xmls
+    positivo = true
+    clients = NfeXml.where(id: ids)
+    client = clients.first
+    clients.order(:id).each do |os|
+      positivo = client.target_client_id == os.target_client_id
+      return false if positivo == false
+    end
+    positivo
+  end
+
   def self.client_not_credentials_sefaz?(client_ids)
     result = Client.where(id: [client_ids], client_credential_sefaz: false).present?
   end  

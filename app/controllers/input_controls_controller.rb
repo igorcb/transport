@@ -168,7 +168,7 @@ class InputControlsController < ApplicationController
     end
     ids = OrdemService.get_hash_ids(params[:nfe][:ids])
     if !InputControl.check_client?(ids)
-      flash[:danger] = "Client source are not the same."
+      flash[:danger] = "Client target are not the same."
       respond_with(@input_control)
       return
     end
