@@ -44,6 +44,10 @@ class Vehicle < ActiveRecord::Base
   has_many :owners, :through => :ownerships
   accepts_nested_attributes_for :ownerships, allow_destroy: true, reject_if: :all_blank
 
+  has_and_belongs_to_many :antts
+
+  has_many :antts_vehicles
+
   scope :driver_all, -> (driver) { joins(:drivings).where("drivings.driver_id = ?", driver.id) }
   
   before_save do |v| 

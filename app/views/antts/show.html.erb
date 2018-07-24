@@ -11,33 +11,78 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
+        <div class="panel panel-default">
+
+          <div class="panel panel-default">
+
+            <div class="panel-body"> 
+              
+              <p>
+                <strong>Rntrc:</strong>
+                <%= @antt.rntrc %>
+              </p>
+
+              <p>
+                <strong>Cpf cnpj:</strong>
+                <%= @antt.cpf_cnpj %>
+              </p>
+
+              <p>
+                <strong>Nome:</strong>
+                <%= @antt.name %>
+              </p>
+
+              <p>
+                <strong>Date expiration:</strong>
+                <%= date_br @antt.date_expiration %>
+              </p>
+            
+            </div>
+          </div>
         
-           <div class="panel-body"> 
-
-						<p>
-						  <strong>Rntrc:</strong>
-						  <%= @antt.rntrc %>
-						</p>
-
-						<p>
-						  <strong>Cpf cnpj:</strong>
-						  <%= @antt.cpf_cnpj %>
-						</p>
-
-						<p>
-						  <strong>Nome:</strong>
-						  <%= @antt.name %>
-						</p>
-
-						<p>
-						  <strong>Date expiration:</strong>
-						  <%= date_br @antt.date_expiration %>
-						</p>
-
         </div>
       </div>
     </div>
   </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Veículos
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <%#= link_to '[+] Veículos', '#new_type_service', 'data-toggle' => 'modal', class: "btn btn-success btn-sm" %>
+        <%= link_to '[+] Veículos', '#new_type_service', 'data-toggle' => 'modal', class: "btn btn-success btn-sm" %>
+
+        <div id="boardings_items_list">
+          <%= render 'shared/show_vehicle_compact', object: @antt %>
+        </div>
+        
+        <div class="modal fade" id="new_type_service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Adicionar Veículo: </h4>
+              </div>
+              <div class="modal-body">
+                <%= render 'antts_vehicles/form_js', modal: true %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div> 
 
 <!-- Fim collapse  --> 
 </div>

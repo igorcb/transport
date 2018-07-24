@@ -1,5 +1,11 @@
 Transport::Application.routes.draw do
-  resources :antts
+  #get "antts_vehicles/create"
+  
+  resources :antts_vehicles
+
+  resources :antts do
+    resources :antts_vehicles
+  end
 
   resources :micro_regions do
     resources :micro_regions_cities

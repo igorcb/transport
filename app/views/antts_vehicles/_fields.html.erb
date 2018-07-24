@@ -1,0 +1,51 @@
+
+  <%= f.hidden_field :antt_id, value: @antt.id %>
+  <%= f.hidden_field :vehicle_id, value: nil %>
+
+  <div class="form-group">
+    <%= label_tag :place, "Placa" %>
+    <%= text_field_tag :place, nil, class: "form-control placa" %>
+  </div>
+
+  <div id="vehicle_place_result">
+  
+  </div>
+
+ <script type="text/javascript">
+  $(document).ready(function() {
+   $("#place").focusout(function() {
+      var place = $('#place').val();
+      console.log(place);
+      $.ajax({
+        type: "GET",
+        data: {place: place},
+        dataType : 'html',
+        url: '/vehicles/get_vehicle_by_place',
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR.status)
+          if (jqXHR.status == 404) {
+          	$('#vehicle_place_result').empty();
+            $('#vehicle_place_result').append("<%= j (content_tag(:div, content_tag(:p, 'Veiculo nao encontrado.'), class: 'alert alert-danger')) %>");
+          }
+        },
+        success: function(data){
+          $('#vehicle_place_result').empty(); 
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+
+  function forceInputUppercase(e)
+  {
+    var start = e.target.selectionStart;
+    var end = e.target.selectionEnd;
+    e.target.value = e.target.value.toUpperCase();
+    e.target.setSelectionRange(start, end);
+  }
+
+  document.getElementById("antt_antts_vehicles_vehicle_id").addEventListener("keyup", forceInputUppercase, false);
+
+</script>

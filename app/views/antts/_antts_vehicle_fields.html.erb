@@ -1,0 +1,47 @@
+  <div class="form-group">
+    <%= f.label :vehicle_id, "Placa" %>
+    <%= f.text_field :vehicle_id, class: "form-control placa" %>
+  </div>
+
+  <div id="vehicle_place_result">
+  
+  </div>
+
+ <script type="text/javascript">
+  $(document).ready(function() {
+   $("#antt_antts_vehicles_vehicle_id").focusout(function() {
+      var place = $('#antt_antts_vehicles_vehicle_id').val();
+      console.log(place);
+      $.ajax({
+        type: "GET",
+        data: {place: place},
+        dataType : 'html',
+        url: '/vehicles/get_vehicle_by_place',
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR.status)
+          if (jqXHR.status == 404) {
+          	$('#vehicle_place_result').empty();
+            $('#vehicle_place_result').append("<%= j (content_tag(:div, content_tag(:p, 'Veiculo nao encontrado.'), class: 'alert alert-danger')) %>");
+          }
+        },
+        success: function(data){
+          $('#vehicle_place_result').empty(); 
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+
+  function forceInputUppercase(e)
+  {
+    var start = e.target.selectionStart;
+    var end = e.target.selectionEnd;
+    e.target.value = e.target.value.toUpperCase();
+    e.target.setSelectionRange(start, end);
+  }
+
+  document.getElementById("antt_antts_vehicles_vehicle_id").addEventListener("keyup", forceInputUppercase, false);
+
+</script>

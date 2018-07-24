@@ -1,0 +1,15 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+
+<%= form_for(@antts_vehicles, url: antts_vehicles_path, remote: true, html: {role: :form, 'data-model' => 'account_payable'}) do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+
+  <%= render 'antts_vehicles/fields', f: f %>
+
+  <div class="actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+  </div>
+
+<% end %>

@@ -11,6 +11,7 @@ class AnttsController < ApplicationController
   end
 
   def show
+    @antts_vehicles = AnttsVehicles.new
     respond_with(@antt)
   end
 

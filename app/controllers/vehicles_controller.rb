@@ -72,9 +72,27 @@ class VehiclesController < ApplicationController
 
   def get_vehicle_by_place
     @vehicle = Vehicle.find_by_placa(params[:place])
-    respond_to do |format|
-      format.js
+    if @vehicle.present?
+      respond_to do |format|
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.js { render json: nil, status: 404 }
+      end      
+      # data = {error: 404}
+      # render :text => data
+      # begin
+      #   data = {logradouro: address[:address], bairro: address[:neighborhood], localidade: address[:city], uf: address[:state], cep: address[:zipcode]}
+      # rescue
+      #   retorno = 0
+      # ensure
+      #   puts ">>>>>>>>> Endereco: #{data.to_json.force_encoding("UTF-8")}"
+      #   data = data.nil? ? nil : data.to_json.force_encoding("UTF-8")
+      #   render :text => data
+      # end
     end
+
   end
 
   def get_vehicle_by_renavan
@@ -96,6 +114,7 @@ class VehiclesController < ApplicationController
         :especie, :numero_eixos, :numero_loks, :grade, :cordas, :lonas, :capacitacao, :kit_quimico, :largura, :altura, :comprimento, 
         :obs, :antt, :qtde_paletes, :tipo_piso_assoalho, :tracked, :capacity,
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
+        antts_vehicles: [:vehicle_id, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy],
         drivings_attributes: [:driver_id, :id, :_destroy],
         ownerships_attributes: [:owner_id, :id, :_destroy]
