@@ -160,6 +160,7 @@ Transport::Application.routes.draw do
       patch :update_start
       get :checkin
       patch :update_checkin
+      get :detail
     end
     collection do
       get :search

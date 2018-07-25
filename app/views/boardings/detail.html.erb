@@ -1,0 +1,39 @@
+
+<%= render 'static_pages/oper_boarding', boarding: @boarding %>
+
+<ul class="list-group">
+<% @boarding.boarding_items.each do |item| %>
+  <br />
+  <p>
+    <strong>NF-e</strong>
+    <%= item.ordem_service.get_number_nfe %>
+  </p>
+
+  <p>
+    <strong>Cliente</strong>
+    <%= item.ordem_service.client.nome %>
+  </p>
+
+  <p>
+    <strong>Cidade:</strong>
+    <%= item.ordem_service.client.cidade %> - 
+    <%= item.ordem_service.client.estado %>
+  </p>
+
+  <p>
+    <strong>Peso:</strong>
+    <%= number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %>
+    <strong>Volume:</strong> 
+    <%= number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %>
+  </p>
+
+  <p>
+  </p>
+    
+    <%= link_to 'Iniciar Embarque', start_boarding_path(@boarding), class: "btn btn-primary btn-xs" if @boarding.status == Boarding::TipoStatus::ABERTO %>
+    <%= link_to 'Confirmar Embarque', confirmed_boarding_path(@boarding), class: "btn btn-primary btn-xs" if @boarding.status == Boarding::TipoStatus::INICIADO %>
+    <%= link_to 'Voltar', dashboard_oper_path, class: "btn btn-primary btn-xs" %>
+  </li>
+  <hr>
+<% end %>
+</ul>

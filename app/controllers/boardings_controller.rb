@@ -172,6 +172,8 @@ class BoardingsController < ApplicationController
     redirect_to dashboard_port_path, flash: { success: "Boarding Check IN was successful" }
   end
 
+  def detail; end
+
 
 	def destroy
     @boarding.destroy
