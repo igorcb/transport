@@ -48,6 +48,10 @@ class Client < ActiveRecord::Base
   #has_many :representatives, :through => :client_representatives
   accepts_nested_attributes_for :client_representatives, allow_destroy: true, reject_if: :all_blank
 
+  has_many :representatives, :through => :client_representatives
+  
+  #has_and_belongs_to_many :representatives
+
   has_one :client_table_price
 
   has_many :client_table_prices

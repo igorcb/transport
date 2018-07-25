@@ -7,6 +7,11 @@
     </div>
 
     <div class="form-group">
+      <%= label_tag :source_client_representative_id_eq, "Representante Remetente" %>
+      <%= f.collection_select :source_client_client_representatives_representative_id_eq, Representative.order(:nome), :id, :nome, {prompt: "SELECIONE O REPRESENTANTE"}, {class: "form-control"} %>
+    </div>
+
+    <div class="form-group">
       <%= f.label :source_client_cpf_cnpj_eq, "CNPJ Remetente" %><br>
       <%= f.search_field :source_client_cpf_cnpj_eq, class: "form-control cnpj" %>
       <%= render partial: "clients/result_client", locals: { client: nil } %>
@@ -20,6 +25,11 @@
       <%= f.label :client_cpf_cnpj_eq, "CNPJ Destinatario" %><br>
       <%= f.search_field :client_cpf_cnpj_eq, class: "form-control cnpj" %>
       <%= render partial: "clients/result_client", locals: { client: nil } %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :client_representative_id_eq, "Representante Destinatario" %>
+      <%= f.collection_select :client_client_representatives_representative_id_eq, Representative.order(:nome), :id, :nome, {prompt: "SELECIONE O REPRESENTANTE"}, {class: "form-control"} %>
     </div>
 
     <div class="form-group">
