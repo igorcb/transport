@@ -76,6 +76,7 @@ class Boarding < ActiveRecord::Base
   def status_name
     case status
       when 0 then "Aberto"
+      when 4 then "Iniciado"
       when 1 then "Embarcado"
       when 2 then "Entregue"
       when 3 then "Cancelado"
@@ -205,12 +206,22 @@ class Boarding < ActiveRecord::Base
     end
     positivo
   end 
+
+  def billing_client_blank?
+    positivo = true
+    self.boarding_items.order(:delivery_number).each do |item|
+      positivo = item.ordem_service.billing_client.blank?
+      return false if positivo == false
+    end
+    positivo
+  end
   
   def pending?
     self.nfe_dae_pending? || 
     self.ordem_service_pending? || 
     self.date_scheduling_present? || 
     self.date_boarding.blank? || 
+    self.billing_client_blank? || 
     self.carrier_id == Boarding.carrier_not_information || 
     self.driver_id == Boarding.driver_not_information
   end
@@ -221,6 +232,7 @@ class Boarding < ActiveRecord::Base
     pendings.append('Existe NF-e com pendência de DAE.') if self.nfe_dae_pending?
     pendings.append('Data do Embarque não está presente.') if self.date_boarding.blank?
     pendings.append('Data Agendamento O.S. não está presente.') if self.date_scheduling_present?
+    pendings.append('Adicionar cliente para faturamento.') if self.billing_client_blank?
     pendings.append('Informe o motorista.') if self.driver_id == Boarding.driver_not_information
     pendings.append('Agente não informado.') if self.carrier_id == Boarding.carrier_not_information
     pendings
