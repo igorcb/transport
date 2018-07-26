@@ -48,7 +48,8 @@ Transport::Application.routes.draw do
     end    
   end
 
-  match 'list_input_scheduling' => "input_controls#list_input_scheduling",  via: [:get]
+  match "list_input_scheduling" => "input_controls#list_input_scheduling",  via: [:get]
+  match "list_ordem_service_scheduling" => "ordem_services#list_ordem_service_scheduling",  via: [:get]
 
   resources :companies, only: [:edit, :update, :show]
 

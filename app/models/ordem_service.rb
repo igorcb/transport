@@ -651,6 +651,10 @@ class OrdemService < ActiveRecord::Base
     conf = ConfigSystem.where(config_key: 'ORDEM_SERVICE_PAYMENT_METHOD').first
     conf.config_value.to_i
   end
+
+  def advance_money
+    
+  end
   
   private
     def can_destroy?

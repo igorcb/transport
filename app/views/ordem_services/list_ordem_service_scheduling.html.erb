@@ -1,0 +1,34 @@
+<div class="panel panel-default">
+  <div class="panel-heading">List Ordem Service Scheduling:</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Rem. Cliente</th>
+            <th>Container</th>
+            <th>O.S</th>
+            <th>Rem. Entrada</th>
+            <th>Faturamento</th>
+            <th>No Adiantamento</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @ordem_services.each do |ordem_service| %>
+            <tr>
+              <td><%= ordem_service.input_control.shipment if ordem_service.input_control.present? %></td>
+              <td><%= ordem_service.input_control.container if ordem_service.input_control.present? %></td>
+              <td><%= ordem_service.id %></td>
+              <td><%= ordem_service.input_control.id if ordem_service.input_control.present? %></td>
+              <td><%= ordem_service.billing.id if ordem_service.billing.present? %></td>
+              <td><%= ordem_service.ordem_service_type_service.first.advance_money_number if ordem_service.ordem_service_type_service.present? %></td>
+              <td><%= ordem_service.ordem_service_type_service.first.status_login_name if ordem_service.ordem_service_type_service.present? %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
