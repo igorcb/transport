@@ -9,6 +9,7 @@
             <th>Container</th>
             <th>O.S</th>
             <th>Rem. Entrada</th>
+            <th>Data Entrada</th>
             <th>Faturamento</th>
             <th>No Adiantamento</th>
             <th>Status</th>
@@ -20,8 +21,9 @@
             <tr>
               <td><%= ordem_service.input_control.shipment if ordem_service.input_control.present? %></td>
               <td><%= ordem_service.input_control.container if ordem_service.input_control.present? %></td>
-              <td><%= ordem_service.id %></td>
-              <td><%= ordem_service.input_control.id if ordem_service.input_control.present? %></td>
+              <td><%= link_to ordem_service.id, ordem_service %></td>
+              <td><%= link_to ordem_service.input_control.id, ordem_service.input_control if ordem_service.input_control.present? %></td>
+              <td><%= date_br(ordem_service.input_control.date_entry) if ordem_service.input_control.present? %></td>
               <td><%= ordem_service.billing.id if ordem_service.billing.present? %></td>
               <td><%= ordem_service.ordem_service_type_service.first.advance_money_number if ordem_service.ordem_service_type_service.present? %></td>
               <td><%= ordem_service.ordem_service_type_service.first.status_login_name if ordem_service.ordem_service_type_service.present? %></td>

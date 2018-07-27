@@ -553,7 +553,7 @@ class OrdemServicesController < ApplicationController
 
   def list_ordem_service_scheduling
     log_in = 9
-    @ordem_services = OrdemService.includes(:billing, :input_control, :ordem_service_type_service).search(billing_client_group_client_id_eq: log_in).result
+    @ordem_services = OrdemService.includes(:billing, :input_control, :ordem_service_type_service).order("input_controls.date_entry").search(billing_client_group_client_id_eq: log_in).result
     #where(billing_client_id: 468).order("ordem_services.id desc").limit(300)
   end
 
