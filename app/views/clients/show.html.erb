@@ -212,6 +212,7 @@
 <div class="form-group">
   <%= link_to 'Editar', edit_client_path(@client), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos',  clients_path, class: "btn btn-default" %>
+  <%= link_to 'Tabela de Preco',  client_client_table_prices_path(@client), class: "btn btn-default" %>
   <%= link_to 'Descargas',  client_client_discharges_path(@client), class: "btn btn-default" %>
   <%= link_to 'Exigencias',  client_client_requirements_path(@client), class: "btn btn-default" %>
 </div>

@@ -1,12 +1,12 @@
-<%= form_for(@client_table_price) do |f| %>
+<%= form_for([@client, @client_table_price]) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  <div id="client">
+    <%= render 'client_discharges/client' %>
+  </div>
+
   <fieldset>
     <legend>Componentes do Frete</legend>
 
-    <div class="form-group">
-      <%= f.label :client_id %>
-      <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
-    </div>
     <div class="form-group">
       <%= f.label :stretch_route_id, "Trecho" %>
       <%= f.select(:stretch_route_id, StretchRoute.all.collect {|c| [c.stretch_source_and_target_long, c.id]}, {include_blank: true}, {class: "form-control"} ) %>

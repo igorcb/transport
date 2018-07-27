@@ -21,8 +21,6 @@ Transport::Application.routes.draw do
 
   resources :advance_moneys
 
-  resources :client_table_prices
-
   match "/get_stretch_routes_from_client_cnpj", :controller => "stretch_routes", :action => "get_stretch_routes_from_client_cnpj", via: [:get] 
   match "/get_client_table_price_of_by_client_cnpj_and_stretch_route", :controller => "client_table_prices", :action => "get_client_table_price_of_by_client_cnpj_and_stretch_route", via: [:get]
   match "/get_client_table_price_of_client", :controller => "client_table_prices", :action => "get_client_table_price_of_client", via: [:get]
@@ -461,7 +459,11 @@ Transport::Application.routes.draw do
     end
   end
 
+  resources :client_table_prices
+
   resources :clients do
+    #resources :client_discharges
+    resources :client_table_prices
     resources :client_discharges
     resources :client_requirements
     collection do

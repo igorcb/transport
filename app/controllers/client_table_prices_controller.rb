@@ -1,18 +1,17 @@
 class ClientTablePricesController < ApplicationController
   include OrdemServiceHelper
   before_filter :authenticate_user!
-  
   before_action :set_client_table_price, only: [:show, :edit, :update, :destroy]
+  before_action :find_client, only: [:new, :create, :index, :edit]
 
   respond_to :html
 
   def index
-    @client_table_prices = ClientTablePrice.all
-    respond_with(@client_table_prices)
+
   end
 
   def show
-    respond_with(@client_table_price)
+
   end
 
   def new
@@ -24,14 +23,32 @@ class ClientTablePricesController < ApplicationController
   end
 
   def create
-    @client_table_price = ClientTablePrice.new(client_table_price_params)
-    @client_table_price.save
-    respond_with(@client_table_price)
+    @client_table_price = @client.client_table_prices.build(client_table_price_params)
+    respond_to do |format|
+      if @client_table_price.save
+        format.html { redirect_to [@client, @client_table_price] , flash: { success: "Client Table Price was successfully created." } }
+        format.json { render action: 'show', status: :created, location: [@client, @client_table_price] }
+        format.js   { render action: 'show', status: :created, location: [@client, @client_table_price] }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @client_table_price.errors, status: :unprocessable_entity }
+        format.js   { render json: @client_table_price.errors, status: :unprocessable_entity }
+      end
+    end    
   end
 
   def update
-    @client_table_price.update(client_table_price_params)
-    respond_with(@client_table_price)
+    respond_to do |format|
+      if @client_table_price.update(client_table_price_params)
+        format.html { redirect_to [@client, @client_table_price] , flash: { success: "Client Table Price was successfully updated." } }
+        format.json { head :no_content }
+        format.js   { render action: 'show', status: :created, location: [@client, @client_table_price] }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @client_table_price.errors, status: :unprocessable_entity }
+        format.js   { render json: @client_table_price.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -70,7 +87,8 @@ class ClientTablePricesController < ApplicationController
 
   private
     def set_client_table_price
-      @client_table_price = ClientTablePrice.find(params[:id]) 
+      find_client     
+      @client_table_price = @client.client_table_prices.where(id: params[:id]).first
     end
 
     def client_table_price_params
@@ -81,4 +99,8 @@ class ClientTablePricesController < ApplicationController
         :use_aliquot_consumer_last, :validity_status, :validity_start, :validity_end, :reset,
         :secure_rate, :secure_rate_filch, :secure_rate_aggravated)
     end
+
+    def find_client
+      @client  = Client.find(params[:client_id])
+    end    
 end

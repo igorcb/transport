@@ -1,7 +1,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listing client table prices</div>
   <div class="panel-body">
-    <%= link_to 'New Client table price', new_client_table_price_path, class: "btn btn-primary btn-lg btn-block" %>
+
+    <div id="client">
+      <%= render 'client_discharges/client' %>
+    </div>
+
+    <%= link_to 'New Client table price', new_client_client_table_price_path(@client), class: "btn btn-primary btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -17,7 +22,7 @@
         </thead>
 
         <tbody>
-          <% @client_table_prices.each do |client_table_price| %>
+          <% @client.client_table_prices.includes(:type_service).order("type_services.descricao").each do |client_table_price| %>
             <tr>
               <td><%= client_table_price.client.nome %></td>
               <td><%= client_table_price.type_service.descricao %></td>
@@ -25,9 +30,11 @@
               <td><%= client_table_price.freight_weight %></td>
               <td><%= client_table_price.freight_value %></td>
               <td><%= client_table_price.freight_volume %></td>
-              <td><%= link_to 'Show', client_table_price, class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_client_table_price_path(client_table_price), class: "btn btn-primary btn-xs" %></td>
-              <td><%= link_to 'Destroy', client_table_price, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+              <td><%= link_to 'Show', client_client_table_price_path(@client, client_table_price), class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_client_client_table_price_path(@client, client_table_price), class: "btn btn-primary btn-xs" %></td>
+              <!--
+                <td><%#= link_to 'Destroy', (@client, client_table_price), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+              -->
             </tr>
           <% end %>
         </tbody>
