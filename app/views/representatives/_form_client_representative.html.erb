@@ -8,7 +8,7 @@
 	<%= hidden_field_tag "client_representative[representative_id]", @representative.id %>  
 
   <div class="form-group">
-    <%= label_tag :billing_client_cpf_cpnj, "CNPJ Tomador do Servico" %><br>
+    <%= label_tag :billing_client_cpf_cpnj, "CNPJ Tomador do Servico/Embarcador" %><br>
     <% if @client_representative.new_record? %>
       <%= text_field_tag :billing_client_cpf_cpnj, nil, class: "form-control cnpj" %>
     <% else %>
