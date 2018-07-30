@@ -8,6 +8,7 @@
             <th>Rem. Cliente</th>
             <th>Container</th>
             <th>O.S</th>
+            <th>NF-e</th>
             <th>Rem. Entrada</th>
             <th>Data Entrada</th>
             <th>Faturamento</th>
@@ -22,6 +23,7 @@
               <td><%= ordem_service.input_control.shipment if ordem_service.input_control.present? %></td>
               <td><%= ordem_service.input_control.container if ordem_service.input_control.present? %></td>
               <td><%= link_to ordem_service.id, ordem_service %></td>
+              <td><%= ordem_service.get_number_nfe %></td>
               <td><%= link_to ordem_service.input_control.id, ordem_service.input_control if ordem_service.input_control.present? %></td>
               <td><%= date_br(ordem_service.input_control.date_entry) if ordem_service.input_control.present? %></td>
               <td><%= ordem_service.billing.id if ordem_service.billing.present? %></td>
