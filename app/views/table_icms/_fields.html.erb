@@ -1,0 +1,22 @@
+
+<div class="form-group">
+  <%= f.label :state_source, "Origem" %><br>
+  <%#= f.text_field :state_source, class: "form-control" %>
+  <%= f.select(:state_source, State.order(:uf).collect {|c| [c.uf, c.uf]}, {include_blank: true}, {class: "form-control"} ) %>
+</div>
+
+<div class="form-group">
+  <%= f.label :state_target, "Destino" %><br>
+  <%= f.select(:state_target, State.order(:uf).collect {|c| [c.uf, c.uf]}, {include_blank: true}, {class: "form-control"} ) %>
+</div>
+
+<div class="form-group">
+  <%= f.label :aliquot, "Aliquota %" %><br>
+  <%= f.text_field :aliquot, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.submit "Salvar", class: "btn btn-primary" %>
+  <%= link_to "Exibir",  table_icm_path(@table_icms), class: "btn btn-info" if !@table_icms.new_record? %>
+  <%= link_to "Listar Todos", table_icms_path, class: "btn btn-default" %>
+</div>

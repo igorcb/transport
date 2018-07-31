@@ -1,5 +1,5 @@
 Transport::Application.routes.draw do
-  #get "antts_vehicles/create"
+  resources :table_icms
   
   resources :antts_vehicles
 

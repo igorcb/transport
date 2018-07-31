@@ -1,0 +1,69 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+      <%#= render "form_search" %>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Tabela de ICMS</div>
+  <div class="panel-body">
+
+    <%= link_to 'New ICMS', new_table_icm_path, class: "btn btn-primary btn-sm btn-block" %>
+    <div class="table-responsive">
+      
+        <div id="result_tasks">
+
+        <table class="table table-striped">
+          <thead>
+            <%#= render 'header' %>
+            <th>State source</th>
+            <th>State target</th>
+            <th>Aliquot</th>
+            <th></th>
+            <th></th>
+            <th></th>
+
+
+          </thead>
+
+          <tbody>
+            <%#= render @tasks %>
+            <% @table_icms.each do |table_icm| %>
+              <tr>
+                <td><%= table_icm.state_source %></td>
+                <td><%= table_icm.state_target %></td>
+                <td><%= table_icm.aliquot %></td>
+                <td><%= link_to 'Show', table_icm, class: "btn btn-info btn-xs" %></td>
+                <td><%= link_to 'Edit', edit_table_icm_path(table_icm), class: "btn btn-primary btn-xs" %></td>
+                <td><%= link_to 'Destroy', table_icm, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+
+              </tr>
+            <% end %>            
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>    
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.has_tooltip').tooltip();
+  });
+</script>

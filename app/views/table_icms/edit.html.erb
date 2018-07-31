@@ -1,0 +1,7 @@
+<%= form_for(@table_icms, url: table_icm_path(@table_icms), method: :put) do |f| %>
+
+	<%= render 'shared/error_messages', object: f.object %>
+	
+	<%= render 'fields', f: f %>
+
+<% end %>
