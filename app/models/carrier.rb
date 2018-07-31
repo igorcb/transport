@@ -30,6 +30,8 @@ class Carrier < ActiveRecord::Base
 
   has_many :credentials, class_name: "CarrierCredential", foreign_key: "carrier_source_id"
 
+  has_many :client_table_prices, -> { where(client_table_price_type: "Carrier") }, class_name: 'ClientTablePrice', foreign_key: :client_table_price_id
+
   before_destroy :can_destroy?
 
   def name_state
@@ -43,6 +45,14 @@ class Carrier < ActiveRecord::Base
   def self.carrier_default
     conf = ConfigSystem.where(config_key: 'CARRIER_DEFAULT').first
     conf.config_value.to_i
+  end
+
+  def cpf_cnpj
+    self.cnpj
+  end
+
+  def accept_operational
+    false
   end
 
   private 

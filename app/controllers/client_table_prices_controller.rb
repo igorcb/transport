@@ -101,6 +101,10 @@ class ClientTablePricesController < ApplicationController
     end
 
     def find_client
-      @client  = Client.find(params[:client_id])
+      if params[:client_id].present?
+        @client  = Client.find(params[:client_id])
+      else
+        @client  = Carrier.find(params[:carrier_id])
+      end
     end    
 end

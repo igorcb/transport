@@ -54,7 +54,7 @@ class Client < ActiveRecord::Base
 
   has_one :client_table_price
 
-  has_many :client_table_prices
+  has_many :client_table_prices, -> { where(client_table_price_type: "Client") }, class_name: 'ClientTablePrice', foreign_key: :client_table_price_id
 
   has_many :client_discharges
   has_many :client_requirements

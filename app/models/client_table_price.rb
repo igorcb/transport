@@ -1,5 +1,6 @@
 class ClientTablePrice < ActiveRecord::Base
-  belongs_to :client
+  belongs_to :client, class_name: "Client", foreign_key: :client_table_price_id
+  belongs_to :carrier, class_name: "Carrier", foreign_key: :client_table_price_id
   belongs_to :type_service
   belongs_to :stretch_route
 

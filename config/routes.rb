@@ -430,13 +430,6 @@ Transport::Application.routes.draw do
 
   resources :carrier_credentials
 
-  resources :carriers do
-    resources :carrier_credentials
-    collection do
-      get :search
-    end
-  end
-
   resources :employees do
     get :gallery
   end
@@ -454,6 +447,15 @@ Transport::Application.routes.draw do
   end
 
   resources :suppliers do
+    collection do
+      get :search
+    end
+  end
+
+  resources :carriers do
+    resources :client_table_prices
+    
+    resources :carrier_credentials
     collection do
       get :search
     end

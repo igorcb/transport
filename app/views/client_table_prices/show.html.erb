@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 <legend>Componentes do Frete</legend>
 <p>
-  <strong>Client:</strong>
-  <%= @client_table_price.client.nome %>
+  <%= render 'client_discharges/client', client: @client_table_price.client %>
 </p>
 
 <p>
@@ -174,6 +173,11 @@
 </p>
 
 <div class="form-group">
-  <%= link_to 'Editar', client_client_table_price_path(@client, @client_table_price), class: "btn btn-primary" %>
-  <%= link_to 'Listar Todos', client_client_table_prices_path(@client), class: "btn btn-default" %>
+  <% if @client.class.to_s == "Client" %>
+    <%= link_to 'Editar', edit_client_client_table_price_path(@client, @client_table_price), class: "btn btn-primary" %>
+    <%= link_to 'Listar Todos', client_client_table_prices_path(@client), class: "btn btn-default" %>
+  <% else %>
+    <%= link_to 'Editar', edit_carrier_client_table_price_path(@client, @client_table_price), class: "btn btn-primary" %>
+    <%= link_to 'Listar Todos', carrier_client_table_prices_path(@client), class: "btn btn-default" %>
+  <% end %>  
 </div>

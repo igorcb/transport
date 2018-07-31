@@ -4,14 +4,19 @@
 
     <div id="client">
       <%= render 'client_discharges/client' %>
+     
     </div>
 
-    <%= link_to 'New Client table price', new_client_client_table_price_path(@client), class: "btn btn-primary btn-lg btn-block" %>
+    <% if @client.class.to_s == "Client" %>
+      <%= link_to 'New Client table price', new_client_client_table_price_path(@client), class: "btn btn-primary btn-lg btn-block" %>
+    <% else %>
+      <%= link_to 'New Carrier table price', new_carrier_client_table_price_path(@client), class: "btn btn-primary btn-lg btn-block" %>
+    <% end %>
+
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Client</th>
             <th>Type service</th>
             <th>Trecho</th>
             <th>Fret Peso</th>
@@ -24,17 +29,20 @@
         <tbody>
           <% @client.client_table_prices.includes(:type_service).order("type_services.descricao").each do |client_table_price| %>
             <tr>
-              <td><%= client_table_price.client.nome %></td>
               <td><%= client_table_price.type_service.descricao %></td>
               <td><%= client_table_price.stretch_route.stretch_source_and_target_short %></td>
               <td><%= client_table_price.freight_weight %></td>
               <td><%= client_table_price.freight_value %></td>
               <td><%= client_table_price.freight_volume %></td>
-              <td><%= link_to 'Show', client_client_table_price_path(@client, client_table_price), class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_client_client_table_price_path(@client, client_table_price), class: "btn btn-primary btn-xs" %></td>
-              <!--
-                <td><%#= link_to 'Destroy', (@client, client_table_price), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
-              -->
+
+              <% if @client.class.to_s == "Client" %>
+                <td><%= link_to 'Show', client_client_table_price_path( @client, client_table_price ), class: "btn btn-info btn-xs" %></td>
+                <td><%= link_to 'Edit', edit_client_client_table_price_path( @client, client_table_price ), class: "btn btn-primary btn-xs" %></td>
+              <% else %>
+                <td><%= link_to 'Show', carrier_client_table_price_path( @client, client_table_price ), class: "btn btn-info btn-xs" %></td>
+                <td><%= link_to 'Edit', edit_carrier_client_table_price_path(@client, client_table_price), class: "btn btn-primary btn-xs" %></td>
+                
+              <% end %>  
             </tr>
           <% end %>
         </tbody>
