@@ -4,8 +4,9 @@ class TableIcmsController < ApplicationController
   respond_to :html
 
   def index
-    @table_icms = TableIcms.all
-    respond_with(@table_icms)
+    @q = TableIcms.where(id: -1).search(params[:query])
+    @table_icms = TableIcms.where(state_source: "CE")
+    respond_with(@table_icms)        
   end
 
   def show
@@ -35,6 +36,14 @@ class TableIcmsController < ApplicationController
     @table_icm.destroy
     respond_with(@table_icm)
   end
+
+  def search
+    @q = TableIcms.search(params[:query])
+    @table_icms = @q.result
+    respond_with(@table_icms) do |format|
+     format.js
+    end
+  end   
 
   private
     def set_table_icms

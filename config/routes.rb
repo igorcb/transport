@@ -1,5 +1,9 @@
 Transport::Application.routes.draw do
-  resources :table_icms
+  resources :table_icms do
+    collection do
+      get :search
+    end
+  end
   
   resources :antts_vehicles
 

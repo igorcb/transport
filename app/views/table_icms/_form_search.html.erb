@@ -1,0 +1,15 @@
+<div class="panel-body">
+  <%= search_form_for @q, remote: true, url: search_table_icms_path, :method => :get do |f| %>
+    <div class="form-group">
+      <%= f.label :state_source_eq, "Origem" %>
+      <%= f.select(:state_source_eq, State.order(:uf).collect {|c| [c.uf, c.uf]}, {include_blank: true}, {class: "form-control"} ) %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :state_target_eq, "Destino" %>
+      <%= f.select(:state_target_eq, State.order(:uf).collect {|c| [c.uf, c.uf]}, {include_blank: true}, {class: "form-control"} ) %>
+    </div>
+
+    <div class="actions"><%= f.submit "Search" %></div>
+  <% end %>
+</div>
