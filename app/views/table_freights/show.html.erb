@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Tabela Frete Mínimo
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+					<p>
+					  <strong>Type charge:</strong>
+					  <%= @table_freight.type_charge_name %>
+					</p>
+
+					<p>
+					  <strong>Km from:</strong>
+					  <%= @table_freight.km_from %>
+					</p>
+
+					<p>
+					  <strong>Km to:</strong>
+					  <%= @table_freight.km_to %>
+					</p>
+
+					<p>
+					  <strong>Price:</strong>
+					  <%= @table_freight.price %>
+					</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%= link_to 'Editar', edit_table_freight_path(@table_freight), class: "btn btn-primary" %>
+<%= link_to 'Listar Todos', table_freights_path, class: "btn btn-default" %>

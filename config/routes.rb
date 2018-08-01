@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :table_freights
+
   resources :table_icms do
     collection do
       get :search

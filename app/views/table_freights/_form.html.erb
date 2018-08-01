@@ -1,0 +1,25 @@
+<%= form_for(@table_freight) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :type_charge  %>
+    <%= f.select( :type_charge, select_type_charge_freight, {include_blank: "Selecione o Tipo de Carga"}, {class: "form-control"} ) %>      
+  </div>  
+  <div class="form-group">
+    <%= f.label :km_from %><br>
+    <%= f.number_field :km_from,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :km_to %><br>
+    <%= f.number_field :km_to,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :price %><br>
+    <%= f.text_field :price,class: "form-control money2" %>
+  </div>
+   <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  table_freight_path(@table_freight), class: "btn btn-info" if !@table_freight.new_record? %>
+    <%= link_to "Listar Todos", table_freights_path, class: "btn btn-default" %>
+  </div>
+<% end %>
