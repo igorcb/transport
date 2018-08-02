@@ -12,17 +12,17 @@
 
 	  <div class="form-group">
 	    <%= label_tag :valor_nota_fiscal %>
-	    <%= text_field :valor_nota_fiscal, nil, class: "form-control money2" %>
+	    <%= text_field :valor_nota_fiscal, nil, class: "form-control money2", id: 'valor_nota_fiscal' %>
 	  </div>
 
 	  <div class="form-group">
 	    <%= label_tag :peso_bruto %>
-	    <%= text_field :peso_bruto, nil, class: "form-control money2" %>
+	    <%= text_field :peso_bruto, nil, class: "form-control money2", id: 'peso_bruto' %>
 	  </div>
 
 	  <div class="form-group">
 	    <%= label_tag :valor_tonelada, "Valor por Tonelada" %>
-	    <%= text_field :valor_tonelada, nil, class: "form-control money2" %>
+	    <%= text_field :valor_tonelada, nil, class: "form-control money2", id: 'valor_tonelada' %>
 	  </div>
 
 	  <div class="form-group">
@@ -32,12 +32,12 @@
 
 	  <div class="form-group">
 	    <%= label_tag :qtde_eixos, "Qtde de Eixos" %>
-	    <%= text_field :qtde_eixos, nil, class: "form-control" %>
+	    <%= text_field :qtde_eixos, nil, class: "form-control", id: 'qtde_eixos' %>
 	  </div>
 
 	  <div class="form-group">
 	    <%= label_tag :valor_descarga, "Valor da Descarga" %>
-	    <%= text_field :valor_descarga, nil, class: "form-control money2" %>
+	    <%= text_field :valor_descarga, nil, class: "form-control money2", id: 'valor_descarga' %>
 	  </div>
 
 	  <div class="form-group">
@@ -53,6 +53,9 @@
 
     </div>    
 
+    <div id="div_value_contract">
+
+    </div>    
 
 	</div>
 
@@ -81,7 +84,7 @@
    $("#trecho_id").change(function() {
       var trecho_id = $('#trecho_id').val();
       var type_charge_id = $('#type_charge_id').val();
-      var eixos = $('#qtde_eixos_').val();
+      var eixos = $('#qtde_eixos').val();
       console.log(trecho_id);
       console.log(type_charge_id);
       console.log(eixos);
@@ -96,4 +99,24 @@
       });
     });
   });
+</script>
+
+<script type="text/javascript">
+  $(function(){
+    $("#valor_descarga").focusout(function(){
+      var valor_nf = $("#valor_nota_fiscal").val();
+      var peso_bruto = $("#peso_bruto").val();
+      var valor_tonelada = $("#valor_tonelada").val();
+      var vr_ton = valor_tonelada / 1000
+      var value_service = peso_bruto * vr_ton;
+
+      console.log("VrNf:" + valor_nf);
+      console.log("Peso:" + peso_bruto);
+      console.log("VrTon:" + vr_ton);
+      console.log("ValueService:" + value_service);
+      $("#div_value_contract").html("<strong>Vr. Contrato:</strong> " + value_service);
+
+      });
+    });
+  //});
 </script>
