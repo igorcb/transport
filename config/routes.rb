@@ -1,4 +1,8 @@
 Transport::Application.routes.draw do
+  match '/calculate_liquidity', :controller => 'static_pages', :action => 'calculate_liquidity', via: [:get, :post]
+  match "/stretch_routes/get_stretch_route_by_id", :controller => "stretch_routes", :action => "get_stretch_route_by_id", via: [:get] 
+  #match '/clients/get_client_by_id', :controller => 'clients', :action => 'get_client_by_id', via: [:get]
+
   resources :table_freights
 
   resources :table_icms do

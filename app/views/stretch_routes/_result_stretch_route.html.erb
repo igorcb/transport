@@ -1,0 +1,43 @@
+<% if stretch_route.present? %>
+
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    Tabela de Impostos da Trecho/Rota <%= stretch_route.stretch_source_and_target_long %>
+	  </div>
+
+	  <div class="panel-body">
+
+	    <p>
+	      <strong>ICMS:</strong>
+	        <%= stretch_route.tax_rate %> 
+	    </p>
+
+	    <p>
+	      <strong>PIS/Confins:</strong>
+        <%= 0.00 %> - Criar campo na tabela de StretchRoute
+	    </p>
+
+	    <p>
+	      <strong>Seguro:</strong>
+	      <%= stretch_route.secure_rate %> 
+	    </p>
+
+	    <p>
+	      <strong>Consulta GR:</strong>
+        <%= 0.00 %> - Criar campo na tabela de StretchRoute
+	    </p>
+
+	    <p>
+	      <strong>Distância:</strong>
+        <%= stretch_route.distance %> 
+	    </p>
+
+	    <p>
+	      <strong>Frete Mínimo - Caminhoneiro:</strong>
+        <%= 0.00 %> - Calcular Frete Mínimo de Acordo com o Eixo 
+	    </p>
+
+		</div>
+	</div>
+
+<% end %>

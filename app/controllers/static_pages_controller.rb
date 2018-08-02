@@ -24,4 +24,8 @@ class StaticPagesController < ApplicationController
 	def dashboard_port
 		@boardings = Boarding.the_day
 	end	
+
+	def calculate_liquidity
+
+	end
 end

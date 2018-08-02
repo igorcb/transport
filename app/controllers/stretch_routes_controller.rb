@@ -1,7 +1,7 @@
 class StretchRoutesController < ApplicationController
   before_action :set_stretch_route, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :js
 
   def index
     @stretch_routes = StretchRoute.all
@@ -44,6 +44,13 @@ class StretchRoutesController < ApplicationController
       array << {:id => c.id, :n => c.stretch_source_and_target_long}
     end
     render :text => array.to_json
+  end
+
+  def get_stretch_route_by_id
+    @stretch_route = StretchRoute.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

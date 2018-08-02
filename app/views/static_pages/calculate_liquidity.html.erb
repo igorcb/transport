@@ -1,0 +1,73 @@
+<div class="text-center">
+	<h1>Calcular Frete</h1>
+</div>
+
+
+
+<%= form_tag( id: "form_calculate_liquidoty", :html => { }) do %>
+
+	<div class="panel panel-default">
+	  <div class="panel-heading">Liquidez por tarifa</div>
+	  <div class="panel-body">
+
+	  <div class="form-group">
+	    <%= label_tag :valor_nota_fiscal %>
+	    <%= text_field :valor_nota_fiscal, nil, class: "form-control money2" %>
+	  </div>
+
+	  <div class="form-group">
+	    <%= label_tag :peso_bruto %>
+	    <%= text_field :peso_bruto, nil, class: "form-control money2" %>
+	  </div>
+
+	  <div class="form-group">
+	    <%= label_tag :valor_tonelada, "Valor por Tonelada" %>
+	    <%= text_field :valor_tonelada, nil, class: "form-control money2" %>
+	  </div>
+
+	  <div class="form-group">
+	    <%= label_tag :type_charge_id, "Tipo de Carga"  %>
+	    <%= select_tag :type_charge_id, options_for_select(select_type_charge_freight, nil), :prompt => "Selecione o Tipo de Carga", class: "form-control" %>
+	  </div>  	  
+
+	  <div class="form-group">
+	    <%= label_tag :eixos, "Qtde de Eixos" %>
+	    <%= text_field :eixos, nil, class: "form-control" %>
+	  </div>
+
+	  <div class="form-group">
+	    <%= label_tag :valor_descarga, "Valor da Descarga" %>
+	    <%= text_field :valor_descarga, nil, class: "form-control money2" %>
+	  </div>
+
+	  <div class="form-group">
+	    <%= label_tag :trecho_id, "Trecho" %>
+	    <%= select_tag :trecho_id, options_from_collection_for_select(StretchRoute.all, :id, :stretch_source_and_target_short), :prompt => "Selecione o Trecho", class: "form-control" %>
+	  </div>
+
+	  <div id="div_result_trecho">
+
+	  </div>
+
+	</div>
+
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#trecho_id").change(function() {
+      var id = $('#trecho_id').val();
+      console.log(id);
+      $.ajax({
+        type: "GET",
+        data: {id: id},
+        dataType : 'html',
+        url: '/stretch_routes/get_stretch_route_by_id',
+        success: function(data){
+          $('#div_result_trecho').html(data);
+        },
+      });
+    });
+  });
+</script>
+
