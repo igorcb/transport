@@ -36,7 +36,7 @@ class TableFreightsController < ApplicationController
     respond_with(@table_freight)
   end
 
-  def get_calc_freight_minimal
+  def get_calc_freight_minimum
     stretch_route = StretchRoute.where(id: params[:trecho_id]).first
     @freight_minimum = TableFreight.calc_freight_minimum(params[:type_charge_id].to_i, stretch_route.distance.to_i, params[:eixos].to_i)
     respond_to do |format|

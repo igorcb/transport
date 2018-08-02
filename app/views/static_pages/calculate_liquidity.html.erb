@@ -89,7 +89,7 @@
         type: "GET",
         data: {trecho_id: trecho_id, type_charge_id: type_charge_id, eixos: eixos},
         dataType : 'html',
-        url: '/table_freights/get_calc_freight_minimal',
+        url: '/table_freights/get_calc_freight_minimum',
         success: function(data){
           $('#div_freight_minimal').html(data);
         },
