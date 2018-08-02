@@ -3,4 +3,8 @@ class TableIcms < ActiveRecord::Base
 	validates :state_target, presence: true
 
 	validates :aliquot, presence: true, numericality: { greater_than: 0 }
+
+	def self.calc
+		false
+	end
 end
