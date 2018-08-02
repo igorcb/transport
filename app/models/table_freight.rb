@@ -22,4 +22,10 @@ class TableFreight < ActiveRecord::Base
     else "Nao Definido"
     end
   end
+
+  def self.calc_freight_minimum(type = TableFreight::TypeCharge, km, eixo)
+    value = BigDecimal.new(0)
+    frete = TableFreight.where(type_charge: type).where("? between km_from and km_to", km).first
+    value = frete.price * km * eixo if frete.present?
+  end
 end
