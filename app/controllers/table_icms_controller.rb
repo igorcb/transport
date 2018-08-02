@@ -5,7 +5,7 @@ class TableIcmsController < ApplicationController
 
   def index
     @q = TableIcms.where(id: -1).search(params[:query])
-    @table_icms = TableIcms.where(state_source: "CE")
+    @table_icms = TableIcms.order(:created_at)
     respond_with(@table_icms)        
   end
 
