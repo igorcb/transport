@@ -31,8 +31,8 @@
 	  </div>  	  
 
 	  <div class="form-group">
-	    <%= label_tag :eixos, "Qtde de Eixos" %>
-	    <%= text_field :eixos, nil, class: "form-control" %>
+	    <%= label_tag :qtde_eixos, "Qtde de Eixos" %>
+	    <%= text_field :qtde_eixos, nil, class: "form-control" %>
 	  </div>
 
 	  <div class="form-group">
@@ -48,6 +48,11 @@
 	  <div id="div_result_trecho">
 
 	  </div>
+
+    <div id="div_freight_minimal">
+
+    </div>    
+
 
 	</div>
 
@@ -71,3 +76,24 @@
   });
 </script>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#trecho_id").change(function() {
+      var trecho_id = $('#trecho_id').val();
+      var type_charge_id = $('#type_charge_id').val();
+      var eixos = $('#qtde_eixos_').val();
+      console.log(trecho_id);
+      console.log(type_charge_id);
+      console.log(eixos);
+      $.ajax({
+        type: "GET",
+        data: {trecho_id: trecho_id, type_charge_id: type_charge_id, eixos: eixos},
+        dataType : 'html',
+        url: '/table_freights/get_calc_freight_minimal',
+        success: function(data){
+          $('#div_freight_minimal').html(data);
+        },
+      });
+    });
+  });
+</script>

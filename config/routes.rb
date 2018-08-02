@@ -1,6 +1,8 @@
 Transport::Application.routes.draw do
+  match "/table_freights/get_calc_freight_minimal", :controller => "table_freights", :action => "get_calc_freight_minimal", via: [:get] 
   match '/calculate_liquidity', :controller => 'static_pages', :action => 'calculate_liquidity', via: [:get, :post]
   match "/stretch_routes/get_stretch_route_by_id", :controller => "stretch_routes", :action => "get_stretch_route_by_id", via: [:get] 
+
   #match '/clients/get_client_by_id', :controller => 'clients', :action => 'get_client_by_id', via: [:get]
 
   resources :table_freights
