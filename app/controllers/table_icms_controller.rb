@@ -22,9 +22,9 @@ class TableIcmsController < ApplicationController
   end
 
   def create
-    @table_icm = TableIcms.new(table_icms_params)
-    @table_icm.save
-    respond_with(@table_icm)
+    @table_icms = TableIcms.new(table_icms_params)
+    @table_icms.save
+    respond_with(@table_icms)
   end
 
   def update
