@@ -10,40 +10,42 @@
 	  <div class="panel-heading">Liquidez por tarifa</div>
 	  <div class="panel-body">
 
+    <div class="form-group">
+      <%= label_tag :type_charge_id, "Tipo de Carga"  %>
+      <%= select_tag :type_charge_id, options_for_select(select_type_charge_freight, nil), :prompt => "Selecione o Tipo de Carga", class: "form-control" %>
+    </div>      
+
+    <div class="form-group">
+      <%= label_tag :qtde_eixos, "Qtde de Eixos" %>
+      <%= text_field :qtde_eixos, nil, value: 3, class: "form-control", onfocusout:"calculateFreight(); getFreightMinimum();", id: 'qtde_eixos' %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :trecho_id, "Trecho" %>
+      <%= select_tag :trecho_id, options_from_collection_for_select(StretchRoute.all, :id, :stretch_source_and_target_short), :prompt => "Selecione o Trecho", class: "form-control" %>
+    </div>
+
 	  <div class="form-group">
 	    <%= label_tag :valor_nota_fiscal %>
-	    <%= text_field :valor_nota_fiscal, nil, class: "form-control money2", id: 'valor_nota_fiscal' %>
+	    <%= text_field :valor_nota_fiscal, nil, value: 0, class: "form-control money2", onfocusout:"calculateFreight();", id: 'valor_nota_fiscal' %>
 	  </div>
 
 	  <div class="form-group">
 	    <%= label_tag :peso_bruto %>
-	    <%= text_field :peso_bruto, nil, class: "form-control money2", id: 'peso_bruto' %>
+	    <%= text_field :peso_bruto, nil, value: 0, class: "form-control money2", onfocusout:"calculateFreight();", id: 'peso_bruto' %>
 	  </div>
 
 	  <div class="form-group">
 	    <%= label_tag :valor_tonelada, "Valor por Tonelada" %>
-	    <%= text_field :valor_tonelada, nil, class: "form-control money2", id: 'valor_tonelada' %>
+	    <%= text_field :valor_tonelada, nil, value: 0, class: "form-control money2", onfocusout:"calculateFreight();", id: 'valor_tonelada' %>
 	  </div>
 
-	  <div class="form-group">
-	    <%= label_tag :type_charge_id, "Tipo de Carga"  %>
-	    <%= select_tag :type_charge_id, options_for_select(select_type_charge_freight, nil), :prompt => "Selecione o Tipo de Carga", class: "form-control" %>
-	  </div>  	  
-
-	  <div class="form-group">
-	    <%= label_tag :qtde_eixos, "Qtde de Eixos" %>
-	    <%= text_field :qtde_eixos, nil, class: "form-control", id: 'qtde_eixos' %>
-	  </div>
 
 	  <div class="form-group">
 	    <%= label_tag :valor_descarga, "Valor da Descarga" %>
-	    <%= text_field :valor_descarga, nil, class: "form-control money2", id: 'valor_descarga' %>
+	    <%= text_field :valor_descarga, nil, value: 0, class: "form-control money2", onfocusout:"calculateFreight();", id: 'valor_descarga' %>
 	  </div>
 
-	  <div class="form-group">
-	    <%= label_tag :trecho_id, "Trecho" %>
-	    <%= select_tag :trecho_id, options_from_collection_for_select(StretchRoute.all, :id, :stretch_source_and_target_short), :prompt => "Selecione o Trecho", class: "form-control" %>
-	  </div>
 
 	  <div id="div_result_trecho">
 
@@ -81,13 +83,30 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-   $("#trecho_id").change(function() {
-      var trecho_id = $('#trecho_id').val();
-      var type_charge_id = $('#type_charge_id').val();
-      var eixos = $('#qtde_eixos').val();
-      console.log(trecho_id);
-      console.log(type_charge_id);
-      console.log(eixos);
+   $("#trecho_id, #type_charge_id").change(function() {
+      getFreightMinimum();
+    });
+  });
+</script>
+
+<script type="text/javascript">
+
+  Number.prototype.formatMoney = function(c, d, t){
+  var n = this, 
+      c = isNaN(c = Math.abs(c)) ? 2 : c, 
+      d = d == undefined ? "." : d, 
+      t = t == undefined ? "," : t, 
+      s = n < 0 ? "-" : "", 
+      i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+      j = (j = i.length) > 3 ? j % 3 : 0;
+     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+   };
+
+  function getFreightMinimum() {
+    var trecho_id = $('#trecho_id').val();
+    var type_charge_id = $('#type_charge_id').val();
+    var eixos = $('#qtde_eixos').val();
+    if ((trecho_id != "") && (type_charge_id != "")) {
       $.ajax({
         type: "GET",
         data: {trecho_id: trecho_id, type_charge_id: type_charge_id, eixos: eixos},
@@ -95,28 +114,20 @@
         url: '/table_freights/get_calc_freight_minimum',
         success: function(data){
           $('#div_freight_minimal').html(data);
-        },
+        },   
       });
-    });
-  });
-</script>
+    }
+  }
 
-<script type="text/javascript">
-  $(function(){
-    $("#valor_descarga").focusout(function(){
-      var valor_nf = $("#valor_nota_fiscal").val();
-      var peso_bruto = $("#peso_bruto").val();
-      var valor_tonelada = $("#valor_tonelada").val();
-      var vr_ton = valor_tonelada / 1000
-      var value_service = peso_bruto * vr_ton;
-
-      console.log("VrNf:" + valor_nf);
-      console.log("Peso:" + peso_bruto);
-      console.log("VrTon:" + vr_ton);
-      console.log("ValueService:" + value_service);
-      $("#div_value_contract").html("<strong>Vr. Contrato:</strong> " + value_service);
-
-      });
-    });
-  //});
+  function calculateFreight() {
+    var valor_nf = $("#valor_nota_fiscal").val();
+    var peso_bruto = $("#peso_bruto").val();
+    var vr_tonelada = $("#valor_tonelada").val();
+    var vr_descarga = $("#valor_descarga").val();
+    var vr_ton = vr_tonelada / 1000;
+    var value_service = peso_bruto * vr_ton + parseFloat(vr_descarga);
+    
+    //document.getElementById('valor_total').value = 'R$ ' + sum.formatMoney(2, ',', '.');
+    $("#div_value_contract").html("<strong>Vr. Contrato:</strong> R$ " + value_service.formatMoney(2, ',', '.'));
+  }
 </script>

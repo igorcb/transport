@@ -1,2 +1,2 @@
 <strong>Frete Minimo:</strong>
-<%= freight_minimum.to_f %>
+<%= number_to_currency(freight_minimum, unit: "R$ ", separator: ",", delimiter: ".") %>
