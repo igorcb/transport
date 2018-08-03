@@ -13,6 +13,86 @@
     <%= f.label :cubagem %><br>
     <%= f.text_field :cubagem, class: "form-control"  %>
   </div>
+
+  <div class="form-group">
+    <%= f.label :cod_prod %><br>
+    <%= f.text_field :cod_prod, class: "form-control"  %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :ncm %><br>
+    <%= f.text_field :ncm, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :cfop %><br>
+    <%= f.text_field :cfop, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :ean %><br>
+    <%= f.text_field :ean, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :unid_medida %><br>
+    <%= f.text_field :unid_medida, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :ean_trib %><br>
+    <%= f.text_field :ean_trib, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :unid_medida_trib %><br>
+    <%= f.text_field :unid_medida_trib, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :valor_unitario %><br>
+    <%= f.text_field :valor_unitario, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :width %><br>
+    <%= f.text_field :width, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :length %><br>
+    <%= f.text_field :length, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :height %><br>
+    <%= f.text_field :height, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :volume %><br>
+    <%= f.text_field :volume, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :weight_liquid %><br>
+    <%= f.text_field :weight_liquid, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :weight_gross %><br>
+    <%= f.text_field :weight_gross, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :ballast %><br>
+    <%= f.text_field :ballast, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :factor %><br>
+    <%= f.text_field :factor, class: "form-control"  %>
+  </div>    
+
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-primary" %>
     <%= link_to "Exibir",  product_path(@product), class: "btn btn-info" if !@product.new_record? %>

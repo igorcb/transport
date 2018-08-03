@@ -13,6 +13,102 @@
   <%= @product.cubagem %>
 </p>
 
+<p>
+  <strong>cod_prod:</strong>
+    <%= @product.cod_prod %>
+  
+</p>
+  
+<p>
+  <strong>NCM:</strong>
+    <%= @product.ncm %>
+  
+</p>
+
+<p>
+  <strong>CFOP:</strong>
+    <%= @product.cfop %>
+  
+</p>
+
+<p>
+  <strong>EAN:</strong>
+    <%= @product.ean %>
+  
+</p>
+
+<p>
+  <strong>Unidade Medida:</strong>
+    <%= @product.unid_medida %>
+  
+</p>
+
+<p>
+  <strong>Ean Tributado:</strong>
+    <%= @product.ean_trib %>
+  
+</p>
+
+<p>
+  <strong>Unidade medida tributado:</strong>
+    <%= @product.unid_medida_trib %>
+  
+</p>
+
+<p>
+  <strong>Valor Unitario:</strong>
+    <%= @product.valor_unitario %>
+  
+</p>
+
+<p>
+  <strong>Largura:</strong>
+    <%= @product.width %>
+  
+</p>
+
+<p>
+  <strong>Comprimento:</strong>
+    <%= @product.length %>
+  
+</p>
+
+<p>
+  <strong>Altura:</strong>
+    <%= @product.height %>
+  
+</p>
+
+<p>
+  <strong>Volume:</strong>
+    <%= @product.volume %>
+  
+</p>
+
+<p>
+  <strong>Peso Liquido:</strong>
+    <%= @product.weight_liquid %>
+  
+</p>
+
+<p>
+  <strong>Peso Bruto:</strong>
+    <%= @product.weight_gross %>
+  
+</p>
+
+<p>
+  <strong>Latro do Pallet:</strong>
+    <%= @product.ballast %>
+  
+</p>
+
+<p>
+  <strong>Fator:</strong>
+    <%= @product.factor %>
+      
+</p>
+
 <div class="form-group">
   <%= link_to 'Editar', edit_product_path(@product), class: "btn btn-primary" %>
   <%= link_to 'Listar Todos',  products_path, class: "btn btn-default" %>
