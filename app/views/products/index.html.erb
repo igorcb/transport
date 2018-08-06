@@ -8,6 +8,7 @@
           <tr>
             <th>Cod.Prod</th>
             <th>Descricao</th>
+            <th>Un. Med.</th>
             <th>Categoria</th>
             <th>Cubagem</th>
             <th colspan="3">Opções</th>
@@ -19,6 +20,7 @@
             <tr>
               <td><%= @product.cod_prod %></td>
               <td><%= product.descricao %></td>
+              <td><%= product.unid_medida if product.present? %></td>
               <td><%= product.category.descricao if product.category.present? %></td>
               <td><%= product.cubagem.to_f %></td>
               <td><%= link_to 'Show', product, class: "btn btn-info btn-sm" %></td>
