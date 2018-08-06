@@ -6,6 +6,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>Cod.Prod</th>
             <th>Descricao</th>
             <th>Categoria</th>
             <th>Cubagem</th>
@@ -16,6 +17,7 @@
         <tbody>
           <% @products.each do |product| %>
             <tr>
+              <td><%= @product.cod_prod %></td>
               <td><%= product.descricao %></td>
               <td><%= product.category.descricao if product.category.present? %></td>
               <td><%= product.cubagem.to_f %></td>
