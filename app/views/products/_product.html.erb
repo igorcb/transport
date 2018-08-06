@@ -1,0 +1,10 @@
+<tr>
+	<td><%= product.cod_prod %></td>
+	<td><%= product.descricao %></td>
+	<td><%= product.unid_medida if product.present? %></td>
+	<td><%= product.category.descricao if product.category.present? %></td>
+	<td><%= product.cubagem.to_f %></td>
+	<td><%= link_to 'Show', product, class: "btn btn-info btn-xs" %></td>
+	<td><%= link_to 'Edit', edit_product_path(product), class: "btn btn-primary btn-xs" %></td>
+	<td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+</tr>

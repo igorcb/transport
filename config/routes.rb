@@ -421,7 +421,11 @@ Transport::Application.routes.draw do
 
   #resources :cubages
 
-  resources :products
+  resources :products do
+    collection do
+      get :search
+    end
+  end
 
   resources :activities
 

@@ -3,10 +3,15 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
+  respond_to :html, :js
+
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    #@products = Product.all
+    @q = Product.where(id: -1).search(params[:query])
+    @products = Product.includes(:category).load
+    #respond_with(@products)     
   end
 
   # GET /products/1
@@ -68,6 +73,14 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.js
     end    
+  end
+
+  def search
+    @q = Product.includes(:category).search(params[:query])
+    @products = @q.result
+    respond_with(@products) do |format|
+     format.js
+    end
   end
 
   private

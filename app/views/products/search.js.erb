@@ -1,0 +1,2 @@
+$('#result_product').empty();
+$("#result_product").append("<table class='table table-striped'><thead><%= j(render(:partial => 'header')) %></thead><tbody><%= j(render @products) %></tbody></table>");
