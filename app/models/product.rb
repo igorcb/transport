@@ -12,7 +12,7 @@ class Product < ActiveRecord::Base
   end 
 
   def calculation_cubing
-  	if (height.nil?) || (width.nil?) || (length.nil?)
+  	if (!height.nil?) || (!width.nil?) || (!length.nil?)
   	  (height / 100 ) * (width / 100) * (length / 100)
     end
   end
