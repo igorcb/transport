@@ -8,6 +8,7 @@
             <th>NF-e</th>
             <th>Cod.Prod.</th>
             <th>Produto</th>
+            <th>Cubagem</th>
             <th>Qtde</th>
             <th>Qtde Trib.</th>
             <th>Valor</th>
@@ -22,12 +23,12 @@
               <td><%= item.number %></td>
               <td><%= item.product.cod_prod %></td>
               <td><%= item.product.descricao %></td>
-              <td><%= item.qtde %></td>
-              <td><%= item.qtde_trib %></td>
-              <td><%= item.valor %></td>
-              <td><%= item.unid_medida %></td>
-              <td><%= item.product.valor_unitario %></td>
-
+              <td><%= number_with_precision(item.product.calculation_cubing, precision: 2, separator: ',', delimiter: '.') %></td> 
+              <td><%= number_with_precision(item.qtde, precision: 2, separator: ',', delimiter: '.') %></td> 
+              <td><%= number_with_precision(item.qtde_trib, precision: 2, separator: ',', delimiter: '.') %></td> 
+              <td><%= number_with_precision(item.valor, precision: 2, separator: ',', delimiter: '.') %></td> 
+              <td><%= item.unid_medida %></td> 
+              <td><%= number_with_precision(item.product.valor_unitario, precision: 2, separator: ',', delimiter: '.') %></td> 
             </tr>
           <% end %>
         </tbody>
