@@ -354,7 +354,6 @@ class InputControlsController < ApplicationController
         :stretch_route_id, :type_service_id, :place_confirmed, :place_horse, 
         :date_scheduled, :time_scheduled, :motive_scheduled,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
-        nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         action_inspectors_attributes: [:number, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )
