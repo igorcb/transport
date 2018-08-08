@@ -4,16 +4,10 @@ class NfeKeysController < ApplicationController
   load_and_authorize_resource
   respond_to :html, :js, :json
 
-  def get_nfe_keys_by_boarding
-    @boarding = Boarding.joins(:nfe_keys).where(id: params[:boarding_id], nfe_keys: {nfe: params[:nfe_id]}).first
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def index
-    @q = NfeKey.where(id: -1).paginate(:page => params[:page]).search(params[:query])
-    @nfe_keys = NfeKey.all.paginate(:page => params[:page])
+    @q = NfeKey.where(id: -1).search(params[:query])
+    #@nfe_keys = NfeKey.all.paginate(:page => params[:page])
+    @nfe_keys = NfeKey.where("created_at > ?", Date.today)
     respond_with(@nfe_keys)
   end
 
@@ -142,6 +136,12 @@ class NfeKeysController < ApplicationController
     end
   end
 
+  def get_nfe_keys_by_boarding
+    @boarding = Boarding.joins(:nfe_keys).where(id: params[:boarding_id], nfe_keys: {nfe: params[:nfe_id]}).first
+    respond_to do |format|
+      format.js
+    end
+  end
 
   private
     def set_nfe_key
