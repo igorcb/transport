@@ -655,6 +655,14 @@ class OrdemService < ActiveRecord::Base
   def advance_money
     
   end
+
+  def total_item_ordem_service_cubing
+    value = BigDecimal.new(0)
+    self.item_ordem_services.includes(:product).each do |item|
+      value += item.calculation_cubing.to_f
+    end
+    value
+  end
   
   private
     def can_destroy?
