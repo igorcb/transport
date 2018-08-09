@@ -33,6 +33,6 @@
 </p>
 
 <p>
-  <strong>Tempo do carregamento:</strong>
+  <strong>Tempo da descarga:</strong>
   <%= raw_date = TimeDifference.between(@input_control.start_time_discharge, @input_control.finish_time_discharge).humanize if @input_control.start_time_discharge.present? && @input_control.finish_time_discharge.present? %>
 </p>
