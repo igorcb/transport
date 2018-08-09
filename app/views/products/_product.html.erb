@@ -5,7 +5,7 @@
 	<td><%= product.unid_medida if product.present? %></td>
 	<td><%= product.category.descricao if product.category.present? %></td>
 	<td><%= product.cubagem.to_f %></td>
-	<td><%= product.height_maximum_pallet.to_f %></td>
+	<td><%= number_to_currency(product.height_maximum_pallet, unit: "", separator: ",", delimiter: ".", precision: 2) %></td>
 	<td><%= link_to 'Show', product, class: "btn btn-info btn-xs" %></td>
 	<td><%= link_to 'Edit', edit_product_path(product), class: "btn btn-primary btn-xs" %></td>
 	<td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>

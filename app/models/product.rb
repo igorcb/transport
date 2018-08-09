@@ -18,9 +18,11 @@ class Product < ActiveRecord::Base
   end
 
   def height_maximum_pallet
+  	value = BigDecimal.new(0)
   	if (!height.nil?) || (!layer_pallet.nil?) 
-  		(height * layer_pallet) / 100
+  		value = (height * layer_pallet) / 100
    	end
+   	value
   end
 
 	def self.update_or_create(attributes)
