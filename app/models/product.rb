@@ -17,6 +17,12 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def height_maximum_pallet
+  	if (!height.nil?) || (!layer_pallet.nil?) 
+  		(height * layer_pallet) / 100
+   	end
+  end
+
 	def self.update_or_create(attributes)
 	  assign_or_new(attributes).save
 	end
