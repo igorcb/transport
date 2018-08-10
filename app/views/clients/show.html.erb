@@ -151,6 +151,18 @@
 </p>
 
 <p>
+  <strong>Calculo da Altura Máxima do Pallet:</strong>
+  <%= @client.type_height_maximum_pallet_name  %>
+</p>
+
+<p>
+  <strong>Altura Máxima do Pallet:</strong>
+  <%= @client.default_height_maximum_pallet  %>
+  <br />
+  <small> Somente se estiver marcado a opção "Padrão do Cliente" </small>
+</p>
+
+<p>
   <strong>Aceita operacional de fora?:</strong>
   <%= extenso_boolean @client.accept_operational %>
 </p>

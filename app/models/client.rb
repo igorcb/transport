@@ -74,6 +74,12 @@ class Client < ActiveRecord::Base
     ESPECIAL = 1
   end
 
+  module TypeHeightMaximumPallet
+    STANDARD_MANUFACTURER = 0
+    STANDARD_CLIENT = 1
+    STANDARD_CLIENT_AND_PRODUCT = 2
+  end
+
   def tipo_cliente_nome
     case self.tipo_cliente
       when 0 then "Normal"
@@ -81,9 +87,14 @@ class Client < ActiveRecord::Base
     end
   end
 
-  # if pode_faturar?
-  #    self.faturar
-  # end
+  def type_height_maximum_pallet_name
+    case self.type_height_maximum_pallet
+      when 0 then "Padrao do Fabricante"
+      when 1 then "Padrao do Cliente"
+      when 2 then "Padrao do Cliente e Produto"
+    end
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ['nome', 'cpf_cnpj', 'fantasia', 'estado', 'cidade']
   end
