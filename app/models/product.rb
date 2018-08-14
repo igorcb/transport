@@ -8,7 +8,7 @@ class Product < ActiveRecord::Base
 	belongs_to :category
 
   before_create do |item|
-    item.cubagem = calculation_cubing
+    item.cubagem = 0.00 #calculation_cubing
   end 
 
   def calculation_cubing
