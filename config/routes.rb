@@ -1,4 +1,6 @@
 Transport::Application.routes.draw do
+  resources :clients_pallets
+
   match "/table_freights/get_calc_freight_minimum", :controller => "table_freights", :action => "get_calc_freight_minimum", via: [:get] 
   match '/calculate_liquidity', :controller => 'static_pages', :action => 'calculate_liquidity', via: [:get, :post]
   match "/stretch_routes/get_stretch_route_by_id", :controller => "stretch_routes", :action => "get_stretch_route_by_id", via: [:get] 
@@ -255,7 +257,6 @@ Transport::Application.routes.draw do
   resources :nfe_xmls#, only: [:index, :edit, :update]
   resources :cte_xmls, only: [:index, :new, :create]
 
-
   resources :nfe_keys, only: [:index, :show, :edit, :update] do
     member do
       get :edit_action_inspector
@@ -271,10 +272,10 @@ Transport::Application.routes.draw do
       get :search
     end
   end
-
   
   get "internal_comments/create"
-  resources :occurrences
+  resources :occurrences, only: [:index, :show]
+
   resources :internal_comments, only: [:create]
   resources :comments, only: [:create]
 
@@ -353,15 +354,6 @@ Transport::Application.routes.draw do
       post 'create_os'
     end
   end
-
-  # resources :teste, only: [:index] do
-  #   collection do  
-  #     get  "route_name/:param_a" => "controller#action_a"
-  #     get  "route_name/:param_a/:param_b" => "controller#action_b"
-  #     get  "route_name/:param_a/:param_b/:param_c/" => "controller#action_c"          
-  #     get  "route_name/:param_a/:param_b/:param_c/:param_d" => "controller#action_d"
-  #   end
-  # end  
 
   resources :billings
   #match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
@@ -480,7 +472,7 @@ Transport::Application.routes.draw do
   resources :client_table_prices
 
   resources :clients do
-    #resources :client_discharges
+    resources :clients_pallets
     resources :client_table_prices
     resources :client_discharges
     resources :client_requirements

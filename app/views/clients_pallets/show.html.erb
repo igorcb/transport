@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Client Config Pallet</div>
+  <div class="panel-body">
+    <%= render 'client_discharges/client' %>
+
+    <hr>
+
+		<p>
+		  <strong>Cod.Prod:</strong>
+		  <%= @clients_pallet.product.cod_prod %>
+		</p>
+
+		<p>
+		  <strong>Descricao:</strong>
+		  <%= @clients_pallet.product.descricao %>
+		</p>
+
+		<p>
+		  <strong>EAN:</strong>
+		  <%= @clients_pallet.product.ean %>
+		</p>
+
+		<p>
+		  <strong>EAN da Caixa:</strong>
+		  <%= @clients_pallet.product.ean_box %>
+		</p>
+
+		<p>
+		  <strong>Layer pallet:</strong>
+		  <%= @clients_pallet.layer_pallet %>
+		</p>
+
+  </div>
+</div>
+
+<%= link_to "Editar", edit_client_clients_pallet_path(@client, @clients_pallet), class: "btn btn-primary" %>
+<%= link_to "Listar Todos", client_clients_pallets_path(@client) , class: "btn btn-default" %>
+
+<%#= link_to 'Edit', edit_clients_pallet_path(@clients_pallet) %> 
+<%#= link_to 'Back', clients_pallets_path %>
+

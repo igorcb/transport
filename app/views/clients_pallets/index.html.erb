@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listing Config Client and Products</div>
+  <div class="panel-body">
+    <div id="client">
+      <%= render 'client_discharges/client' %>
+    </div>
+
+    <%= link_to 'New Clients Config Pallet', new_client_clients_pallet_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Cod. Prod</th>
+            <th>Descrição</th>
+            <th>EAN</th>
+            <th>EAN da Caixa</th>
+            <th>Camadas</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @client.clients_pallets.each do |clients_pallet| %>
+            <tr>
+              <td><%= clients_pallet.product.cod_prod %></td>
+              <td><%= clients_pallet.product.descricao %></td>
+              <td><%= clients_pallet.product.ean %></td>
+              <td><%= clients_pallet.product.ean_box %></td>
+              <td><%= clients_pallet.layer_pallet %></td>
+              <td><%= link_to 'Show', client_clients_pallet_path(@client, clients_pallet), class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_client_clients_pallet_path(@client, clients_pallet), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Destroy', clients_pallet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<%= form_for([ @client, @clients_pallet ]) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= render 'client_discharges/client' %>
+
+  <div class="form-group">
+    <%= label_tag :cod_prod, "Cod. Prod" %><br>
+    <% if @clients_pallet.new_record? %>
+      <%= text_field_tag :cod_prod, nil, class: "form-control " %>
+    <% else %>
+      <%= text_field_tag :cod_prod, @clients_pallet.product.cod_prod, class: "form-control", disabled: true %>
+      <% @product = @clients_pallet.product %> <br />
+      <%= render partial: "products/result_product", locals: { product: @product } %>
+    <% end %>
+  </div>
+  
+  <div id="result_product">
+
+  </div> 
+
+  <div class="form-group">
+    <%= f.label :layer_pallet, "Camadas" %><br>
+    <%= f.text_field :layer_pallet, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#cod_prod").focusout(function() {
+      var cod_prod = $('#cod_prod').val();
+      console.log(cod_prod);
+      $.ajax({
+        type: "GET",
+        data: {product_id: cod_prod},
+        dataType : 'html',
+        url: '/get_product_by_cod_prod',
+        error: function(data){
+            $('#result_product').html("<div class='alert alert-error'>Error location product.</div>");
+        },
+        success: function(data){
+            $('#result_product').html(data);
+        },
+      });
+    });
+  });
+</script>
