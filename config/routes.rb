@@ -1,4 +1,11 @@
 Transport::Application.routes.draw do
+  resources :edi_occurrences, only: [:index] do
+    collection do
+      get :search
+      post :generate_file
+    end
+  end
+
   resources :clients_pallets
 
   match "/table_freights/get_calc_freight_minimum", :controller => "table_freights", :action => "get_calc_freight_minimum", via: [:get] 

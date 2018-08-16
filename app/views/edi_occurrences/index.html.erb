@@ -1,0 +1,83 @@
+<h1>EDI Ocorrências</h1>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="true" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+        <%= render "form_search" %>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Listagem do NF-e Keys Entregues</div>
+    <div class="panel-body">
+
+      <div class="table-responsive">
+
+        <div id="ordem_service_type_service_id">
+          <%= form_tag({:controller => "edi_occurrences", :action => "generate_file"}, :method => "post", :name => "billingForm") do %>
+
+          <div id="result_nfe_keys">
+          
+            <table class="table table-striped">
+
+              <thead>
+                <%= render(:partial => 'header') %>
+              </thead>
+
+              <tbody>
+                <%= render 'edi_occurrences/nfe_key', nfe_key: @nfe_keys %>
+              </tbody>
+
+            </table>
+        
+          </div>
+          
+<!--           <div class="form-group">
+            <%#= label_tag :cnpj_tomador_servico, "CNPJ Tomador de Serviço" %>
+            <%#= text_field_tag :cnpj_tomador_servico, nil, class: "form-control cnpj" %>
+          </div> -->
+
+          <div class="form-group">
+            <%= submit_tag("Gerar Arquivo EDI", class: "btn btn-primary") %> 
+          </div>
+
+          <% end %>
+        
+        </div>
+      
+      </div>    
+    
+    </div>
+
+    
+
+  </div>
+
+  <div>
+    <%#= will_paginate @nfe_keys, renderer: BootstrapPagination::Rails %>
+  </div>
+
+  
+
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.has_tooltip').tooltip();
+  });
+</script>
+

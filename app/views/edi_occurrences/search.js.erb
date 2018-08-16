@@ -1,0 +1,2 @@
+$('#result_nfe_keys').empty();
+$("#result_nfe_keys").append("<table class='table table-striped'><thead><%= j(render(:partial => 'header')) %></thead><tbody><%= j(render 'edi_occurrences/nfe_key', nfe_key: @nfe_keys) %></tbody></table>");
