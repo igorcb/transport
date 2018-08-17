@@ -6,8 +6,18 @@
     <hr>
 
 		<p>
+			<strong>CNPJ:</strong>
+			<%= link_to @clients_pallet.source_client.cpf_cnpj, @clients_pallet.source_client %>
+		</p>
+
+		<p>
+			<strong>Remetente:</strong>
+			<%= link_to @clients_pallet.source_client.nome, @clients_pallet.source_client %> 
+		</p>
+
+		<p>
 		  <strong>Cod.Prod:</strong>
-		  <%= @clients_pallet.product.cod_prod %>
+		  <%= link_to @clients_pallet.product.cod_prod, @clients_pallet.product %>
 		</p>
 
 		<p>

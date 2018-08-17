@@ -22,9 +22,11 @@ class ClientsPalletsController < ApplicationController
   end
 
   def create
+    @client_source = Client.where(cpf_cnpj: params[:client_source_cnpj]).first
     @clients_pallet = ClientsPallet.new(clients_pallet_params)
     @product = Product.where(cod_prod: params[:cod_prod]).first
     @clients_pallet.client_id = @client.id
+    @clients_pallet.source_client_id = @client_source.id
     @clients_pallet.product_id = @product.id if @product.present?
     respond_to do |format|
       if @clients_pallet.save
