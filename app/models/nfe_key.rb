@@ -7,6 +7,8 @@ class NfeKey < ActiveRecord::Base
   
   belongs_to :user_action_inspector_confirmed, class_name: "User", foreign_key: "action_inspector_user_confirmed_id"
 
+  has_one :occurrence
+
   has_attached_file :asset, :styles => {medium: "300x300>", thumb: "100x100>", mini: "32x32>"}
   has_attached_file :action_inspector
   # has_attached_file :asset,

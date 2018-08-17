@@ -13,7 +13,8 @@ class EdiOccurrencesController < ApplicationController
   end
 
   def search
-  	@q = NfeKey.includes(:ordem_service).where(nfe_source_type: "InputControl").order("ordem_services.data_entrega_servico asc").search(params[:query])
+  	@q = NfeKey.includes(:ordem_service).where("nfe_keys.id not in (select occurrences.nfe_key_id from occurrences)").where(nfe_source_type: "InputControl").order("ordem_services.data_entrega_servico asc").search(params[:query])
+
 
     @nfe_keys = @q.result
     respond_with(@nfe_keys) do |format|
@@ -23,13 +24,19 @@ class EdiOccurrencesController < ApplicationController
 
   def generate_file
     nfe_key_ids = OrdemService.get_hash_ids(params[:nfe][:ids])
-    file = Occurrence.generate_file(nfe_key_ids)
-    puts file
-
+    
     date_file = Date.current.strftime('%d%m%Y')
-    send_data file, filename: "OCOTG_#{date_file}_SEQ.txt", 
+    name_file = "OCOTG_#{date_file}_SEQ.txt"
+    
+    file = Occurrence.generate_file(date_file, nfe_key_ids)
+    
+    puts file
+    
+    send_data file, filename: name_file, 
                                  type: 'application/txt', 
                                  disposition: 'inline'
-    #redirect_to edi_occurrences_path
+    #redirect_to edi_occurrences_path and return
+    #flash[:success] = 'TXT Downloaded'
+    #redirect_to edi_occurrences_path and return
   end
 end
