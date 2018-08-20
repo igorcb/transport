@@ -7,6 +7,7 @@ class Occurrence < ActiveRecord::Base
 	def self.generate_file(name_file, nfe_key_ids)
 		#source_client = Trazes do Parametro do Filtro da tela de EDI Controller Index
 		ActiveRecord::Base.transaction do
+			#byebug
 			occurrence = Occurrence.new
 			company = Company.first
 

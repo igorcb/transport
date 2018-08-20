@@ -28,7 +28,7 @@
       <div class="table-responsive">
 
         <div id="ordem_service_type_service_id">
-          <%= form_tag({:controller => "edi_occurrences", :action => "generate_file"}, :method => "post", :name => "billingForm") do %>
+          <%= form_tag({:controller => "edi_occurrences", :action => "generate_file"}, :method => :get, :name => "billingForm") do %>
 
           <div id="result_nfe_keys">
           

@@ -23,20 +23,16 @@ class EdiOccurrencesController < ApplicationController
   end
 
   def generate_file
+    #EdiOccurrenceService.new(params[:nfe][:ids]).perform
+    #flash[:success] = 'Arquivo sendo gerado aguarde...'
+    #redirect_to edi_occurrences
+
     nfe_key_ids = OrdemService.get_hash_ids(params[:nfe][:ids])
-    
     date_file = Date.current.strftime('%d%m%Y')
     name_file = "OCOTG_#{date_file}_SEQ.txt"
-    
+
     file = Occurrence.generate_file(date_file, nfe_key_ids)
-    
-    puts file
-    
-    send_data file, filename: name_file, 
-                                 type: 'application/txt', 
-                                 disposition: 'inline'
-    #redirect_to edi_occurrences_path and return
-    #flash[:success] = 'TXT Downloaded'
-    #redirect_to edi_occurrences_path and return
+
+    send_data file, filename: name_file, type: 'application/txt', disposition: 'inline'   
   end
 end
