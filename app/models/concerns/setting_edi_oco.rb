@@ -91,18 +91,18 @@ module SettingEdiOco
       # 6 CGC Numérico TAM 14 
       arq_nfe << remove_mask_cpf_cnpj(nfe.ordem_service.billing_client.cpf_cnpj)
       # 9 CDSERIE Caracter TAM 3 
-      arq_nfe << ajeita_texto(nfe.chave[24..26],3)
+      arq_nfe << ajeita_texto(nfe.chave[24],3)
       # 12 CDNOTA Numérico TAM 8 
-      arq_nfe << ajeita_texto(nfe.nfe, 8)
-      # 15 CDOCORRE Numérico TAM 2 
-      arq_nfe << ("0" * 2)
+      arq_nfe << ajeita_numero(nfe.nfe, 8)
+      # 15 CDOCORRE Numérico TAM 2 DEFAULT 01:entrega realizada normalmente
+      arq_nfe << ("01")
       # 18 DATA Numérico TAM 8 DDMMYYYY
       # DATA  DATA  TAM 06 
       arq_nfe << ajeita_data(DateTime.now.in_time_zone("Brasilia").to_date)
       # 21 HORA Numérico TAM 4 
       arq_nfe << DateTime.current.strftime("%H%M")
-      # 24 CDENTREGA Numérico TAM 2 
-      arq_nfe << ("0" * 2)
+      # 24 CDENTREGA Numérico TAM 2 de acordo com o CNPJ da Empresa
+      arq_nfe << ("03")
       # 27 TEXTO Caracter TAM 70 
       arq_nfe << (" " * 70)
     end

@@ -2,7 +2,7 @@ Transport::Application.routes.draw do
   resources :edi_occurrences, only: [:index] do
     collection do
       get :search
-      post :generate_file
+      get :generate_file
     end
   end
 
