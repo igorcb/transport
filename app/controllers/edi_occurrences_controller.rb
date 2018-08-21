@@ -13,12 +13,12 @@ class EdiOccurrencesController < ApplicationController
   end
 
   def search
-    byebug
-    if params[:ordem_service_billing_client_cpf_cnpj_eq].nil? 
-      flash[:danger] = "Inform CNPJ Client Billing"
-      redirect_to edi_occurrences_path
-      return
-    end
+    #byebug
+    # if params[:ordem_service_billing_client_cpf_cnpj_eq].nil? 
+    #   flash[:danger] = "Inform CNPJ Client Billing"
+    #   redirect_to edi_occurrences_path
+    #   return
+    # end
 
   	@q = NfeKey.includes(:ordem_service).where("nfe_keys.id not in (select occurrences.nfe_key_id from occurrences)").where(nfe_source_type: "InputControl").order("ordem_services.data_entrega_servico asc").search(params[:query])
 
