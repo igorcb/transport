@@ -121,11 +121,12 @@ class NfeXml < ActiveRecord::Base
 
   def self.processa_xml_input_control(params)
     if params.status == TipoStatus::NAO_PROCESSADO
-      
+       
       ActiveRecord::Base.transaction do
         #processar xml - extrair os daddos da nfe 
         # - atualizar campos na tabela nfe_xml
         # - criar produtos na tabela item_input_control
+        
         puts ">>>>>>>>>>>>>>> Params: #{params.to_s}"
         #input_control = 
         nfe_xml = params
@@ -182,35 +183,41 @@ class NfeXml < ActiveRecord::Base
 
         #produtos da NFE
         #input_control = InputControl.find(nfe_xml.nfe_id)
-        nfe.prod.each do |product|
-          prod = Produto.new
-          prod.attributes=(product)
-          produto = Product.create_with(category_id: 6, 
-                                        cubagem: 0,
-                                    cod_prod: prod.cProd, 
-                                   descricao: prod.xProd, 
-                                         ean: prod.cEAN,
-                                    ean_trib: prod.cEANTrib,
-                                         ncm: prod.NCM,
-                                        cfop: prod.CFOP,
-                                 unid_medida: prod.uCom,
-                              valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
+        byebug
+        begin
+          ActiveRecord::Base.transaction do
 
-          nfe_xml.item_input_controls.create!(
-                                        input_control_id: nfe_xml.nfe_id,
-                                              number_nfe: nfe.ide.nNF,
-                                              product_id: produto.id,
-                                                    qtde: prod.qCom,
-                                               qtde_trib: prod.qTrib,
-                                                   valor: prod.vProd,
-                                          valor_unitario: prod.vUnTrib,
-                                    valor_unitario_comer: prod.vUnCom,
-                                             unid_medida: prod.uCom
-                                      )
-
-
+            nfe.prod.each do |product|
+              byebug
+              prod = Produto.new
+              prod.attributes=(product)
+              produto = Product.create_with(category_id: 6, 
+                                         cubagem: 0,
+                                        cod_prod: prod.cProd, 
+                                       descricao: prod.xProd, 
+                                             ean: prod.cEAN,
+                                        ean_trib: prod.cEANTrib,
+                                             ncm: prod.NCM,
+                                            cfop: prod.CFOP,
+                                     unid_medida: prod.uCom,
+                                  valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
+              produto.save!
+              nfe_xml.item_input_controls.create!(
+                                            input_control_id: nfe_xml.nfe_id,
+                                                  number_nfe: nfe.ide.nNF,
+                                                  product_id: produto.id,
+                                                        qtde: prod.qCom,
+                                                   qtde_trib: prod.qTrib,
+                                                       valor: prod.vProd,
+                                              valor_unitario: prod.vUnTrib,
+                                        valor_unitario_comer: prod.vUnCom,
+                                                 unid_medida: prod.uCom
+                                          )
+            end
+          end
+        rescue => e
+          puts e.message
         end
-
       end
     end
   end
