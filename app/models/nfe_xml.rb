@@ -183,12 +183,10 @@ class NfeXml < ActiveRecord::Base
 
         #produtos da NFE
         #input_control = InputControl.find(nfe_xml.nfe_id)
-        byebug
         begin
           ActiveRecord::Base.transaction do
 
             nfe.prod.each do |product|
-              byebug
               prod = Produto.new
               prod.attributes=(product)
               produto = Product.create_with(category_id: 6, 
