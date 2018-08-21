@@ -2,19 +2,19 @@
   <%= search_form_for @q, remote: true, url: search_edi_occurrences_path, :method => :get do |f| %>
     <div class="form-group">
       <%= f.label :ordem_service_billing_client_cpf_cnpj_eq, "CNPJ Remetente" %><br>
-      <%= f.search_field :ordem_service_billing_client_cpf_cnpj_eq, value: "43.461.789/0001-90", class: "form-control cnpj" %>
+      <%= f.search_field :ordem_service_billing_client_cpf_cnpj_eq, value: nil, class: "form-control cnpj" %>
       <%= render partial: "clients/result_client", locals: { client: nil } %>
     </div>
     
     <div class="row form-group">
       <div class="col-xs-6">
         <%= f.label :ordem_service_data_entrega_servico_gteq, "Data entrega do servico" %>
-        <%= f.search_field :ordem_service_data_entrega_servico_gteq, value: "10/06/2018", class: "form-control data", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>  
+        <%= f.search_field :ordem_service_data_entrega_servico_gteq, value: date_br(Date.current), class: "form-control data", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>  
       </div>
 
       <div class="col-xs-6">
         <%= f.label :ordem_service_data_entrega_servico_lteq, "até" %>
-        <%= f.search_field :ordem_service_data_entrega_servico_lteq, value: "20/06/2018", class: "form-control data", placeholder: "Informe a Data do Entrada ex: 05-12-2014" %>  
+        <%= f.search_field :ordem_service_data_entrega_servico_lteq, value: date_br(Date.current), class: "form-control data", placeholder: "Informe a Data do Entrada ex: 05-12-2014" %>  
       </div>
     </div>
     <div class="actions"><%= f.submit "Search" %></div>

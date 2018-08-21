@@ -13,8 +13,14 @@ class EdiOccurrencesController < ApplicationController
   end
 
   def search
-  	@q = NfeKey.includes(:ordem_service).where("nfe_keys.id not in (select occurrences.nfe_key_id from occurrences)").where(nfe_source_type: "InputControl").order("ordem_services.data_entrega_servico asc").search(params[:query])
+    byebug
+    if params[:ordem_service_billing_client_cpf_cnpj_eq].nil? 
+      flash[:danger] = "Inform CNPJ Client Billing"
+      redirect_to edi_occurrences_path
+      return
+    end
 
+  	@q = NfeKey.includes(:ordem_service).where("nfe_keys.id not in (select occurrences.nfe_key_id from occurrences)").where(nfe_source_type: "InputControl").order("ordem_services.data_entrega_servico asc").search(params[:query])
 
     @nfe_keys = @q.result
     respond_with(@nfe_keys) do |format|
@@ -29,7 +35,8 @@ class EdiOccurrencesController < ApplicationController
 
     nfe_key_ids = OrdemService.get_hash_ids(params[:nfe][:ids])
     date_file = Date.current.strftime('%d%m%Y')
-    name_file = "OCOTG_#{date_file}_SEQ.txt"
+    hora_file = Time.current.strftime('%H%M%S')
+    name_file = "OCOTG_#{date_file}_#{date_file}.txt"
 
     file = Occurrence.generate_file(date_file, nfe_key_ids)
 
