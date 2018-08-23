@@ -9,6 +9,9 @@
 <br />
 
 <strong>Cidades: </strong> <%= boarding.get_cities %><br />
+<% if boarding.pending? %>
+	<strong>Observacao: </strong><label style="color: red">Embarque com restrição</label>
+<% end %>
 
 <% if boarding.driver_checkin %>
 
