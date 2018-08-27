@@ -98,7 +98,7 @@ module SettingEdiOco
       arq_nfe << ("01")
       # 18 DATA Numérico TAM 8 DDMMYYYY
       # DATA  DATA  TAM 06 
-      arq_nfe << ajeita_data(DateTime.now.in_time_zone("Brasilia").to_date)
+      arq_nfe << ajeita_data(nfe.ordem_service.data_entrega_servico)
       # 21 HORA Numérico TAM 4 
       arq_nfe << DateTime.current.strftime("%H%M")
       # 24 CDENTREGA Numérico TAM 2 de acordo com o CNPJ da Empresa
