@@ -319,8 +319,13 @@ class OrdemServicesController < ApplicationController
   end
 
   def update_delivery
+    byebug
     if params[:ordem_service][:data_entrega_servico].blank?
       flash[:danger] = "Data Entrega Servico can't be blank."
+      redirect_to ordem_service_path(@ordem_service)
+      return    
+    elsif params[:ordem_service][:data_entrega_servico].to_date < @ordem_service.boarding.date_boarding
+      flash[:danger] = "Delivery date of service can not be less than the date of shipment"
       redirect_to ordem_service_path(@ordem_service)
       return    
     end
