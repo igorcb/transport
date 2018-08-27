@@ -1,6 +1,6 @@
 class Scheduling < ActiveRecord::Base
 
-  validates :client, presence: true
+  validates :client, presence: true, length: { maximum: 50 } 
   validates :type_modal, presence: true
   validates :date_scheduling, presence: true
   validates :time_scheduling, presence: true
