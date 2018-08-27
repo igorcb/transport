@@ -39,6 +39,11 @@
     </div>
 
     <div class="form-group">
+      <%= label_tag :ordem_service_status, "Status O.S." %>
+      <%= f.select( :ordem_service_status_eq, select_status_os, {include_blank: true}, {class: "form-control"} ) %>
+    </div>    
+
+    <div class="form-group">
       <%= label_tag :status, "Acao Fiscal" %>
       <%= select_tag :status, options_for_select(select_status_nfe_dae), prompt: "Selecione o Status", class: "form-control"  %> 
     </div>    
