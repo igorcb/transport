@@ -35,10 +35,9 @@ class OrdemServiceTypeServicesController < ApplicationController
 
   def create
     @ordem_service_type_service = OrdemServiceTypeService.new(ordem_service_type_service_params)
-    client_table_price = ClientTablePrice.where(client_id: @ordem_service_type_service.ordem_service.billing_client, 
-                                          type_service_id: @ordem_service_type_service.type_service_id,
-                                         stretch_route_id: @ordem_service_type_service.stretch_route_id).first
-    puts ">>>>>>>>>>>>>>>>>>> ClientTablePrice: #{client_table_price.id}"
+    client_table_price = ClientTablePrice.where(client_table_price_id: @ordem_service_type_service.ordem_service.billing_client, 
+                                                      type_service_id: @ordem_service_type_service.type_service_id,
+                                                     stretch_route_id: @ordem_service_type_service.stretch_route_id).first
     @ordem_service_type_service.client_table_price_id = client_table_price.id
     respond_to do |format|
       if @ordem_service_type_service.save!

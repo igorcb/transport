@@ -150,9 +150,9 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   def create_or_update_table_price
     #table_price = ClientTablePrice.where(id: self.client_table_price_id, client_id: self.ordem_service.billing_client_id, type_service_id: self.type_service_id).first
-    table_price = ClientTablePrice.where(client_id: self.ordem_service.billing_client_id, 
-                                   type_service_id: self.type_service_id,
-                                  stretch_route_id: self.stretch_route_id).first
+    table_price = ClientTablePrice.where(client_table_price_id: self.ordem_service.billing_client_id, 
+                                               type_service_id: self.type_service_id,
+                                              stretch_route_id: self.stretch_route_id).first
     
     ordem_service_table_price = OrdemServiceTablePrice.where(ordem_service_id: self.ordem_service_id, 
                                                               type_service_id: self.type_service_id,
