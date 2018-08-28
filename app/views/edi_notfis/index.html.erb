@@ -1,0 +1,13 @@
+
+<h1>Leitura de arquivo Notfis</h1>
+
+<%= form_tag({action: :upload}, multipart: true) do %>
+	<div class="form-group">
+		<%= label_tag "Arquivo NOTFIS" %>
+		<%= file_field_tag :file, accept: 'text/txt' %>
+	</div>
+  
+	<div class="form-group">
+  	<%= submit_tag 'Enviar', class: "button btn-primary" %>
+  </div>
+<% end %>

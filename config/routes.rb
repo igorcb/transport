@@ -1,4 +1,11 @@
 Transport::Application.routes.draw do
+  resources :edi_notfis, only: [:index] do
+    collection do
+      get :search
+      post :upload
+    end
+  end
+
   resources :edi_occurrences, only: [:index] do
     collection do
       get :search
