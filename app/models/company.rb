@@ -8,8 +8,13 @@ class Company < ActiveRecord::Base
 	has_attached_file :quitter, styles: { small: "64x64", med: "100x100", large: "200x200" }
 
 
+
 	def cidade_estado
     "#{self.cidade} '-' #{self.estado}"
+	end
+
+	def initials
+		'L7'
 	end
 	
 end
