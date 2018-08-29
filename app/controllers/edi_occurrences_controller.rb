@@ -36,7 +36,8 @@ class EdiOccurrencesController < ApplicationController
     nfe_key_ids = OrdemService.get_hash_ids(params[:nfe][:ids])
     date_file = Date.current.strftime('%d%m%Y')
     hora_file = Time.current.strftime('%H%M%S')
-    name_file = "OCOTG_#{date_file}_#{date_file}.txt"
+    sigla = Company.first.initials
+    name_file = "OCO#{sigla}_#{date_file}_#{hora_file}.txt"
 
     file = Occurrence.generate_file(date_file, nfe_key_ids)
 
