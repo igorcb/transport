@@ -24,6 +24,8 @@ class OrdemService < ActiveRecord::Base
   belongs_to :direct_charge
   belongs_to :client_table_price
 
+  belongs_to :delivery_user, class_name: "User", foreign_key: "delivery_user_id"
+
   has_one :boarding_item
   has_one :boarding, through: :boarding_item
 
@@ -442,11 +444,11 @@ class OrdemService < ActiveRecord::Base
     end
   end
 
-  def self.information_delivery(os_id)
+  def self.information_delivery(user, os_id)
     ordem_service = OrdemService.find(os_id)
     boarding = ordem_service.boarding_item.boarding if ordem_service.boarding_item.present?
     ActiveRecord::Base.transaction do
-      OrdemService.where(id: os_id).update_all(status: OrdemService::TipoStatus::ENTREGA_EFETUADA)
+      OrdemService.where(id: os_id).update_all(delivery_user_id: user.id, delivery_user_time: Date.current, status: OrdemService::TipoStatus::ENTREGA_EFETUADA)
       if ordem_service.boarding_item.present?
         Boarding.where(id: boarding.id).update_all(status: Boarding::TipoStatus::ENTREGUE) if boarding.check_status_ordem_service_entregue?
       end

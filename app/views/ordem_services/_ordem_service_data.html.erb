@@ -54,6 +54,11 @@
     </p>
 
     <p>
+      <strong>Usuario da Entrega do Serviço:</strong>
+      <%= @ordem_service.delivery_user.email if @ordem_service.delivery_user.present? %>
+    </p>
+
+    <p>
       <strong>Criada em:</strong>
       <%= date_hora_br @ordem_service.created_at %>
     </p>

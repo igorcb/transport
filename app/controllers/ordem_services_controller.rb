@@ -330,7 +330,7 @@ class OrdemServicesController < ApplicationController
     end
     respond_to do |format|
       if @ordem_service.update(ordem_service_params)
-        OrdemService.information_delivery(params[:id])
+        OrdemService.information_delivery(current_user, params[:id])
         format.html { redirect_to @ordem_service, flash: { success: "Ordem Service delivery was successful." } }
         format.json { head :no_content }
       end
