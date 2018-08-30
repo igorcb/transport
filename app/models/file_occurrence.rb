@@ -12,7 +12,7 @@ class FileOccurrence < ActiveRecord::Base
     
     file = File.open(file_params.last)
 
-    raise "Arquivo já processado pelo sistema, por favor escolher outro arquivo" if FileEdi.where(name_file: file_params.first).present?
+    raise "Arquivo já processado pelo sistema, por favor escolher outro arquivo" if FileEdi.where(type_file: FileEdi::TypeFile::EDI_NOTFIS, name_file: file_params.first).present?
   	
     file_occurrence = FileOccurrence.new
 
