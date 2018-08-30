@@ -6,11 +6,13 @@ class FileOccurrence < ActiveRecord::Base
 
   has_many :occurrences
   
-  def self.read_file_edi_notfis(file)
+  def self.read_file_edi_notfis(*file_params)
  	  
   # file = File.open(file, encoding: 'ASCII-8BIT')
-    puts ">>>>>>>>>>> File: #{file}"
-    file = File.open(file)
+    
+    file = File.open(file_params.last)
+
+    raise "Arquivo já processado pelo sistema, por favor escolher outro arquivo" if FileEdi.where(name_file: file_params.first).present?
   	
     file_occurrence = FileOccurrence.new
 
@@ -32,10 +34,10 @@ class FileOccurrence < ActiveRecord::Base
     list_data_complementary = []
     list_nfe_item = []
     list_responsible_freight = []
-
+    lines = []
   	i = 0
   	file.each do |line|
-  		puts "line: #{i}"
+  		lines << line
   		case line[0..2]
         when "000" then header = file_occurrence.read_header(line, header)
         when "310" then header_document = file_occurrence.read_header_document(line, header_document)
@@ -75,6 +77,7 @@ class FileOccurrence < ActiveRecord::Base
       end
   		i += 1
   	end
+    FileEdi.create(type_file: FileEdi::TypeFile::EDI_NOTFIS, date_file: Date.current, name_file: file_params.first, content: lines.to_s)
   	 hash = {
        header: header,
        header_document: header_document,
@@ -88,6 +91,7 @@ class FileOccurrence < ActiveRecord::Base
        responsible_freight: list_responsible_freight,
        trailler: trailler
      }
+
   end
 end
 

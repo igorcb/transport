@@ -5,6 +5,6 @@ class EdiNotfisController < ApplicationController
 	end
 
 	def upload
-		@notfis = FileOccurrence.read_file_edi_notfis(params[:file].path)
+		@notfis = FileOccurrence.read_file_edi_notfis(params[:file].filename, params[:file].path )
 	end
 end
