@@ -208,10 +208,12 @@ class Boarding < ActiveRecord::Base
   end 
 
   def billing_client_blank?
-    positivo = true
-    self.boarding_items.order(:delivery_number).each do |item|
-      positivo = item.ordem_service.billing_client.blank?
-      return false if positivo == false
+    # Deve retornar true se tiver ordem de servico que não tenha tomador de servico
+    positivo = false
+    boarding_items.each do |item|
+      puts "Item: #{item.ordem_service.billing_client_id}"
+      positivo = item.ordem_service.billing_client.nil?
+      return true if positivo == true
     end
     positivo
   end
