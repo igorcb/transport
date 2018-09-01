@@ -2,6 +2,7 @@ Transport::Application.routes.draw do
   resources :edi_notfis, only: [:index] do
     collection do
       get :search
+      get :select
       post :upload
     end
   end

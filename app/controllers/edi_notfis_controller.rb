@@ -1,10 +1,16 @@
 class EdiNotfisController < ApplicationController
 
 	def index
+		@notfis = Notfis.order(:date_notfis)
+	end
+
+	#form upload file
+	def select
 		
 	end
 
 	def upload
-		@notfis = FileOccurrence.read_file_edi_notfis(params[:file].filename, params[:file].path )
+		@file_occurrences = FileOccurrence.read_file_edi_notfis(params[:file].original_filename, params[:file].path)
+		redirect_to edi_notfis_index_path
 	end
 end

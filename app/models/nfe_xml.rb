@@ -12,6 +12,7 @@ class NfeXml < ActiveRecord::Base
   belongs_to :scheduling, class_name: "Scheduling", foreign_key: "nfe_id"
   belongs_to :input_control, class_name: "InputControl", foreign_key: "nfe_id"
   belongs_to :direct_charge, class_name: "DirectCharge", foreign_key: "nfe_id"
+  belongs_to :notfis, class_name: "NotFis", foreign_key: "nfe_id"
   belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id"
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id"
 
