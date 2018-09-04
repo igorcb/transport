@@ -1,5 +1,5 @@
 Transport::Application.routes.draw do
-  resources :edi_notfis, only: [:index] do
+  resources :edi_notfis, only: [:index, :show] do
     collection do
       get :search
       get :select

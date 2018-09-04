@@ -1,0 +1,89 @@
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Dados Leitura Arquivo Notfis</h3>
+	  </div>
+	  
+	  <div class="panel-body">
+
+	  	<%= render 'data_file_edi' %>
+
+	  </div>
+	</div>  
+
+
+
+	<% @notfis.each do |item| %>
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		  <div class="panel panel-default">
+		    <div class="panel-heading" role="tab" id="headingOne">
+		      <h4 class="panel-title">
+		        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= item.id %>" aria-expanded="true" aria-controls="collapse_<%= item.id %>">
+		        	
+		        <table class="table table-striped">
+							<thead>
+								<!-- <th>Data</th> -->
+								<th>CNPJ</th>
+								<th>Cliente</th>
+								<th>Cidade</th>
+								<th>Estado</th>
+							</thead>
+
+			        <tbody>
+								<tr>
+									<!-- <td><%#= date_br item.date_notfis %></td> -->
+									<td><%= item.client.cpf_cnpj %></td>
+									<td><%= item.client.nome %></td>
+									<td><%= item.client.cidade %></td>
+									<td><%= item.client.estado %></td>
+								</tr>
+			        </tbody>
+
+		        </table>
+
+
+		        </a>
+		      </h4>
+		    </div>
+		    <div id="collapse_<%= item.id %>" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="heading_<%= item.id %>">
+		      <div class="panel-body">
+		        <div class="panel panel-default">
+
+		          <div class="panel panel-default">
+
+		            <div class="panel-body"> 
+
+					        <table class="table table-striped">
+										<thead>
+											<th>NF-e</th>
+											<th>Valor</th>
+											<th>Peso</th>
+											<th>Volume</th>
+										</thead>
+
+										<tbody>
+					            <% item.nfe_xmls.each do |nfe| %>
+												<tr>
+													<td><%= nfe.numero %></td>
+													<td><%= nfe.valor_nota %></td>
+													<td><%= nfe.peso %></td>
+													<td><%= nfe.volume %></td>
+												</tr>
+					            <% end %>
+
+										</tbody>
+
+  				        </table>
+
+
+		            </div>
+		          </div>
+		        
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+
+	<!-- Fim collapse  --> 
+	</div>
+
+	<% end %>

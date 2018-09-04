@@ -9,6 +9,8 @@ class FileEdi < ActiveRecord::Base
 	belongs_to :shipper
 	belongs_to :carrier
 
+	has_many :notfis
+
 	module TypeFile
 		EDI_OCCURRENCE = "EDI_OCCURRENCE"
 		EDI_NOTFIS = "EDI_NOTFIS"

@@ -82,6 +82,22 @@ class FileOccurrence < ActiveRecord::Base
       embarcadora    = Shipper.where(cnpj: shipper_notfis.cnpj, name: shipper_notfis.empresa.strip).find_or_create_by(cnpj: shipper_notfis.cnpj)
       transportadora = Carrier.create_with(cnpj: carrier_notfis.cnpj, nome: carrier_notfis.razaosocial).find_or_create_by(cnpj: shipper_notfis.cnpj)
 
+      date_boarding = Date.new(shipper_notfis.dataembarque[4..7].to_i, shipper_notfis.dataembarque[2..3].to_i, shipper_notfis.dataembarque[0..1].to_i)
+      file_edi = FileEdi.create!(type_file: FileEdi::TypeFile::EDI_NOTFIS, 
+                      date_file: Date.current, 
+                      name_file: file_params.first, 
+                        content: lines.to_s,
+                  date_boarding: date_boarding,
+                     shipper_id: embarcadora.id,
+                     carrier_id: transportadora.id,
+                          place: place,
+                         weight: trailler.pesototalnotas,
+                         volume: trailler.quantidadetotalvolumes,
+                    value_total: trailler.valortotalnotas,
+                           qtde: list_data_nfe.count,
+                      )
+
+
       list_target_client.each do |client|
         cnpj = CNPJ.new(client.cnpj).formatted
         client_other = Client.create_with(tipo_cliente: Client::TipoCliente::NORMAL, 
@@ -96,7 +112,7 @@ class FileOccurrence < ActiveRecord::Base
                              bairro: client.bairro, 
                              cidade: client.cidade, 
                              estado: client.subentidade).find_or_create_by(cpf_cnpj: cnpj)
-        notfis = Notfis.create!(place: place, date_notfis: Date.current, client_id: client_other.id)
+        notfis = file_edi.notfis.create!(place: place, date_notfis: Date.current, client_id: client_other.id)
       end
       list_data_nfe.each do |nfe|
         cnpj = CNPJ.new(nfe.target_cnpj).formatted
@@ -118,20 +134,6 @@ class FileOccurrence < ActiveRecord::Base
                                 place: place
           )
       end
-      date_boarding = Date.new(shipper_notfis.dataembarque[4..7].to_i, shipper_notfis.dataembarque[2..3].to_i, shipper_notfis.dataembarque[0..1].to_i)
-      FileEdi.create!(type_file: FileEdi::TypeFile::EDI_NOTFIS, 
-                      date_file: Date.current, 
-                      name_file: file_params.first, 
-                        content: lines.to_s,
-                  date_boarding: date_boarding,
-                     shipper_id: embarcadora.id,
-                     carrier_id: transportadora.id,
-                          place: place,
-                         weight: trailler.pesototalnotas,
-                         volume: trailler.quantidadetotalvolumes,
-                    value_total: trailler.valortotalnotas,
-                           qtde: list_data_nfe.count,
-                      )
     end
     
   	hash = {

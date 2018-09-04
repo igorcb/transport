@@ -1,8 +1,13 @@
 class EdiNotfisController < ApplicationController
 
 	def index
-		@file_edi = FileEdi.first
-		@notfis = Notfis.order(:date_notfis)
+		@file_edi = FileEdi.order(date_boarding: :desc)
+		
+	end
+
+	def show
+		@file_edi = FileEdi.find(params[:id])
+		@notfis = @file_edi.notfis.order(:date_notfis)
 	end
 
 	#form upload file
