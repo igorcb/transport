@@ -3,6 +3,11 @@ class FileEdi < ActiveRecord::Base
 	validates :date_file, presence: true
 	validates :name_file, presence: true
 	validates :content, presence: true
+  validates :shipper_id, presence: true
+	#validates :date_boarding, presence: true
+
+	belongs_to :shipper
+	belongs_to :carrier
 
 	module TypeFile
 		EDI_OCCURRENCE = "EDI_OCCURRENCE"

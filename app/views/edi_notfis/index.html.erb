@@ -1,5 +1,43 @@
 <%= link_to "Upload notfis", select_edi_notfis_index_path %>
 
+<% if @file_edi.present? %>
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Dados Leitura Arquivo Notfis</h3>
+	  </div>
+	  
+	  <div class="panel-body">
+	  	<table class="table table-striped">
+	  		<thead>
+	  			<th>Dt.Embarque</th>
+	  			<th>Placa</th>
+	  			<th>Embarcador</th>
+	  			<th>Transportadora</th>
+	  			<th>Peso Total</th>
+	  			<th>Volume Total</th>
+	  			<th>Valor Total</th>
+	  			<th>Qtde. NF-e</th>
+	  		</thead>
+
+	  		<tbody>
+	  			<tr>
+		  				<td><%= date_br @file_edi.date_boarding %></td>
+		  				<td><%= @file_edi.place %></td>
+		  				<td><%= @file_edi.shipper.cnpj_name if @file_edi.shipper.present? %></td>
+		  				<td><%=  %></td>
+		  				<td><%= @file_edi.weight %></td>
+		  				<td><%= @file_edi.volume %></td>
+		  				<td><%= @file_edi.value_total %></td>
+							<td><%= @file_edi.qtde %></td>
+	  			</tr>
+	  		</tbody>
+	  	</table>
+	  </div>
+
+	</div>
+<% end %>
+
+
 <% if @notfis.present? %>
 	<% @notfis.each do |item| %>
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -10,8 +48,7 @@
 		        	
 		        <table class="table table-striped">
 							<thead>
-								<th>PLACA</th>
-								<th>Data</th>
+								<!-- <th>Data</th> -->
 								<th>CNPJ</th>
 								<th>Cliente</th>
 								<th>Cidade</th>
@@ -20,8 +57,7 @@
 
 			        <tbody>
 								<tr>
-									<td><%= item.place %></td>
-									<td><%= date_br item.date_notfis %></td>
+									<!-- <td><%#= date_br item.date_notfis %></td> -->
 									<td><%= item.client.cpf_cnpj %></td>
 									<td><%= item.client.nome %></td>
 									<td><%= item.client.cidade %></td>
@@ -45,7 +81,7 @@
 
 					        <table class="table table-striped">
 										<thead>
-											<th>Numero</th>
+											<th>NF-e</th>
 											<th>Valor</th>
 											<th>Peso</th>
 											<th>Volume</th>

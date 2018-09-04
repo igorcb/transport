@@ -14,12 +14,12 @@ module SettingEdiNotfis
 	  # Struct.new("Carrier", :idregistro)
 	  NotfisHeader = Struct.new("NotfisHeader", :idregistro, :idremetente, :iddestinatario, :data, :hora, :intercambio, :filler)
 	  HeaderDocument = Struct.new("HeaderDocument", :idregistro, :iddocumento, :filler)
-	  Shipper = Struct.new("Shipper", :idregistro, :cnpj, :ie, :endereco, :cidade, :cep, :subentidade, :dataembarque, :empresa, :filler)
+	  ShipperNotfis = Struct.new("ShipperNotfis", :idregistro, :cnpj, :ie, :endereco, :cidade, :cep, :subentidade, :dataembarque, :empresa, :filler)
 	  TargetClient = Struct.new("TargetClient", :idregistro, :razaosocial, :cnpj, :ie, :endereco, :bairro, :cidade, :cep, :codmunicipio, :subentidade, :area, :comunicacao, :iddestinatario, :filler)
 	  DataNFe = Struct.new("DataNFe", :idregistro, :numromaneio, :codigorota, :meiotransporte, :tipotransporte, :tipocarga, :condicaofrete, :serie, :numeronota, :dataemissao, :natureza, :acondicionamento, :acondicionamentos, :qtdevolumes, :valortotalnota, :pesototal, :pesocubagem, :tpicms, :seguro, :valorseguro, :valorcobrado, :placa, :planocarga,:fretepeso, :fretevalor, :valoroutrastaxas, :valortotalfrete, :acaodocumento, :valoricms, :valoricmsretido, :indicacaobonificacao, :xquantidade, :relacao, :target_cnpj)
 	  DataComplementary = Struct.new("DataComplementary", :idregistro, :codigooperfiscal, :tipoperiodoentrega,:datainicialentrega, :horainicialentrega, :datafinalentrega, :horafinalentrega, :idlocaldesembarque, :calculofretediferenciado, :idtabelafrete, :cgcentregue1, :seriec1, :numeroc1, :cgcentregue2, :seriec2, :numeroc2, :cgcentregue3, :seriec3, :numeroc3, :cgcentregue4, :seriec4, :numeroc4, :cgcentregue5, :seriec5, :numeroc5, :filler1, :tipoveiculo, :filler2, :numeronota)
 	  NfeItem = Struct.new("NfeItem", :idregistro, :quantvol1, :espacond1, :mercadoria1, :quantvol2, :espacond2, :mercadoria2, :quantvol3, :espacond3, :mercadoria3, :quantvol4, :espacond4, :mercadoria4, :filler, :numeronota )
-	  Carrier = Struct.new("Carrier", :idregistro, :razaosocial, :cnpj, :ie, :endereco, :bairro, :cidade, :cep, :codmunicipio, :subentidade, :comunicacao, :filler)
+	  CarrierNotfis = Struct.new("CarrierNotfis", :idregistro, :razaosocial, :cnpj, :ie, :endereco, :bairro, :cidade, :cep, :codmunicipio, :subentidade, :comunicacao, :filler)
 	  ShippingCompany = Struct.new("ShippingCompany", :idregistro, :razaosocial,:cgccpf, :inscricaoestadual, :endereco, :bairro, :cidade, :cep, :codmunicipio, :subentidade, :areafrete, :comunicacao, :filler)
 	  ResponsibleFreight = Struct.new("ResponsibleFreight", :idregistro, :razaosocial, :cgccpf, :ie, :endereco, :bairro, :cidade, :cep, :codmunicipio, :subentidade, :comunicacao, :filler, :numeronota)
 	  Trailler = Struct.new("Trailler", :idregistro, :valortotalnotas,:pesototalnotas,:cubagemtotalnotas,:quantidadetotalvolumes,:valortotalcobrado,:valortotalseguro,:filler)
@@ -58,7 +58,7 @@ module SettingEdiNotfis
 			# 	empresa: line[133,40],
 			# 	filler: line[173,240]
 			# }
-			params = Shipper.new(line[0,3],
+			params = ShipperNotfis.new(line[0,3],
 						 	 	  line[3,14],
 						 		  line[17,15],
 								  line[32,15],
@@ -297,7 +297,7 @@ module SettingEdiNotfis
 			# 	comunicacao: line[194,35],
 			# 	filler: line[229,11]
 			# }
-			params = Carrier.new(
+			params = CarrierNotfis.new(
 													line[0,3],
 													line[3,40],
 													line[43,14],

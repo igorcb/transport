@@ -1,6 +1,7 @@
 class EdiNotfisController < ApplicationController
 
 	def index
+		@file_edi = FileEdi.first
 		@notfis = Notfis.order(:date_notfis)
 	end
 
