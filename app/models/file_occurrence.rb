@@ -120,7 +120,7 @@ class FileOccurrence < ActiveRecord::Base
         source_cnpj = CNPJ.new(shipper_notfis.cnpj).formatted
         source_client = Client.where(cpf_cnpj: source_cnpj).first
         target_client = Client.where(cpf_cnpj: cnpj).first
-        notfis = Notfis.includes(:client).where("clients.cpf_cnpj = ?", cnpj).references(:client).first
+        notfis = Notfis.includes(:client).where("clients.cpf_cnpj = ? and notfis.file_edi_id = ?", cnpj, file_edi.id).references(:client).first
         notfis.nfe_xmls.create!(status: 0, 
                                 error: 0,
                             create_os: 0,
