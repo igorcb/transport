@@ -91,9 +91,9 @@ class FileOccurrence < ActiveRecord::Base
                      shipper_id: embarcadora.id,
                      carrier_id: transportadora.id,
                           place: place,
-                         weight: trailler.pesototalnotas,
-                         volume: trailler.quantidadetotalvolumes,
-                    value_total: trailler.valortotalnotas,
+                         weight: trailler.pesototalnotas.to_f / 100,
+                         volume: trailler.quantidadetotalvolumes.to_f / 100,
+                    value_total: trailler.valortotalnotas.to_f / 100,
                            qtde: list_data_nfe.count,
                       )
 
@@ -127,9 +127,9 @@ class FileOccurrence < ActiveRecord::Base
                       asset_file_name: nfe.numeronota.to_i,
                                numero: nfe.numeronota.to_i,
                                 chave: nfe.numeronota.to_i,
-                                 peso: nfe.pesototal,
-                               volume: nfe.qtdevolumes,
-                           valor_nota: nfe.valortotalnota,
+                                 peso: nfe.pesototal.to_f / 100,
+                               volume: nfe.qtdevolumes.to_f / 100,
+                           valor_nota: nfe.valortotalnota.to_f / 100,
                      source_client_id: source_client.id,
                      target_client_id: target_client.id,
                                 place: place
