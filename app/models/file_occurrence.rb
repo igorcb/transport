@@ -129,6 +129,7 @@ class FileOccurrence < ActiveRecord::Base
                                 chave: nfe.numeronota.to_i,
                                  peso: nfe.pesototal,
                                volume: nfe.qtdevolumes,
+                           valor_nota: nfe.valortotalnota,
                      source_client_id: source_client.id,
                      target_client_id: target_client.id,
                                 place: place
