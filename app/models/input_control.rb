@@ -68,7 +68,10 @@ class InputControl < ActiveRecord::Base
 
   after_save :processa_nfe_xmls
 
-  VALOR_DA_TONELADA = 25
+  # dia 01/10/2018 ajustar para 28 reais descarga por tonelada,
+  # Verificar a possibilidade de mudar essa contante em variável
+  # buscando da tabela de parametros do sistema
+  VALOR_DA_TONELADA = 25 
 
   module TipoCarga
     BATIDA = false
