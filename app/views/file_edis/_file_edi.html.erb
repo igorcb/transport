@@ -1,0 +1,11 @@
+<tr>
+	<td><%= date_br file_edi.date_boarding %></td>
+	<td><%= file_edi.place %></td>
+	<td><%= file_edi.shipper.cnpj_name if file_edi.shipper.present? %></td>
+	<td><%=  %></td>
+	<td><%= file_edi.weight %></td>
+	<td><%= file_edi.volume %></td>
+	<td><%= file_edi.value_total %></td>
+	<td><%= file_edi.qtde %></td>
+	<td><%= link_to "Show", file_edi_path(file_edi), class: "btn btn-primary btn-xs" %></td>
+</tr>

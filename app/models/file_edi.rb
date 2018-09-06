@@ -22,4 +22,8 @@ class FileEdi < ActiveRecord::Base
 			when 1 then "EDI_NOTFIS"
 		end
 	end
+
+  # def self.ransackable_attributes(auth_object = nil)
+  #   ['place', 'date_boarding', 'shipper_id']
+  # end
 end

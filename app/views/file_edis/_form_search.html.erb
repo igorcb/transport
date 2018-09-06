@@ -1,0 +1,25 @@
+<div class="panel-body">
+  <%= search_form_for @q, remote: true, url: search_file_edis_path, :method => :get do |f| %>
+    <div class="form-group">
+      <%= f.label :date_boarding_eq, "Data Embarque" %>
+      <%= f.search_field :date_boarding_eq, class: "form-control data" %>  
+    </div>
+
+    <div class="form-group">
+      <%= f.label :place_eq, "Placa" %>
+      <%= f.search_field :place_eq, class: "form-control placa" %>  
+    </div>
+
+    <div class="form-group">
+      <%= f.label :shipper_cnpj_eq, "Embarcador CNPJ" %>
+      <%= f.search_field :shipper_cnpj_eq, class: "form-control" %>  
+    </div>
+    
+    <div class="form-group">
+      <%#= f.label :status_eq, "Status" %>
+      <%#= f.select( :status_eq, select_status_scheduling, {include_blank: true}, {class: "form-control"} ) %> 
+    </div>
+
+    <div class="actions"><%= f.submit "Search" %></div>
+  <% end %>
+</div>
