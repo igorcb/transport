@@ -1,0 +1,38 @@
+<div class="panel-body">
+  <%= search_form_for @q, remote: true, url: search_notfis_index_path, :method => :get do |f| %>
+
+    <div class="row form-group">
+      <div class="col-xs-6">
+        <%= f.label :file_edi_date_boarding_gteq, "Data Embarque de" %>
+        <%= f.search_field :file_edi_date_boarding_gteq, class: "form-control data", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>  
+      </div>
+
+      <div class="col-xs-6">
+        <%= f.label :file_edi_date_boarding_lteq, "até" %>
+        <%= f.search_field :file_edi_date_boarding_lteq, class: "form-control data", placeholder: "Informe a Data do Entrada ex: 05-12-2014" %>  
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :file_edi_place_eq, "Placa" %>
+      <%= f.search_field :file_edi_place_eq, class: "form-control placa" %>  
+    </div>
+
+    <div class="form-group">
+      <%= f.label :client_cpf_cnpj_eq, "CNPJ Destinatario" %>
+      <%= f.search_field :client_cpf_cnpj_eq, class: "form-control cnpj" %>  
+    </div>
+
+    <div class="form-group">
+      <%= f.label :client_cidade_cont, "Cidade" %>
+      <%= f.search_field :client_cidade_cont, class: "form-control" %>  
+    </div>
+    
+    <div class="form-group">
+      <%#= f.label :status_eq, "Status" %>
+      <%#= f.select( :status_eq, select_status_scheduling, {include_blank: true}, {class: "form-control"} ) %> 
+    </div>
+
+    <div class="actions"><%= f.submit "Search" %></div>
+  <% end %>
+</div>

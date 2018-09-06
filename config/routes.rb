@@ -1,6 +1,13 @@
 Transport::Application.routes.draw do
-  resources :file_edis, only: [:index, :show] do
+
+  resources :notfis, only: [:index, :show] do
     collection do
+      get :search
+    end
+  end
+
+  resources :file_edis, only: [:index, :show] do
+  collection do
       get :search
       get :select
       post :upload

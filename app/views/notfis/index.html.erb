@@ -1,0 +1,51 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+      <%= render "form_search" %>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem NOTFIS</div>
+  <div class="panel-body">
+
+    <div class="table-responsive">
+      
+        <div id="result_notfis">
+
+        <table class="table table-striped">
+          <thead>
+            <%= render 'header' %>
+          </thead>
+
+          <tbody>
+
+              <%= render @notfis %>
+
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>    
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.has_tooltip').tooltip();
+  });
+</script>

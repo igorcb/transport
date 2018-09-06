@@ -1,0 +1,35 @@
+	<p>
+		<strong>Data Embarque:</strong>
+		<%= date_br notfis.file_edi.date_boarding %>
+	</p>
+
+  <p>
+  	<strong>Cliente:</strong>
+  	<%= link_to notfis.client.nome, notfis.client %>	- 
+  	<%= link_to notfis.client.cpf_cnpj, notfis.client %>
+  	
+  </p>
+
+  <p>
+  	<strong>Cidade:</strong>
+  	<%= notfis.client.cidade %> /  	<%= notfis.client.estado %>
+  </p>
+
+  <p>
+  	<strong>Peso Total</strong>
+  	<%= notfis.weight %>
+  </p>
+	
+	<p>
+		<strong>Volume Total</strong>
+		<%= notfis.volume %>
+	</p>
+	
+	<p>
+		<strong>Qtde NF-e</strong>
+		<%= notfis.qtde_nfe %>
+	</p>
+	
+	
+	
+	

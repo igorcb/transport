@@ -1,0 +1,65 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Notfis
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+          <div class="panel panel-default">
+
+            <div class="panel-body"> 
+              <%= render 'data_notfis', notfis: @notfis %>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSeven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          Listagem de XML de NF-e Notfis
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+      <div class="panel-body">
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <%= render 'nfe_xmls/nfe_header' %>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @notfis.nfe_xmls.each do |nfe_xml| %>
+                <tr>
+                  <%= render nfe_xml %>
+                </tr>
+              <% end %>
+              
+            </tbody>
+          </table>
+        </div>    
+
+      </div>
+    </div>
+  </div>
+
+<!-- Fim collapse  --> 
+</div>
+
+
+<%= link_to 'Listar Todos', notfis_index_path, class: "btn btn-default" %>
