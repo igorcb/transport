@@ -4,8 +4,8 @@
 	<td><%= notfis.client.nome %></td>
 	<td><%= notfis.client.cidade %></td>
 	<td><%= notfis.client.estado %></td>
-	<td><%= notfis.weight %></td>
-	<td><%= notfis.volume %></td>
+	<td><%= number_with_precision(notfis.weight, precision: 3, separator: ',', delimiter: '.') %></td>
+	<td><%= number_with_precision(notfis.volume, precision: 2, separator: ',', delimiter: '.') %></td>
 	<td><%= notfis.qtde_nfe %></td>
 	<td><%= link_to "Show", notfis_path(notfis), class: 'btn btn-primary btn-xs' %></td>
 </tr>

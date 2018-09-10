@@ -64,9 +64,9 @@
 					            <% item.nfe_xmls.each do |nfe| %>
 												<tr>
 													<td><%= nfe.numero %></td>
-													<td><%= nfe.valor_nota %></td>
-													<td><%= nfe.peso %></td>
-													<td><%= nfe.volume %></td>
+													<td><%= number_to_currency(nfe.valor_nota, precision: 2, unit: "R$ ", separator: ',', delimiter: '.') %></td>
+													<td><%= number_with_precision(nfe.peso, precision: 3, separator: ',', delimiter: '.') %></td>
+													<td><%= number_with_precision(nfe.volume, precision: 2,  separator: ",", delimiter: ".") %></td>
 												</tr>
 					            <% end %>
 
