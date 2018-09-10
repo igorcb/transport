@@ -93,6 +93,11 @@
       <%= number_with_precision(@boarding.volume_total, precision: 2, separator: ',', delimiter: '.') %>
     </p>          
 
+    <p>
+      <strong>Numero do Lacre:</strong>
+      <%= @boarding.sealing %>
+    </p>
+
 		<p>
 		  <strong>Observação:</strong>
 		  <pre><%= @boarding.obs %></pre>

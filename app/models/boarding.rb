@@ -199,10 +199,11 @@ class Boarding < ActiveRecord::Base
   end 
 
   def date_scheduling_present?
-    positivo = true
+    positivo = false
     self.boarding_items.order(:delivery_number).each do |item|
+      puts "ID: #{item.ordem_service.id} - Data: #{item.ordem_service.data}"
       positivo = item.ordem_service.data.blank?
-      return false if positivo == false
+      return true if positivo == true
     end
     positivo
   end 

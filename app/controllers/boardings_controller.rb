@@ -274,7 +274,7 @@ class BoardingsController < ApplicationController
       params.require(:boarding).permit(:date_boarding, :driver_id, :carrier_id, :value_boarding, :safe_rctr_c, 
         :safe_optional, :number_tranking, :obs, :qtde_boarding, :manifesto, :chave_manifesto, :local_embarque,
         :action_inspector, :place, :qtde_pallets_shipped, :team, :hangar, :dock, :oper_observation,
-        :driver_checkin_palce_horse, :driver_checkin_palce_cart_1, :driver_checkin_palce_cart_2,
+        :driver_checkin_palce_horse, :driver_checkin_palce_cart_1, :driver_checkin_palce_cart_2, :sealing,
         board_items_attributes: [:delivery_number, :ordem_service_id, :id, :_destroy],
         boarding_vehicles_attributes: [:boarding_vehicles_id, :vehicle_id, :id, :_destroy]
 
