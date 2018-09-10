@@ -191,7 +191,6 @@ class Boarding < ActiveRecord::Base
   def check_status_ordem_service_entregue?
     positivo = true
     self.boarding_items.order(:delivery_number).each do |item|
-      #puts "Status: #{item.ordem_service.status} - #{item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO}"
       positivo = item.ordem_service.status == OrdemService::TipoStatus::ENTREGA_EFETUADA
       return false if positivo == false
     end
@@ -201,7 +200,6 @@ class Boarding < ActiveRecord::Base
   def date_scheduling_present?
     positivo = false
     self.boarding_items.order(:delivery_number).each do |item|
-      puts "ID: #{item.ordem_service.id} - Data: #{item.ordem_service.data}"
       positivo = item.ordem_service.data.blank?
       return true if positivo == true
     end
