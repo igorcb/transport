@@ -7,7 +7,6 @@
   	<strong>Cliente:</strong>
   	<%= link_to notfis.client.nome, notfis.client %>	- 
   	<%= link_to notfis.client.cpf_cnpj, notfis.client %>
-  	
   </p>
 
   <p>
@@ -16,17 +15,17 @@
   </p>
 
   <p>
-  	<strong>Peso Total</strong>
-  	<%= notfis.weight %>
+  	<strong>Peso Total: </strong>
+  	<%= number_with_precision(notfis.weight, precision: 3, separator: ',', delimiter: '.') %>
   </p>
 	
 	<p>
-		<strong>Volume Total</strong>
-		<%= notfis.volume %>
+		<strong>Volume Total:</strong>
+		<%= number_with_precision(notfis.volume, precision: 2, separator: ',', delimiter: '.') %>
 	</p>
 	
 	<p>
-		<strong>Qtde NF-e</strong>
+		<strong>Qtde NF-e:</strong>
 		<%= notfis.qtde_nfe %>
 	</p>
 	

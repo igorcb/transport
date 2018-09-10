@@ -1,15 +1,15 @@
 	  	<p>
-	  		<strong>Dt.Embarque</strong>
+	  		<strong>Dt.Embarque:</strong>
 	  		<%= date_br @file_edi.date_boarding  %>
 	  	</p>
 
 	  	<p>
-	  		<strong>Placa</strong>
+	  		<strong>Placa:</strong>
 	  		<%= @file_edi.place %>
 	  	</p>
 
 	  	<p>
-	  		<strong>Embarcador</strong>
+	  		<strong>Embarcador:</strong>
 	  		<%= @file_edi.shipper.cnpj_name if @file_edi.shipper.present? %>
 	  	</p>
 
@@ -19,22 +19,22 @@
 	  	</p>
 
 	  	<p>
-	  		<strong>Peso Total</strong>
-	  		<%= @file_edi.weight %>
+	  		<strong>Peso Total:</strong>
+	  		<%= number_with_precision(@file_edi.weight, precision: 3, separator: ',', delimiter: '.') %>
 	  	</p>
 
 	  	<p>
-	  		<strong>Volume Total</strong>
-	  		<%= @file_edi.volume %>
+	  		<strong>Volume Total:</strong>
+	  		<%= number_with_precision(@file_edi.volume, precision: 2, separator: ',', delimiter: '.') %>
 	  	</p>
 
 	  	<p>
-	  		<strong>Valor Total</strong>
-	  		<%= @file_edi.value_total %>
+	  		<strong>Valor Total:</strong>
+	  		<%= number_to_currency(@file_edi.value_total, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %>
 	  	</p>
 
 	  	<p>
-	  		<strong>Qtde. NF-e</strong>
+	  		<strong>Qtde. NF-e:</strong>
 	  		<%= @file_edi.qtde %>
 	  	</p>
 
@@ -42,14 +42,14 @@
 
 	  	<h2>Dados do Arquivo</h2>
 	  	<p>
-	  		<strong>Data Arquivo</strong>
+	  		<strong>Data Arquivo:</strong>
 	  		<%= date_br @file_edi.date_file %>
 	  	</p>
 	  	<p>
-	  		<strong>Tipo Arquivo</strong>
+	  		<strong>Tipo Arquivo:</strong>
 	  		<%= @file_edi.type_file %>
 	  	</p>
 	  	<p>
-	  		<strong>Nome do Arquivo</strong>
+	  		<strong>Nome do Arquivo:</strong>
 	  		<%= @file_edi.name_file %>
 	  	</p>	  	
