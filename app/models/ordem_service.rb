@@ -665,6 +665,10 @@ class OrdemService < ActiveRecord::Base
     end
     value
   end
+
+  def ordem_service_type_service_pending?
+    ordem_service_type_service.nil?
+  end
   
   private
     def can_destroy?
