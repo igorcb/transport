@@ -667,7 +667,7 @@ class OrdemService < ActiveRecord::Base
   end
 
   def ordem_service_type_service_pending?
-    ordem_service_type_service.nil?
+    ordem_service_type_service.blank?
   end
   
   private
