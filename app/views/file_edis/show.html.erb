@@ -24,6 +24,7 @@
 								<!-- <th>Data</th> -->
 								<th>CNPJ</th>
 								<th>Cliente</th>
+								<th>Cred. Sefaz</th>
 								<th>Cidade</th>
 								<th>Estado</th>
 							</thead>
@@ -33,6 +34,7 @@
 									<!-- <td><%#= date_br item.date_notfis %></td> -->
 									<td><%= item.client.cpf_cnpj %></td>
 									<td><%= item.client.nome %></td>
+									<td><%= extenso_boolean item.client.client_credential_sefaz %></td>
 									<td><%= item.client.cidade %></td>
 									<td><%= item.client.estado %></td>
 								</tr>
