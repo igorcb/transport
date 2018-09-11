@@ -210,13 +210,45 @@ class Boarding < ActiveRecord::Base
     # Deve retornar true se tiver ordem de servico que não tenha tomador de servico
     positivo = false
     boarding_items.each do |item|
-      puts "Item: #{item.ordem_service.billing_client_id}"
       positivo = item.ordem_service.billing_client.nil?
       return true if positivo == true
     end
     positivo
   end
+
+  def ordem_service_type_service_pending?
+    positivo = false
+    boarding_items.each do |item|
+      positivo = item.ordem_service.ordem_service_type_service_pending?
+      return true if positivo == true
+    end
+    positivo
+  end
   
+  def ordem_service_cte_pending?
+    positivo = false
+    boarding_items.each do |item|
+      puts ">>>>> O.S: #{item.ordem_service_id} - Count: #{item.ordem_service.cte_keys.count}"
+      positivo = item.ordem_service.ordem_service_cte_pending?
+      return true if positivo == true
+    end
+    positivo
+  end
+
+  def ordem_service_nfs_pending?
+    positivo = false
+    boarding_items.each do |item|
+      puts ">>>>> O.S: #{item.ordem_service_id} - Count: #{item.ordem_service.nfs_keys.count}"
+      positivo = item.ordem_service.ordem_service_nfs_pending?
+      return true if positivo == true
+    end
+    positivo
+  end
+
+  def check_ordem_service_cte_and_nfs_pending?
+    self.ordem_service_cte_pending? && self.ordem_service_nfs_pending?
+  end
+
   def pending?
     self.nfe_dae_pending? || 
     self.ordem_service_pending? || 
@@ -225,6 +257,14 @@ class Boarding < ActiveRecord::Base
     self.billing_client_blank? || 
     self.carrier_id == Boarding.carrier_not_information || 
     self.driver_id == Boarding.driver_not_information
+  end
+
+  def pending_services?
+    self.ordem_service_type_service_pending?
+  end
+
+  def pending_all?
+    pending? || pending_services?
   end
 
   def pending
@@ -236,6 +276,13 @@ class Boarding < ActiveRecord::Base
     pendings.append('Adicionar cliente para faturamento.') if self.billing_client_blank?
     pendings.append('Informe o motorista.') if self.driver_id == Boarding.driver_not_information
     pendings.append('Agente não informado.') if self.carrier_id == Boarding.carrier_not_information
+    pendings
+  end
+
+  def pending_services
+    pendings = []
+    pendings.append('Existe Ordem de Serviço sem Tipo de Serviço .') if self.ordem_service_type_service_pending?
+    pendings.append('Existe Ordem de Serviço sem CT-e ou NFS-e.') if self.check_ordem_service_cte_and_nfs_pending?
     pendings
   end
 
