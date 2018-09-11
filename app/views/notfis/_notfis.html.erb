@@ -2,6 +2,7 @@
 	<td><%= date_br notfis.file_edi.date_boarding %></td>
 	<td><%= notfis.client.cpf_cnpj %></td>
 	<td><%= notfis.client.nome %></td>
+	<td><%= extenso_boolean notfis.client.client_credential_sefaz %></td>
 	<td><%= notfis.client.cidade %></td>
 	<td><%= notfis.client.estado %></td>
 	<td><%= number_with_precision(notfis.weight, precision: 3, separator: ',', delimiter: '.') %></td>

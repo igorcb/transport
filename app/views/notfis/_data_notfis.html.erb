@@ -9,6 +9,11 @@
   	<%= link_to notfis.client.cpf_cnpj, notfis.client %>
   </p>
 
+	<p>
+	  <strong>Cliente é credenciado junto a sefaz? : </strong>
+	  <%= extenso_boolean notfis.client.client_credential_sefaz %>
+	</p>
+
   <p>
   	<strong>Cidade:</strong>
   	<%= notfis.client.cidade %> /  	<%= notfis.client.estado %>
