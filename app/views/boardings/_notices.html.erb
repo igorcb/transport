@@ -1,9 +1,13 @@
-<% if @boarding.pending? %>
+<% if @boarding.pending_all? %>
 	<div class="alert alert-danger" role="alert">
 		Sr(a) <%= current_user.email %> <br />
 		
 		<ul>
 			<% @boarding.pending.each do |message| %>
+				<li><%= message %></li>
+			<% end %>
+
+			<% @boarding.pending_services.each do |message| %>
 				<li><%= message %></li>
 			<% end %>
 		</ul>
