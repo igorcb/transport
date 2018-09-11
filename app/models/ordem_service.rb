@@ -669,7 +669,15 @@ class OrdemService < ActiveRecord::Base
   def ordem_service_type_service_pending?
     ordem_service_type_service.blank?
   end
+
+  def ordem_service_cte_pending?
+    cte_keys.blank?
+  end
   
+  def ordem_service_nfs_pending?
+    nfs_keys.blank?
+  end
+
   private
     def can_destroy?
       if self.account_payable.present?
