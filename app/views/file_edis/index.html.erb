@@ -36,11 +36,14 @@
 
           <tbody>
 
-	          <% @file_edis.each do |file_edi| %>
+<!-- 	          <%# @file_edis.each do |file_edi| %>
 	            <tr>
-	              <%= render file_edi %>
+	              <%#= render file_edi %>
 	            </tr>
-	          <% end %>            
+	          <%# end %>            
+ -->
+            <%= render @file_edis %>
+
 
           </tbody>
 

@@ -25,6 +25,10 @@ class FileEdi < ActiveRecord::Base
 		end
 	end
 
+	def get_nfe_xmls
+		self.nfe_xmls.select(:numero).pluck(:numero).uniq
+	end
+
   # def self.ransackable_attributes(auth_object = nil)
   #   ['place', 'date_boarding', 'shipper_id']
   # end
