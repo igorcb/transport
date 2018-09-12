@@ -369,11 +369,19 @@ class Boarding < ActiveRecord::Base
   end
 
   def self.cancel(boarding_id)
-    hash_ids = get_ordem_services_ids
+    hash_ids = Boarding.ordem_services_ids(boarding_id)
     ActiveRecord::Base.transaction do
       #  OBS: quando cancelar o embarque, verificar a possibilidade de retirar a associacao da os no embarque
       OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
       Boarding.where(id: self.id).update_all(status: Boarding::TipoStatus::CANCELADO)
+    end
+  end
+
+  def self.restart(boarding_id)
+    hash_ids = Boarding.ordem_services_ids(boarding_id)
+    ActiveRecord::Base.transaction do
+      OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
+      Boarding.where(id: boarding_id).update_all(status: Boarding::TipoStatus::ABERTO, place: nil, qtde_pallets_shipped: nil, team: nil, hangar: nil, dock: nil, start_time_boarding: nil)
     end
   end
 
@@ -454,6 +462,15 @@ class Boarding < ActiveRecord::Base
 
   def ordem_services_ids
     get_ordem_services_ids
+  end
+
+  def self.ordem_services_ids(boarding)
+    hash_ids = []
+    boarding_other = Boarding.find(boarding.id)
+    boarding_other.boarding_items.each do |item|
+      hash_ids << item.ordem_service_id
+    end
+    hash_ids
   end
 
   def get_cities
