@@ -1,4 +1,4 @@
-nclass InputControl < ActiveRecord::Base
+class InputControl < ActiveRecord::Base
   validates :carrier_id, :driver_id, presence: true
 	validates :place, :place_horse, :place_cart, :date_entry, :time_entry, presence: true
 
@@ -529,7 +529,7 @@ nclass InputControl < ActiveRecord::Base
     positivo = false
     nfe_xmls.each do |item|
       #puts ">>>>> O.S: #{item.ordem_service_id} - Count: #{item.ordem_service.nfs_keys.count}"
-      #positivo = item.ordem_service(NfeXml::TypeOrdemServiceController::INPUT_CONTROL).blank?
+      positivo = item.ordem_service(NfeXml::TypeOrdemServiceController::INPUT_CONTROL).blank?
       return true if positivo == true
     end
     positivo
