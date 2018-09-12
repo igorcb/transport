@@ -11,6 +11,8 @@ class FileEdi < ActiveRecord::Base
 
 	has_many :notfis
 
+	has_many :nfe_xmls, through: :notfis
+
 	module TypeFile
 		EDI_OCCURRENCE = "EDI_OCCURRENCE"
 		EDI_NOTFIS = "EDI_NOTFIS"
