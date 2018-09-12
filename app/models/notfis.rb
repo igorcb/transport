@@ -16,7 +16,7 @@ class Notfis < ActiveRecord::Base
   	nfe_xmls.count
   end
 
-  def get_nfes
+  def get_nfe_xmls
     self.nfe_xmls.select(:numero).pluck(:numero).uniq
   end
 end
