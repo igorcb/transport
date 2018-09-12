@@ -529,7 +529,7 @@ nclass InputControl < ActiveRecord::Base
     positivo = false
     nfe_xmls.each do |item|
       #puts ">>>>> O.S: #{item.ordem_service_id} - Count: #{item.ordem_service.nfs_keys.count}"
-      positivo = item.ordem_service(NfeXml::TypeOrdemServiceController::INPUT_CONTROL).blank?
+      #positivo = item.ordem_service(NfeXml::TypeOrdemServiceController::INPUT_CONTROL).blank?
       return true if positivo == true
     end
     positivo
