@@ -19,6 +19,11 @@
     </div>
 
     <div class="form-group">
+      <%= f.label :nfe_xmls_numero_eq, "NF-e" %>
+      <%= f.search_field :nfe_xmls_numero_eq, class: "form-control" %>  
+    </div>
+
+    <div class="form-group">
       <%= f.label :client_cpf_cnpj_eq, "CNPJ Destinatario" %>
       <%= f.search_field :client_cpf_cnpj_eq, class: "form-control cnpj" %>  
     </div>
