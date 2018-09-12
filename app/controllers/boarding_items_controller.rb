@@ -85,13 +85,15 @@ class BoardingItemsController < ApplicationController
 
   def destroy
     @boarding_item = BoardingItem.find(params[:id])
+    unless @boarding_item.can_destroy_item?
+      Event.create(user: current_user, controller_name: "BoardingItem", action_name: 'destroy' , what: "Deletou a O.S. No: #{@boarding_item.ordem_service_id} do embarque No: #{@boarding_item.boarding_id}")
+    end      
     @ordem_service = OrdemService.where(id: @boarding_item.ordem_service_id).update_all(status: OrdemService::TipoStatus::ABERTO)
     @boarding_item.destroy
     flash[:success] = "BoardingItem destroyed successfully."
     respond_with(@boarding_item)
   end
 
-  
   private
 
     def boarding_item_params

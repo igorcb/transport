@@ -22,4 +22,13 @@ class BoardingItem < ActiveRecord::Base
   	ordem_service.input_control
   end
 
+  def can_destroy_item?
+    (
+      self.ordem_service.status == OrdemService::TipoStatus::ABERTO || 
+      self.ordem_service.status == OrdemService::TipoStatus::AGUARDANDO_EMBARQUE
+    )
+
+  end
+
+
 end

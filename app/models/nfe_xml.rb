@@ -32,12 +32,14 @@ class NfeXml < ActiveRecord::Base
     SCHEDULING   = "Scheduling"
     INPUTCONTROL = "InputControl"
     DIRECTCHARGE = "DirectCharge"
+    NOTFIS = "Notfis"
   end
 
 	module TipoStatus
 		NAO_PROCESSADO = 0
 		EM_PROCESSAMENTO = 1
 		PROCESSADO = 2
+    RECEBIDO = 3
 	end
 
 	module TipoError
