@@ -515,6 +515,25 @@ class InputControl < ActiveRecord::Base
     conf.config_value.to_i
   end
 
+  def pending_all?
+    self.create_ordem_service_pending?
+  end
+
+  def pending_all
+    pendings = []
+    pendings.append('Existe O.S a ser criada.') if self.create_ordem_service_pending?
+    pendings
+  end
+
+  def create_ordem_service_pending?
+    positivo = false
+    nfe_xmls.each do |item|
+      #puts ">>>>> O.S: #{item.ordem_service_id} - Count: #{item.ordem_service.nfs_keys.count}"
+      positivo = item.ordem_service(NfeXml::TypeOrdemService::INPUT_CONTROL).blank?
+      return true if positivo == true
+    end
+    positivo
+  end
 
 #  private
     def get_number_nfe_xmls

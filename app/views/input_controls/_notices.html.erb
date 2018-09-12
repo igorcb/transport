@@ -1,0 +1,12 @@
+<% if @input_control.pending_all? %>
+	<div class="alert alert-danger" role="alert">
+		Sr(a) <%= current_user.email %> <br />
+		
+		<ul>
+			<% @input_control.pending_all.each do |message| %>
+				<li><%= message %></li>
+			<% end %>
+		</ul>
+
+	</div>
+<% end %>
