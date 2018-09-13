@@ -24,7 +24,6 @@ class BreakdownBoardingsController < ApplicationController
     end
     @item_ordem_services = nil
     @item_ordem_services = @boarding.ordem_services.joins(:item_ordem_services).where(item_ordem_services: {number: @number_nfe, product_id: @product.id})
-    puts ">>>>>>>>>>>>>>>> ItemOrdemService: #{@item_ordem_services.nil?}"
     if @item_ordem_services.count == 0
       @breakdown.errors.add(:product_id, "not found or does not belong to this boarding and NF-e.")
       return
@@ -45,6 +44,9 @@ class BreakdownBoardingsController < ApplicationController
 
   def destroy
     @breakdown = @boarding.breakdowns.find(params[:id])
+
+    Event.create(user: current_user, controller_name: "BreakdownBoardings", action_name: 'destroy' , what: "Deletou a Avaria N.F. No: #{@breakdown.nfe_xml.numero} da Remessa de Entrada No: #{@breakdown.breakdown_id}")
+
     @breakdown.destroy
     respond_to :js
   end

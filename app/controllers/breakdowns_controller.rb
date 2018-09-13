@@ -29,6 +29,9 @@ class BreakdownsController < ApplicationController
 
   def destroy
     @breakdown = Breakdown.find(params[:id])
+
+    Event.create(user: current_user, controller_name: "Breakdowns", action_name: 'destroy' , what: "Deletou a Avaria N.F. No: #{@breakdown.nfe_xml.numero} da Remessa de Entrada No: #{@breakdown.breakdown_id}")
+
     @breakdown.destroy
     respond_to :js
   end
