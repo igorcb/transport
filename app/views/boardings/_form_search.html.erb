@@ -38,6 +38,22 @@
               <%= f.label :driver_id_eq, "Motorista" %>
               <%= f.collection_select :driver_id_eq, Driver.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
             </div>
+
+            <div class="form-group">
+              <%= f.label :sealing_eq, "No Lacre Um:" %>
+              <%= f.search_field :sealing_eq, class: "form-control"%>  
+            </div>
+
+            <div class="form-group">
+              <%= f.label :sealing_two_eq, "No Lacre Dois:" %>
+              <%= f.search_field :sealing_two_eq, class: "form-control"%>  
+            </div>
+
+            <div class="form-group">
+              <%= f.label :sealing_three_eq, "No Lacre Tres:" %>
+              <%= f.search_field :sealing_three_eq, class: "form-control"%>  
+            </div>
+
             <div class="form-group">
               <%= f.label :status_eq, "Status" %>
               <%= f.select( :status_eq, select_status_boarding, {include_blank: true}, {class: "form-control"} ) %> 

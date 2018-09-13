@@ -103,7 +103,7 @@ class Boarding < ActiveRecord::Base
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ['id', 'date_boarding', 'driver_id' ,'status']
+    ['id', 'date_boarding', 'driver_id' ,'status', 'sealing', 'sealing_two', 'sealing_three']
   end
 
   def value_zero?
