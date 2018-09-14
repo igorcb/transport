@@ -3,7 +3,7 @@ class Boarding < ActiveRecord::Base
   validates :driver_id, presence: true
   validates :status, presence: true
   #validates_associated :ordem_services
-    
+
   belongs_to :carrier
   belongs_to :driver
 
@@ -143,7 +143,6 @@ class Boarding < ActiveRecord::Base
       hash_ids << i[0].to_i
     end
     begin
-      #byebug
       driver = Boarding.driver_not_information #Motorista Padrao - Motorista Não Identificado
       carrier = Boarding.carrier_not_information #Agent Padrao - Agent Não Identificado
       boarding = nil
@@ -228,7 +227,6 @@ class Boarding < ActiveRecord::Base
   def ordem_service_cte_pending?
     positivo = false
     boarding_items.each do |item|
-      puts ">>>>> O.S: #{item.ordem_service_id} - Count: #{item.ordem_service.cte_keys.count}"
       positivo = item.ordem_service.ordem_service_cte_pending?
       return true if positivo == true
     end
@@ -238,7 +236,6 @@ class Boarding < ActiveRecord::Base
   def ordem_service_nfs_pending?
     positivo = false
     boarding_items.each do |item|
-      puts ">>>>> O.S: #{item.ordem_service_id} - Count: #{item.ordem_service.nfs_keys.count}"
       positivo = item.ordem_service.ordem_service_nfs_pending?
       return true if positivo == true
     end
@@ -247,6 +244,16 @@ class Boarding < ActiveRecord::Base
 
   def check_ordem_service_cte_and_nfs_pending?
     self.ordem_service_cte_pending? && self.ordem_service_nfs_pending?
+  end
+
+  def check_driver_restriction_with_client?
+    positivo = false
+    boarding_items.each do |item|
+      puts ">>>>> Client: #{item.ordem_service.client.id} - Driver #{item.boarding.driver_id}"
+      positivo = DriverRestriction.where(driver_id: item.boarding.driver_id, client_id: item.ordem_service.client).present?
+      return true if positivo == true
+    end
+    positivo
   end
 
   def pending?
@@ -276,6 +283,7 @@ class Boarding < ActiveRecord::Base
     pendings.append('Adicionar cliente para faturamento.') if self.billing_client_blank?
     pendings.append('Informe o motorista.') if self.driver_id == Boarding.driver_not_information
     pendings.append('Agente não informado.') if self.carrier_id == Boarding.carrier_not_information
+    pendings.append('Motorista com restrição. Não pode efetuar entrega no cliente.') if check_driver_restriction_with_client?
     pendings
   end
 
@@ -381,7 +389,7 @@ class Boarding < ActiveRecord::Base
     hash_ids = Boarding.ordem_services_ids(boarding_id)
     ActiveRecord::Base.transaction do
       OrdemService.where(id: hash_ids).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
-      Boarding.where(id: boarding_id).update_all(status: Boarding::TipoStatus::ABERTO, place: nil, qtde_pallets_shipped: nil, team: nil, hangar: nil, dock: nil, start_time_boarding: nil)
+      Boarding.where(id: boarding_id).update_all(status: Boarding::TipoStatus::ABERTO, place: nil, qtde_pallets_shipped: nil, team: nil, hangar: nil, dock: nil, start_time_boarding: nil, finish_time_boarding: nil)
     end
   end
 
