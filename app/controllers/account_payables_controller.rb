@@ -96,6 +96,15 @@ class AccountPayablesController < ApplicationController
   end
 
   def destroy
+    # Se embarque ou ordem de servico, identificar quando excluir
+    if @account_payable.boarding.present?
+      Event.create(user: current_user, controller_name: "AccountPayables", action_name: 'destroy' , what: "Deletou a Contas a Pagar do Embarque No: #{@account_payable.boarding.id} no valor de R$ #{@account_payable.valor.to_f}")
+    elsif @account_payable.ordem_service.present?
+      Event.create(user: current_user, controller_name: "AccountPayables", action_name: 'destroy' , what: "Deletou a Contas a Pagar da Ordem Service No: #{@account_payable.ordem_service.id} no valor de R$ #{@account_payable.valor.to_f}")
+    else
+      Event.create(user: current_user, controller_name: "AccountPayables", action_name: 'destroy' , what: "Deletou a Contas a Pagar TipoFornecedor: #{@account.supplier_type}, Fornecedor: #{account.supplier.nome} no valor de R$ #{@account_payable.valor.to_f}")
+    end
+
     @account_payable.destroy
     respond_with(@account_payable)
     # @account_payable.destroy
