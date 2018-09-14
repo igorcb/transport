@@ -132,7 +132,7 @@ class ClientDischarge < ActiveRecord::Base
   end
 
   def calc_volume(volume)
-    units ||= 0
+    volume ||= 0
     self.price  * volume
   end
 end
