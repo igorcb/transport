@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :insurers
+
   resources :notfis, only: [:index, :show] do
     collection do
       get :search

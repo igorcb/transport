@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listing insurers</div>
+
+  <div class="panel-body">
+    <%= link_to 'New Insurer', new_insurer_path, class: "btn btn-primary btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>CNPJ</th>
+            <th>Name</th>
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @insurers.each do |insurer| %>
+            <tr>
+              <td><%= insurer.cnpj %></td>
+              <td><%= insurer.name %></td>
+              <td><%= link_to 'Show', insurer, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_insurer_path(insurer), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Destroy', insurer, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

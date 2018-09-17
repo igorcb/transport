@@ -92,30 +92,32 @@ gem 'time_difference'
 
 # end
 
+group :development do
+  gem 'thin'
+  gem 'quiet_assets'
+  gem 'byebug'
+  gem "better_errors"
+end
+
 group :development, :test do
 #  gem 'rspec-rails', '2.11.0'
 #  gem 'guard-rspec', '1.2.1'
 #  gem 'guard-spork', '1.2.0'
 #  gem 'childprocess', '0.3.6'
-  gem 'byebug'
 
   gem 'guard-rails', '0.7.2', require: false
   gem 'guard-rspec', '3.1.0', require: false
   gem 'guard-rubocop', '1.2.0', require: false
   gem 'guard-spork', '2.1.0', require: false
 
-
   gem 'spork-rails'
   gem 'factory_girl_rails', '4.1.0' 
 
-
-  gem 'thin'
-  gem 'quiet_assets'
   gem 'capybara', '1.1.2'
 
   gem 'pdf-inspector', require: 'pdf/inspector'
-end
 
+end
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

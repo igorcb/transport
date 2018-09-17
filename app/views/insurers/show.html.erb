@@ -1,0 +1,45 @@
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
+				  <strong>Name:</strong>
+				  <%= @insurer.name %>
+
+				  <strong>Cnpj:</strong>
+				  <%= @insurer.cnpj %>
+
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        
+        <div class="panel-body"> 
+
+					<p>
+					  <strong>Cnpj:</strong>
+					  <%= @insurer.cnpj %>
+					</p>
+
+					<p>
+					  <strong>Name:</strong>
+					  <%= @insurer.name %>
+					</p>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<!-- Fim collapse  --> 
+</div>
+
+<div class="form-group">
+  <%= link_to 'Editar', edit_insurer_path(@insurer), class: "btn btn-primary" %>
+  <%= link_to 'Listar Todos', insurers_path, class: "btn btn-default" %>
+  <%#= link_to 'Adicionar Cidade', new_micro_region_micro_regions_city_path(@micro_region), class: "btn btn-success" %>
+</div>
