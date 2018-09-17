@@ -107,7 +107,8 @@ class Boarding < ActiveRecord::Base
   end
 
   def value_zero?
-    self.value_boarding == 0
+    self.value_boarding == 0 ||
+    self.value_boarding.to_f == 0.00
   end
 
   def feed_cancellations
@@ -255,6 +256,12 @@ class Boarding < ActiveRecord::Base
     positivo
   end
 
+  def value_not_boarding_present?
+    self.value_boarding.blank? ||
+    self.value_boarding.nil? ||
+    self.value_zero?
+  end
+
   def pending?
     self.nfe_dae_pending? || 
     self.ordem_service_pending? || 
@@ -264,7 +271,8 @@ class Boarding < ActiveRecord::Base
     self.carrier_id == Boarding.carrier_not_information || 
     self.driver_id == Boarding.driver_not_information ||
     check_driver_restriction_with_client? ||
-    DriverRestriction.where(driver_id: self.driver_id).present?
+    DriverRestriction.where(driver_id: self.driver_id).present? ||
+    self.value_not_boarding_present?
   end
 
   def pending_services?
@@ -286,6 +294,7 @@ class Boarding < ActiveRecord::Base
     pendings.append('Agente não informado.') if self.carrier_id == Boarding.carrier_not_information
     pendings.append('Motorista com restrição. Não pode efetuar entrega no cliente.') if check_driver_restriction_with_client?
     pendings.append('Motorista com restrição.') if DriverRestriction.where(driver_id: self.driver_id).present?
+    pendings.append('Informe o Valor do Frete.') if self.value_not_boarding_present?
     pendings
   end
 
