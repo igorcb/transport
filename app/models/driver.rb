@@ -164,7 +164,7 @@ class Driver < ActiveRecord::Base
   
   #methods for validations
   def expiration_validade_cnh
-    if validade_cnh.present? && validade_cnh < Date.today
+    if cnh_expired? 
       errors.add(:validade_cnh, "expiration")
     end
   end
@@ -190,6 +190,20 @@ class Driver < ActiveRecord::Base
 
     #fone = fone += email
     fone
+  end
+
+  def cnh_expired?
+    validade_cnh.present? && validade_cnh < Date.today
+  end
+
+  def pending?
+    self.cnh_expired? 
+  end
+
+  def pending
+    pendings = []
+    pendings.append('CNH está vencida.') if self.cnh_expired?
+    pendings
   end
 
   private

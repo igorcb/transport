@@ -249,7 +249,6 @@ class Boarding < ActiveRecord::Base
   def check_driver_restriction_with_client?
     positivo = false
     boarding_items.each do |item|
-      puts ">>>>> Client: #{item.ordem_service.client.id} - Driver #{item.boarding.driver_id}"
       positivo = DriverRestriction.where(driver_id: item.boarding.driver_id, client_id: item.ordem_service.client).present?
       return true if positivo == true
     end
@@ -263,7 +262,9 @@ class Boarding < ActiveRecord::Base
     self.date_boarding.blank? || 
     self.billing_client_blank? || 
     self.carrier_id == Boarding.carrier_not_information || 
-    self.driver_id == Boarding.driver_not_information
+    self.driver_id == Boarding.driver_not_information ||
+    check_driver_restriction_with_client? ||
+    DriverRestriction.where(driver_id: self.driver_id).present?
   end
 
   def pending_services?
@@ -284,6 +285,7 @@ class Boarding < ActiveRecord::Base
     pendings.append('Informe o motorista.') if self.driver_id == Boarding.driver_not_information
     pendings.append('Agente não informado.') if self.carrier_id == Boarding.carrier_not_information
     pendings.append('Motorista com restrição. Não pode efetuar entrega no cliente.') if check_driver_restriction_with_client?
+    pendings.append('Motorista com restrição.') if DriverRestriction.where(driver_id: self.driver_id).present?
     pendings
   end
 
