@@ -1,0 +1,13 @@
+<% if @driver.pending? %>
+	<div class="alert alert-danger" role="alert">
+		Sr(a) <%= current_user.email %> <br />
+		
+		<ul>
+			<% @driver.pending.each do |message| %>
+				<li><%= message %></li>
+			<% end %>
+
+		</ul>
+
+	</div>
+<% end %>
