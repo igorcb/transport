@@ -1,7 +1,6 @@
     <p>
       <strong>ClientTablePrice:</strong>
-      <%#= link_to @ordem_service_type_service.ordem_service_table_price.client_table_price.id, @ordem_service_type_service.ordem_service_table_price.client_table_price if @ordem_service_type_service.ordem_service_table_price.client_table_price.present? %>
-      <%= link_to @ordem_service_type_service.ordem_service_table_price.client_table_price.id, client_client_table_prices_path(@ordem_service.billing_client) %>
+      <%= link_to @ordem_service_type_service.ordem_service_table_price.client_table_price.id, client_client_table_prices_path(@ordem_service_type_service.ordem_service.billing_client.id) %>
     </p>
 
     <p>

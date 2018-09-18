@@ -29,7 +29,7 @@
         <tbody>
           <% @client.client_table_prices.includes(:type_service).order("type_services.descricao").each do |client_table_price| %>
             <tr>
-              <td><%= client_table_price.type_service.descricao %></td>
+              <td><%= client_table_price.type_service.descricao if client_table_price.type_service.present? %></td>
               <td><%= client_table_price.stretch_route.stretch_source_and_target_short %></td>
               <td><%= client_table_price.freight_weight %></td>
               <td><%= client_table_price.freight_value %></td>
