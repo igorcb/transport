@@ -1,0 +1,32 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Corretor de Seguro
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+					<p>
+					  <strong>Cnpj:</strong>
+					  <%= @broker.cnpj %>
+					</p>
+
+					<p>
+					  <strong>Name:</strong>
+					  <%= @broker.name %>
+					</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%= link_to 'Editar', edit_broker_path(@broker), class: "btn btn-primary" %>
+<%= link_to 'Lista Todos', brokers_path, class: "btn btn-default" %>

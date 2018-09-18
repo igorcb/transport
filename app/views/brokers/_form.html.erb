@@ -1,0 +1,18 @@
+<%= form_for(@broker) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :cnpj %><br>
+    <%= f.text_field :cnpj, class: "form-control cnpj" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  broker_path(@broker), class: "btn btn-info" if !@broker.new_record? %>
+    <%= link_to "Listar Todos", brokers_path, class: "btn btn-default" %>
+  </div>
+  
+<% end %>

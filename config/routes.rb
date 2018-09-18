@@ -1,5 +1,7 @@
 Transport::Application.routes.draw do
 
+  resources :brokers
+
   resources :insurers do
     resources :table_insurances do
       
