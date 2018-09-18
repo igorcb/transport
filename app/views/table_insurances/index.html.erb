@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Tabela da Seguradora</div>
+  <div class="panel-body">
+    <div id="client">
+      <%#= render 'client' %>
+    </div>
+
+    <%= link_to 'New Table Insurances', new_insurer_table_insurance_path(@insurer), class: "btn btn-primary btn-sm btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <div id="result_client">
+
+        <thead>
+          <tr>
+            <tr>
+              <th>CNPJ.</th>
+              <th>Seguradora</th>
+              <th>Origem</th>
+              <th>Destino</th>
+              <th>%</th>
+              <th colspan="3">Opções</th>
+            </tr>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @insurer.table_insurances.each do |table_insurance| %>
+            <tr>
+              <td><%= table_insurance.insurer.cnpj if table_insurance.insurer.present? %></td>
+              <td><%= table_insurance.insurer.name if table_insurance.insurer.present? %></td>
+              <td><%= table_insurance.state_source %></td>
+              <td><%= table_insurance.state_target %></td>
+              <td><%= table_insurance.percent %></td>
+              <td><%= link_to 'Show', insurer_table_insurance_path(@insurer, table_insurance), class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_insurer_table_insurance_path(@insurer, table_insurance), class: "btn btn-primary btn-xs" %>
+              <td><%= link_to 'Destroy', insurer_table_insurance_path(@insurer, table_insurance), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    </div>    
+  </div>
+</div>

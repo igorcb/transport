@@ -1,6 +1,10 @@
 Transport::Application.routes.draw do
 
-  resources :insurers
+  resources :insurers do
+    resources :table_insurances do
+      
+    end
+  end
 
   resources :notfis, only: [:index, :show] do
     collection do

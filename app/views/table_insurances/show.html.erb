@@ -1,0 +1,45 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Tabela da Seguradora
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+
+					<p>
+					  <strong>Insurer:</strong>
+					  <%= @table_insurance.insurer.name %>
+					  <strong>CNPJ:</strong>
+					  <%= @table_insurance.insurer.cnpj %>
+					</p>
+
+					<p>
+					  <strong>State source:</strong>
+					  <%= @table_insurance.state_source %>
+					</p>
+
+					<p>
+					  <strong>State target:</strong>
+					  <%= @table_insurance.state_target %>
+					</p>
+
+					<p>
+					  <strong>Percent:</strong>
+					  <%= @table_insurance.percent %>
+					</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%= link_to 'Editar', edit_insurer_table_insurance_path(@insurer, @table_insurance), class: "btn btn-primary" %>
+<%= link_to "Listar Todos", insurer_table_insurances_path(@insurer), class: "btn btn-default" %>
+<%= link_to 'New Table Insurances', new_insurer_table_insurance_path(@insurer), class: "btn btn-success btn-sm" %>

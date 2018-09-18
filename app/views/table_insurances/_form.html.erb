@@ -1,0 +1,24 @@
+<%= form_for([ @insurer, @table_insurance ]) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+  <div class="form-group">
+    <%= f.label :state_source, "Origem" %><br>
+    <%= f.select(:state_source, State.order(:uf).collect {|c| [c.uf, c.uf]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :state_target, "Destino" %><br>
+    <%= f.select(:state_target, State.order(:uf).collect {|c| [c.uf, c.uf]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :percent %><br>
+    <%= f.text_field :percent, class: "form-control money2" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  insurer_table_insurance_path(@insurer, @table_insurance), class: "btn btn-info" if !@table_insurance.new_record? %>
+    <%= link_to "Listar Todos", insurer_table_insurances_path(@insurer), class: "btn btn-default" %>
+  </div>
+<% end %>
