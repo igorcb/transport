@@ -289,7 +289,8 @@ class Boarding < ActiveRecord::Base
   end
 
   def pending_services?
-    self.ordem_service_type_service_pending?
+    self.ordem_service_type_service_pending? ||
+    self.sealing_pending?
   end
 
   def pending_all?
