@@ -11,6 +11,9 @@ class PolicieInsurance < ActiveRecord::Base
   belongs_to :insurer
   belongs_to :broker
 
+  #scope :ordered_expired, -> { where(status: TipoStatus::EMBARCADO).order("id desc") }
+  scope :ordered_expired, -> { order(date_expired: :desc) }
+
   module TypePolicie
   	RCTRC = 0 #'RCTR-C'
   	RCFV  = 1 #'RCF-V'

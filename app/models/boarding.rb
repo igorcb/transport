@@ -10,6 +10,7 @@ class Boarding < ActiveRecord::Base
   belongs_to :started_user, class_name: "User", foreign_key: "started_user_id"
   belongs_to :confirmed_user, class_name: "User", foreign_key: "confirmed_user_id"
   belongs_to :driver_checkin_user, class_name: "User", foreign_key: "driver_checkin_user_id"
+  belongs_to :insurer
   
   has_one :account_payable
   has_many :account_payables
@@ -262,6 +263,16 @@ class Boarding < ActiveRecord::Base
     self.value_zero?
   end
 
+  def value_boarding_greater_than_value_insurance
+    if self.insurer.present?
+      self.value_boarding.to_f > self.insurer.ordered_expired.first.value.to_f
+    end      
+  end
+
+  def sealing_pending?
+    self.sealing.blank? && self.sealing_two.blank? && self.sealing_three.blank?
+  end
+
   def pending?
     self.nfe_dae_pending? || 
     self.ordem_service_pending? || 
@@ -273,6 +284,8 @@ class Boarding < ActiveRecord::Base
     check_driver_restriction_with_client? ||
     DriverRestriction.where(driver_id: self.driver_id).present? ||
     self.value_not_boarding_present?
+    # self.insurer.blank?
+    # self.insurer.policie_insurances_expired?
   end
 
   def pending_services?
@@ -294,7 +307,6 @@ class Boarding < ActiveRecord::Base
     pendings.append('Agente não informado.') if self.carrier_id == Boarding.carrier_not_information
     pendings.append('Motorista com restrição. Não pode efetuar entrega no cliente.') if check_driver_restriction_with_client?
     pendings.append('Motorista com restrição.') if DriverRestriction.where(driver_id: self.driver_id).present?
-    pendings.append('Informe o Valor do Frete.') if self.value_not_boarding_present?
     pendings
   end
 
@@ -302,6 +314,7 @@ class Boarding < ActiveRecord::Base
     pendings = []
     pendings.append('Existe Ordem de Serviço sem Tipo de Serviço .') if self.ordem_service_type_service_pending?
     pendings.append('Existe Ordem de Serviço sem CT-e ou NFS-e.') if self.check_ordem_service_cte_and_nfs_pending?
+    pendings.append('Informar os lacres do embarque.') if self.sealing_pending?
     pendings
   end
 
