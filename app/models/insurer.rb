@@ -3,4 +3,5 @@ class Insurer < ActiveRecord::Base
 	validates :name, presence: true
 
 	has_many :table_insurances
+	has_many :policie_insurances
 end

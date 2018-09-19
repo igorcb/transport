@@ -3,9 +3,8 @@ Transport::Application.routes.draw do
   resources :brokers
 
   resources :insurers do
-    resources :table_insurances do
-      
-    end
+    resources :table_insurances
+    resources :policie_insurances
   end
 
   resources :notfis, only: [:index, :show] do

@@ -1,0 +1,48 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Apolices de Seguro</div>
+  <div class="panel-body">
+    <div id="client">
+      <%#= render 'client' %>
+    </div>
+
+    <%= link_to 'New Policie insurance', new_insurer_policie_insurance_path(@insurer), class: "btn btn-primary btn-sm btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <div id="result_client">
+
+        <thead>
+          <tr>
+            <tr>
+              <th>Insurer</th>
+              <th>Broker</th>
+              <th>Proposal</th>
+              <th>Policy</th>
+              <th>Dt Start</th>
+              <th>Dt Expired</th>
+              <th>Value</th>
+              <th colspan="3">Opções</th>
+            </tr>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @insurer.policie_insurances.each do |policie_insurance| %>
+            <tr>
+              <td><%= policie_insurance.insurer.name %></td>
+              <td><%= policie_insurance.broker.name %></td>
+              <td><%= policie_insurance.proposal %></td>
+              <td><%= policie_insurance.policy %></td>
+              <td><%= date_br policie_insurance.date_start %></td>
+              <td><%= date_br policie_insurance.date_expired %></td>
+              <td><%= number_to_currency(policie_insurance.value, unit: "R$ ", separator: ",", delimiter: ".")  %></td>
+              <td><%= link_to 'Show', insurer_policie_insurance_path(@insurer, policie_insurance), class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_insurer_policie_insurance_path(@insurer, policie_insurance), class: "btn btn-primary btn-xs" %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    </div>    
+  </div>
+</div>

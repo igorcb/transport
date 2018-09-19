@@ -1,0 +1,41 @@
+<%= form_for([ @insurer, @policie_insurance ]) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :insurer_id %>
+    <%= f.select(:insurer_id, Insurer.order(:name).collect {|c| [c.name, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :broker_id %>
+    <%= f.select(:broker_id, Broker.order(:name).collect {|c| [c.name, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :type_policie %>
+    <%= f.select( :type_policie, select_type_policie, {include_blank: "Selecione o Tipo de Apolice"}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :proposal %>
+    <%= f.text_field :proposal, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :policy %>
+    <%= f.text_field :policy, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :date_start %>
+    <%= f.text_field :date_start, value: date_br(@policie_insurance.date_start), class: "form-control data" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :date_expired %>
+    <%= f.text_field :date_expired, value: date_br(@policie_insurance.date_expired), class: "form-control data" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :value %>
+    <%= f.text_field :value, class: "form-control money2" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to "Exibir",  insurer_policie_insurance_path(@insurer, @policie_insurance), class: "btn btn-info" if !@policie_insurance.new_record? %>
+    <%= link_to "Listar Todos", insurer_policie_insurances_path(@insurer), class: "btn btn-default" %>
+  </div>
+<% end %>

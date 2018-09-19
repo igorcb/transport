@@ -1,0 +1,56 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Apolices de Seguro</div>
+  <div class="panel-body">
+
+    <div id="client">
+      <%#= render 'client' %>
+    </div>
+    
+    <p>
+      <strong>Insurer:</strong>
+      <%= @policie_insurance.insurer.name %>
+    </p>
+
+    <p>
+      <strong>Broker:</strong>
+      <%= @policie_insurance.broker.name %>
+    </p>
+
+    <p>
+      <strong>Type Policie:</strong>
+      <%= @policie_insurance.type_policie_name %>
+    </p>
+
+    <p>
+      <strong>Proposal:</strong>
+      <%= @policie_insurance.proposal %>
+    </p>
+
+    <p>
+      <strong>Policy:</strong>
+      <%= @policie_insurance.policy %>
+    </p>
+
+    <p>
+      <strong>Date Start:</strong>
+      <%= date_br @policie_insurance.date_start %>
+    </p>
+
+    <p>
+      <strong>Date expired:</strong>
+      <%= date_br @policie_insurance.date_expired %>
+    </p>
+
+    <p>
+      <strong>Value:</strong>
+      <%= number_to_currency(@policie_insurance.value, unit: "R$ ", separator: ",", delimiter: ".")  %>
+    </p>
+
+  </div>
+
+</div>
+
+  <div class="form-group">
+    <%= link_to 'Editar', edit_insurer_policie_insurance_path(@insurer, @policie_insurance), class: "btn btn-primary" %>
+    <%= link_to "Listar Todos", insurer_policie_insurances_path(@insurer), class: "btn btn-default" %>
+  </div>
