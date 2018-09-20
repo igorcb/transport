@@ -396,7 +396,7 @@ class Boarding < ActiveRecord::Base
   end
 
   def self.checkin(boarding_id)
-    ActiveRecord::Base.transaction do
+    ActiveRecord::Base.transaction do   
       Boarding.where(id: boarding_id).update_all(driver_checkin: true, driver_checkin_time: Time.current)
     end
   end
