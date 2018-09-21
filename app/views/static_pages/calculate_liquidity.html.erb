@@ -36,6 +36,11 @@
       <%= select_tag :type_insurance_id, options_for_select(select_type_policie, PolicieInsurance::TypePolicie::RCTRC), class: "form-control", onfocusout:"getFreightMinimum();" %>
     </div>      
 
+    <div class="form-group">
+      <%= label_tag :add_icms_value_frete, "Adição de ICMS ao valor do frete"  %>
+      <%= select_tag :add_icms_value_frete, options_for_select(select_add_icms_value_frete, ClientTablePrice::AddIcmsValueFete::SIM), class: "form-control", onfocusout:"getFreightMinimum();" %>
+    </div>      
+
 	  <div class="form-group">
 	    <%= label_tag :valor_nota_fiscal %>
 	    <%= text_field :valor_nota_fiscal, nil, value: 0, class: "form-control money2", id: 'valor_nota_fiscal', onfocusout:"getFreightMinimum();" %>
@@ -64,6 +69,11 @@
     <div class="form-group">
       <%= label_tag :toll, "Pedagio" %>
       <%= text_field :toll, nil, value: 0, class: "form-control money2", id: 'toll', onfocusout:"getFreightMinimum();" %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :qtde_carros, "Qte de Carros para puxada" %>
+      <%= text_field :qtde_carros, nil, value: 1, class: "form-control money2", id: 'qtde_carros', onfocusout:"getFreightMinimum();" %>
     </div>
 
     <div class="form-group">
@@ -134,11 +144,13 @@
     var trecho_id      = $('#trecho_id').val();
     var type_charge_id = $('#type_charge_id').val();
     var insurer_id     = $('#insurer_id').val();
+    var add_icms_value_frete = $('#add_icms_value_frete').val();
+    var quantity_cars = $('#qtde_carros').val();
 
     if ((trecho_id != "") && (type_charge_id != "")) {
       $.ajax({
         type: "GET",
-        data: {value_nf: value_nf, weight: weight, value_ton: value_ton, trecho_id: trecho_id, type_charge_id: type_charge_id, daily_rate: daily_rate, eixos: eixos, insurer_id: insurer_id, daily_rate: daily_rate, risk_manager: risk_manager, toll: toll, lucre: lucre},
+        data: {value_nf: value_nf, weight: weight, value_ton: value_ton, trecho_id: trecho_id, type_charge_id: type_charge_id, daily_rate: daily_rate, eixos: eixos, insurer_id: insurer_id, daily_rate: daily_rate, risk_manager: risk_manager, toll: toll, lucre: lucre, add_icms_value_frete: add_icms_value_frete, quantity_cars: quantity_cars},
         dataType : 'html',
         url: '/table_freights/get_calc_freight_minimum',
         success: function(data){
