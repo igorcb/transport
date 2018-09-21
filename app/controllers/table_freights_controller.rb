@@ -1,4 +1,5 @@
 class TableFreightsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_table_freight, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -37,8 +38,9 @@ class TableFreightsController < ApplicationController
   end
 
   def get_calc_freight_minimum
-    stretch_route = StretchRoute.where(id: params[:trecho_id]).first
-    @freight_minimum = TableFreight.calc_freight_minimum(params[:type_charge_id].to_i, stretch_route.distance.to_i, params[:eixos].to_i)
+    #stretch_route = StretchRoute.where(id: params[:trecho_id]).first
+    #@freight_minimum = TableFreight.calc_freight_minimum(params[:type_charge_id].to_i, stretch_route.distance.to_i, params[:eixos].to_i)
+    @freight_minimum = CalculateLiquidityService.new(params).call
     respond_to do |format|
       format.js
     end    

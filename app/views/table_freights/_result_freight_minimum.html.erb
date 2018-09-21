@@ -1,2 +1,117 @@
-<strong>Frete Minimo:</strong>
-<%= number_to_currency(freight_minimum, unit: "R$ ", separator: ",", delimiter: ".") %>
+<div class="panel panel-success">
+  <div class="panel-body">
+  	<p>
+	  	<strong>
+		    Total Frete: 
+		    <%= number_to_currency(freight_minimum[:total_freight], unit: "R$ ", separator: ",", delimiter: ".") %>
+	  	</strong>
+  	</p>
+  	
+  	<p>
+  		<strong>Vr p/ KG:</strong>
+  		<%= number_to_currency(freight_minimum[:value_kg], unit: "R$ ", separator: ",", delimiter: ".", precision: 3) %>
+  	</p>
+  </div>
+</div>	
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Calculo do Frete</h3>
+  </div>
+  <div class="panel-body">
+		<p>
+			<strong>Valor NF:</strong>
+			<%= number_to_currency(freight_minimum[:value_nf], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+
+		<p>
+			<strong>Peso:</strong>
+			<%= number_with_precision(freight_minimum[:weight], precision: 3, separator: ',', delimiter: '.') %>
+		</p>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Custos/despesas</h3>
+  </div>
+  <div class="panel-body">
+		<p>
+			<strong>Frete Carreteiro: </strong>
+			<%= number_to_currency(freight_minimum[:freight], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+
+		<p>
+			<strong>Diária Carreteiro: </strong>
+			<%= number_to_currency(freight_minimum[:daily_rate], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+
+		<p>
+			<strong>Descarga: </strong>
+			<%= number_to_currency(freight_minimum[:discharge], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>	
+
+		<p>
+			<strong>Seguro: </strong>
+			<%= number_to_currency(freight_minimum[:secure], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+			
+		<p>
+			<strong>Consulta GR:</strong>
+			<%= number_to_currency(freight_minimum[:risk_manager], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+
+		<p>
+			<strong>Pedágios:</strong>
+			<%= number_to_currency(freight_minimum[:toll], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Totais</h3>
+  </div>
+  <div class="panel-body">
+		<p>
+			<strong>Total Custos:</strong>
+			<%= number_to_currency(freight_minimum[:total_cost], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+
+		<p>
+			<strong>Lucro:</strong>
+			<%= number_to_currency(freight_minimum[:lucre], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+
+		<p>
+			<strong>Total Operacional:</strong>
+			<%= number_to_currency(freight_minimum[:total_operation], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Impostos</h3>
+  </div>
+  <div class="panel-body">
+		<p>
+			<strong>ICMS:</strong>
+			<%= number_to_currency(freight_minimum[:total_icms], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+
+		<p>
+			<strong>Pis/Cofins:</strong>
+			<%= number_to_currency(freight_minimum[:total_pis_cofins], unit: "R$ ", separator: ",", delimiter: ".") %>
+		</p>
+  </div>
+</div>
+
+<div class="panel panel-success">
+  <div class="panel-body">
+  	<strong>
+	    Total Frete: 
+	    <%= number_to_currency(freight_minimum[:total_freight], unit: "R$ ", separator: ",", delimiter: ".") %>
+  	</strong>
+  </div>
+</div>
