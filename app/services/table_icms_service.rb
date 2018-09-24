@@ -6,7 +6,7 @@ class TableIcmsService
 	end
 
 	def call
-    table = TableIcms.where(state_source: "CE", state_target: "CE").first
+    table = TableIcms.where(state_source: @stretch_route.stretch_source.estado, state_target: @stretch_route.stretch_target.estado).first
 		icms = calc_icms(@value, table.aliquot)
 		{ 
 			icms: icms.to_f,

@@ -29,10 +29,9 @@ class CalculateLiquidityService
     total_cost = freight.to_f + @daily_rate.to_f + discharge.to_f + secure.to_f + @risk_manager.to_f + @toll.to_f
     
     lucre_percet = @lucre.to_f
-    lucre = calc_lucre(total_cost, lucre_percet) 
-    
-    
-    total_operation = total_cost.to_f + lucre.to_f
+    lucre_gross = calc_lucre(total_cost, lucre_percet) 
+        
+    total_operation = total_cost.to_f + lucre_gross.to_f
 
     icms = TableIcmsService.new(@stretch, total_operation.to_f).call[:icms]
 
@@ -54,12 +53,18 @@ class CalculateLiquidityService
 
     quantity_cars = (@quantity_cars.to_i < 1) ? 1 : @quantity_cars
     
-    @advance = calc_advance(value_to_advance, @perc_advance, @number_days)
+    advance = calc_advance(value_to_advance, @perc_advance, @number_days)
+    late_payment_interest = advance.to_f - value_to_advance.to_f
+
+    lucre_liquidy = lucre_gross - late_payment_interest
+
+    total_freight += late_payment_interest
 
     return {
              value_nf: @valor_nota_fiscal,
                weight: @weight,
               freight: freight,
+              stretch: @stretch.stretch_source_and_target_long,
            daily_rate: @daily_rate,
             discharge: discharge,
                secure: secure,
@@ -69,10 +74,12 @@ class CalculateLiquidityService
  add_icms_value_frete: icms_value_frete_name,
           number_days: @number_days,
          perc_advance: @perc_advance,
-              advance: @advance,
+              advance: advance,
+late_payment_interest: late_payment_interest,
         quantity_cars: quantity_cars,
            total_cost: total_cost,
-                lucre: lucre,
+          lucre_gross: lucre_gross,
+        lucre_liquidy: lucre_liquidy,
       total_operation: total_operation,
            total_icms: icms,
      total_pis_cofins: pis_cofins,
@@ -99,7 +106,6 @@ class CalculateLiquidityService
     end
 
     def calc_advance(value, percent, days)
-      #byebug
       value_day = ((value * percent) / 100 ) / 30
       puts "Value Day: #{value_day}"
       value_total = value + (value_day * days)
