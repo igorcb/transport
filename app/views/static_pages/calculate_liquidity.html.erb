@@ -88,6 +88,16 @@
     </div>
 
     <div class="form-group">
+      <%= label_tag :select_seller_commission, "Calcular o valor da comissao"  %>
+      <%= select_tag :select_seller_commission, options_for_select(select_seller_commission, TableFreight::TypeSellerCommission::FREIGHT), class: "form-control", onfocusout:"getFreightMinimum();" %>
+    </div>      
+
+    <div class="form-group">
+      <%= label_tag :perc_seller_commission, "Comissão do Vendedor %" %>
+      <%= text_field :perc_seller_commission, nil, value: to_real(1.50), class: "form-control money2", id: 'perc_seller_commission', onfocusout:"getFreightMinimum();" %>
+    </div>
+
+    <div class="form-group">
       <%= label_tag :lucre, "Lucro %" %>
       <%= text_field :lucre, nil, value: 0, class: "form-control money2", id: 'lucre', onfocusout:"getFreightMinimum();" %>
     </div>
@@ -140,10 +150,6 @@
    };
 
   function getFreightMinimum() {
-    // var trecho_id = $('#trecho_id').val();
-    // var type_charge_id = $('#type_charge_id').val();
-    // var eixos = $('#qtde_eixos').val();
-
     var value_nf   = $('#value_invoice').val();
     var weight     = $('#weight').val();
     var value_ton  = $('#value_ton').val();
@@ -170,10 +176,9 @@
         success: function(data){
           $('#div_freight_minimal').html(data);
         },
-        //error: function(data){
-        error: function(data){
+        error: function(data, jqXHR, textStatus, errorThrown){
           $('#div_freight_minimal').empty("");
-          $('#div_freight_minimal').html("<div class='alert alert-error'>Error ao calculateFreight.</div>");
+          $('#div_freight_minimal').html("<div class='alert alert-error'>Erro ao calcular o calculo do frete.</div>");
         },
 
       });

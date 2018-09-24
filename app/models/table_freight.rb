@@ -12,6 +12,11 @@ class TableFreight < ActiveRecord::Base
 		CARGA_PERIGOSA = 4
   end
 
+  module TypeSellerCommission
+    FREIGHT = 0
+    LUCRE_GROSS = 1
+  end
+
   def type_charge_name
     case self.type_charge
       when 0 then "Carga Geral"

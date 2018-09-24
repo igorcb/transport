@@ -137,15 +137,19 @@
 			<%= " * #{freight_minimum[:quantity_cars].to_i } = " + number_to_currency(freight_minimum[:advance].to_f * freight_minimum[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if freight_minimum[:quantity_cars].to_i > 1%>
 			<br />			
 	  	<span style="font-style: italic;font-size: 12px;" >
-	  		Total Custos + ICMS + PIS/Cofins
+	  		Total Custos + ICMS + PIS/Cofins + Emprestimo
 	  	</span>
 
 		</p>
 
 		<p>
-			<strong>Lucro Liquido:</strong>
-			<%= number_to_currency(freight_minimum[:lucre_liquidy], unit: "R$ ", separator: ",", delimiter: ".") %>
-			<%= " * #{freight_minimum[:quantity_cars].to_i } = " + number_to_currency(freight_minimum[:lucre_liquidy].to_f * freight_minimum[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if freight_minimum[:quantity_cars].to_i > 1%>
+			<strong>Comissão:</strong>
+			<%= number_to_currency(freight_minimum[:seller_commission], unit: "R$ ", separator: ",", delimiter: ".") %>
+			<%= " * #{freight_minimum[:quantity_cars].to_i } = " + number_to_currency(freight_minimum[:seller_commission].to_f * freight_minimum[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if freight_minimum[:quantity_cars].to_i > 1%>
+ 		  <br />
+	  	<span style="font-style: italic;font-size: 12px;" >
+	  		<%= freight_minimum[:type_seller_commission] %>
+	  	</span>
 		</p>
 
 

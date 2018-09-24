@@ -19,14 +19,16 @@ class CalculateLiquidityService
     @quantity_cars = params["quantity_cars"].first.to_i
     @number_days = params["number_days"].first.to_i
     @perc_advance = params["perc_advance"].first.to_f
+    @perc_seller_commission = params["perc_seller_commission"].first.to_f
+    @select_seller_commission = params["select_seller_commission"].to_i
   end
 
   def call
 
-    raise "Não foi possivel localizar o trecho" if @stretch.blank?
-    raise "Não foi possivel localizar a Seguradora" if @insurer.blank?
-    raise "Não foi possivel localizar a tabela de icms" if TableIcms.where(state_source: @stretch.stretch_source.estado, state_target: @stretch.stretch_target.estado).blank?
-    raise "Não foi possivel localizar a tabela de frete" if TableFreight.where(type_charge: @type_charge).where("? between km_from and km_to", @stretch.distance).blank?
+    # raise "Não foi possivel localizar o trecho" if @stretch.blank?
+    # raise "Não foi possivel localizar a Seguradora" if @insurer.blank?
+    # raise "Não foi possivel localizar a tabela de icms" if TableIcms.where(state_source: @stretch.stretch_source.estado, state_target: @stretch.stretch_target.estado).blank?
+    # raise "Não foi possivel localizar a tabela de frete" if TableFreight.where(type_charge: @type_charge).where("? between km_from and km_to", @stretch.distance).blank?
 
     freight = TableFreightService.new(@stretch, @type_charge, @eixos).call[:freight]
     discharge = calc_discharge(@weight, @value_ton)
@@ -66,31 +68,41 @@ class CalculateLiquidityService
     lucre_liquidy = lucre_gross - late_payment_interest
 
     total_freight += late_payment_interest
+    seller_commission = 0.00
+    if @select_seller_commission == TableFreight::TypeSellerCommission::FREIGHT
+      seller_commission = (total_freight * @perc_seller_commission) / 100
+      type_seller_commission = "Em cima do valor do frete"
+    else
+      seller_commission = (lucre_gross * @perc_seller_commission) / 100
+      type_seller_commission = "Em cima do lucro"
+    end
 
     return {
-             value_nf: @valor_nota_fiscal,
-               weight: @weight,
-              freight: freight,
-              stretch: @stretch.stretch_source_and_target_long,
-           daily_rate: @daily_rate,
-            discharge: discharge,
-               secure: secure,
-         risk_manager: @risk_manager,
-             value_kg: value_per_kg,
-                 toll: @toll,
- add_icms_value_frete: icms_value_frete_name,
-          number_days: @number_days,
-         perc_advance: @perc_advance,
-              advance: advance,
-late_payment_interest: late_payment_interest,
-        quantity_cars: quantity_cars,
-           total_cost: total_cost,
-          lucre_gross: lucre_gross,
-        lucre_liquidy: lucre_liquidy,
-      total_operation: total_operation,
-           total_icms: icms,
-     total_pis_cofins: pis_cofins,
-        total_freight: total_freight
+                 value_nf: @valor_nota_fiscal,
+                   weight: @weight,
+                  freight: freight,
+                  stretch: @stretch.stretch_source_and_target_long,
+               daily_rate: @daily_rate,
+                discharge: discharge,
+                   secure: secure,
+             risk_manager: @risk_manager,
+                 value_kg: value_per_kg,
+                     toll: @toll,
+     add_icms_value_frete: icms_value_frete_name,
+              number_days: @number_days,
+             perc_advance: @perc_advance,
+                  advance: advance,
+    late_payment_interest: late_payment_interest,
+            quantity_cars: quantity_cars,
+               total_cost: total_cost,
+              lucre_gross: lucre_gross,
+            lucre_liquidy: lucre_liquidy,
+        seller_commission: seller_commission,
+   type_seller_commission: type_seller_commission,
+          total_operation: total_operation,
+               total_icms: icms,
+         total_pis_cofins: pis_cofins,
+            total_freight: total_freight
            }
   end
 
