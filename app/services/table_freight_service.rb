@@ -1,7 +1,7 @@
 class TableFreightService
 	
 	def initialize(stretch_id, type_charge_id, eixos)
-		@stretch_route = StretchRoute.where(id: stretch_id).first
+		@stretch_route = StretchRoute.includes(:stretch_source, :stretch_source).where(id: stretch_id).first
 		@type_charge_id = type_charge_id
     @eixos = eixos
 	end

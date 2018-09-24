@@ -33,10 +33,10 @@
         dataType : 'html',
         url: '/get_product_by_cod_prod',
         error: function(data){
-            $('#result_product').html("<div class='alert alert-error'>Error location product.</div>");
+          $('#result_product').html("<div class='alert alert-error'>Error location product.</div>");
         },
         success: function(data){
-            $('#result_product').html(data);
+           $('#result_product').html(data);
         },
       });
     });

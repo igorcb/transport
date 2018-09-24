@@ -1,7 +1,7 @@
 class TableIcmsService
 	
 	def initialize(stretch_id, value)
-		@stretch_route = StretchRoute.where(id: stretch_id).first
+		@stretch_route = StretchRoute.includes(:stretch_source, :stretch_source).where(id: stretch_id).first
 		@value = value
 	end
 

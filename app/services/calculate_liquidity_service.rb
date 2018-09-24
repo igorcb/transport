@@ -11,8 +11,8 @@ class CalculateLiquidityService
     @risk_manager = params["risk_manager"].first.to_f
     @toll = params["toll"].first.to_f
     @lucre = params["lucre"].first.to_f
-    @stretch = StretchRoute.find(params["trecho_id"])
-    @insurer = Insurer.find(params["insurer_id"])
+    @stretch = StretchRoute.includes(:stretch_source,:stretch_source).where(id: params["trecho_id"]).first
+    @insurer = Insurer.where(id: params["insurer_id"]).first
 
     @add_icms_value_frete = params["add_icms_value_frete"].to_i
     @quantity_cars = params["quantity_cars"].first.to_i
@@ -21,6 +21,10 @@ class CalculateLiquidityService
   end
 
   def call
+
+    raise "Não foi possivel localizar o trecho" if @stretch.blank?
+    raise "Não foi possivel localizar a Seguradora" if @insurer.blank?
+
     freight = TableFreightService.new(@stretch, @type_charge, @eixos).call[:freight]
     discharge = calc_discharge(@weight, @value_ton)
     value_per_kg = (@value_ton.to_f / TON)
@@ -107,7 +111,6 @@ late_payment_interest: late_payment_interest,
 
     def calc_advance(value, percent, days)
       value_day = ((value * percent) / 100 ) / 30
-      puts "Value Day: #{value_day}"
       value_total = value + (value_day * days)
       value_total
     end

@@ -2,7 +2,7 @@ class TableInsuranceService
 	
 	def initialize(insurer_id, stretch_id, value_nf)
 		@insurer = insurer_id
-		@stretch_route = StretchRoute.where(id: stretch_id).first
+		@stretch_route = StretchRoute.includes(:stretch_source, :stretch_source).where(id: stretch_id).first
 		@value_nf = value_nf
 	end
 
