@@ -4,7 +4,8 @@
 
 
 
-<%= form_tag( id: "form_calculate_liquidoty", :html => { }) do %>
+<%#= form_tag( :html => {id: "form_calculate_liquidy", class: "form_calculate_liquidy" }) do %>
+<%= form_tag(nil, {class: 'form_calculate_liquidy'}) do %>
 
 	<div class="panel panel-default">
 	  <div class="panel-heading">Liquidez por tarifa</div>
@@ -42,23 +43,23 @@
     </div>      
 
 	  <div class="form-group">
-	    <%= label_tag :valor_nota_fiscal %>
-	    <%= text_field :valor_nota_fiscal, nil, value: 0, class: "form-control money2", id: 'valor_nota_fiscal', onfocusout:"getFreightMinimum();" %>
+	    <%= label_tag :value_invoice, "Valor Nota Fiscal" %>
+	    <%= text_field :value_invoice, nil, value: 0, class: "form-control money2", id: 'value_invoice', onfocusout:"getFreightMinimum();" %>
 	  </div>
 
 	  <div class="form-group">
-	    <%= label_tag :peso_bruto %>
-	    <%= text_field :peso_bruto, nil, value: 0, class: "form-control money3", id: 'peso_bruto', onfocusout:"getFreightMinimum(); " %>
+	    <%= label_tag :weight, "Peso Bruto" %>
+	    <%= text_field :weight, nil, value: 0, class: "form-control money3", id: 'weight', onfocusout:"getFreightMinimum(); " %>
 	  </div>
 
 	  <div class="form-group">
-	    <%= label_tag :valor_tonelada, "Valor por Tonelada" %>
-	    <%= text_field :valor_tonelada, nil, value: 0, class: "form-control money2", id: 'valor_tonelada', onfocusout:"getFreightMinimum();" %>
+	    <%= label_tag :value_ton, "Valor por Tonelada" %>
+	    <%= text_field :value_ton, nil, value: 0, class: "form-control money2", id: 'value_ton', onfocusout:"getFreightMinimum();" %>
 	  </div>
 
 	  <div class="form-group">
-	    <%= label_tag :valor_diaria, "Diaria" %>
-	    <%= text_field :valor_diaria, nil, value: 0, class: "form-control money2", id: 'valor_diaria', onfocusout:"getFreightMinimum();" %>
+	    <%= label_tag :daily_rate, "Diaria" %>
+	    <%= text_field :daily_rate, nil, value: 0, class: "form-control money2", id: 'daily_rate', onfocusout:"getFreightMinimum();" %>
 	  </div>
 
     <div class="form-group">
@@ -72,8 +73,18 @@
     </div>
 
     <div class="form-group">
-      <%= label_tag :qtde_carros, "Qte de Carros para puxada" %>
-      <%= text_field :qtde_carros, nil, value: 1, class: "form-control money2", id: 'qtde_carros', onfocusout:"getFreightMinimum();" %>
+      <%= label_tag :quantity_cars, "Qte de Carros para puxada" %>
+      <%= text_field :quantity_cars, nil, value: 1, class: "form-control money2", id: 'quantity_cars', onfocusout:"getFreightMinimum();" %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :number_days, "Dias para o Emprestimo " %>
+      <%= text_field :number_days, nil, value: 30, class: "form-control money2", id: 'qtde_dias', onfocusout:"getFreightMinimum();" %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :perc_advance, "Empréstimo %" %>
+      <%= text_field :perc_advance, nil, value: 2, class: "form-control money2", id: 'perc_advance', onfocusout:"getFreightMinimum();" %>
     </div>
 
     <div class="form-group">
@@ -133,11 +144,11 @@
     // var type_charge_id = $('#type_charge_id').val();
     // var eixos = $('#qtde_eixos').val();
 
-    var value_nf   = $('#valor_nota_fiscal').val();
-    var weight     = $('#peso_bruto').val();
-    var value_ton  = $('#valor_tonelada').val();
+    var value_nf   = $('#value_invoice').val();
+    var weight     = $('#weight').val();
+    var value_ton  = $('#value_ton').val();
     var eixos      = $('#qtde_eixos').val(); 
-    var daily_rate = $('#valor_diaria').val();
+    var daily_rate = $('#daily_rate').val();
     var risk_manager   = $('#risk_manager').val();
     var lucre          = $('#lucre').val();
     var toll           = $('#toll').val();
@@ -145,12 +156,15 @@
     var type_charge_id = $('#type_charge_id').val();
     var insurer_id     = $('#insurer_id').val();
     var add_icms_value_frete = $('#add_icms_value_frete').val();
-    var quantity_cars = $('#qtde_carros').val();
+    var quantity_cars = $('#quantity_cars').val();
+    var qtde_dias = $('#number_days').val();
+    var advance = $('#advance').val();
 
     if ((trecho_id != "") && (type_charge_id != "")) {
       $.ajax({
         type: "GET",
-        data: {value_nf: value_nf, weight: weight, value_ton: value_ton, trecho_id: trecho_id, type_charge_id: type_charge_id, daily_rate: daily_rate, eixos: eixos, insurer_id: insurer_id, daily_rate: daily_rate, risk_manager: risk_manager, toll: toll, lucre: lucre, add_icms_value_frete: add_icms_value_frete, quantity_cars: quantity_cars},
+        //data: {value_nf: value_nf, weight: weight, value_ton: value_ton, trecho_id: trecho_id, type_charge_id: type_charge_id, daily_rate: daily_rate, eixos: eixos, insurer_id: insurer_id, daily_rate: daily_rate, risk_manager: risk_manager, toll: toll, lucre: lucre, add_icms_value_frete: add_icms_value_frete, quantity_cars: quantity_cars, qtde_dias: qtde_dias, advance: advance},
+        data: $(".form_calculate_liquidy").serialize(),        
         dataType : 'html',
         url: '/table_freights/get_calc_freight_minimum',
         success: function(data){

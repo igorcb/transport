@@ -97,6 +97,18 @@
 			<%= number_to_currency(freight_minimum[:total_operation], unit: "R$ ", separator: ",", delimiter: ".") %>
 			<%= " * #{freight_minimum[:quantity_cars].to_i } = " + number_to_currency(freight_minimum[:total_operation].to_f * freight_minimum[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if freight_minimum[:quantity_cars].to_i > 1%>
 		</p>
+
+		<p>
+			<strong>Valor do Emprestimo:</strong>
+			<%= number_to_currency(freight_minimum[:advance], unit: "R$ ", separator: ",", delimiter: ".") %>
+			<%= " * #{freight_minimum[:quantity_cars].to_i } = " + number_to_currency(freight_minimum[:advance].to_f * freight_minimum[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if freight_minimum[:quantity_cars].to_i > 1%>
+			<br />			
+	  	<span style="font-style: italic;font-size: 12px;" >
+	  		Total Custos + ICMS + PIS/Cofins
+	  	</span>
+
+		</p>
+
   </div>
 </div>
 
