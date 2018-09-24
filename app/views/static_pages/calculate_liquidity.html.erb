@@ -102,6 +102,24 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+   $("#trecho_id").change(function() {
+      var id = $('#trecho_id').val();
+      console.log(id);
+      $.ajax({
+        type: "GET",
+        data: {id: id},
+        dataType : 'html',
+        url: '/stretch_routes/get_stretch_route_by_id',
+        success: function(data){
+          $('#div_result_trecho').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
    $("#trecho_id, #type_charge_id").change(function() {
       getFreightMinimum();
     });
@@ -152,6 +170,7 @@
         success: function(data){
           $('#div_freight_minimal').html(data);
         },
+        //error: function(data){
         error: function(data){
           $('#div_freight_minimal').empty("");
           $('#div_freight_minimal').html("<div class='alert alert-error'>Error ao calculateFreight.</div>");
@@ -161,4 +180,22 @@
     }
   }
 
+// success: (data, text, jqXHR) ->
+//           Materialize.toast('Membro removido', 4000, 'green')
+//           $('#member_' + e.currentTarget.id).remove()
+//         error: (jqXHR, textStatus, errorThrown) ->
+//           Materialize.toast('Problema na remoção de membro', 4000, 'red')
+
+
+  // function calculateFreight() {
+  //   var valor_nf = $("#valor_nota_fiscal").val();
+  //   var peso_bruto = $("#peso_bruto").val();
+  //   var vr_tonelada = $("#valor_tonelada").val();
+  //   var vr_descarga = $("#valor_descarga").val();
+  //   var vr_ton = vr_tonelada / 1000;
+  //   var value_service = peso_bruto * vr_ton + parseFloat(vr_descarga);
+    
+  //   //document.getElementById('valor_total').value = 'R$ ' + sum.formatMoney(2, ',', '.');
+  //   $("#div_value_contract").html("<strong>Vr. Contrato:</strong> R$ " + value_service.formatMoney(2, ',', '.'));
+  // }
 </script>

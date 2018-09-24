@@ -1,5 +1,6 @@
 class CalculateLiquidityService
   TON = 1000.00
+  PIS_COFINS = 3.65
 
   def initialize(params = {})
     @valor_nota_fiscal = params["value_invoice"].first.to_f
@@ -24,6 +25,8 @@ class CalculateLiquidityService
 
     raise "Não foi possivel localizar o trecho" if @stretch.blank?
     raise "Não foi possivel localizar a Seguradora" if @insurer.blank?
+    raise "Não foi possivel localizar a tabela de icms" if TableIcms.where(state_source: @stretch.stretch_source.estado, state_target: @stretch.stretch_target.estado).blank?
+    raise "Não foi possivel localizar a tabela de frete" if TableFreight.where(type_charge: @type_charge).where("? between km_from and km_to", @stretch.distance).blank?
 
     freight = TableFreightService.new(@stretch, @type_charge, @eixos).call[:freight]
     discharge = calc_discharge(@weight, @value_ton)
@@ -39,7 +42,7 @@ class CalculateLiquidityService
 
     icms = TableIcmsService.new(@stretch, total_operation.to_f).call[:icms]
 
-    pis_cofins = calc_pis_cofins(total_operation.to_f, 7.00)
+    pis_cofins = calc_pis_cofins(total_operation.to_f, PIS_COFINS)
 
     if @add_icms_value_frete == ClientTablePrice::AddIcmsValueFete::SIM
       icms_value_frete_name = "Incide no valor do frete" 
