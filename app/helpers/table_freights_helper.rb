@@ -9,7 +9,7 @@ module TableFreightsHelper
   end
 
   def select_seller_commission
-  	([["Em cima do valor do frete", 0], ["Em cima do valor liquido", 1]])
+  	([["Em cima do valor do frete", 0], ["Em cima do lucro", 1]])
   end
 
 end

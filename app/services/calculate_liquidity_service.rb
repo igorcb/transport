@@ -32,7 +32,7 @@ class CalculateLiquidityService
 
     freight = TableFreightService.new(@stretch, @type_charge, @eixos).call[:freight]
     discharge = calc_discharge(@weight, @value_ton)
-    value_per_kg = (@value_ton.to_f / TON)
+    
     secure = TableInsuranceService.new(@insurer, @stretch, @valor_nota_fiscal).call[:secure]
 
     total_cost = freight.to_f + @daily_rate.to_f + discharge.to_f + secure.to_f + @risk_manager.to_f + @toll.to_f
@@ -76,6 +76,8 @@ class CalculateLiquidityService
       seller_commission = (lucre_gross * @perc_seller_commission) / 100
       type_seller_commission = "Em cima do lucro"
     end
+
+    value_per_kg = (@weight / total_freight.to_f)
 
     return {
                  value_nf: @valor_nota_fiscal,
