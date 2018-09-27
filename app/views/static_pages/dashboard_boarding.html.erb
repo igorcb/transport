@@ -1,0 +1,71 @@
+<%#= render 'dashboard_profile' %>
+
+<div class="row"> 
+  <div class="tile-stats tile-gray"> 
+    <div class="icon">
+      <i class="entypo-users"></i>
+    </div> 
+    <div class="num" data-start="0" data-end="" data-postfix="" data-duration="1500" data-delay="1800">
+      <div style="text-align: center">
+        Monitoramento Expedição
+      </div>
+    </div> 
+    
+    <p></p> 
+  </div> 
+</div>
+
+
+<div class="row">
+  <div class="col-sm-3 col-xs-6"> 
+    <div class="tile-stats tile-aqua"> 
+      <div class="icon">
+        <i class="entypo-users"></i>
+      </div> 
+      <div class="num" data-start="0" data-end="<%= @opened %>" data-postfix="" data-duration="1500" data-delay="1800">
+      <%= @opened_the_day %>/<%= @opened %>
+      </div> 
+      <h3>Abertos</h3> 
+      <p></p> 
+    </div> 
+  </div>
+
+  <div class="col-sm-3 col-xs-6"> 
+    <div class="tile-stats tile-blue"> 
+      <div class="icon">
+        <i class="entypo-chart-bar"></i>
+      </div> 
+      <div class="num" data-start="0" data-end="<%= @boarded %>" data-postfix="" data-duration="1500" data-delay="600">
+        <%= @boarded_the_day %>/<%= @boarded %>
+      </div> 
+      <h3>Embarcados</h3> 
+      <p></p> 
+    </div> 
+  </div>
+
+  <div class="col-sm-3 col-xs-6"> 
+    <div class="tile-stats tile-green"> 
+      <div class="icon">
+        <i class="entypo-mail"></i>
+      </div> 
+      <div class="num" data-start="0" data-end="<%= @delivered %>"  data-postfix="" data-duration="1500" data-delay="1200">
+        <%= @delivered_the_day %>/<%= @delivered %>
+      </div> 
+      <h3>Entregas Efetuadas</h3> 
+      <p></p> 
+    </div> 
+  </div>
+
+  <div class="col-sm-3 col-xs-6"> 
+    <div class="tile-stats tile-red"> 
+      <div class="icon">
+        <i class="entypo-rss"></i>
+      </div> 
+      <div class="num" data-start="0" data-end="" data-postfix="" data-duration="1500" data-delay="1800">
+        <%= "Pendings" %>
+      </div> 
+      <h3>Entregas Pendentes</h3> 
+      <p></p> 
+    </div> 
+  </div>
+</div>

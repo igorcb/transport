@@ -42,6 +42,7 @@ class Boarding < ActiveRecord::Base
   scope :the_day, -> { includes(:driver).where(date_boarding: Date.current).order("id desc") }
   scope :status_boarding, -> { includes(:driver).where(status: TipoStatus::EMBARCADO).order("id desc") }
 
+
   before_destroy :erase_boarding_items
 
   ZERO = 0.00
@@ -137,7 +138,6 @@ class Boarding < ActiveRecord::Base
     #     self.errors.add(:cancellation, e.message)
     #     return false        
     # end
-
 
   def self.generate_shipping(ids)
     hash_ids = []

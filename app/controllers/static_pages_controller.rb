@@ -25,6 +25,15 @@ class StaticPagesController < ApplicationController
 		@boardings = Boarding.the_day
 	end	
 
+	def dashboard_boarding
+    @opened = Boarding.where(status: [Boarding::TipoStatus::ABERTO]).count
+    @opened_the_day = Boarding.the_day.where(status: [Boarding::TipoStatus::ABERTO]).count
+    @boarded = Boarding.where(status: [Boarding::TipoStatus::EMBARCADO]).count
+    @boarded_the_day = Boarding.the_day.where(status: [Boarding::TipoStatus::EMBARCADO]).count
+    @delivered = Boarding.where(status: [Boarding::TipoStatus::ENTREGUE]).count
+    @delivered_the_day = Boarding.the_day.where(status: [Boarding::TipoStatus::ENTREGUE]).count
+  end
+
 	def calculate_liquidity
 
 	end

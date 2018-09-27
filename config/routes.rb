@@ -322,6 +322,7 @@ Transport::Application.routes.draw do
 
   match "/get_city_by_uf", :controller => "address", :action => "get_city_by_uf", via: [:get]
   
+  match '/dashboard_boarding', :controller => 'static_pages', :action => 'dashboard_boarding', via: [:get, :post]
   match '/get_address_by_cep', :controller => 'address', :action => 'get_address_by_cep', via: [:get]
   match '/dashboard_visit', :controller => 'static_pages', :action => 'dashboard_visit', via: [:get, :post]
   match '/dashboard_agent', :controller => 'static_pages', :action => 'dashboard_agent', via: [:get, :post]
