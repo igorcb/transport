@@ -53,9 +53,27 @@ class StretchRoutesController < ApplicationController
     end
   end
 
+  def get_stretch_route_by_state
+    @stretch_routes = StretchRoute.state_source(params[:state].to_s)
+    stretch_array = []
+    @stretch_routes.each do |s|
+      stretch_array << {:id => s.id, :n => s.stretch_source_and_target_short}
+    end
+    render :text => stretch_array.to_json.force_encoding("UTF-8")    
+  end
+
+  def get_stretch_route_by_state_source_ant_target
+    @stretch_routes = StretchRoute.state_source_and_target(params[:state_source].to_s, params[:state_target].to_s)
+    stretch_array = []
+    @stretch_routes.each do |s|
+      stretch_array << {:id => s.id, :n => s.stretch_source_and_target_short}
+    end
+    render :text => stretch_array.to_json.force_encoding("UTF-8")    
+  end
+
   private
     def set_stretch_route
-      @stretch_route = StretchRoute.find(params[:id])
+      @stretch_route = StretchRoute.where(params[:id]).first
     end
 
     def stretch_route_params

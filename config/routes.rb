@@ -33,8 +33,8 @@ Transport::Application.routes.draw do
   match "/table_freights/get_calc_freight_minimum", :controller => "table_freights", :action => "get_calc_freight_minimum", via: [:get] 
   match '/calculate_liquidity', :controller => 'static_pages', :action => 'calculate_liquidity', via: [:get, :post]
   match "/stretch_routes/get_stretch_route_by_id", :controller => "stretch_routes", :action => "get_stretch_route_by_id", via: [:get] 
-
-  #match '/clients/get_client_by_id', :controller => 'clients', :action => 'get_client_by_id', via: [:get]
+  match "/stretch_routes/get_stretch_route_by_state", :controller => "stretch_routes", :action => "get_stretch_route_by_state", via: [:get] 
+  match "/stretch_routes/get_stretch_route_by_state_source_ant_target", :controller => "stretch_routes", :action => "get_stretch_route_by_state_source_ant_target", via: [:get] 
 
   resources :table_freights
 

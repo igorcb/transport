@@ -22,9 +22,20 @@
     </div>
 
     <div class="form-group">
+      <%= label_tag :state_source, "Estado de Origem" %>
+      <%= select_tag :state_source, options_for_select(select_uf, "CE"), class: "form-control", onfocusout:"" %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :state_target, "Estado de Destino" %>
+      <%= select_tag :state_target, options_for_select(select_uf, "CE"), class: "form-control", onfocusout:"" %>
+    </div>
+
+    <div class="form-group">
       <%= label_tag :trecho_id, "Trecho" %>
       <%#= select_tag :trecho_id, options_from_collection_for_select(StretchRoute.all, :id, :stretch_source_and_target_short), :prompt => "Selecione o Trecho", class: "form-control" %>
-      <%= select_tag :trecho_id, options_from_collection_for_select(StretchRoute.order(:id), :id, :stretch_source_and_target_short, StretchRoute.order(:id).first.id), class: "form-control", onfocusout:"getFreightMinimum();" %>
+      <%= select_tag :trecho_id, options_from_collection_for_select(StretchRoute.order(:id), :id, :stretch_source_and_target_short, StretchRoute.order(:id).first.id), class: "form-control", onfocusout:"" %>
+      <%#= f.collection_select :sub_cost_center_id, [], :id, :descricao, {prompt: "SELECT PRIMEIRO CENTRO DE CUSTO"}, {class: "form-control"}  %>
     </div>
 
     <div class="form-group">
@@ -108,6 +119,47 @@
 <% end %>
 
 <div id="div_freight_minimal"></div>    
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#state_source, #state_target").change(function() {
+     
+      var state_source = $('#state_source').val();
+      var state_target = $('#state_target').val();
+      var state_params = {state_source: state_source, state_target: state_target}
+      console.log(state_params);
+      $.getJSON('/stretch_routes/get_stretch_route_by_state_source_ant_target', state_params, function(data){
+        //var options = '<option value="">SELECIONE O TRECHO</option>'; 
+        var options = ''; 
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+
+        $("#trecho_id").html(options);
+      });
+
+    });
+  });
+
+    
+</script>
+
+<script type="text/javascript">
+  // $(function(){
+  //   $("#state").change(function(){
+  //     var cost_and_sub_cost = {'cost_center_id': cost_center, 'sub_cost_center_id': sub_cost_center}
+  //     //var myLoc = { 'lat': 35, 'lon': -110 };
+  //     console.log(cost_and_sub_cost);
+  //     $.getJSON('/sub_centro_custo_three_by_custo', cost_and_sub_cost, function(data){
+  //       var options = '<option value="">SELECIONE SUB CENTRO CUSTO NIVEL 3</option>'; 
+  //       $.each(data, function(i, item) {
+  //         options += '<option value="' + item.id + '">' + item.n + '</option>';
+  //       });
+  //       $("#trecho_id").html(options);
+  //     });
+  //   });
+  // });
+</script>
 
 
 <script type="text/javascript">
