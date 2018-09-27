@@ -38,7 +38,7 @@ class TableFreightsController < ApplicationController
   end
 
   def get_calc_freight_minimum
-    @freight_minimum = CalculateLiquidityService.new(params).call
+    @freight_minimums = CalculateLiquidityService.new(params).call #return Array:[]
     respond_to do |format|
       format.js
       #format.json { render json: @freight_minimum.errors, status: :unprocessable_entity }

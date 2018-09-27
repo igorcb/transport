@@ -11,7 +11,7 @@ class StretchRoute < ActiveRecord::Base
 	#scope :order_stretch, -> { joins(:stretch_source).order('stretch.estado desc') }
 	scope :state_source, -> (state) { StretchRoute.includes(:stretch_source).where(stretches: {estado: state}).order(:id) }
 	scope :state_target, -> (state) { StretchRoute.includes(:stretch_target).where(stretches: {estado: state}).order(:id) }
-	scope :state_source_and_target, -> (state_source, state_target) { StretchRoute.joins(:stretch_source, :stretch_target).where(stretches: {estado: state_source}, stretch_targets_stretch_routes: {estado: state_target}).order(:id) }
+	scope :state_source_and_target, -> (state_source, state_target) { StretchRoute.joins(:stretch_source, :stretch_target).where(stretches: {estado: state_source}, stretch_targets_stretch_routes: {estado: state_target}).order("stretch_targets_stretch_routes.destino asc") }
 
 
 	def stretch_source_and_target_long

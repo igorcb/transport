@@ -1,0 +1,5 @@
+<% if @stretch_route.present? %>
+  <%= render(:partial => 'result_stretch_route', locals: {stretch_route: @stretch_route}) %>
+<% else %>
+  <%= content_tag(:div, content_tag(:p, "Not found any stretch_route"), class: "alert alert-danger") %>
+<% end %>

@@ -12,7 +12,9 @@ class CalculateLiquidityService
     @risk_manager = params["risk_manager"].first.to_f
     @toll = params["toll"].first.to_f
     @lucre = params["lucre"].first.to_f
-    @stretch = StretchRoute.includes(:stretch_source,:stretch_source).where(id: params["trecho_id"]).first
+    @state_source = params["state_source"]
+    @state_target = params["state_target"]
+    #@stretch = StretchRoute.includes(:stretch_source,:stretch_source).where(id: params["trecho_id"]).first
     @insurer = Insurer.where(id: params["insurer_id"]).first
 
     @add_icms_value_frete = params["add_icms_value_frete"].to_i
@@ -29,61 +31,68 @@ class CalculateLiquidityService
     # raise "Não foi possivel localizar a Seguradora" if @insurer.blank?
     # raise "Não foi possivel localizar a tabela de icms" if TableIcms.where(state_source: @stretch.stretch_source.estado, state_target: @stretch.stretch_target.estado).blank?
     # raise "Não foi possivel localizar a tabela de frete" if TableFreight.where(type_charge: @type_charge).where("? between km_from and km_to", @stretch.distance).blank?
-
-    freight = TableFreightService.new(@stretch, @type_charge, @eixos).call[:freight]
-    discharge = calc_discharge(@weight, @value_ton)
+    calculate_liquidity = []
+    total_freight = BigDecimal.new(0)
     
-    secure = TableInsuranceService.new(@insurer, @stretch, @valor_nota_fiscal).call[:secure]
+    @stretch_routes = StretchRoute.state_source_and_target(@state_source, @state_target)
+    return [error: "Não existe rotas para a Origem: #{@state_source} e Destino: #{@state_target}"] if @stretch_routes.blank?
 
-    total_cost = freight.to_f + @daily_rate.to_f + discharge.to_f + secure.to_f + @risk_manager.to_f + @toll.to_f
-    
-    lucre_percet = @lucre.to_f
-    lucre_gross = calc_lucre(total_cost, lucre_percet) 
-        
-    total_operation = total_cost.to_f + lucre_gross.to_f
+    @stretch_routes.each do |stretch|
+    freight = TableFreightService.new(stretch, @type_charge, @eixos).call[:freight]
+      discharge = calc_discharge(@weight, @value_ton)
+      
+      secure = TableInsuranceService.new(@insurer, stretch, @valor_nota_fiscal).call[:secure]
 
-    icms = TableIcmsService.new(@stretch, total_operation.to_f).call[:icms]
+      total_cost = freight.to_f + @daily_rate.to_f + discharge.to_f + secure.to_f + @risk_manager.to_f + @toll.to_f
+      
+      lucre_percet = @lucre.to_f
+      lucre_gross = calc_lucre(total_cost, lucre_percet) 
+          
+      total_operation = total_cost.to_f + lucre_gross.to_f
 
-    pis_cofins = calc_pis_cofins(total_operation.to_f, PIS_COFINS)
+      icms = TableIcmsService.new(stretch, total_operation.to_f).call[:icms]
 
-    if @add_icms_value_frete == ClientTablePrice::AddIcmsValueFete::SIM
-      icms_value_frete_name = "Incide no valor do frete" 
-      total_freight = total_operation.to_f + icms.to_f + pis_cofins.to_f
-      value_to_advance = total_cost + icms.to_f + pis_cofins.to_f
-    elsif @add_icms_value_frete == ClientTablePrice::AddIcmsValueFete::NAO
-      icms_value_frete_name = "Não incide no valor do frete" 
-      total_freight = total_operation.to_f + pis_cofins.to_f
-      value_to_advance = total_cost + pis_cofins.to_f
-    else #verificar processe que ClientTabelPrice::AddIcmsValueFete::OBEDECE_CLIENTE
-      icms_value_frete_name = "Não incide no valor do frete" 
-      total_freight = total_operation.to_f + pis_cofins.to_f
-      value_to_advance = total_cost + pis_cofins.to_f
-    end
+      pis_cofins = calc_pis_cofins(total_operation.to_f, PIS_COFINS)
 
-    quantity_cars = (@quantity_cars.to_i < 1) ? 1 : @quantity_cars
-    
-    advance = calc_advance(value_to_advance, @perc_advance, @number_days)
-    late_payment_interest = advance.to_f - value_to_advance.to_f
+      if @add_icms_value_frete == ClientTablePrice::AddIcmsValueFete::SIM
+        icms_value_frete_name = "Incide no valor do frete" 
+        total_freight = total_operation.to_f + icms.to_f + pis_cofins.to_f
+        value_to_advance = total_cost + icms.to_f + pis_cofins.to_f
+      elsif @add_icms_value_frete == ClientTablePrice::AddIcmsValueFete::NAO
+        icms_value_frete_name = "Não incide no valor do frete" 
+        total_freight = total_operation.to_f + pis_cofins.to_f
+        value_to_advance = total_cost + pis_cofins.to_f
+      else #verificar processe que ClientTabelPrice::AddIcmsValueFete::OBEDECE_CLIENTE
+        icms_value_frete_name = "Não incide no valor do frete" 
+        total_freight = total_operation.to_f + pis_cofins.to_f
+        value_to_advance = total_cost + pis_cofins.to_f
+      end
 
-    lucre_liquidy = lucre_gross - late_payment_interest
+      quantity_cars = (@quantity_cars.to_i < 1) ? 1 : @quantity_cars
+      
+      advance = calc_advance(value_to_advance, @perc_advance, @number_days)
+      late_payment_interest = advance.to_f - value_to_advance.to_f
 
-    total_freight += late_payment_interest
-    seller_commission = 0.00
-    if @select_seller_commission == TableFreight::TypeSellerCommission::FREIGHT
-      seller_commission = (total_freight * @perc_seller_commission) / 100
-      type_seller_commission = "Em cima do valor do frete"
-    else
-      seller_commission = (lucre_gross * @perc_seller_commission) / 100
-      type_seller_commission = "Em cima do lucro"
-    end
+      lucre_liquidy = lucre_gross - late_payment_interest
 
-    value_per_kg = (@weight / total_freight.to_f)
+      total_freight += late_payment_interest
+      seller_commission = 0.00
+      if @select_seller_commission == TableFreight::TypeSellerCommission::FREIGHT
+        seller_commission = (total_freight * @perc_seller_commission) / 100
+        type_seller_commission = "Em cima do valor do frete"
+      else
+        seller_commission = (lucre_gross * @perc_seller_commission) / 100
+        type_seller_commission = "Em cima do lucro"
+      end
+      distance = stretch.distance
+      value_per_kg = (total_freight.to_f / @weight)
 
-    return {
+      result = {
                  value_nf: @valor_nota_fiscal,
                    weight: @weight,
+                 distance: distance,
                   freight: freight,
-                  stretch: @stretch.stretch_source_and_target_long,
+                  stretch: stretch.stretch_source_and_target_short,
                daily_rate: @daily_rate,
                 discharge: discharge,
                    secure: secure,
@@ -106,6 +115,11 @@ class CalculateLiquidityService
          total_pis_cofins: pis_cofins,
             total_freight: total_freight
            }
+      
+      calculate_liquidity.push(result)
+    end
+
+    return calculate_liquidity
   end
 
   private

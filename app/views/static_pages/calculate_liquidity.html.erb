@@ -33,9 +33,7 @@
 
     <div class="form-group">
       <%= label_tag :trecho_id, "Trecho" %>
-      <%#= select_tag :trecho_id, options_from_collection_for_select(StretchRoute.all, :id, :stretch_source_and_target_short), :prompt => "Selecione o Trecho", class: "form-control" %>
-      <%= select_tag :trecho_id, options_from_collection_for_select(StretchRoute.order(:id), :id, :stretch_source_and_target_short, StretchRoute.order(:id).first.id), class: "form-control", onfocusout:"" %>
-      <%#= f.collection_select :sub_cost_center_id, [], :id, :descricao, {prompt: "SELECT PRIMEIRO CENTRO DE CUSTO"}, {class: "form-control"}  %>
+      <%= select_tag :trecho_id, options_from_collection_for_select(StretchRoute.state_source_and_target('CE', 'CE'), :id, :stretch_source_and_target_short, StretchRoute.state_source_and_target('CE', 'CE').first.id), class: "form-control", onfocusout:"" %>
     </div>
 
     <div class="form-group">
