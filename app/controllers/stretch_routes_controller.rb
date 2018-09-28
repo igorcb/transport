@@ -73,7 +73,7 @@ class StretchRoutesController < ApplicationController
 
   private
     def set_stretch_route
-      @stretch_route = StretchRoute.where(params[:id]).first
+      @stretch_route = StretchRoute.where(id: params[:id]).first
     end
 
     def stretch_route_params
