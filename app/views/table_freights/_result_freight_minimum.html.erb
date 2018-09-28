@@ -14,6 +14,7 @@
 	            <th><strong>Trecho</strong></th>
 	            <th><strong>Distancia</strong></th>
 	            <th><strong>Vr.NFe</strong></th>
+	            <th><strong>Vr.Ton</strong></th>
 	            <th><strong>Peso</strong></th>
 	            <th><strong>Frete</strong></th>
 	            <th><strong>Diaria</strong></th>
@@ -39,6 +40,7 @@
 	                <td><%= freight_minimum[:stretch] %></td>
 	                <td><%= number_with_precision(freight_minimum[:distance], precision: 2, separator: ',', delimiter: '.') %></td>
 	                <td><%= number_to_currency(freight_minimum[:value_nf], unit: "R$ ", separator: ",", delimiter: ".") %></td>
+	                <td><%= number_to_currency(freight_minimum[:value_ton], unit: "R$ ", separator: ",", delimiter: ".") %></td>
 	                <td><%= number_with_precision(freight_minimum[:weight], precision: 3, separator: ',', delimiter: '.') %></td>
 	                <td><%= number_to_currency(freight_minimum[:freight], unit: "R$ ", separator: ",", delimiter: ".") %></td>
 	                <td><%= number_to_currency(freight_minimum[:daily_rate], unit: "R$ ", separator: ",", delimiter: ".") %></td>
@@ -54,7 +56,7 @@
 	                <td><%= number_to_currency(freight_minimum[:late_payment_interest], unit: "R$ ", separator: ",", delimiter: ".") %></td>
 	                <td><%= number_to_currency(freight_minimum[:advance], unit: "R$ ", separator: ",", delimiter: ".") %></td>
 	                <td><%= number_to_currency(freight_minimum[:seller_commission], unit: "R$ ", separator: ",", delimiter: ".") %></td>
-	                <td><%= number_to_currency(freight_minimum[:value_kg], unit: "R$ ", separator: ",", delimiter: ".", precision: 3) %></td>
+	                <td><%= number_to_currency(freight_minimum[:value_kg], unit: "R$ ", separator: ",", delimiter: ".", precision: 4) %></td>
 	                <td><strong><%= number_to_currency(freight_minimum[:total_freight], unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
 	                <td><%= link_to "Show", "#", class: 'btn btn-blue btn-xs' %></td>
 	              </tr>

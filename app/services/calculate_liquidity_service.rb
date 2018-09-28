@@ -92,6 +92,7 @@ class CalculateLiquidityService
                    weight: @weight,
                  distance: distance,
                   freight: freight,
+                value_ton: @value_ton,
                   stretch: stretch.stretch_source_and_target_short,
                daily_rate: @daily_rate,
                 discharge: discharge,
