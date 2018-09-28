@@ -28,7 +28,7 @@
   </div>    
 
   <div class="form-group">
-		<%= f.submit "Reagendar", class: "btn btn-primary" if @input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
+		<%= f.submit "Reagendar", class: "btn btn-blue" if @input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
 		<%= link_to 'Voltar', input_control_path(@input_control), class: "btn btn-default" %>
   </div>
 

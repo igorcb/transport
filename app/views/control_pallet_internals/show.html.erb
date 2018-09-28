@@ -44,7 +44,7 @@
 </p>
 
 <div class="form-group">
-  <%= link_to 'Editar', edit_control_pallet_internal_path(@control_pallet_internal), class: "btn btn-primary" %>
+  <%= link_to 'Editar', edit_control_pallet_internal_path(@control_pallet_internal), class: "btn btn-blue" %>
   <%= link_to 'Listar Todos', control_pallet_internals_path, class: "btn btn-default" %>
-  <%= link_to 'Imprimir Termo', term_pallet_control_pallet_internal_path(@control_pallet_internal, format: 'pdf'), class: "btn btn-primary" if @control_pallet_internal.print_term? %>
+  <%= link_to 'Imprimir Termo', term_pallet_control_pallet_internal_path(@control_pallet_internal, format: 'pdf'), class: "btn btn-blue" if @control_pallet_internal.print_term? %>
 </div>

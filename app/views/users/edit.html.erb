@@ -22,7 +22,7 @@
     <span class="help-block">(we need your current password to confirm your changes)</span>
   </div>
   <div class="form-action">
-    <%= f.submit "Update User", class: "btn btn-lg btn-primary" %>
+    <%= f.submit "Update User", class: "btn btn-lg btn-blue" %>
     <% if current_user.has_role? :admin %>
       <%= link_to "Back", root_path, class: "btn btn-lg btn-default" %>
     <% elsif current_user.has_role? :visit %>

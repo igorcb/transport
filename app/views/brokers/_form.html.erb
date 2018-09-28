@@ -10,7 +10,7 @@
     <%= f.text_field :name, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  broker_path(@broker), class: "btn btn-info" if !@broker.new_record? %>
     <%= link_to "Listar Todos", brokers_path, class: "btn btn-default" %>
   </div>

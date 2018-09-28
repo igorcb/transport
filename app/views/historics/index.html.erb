@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Historicos</div>
   <div class="panel-body">
-    <%= link_to 'Nova Historico', new_historic_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%= link_to 'Nova Historico', new_historic_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -18,7 +18,7 @@
               <td><%= historic.descricao %></td>
               <td><%= historic.tipo %></td>
               <td><%= link_to 'Show', historic, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_historic_path(historic), class: "btn btn-primary btn-sm"  %></td>
+              <td><%= link_to 'Edit', edit_historic_path(historic), class: "btn btn-blue btn-sm"  %></td>
               <td><%= link_to 'Destroy', historic, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
             </tr>
           <% end %>

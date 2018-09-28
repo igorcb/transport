@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Trechos</div>
   <div class="panel-body">
-    <%= link_to 'Novo Trecho', new_stretch_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%= link_to 'Novo Trecho', new_stretch_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -18,7 +18,7 @@
               <td><%= stretch.cidade %></td>
               <td><%= stretch.destino %></td>
               <td><%= link_to 'Show', stretch, class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_stretch_path(stretch), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_stretch_path(stretch), class: "btn btn-blue btn-xs" %></td>
             </tr>
           <% end %>
         <tbody>

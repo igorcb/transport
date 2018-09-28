@@ -25,7 +25,7 @@
   </div>    
 
   <div class="form-group">
-		<%= f.submit "Informar Recebimento", class: "btn btn-primary" if @input_control.status == InputControl::TypeStatus::DISCHARGE %>
+		<%= f.submit "Informar Recebimento", class: "btn btn-blue" if @input_control.status == InputControl::TypeStatus::DISCHARGE %>
 		<%= link_to 'Voltar', oper_input_controls_path, class: "btn btn-default" %>
   </div>
 

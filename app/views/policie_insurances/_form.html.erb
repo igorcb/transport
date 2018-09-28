@@ -34,7 +34,7 @@
     <%= f.text_field :value, class: "form-control money2" %>
   </div>
   <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  insurer_policie_insurance_path(@insurer, @policie_insurance), class: "btn btn-info" if !@policie_insurance.new_record? %>
     <%= link_to "Listar Todos", insurer_policie_insurances_path(@insurer), class: "btn btn-default" %>
   </div>

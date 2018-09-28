@@ -9,6 +9,6 @@
 </div>
 
 <div class="form-group">
-  <%= link_to 'Confirmar cancelamento', confirmation_cancellation_path(@cancellation), class: "btn btn-primary" if @cancellation.pode_cancelar? %>
+  <%= link_to 'Confirmar cancelamento', confirmation_cancellation_path(@cancellation), class: "btn btn-blue" if @cancellation.pode_cancelar? %>
   <%= link_to 'Listar Todos', cancellations_path, class: "btn btn-default" %>
 </div>

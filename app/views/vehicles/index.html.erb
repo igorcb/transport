@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Veículos</div>
   <div class="panel-body">
-    <%= link_to 'Novo Veículos', new_vehicle_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%= link_to 'Novo Veículos', new_vehicle_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -30,7 +30,7 @@
               <td><%= link_to vehicle.drivers.first.nome, vehicle.drivers.first  if vehicle.drivers.present? %></td>
               <td><%= link_to vehicle.owners.first.fantasia, vehicle.owners.first  if vehicle.owners.present? %></td>
               <td><%= link_to 'Show', vehicle, class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_vehicle_path(vehicle), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_vehicle_path(vehicle), class: "btn btn-blue btn-xs" %></td>
               <td><%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
             </tr>
           <% end %>

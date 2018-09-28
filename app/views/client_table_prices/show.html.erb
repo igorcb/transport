@@ -174,10 +174,10 @@
 
 <div class="form-group">
   <% if @client.class.to_s == "Client" %>
-    <%= link_to 'Editar', edit_client_client_table_price_path(@client, @client_table_price), class: "btn btn-primary" %>
+    <%= link_to 'Editar', edit_client_client_table_price_path(@client, @client_table_price), class: "btn btn-blue" %>
     <%= link_to 'Listar Todos', client_client_table_prices_path(@client), class: "btn btn-default" %>
   <% else %>
-    <%= link_to 'Editar', edit_carrier_client_table_price_path(@client, @client_table_price), class: "btn btn-primary" %>
+    <%= link_to 'Editar', edit_carrier_client_table_price_path(@client, @client_table_price), class: "btn btn-blue" %>
     <%= link_to 'Listar Todos', carrier_client_table_prices_path(@client), class: "btn btn-default" %>
   <% end %>  
 </div>

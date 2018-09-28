@@ -35,7 +35,7 @@
 
 <div class="form-group">
   <% if current_user.has_role? :admin %>
-    <%= link_to 'Editar', edit_pallet_path(@pallet), class: "btn btn-primary" %>
+    <%= link_to 'Editar', edit_pallet_path(@pallet), class: "btn btn-blue" %>
     <%= link_to 'Listar Todos', pallets_path, class: "btn btn-default" %>
     <%= link_to 'Gerar Ordem Servico', driver_select_pallet_path, class: "btn btn-success" if current_user.has_role? :admin %>
   <% else %>

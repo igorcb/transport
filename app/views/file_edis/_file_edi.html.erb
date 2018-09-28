@@ -7,7 +7,7 @@
 	<td><%= number_with_precision(file_edi.volume, precision: 2, separator: ',', delimiter: '.') %></td>
 	<td><%= number_to_currency(file_edi.value_total, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %></td>
 	<td><%= file_edi.qtde %></td>
-	<td><%= link_to "Show", file_edi_path(file_edi), class: "btn btn-primary btn-xs" %></td>
+	<td><%= link_to "Show", file_edi_path(file_edi), class: "btn btn-blue btn-xs" %></td>
 </tr>
 <tr>
 	<td colspan="9"><%= file_edi.get_nfe_xmls %></td>

@@ -6,6 +6,6 @@
   <td><%= object.ted_doc %></td>
   <td><%= number_to_currency(object.saldo, unit: "R$ ", separator: ",", delimiter: ".")  %></td>
   <td><%= link_to 'Show', object, class: "btn btn-info btn-xs" %></td>
-  <td><%= link_to 'Edit', edit_cash_account_path(object), class: "btn btn-primary btn-xs" %></td>
+  <td><%= link_to 'Edit', edit_cash_account_path(object), class: "btn btn-blue btn-xs" %></td>
   <td><%= link_to 'Destroy', object, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
 </tr>

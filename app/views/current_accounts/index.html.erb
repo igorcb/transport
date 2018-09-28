@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Motoristas</div>
   <div class="panel-body">
-    <%= link_to 'Nova Conta Corrente', new_current_account_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%= link_to 'Nova Conta Corrente', new_current_account_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -24,7 +24,7 @@
               <td><%= current_account.credito_debito %></td>
               <td><%= truncate(current_account.historico, length: 20 )  %></td>
               <td><%= link_to 'Show', current_account, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_current_account_path(current_account), class: "btn btn-primary btn-sm" %>
+              <td><%= link_to 'Edit', edit_current_account_path(current_account), class: "btn btn-blue btn-sm" %>
               <td><%= link_to 'Destroy', current_account, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger btn-sm" %></td>
             </tr>
           <% end %>

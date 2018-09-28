@@ -2,7 +2,7 @@
   <div class="panel-heading">Listagem Controle de Equipamentos </div>
   <div class="panel-body">
     <!-- <strong> Saldo: <%#= ControlPallet.saldo %> </strong> -->
-    <%= link_to 'New Control Internal Equipament', new_control_pallet_internal_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%= link_to 'New Control Internal Equipament', new_control_pallet_internal_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -16,7 +16,7 @@
             <tr>
               <%= render control_pallet_internal %>
               <td><%= link_to 'Show', control_pallet_internal, class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_control_pallet_internal_path(control_pallet_internal), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_control_pallet_internal_path(control_pallet_internal), class: "btn btn-blue btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>

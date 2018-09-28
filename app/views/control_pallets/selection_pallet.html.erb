@@ -63,7 +63,7 @@
     <%= collection_select(:controle_pallete, :target_client_id, Client.order(:nome), :id, :nome, {:prompt => 'Selecione um cliente destinatário'}, class: "form-control")%>
   </div>
 
-  <%= submit_tag("Gerar Ordem Serviço", class: "btn btn-primary") %> 
+  <%= submit_tag("Gerar Ordem Serviço", class: "btn btn-blue") %> 
 
   <% end %>
 </div>

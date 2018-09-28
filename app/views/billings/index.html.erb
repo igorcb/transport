@@ -23,7 +23,7 @@
               <td><%= link_to number_with_precision(billing.valor, precision: 2, separator: '.'), billing %></td>
               <td><%= link_to billing.status_name, billing %></td>
               <td><%= link_to 'Show', billing_path(billing), class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_billing_path(billing), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_billing_path(billing), class: "btn btn-blue btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>

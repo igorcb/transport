@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Micro region</div>
   <div class="panel-body">
-    <%= link_to 'New Micro region', new_micro_region_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%= link_to 'New Micro region', new_micro_region_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -16,7 +16,7 @@
             <tr>
               <td><%= micro_region.name %></td>
               <td><%= link_to 'Show', micro_region, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_micro_region_path(micro_region), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_micro_region_path(micro_region), class: "btn btn-blue btn-sm" %></td>
               <td><%= link_to 'Destroy', micro_region, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
             </tr>
           <% end %>

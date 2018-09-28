@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Controle de CT-e</div>
   <div class="panel-body">
-    <%#= link_to 'Novo Controle', new_operating_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%#= link_to 'Novo Controle', new_operating_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -30,7 +30,7 @@
               <td><%= operating.cte %></td>
               <td><%= extenso_boolean (operating.avaria) %></td>
               <td><%= link_to 'Show', operating, class: "btn btn-info btn-sm" %></td>
-              <td><%#= link_to 'Edit', edit_operating_path(operating), class: "btn btn-primary btn-sm" %></td>
+              <td><%#= link_to 'Edit', edit_operating_path(operating), class: "btn btn-blue btn-sm" %></td>
               <td><%= link_to 'Destroy', operating, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
             </tr>
           <% end %>

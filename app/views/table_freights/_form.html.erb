@@ -18,7 +18,7 @@
     <%= f.text_field :price,class: "form-control money2" %>
   </div>
    <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  table_freight_path(@table_freight), class: "btn btn-info" if !@table_freight.new_record? %>
     <%= link_to "Listar Todos", table_freights_path, class: "btn btn-default" %>
   </div>

@@ -215,7 +215,7 @@
 </div>
 
 <div class="form-group">
-  <%= link_to 'Editar', edit_direct_charge_path(@direct_charge), class: "btn btn-primary" %> 
+  <%= link_to 'Editar', edit_direct_charge_path(@direct_charge), class: "btn btn-blue" %> 
   <%= link_to 'Listar Todos', direct_charges_path, class: "btn btn-default" %>
   <%= link_to 'Finalizar Digitação', finish_typing_direct_charge_path(@direct_charge), class: "btn btn-info" if @direct_charge.status == DirectCharge::TypeStatus::OPEN %>
   <%= link_to 'Gerar Ordem Servico', select_nfe_direct_charge_path, class: "btn btn-success"%>

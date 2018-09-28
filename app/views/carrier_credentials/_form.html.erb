@@ -16,7 +16,7 @@
 
 
   <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  carrier_carrier_credential_path(@carrier, @carrier_credential), class: "btn btn-info" if !@carrier_credential.new_record? %>
     <%= link_to "Listar Todos", carrier_carrier_credentials_path(@carrier) , class: "btn btn-default" %>
   </div>  

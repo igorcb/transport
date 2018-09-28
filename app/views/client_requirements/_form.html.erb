@@ -33,7 +33,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  client_client_requirement_path(@client, @client_requirement), class: "btn btn-info" if !@client_requirement.new_record? %>
     <%= link_to "Listar Todos", client_client_requirements_path(@client) , class: "btn btn-default" %>
   </div>

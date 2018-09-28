@@ -2,7 +2,7 @@
   <div class="panel-heading">Listagem de Controle de Pallets</div>
   <div class="panel-body">
     <strong> Saldo: <%= ControlPallet.saldo %> </strong>
-    <%#= link_to 'Novo Pallets', new_control_pallet_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%#= link_to 'Novo Pallets', new_control_pallet_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -32,7 +32,7 @@
               <td><%= pallet.nfe %></td>
               <td><%= pallet.nfd %></td>
               <td><%= link_to 'Show', pallet, class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_control_pallet_path(pallet), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_control_pallet_path(pallet), class: "btn btn-blue btn-xs" %></td>
               <td><%= link_to 'Print', print_control_pallet_path(pallet, format: 'pdf'), class: "btn btn-default btn-xs" %></td>
             </tr>
           <% end %>

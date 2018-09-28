@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Tipo de Serviço</div>
   <div class="panel-body">
-    <%= link_to 'Novo Tipo de Serviço', new_type_service_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%= link_to 'Novo Tipo de Serviço', new_type_service_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -18,7 +18,7 @@
               <td><%= type_service.descricao %></td>
               <td><%= type_service.tipo_nome %></td>
               <td><%= link_to 'Show', type_service, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_type_service_path(type_service), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_type_service_path(type_service), class: "btn btn-blue btn-sm" %></td>
               <td><%= link_to 'Destroy', type_service, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
             </tr>
           <% end %>

@@ -88,7 +88,7 @@
 <%= render 'shared/document', object: @carrier %>
 
 <div class="form-group">
-  <%= link_to 'Editar', edit_carrier_path(@carrier), class: "btn btn-primary" %>
+  <%= link_to 'Editar', edit_carrier_path(@carrier), class: "btn btn-blue" %>
   <%= link_to 'Listar Todos', carriers_path, class: "btn btn-default" %>
   <%= link_to 'Credenciados', carrier_carrier_credentials_path(@carrier), class: "btn btn-default" %>
   <%= link_to 'Tabele de Preco', carrier_client_table_prices_path(@carrier), class: "btn btn-default" %>

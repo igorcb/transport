@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Funcionário</div>
   <div class="panel-body">
-    <%= link_to 'Novo Funcionário', new_employee_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%= link_to 'Novo Funcionário', new_employee_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -25,7 +25,7 @@
               <td><%= employee.apelido %></td>
               <td><%= employee.tipo_funcionario %></td>
               <td><%= link_to 'Show', employee, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_employee_path(employee), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_employee_path(employee), class: "btn btn-blue btn-sm" %></td>
               <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
             </tr>
           <% end %>

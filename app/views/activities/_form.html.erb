@@ -7,7 +7,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  activity_path(@activity), class: "btn btn-info" if !@activity.new_record? %>
     <%= link_to "Listar Todos", activities_path, class: "btn btn-default" %>
   </div>

@@ -55,7 +55,7 @@
                   <td><%= time_br subject.time_meeting %> </td>
                   <td><%= subject.responsible %></td>
                   <td><%= link_to 'Exibir', meeting_subject_path(@meeting, subject), class: "btn btn-info btn-xs" %></td>
-                  <td><%= link_to '[+] Plano de Ação', new_meeting_subject_subject_answer_path(@meeting, subject), class: "btn btn-primary btn-xs" %></td>
+                  <td><%= link_to '[+] Plano de Ação', new_meeting_subject_subject_answer_path(@meeting, subject), class: "btn btn-blue btn-xs" %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -87,6 +87,6 @@
 </div>
 
 <div class="form-group">
-  <%= link_to 'Editar', edit_meeting_path(@meeting), class: "btn btn-primary" %>
+  <%= link_to 'Editar', edit_meeting_path(@meeting), class: "btn btn-blue" %>
   <%= link_to 'Listar Todos', meetings_path, class: "btn btn-default" %>
 </div>

@@ -17,7 +17,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  insurer_table_insurance_path(@insurer, @table_insurance), class: "btn btn-info" if !@table_insurance.new_record? %>
     <%= link_to "Listar Todos", insurer_table_insurances_path(@insurer), class: "btn btn-default" %>
   </div>

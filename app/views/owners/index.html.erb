@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de proprietários de veículos</div>
   <div class="panel-body">
-    <%= link_to 'Novo Proprietário', new_owner_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%= link_to 'Novo Proprietário', new_owner_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -20,7 +20,7 @@
               <td><%= owner.nome %></td>
               <td><%= owner.fantasia %></td>
               <td><%= link_to 'Show', owner, class: "btn btn-info btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_owner_path(owner), class: "btn btn-primary btn-sm" %></td>
+              <td><%= link_to 'Edit', edit_owner_path(owner), class: "btn btn-blue btn-sm" %></td>
               <td><%= link_to 'Destroy', owner, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
             </tr>
           <% end %>

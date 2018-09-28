@@ -20,7 +20,7 @@
     <%= f.text_area :config_description, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  config_system_path(@config_system), class: "btn btn-info" if !@config_system.new_record? %>
     <%= link_to "Listar Todos", config_systems_path, class: "btn btn-default" %>
   </div>

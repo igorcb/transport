@@ -70,12 +70,12 @@
   <hr />
   <% if current_user.has_role? :admin %>
   <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  pallet_path(@pallet), class: "btn btn-info" if !@pallet.new_record? %>
     <%= link_to "Listar Todos", pallets_path, class: "btn btn-default" %>
   </div>  
   <% else %>
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to 'Listar Todos', visit_all_pallets_path, class: "btn btn-default" %>
   <% end %>
 <% end %>

@@ -7,7 +7,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  payment_method_path(@payment_method), class: "btn btn-info" if !@payment_method.new_record? %>
     <%= link_to "Listar Todos", payment_methods_path, class: "btn btn-default" %>
   </div>

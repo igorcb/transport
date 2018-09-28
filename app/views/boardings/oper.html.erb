@@ -11,9 +11,9 @@
   <% end %>
     <span class="badge"><%= boarding.qtde_palets %></span>
     <%= render 'static_pages/oper_boarding', boarding: boarding %>
-    <%= link_to 'Iniciar Embarque', start_boarding_path(boarding), class: "btn btn-primary btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>
-    <%= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding), class: "btn btn-primary btn-xs" if boarding.status == Boarding::TipoStatus::INICIADO %>
-    <%= link_to 'Detalhes do Embarque', detail_boarding_path(boarding), class: "btn btn-primary btn-xs" %>
+    <%= link_to 'Iniciar Embarque', start_boarding_path(boarding), class: "btn btn-blue btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>
+    <%= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding), class: "btn btn-blue btn-xs" if boarding.status == Boarding::TipoStatus::INICIADO %>
+    <%= link_to 'Detalhes do Embarque', detail_boarding_path(boarding), class: "btn btn-blue btn-xs" %>
   </li>
   <% end %>
 </ul>

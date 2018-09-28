@@ -6,7 +6,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Pallets</div>
   <div class="panel-body">
-    <%= link_to 'Novo Controle Palete', new_pallet_path, class: "btn btn-primary btn-lg btn-block" %>
+    <%= link_to 'Novo Controle Palete', new_pallet_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -33,7 +33,7 @@
               <td><%= pallet.qtde %></td>
               <td><%= pallet.status_name %></td>
               <td><%= link_to 'Show', pallet, class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_pallet_path(pallet), class: "btn btn-primary btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_pallet_path(pallet), class: "btn btn-blue btn-xs" %></td>
               <td><%= link_to 'Destroy', pallet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
             </tr>
           <% end %>
