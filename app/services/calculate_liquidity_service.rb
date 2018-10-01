@@ -2,7 +2,13 @@ class CalculateLiquidityService
   TON = 1000.00
   PIS_COFINS = 3.65
 
+  module TypeCalc
+    STATE = 0
+    ROUTE = 1
+  end
+
   def initialize(params = {})
+    @type_calc = params["tipo_calc"].nil? ? TypeCalc::ROUTE : params["tipo_calc"]
     @valor_nota_fiscal = params["value_invoice"].first.to_f
     @weight = params["weight"].first.to_f
     @value_ton = params["value_ton"].first.to_f
@@ -15,7 +21,8 @@ class CalculateLiquidityService
     @state_source = params["state_source"]
     @state_target = params["state_target"]
     #@stretch = StretchRoute.includes(:stretch_source,:stretch_source).where(id: params["trecho_id"]).first
-    @insurer = Insurer.where(id: params["insurer_id"]).first
+    @trecho_id = params["trecho_id"]
+    @insurer_id = params["insurer_id"]
 
     @add_icms_value_frete = params["add_icms_value_frete"].to_i
     @quantity_cars = params["quantity_cars"].first.to_i
@@ -33,8 +40,17 @@ class CalculateLiquidityService
     # raise "Não foi possivel localizar a tabela de frete" if TableFreight.where(type_charge: @type_charge).where("? between km_from and km_to", @stretch.distance).blank?
     calculate_liquidity = []
     total_freight = BigDecimal.new(0)
-    
-    @stretch_routes = StretchRoute.state_source_and_target(@state_source, @state_target)
+
+    @insurer =  Insurer.where(id: @insurer_id).first
+    return [error: "Não existe tabela de seguro"] if @insurer.blank?
+
+    if @type_calc = TypeCalc::ROUTE
+      #StretchRoute.includes(:stretch_source,:stretch_source).where(id: params["trecho_id"]).first
+      @stretch_routes = StretchRoute.where(id: @trecho_id)
+    else
+      @stretch_routes = StretchRoute.state_source_and_target(@state_source, @state_target)
+    end
+
     return [error: "Não existe rotas para a Origem: #{@state_source} e Destino: #{@state_target}"] if @stretch_routes.blank?
 
     @stretch_routes.each do |stretch|
@@ -86,19 +102,20 @@ class CalculateLiquidityService
       end
       distance = stretch.distance
       value_per_kg = (total_freight.to_f / @weight)
+      value_ton = value_per_kg * 1000
 
       result = {
                  value_nf: @valor_nota_fiscal,
                    weight: @weight,
                  distance: distance,
                   freight: freight,
-                value_ton: @value_ton,
+                value_ton: value_ton,
+                 value_kg: value_per_kg,
                   stretch: stretch.stretch_source_and_target_short,
                daily_rate: @daily_rate,
                 discharge: discharge,
                    secure: secure,
              risk_manager: @risk_manager,
-                 value_kg: value_per_kg,
                      toll: @toll,
      add_icms_value_frete: icms_value_frete_name,
               number_days: @number_days,
