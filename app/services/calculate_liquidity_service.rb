@@ -8,7 +8,7 @@ class CalculateLiquidityService
   end
 
   def initialize(params = {})
-    @type_calc = params["tipo_calc"].nil? ? TypeCalc::ROUTE : params["tipo_calc"]
+    @type_calc = params["type_calc"].nil? ? TypeCalc::STATE : params["type_calc"]
     @valor_nota_fiscal = params["value_invoice"].first.to_f
     @weight = params["weight"].first.to_f
     @value_ton = params["value_ton"].first.to_f
@@ -30,21 +30,18 @@ class CalculateLiquidityService
     @perc_advance = params["perc_advance"].first.to_f
     @perc_seller_commission = params["perc_seller_commission"].first.to_f
     @select_seller_commission = params["select_seller_commission"].to_i
+    @params = params
   end
 
   def call
 
-    # raise "Não foi possivel localizar o trecho" if @stretch.blank?
-    # raise "Não foi possivel localizar a Seguradora" if @insurer.blank?
-    # raise "Não foi possivel localizar a tabela de icms" if TableIcms.where(state_source: @stretch.stretch_source.estado, state_target: @stretch.stretch_target.estado).blank?
-    # raise "Não foi possivel localizar a tabela de frete" if TableFreight.where(type_charge: @type_charge).where("? between km_from and km_to", @stretch.distance).blank?
     calculate_liquidity = []
     total_freight = BigDecimal.new(0)
 
     @insurer =  Insurer.where(id: @insurer_id).first
     return [error: "Não existe tabela de seguro"] if @insurer.blank?
 
-    if @type_calc = TypeCalc::ROUTE
+    if @type_calc.to_i == TypeCalc::ROUTE
       #StretchRoute.includes(:stretch_source,:stretch_source).where(id: params["trecho_id"]).first
       @stretch_routes = StretchRoute.where(id: @trecho_id)
     else
@@ -112,6 +109,7 @@ class CalculateLiquidityService
                 value_ton: value_ton,
                  value_kg: value_per_kg,
                   stretch: stretch.stretch_source_and_target_short,
+                 route_id: stretch.id,
                daily_rate: @daily_rate,
                 discharge: discharge,
                    secure: secure,
@@ -133,11 +131,18 @@ class CalculateLiquidityService
          total_pis_cofins: pis_cofins,
             total_freight: total_freight
            }
-      
+ 
       calculate_liquidity.push(result)
     end
+    input = @params
+    
+    output = calculate_liquidity
+    
+    hash = {}
+    hash.store(:input, input)
+    hash.store(:output, output)
 
-    return calculate_liquidity
+    return hash
   end
 
   private
