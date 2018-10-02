@@ -50,6 +50,12 @@
 				</p>
 
 				<p>
+					<strong>Carga: </strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:charge_value], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:charge_value].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>	
+
+				<p>
 					<strong>Descarga: </strong>
 					<%= number_to_currency(@freight_minimum[:output].first[:discharge], unit: "R$ ", separator: ",", delimiter: ".") %>
 					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:discharge].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>

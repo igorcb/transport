@@ -63,6 +63,12 @@
 	    <%= label_tag :weight, "Peso Bruto" %>
 	    <%= text_field :weight, nil, value: 0, class: "form-control money3", id: 'weight', onfocusout:"getFreightMinimum(); " %>
 	  </div>
+  
+
+    <div class="form-group">
+      <%= label_tag :value_charge, "Valor para carregamento" %>
+      <%= text_field :value_charge, nil, value: 0, class: "form-control money2", id: 'value_charge', onfocusout:"getFreightMinimum();" %>
+    </div>
 
 	  <div class="form-group">
 	    <%= label_tag :value_ton, "Valor por Tonelada" %>

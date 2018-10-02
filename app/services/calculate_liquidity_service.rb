@@ -18,19 +18,23 @@ class CalculateLiquidityService
     @risk_manager = params["risk_manager"].first.to_f
     @toll = params["toll"].first.to_f
     @lucre = params["lucre"].first.to_f
-    @state_source = params["state_source"]
-    @state_target = params["state_target"]
-    #@stretch = StretchRoute.includes(:stretch_source,:stretch_source).where(id: params["trecho_id"]).first
-    @trecho_id = params["trecho_id"]
-    @insurer_id = params["insurer_id"]
 
     @add_icms_value_frete = params["add_icms_value_frete"].to_i
     @quantity_cars = params["quantity_cars"].first.to_i
     @number_days = params["number_days"].first.to_i
     @perc_advance = params["perc_advance"].first.to_f
     @perc_seller_commission = params["perc_seller_commission"].first.to_f
-    @select_seller_commission = params["select_seller_commission"].to_i
+    @charge_value = params["value_charge"].first.to_f
+
+    @state_source = params["state_source"]
+    @state_target = params["state_target"]
+    #@stretch = StretchRoute.includes(:stretch_source,:stretch_source).where(id: params["trecho_id"]).first
+    @trecho_id = params["trecho_id"]
+    @insurer_id = params["insurer_id"]
     @payment_method = params["payment_method_id"]
+
+    @select_seller_commission = params["select_seller_commission"].to_i
+    
     @params = params
   end
 
@@ -57,12 +61,12 @@ class CalculateLiquidityService
       
       secure = TableInsuranceService.new(@insurer, stretch, @valor_nota_fiscal).call[:secure]
 
-      total_cost = freight.to_f + @daily_rate.to_f + discharge.to_f + secure.to_f + @risk_manager.to_f + @toll.to_f
+      total_cost = freight.to_f + @daily_rate.to_f + discharge.to_f + secure.to_f + @risk_manager.to_f + @toll.to_f + @charge_value.to_f
       
       lucre_percet = @lucre.to_f
       lucre_gross = calc_lucre(total_cost, lucre_percet) 
           
-      total_operation = total_cost.to_f + lucre_gross.to_f
+      total_operation = total_cost.to_f + lucre_gross.to_f 
 
       icms = TableIcmsService.new(stretch, total_operation.to_f).call[:icms]
 
@@ -112,6 +116,7 @@ class CalculateLiquidityService
                   stretch: stretch.stretch_source_and_target_short,
                  route_id: stretch.id,
                daily_rate: @daily_rate,
+             charge_value: @charge_value,
                 discharge: discharge,
                    secure: secure,
              risk_manager: @risk_manager,
