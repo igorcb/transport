@@ -30,6 +30,7 @@ class CalculateLiquidityService
     @perc_advance = params["perc_advance"].first.to_f
     @perc_seller_commission = params["perc_seller_commission"].first.to_f
     @select_seller_commission = params["select_seller_commission"].to_i
+    @payment_method = params["payment_method_id"]
     @params = params
   end
 
@@ -121,6 +122,7 @@ class CalculateLiquidityService
                   advance: advance,
     late_payment_interest: late_payment_interest,
             quantity_cars: quantity_cars,
+           payment_method: @payment_method,
                total_cost: total_cost,
               lucre_gross: lucre_gross,
             lucre_liquidy: lucre_liquidy,

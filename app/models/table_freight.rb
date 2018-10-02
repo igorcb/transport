@@ -33,4 +33,15 @@ class TableFreight < ActiveRecord::Base
     frete = TableFreight.where(type_charge: type).where("? between km_from and km_to", km).first
     value = frete.price * km * eixo if frete.present?
   end
+
+  def self.payment_method(params)
+    case params.to_i
+      when 0 then "A Vista"
+      when 1 then "5 Dias" 
+      when 2 then "10 Dias"
+      when 3 then "20 Dias"
+      when 4 then "30 Dias"
+      when 5 then "45 Dias"
+    end
+  end
 end

@@ -24,6 +24,11 @@
 					<strong>Peso:</strong>
 					<%= number_with_precision(@freight_minimum[:output].first[:weight], precision: 3, separator: ',', delimiter: '.') %>
 				</p>
+
+				<p>
+					<strong>Forma de Pagamento:</strong>
+					<%= TableFreight.payment_method(@freight_minimum[:output].first[:payment_method]) %>
+				</p>
 		  </div>
 		</div>
 

@@ -3,13 +3,16 @@
 </div>
 
 
-
-<%#= form_tag( :html => {id: "form_calculate_liquidy", class: "form_calculate_liquidy" }) do %>
 <%= form_tag(nil, {class: 'form_calculate_liquidy'}) do %>
 
 	<div class="panel panel-default">
 	  <div class="panel-heading">Liquidez por tarifa</div>
 	  <div class="panel-body">
+
+    <div class="form-group">
+      <%= label_tag :payment_method_id, "Forma de Pagamento"  %>
+      <%= select_tag :payment_method_id, options_for_select(select_payment_method, TableFreight::TypeCharge::CARGA_GERAL), class: "form-control", onfocusout:"getFreightMinimum();" %>
+    </div>      
 
     <div class="form-group">
       <%= label_tag :type_charge_id, "Tipo de Carga"  %>

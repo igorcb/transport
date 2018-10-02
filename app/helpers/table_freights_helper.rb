@@ -12,4 +12,8 @@ module TableFreightsHelper
   	([["Em cima do valor do frete", 0], ["Em cima do lucro", 1]])
   end
 
+  def select_payment_method
+  	([["A Vista", 0], ["5 Dias", 1], ["10 Dias", 2], ["20 Dias", 3], ["30 Dias", 4], ["45 Dias", 5]])
+  end
+
 end
