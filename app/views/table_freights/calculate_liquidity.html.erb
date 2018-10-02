@@ -1,0 +1,167 @@
+
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Calculo do Frete</h3>
+		  </div>
+		  
+		  <div class="panel-body">
+				<p>
+					<strong>Trecho:</strong>
+					<%= @freight_minimum[:output].first[:stretch] %>
+				</p>
+
+				<p>
+					<strong>Distancia:</strong>
+					<%= @freight_minimum[:output].first[:distance] %>
+				</p>
+
+				<p>
+					<strong>Valor NF:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:value_nf], unit: "R$ ", separator: ",", delimiter: ".") %>
+				</p>
+
+				<p>
+					<strong>Peso:</strong>
+					<%= number_with_precision(@freight_minimum[:output].first[:weight], precision: 3, separator: ',', delimiter: '.') %>
+				</p>
+		  </div>
+		</div>
+
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Custos/despesas</h3>
+		  </div>
+		  <div class="panel-body">
+				<p>
+					<strong>Frete Carreteiro: </strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:freight], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:freight].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>
+
+				<p>
+					<strong>Diária Carreteiro: </strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:daily_rate], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:daily_rate].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>
+
+				<p>
+					<strong>Descarga: </strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:discharge], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:discharge].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>	
+
+				<p>
+					<strong>Seguro: </strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:secure], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:secure].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>
+					
+				<p>
+					<strong>Consulta GR:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:risk_manager], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:risk_manager].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>
+
+				<p>
+					<strong>Pedágios:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:toll], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:toll].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>
+		  </div>
+		</div>
+
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Impostos</h3>
+		  </div>
+		  <div class="panel-body">
+				<p>
+					<strong>ICMS:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:total_icms], unit: "R$ ", separator: ",", delimiter: ".") %><br />
+		 			<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:total_icms].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+			  	<span style="font-style: italic;font-size: 12px;" >
+			  		<%= @freight_minimum[:output].first[:add_icms_value_frete] %>
+			  	</span>
+				</p>
+
+				<p>
+					<strong>Pis/Cofins:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:total_pis_cofins], unit: "R$ ", separator: ",", delimiter: ".") %>
+		 			<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:total_pis_cofins].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>
+		  </div>
+		</div>
+
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Totais</h3>
+		  </div>
+		  <div class="panel-body">
+				<p>
+					<strong>Total Custos:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:total_cost], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:total_cost].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>
+
+				<p>
+					<strong>Lucro Bruto:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:lucre_gross], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:lucre_gross].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>
+
+				<p>
+					<strong>Total Operacional:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:total_operation], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:total_operation].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>
+
+				<p>
+					<strong>Juros Emprestimo:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:late_payment_interest], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:late_payment_interest].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+				</p>
+
+				<p>
+					<strong>Valor do Emprestimo:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:advance], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:advance].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+					<br />			
+			  	<span style="font-style: italic;font-size: 12px;" >
+			  		Total Custos + ICMS + PIS/Cofins + Emprestimo
+			  	</span>
+
+				</p>
+
+				<p>
+					<strong>Comissão:</strong>
+					<%= number_to_currency(@freight_minimum[:output].first[:seller_commission], unit: "R$ ", separator: ",", delimiter: ".") %>
+					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:seller_commission].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+		 		  <br />
+			  	<span style="font-style: italic;font-size: 12px;" >
+			  		<%= @freight_minimum[:output].first[:type_seller_commission] %>
+			  	</span>
+				</p>
+
+		  	<p>
+		  		<strong>Valor TON:</strong>
+		  		<%= number_to_currency(@freight_minimum[:output].first[:value_ton], unit: "R$ ", separator: ",", delimiter: ".") %>
+		  	</p>
+
+		  	<p>
+		  		<strong>Valor KG:</strong>
+		  		<%= number_to_currency(@freight_minimum[:output].first[:value_kg], unit: "R$ ", separator: ",", delimiter: ".", precision: 4) %>
+		  	</p>
+
+
+		  </div>
+		</div>
+
+		<div class="panel panel-success">
+		  <div class="panel-body">
+		  	<strong>
+			    Total Frete: 
+			    <%= number_to_currency(@freight_minimum[:output].first[:total_freight], unit: "R$ ", separator: ",", delimiter: ".") %>
+		 			<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:total_freight].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
+		  	</strong>
+		  </div>
+		</div>
