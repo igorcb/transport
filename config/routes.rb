@@ -36,7 +36,11 @@ Transport::Application.routes.draw do
   match "/stretch_routes/get_stretch_route_by_state", :controller => "stretch_routes", :action => "get_stretch_route_by_state", via: [:get] 
   match "/stretch_routes/get_stretch_route_by_state_source_ant_target", :controller => "stretch_routes", :action => "get_stretch_route_by_state_source_ant_target", via: [:get] 
 
-  resources :table_freights
+  resources :table_freights do
+    collection do
+      get :calculate_liquidity
+    end
+  end
 
   resources :table_icms do
     collection do

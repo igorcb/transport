@@ -35,6 +35,10 @@ class TableFreightsController < ApplicationController
   def destroy
     @table_freight.destroy
     respond_with(@table_freight)
+  end 
+
+  def calculate_liquidity #show get_calc_freight_minimum
+
   end
 
   def get_calc_freight_minimum

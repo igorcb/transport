@@ -58,7 +58,11 @@
 	                <td><%= number_to_currency(freight_minimum[:value_ton], unit: "R$ ", separator: ",", delimiter: ".") %></td>
 	                <td><%= number_to_currency(freight_minimum[:value_kg], unit: "R$ ", separator: ",", delimiter: ".", precision: 4) %></td>
 	                <td><strong><%= number_to_currency(freight_minimum[:total_freight], unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
-	                <td><%= link_to "Show", "#", class: 'btn btn-blue btn-xs' %></td>
+	                <td>
+	                	<%= link_to "Show", calculate_liquidity_table_freights_path(
+											{"type_calc"=>"1", "type_charge_id"=>"0", "qtde_eixos"=>"5", "state_source"=>"CE", "state_target"=>"CE", "trecho_id"=>"1", "insurer_id"=>"1", "type_insurance_id"=>"0", "add_icms_value_frete"=>"1", "value_invoice"=>["0"], "weight"=>["0"], "value_ton"=>["0"], "daily_rate"=>["0"], "risk_manager"=>["0"], "toll"=>["0"], "quantity_cars"=>["1"], "number_days"=>["30"], "perc_advance"=>["2"], "select_seller_commission"=>"0", "perc_seller_commission"=>["1.50"], "lucre"=>["0"]}	                	
+										), class: 'btn btn-blue btn-xs' %>
+	                </td>
 	              </tr>
 	            <% end %>
 
