@@ -38,7 +38,7 @@
 	            <% freight_minimums[:output].each do |freight_minimum| %>
 	            	<% input["trecho_id"] = freight_minimum[:route_id] %>
 	              <tr>
-	                <td><%= freight_minimum[:stretch] %></td>
+	                <td><%= freight_minimum[:stretch_short] %></td>
 	                <td><%= number_with_precision(freight_minimum[:distance], precision: 2, separator: ',', delimiter: '.') %></td>
 	                <td><%= number_to_currency(freight_minimum[:value_nf], unit: "R$ ", separator: ",", delimiter: ".") %></td>
 	                <td><%= number_with_precision(freight_minimum[:weight], precision: 3, separator: ',', delimiter: '.') %></td>

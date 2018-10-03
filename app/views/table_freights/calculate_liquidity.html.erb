@@ -7,7 +7,7 @@
 		  <div class="panel-body">
 				<p>
 					<strong>Trecho:</strong>
-					<%= @freight_minimum[:output].first[:stretch] %>
+					<%= @freight_minimum[:output].first[:stretch_long] %>
 				</p>
 
 				<p>
@@ -120,7 +120,7 @@
 				</p>
 
 				<p>
-					<strong>Lucro Bruto:</strong>
+					<strong>Lucro Bruto <%= number_with_precision(@freight_minimum[:output].first[:lucre_percent], separator: ",", delimiter: ".", precision: 2)  %>%:</strong>
 					<%= number_to_currency(@freight_minimum[:output].first[:lucre_gross], unit: "R$ ", separator: ",", delimiter: ".") %>
 					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:lucre_gross].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
 				</p>
@@ -138,7 +138,7 @@
 				</p>
 
 				<p>
-					<strong>Valor do Emprestimo:</strong>
+					<strong>Valor do Emprestimo <%= number_with_precision(@freight_minimum[:output].first[:perc_advance], separator: ",", delimiter: ".", precision: 2)  %>%:</strong>
 					<%= number_to_currency(@freight_minimum[:output].first[:advance], unit: "R$ ", separator: ",", delimiter: ".") %>
 					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:advance].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
 					<br />			
@@ -149,7 +149,7 @@
 				</p>
 
 				<p>
-					<strong>Comissão:</strong>
+					<strong>Comissão: <%= number_with_precision(@freight_minimum[:output].first[:perc_seller_commission], separator: ",", delimiter: ".", precision: 2)  %>%:</strong>
 					<%= number_to_currency(@freight_minimum[:output].first[:seller_commission], unit: "R$ ", separator: ",", delimiter: ".") %>
 					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:seller_commission].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
 		 		  <br />
@@ -181,3 +181,9 @@
 		  	</strong>
 		  </div>
 		</div>
+
+		<p style="font-size: 10px" align="center">
+			Emitido no dia 
+			<%= date_br(Date.today) %> às 
+			<%= time_br(Time.current) %>
+		</p>
