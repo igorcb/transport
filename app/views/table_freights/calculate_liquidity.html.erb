@@ -38,6 +38,11 @@
 		  </div>
 		  <div class="panel-body">
 				<p>
+					<strong>Tipo de Veículo: </strong>
+					<%= @freight_minimum[:output].first[:type_vehicle] %>
+				</p>
+
+				<p>
 					<strong>Frete Carreteiro: </strong>
 					<%= number_to_currency(@freight_minimum[:output].first[:freight], unit: "R$ ", separator: ",", delimiter: ".") %>
 					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:freight].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>

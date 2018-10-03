@@ -33,4 +33,34 @@ module VehiclesHelper
     ([["FERRO", 0],["MADEIRA", 1]])
   end
 
+  def select_fechada
+    array = []
+    array.push(id: 1, name: 'Baú') 
+    array.push(id: 5, name: 'Baú Frigorifico') 
+    array.push(id: 4, name: 'Sider') 
+    array
+  end
+
+  def select_aberta
+    array = []
+    array.push(id: 6, name: 'Caçamba') 
+    array.push(id: 7, name: 'Grade Baixa') 
+    array.push(id: 2, name: 'Graneleiro') 
+    array.push(id: 8, name: 'Cavaqueira') 
+    array.push(id: 9, name: 'Prancha') 
+    array
+  end
+
+  def select_especial
+    array = []
+    array.push(id: 6, name: 'Bug Porta Container') 
+    array.push(id: 7, name: 'Munk') 
+    array.push(id: 2, name: 'Silo') 
+    array.push(id: 8, name: 'Tanque') 
+    array.push(id: 9, name: 'Gaiola') 
+    array.push(id: 9, name: 'Cegonheiro') 
+    array.push(id: 9, name: 'Apenas Cavalo') 
+    array
+  end
+
 end

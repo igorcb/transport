@@ -32,7 +32,7 @@ class CalculateLiquidityService
     @trecho_id = params["trecho_id"]
     @insurer_id = params["insurer_id"]
     @payment_method = params["payment_method_id"]
-
+    @type_vehicle = params["type_vehicle"]
     @select_seller_commission = params["select_seller_commission"].to_i
     
     @params = params
@@ -113,6 +113,7 @@ class CalculateLiquidityService
                   freight: freight,
                 value_ton: value_ton,
                  value_kg: value_per_kg,
+             type_vehicle: Vehicle.type_vehicle(@type_vehicle),
                   stretch: stretch.stretch_source_and_target_short,
                  route_id: stretch.id,
                daily_rate: @daily_rate,
@@ -129,6 +130,7 @@ class CalculateLiquidityService
             quantity_cars: quantity_cars,
            payment_method: @payment_method,
                total_cost: total_cost,
+            lucre_percent: @lucre,
               lucre_gross: lucre_gross,
             lucre_liquidy: lucre_liquidy,
         seller_commission: seller_commission,

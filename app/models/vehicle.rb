@@ -130,10 +130,12 @@ class Vehicle < ActiveRecord::Base
     end
   end
 
-
   def tipo_veiculo_nome
-    case self.tipo_veiculo
-      #when 0 then "STANDARD"
+    Vehicle.type_vehicle(self.tipo_veiculo)
+  end
+
+  def self.type_vehicle(vehicle)
+    case vehicle.to_i
       when 1 then "CARRETA_LS"
       when 2 then "VLC"
       when 3 then "TRUK"
@@ -179,5 +181,24 @@ class Vehicle < ActiveRecord::Base
   def place_state
     "#{placa}/#{estado}"
   end
+
+  #private
+
+      # def get_vehicle(vehicle)
+      #   case vehicle
+      #     when 1 then "CARRETA_LS"
+      #     when 2 then "VLC"
+      #     when 3 then "TRUK"
+      #     when 4 then "TOCO"
+      #     when 5 then "CARRETA"
+      #     when 6 then "3/4"
+      #     when 7 then "UTILITARIO"
+      #     when 8 then "VAN"
+      #     when 9 then "BITRUCK"
+      #     when 10 then "RODOTREM"
+      #     when 11 then "BITREM"
+      #     else "NAO APLICAVEL"
+      #   end
+      # end
 
 end
