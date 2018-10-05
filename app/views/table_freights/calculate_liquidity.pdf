@@ -1,9 +1,10 @@
   <style type="text/css">
     .header_left {
-      margin-top: 10px;
+      margin-top: 5px;
       width: 25%;
       height: 50px;
       float: left;
+      margin-bottom: 50px;
     }
     .header_right {
       text-align: right;
