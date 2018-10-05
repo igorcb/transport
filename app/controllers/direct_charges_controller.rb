@@ -89,8 +89,14 @@ class DirectChargesController < ApplicationController
     @direct_charge.carrier_id = carrier.id
     @direct_charge.billing_client_id = billing_client.id
     
-    client_table_price = get_client_table_price(billing_client.id)
-    @direct_charge.client_table_price_id = client_table_price.id
+    # client_table_price = get_client_table_price(billing_client.id)
+    # @direct_charge.client_table_price_id = client_table_price.id
+
+    if params[:direct_charge][:stretch_route_id].present? && params[:direct_charge][:type_service_id].present?
+      client_table_price = get_client_table_price
+      @input_control.client_table_price_id = client_table_price.id
+    end
+
 
     @direct_charge.user_id = current_user.id
 
@@ -113,10 +119,10 @@ class DirectChargesController < ApplicationController
       @direct_charge = DirectCharge.find(params[:id])
     end
 
-    def get_client_table_price(client_id)
-      client_table_price = ClientTablePrice.where(client_id: client_id, 
-                                           stretch_route_id: params[:direct_charge][:stretch_route_id],
-                                            type_service_id: params[:direct_charge][:type_service_id]).first
+    def get_client_table_price
+      client_table_price = ClientTablePrice.where(client_id: @direct_charge.billing_client_id, 
+                                           stretch_route_id: params[:input_control][:stretch_route_id],
+                                            type_service_id: params[:input_control][:type_service_id]).first
       client_table_price
     end
 
