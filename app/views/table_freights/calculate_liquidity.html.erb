@@ -1,4 +1,3 @@
-
 		<div class="panel panel-default">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Calculo do Frete</h3>
@@ -187,3 +186,19 @@
 			<%= date_br(Date.today) %> às 
 			<%= time_br(Time.current) %>
 		</p>
+
+		<div class="form-group">
+			<%#= link_to "Imprimir", calculate_liquidity_table_freights_path(format: :pdf), class: "btn btn-blue" %>
+
+			<%= link_to "Imprimir", "#", class: 'btn btn-blue' %>
+
+			<%= link_to "PDF Client", calculate_liquidity_table_freights_path(format: :pdf, value: @freight_minimum[:input]), class: "btn btn-success" %>
+	
+		  <%#= link_to "#", class: "btn btn-blue" do %>
+		    <!-- <i class="fa fa-envelope-square fa-1x" aria-hidden="true">Imprimir</i>  -->
+		  <%# end %>
+		  <%#= link_to "#", class: "btn btn-success" do %>
+		    <!-- <i class="fa fa-envelope-square fa-1x" aria-hidden="true">Imprimir Proposta</i>  -->
+		  <%# end %>
+
+	</div>

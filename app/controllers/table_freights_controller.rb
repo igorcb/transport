@@ -38,7 +38,16 @@ class TableFreightsController < ApplicationController
   end 
 
   def calculate_liquidity #show get_calc_freight_minimum
+    @company = Company.first
     @freight_minimum = CalculateLiquidityService.new(params[:value]).call #return Hash:[:input, :output]
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "calculate_liquidity",
+        #template: "table_freights/calculate_liquidity.html.erb",
+        layout: 'pdf.html'
+      end
+    end
   end
 
   def get_calc_freight_minimum

@@ -1,0 +1,115 @@
+  <style type="text/css">
+    .header_left {
+      margin-top: 10px;
+      width: 25%;
+      height: 50px;
+      float: left;
+    }
+    .header_right {
+      text-align: right;
+    }
+  </style>
+
+  <div class="header_left">
+    <%= wicked_pdf_image_tag @company.image.url(:large) %>
+  </div>
+
+  <div class="header_right">
+    <%= @company.cnpj %> <br />
+    <%= @company.razao_social %> <br />
+    <%= @company.endereco %>, <%= @company.numero %> <br />
+    <%= @company.cidade_estado %>
+  </div>
+
+  <table class="table table-bordered">
+		<tr>
+      <th class="active">Tipo de Veículo</th>
+      <th><%= @freight_minimum[:output].first[:type_vehicle] %></td>
+    </tr>
+    
+		<tr>
+      <td class="active">Trecho</td>
+      <td><%= @freight_minimum[:output].first[:stretch_long] %></td>
+		</tr>      
+
+		<tr>
+      <td class="active">Vr. NF-e</td>
+      <td><%= number_to_currency(@freight_minimum[:output].first[:value_nf], unit: "R$ ", separator: ",", delimiter: ".") %></td>
+		</tr>      
+
+		<tr>
+      <td class="active">Peso Bruto</td>
+      <td><%= number_with_precision(@freight_minimum[:output].first[:weight], precision: 3, separator: ',', delimiter: '.') %></td>
+		</tr>      
+
+  </table>
+
+  <div class="form-group has-error">
+    <span id="helpBlock2" class="help-block">
+      Essa proposta tem o valor conforme as informações recebida pelo solicitante, caso as informações
+      tem divergencias o calculo será refeito.        
+    </span>
+  </div>
+
+  <table class="table table-bordered">
+
+  	<tr class="info">
+      <th><strong>VALOR TOTAL DO FRETE</strong></th>
+  		<td><strong><%= number_to_currency(@freight_minimum[:output].first[:total_freight], unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
+  	</tr>
+    	
+    </table>
+
+  <table class="table table-bordered">
+
+  	<tr>
+  		<td>PEGAGIO</td>
+      <td><%= liquidity_include?(@freight_minimum[:output].first[:toll]) %></td>
+  	</tr>
+  	
+  	<tr>
+  		<td>DIARIA DO VEÍCULO</td>
+      <td><%= liquidity_include?(@freight_minimum[:output].first[:daily_rate]) %></td>
+  	</tr>
+
+  	<tr>
+  		<td>CARGA</td>
+      <td><%= liquidity_include?(@freight_minimum[:output].first[:charge_value]) %></td>
+  	</tr>
+
+  	<tr>
+  		<td>DESCARGA</td>
+      <td><%= liquidity_include?(@freight_minimum[:output].first[:discharge]) %></td>
+  	</tr>
+
+  	<tr>
+  		<td>SEGURO</td>
+      <td><%= liquidity_include?(@freight_minimum[:output].first[:secure]) %></td>
+  	</tr>
+
+  	<tr>
+  		<td>GERENCIAMENTO DE RISCO</td>
+      <td><%= liquidity_include?(@freight_minimum[:output].first[:risk_manager]) %></td>
+  	</tr>
+
+  	<tr>
+  		<td>ICMS</td>
+      <td><%= liquidity_include?(@freight_minimum[:output].first[:toll]) %></td>
+  	</tr>
+  </table>    
+
+  <p>
+  	PROPOSTA COM VALIDADE DE 5 DIAS A CONTAR DA DATA DA SOLICITAÇÃO INFORMA ACIMA.
+  </p>
+
+  <p>
+		OBS. <br />
+		IMPRODUTIVIDADE: Free Time de 06hrs (seis horas) PARA REALIZAÇÃO DA DESCARGA <br />
+		APÓS O PRAZO COBRAMOS DIARIA DE R$ 500,00. 
+  </p>
+
+	<p style="font-size: 10px" align="center">
+		Emitido no dia 
+		<%= date_br(Date.today) %> às 
+		<%= time_br(Time.current) %>
+	</p>

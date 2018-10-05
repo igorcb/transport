@@ -89,4 +89,9 @@ module ApplicationHelper
   def city_of_state(uf)
     City.where(uf: uf)
   end
+
+  def liquidity_include?(value)
+    puts ">>>>>>>>>>>>> Value: #{value.to_f}"
+    value.to_f > 0.00 ? 'SIM INCLUSO' : 'NÃO INCLUSO'
+  end
 end

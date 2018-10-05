@@ -72,6 +72,9 @@ gem 'time_difference'
 
 gem 'geocoder'
 
+gem 'wicked_pdf', '~> 1.1'
+gem 'wkhtmltopdf-binary'
+
 # group :development, :test do
 #   # gem 'sqlite3', '1.3.5'
 #   gem 'rspec-rails', '2.11.0'

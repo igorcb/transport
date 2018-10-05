@@ -1,0 +1,36 @@
+	<!DOCTYPE html>
+<html>
+<head>
+ 	<meta charset="utf-8" />
+  <%#= wicked_pdf_stylesheet_link_tag "pdf" %>
+  <%#= wicked_pdf_javascript_include_tag "number_pages" %>
+  <%#= wicked_pdf_stylesheet_link_tag "application" -%>
+	<title>PDF</title>
+
+	<%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+	<%= wicked_pdf_stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	<%= wicked_pdf_javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>  
+
+  <style type="text/css">
+    .header_left {
+      margin-top: 10px;
+      width: 25%;
+      height: 50px;
+      float: left;
+      margin-bottom: 40px;
+    }
+    .header_right {
+      text-align: right;
+    }
+
+  </style>
+</head>
+<body onload='number_pages'>
+  <div class='container'>
+    <%= yield %>
+  </div>
+</body>
+</html>
