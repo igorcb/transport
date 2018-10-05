@@ -57,6 +57,11 @@
       <th><strong>VALOR TOTAL DO FRETE</strong></th>
   		<td><strong><%= number_to_currency(@freight_minimum[:output].first[:total_freight], unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
   	</tr>
+
+    <tr class="info">
+      <th>PRAZO PARA PAGAMENTO</th>
+      <th><%= TableFreight.payment_method(@freight_minimum[:output].first[:payment_method]) %></th>
+    </tr>
     	
     </table>
 
@@ -74,12 +79,21 @@
 
   	<tr>
   		<td>CARGA</td>
-      <td><%= liquidity_include?(@freight_minimum[:output].first[:charge_value]) %></td>
+      <td>
+        <%= liquidity_include?(@freight_minimum[:output].first[:charge_value]) %>
+        <% if (@freight_minimum[:output].first[:charge_value].to_f > 0.00)  %>
+          até <%= number_to_currency(@freight_minimum[:output].first[:charge_value], unit: "R$ ", separator: ",", delimiter: ".") %>
+        <% end %>
+      </td>
   	</tr>
 
   	<tr>
   		<td>DESCARGA</td>
-      <td><%= liquidity_include?(@freight_minimum[:output].first[:discharge]) %></td>
+      <td><%= liquidity_include?(@freight_minimum[:output].first[:discharge]) %>
+        <% if (@freight_minimum[:output].first[:discharge].to_f > 0.00)  %>
+          até <%= number_to_currency(@freight_minimum[:output].first[:discharge], unit: "R$ ", separator: ",", delimiter: ".") %>
+        <% end %>
+      </td>
   	</tr>
 
   	<tr>
@@ -94,7 +108,11 @@
 
   	<tr>
   		<td>ICMS</td>
-      <td><%= liquidity_include?(@freight_minimum[:output].first[:toll]) %></td>
+      <% if @freight_minimum[:input][:add_icms_value_frete].to_i == ClientTablePrice::AddIcmsValueFete::SIM %>
+        <td>SIM INCLUSO</td>
+      <% else %>
+        <td>NÃO INCLUSO</td>
+      <% end %>
   	</tr>
   </table>    
 
@@ -104,7 +122,7 @@
 
   <p>
 		OBS. <br />
-		IMPRODUTIVIDADE: Free Time de 06hrs (seis horas) PARA REALIZAÇÃO DA DESCARGA <br />
+		IMPRODUTIVIDADE: Free Time de 05hrs (cinco horas) PARA REALIZAÇÃO DA DESCARGA <br />
 		APÓS O PRAZO COBRAMOS DIARIA DE R$ 500,00. 
   </p>
 

@@ -91,7 +91,6 @@ module ApplicationHelper
   end
 
   def liquidity_include?(value)
-    puts ">>>>>>>>>>>>> Value: #{value.to_f}"
     value.to_f > 0.00 ? 'SIM INCLUSO' : 'NÃO INCLUSO'
   end
 end
