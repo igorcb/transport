@@ -152,9 +152,11 @@ class Vehicle < ActiveRecord::Base
   end
 
   def tipo_carroceria_name
-    case self.tipo_carroceria
-      #when 0 then "ABERTA"
-      #when 1 then "FECHADA BAU"
+    Vehicle.type_bodywork(self.tipo_carroceria)
+  end
+
+  def self.type_bodywork(bodywork)
+    case bodywork.to_i
       when 1 then "BAÚ"
       when 2 then "GRANELEIRA"
       when 3 then "Bug Porta Container"

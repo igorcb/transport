@@ -113,7 +113,7 @@ class CalculateLiquidityService
                   freight: freight,
                 value_ton: value_ton,
                  value_kg: value_per_kg,
-             type_vehicle: Vehicle.type_vehicle(@type_vehicle),
+             type_vehicle: Vehicle.type_bodywork(@type_vehicle),
             stretch_short: stretch.stretch_source_and_target_short,
              stretch_long: stretch.stretch_source_and_target_long,
                  route_id: stretch.id,
