@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
 	def index
 		@notifications = unreader
     #respond_with(@notifications)
-    render json: @notifications.to_json
+    render json: @notifications.to_a
 	end
 
 	def mark_as_read
