@@ -4,7 +4,8 @@ class NotificationsController < ApplicationController
 	def index
 		@notifications = unreader
     #render json: @notifications.to_a
-    render json: { success: true }
+    render json: { success: true, status: 200 }
+    
 	end
 
 	def mark_as_read
