@@ -29,6 +29,8 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     respond_to do |format|
       if @task.save
+        
+        Notification.create(recipient: current_user, actor: current_user, action: 'posted', notifiable: @task)
         @task.send_email_employee
         #@task.send_notification_email
         format.html { redirect_to @task, flash: { success: "TASK was successfully created." } }

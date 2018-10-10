@@ -1,0 +1,9 @@
+<li>
+	<%#= link_to task_path(notification.notifiable, anchor: dom_id(notification.notifiable)),class: "dropdown-item #{"unread" if !notification.read_at?}" do %>
+
+	<%= link_to task_path(notification.notifiable, anchor: dom_id(notification.notifiable)), data:{ behavior: 'notification-link', id: notification.id }, class: "dropdown-item #{"unread" if !notification.read_at?}"	do %>
+	  <%= notification.actor.email %>
+	  <%= notification.action %>
+	  a <%= notification.notifiable_type.underscore.humanize.downcase %>
+	<% end %>
+</li>
