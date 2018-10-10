@@ -3,13 +3,6 @@ Transport::Application.routes.draw do
   resources :notifications do
     post :mark_as_read, on: :collection
     post :mark_as_read, on: :member
-    
-    # member do
-    #   post :mark_as_read, on: :member
-    # end
-    # collection do
-    #   post :mark_as_read
-    # end
   end
 
   resources :brokers
