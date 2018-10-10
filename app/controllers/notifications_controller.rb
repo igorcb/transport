@@ -3,8 +3,8 @@ class NotificationsController < ApplicationController
 
 	def index
 		@notifications = unreader
-    #respond_with(@notifications)
-    render json: @notifications.to_a
+    #render json: @notifications.to_a
+    render json: { success: true }
 	end
 
 	def mark_as_read
