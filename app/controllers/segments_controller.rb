@@ -7,6 +7,13 @@ class SegmentsController < ApplicationController
   def index
     @segments = Segment.all
     respond_with(@segments)
+
+    segment_hash = {}
+    @segments.each do |segment|
+      segment_hash.store(segment, {id: segment.id, name: segment.name})
+    end
+       #data = {logradouro: address[:address], bairro: address[:neighborhood], localidade: address[:city], uf: address[:state], cep: address[:zipcode]}
+
   end
 
   def show

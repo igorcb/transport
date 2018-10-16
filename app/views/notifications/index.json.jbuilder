@@ -10,6 +10,5 @@ json.array! @notifications do |notification|
     json.name "#{notification.notifiable.name}"
     json.type "a #{notification.notifiable.class.to_s.underscore.humanize.downcase}"
   end
-  json.url task_path(notification.notifiable)
-
+  json.url task_path(notification.notifiable, anchor: dom_id(notification.notifiable))
 end
