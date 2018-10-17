@@ -8,7 +8,7 @@ class Task < ActiveRecord::Base
   validate :finish_date_less_start_date, if: Proc.new {|task| !task.start_date.blank? or !task.finish_date.blank? }
 
   belongs_to :employee, class_name: "User", foreign_key: "employee_id"
-  belongs_to :second_employee, class_name: "Employee", foreign_key: "second_employee_id"
+  belongs_to :second_employee, class_name: "User", foreign_key: "second_employee_id"
   belongs_to :requester, class_name: "User", foreign_key: "requester_id"
 
   has_many :internal_comments, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
