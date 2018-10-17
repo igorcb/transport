@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Usuários</div>
+  <div class="panel-body">
+
+    <%#= link_to 'New Task', new_task_path, class: "btn btn-blue btn-sm btn-block" %>
+    <div class="table-responsive">
+      
+        <div id="result_tasks">
+
+        <table class="table table-striped">
+          <thead>
+            <%#= render 'header' %>
+              <th>ID</th>
+              <th>E-mail</th>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>Employee</th>
+              <th>Ativo</th>
+          </thead>
+
+          <tbody>
+            <%#= render @tasks %>
+            <% @users.each do |user| %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.email %></td>
+              <td><%= user.name %></td>
+              <td><%= user.cpf %></td>
+              <td><%#= user.employee.nome %></td>
+              <td><%= user.active %></td>
+            </tr>
+            <% end %>
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>    
+  </div>
+</div>

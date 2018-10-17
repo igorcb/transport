@@ -462,7 +462,6 @@ Transport::Application.routes.draw do
 
   #resources :sessions#, only: [:new, :create, :destroy]
 
-  devise_for :users
   resources :phone_calls
 
   resources :type_services
@@ -520,9 +519,13 @@ Transport::Application.routes.draw do
     end
   end
   
-  resource :user, only: [:edit] do
+  devise_for :users  
+  
+  #resource :user, only: [:edit] do
+  resource :user do
     collection do
       patch 'update_password'
+      get :index
     end
   end  
   #root 'links#index'
