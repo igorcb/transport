@@ -47,7 +47,10 @@ class Employee < ActiveRecord::Base
     when 1 then "Diarista"
       
     end
-    
+  end
+
+  def id_name
+    "#{self.id} - #{self.nome}"
   end
 
   private

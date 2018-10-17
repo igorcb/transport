@@ -13,6 +13,14 @@
   <%= render 'shared/error_messages', object: f.object %>
   
   <div class="form-group">
+    <%= f.label :name, "Nome" %><br />
+    <%= f.text_field :name, :autocomplete => "off", class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label :employee_id, "Associe seu Funcionario" %><br />
+    <%= f.select(:employee_id, Employee.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
     <%= f.label :password, "Password" %><br />
     <%= f.password_field :password, :autocomplete => "off", class: "form-control"  %>
   </div>
@@ -21,14 +29,19 @@
     <%= f.password_field :password_confirmation, class: "form-control" %>
     <span class="help-block">(we need your current password to confirm your changes)</span>
   </div>
+  <div class="form-group">
+    <%= f.label "", class: "checkbox-inline" do %>
+      <%= f.check_box :active %> Ativo?
+    <% end %>
+  </div>
   <div class="form-action">
-    <%= f.submit "Update User", class: "btn btn-lg btn-blue" %>
+    <%= f.submit "Update User", class: "btn btn-blue" %>
     <% if current_user.has_role? :admin %>
-      <%= link_to "Back", root_path, class: "btn btn-lg btn-default" %>
+      <%= link_to "Back", root_path, class: "btn btn-default" %>
     <% elsif current_user.has_role? :visit %>
-      <%= link_to "Back", dashboard_visit_path, class: "btn btn-lg btn-default" %>
+      <%= link_to "Back", dashboard_visit_path, class: "btn btn-default" %>
     <% else %>
-      <%= link_to "Back", dashboard_agent_path, class: "btn btn-lg btn-default" %>
+      <%= link_to "Back", dashboard_agent_path, class: "btn btn-default" %>
     <% end %>
   </div>
 <% end %>

@@ -13,8 +13,8 @@
               <th>ID</th>
               <th>E-mail</th>
               <th>Nome</th>
-              <th>CPF</th>
               <th>Employee</th>
+              <th>Nivel</th>
               <th>Ativo</th>
           </thead>
 
@@ -25,9 +25,9 @@
               <td><%= user.id %></td>
               <td><%= user.email %></td>
               <td><%= user.name %></td>
-              <td><%= user.cpf %></td>
-              <td><%= user.employee.nome if user.employee.present? %></td>
-              <td><%= user.active %></td>
+              <td><%= user.employee.id_name if user.employee.present? %></td>
+              <td><%= user.roles.first.name %></td>
+              <td><%= user.active_name %></td>
             </tr>
             <% end %>
           </tbody>
