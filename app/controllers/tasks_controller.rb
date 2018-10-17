@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     #@tasks = Task.all
     #respond_with(@tasks)
     @q = Task.where(status: -1).search(params[:query])
-    @tasks = Task.the_day
+    @tasks = Task.the_day.where(employee_id: current_user)
     respond_with(@tasks)    
   end
 
