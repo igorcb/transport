@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :task_owner, only: [:edit, :update]
   load_and_authorize_resource
   respond_to :html  
 
@@ -113,5 +114,13 @@ class TasksController < ApplicationController
         :allocated_observation, :second_time, :status, :observation, :second_employee_id,
         assets_attributes: [:asset, :id, :_destroy]
         )
+    end
+
+    def task_owner
+      @task = Task.find(params[:id])
+      if @task.requester != current_user
+        flash[:danger] = "You not permission to edit task."
+        redirect_to task_path(@task)
+      end
     end
 end
