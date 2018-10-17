@@ -1,12 +1,12 @@
 <tr>
+  <td><%= task.id %></td>
   <td><%= task.name %></td>
   <td><%= truncate(task.body, length: 20)  %></td>
-  <td><%= task.requester.nome if task.requester.present? %></td>
-  <td><%= task.employee.nome if task.employee.present? %></td>
+  <td><%= task.requester.name if task.requester.present? %></td>
+  <td><%= task.employee.name if task.employee.present? %></td>
   <td><%= date_br task.start_date %></td>
   <td><%= date_br task.finish_date %></td>
   <td><%= task.time_first %></td>
-  <td><%= task.allocated_and_observation %></td>
   <td><%= task.second_time %></td>
   <td><%= task.status_name %></td>
   <td><%= truncate(task.observation, length: 20) %></td>
