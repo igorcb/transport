@@ -23,23 +23,15 @@
     <% if @task.new_record? %>
       <%= f.text_field :start_date, class: "form-control data" %>
     <% else %>
-      <% if @task.requester == current_user %>
-        <%= f.text_field :start_date, class: "form-control data", value: date_br(@task.start_date), disabled: true %>
-      <% else %>
-        <%= f.text_field :start_date, class: "form-control data", value: date_br(@task.start_date) %>
-      <% end %>  
+      <%= f.text_field :start_date, class: "form-control data", value: date_br(@task.start_date) %>
     <% end %>    
   </div>
   <div class="form-group">
     <%= f.label :finish_date, "Data Final" %>
     <% if @task.new_record? %>
-     <%= f.text_field :finish_date, class: "form-control data" %>
+      <%= f.text_field :finish_date, class: "form-control data" %>
     <% else %>
-     <% if @task.requester == current_user %>
-        <%= f.text_field :finish_date, class: "form-control data", value: date_br(@task.finish_date), disabled: true %>
-     <% else %>
-        <%= f.text_field :finish_date, class: "form-control data", value: date_br(@task.finish_date) %>
-     <% end %>  
+      <%= f.text_field :finish_date, class: "form-control data", value: date_br(@task.finish_date) %>
     <% end %>    
   </div>    
   <div class="form-group">
