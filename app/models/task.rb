@@ -5,7 +5,7 @@ class Task < ActiveRecord::Base
   validates :start_date, presence: true
   validates :finish_date, presence: true
 
-  validate :finish_date_less_start_date
+  validate :finish_date_less_start_date, if: Proc.new {|task| !task.start_date.blank? or !task.finish_date.blank? }
 
   belongs_to :employee
   belongs_to :second_employee, class_name: "Employee", foreign_key: "second_employee_id"
