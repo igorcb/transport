@@ -10,11 +10,6 @@
     <%= f.label :second_employee_id, "Segundo Funcionário" %><br>
     <%= f.select(:second_employee_id, User.where(active: true).order(:name).collect {|g| [g.name, g.id]}, {include_blank: "Selecione o Funcionário"}, {class: "form-control"} ) %>
   </div>  
-
-  <div class="form-group">
-    <%= f.label :requester_id, "Solicitante" %><br>
-    <%= f.select(:requester_id, User.where(active: true).order(:name).collect {|g| [g.name, g.id]}, {include_blank: "Selecione o Solicitante"}, {class: "form-control"} ) %>
-  </div>  
   <div class="form-group">
     <%= f.label :name, "Nome da Tarefa" %>
     <%= f.text_field :name,class: "form-control" %>

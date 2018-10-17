@@ -27,6 +27,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.requester = current_user
     respond_to do |format|
       if @task.save
         
@@ -108,7 +109,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:requester_id, :employee_id, :name, :body, :start_date, :finish_date, :time_first, :allocated, 
+      params.require(:task).permit(:employee_id, :name, :body, :start_date, :finish_date, :time_first, :allocated, 
         :allocated_observation, :second_time, :status, :observation, :second_employee_id,
         assets_attributes: [:asset, :id, :_destroy]
         )

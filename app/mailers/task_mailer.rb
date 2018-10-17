@@ -16,7 +16,7 @@ class TaskMailer < ActionMailer::Base
       end
       email
     end 
-    text_subject = "NEW TASK: #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
+    text_subject = "NEW TASK: #{@task.id} - Funcionário: #{@task.employee.name.upcase} "
     
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
 
@@ -39,7 +39,7 @@ class TaskMailer < ActionMailer::Base
       email
     end 
 
-    text_subject = "START/FINISH TASK: #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
+    text_subject = "START/FINISH TASK: #{@task.id} - Funcionário: #{@task.employee.name.upcase} "
     
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
 
@@ -61,7 +61,7 @@ class TaskMailer < ActionMailer::Base
       end
       email
     end 
-    text_subject = "FeedBack Task #{@task.id} - Funcionário: #{@task.employee.nome.upcase} "
+    text_subject = "FeedBack Task #{@task.id} - Funcionário: #{@task.employee.name.upcase} "
     
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
 
