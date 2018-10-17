@@ -8,10 +8,12 @@ class TaskMailer < ActionMailer::Base
       email = ENV['RAILS_MAIL_DESTINATION']
     end
     if Rails.env.production?
-      primary_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      #primary_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      primary_employee = @task.employee.email
       email = primary_employee
       if @task.second_employee.present?
-        second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) 
+        #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) 
+        second_employee  = @task.second_employee.email
         email = primary_employee + second_employee
       end
       email
@@ -29,11 +31,14 @@ class TaskMailer < ActionMailer::Base
       email = ENV['RAILS_MAIL_DESTINATION']
     end
     if Rails.env.production?
-      email_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
-      email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      # email_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      # email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      email_employee = @task.employee.email
+      email_requester = @task.requester.email
       email = email_employee + email_requester
       if @task.second_employee.present?
-        second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) 
+        #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) 
+        second_employee  = @task.second_employee.email
         email = email_employee + email_requester + second_employee
       end
       email
@@ -52,11 +57,14 @@ class TaskMailer < ActionMailer::Base
       email = ENV['RAILS_MAIL_DESTINATION']
     end
     if Rails.env.production?
-      email_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
-      email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      # email_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      # email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      email_employee = @task.employee.email
+      email_requester = @task.requester.email
       email = email_employee + email_requester
       if @task.second_employee.present?
-        second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) 
+        #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email) 
+        second_employee  = @task.second_employee.email
         email = email_employee + email_requester + second_employee
       end
       email
