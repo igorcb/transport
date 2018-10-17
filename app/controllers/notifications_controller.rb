@@ -1,4 +1,5 @@
 class NotificationsController < ApplicationController
+  include ActionView::RecordIdentifier
 	before_filter :authenticate_user!
 
 	def index
@@ -17,7 +18,9 @@ class NotificationsController < ApplicationController
 	def mark_as_read
 		@notifications = unreader
     @notifications.update_all(read_at: Time.zone.now)
-		render json: { success: true }
+    respond_to do |format|
+      format.json { render json: { success: true }.to_json, content_type: 'application/json' }
+    end
   end	
 
   private
