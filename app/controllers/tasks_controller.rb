@@ -32,7 +32,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         
-        Notification.create(recipient: current_user, actor: current_user, action: 'taskd', notifiable: @task)
+        Notification.create(recipient: @task.employee, actor: current_user, action: 'taskd', notifiable: @task)
         @task.send_email_employee
         #@task.send_notification_email
         format.html { redirect_to @task, flash: { success: "TASK was successfully created." } }
