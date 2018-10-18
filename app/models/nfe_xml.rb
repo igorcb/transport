@@ -128,102 +128,103 @@ class NfeXml < ActiveRecord::Base
   # end
 
   def self.processa_xml_input_control(params)
+
     if params.status == TipoStatus::NAO_PROCESSADO
-       
-      ActiveRecord::Base.transaction do
-        #processar xml - extrair os daddos da nfe 
-        # - atualizar campos na tabela nfe_xml
-        # - criar produtos na tabela item_input_control
-        
-        puts ">>>>>>>>>>>>>>> Params: #{params.to_s}"
-        #input_control = 
-        nfe_xml = params
-        file = "#{Rails.root.join('public')}" + nfe_xml.asset.url(:original, timestamp: false)
-        puts ">>>>>>>>>>>>>>>>>>>> Processando File #{file}"
-        nfe = NFe::NotaFiscal.new.load_xml_serealize(file)
-        #antes de gerar a ordem de servico verificar se todas as notas está para o mesmo CNPJ emitente
-        cnpj_source = nfe.emit.CNPJ.to_s
-        cnpj_source.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
-        cnpj_target = nfe.dest.CNPJ.to_s
-        cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
+      begin   
+        ActiveRecord::Base.transaction do
 
-        source_client = Client.create_with(    
-                                        tipo_cliente: Client::TipoCliente::NORMAL, 
-                                        tipo_pessoa: 1, 
-                                    group_client_id: 7, 
-                                               nome: nfe.emit.xNome, 
-                                           fantasia: nfe.emit.xNome, 
-                                                cep: nfe.emit.endereco_emitente.CEP, 
-                                           endereco: nfe.emit.endereco_emitente.xLgr, 
-                                             numero: nfe.emit.endereco_emitente.nro, 
-                                        complemento: nfe.emit.endereco_emitente.xCpl, 
-                                             bairro: nfe.emit.endereco_emitente.xBairro, 
-                                             cidade: nfe.emit.endereco_emitente.xMun, 
-                                             estado: nfe.emit.endereco_emitente.UF).find_or_create_by(cpf_cnpj: cnpj_source)
-        target_client = Client.create_with(
-                                        tipo_cliente: Client::TipoCliente::NORMAL, 
-                                        tipo_pessoa: 1, 
-                                    group_client_id: 7, 
-                                               nome: nfe.dest.xNome, 
-                                           fantasia: nfe.dest.xNome, 
-                                                cep: nfe.dest.endereco_destinatario.CEP, 
-                                           endereco: nfe.dest.endereco_destinatario.xLgr, 
-                                             numero: nfe.dest.endereco_destinatario.nro, 
-                                        complemento: nfe.dest.endereco_destinatario.xCpl, 
-                                             bairro: nfe.dest.endereco_destinatario.xBairro, 
-                                             cidade: nfe.dest.endereco_destinatario.xMun, 
-                                             estado: nfe.dest.endereco_destinatario.UF).find_or_create_by(cpf_cnpj: cnpj_target)
+          #Process XML - Extract data NF-e
+          puts ">>>>>>>>>>>>>>> Params: #{params.to_s}"
+          nfe_xml = params
+          file = "#{Rails.root.join('public')}" + nfe_xml.asset.url(:original, timestamp: false)
+          puts ">>>>>>>>>>>>>>>>>>>> Processando File #{file}"
+          nfe = NFe::NotaFiscal.new.load_xml_serealize(file)
+          #antes de gerar a ordem de servico verificar se todas as notas está para o mesmo CNPJ emitente
+          cnpj_source = nfe.emit.CNPJ.to_s
+          cnpj_source.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
+          cnpj_target = nfe.dest.CNPJ.to_s
+          cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
 
-        peso = nfe.vol.pesoB.nil? ? nfe.vol.pesoL : nfe.vol.pesoB
-        place = nfe.veiculo.placa.blank? ? nfe_xml.input_control.place : nfe.veiculo.placa.insert(3,'-')
-        
-        nfe_xml.update_attributes(peso: peso, 
-                          peso_liquido: nfe.vol.pesoL,
-                                volume: nfe.vol.qVol, 
-                                numero: nfe.ide.nNF,
-                                 chave: nfe.infoProt.chNFe,
-                            valor_nota: nfe.icms_tot.vNF,
-                      source_client_id: source_client.id,
-                      target_client_id: target_client.id,
-                                 place: place,
-                           observation: nfe.info.infCpl,
-                                status: TipoStatus::PROCESSADO)
+          #Location Source Client ou Create ou Update
+          source_client = Client.create_with(    
+                                          tipo_cliente: Client::TipoCliente::NORMAL, 
+                                          tipo_pessoa: 1, 
+                                      group_client_id: 7, 
+                                                 nome: nfe.emit.xNome, 
+                                             fantasia: nfe.emit.xNome, 
+                                                  cep: nfe.emit.endereco_emitente.CEP, 
+                                             endereco: nfe.emit.endereco_emitente.xLgr, 
+                                               numero: nfe.emit.endereco_emitente.nro, 
+                                          complemento: nfe.emit.endereco_emitente.xCpl, 
+                                               bairro: nfe.emit.endereco_emitente.xBairro, 
+                                               cidade: nfe.emit.endereco_emitente.xMun, 
+                                               estado: nfe.emit.endereco_emitente.UF).find_or_create_by(cpf_cnpj: cnpj_source)
 
-        #produtos da NFE
-        #input_control = InputControl.find(nfe_xml.nfe_id)
-        begin
-          ActiveRecord::Base.transaction do
-
-            nfe.prod.each do |product|
-              prod = Produto.new
-              prod.attributes=(product)
-              produto = Product.create_with(category_id: 6, 
-                                         cubagem: 0,
-                                        cod_prod: prod.cProd, 
-                                       descricao: prod.xProd, 
-                                             ean: prod.cEAN,
-                                        ean_trib: prod.cEANTrib,
-                                             ncm: prod.NCM,
-                                            cfop: prod.CFOP,
-                                     unid_medida: prod.uCom,
-                                  valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
-              produto.save!
-              nfe_xml.item_input_controls.create!(
-                                            input_control_id: nfe_xml.nfe_id,
-                                                  number_nfe: nfe.ide.nNF,
-                                                  product_id: produto.id,
-                                                        qtde: prod.qCom,
-                                                   qtde_trib: prod.qTrib,
-                                                       valor: prod.vProd,
-                                              valor_unitario: prod.vUnTrib,
-                                        valor_unitario_comer: prod.vUnCom,
-                                                 unid_medida: prod.uCom
-                                          )
-            end
+          #Location Source Target ou Create ou Update
+          target_client = Client.find_or_create_by!(cpf_cnpj: cnpj_target) do |client|
+            client.tipo_cliente = Client::TipoCliente::NORMAL
+            client.tipo_pessoa = 1
+            client.group_client_id = 7
+            client.nome        = nfe.dest.xNome
+            client.fantasia    = nfe.dest.xNome
+            client.cep         = nfe.dest.endereco_destinatario.CEP.blank? ? "00000-000" : nfe.dest.endereco_destinatario.CEP
+            client.endereco    = nfe.dest.endereco_destinatario.xLgr
+            client.numero      = nfe.dest.endereco_destinatario.nro
+            client.complemento = nfe.dest.endereco_destinatario.xCpl
+            client.bairro      = nfe.dest.endereco_destinatario.xBairro
+            client.cidade      = nfe.dest.endereco_destinatario.xMun
+            client.estado      = nfe.dest.endereco_destinatario.UF
           end
-        rescue => e
-          puts e.message
+
+          #NfeXml UpdateAttributes
+          peso = nfe.vol.pesoB.nil? ? nfe.vol.pesoL : nfe.vol.pesoB
+          place = nfe.veiculo.placa.blank? ? nfe_xml.input_control.place : nfe.veiculo.placa.insert(3,'-')
+        
+          nfe_xml.update_attributes(peso: peso, 
+                            peso_liquido: nfe.vol.pesoL,
+                                  volume: nfe.vol.qVol, 
+                                  numero: nfe.ide.nNF,
+                                   chave: nfe.infoProt.chNFe,
+                              valor_nota: nfe.icms_tot.vNF,
+                        source_client_id: source_client.id,
+                        target_client_id: target_client.id,
+                                   place: place,
+                             observation: nfe.info.infCpl,
+                                  status: TipoStatus::PROCESSADO)
+          
+          #Get Products NF-e and create or update product database 
+          nfe.prod.each do |product|
+            prod = Produto.new
+            prod.attributes=(product)
+            produto = Product.create_with(category_id: 6, 
+                                       cubagem: 0,
+                                      cod_prod: prod.cProd, 
+                                     descricao: prod.xProd, 
+                                           ean: prod.cEAN,
+                                      ean_trib: prod.cEANTrib,
+                                           ncm: prod.NCM,
+                                          cfop: prod.CFOP,
+                                   unid_medida: prod.uCom,
+                                valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
+            produto.save!
+
+            item = nfe_xml.item_input_controls.create!(
+                                              input_control_id: nfe_xml.nfe_id,
+                                                    number_nfe: nfe.ide.nNF,
+                                                    product_id: produto.id,
+                                                          qtde: prod.qCom,
+                                                     qtde_trib: prod.qTrib,
+                                                         valor: prod.vProd,
+                                                valor_unitario: prod.vUnTrib,
+                                          valor_unitario_comer: prod.vUnCom,
+                                                   unid_medida: prod.uCom
+                                            )
+          end
+
         end
+      rescue => e
+        puts e.message
+        return e.message
       end
     end
   end
