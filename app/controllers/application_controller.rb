@@ -6,11 +6,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-  
+
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :name
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     #devise_parameter_sanitizer.for(:account_update) << :name
   end
 
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       redirect_to dashboard_visit_path, flash: { danger: exception.message }
     elsif current_user.has_role? :client
       redirect_to dashboard_client_path, flash: { danger: exception.message }
-    elsif current_user.has_role? :agent 
+    elsif current_user.has_role? :agent
       redirect_to dashboard_agent_path, flash: { danger: exception.message }
     elsif current_user.has_role? :oper
       redirect_to dashboard_oper_path, flash: { danger: exception.message }
@@ -43,9 +43,9 @@ class ApplicationController < ActionController::Base
     elsif current_user.has_role? :agent
       dashboard_agent_path
     elsif current_user.has_role? :oper
-      dashboard_oper_path    
+      dashboard_oper_path
     elsif current_user.has_role? :port
-      dashboard_port_path    
+      dashboard_port_path
     else
       #root_path
     end
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
     resource = controller_name.singularize.to_sym
     method = "#{resource}_params"
     params[resource] &&= send(method) if respond_to?(method, true)
-  end  
+  end
 
   def print_header_pdf(report)
     @company = Company.first
@@ -66,5 +66,5 @@ class ApplicationController < ActionController::Base
     report.page.item(:emp_fone).value("CONTATO: " + @company.phone_first)
     report.page.item(:emp_cidade).value(@company.cidade_estado)
   end
-  
+
 end
