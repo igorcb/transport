@@ -41,6 +41,8 @@ module Transport
     Paperclip.options[:command_path] = "/usr/bin/"
     #config.autoload_paths += %W(#{config.root}/lib)
     config.watchable_dirs['lib'] = [:rb]
+
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end
 

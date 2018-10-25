@@ -1,12 +1,13 @@
 require 'nfe'
 class NfeXml < ActiveRecord::Base
-	has_attached_file :asset
-	validates_attachment :asset, uniqueness: true, attachment_presence: true, :content_type => { :content_type => "text/xml" }
-  has_attached_file :action_inspector
-  #validates_attachment :action_inspector, uniqueness: true, attachment_presence: true, :content_type => { :content_type => "text/xml" }
-  #has_attached_file :asset, styles: lambda { |a| a.instance.asset_content_type =~ %r(image) ? { medium: "300x300>", thumb: "120x90>", mini: "64x64>"} : {} }
-	
-  validates :asset_file_name, uniqueness: { scope: :nfe_type } 
+	has_attached_file :asset, { validate_media_type: false }
+	validates_attachment :asset, {
+    content_type: { content_type: ["application/xml", "text/plain", Paperclip::ContentTypeDetector::SENSIBLE_DEFAULT] }
+	}
+
+	has_attached_file :action_inspector
+
+  validates :asset_file_name, uniqueness: { scope: :nfe_type }
   validates :chave, uniqueness: { scope: :nfe_type }, allow_blank: true
 
   belongs_to :scheduling, class_name: "Scheduling", foreign_key: "nfe_id"
@@ -17,7 +18,7 @@ class NfeXml < ActiveRecord::Base
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id"
 
   has_many :item_input_controls
-  
+
   scope :not_create_os, -> { where(create_os: TipoOsCriada::NAO) }
   scope :nfe, -> { joins(:target_client).where(equipamento: TipoEquipamento::NOTA_FISCAL).order("clients.cpf_cnpj") }
   scope :pallets, -> { where(equipamento: TipoEquipamento::PALETE) }
@@ -26,7 +27,7 @@ class NfeXml < ActiveRecord::Base
 		cte.status = 0
 		cte.error = 0
     cte.create_os = 0
-	end 
+	end
 
   module TypeNfe
     SCHEDULING   = "Scheduling"
@@ -130,7 +131,7 @@ class NfeXml < ActiveRecord::Base
   def self.processa_xml_input_control(params)
 
     if params.status == TipoStatus::NAO_PROCESSADO
-      begin   
+      begin
         ActiveRecord::Base.transaction do
 
           #Process XML - Extract data NF-e
@@ -146,18 +147,18 @@ class NfeXml < ActiveRecord::Base
           cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
 
           #Location Source Client ou Create ou Update
-          source_client = Client.create_with(    
-                                          tipo_cliente: Client::TipoCliente::NORMAL, 
-                                          tipo_pessoa: 1, 
-                                      group_client_id: 7, 
-                                                 nome: nfe.emit.xNome, 
-                                             fantasia: nfe.emit.xNome, 
-                                                  cep: nfe.emit.endereco_emitente.CEP, 
-                                             endereco: nfe.emit.endereco_emitente.xLgr, 
-                                               numero: nfe.emit.endereco_emitente.nro, 
-                                          complemento: nfe.emit.endereco_emitente.xCpl, 
-                                               bairro: nfe.emit.endereco_emitente.xBairro, 
-                                               cidade: nfe.emit.endereco_emitente.xMun, 
+          source_client = Client.create_with(
+                                          tipo_cliente: Client::TipoCliente::NORMAL,
+                                          tipo_pessoa: 1,
+                                      group_client_id: 7,
+                                                 nome: nfe.emit.xNome,
+                                             fantasia: nfe.emit.xNome,
+                                                  cep: nfe.emit.endereco_emitente.CEP,
+                                             endereco: nfe.emit.endereco_emitente.xLgr,
+                                               numero: nfe.emit.endereco_emitente.nro,
+                                          complemento: nfe.emit.endereco_emitente.xCpl,
+                                               bairro: nfe.emit.endereco_emitente.xBairro,
+                                               cidade: nfe.emit.endereco_emitente.xMun,
                                                estado: nfe.emit.endereco_emitente.UF).find_or_create_by(cpf_cnpj: cnpj_source)
 
           #Location Source Target ou Create ou Update
@@ -179,10 +180,10 @@ class NfeXml < ActiveRecord::Base
           #NfeXml UpdateAttributes
           peso = nfe.vol.pesoB.nil? ? nfe.vol.pesoL : nfe.vol.pesoB
           place = nfe.veiculo.placa.blank? ? nfe_xml.input_control.place : nfe.veiculo.placa.insert(3,'-')
-        
-          nfe_xml.update_attributes(peso: peso, 
+
+          nfe_xml.update_attributes(peso: peso,
                             peso_liquido: nfe.vol.pesoL,
-                                  volume: nfe.vol.qVol, 
+                                  volume: nfe.vol.qVol,
                                   numero: nfe.ide.nNF,
                                    chave: nfe.infoProt.chNFe,
                               valor_nota: nfe.icms_tot.vNF,
@@ -191,15 +192,15 @@ class NfeXml < ActiveRecord::Base
                                    place: place,
                              observation: nfe.info.infCpl,
                                   status: TipoStatus::PROCESSADO)
-          
-          #Get Products NF-e and create or update product database 
+
+          #Get Products NF-e and create or update product database
           nfe.prod.each do |product|
             prod = Produto.new
             prod.attributes=(product)
-            produto = Product.create_with(category_id: 6, 
+            produto = Product.create_with(category_id: 6,
                                        cubagem: 0,
-                                      cod_prod: prod.cProd, 
-                                     descricao: prod.xProd, 
+                                      cod_prod: prod.cProd,
+                                     descricao: prod.xProd,
                                            ean: prod.cEAN,
                                       ean_trib: prod.cEANTrib,
                                            ncm: prod.NCM,
@@ -241,37 +242,37 @@ class NfeXml < ActiveRecord::Base
       cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
       chave_nfe = nfe_xml.asset_file_name.gsub(".xml", '')
       placa = nfe.veiculo.placa.present? ? nfe.veiculo.placa.insert(3, '-') : 'ZZZ-9999'
-    	source_client = Client.create_with(    
-    																	tipo_pessoa: 1, 
-    															group_client_id: 7, 
-    																	  		 nome: nfe.emit.xNome, 
-    																		 fantasia: nfe.emit.xNome, 
-    																		 	    cep: nfe.emit.endereco_emitente.CEP, 
-    																		 endereco: nfe.emit.endereco_emitente.xLgr, 
-    																		   numero: nfe.emit.endereco_emitente.nro, 
-    																	complemento: nfe.emit.endereco_emitente.xCpl, 
-    																		   bairro: nfe.emit.endereco_emitente.xBairro, 
-    																		   cidade: nfe.emit.endereco_emitente.xMun, 
+    	source_client = Client.create_with(
+    																	tipo_pessoa: 1,
+    															group_client_id: 7,
+    																	  		 nome: nfe.emit.xNome,
+    																		 fantasia: nfe.emit.xNome,
+    																		 	    cep: nfe.emit.endereco_emitente.CEP,
+    																		 endereco: nfe.emit.endereco_emitente.xLgr,
+    																		   numero: nfe.emit.endereco_emitente.nro,
+    																	complemento: nfe.emit.endereco_emitente.xCpl,
+    																		   bairro: nfe.emit.endereco_emitente.xBairro,
+    																		   cidade: nfe.emit.endereco_emitente.xMun,
     																		   estado: nfe.emit.endereco_emitente.UF).find_or_create_by(cpf_cnpj: cnpj_source)
     	target_client = Client.create_with(
-    																	tipo_pessoa: 1, 
-    															group_client_id: 7, 
-    																	  		 nome: nfe.dest.xNome, 
-    																		 fantasia: nfe.dest.xNome, 
-    																		 	    cep: nfe.dest.endereco_destinatario.CEP, 
-    																		 endereco: nfe.dest.endereco_destinatario.xLgr, 
-    																		   numero: nfe.dest.endereco_destinatario.nro, 
-    																	complemento: nfe.dest.endereco_destinatario.xCpl, 
-    																		   bairro: nfe.dest.endereco_destinatario.xBairro, 
-    																		   cidade: nfe.dest.endereco_destinatario.xMun, 
+    																	tipo_pessoa: 1,
+    															group_client_id: 7,
+    																	  		 nome: nfe.dest.xNome,
+    																		 fantasia: nfe.dest.xNome,
+    																		 	    cep: nfe.dest.endereco_destinatario.CEP,
+    																		 endereco: nfe.dest.endereco_destinatario.xLgr,
+    																		   numero: nfe.dest.endereco_destinatario.nro,
+    																	complemento: nfe.dest.endereco_destinatario.xCpl,
+    																		   bairro: nfe.dest.endereco_destinatario.xBairro,
+    																		   cidade: nfe.dest.endereco_destinatario.xMun,
     																		   estado: nfe.dest.endereco_destinatario.UF).find_or_create_by(cpf_cnpj: cnpj_target)
     	billing_client = Client.find_by(cpf_cnpj: source_client.cpf_cnpj)
       ordem_service = OrdemService.create!( tipo: OrdemService::TipoOS::LOGISTICA,
-      													target_client_id: target_client.id, 
+      													target_client_id: target_client.id,
            											source_client_id: source_client.id,
                                #billing_client_id: billing_client.id,
       															  carrier_id: 11, #A MOURA DO NASCIMENTO - ME  # 3 - Nao Identificado
-                                            peso: nfe.vol.pesoB, 
+                                            peso: nfe.vol.pesoB,
                                      qtde_volume: nfe.vol.qVol,
   																				estado: target_client.estado,
   																				cidade: target_client.cidade,
@@ -284,17 +285,17 @@ class NfeXml < ActiveRecord::Base
         prod = Produto.new
         prod.attributes=(product)
                                   #produtos da NFE
-        produto = Product.create_with(category_id: 6, 
+        produto = Product.create_with(category_id: 6,
                                       cubagem: 0,
-                                  cod_prod: prod.cProd, 
-                                 descricao: prod.xProd, 
+                                  cod_prod: prod.cProd,
+                                 descricao: prod.xProd,
                                        ean: prod.cEAN,
                                   ean_trib: prod.cEANTrib,
                                        ncm: prod.NCM,
                                       cfop: prod.CFOP,
                                unid_medida: prod.uCom,
                             valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
-        
+
         ordem_service.item_ordem_services.create!(number: nfe.ide.nNF,
                                               product_id: produto.id,
                                                     qtde: prod.qCom,
@@ -305,7 +306,7 @@ class NfeXml < ActiveRecord::Base
                                              unid_medida: prod.uCom
                                       )
       end
-      
+
     end
   end
 

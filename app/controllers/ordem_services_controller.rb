@@ -21,7 +21,7 @@ class OrdemServicesController < ApplicationController
     @account_payable = AccountPayable.new
     @account_receivable = AccountReceivable.new
     @ordem_service_type_service = OrdemServiceTypeService.new
-    
+
     if current_user.has_role? :admin
       @comment = @ordem_service.comments.build
       @internal_comment = @ordem_service.internal_comments.build
@@ -105,7 +105,7 @@ class OrdemServicesController < ApplicationController
   #   @ordem_service.estado = client.estado if client.present?
   #   @ordem_service.cidade = client.cidade if client.present?
   #   respond_to do |format|
-  #     if @ordem_service.save 
+  #     if @ordem_service.save
   #       format.html { redirect_to @ordem_service, flash: { success: "Ordem Service was successfully created." } }
   #       format.json { render action: 'show', status: :created, location: @ordem_service }
   #     else
@@ -140,7 +140,7 @@ class OrdemServicesController < ApplicationController
   def update_agent
     ActiveRecord::Base.transaction do
       respond_to do |format|
-        if @ordem_service.update(ordem_service_params) 
+        if @ordem_service.update(ordem_service_params)
           qtde = params[:pallet][:qtde]
           valor = qtde.to_f * Pallet::TypeService::VALOR_COBRADO_PALLETE
           os_type_service = OrdemServiceTypeService.find_by(ordem_service_id: @ordem_service.id, type_service_id: Pallet::TypeService::PALLET)
@@ -200,8 +200,8 @@ class OrdemServicesController < ApplicationController
     @ordem_service.destroy
     respond_with(@ordem_service)
   end
-  
-  def type_new_ordem_service  
+
+  def type_new_ordem_service
     @type_os = params[:tipo_os].to_i
     @ordem_service = OrdemService.new
     @ordem_service.ordem_service_logistics.build
@@ -264,7 +264,7 @@ class OrdemServicesController < ApplicationController
       format.js
     end
   end
-  
+
   def delivery
     if @ordem_service.status == OrdemService::TipoStatus::ABERTO
       flash[:danger] = "Ordem Service is already as ABERTO."
@@ -285,24 +285,24 @@ class OrdemServicesController < ApplicationController
     elsif @ordem_service.status == OrdemService::TipoStatus::FECHADO
       flash[:danger] = "Ordem Service is already as closed."
       redirect_to ordem_service_path(@ordem_service)
-      return    
+      return
     elsif @ordem_service.status == OrdemService::TipoStatus::FATURADO
       flash[:danger] = "Ordem Service is already as BILLING."
       redirect_to ordem_service_path(@ordem_service)
       return
-    elsif !@ordem_service.ordem_service_type_service.present? 
+    elsif !@ordem_service.ordem_service_type_service.present?
       flash[:danger] = "Can not close without an Type Ordem Service associated service."
       redirect_to ordem_service_path(@ordem_service)
       return
-    elsif !@ordem_service.data.present? 
+    elsif !@ordem_service.data.present?
       flash[:danger] = "Data Agendamento can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return
-    elsif !@ordem_service.billing_client_id.present? 
+    elsif !@ordem_service.billing_client_id.present?
       flash[:danger] = "Client billing can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return
-    elsif !@ordem_service.billing_client_id.present? 
+    elsif !@ordem_service.billing_client_id.present?
       flash[:danger] = "Client billing can't be blank."
       redirect_to ordem_service_path(@ordem_service)
       return
@@ -322,11 +322,11 @@ class OrdemServicesController < ApplicationController
     if params[:ordem_service][:data_entrega_servico].blank?
       flash[:danger] = "Data Entrega Servico can't be blank."
       redirect_to ordem_service_path(@ordem_service)
-      return    
+      return
     elsif params[:ordem_service][:data_entrega_servico].to_date < @ordem_service.boarding.date_boarding
       flash[:danger] = "Delivery date of service can not be less than the date of shipment"
       redirect_to ordem_service_path(@ordem_service)
-      return    
+      return
     end
     respond_to do |format|
       if @ordem_service.update(ordem_service_params)
@@ -344,7 +344,7 @@ class OrdemServicesController < ApplicationController
       redirect_to left_handed_ordem_service_path(@ordem_service)
       return
     end
-    
+
     if params[:ordem_service].present?
       respond_to do |format|
         #if @ordem_service.update(ordem_service_params) && OrdemService.close_os(params[:id])
@@ -369,13 +369,13 @@ class OrdemServicesController < ApplicationController
         end
       end
 
-    end      
+    end
   end
 
   def close_os
     puts "Tipo OS: #{@ordem_service.tipo}"
     case @ordem_service.tipo
-      when OrdemService::TipoOS::LOGISTICA 
+      when OrdemService::TipoOS::LOGISTICA
         if @ordem_service.status == OrdemService::TipoStatus::FECHADO
           flash[:danger] = "Ordem Service is already as closed."
           redirect_to ordem_service_path(@ordem_service)
@@ -392,37 +392,37 @@ class OrdemServicesController < ApplicationController
           flash[:danger] = "You can not close a service order without it being delivered."
           redirect_to ordem_service_path(@ordem_service)
           return
-        elsif !@ordem_service.ordem_service_type_service.present? 
+        elsif !@ordem_service.ordem_service_type_service.present?
           flash[:danger] = "Can not close without an Order of Service associated service."
           redirect_to ordem_service_path(@ordem_service)
           return
-        elsif !@ordem_service.data.present? 
+        elsif !@ordem_service.data.present?
           flash[:danger] = "Data Agendamento can't be blank."
           redirect_to ordem_service_path(@ordem_service)
           return
-        elsif !@ordem_service.data_entrega_servico.present? 
+        elsif !@ordem_service.data_entrega_servico.present?
           flash[:danger] = "Data Entrega Servico can't be blank."
           redirect_to ordem_service_path(@ordem_service)
           return
-        elsif !@ordem_service.billing_client_id.present? 
+        elsif !@ordem_service.billing_client_id.present?
           flash[:danger] = "Client billing can't be blank."
           redirect_to ordem_service_path(@ordem_service)
           return
         end
-      when OrdemService::TipoOS::MUDANCA 
+      when OrdemService::TipoOS::MUDANCA
         puts ">>>>>>>>>>>> CloseOs Mudanca."
         @ordem_service.close_ordem_service
         redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful..." }
       when OrdemService::TipoOS::AEREO
         @ordem_service.close_ordem_service
         redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful......" }
-    end    
+    end
     #OrdemService.close_os(params[:id])
     #redirect_to @ordem_service, flash: { success: "Ordem Service closed was successful..............." }
   end
 
   def left_handed
-    
+
   end
 
   def update_left_handed
@@ -447,7 +447,7 @@ class OrdemServicesController < ApplicationController
   def ordem_service_to_type_service
     @type_service = TypeService.find(params[:id])
     @ordem_services = OrdemServiceTypeService.joins(:ordem_service)
-                                             .where(type_service: @type_service, 
+                                             .where(type_service: @type_service,
                                                     ordem_services: { status: OrdemService::TipoStatus::FECHADO } )
                                              .order('ordem_services.data')
     respond_with(@ordem_services) do |format|
@@ -483,7 +483,7 @@ class OrdemServicesController < ApplicationController
     end
 
     hash = eval(params[:discharges])
-    
+
     @account_payable = @ordem_service.account_payables.build
     @account_payable.type_account = AccountPayable::TypeAccount::DRIVER
     @account_payable.supplier_type = "Driver"
@@ -502,12 +502,12 @@ class OrdemServicesController < ApplicationController
     respond_with(@ordem_service)
     # else
     #   @ordem_service.errors.full_messages.each do |msg|
-    #     flash.now[:error] = msg  
+    #     flash.now[:error] = msg
     #   end
       #respond_with(@ordem_service)
       #format.json { render json: @ordem_service.errors, status: :unprocessable_entity }
       # @ordem_service.errors.full_messages.each do |msg|
-      #   flash[:error] = msg  
+      #   flash[:error] = msg
       #   respond_with(@ordem_services) do |format|
       #     format.html { render :layout => !request.xhr?  }
       #   end
@@ -547,12 +547,12 @@ class OrdemServicesController < ApplicationController
   end
 
   def billing_group_places
-    #@ordem_services = OrdemService.is_not_billed    
+    #@ordem_services = OrdemService.is_not_billed
     @ordem_services = OrdemService.group_by
   end
 
   def tag
-    
+
   end
 
   def list_ordem_service_scheduling
@@ -576,10 +576,10 @@ class OrdemServicesController < ApplicationController
     end
 
     def ordem_service_params
-      params.require(:ordem_service).permit(:billing_client_id, :client_table_price_id, :data, :estado, :cidade, :valor_receita, :valor_despesas, :valor_liquido, 
+      params.require(:ordem_service).permit(:billing_client_id, :client_table_price_id, :data, :estado, :cidade, :valor_receita, :valor_despesas, :valor_liquido,
         :observacao, :status, :hora_agendamento, :data_entrega_servico, :carrier_id, :tipo, :date_shipping, :date_entry, :date_otif, :lead_time,
 
-        ordem_service_airs_attributes: [:source_stretch_id, :target_stretch_id, :solicitante, :target_agent_id, :airline_carrier_id, 
+        ordem_service_airs_attributes: [:source_stretch_id, :target_stretch_id, :solicitante, :target_agent_id, :airline_carrier_id,
           :qtde_volume, :peso, :valor_nf, :total_cubagem, :tarifa_companhia, :tipo_frete, :valor_total, :awb, :voo, :id, :_destroy],
 
         ordem_service_logistics_attributes: [:driver_id, :delivery_driver_id, :placa, :cte, :danfe_cte,:qtde_volume, :peso, :senha_sefaz, :qtde_palets, :id, :_destroy],
@@ -598,4 +598,3 @@ class OrdemServicesController < ApplicationController
         )
     end
 end
-
