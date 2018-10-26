@@ -453,7 +453,7 @@ class OrdemService < ActiveRecord::Base
         Boarding.where(id: boarding.id).update_all(status: Boarding::TipoStatus::ENTREGUE) if boarding.check_status_ordem_service_entregue?
       end
       puts ">>>>>>>>>>>>>> information_delivery: pode enviar email?: #{ordem_service.input_control.present?}"
-      OrdemServiceMailer.notification_delivery(ordem_service).deliver! if ordem_service.input_control.present?
+      OrdemServiceMailer.notification_delivery(ordem_service).deliver_now if ordem_service.input_control.present?
     end
   end
 

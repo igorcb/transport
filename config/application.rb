@@ -1,21 +1,24 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
+
+require 'rails/all'
 
 # Pick the frameworks you want:
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "sprockets/railtie"
-require 'csv'
-require 'barby/barcode/ean_13'
-require 'barby/barcode/ean_8'
-require 'barby/barcode/code_128'
-require 'barby/outputter/png_outputter'
-require 'apartment/elevators/subdomain'
+# require "active_record/railtie"
+# require "action_controller/railtie"
+# require "action_mailer/railtie"
+# require "sprockets/railtie"
+# require 'csv'
+# require 'barby/barcode/ean_13'
+# require 'barby/barcode/ean_8'
+# require 'barby/barcode/code_128'
+# require 'barby/outputter/png_outputter'
+# require 'apartment/elevators/subdomain'
+
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 
 module Transport
   class Application < Rails::Application
@@ -46,6 +49,6 @@ module Transport
   end
 end
 
-Rails.application.config.middleware.use Apartment::Elevators::Subdomain
+#Rails.application.config.middleware.use Apartment::Elevators::Subdomain
 
-Apartment::Elevators::Subdomain.excluded_subdomains = ['www']
+#Apartment::Elevators::Subdomain.excluded_subdomains = ['www']
