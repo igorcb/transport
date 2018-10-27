@@ -9,22 +9,20 @@ end
 #gem 'rails', '4.0.3'
 #gem 'rails', '4.0.13'
 #gem 'rails', '4.2.8'
-gem 'rails', '5.0.6'
-gem 'puma', '~> 3.0'
+#gem 'rails', '5.0.6'
+gem 'rails', '~> 5.1.6'
 gem 'pg', '~> 0.21.0'
+gem 'puma', '~> 3.7'
 
-# # Use sqlite3 as the database for Active Record
-# gem 'sqlite3'
-gem 'foreigner'
-gem 'sass-rails', '~> 5.0.0'
+gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
-#gem 'therubyracer'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-#
+
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+
 gem 'awesome_nested_fields'
 gem "paperclip"
 gem 'bootstrap-sass'
@@ -33,7 +31,8 @@ gem 'will_paginate-bootstrap'
 gem 'devise'
 gem 'ransack'
 gem "watir-rails"
-gem 'cancan'
+#gem 'cancan'
+gem 'cancancan', github: 'piedoom/cancancan', branch: 'rails5.0'
 gem 'rolify'
 gem 'cocoon'
 gem 'rmagick'
@@ -69,35 +68,20 @@ gem 'autoprefixer-rails', '~> 8.2'
 gem 'geocoder'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-# #
+
 group :development, :test do
-  gem 'byebug'
-  gem 'thin'
-  # gem 'quiet_assets'
-
-  # gem 'guard-rails', '0.7.2', require: false
-  # gem 'guard-rspec', '3.1.0', require: false
-  # gem 'guard-rubocop', '1.2.0', require: false
-  # gem 'guard-spork', '2.1.0', require: false
-  #
-  # gem 'spork-rails'
-  # gem 'factory_girl_rails', '4.1.0'
-
-  # gem 'capybara', '1.1.2'
-
-  #gem 'pdf-inspector', require: 'pdf/inspector'
+  #gem 'thin'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'capybara', '~> 2.13'
+  gem 'selenium-webdriver'
 end
 
 group :development do
-  gem 'web-console', '~> 3.3.0'
-  gem 'listen', '~> 3.0.5'
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-group :doc do
-  gem 'sdoc', require: false
-end
-
-#
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

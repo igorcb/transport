@@ -1,5 +1,5 @@
 class OrdemServiceTypeServicesController < ApplicationController
-	before_filter :authenticate_user!
+	before_action :authenticate_user!
   before_action :set_ordem_service_type_service, only: [:show, :edit, :update, :destroy]
 	respond_to :html, :js
 	

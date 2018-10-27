@@ -1,5 +1,5 @@
 class SchedulingsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_scheduling, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
   respond_to :html

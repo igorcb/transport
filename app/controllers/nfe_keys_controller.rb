@@ -1,6 +1,6 @@
 class NfeKeysController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :set_nfe_key, only: [:show, :edit, :update, :edit_action_inspector, :update_action_inspector, :update_pending]
+  before_action :authenticate_user!
+  before_action :set_nfe_key, only: [:show, :edit, :update, :edit_action_inspector, :update_action_inspector, :update_pending]
   load_and_authorize_resource
   respond_to :html, :js, :json
 

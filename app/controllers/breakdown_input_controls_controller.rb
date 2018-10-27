@@ -1,6 +1,6 @@
 class BreakdownInputControlsController < ApplicationController
-	#before_filter :authenticate_user!
-	before_filter :load_all
+	#before_action :authenticate_user!
+	before_action :load_all
 	#load_and_authorize_resource
 	respond_to :html, :js, :json
 

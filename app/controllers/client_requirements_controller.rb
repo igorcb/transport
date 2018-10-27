@@ -1,5 +1,5 @@
 class ClientRequirementsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_client_requirement, only: [:show, :edit, :update, :destroy]
   before_action :find_client, only: [:new, :create, :index]
   load_and_authorize_resource

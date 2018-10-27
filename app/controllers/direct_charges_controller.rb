@@ -2,7 +2,7 @@ class DirectChargesController < ApplicationController
   include ApplicationHelper
   include ActionView::Helpers::NumberHelper
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_direct_charge, only: [:show, :edit, :update, :destroy, :select_nfe, :finish_typing]
   #load_and_authorize_resource  
 

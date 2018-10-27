@@ -2,7 +2,7 @@ class AccountReceivablesController < ApplicationController
   include ApplicationHelper
   include ActionView::Helpers::NumberHelper
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_account_receivable, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
   respond_to :html

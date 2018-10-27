@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_link, only: [:show, :edit, :update, :destroy, :update_row_order]
   load_and_authorize_resource
 
@@ -15,7 +15,7 @@ class LinksController < ApplicationController
     @link.save
 
     render nothing: true # this is a POST action, updates sent via AJAX, no view rendered
-  end  
+  end
 
   # GET /links/1
   # GET /links/1.json
@@ -84,7 +84,7 @@ class LinksController < ApplicationController
       puts ">>>>>>>>>>>>>>>>> Link : #{link_id} <<<<<<<<<<<<<<<<<<<<<<<<<<<<"
       link_id = params[:id].present? ? params[:id] : params[:link][:link_id]
       @link = Link.find(link_id)
-      
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

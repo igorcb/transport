@@ -22,6 +22,8 @@ Bundler.require(*Rails.groups)
 
 module Transport
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.1
     #config.middleware.use Apartment::Elevators::Subdomain
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -45,7 +47,7 @@ module Transport
     #config.autoload_paths += %W(#{config.root}/lib)
     config.watchable_dirs['lib'] = [:rb]
 
-    config.active_record.raise_in_transactional_callbacks = true
+    #config.active_record.raise_in_transactional_callbacks = true
   end
 end
 
