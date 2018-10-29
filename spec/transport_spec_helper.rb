@@ -1,9 +1,9 @@
-require 'rubygems'
-require 'spork'
-require 'factory_girl_rails'
+# require 'rubygems'
+# require 'spork'
+# require 'factory_girl_rails'
 
 Spork.prefork do
-  
+
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
@@ -72,7 +72,7 @@ RSpec::Matchers.define :accept_nested_attributes_for do |association|
       end
       @nested_att_present && ( @reject.nil? || @reject_success ) && ( @accept.nil? || @accept_success )
     end
-    
+
     failure_message_for_should do
       messages = []
       messages << "expected #{@model.class} to accept nested attributes for #{association}" unless @nested_att_present
@@ -80,18 +80,18 @@ RSpec::Matchers.define :accept_nested_attributes_for do |association|
       messages << "expected #{@model.class} to accept values #{@accept.inspect} for association #{association}" unless @accept_success
       messages.join(", ")
     end
-    
+
     description do
       desc = "accept nested attributes for #{expected}"
       if @reject
         desc << ", but reject if attributes are #{@reject.inspect}"
       end
     end
-    
+
     chain :but_reject do |reject|
       @reject = reject
     end
-    
+
     chain :and_accept do |accept|
       @accept = accept
     end
