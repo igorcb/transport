@@ -1,4 +1,4 @@
-class CreateMicroRegionsCities < ActiveRecord::Migration
+class CreateMicroRegionsCities < ActiveRecord::Migration[5.0]
   def change
     create_table :micro_regions_cities do |t|
       t.references :micro_region, index: true

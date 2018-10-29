@@ -1,4 +1,4 @@
-class AddTaxToBreakdowns < ActiveRecord::Migration
+class AddTaxToBreakdowns < ActiveRecord::Migration[5.0]
   def change
     add_column :breakdowns, :price, :decimal, precision: 20, scale: 2
     add_column :breakdowns, :ipi_tax, :decimal, precision: 20, scale: 2

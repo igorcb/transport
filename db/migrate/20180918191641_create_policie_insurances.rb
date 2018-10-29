@@ -1,4 +1,4 @@
-class CreatePolicieInsurances < ActiveRecord::Migration
+class CreatePolicieInsurances < ActiveRecord::Migration[5.0]
   def change
     create_table :policie_insurances do |t|
       t.references :insurer, index: true

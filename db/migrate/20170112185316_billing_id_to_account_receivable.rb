@@ -1,4 +1,4 @@
-class BillingIdToAccountReceivable < ActiveRecord::Migration
+class BillingIdToAccountReceivable < ActiveRecord::Migration[5.0]
   def change
   end
 end

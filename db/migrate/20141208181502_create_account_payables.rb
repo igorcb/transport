@@ -1,4 +1,4 @@
-class CreateAccountPayables < ActiveRecord::Migration
+class CreateAccountPayables < ActiveRecord::Migration[5.0]
   def change
     create_table :account_payables do |t|
       t.references :supplier, index: true

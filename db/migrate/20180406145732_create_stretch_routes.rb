@@ -1,4 +1,4 @@
-class CreateStretchRoutes < ActiveRecord::Migration
+class CreateStretchRoutes < ActiveRecord::Migration[5.0]
   def change
     create_table :stretch_routes do |t|
       t.integer :stretch_source_id, null: false 

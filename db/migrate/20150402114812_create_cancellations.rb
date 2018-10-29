@@ -1,4 +1,4 @@
-class CreateCancellations < ActiveRecord::Migration
+class CreateCancellations < ActiveRecord::Migration[5.0]
   def change
     create_table :cancellations do |t|
       t.integer :solicitation_user_id

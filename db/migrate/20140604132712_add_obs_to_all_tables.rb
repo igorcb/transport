@@ -1,4 +1,4 @@
-class AddObsToAllTables < ActiveRecord::Migration
+class AddObsToAllTables < ActiveRecord::Migration[5.0]
   def self.up
     add_column :clients, :obs, :text
     add_column :suppliers, :obs, :text

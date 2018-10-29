@@ -1,4 +1,4 @@
-class ChangeFantasiaToOwner < ActiveRecord::Migration
+class ChangeFantasiaToOwner < ActiveRecord::Migration[5.0]
   def self.up
     change_table :owners do |t|
       t.change :fantasia, :string, limit: 100, null: false

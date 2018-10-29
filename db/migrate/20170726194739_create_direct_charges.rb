@@ -1,4 +1,4 @@
-class CreateDirectCharges < ActiveRecord::Migration
+class CreateDirectCharges < ActiveRecord::Migration[5.0]
   def change
     create_table :direct_charges do |t|
       t.references :carrier, index: true

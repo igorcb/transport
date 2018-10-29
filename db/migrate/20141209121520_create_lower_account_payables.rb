@@ -1,4 +1,4 @@
-class CreateLowerAccountPayables < ActiveRecord::Migration
+class CreateLowerAccountPayables < ActiveRecord::Migration[5.0]
   def change
     create_table :lower_account_payables do |t|
       t.references :account_payable, index: true

@@ -1,4 +1,4 @@
-class CreateAccountReceivables < ActiveRecord::Migration
+class CreateAccountReceivables < ActiveRecord::Migration[5.0]
   def change
     create_table :account_receivables do |t|
       t.references :client, index: true

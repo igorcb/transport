@@ -1,4 +1,4 @@
-class AddSealingToBoarding < ActiveRecord::Migration
+class AddSealingToBoarding < ActiveRecord::Migration[5.0]
   def change
     add_column :boardings, :sealing, :string
     add_column :boardings, :sealing_two, :string

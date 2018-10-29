@@ -1,4 +1,4 @@
-class CreateBoardings < ActiveRecord::Migration
+class CreateBoardings < ActiveRecord::Migration[5.0]
   def change
     create_table :boardings do |t|
       t.references :carrier, index: true

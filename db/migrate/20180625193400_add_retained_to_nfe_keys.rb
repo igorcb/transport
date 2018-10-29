@@ -1,4 +1,4 @@
-class AddRetainedToNfeKeys < ActiveRecord::Migration
+class AddRetainedToNfeKeys < ActiveRecord::Migration[5.0]
   def change
     add_column :nfe_keys, :retained, :integer, default: 0
     add_column :nfe_keys, :motive_id, :integer

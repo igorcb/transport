@@ -1,4 +1,4 @@
-class CreatePhoneCalls < ActiveRecord::Migration
+class CreatePhoneCalls < ActiveRecord::Migration[5.0]
   def change
     create_table :phone_calls do |t|
       t.string :nome, limit: 100, null: false

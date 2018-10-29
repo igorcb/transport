@@ -1,4 +1,4 @@
-class DataStateOfSergipe < ActiveRecord::Migration
+class DataStateOfSergipe < ActiveRecord::Migration[5.0]
   def data
     City.create!(code: '2800100', name: 'Amparo de São Francisco', uf: 'SE');
     City.create!(code: '2800209', name: 'Aquidabã', uf: 'SE');

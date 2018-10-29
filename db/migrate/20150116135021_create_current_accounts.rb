@@ -1,4 +1,4 @@
-class CreateCurrentAccounts < ActiveRecord::Migration
+class CreateCurrentAccounts < ActiveRecord::Migration[5.0]
   def change
     create_table :current_accounts do |t|
       t.references :cash_account, index: true

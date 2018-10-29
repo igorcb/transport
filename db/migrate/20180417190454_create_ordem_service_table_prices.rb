@@ -1,4 +1,4 @@
-class CreateOrdemServiceTablePrices < ActiveRecord::Migration
+class CreateOrdemServiceTablePrices < ActiveRecord::Migration[5.0]
   def change
     create_table :ordem_service_table_prices do |t|
       t.references :ordem_service, index: {name: 'os_table_price_os_type_service'}

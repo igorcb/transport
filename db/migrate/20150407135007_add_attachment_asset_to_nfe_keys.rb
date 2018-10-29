@@ -1,4 +1,4 @@
-class AddAttachmentAssetToNfeKeys < ActiveRecord::Migration
+class AddAttachmentAssetToNfeKeys < ActiveRecord::Migration[5.0]
   def self.up
     change_table :nfe_keys do |t|
       t.attachment :asset

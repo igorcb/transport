@@ -1,4 +1,4 @@
-class AddFieldsNfeToProducts < ActiveRecord::Migration
+class AddFieldsNfeToProducts < ActiveRecord::Migration[5.0]
   def change
     add_column :products, :cod_prod, :string
     add_column :products, :ncm, :string

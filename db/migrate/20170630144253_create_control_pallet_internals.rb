@@ -1,4 +1,4 @@
-class CreateControlPalletInternals < ActiveRecord::Migration
+class CreateControlPalletInternals < ActiveRecord::Migration[5.0]
   def change
     create_table :control_pallet_internals do |t|
       t.string :responsable_type

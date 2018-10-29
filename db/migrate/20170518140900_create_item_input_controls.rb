@@ -1,4 +1,4 @@
-class CreateItemInputControls < ActiveRecord::Migration
+class CreateItemInputControls < ActiveRecord::Migration[5.0]
   def change
     create_table :item_input_controls do |t|
       t.references :input_control, index: true

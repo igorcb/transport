@@ -1,4 +1,4 @@
-class AddDefaultStatusToAccountPayables < ActiveRecord::Migration
+class AddDefaultStatusToAccountPayables < ActiveRecord::Migration[5.0]
   def up
   	change_column :account_payables, :status, :integer, null: false, default: 0
   end

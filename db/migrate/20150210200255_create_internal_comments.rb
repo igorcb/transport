@@ -1,4 +1,4 @@
-class CreateInternalComments < ActiveRecord::Migration
+class CreateInternalComments < ActiveRecord::Migration[5.0]
   def change
     create_table :internal_comments do |t|
     	t.string :email

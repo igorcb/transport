@@ -1,4 +1,4 @@
-class CreateSubCostCenterThrees < ActiveRecord::Migration
+class CreateSubCostCenterThrees < ActiveRecord::Migration[5.0]
   def change
     create_table :sub_cost_center_threes do |t|
       t.references :cost_center, index: true

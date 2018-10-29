@@ -1,4 +1,4 @@
-class CreateLowerAccountReceivables < ActiveRecord::Migration
+class CreateLowerAccountReceivables < ActiveRecord::Migration[5.0]
   def change
     create_table :lower_account_receivables do |t|
       t.references :account_receivable, index: true

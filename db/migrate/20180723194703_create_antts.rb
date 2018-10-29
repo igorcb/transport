@@ -1,4 +1,4 @@
-class CreateAntts < ActiveRecord::Migration
+class CreateAntts < ActiveRecord::Migration[5.0]
   def change
     create_table :antts do |t|
       t.string :rntrc

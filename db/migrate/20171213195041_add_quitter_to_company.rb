@@ -1,4 +1,4 @@
-class AddQuitterToCompany < ActiveRecord::Migration
+class AddQuitterToCompany < ActiveRecord::Migration[5.0]
 def up
     add_attachment :companies, :quitter
   end

@@ -1,4 +1,4 @@
-class AddDataBoardingToFileEdis < ActiveRecord::Migration
+class AddDataBoardingToFileEdis < ActiveRecord::Migration[5.0]
   def change
     add_column :file_edis, :date_boarding, :date
     add_reference :file_edis, :shipper, index: true

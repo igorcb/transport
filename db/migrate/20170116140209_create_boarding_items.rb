@@ -1,4 +1,4 @@
-class CreateBoardingItems < ActiveRecord::Migration
+class CreateBoardingItems < ActiveRecord::Migration[5.0]
   def change
     create_table :boarding_items do |t|
       t.references :boarding, index: true

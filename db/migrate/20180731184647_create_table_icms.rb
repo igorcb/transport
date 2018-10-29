@@ -1,4 +1,4 @@
-class CreateTableIcms < ActiveRecord::Migration
+class CreateTableIcms < ActiveRecord::Migration[5.0]
   def change
     create_table :table_icms do |t|
       t.string :state_source

@@ -1,4 +1,4 @@
-class DropAttributesToOccurrences < ActiveRecord::Migration
+class DropAttributesToOccurrences < ActiveRecord::Migration[5.0]
   def up
   	remove_index :occurrences, name: :index_occurrences_on_driver_id
   	remove_column :occurrences, :driver_id

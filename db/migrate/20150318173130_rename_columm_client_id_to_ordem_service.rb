@@ -1,4 +1,4 @@
-class RenameColummClientIdToOrdemService < ActiveRecord::Migration
+class RenameColummClientIdToOrdemService < ActiveRecord::Migration[5.0]
   def self.up
     rename_column :ordem_services, :client_id, :target_client_id
     add_column :ordem_services, :source_client_id, :integer

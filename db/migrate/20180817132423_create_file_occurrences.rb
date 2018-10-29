@@ -1,4 +1,4 @@
-class CreateFileOccurrences < ActiveRecord::Migration
+class CreateFileOccurrences < ActiveRecord::Migration[5.0]
   def change
     create_table :file_occurrences do |t|
       t.references :client, index: true

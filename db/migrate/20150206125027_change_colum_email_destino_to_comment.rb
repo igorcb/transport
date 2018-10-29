@@ -1,4 +1,4 @@
-class ChangeColumEmailDestinoToComment < ActiveRecord::Migration
+class ChangeColumEmailDestinoToComment < ActiveRecord::Migration[5.0]
   def up
     execute "ALTER TABLE comments ALTER COLUMN email_destino TYPE character varying;"
   end

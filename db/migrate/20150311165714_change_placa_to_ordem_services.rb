@@ -1,4 +1,4 @@
-class ChangePlacaToOrdemServices < ActiveRecord::Migration
+class ChangePlacaToOrdemServices < ActiveRecord::Migration[5.0]
   def up
     execute "ALTER TABLE ordem_services ALTER COLUMN placa DROP NOT NULL;"
     execute "ALTER TABLE nfe_keys ALTER COLUMN chave DROP NOT NULL;"

@@ -1,4 +1,4 @@
-class CreateCashAccounts < ActiveRecord::Migration
+class CreateCashAccounts < ActiveRecord::Migration[5.0]
   def change
     create_table :cash_accounts do |t|
       t.string :nome, limit: 100

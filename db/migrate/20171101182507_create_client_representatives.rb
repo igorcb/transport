@@ -1,4 +1,4 @@
-class CreateClientRepresentatives < ActiveRecord::Migration
+class CreateClientRepresentatives < ActiveRecord::Migration[5.0]
   def change
     create_table :client_representatives do |t|
       t.references :client, index: true

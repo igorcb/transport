@@ -1,4 +1,4 @@
-class CreateClientRequirements < ActiveRecord::Migration
+class CreateClientRequirements < ActiveRecord::Migration[5.0]
   def change
     create_table :client_requirements do |t|
       t.references :client, index: true

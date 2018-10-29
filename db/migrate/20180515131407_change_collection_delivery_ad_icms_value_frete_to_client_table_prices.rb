@@ -1,4 +1,4 @@
-class ChangeCollectionDeliveryAdIcmsValueFreteToClientTablePrices < ActiveRecord::Migration
+class ChangeCollectionDeliveryAdIcmsValueFreteToClientTablePrices < ActiveRecord::Migration[5.0]
   def self.up
     change_column :client_table_prices, :collection_delivery_ad_icms_value_frete, 'integer USING CAST(collection_delivery_ad_icms_value_frete AS integer)'  
     change_column :client_table_prices, :collection_delivery_ad_value_minimum, 'integer USING CAST(collection_delivery_ad_value_minimum AS integer)'  

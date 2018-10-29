@@ -1,4 +1,4 @@
-class CreateDrivings < ActiveRecord::Migration
+class CreateDrivings < ActiveRecord::Migration[5.0]
   def self.up
     create_table :drivings do |t|
       t.references :driver, index: true

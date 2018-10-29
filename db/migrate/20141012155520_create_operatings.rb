@@ -1,4 +1,4 @@
-class CreateOperatings < ActiveRecord::Migration
+class CreateOperatings < ActiveRecord::Migration[5.0]
   def change
     create_table :operatings do |t|
       t.references :driver, index: true

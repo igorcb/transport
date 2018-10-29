@@ -1,4 +1,4 @@
-class CreateOrdemServiceAirs < ActiveRecord::Migration
+class CreateOrdemServiceAirs < ActiveRecord::Migration[5.0]
   def change
     create_table :ordem_service_airs do |t|
       t.references :ordem_service, index: true

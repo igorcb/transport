@@ -1,4 +1,4 @@
-class CreateOwners < ActiveRecord::Migration
+class CreateOwners < ActiveRecord::Migration[5.0]
   def change
     create_table :owners do |t|
       t.string :cpf_cnpj, limit: 18, null: false

@@ -1,4 +1,4 @@
-class CreateNfeKeys < ActiveRecord::Migration
+class CreateNfeKeys < ActiveRecord::Migration[5.0]
   def change
     create_table :nfe_keys do |t|
       t.string :nfe, limit: 20, null: false

@@ -1,4 +1,4 @@
-class DataStateOfCeara < ActiveRecord::Migration
+class DataStateOfCeara < ActiveRecord::Migration[5.0]
   def data
     City.create!(code:'2300101', name:'Abaiara', uf: 'CE');
     City.create!(code:'2300150', name:'Acarape', uf: 'CE');

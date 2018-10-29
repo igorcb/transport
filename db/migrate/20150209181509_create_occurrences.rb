@@ -1,4 +1,4 @@
-class CreateOccurrences < ActiveRecord::Migration
+class CreateOccurrences < ActiveRecord::Migration[5.0]
   def change
     create_table :occurrences do |t|
       t.references :driver, index: true

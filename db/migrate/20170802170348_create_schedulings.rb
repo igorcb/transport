@@ -1,4 +1,4 @@
-class CreateSchedulings < ActiveRecord::Migration
+class CreateSchedulings < ActiveRecord::Migration[5.0]
   def change
     create_table :schedulings do |t|
       t.string :client, limit: 50

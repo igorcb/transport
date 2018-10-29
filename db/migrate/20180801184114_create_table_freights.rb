@@ -1,4 +1,4 @@
-class CreateTableFreights < ActiveRecord::Migration
+class CreateTableFreights < ActiveRecord::Migration[5.0]
   def change
     create_table :table_freights do |t|
       t.integer :type_charge

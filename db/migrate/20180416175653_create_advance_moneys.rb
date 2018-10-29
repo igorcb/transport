@@ -1,4 +1,4 @@
-class CreateAdvanceMoneys < ActiveRecord::Migration
+class CreateAdvanceMoneys < ActiveRecord::Migration[5.0]
   def change
     create_table :advance_moneys do |t|
       t.date :date_advance

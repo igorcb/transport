@@ -1,4 +1,4 @@
-class AddCarrierToUsers < ActiveRecord::Migration
+class AddCarrierToUsers < ActiveRecord::Migration[5.0]
   def change
     add_column :users, :carrier_id, :integer
   end
