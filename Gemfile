@@ -32,7 +32,7 @@ gem 'devise'
 gem 'ransack'
 gem "watir-rails"
 #gem 'cancan'
-gem 'cancancan', github: 'piedoom/cancancan', branch: 'rails5.0'
+gem 'cancancan' #, github: 'piedoom/cancancan', branch: 'rails5.0'
 gem 'rolify'
 gem 'cocoon'
 gem 'rmagick'
@@ -69,8 +69,14 @@ gem 'geocoder'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
+group :test do
+  gem "factory_bot_rails"
+  gem "ffaker"
+end
+
 group :development, :test do
   #gem 'thin'
+  gem 'rspec-rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'

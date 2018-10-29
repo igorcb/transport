@@ -15,10 +15,18 @@ services:
     depends_on:
       - 'postgres'
     build: .
+#    command: bash start.sh
+    environment:
+      - RAILS_MAIL_HOST=${RAILS_MAIL_HOST}
+      - RAILS_MAIL_USERNAME=${RAILS_MAIL_USERNAME}
+      - RAILS_MAIL_PASSWORD=${RAILS_MAIL_PASSWORD}
+      - RAILS_MAIL_DOMAIN=${RAILS_MAIL_DOMAIN}
     ports:
       - "3000:3000"
+    stdin_open: true
+    tty: true      
     volumes:
-      - '.:/usr/src/app'
+      - '.:/workspace/rails_app/transport'
 
 volumes:
     postgres:

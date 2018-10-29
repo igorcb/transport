@@ -2,9 +2,9 @@ FROM ruby:2.5.3
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
   build-essential nodejs libpq-dev imagemagick zlib1g-dev apt-utils \
-  libmagickwand-dev libmagickcore-dev 
+  libmagickwand-dev libmagickcore-dev vim
 
-ENV INSTALL_PATH /usr/src/app
+ENV INSTALL_PATH /workspace/rails_app/transport
 
 RUN mkdir -p $INSTALL_PATH
 
