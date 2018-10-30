@@ -13,6 +13,7 @@ end
 gem 'rails', '~> 5.1.6'
 gem 'pg', '~> 0.21.0'
 gem 'puma', '~> 3.7'
+gem 'rails-i18n', '~> 5.1' # For 5.0.x, 5.1.x and 5.2.x
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -56,7 +57,7 @@ gem 'thinreports-rails'
 gem 'barby'
 gem 'chunky_png'
 # #
-gem "cpf_cnpj"
+#gem "cpf_cnpj"
 gem 'migration_data'
 # #
 gem 'apartment'
@@ -69,14 +70,20 @@ gem 'geocoder'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
-group :test do
-  gem "factory_bot_rails"
-  gem "ffaker"
-end
+# group :test do
+#   gem "factory_bot_rails"
+#   gem "ffaker"
+# end
 
 group :development, :test do
   #gem 'thin'
   gem 'rspec-rails'
+  gem "factory_bot_rails"
+  #gem "ffaker"
+  #gem "ffaker-cpfcnpj"
+  gem 'faker'
+  gem 'cpf_faker'
+
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'

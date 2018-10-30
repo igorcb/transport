@@ -24,9 +24,9 @@ services:
     ports:
       - "3000:3000"
     stdin_open: true
-    tty: true      
+    tty: true
     volumes:
-      - '.:/workspace/rails_app/transport'
+      - '/home/igor/workspace/rails_app/transport:/workspace/rails_app/transport'
 
 volumes:
     postgres:
