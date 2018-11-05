@@ -4,7 +4,7 @@ class OrdemServicesController < ApplicationController
   before_action :set_ordem_service, only: [:show, :edit, :update, :destroy, :close_os, :request_payment]
   #before_action :is_not_edit, only: [:edit, :update ]
   load_and_authorize_resource
-  respond_to :html, :js
+  #respond_to :html, :js, :json
 
   def index
     tipo = 1
@@ -26,7 +26,11 @@ class OrdemServicesController < ApplicationController
       @comment = @ordem_service.comments.build
       @internal_comment = @ordem_service.internal_comments.build
       @cancellation = @ordem_service.cancellations.build
-      respond_with(@ordem_service)
+      respond_to do |format|
+        format.html { ordem_service_path(@ordem_service) }
+        #redirect_to show_agent_ordem_service_path(@ordem_service.id)
+      end
+      #respond_with(@ordem_service)
     else
       redirect_to show_agent_ordem_service_path(@ordem_service)
     end
@@ -319,6 +323,7 @@ class OrdemServicesController < ApplicationController
   end
 
   def update_delivery
+    #byebug
     if params[:ordem_service][:data_entrega_servico].blank?
       flash[:danger] = "Data Entrega Servico can't be blank."
       redirect_to ordem_service_path(@ordem_service)
@@ -328,13 +333,22 @@ class OrdemServicesController < ApplicationController
       redirect_to ordem_service_path(@ordem_service)
       return
     end
-    respond_to do |format|
-      if @ordem_service.update(ordem_service_params)
-        OrdemService.information_delivery(current_user, params[:id])
+    if @ordem_service.update(ordem_service_params)
+      OrdemService.information_delivery(current_user, params[:id])
+      respond_to do |format|
         format.html { redirect_to @ordem_service, flash: { success: "Ordem Service delivery was successful." } }
-        format.json { head :no_content }
       end
+    else
+       redirect_to @ordem_service, flash: { danger: "Erro ao entregar a ordem de servico" }
     end
+    # respond_to do |format|
+    #   if @ordem_service.update(ordem_service_params)
+    #     OrdemService.information_delivery(current_user, params[:id])
+    #     format.html { redirect_to @ordem_service, flash: { success: "Ordem Service delivery was successful." } }
+    #     #redirect_to ordem_service_path(@ordem_service)
+    #     #format.json { head :no_content }
+    #   end
+    # end
   end
 
   def close

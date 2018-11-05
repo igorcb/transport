@@ -15,16 +15,15 @@ class OrdemService < ActiveRecord::Base
 
   belongs_to :client, class_name: "Client", foreign_key: 'target_client_id'
   belongs_to :source_client, class_name: "Client", foreign_key: 'source_client_id'
-  belongs_to :billing_client, class_name: "Client", foreign_key: 'billing_client_id'
-  belongs_to :driver
+  belongs_to :billing_client, class_name: "Client", foreign_key: 'billing_client_id', required: false
+  belongs_to :driver, required: false
   belongs_to :carrier
-  belongs_to :pallet
-  belongs_to :billing
-  belongs_to :input_control
-  belongs_to :direct_charge
-  belongs_to :client_table_price
-
-  belongs_to :delivery_user, class_name: "User", foreign_key: "delivery_user_id"
+  belongs_to :pallet, required: false
+  belongs_to :billing, required: false
+  belongs_to :input_control, required: false
+  belongs_to :direct_charge, required: false
+  belongs_to :client_table_price, required: false
+  belongs_to :delivery_user, class_name: "User", foreign_key: "delivery_user_id", required: false
 
   has_one :boarding_item
   has_one :boarding, through: :boarding_item
@@ -92,9 +91,10 @@ class OrdemService < ActiveRecord::Base
                                       .order("drivers.nome, ordem_services.placa")
                       }
 
-  before_save :set_values, :validates_type_service
+  before_save :set_values
+  #, :validates_type_service
 
-  before_save :validates_client_table_price, :validates_client_table_price_and_type_service, if: :table_price_exist?
+  #before_save :validates_client_table_price, :validates_client_table_price_and_type_service, if: :table_price_exist?
 
   after_save :set_peso_and_volume #:generate_billing
 
@@ -141,7 +141,7 @@ class OrdemService < ActiveRecord::Base
     peso = self.nfe_keys.sum(:peso)
     volume = self.nfe_keys.sum(:volume)
     ActiveRecord::Base.transaction do
-      puts "peso: #{peso} and volume: #{volume}"
+      #puts "peso: #{peso} and volume: #{volume}"
       OrdemService.where(id: self.id).update_all(peso: peso, qtde_volume: volume)
       OrdemServiceLogistic.where(ordem_service_id: self.id).update_all(peso: peso, qtde_volume: volume)
     end
@@ -439,7 +439,7 @@ class OrdemService < ActiveRecord::Base
     data = Time.now.strftime('%Y-%m-%d')
     qtde = OrdemServiceTypeService.where(ordem_service_id: ordem_service).sum(:qtde_recebida)
     ActiveRecord::Base.transaction do
-      Pallet.update(ordem_service.pallet, status: Pallet::TipoStatus::CONCLUIDO, qtde: qtde, data_fechamento: data) if ordem_service.pallet.present?
+      #Pallet.update(ordem_service.pallet, status: Pallet::TipoStatus::CONCLUIDO, qtde: qtde, data_fechamento: data) if ordem_service.pallet.present?
       OrdemService.update(ordem_service, data_fechamento: data,  status: TipoStatus::FECHADO)
     end
   end

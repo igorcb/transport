@@ -38,6 +38,7 @@ module Transport
     # I18n.config.enforce_available_locales = false
     #config.i18n.available_locales = ['pt-BR'  , :en]
     config.i18n.default_locale = 'pt-BR'
+    #Faker::Config.locale = 'pt-BR'
     #config.i18n.enforce_available_locales = true
     config.time_zone = 'Brasilia'
     #config.assets.prefix = '/assets'

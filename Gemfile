@@ -70,10 +70,11 @@ gem 'geocoder'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
-# group :test do
-#   gem "factory_bot_rails"
-#   gem "ffaker"
-# end
+group :test do
+  gem 'database_cleaner'
+  # gem "factory_bot_rails"
+  # gem "ffaker"
+end
 
 group :development, :test do
   #gem 'thin'

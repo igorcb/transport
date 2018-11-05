@@ -2,10 +2,10 @@ class Vehicle < ActiveRecord::Base
   validates :tipo, presence: true, :numericality => { :only_integer => true }
   validates :tipo_veiculo, presence: true, :numericality => { :only_integer => true }
   validates :tipo_carroceria, presence: true, :numericality => { :only_integer => true }
-  validates :marca, presence: true, length: { maximum: 20 } 
-  validates :modelo, presence: true, length: { maximum: 20 } 
+  validates :marca, presence: true, length: { maximum: 20 }
+  validates :modelo, presence: true, length: { maximum: 20 }
   validates :ano, presence: true, :numericality => { :only_integer => true }
-  validates :cor, presence: true, length: { maximum: 20 } 
+  validates :cor, presence: true, length: { maximum: 20 }
   validates :municipio_emplacamento, presence: true, length: { maximum: 100 }
   validates :estado, presence: true, length: { maximum: 2 }
   validates :renavan, presence: true, length: { maximum: 20 }, uniqueness: true
@@ -25,10 +25,10 @@ class Vehicle < ActiveRecord::Base
   #validates :lonas, presence: true
   #validates :capacitacao, presence: true
   #validates :kit_quimico, presence: true
-  belongs_to :user
+  belongs_to :user, required: false
 
   belongs_to :user_created, class_name: "User", foreign_key: "user_created_id"
-  belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id"  
+  belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id"
 
   has_many :table_prices, class_name: "TablePrice", foreign_key: "table_price_id", :as => :table_price, dependent: :destroy
   accepts_nested_attributes_for :table_prices, allow_destroy: true
@@ -49,8 +49,8 @@ class Vehicle < ActiveRecord::Base
   has_many :antts_vehicles
 
   scope :driver_all, -> (driver) { joins(:drivings).where("drivings.driver_id = ?", driver.id) }
-  
-  before_save do |v| 
+
+  before_save do |v|
     v.placa = v.placa.upcase
     v.capacidade = "0.00"
   end

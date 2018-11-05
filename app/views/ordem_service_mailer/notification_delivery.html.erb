@@ -14,19 +14,20 @@
 		</tr>
 		<tr>
 			<td align="center" style="width:150px;">Data da Ocorrência</td>
-			<td align="center" style="color:#1f497d"><%= l @ordem_service.data_entrega_servico, format: :long %></td>
+			<td align="center" style="color:#1f497d"><%= @ordem_service.data_entrega_servico.to_s %></td>
+				<%#= l @ordem_service.data_entrega_servico, format: :long %>
 		</tr>
 		<tr>
 			<td align="center" style="width:150px;">Veiculo/Placa</td>
-			<td align="center" style="color:#1f497d"><%= @ordem_service.boarding.boarding_vehicles.first.vehicle.placa %></td>
+			<td align="center" style="color:#1f497d"><%#= @ordem_service.boarding.boarding_vehicles.first.vehicle.placa %></td>
 		</tr>
 		<tr>
 			<td align="center" style="width:150px;">Motorista</td>
-			<td align="center" style="color:#1f497d"><%= @ordem_service.ordem_service_logistic.delivery_driver.nome %></td>
+			<td align="center" style="color:#1f497d"><%#= @ordem_service.ordem_service_logistic.delivery_driver.nome %></td>
 		</tr>
 		<tr>
 			<td align="center" style="width:150px;">NF Origem</td>
-			<td align="center" style="color:#1f497d"><%= @ordem_service.danfes %></td>
+			<td align="center" style="color:#1f497d"><%#= @ordem_service.danfes %></td>
 		</tr>
 		<tr>
 			<td align="center" style="width:150px;">Cliente</td>
@@ -38,7 +39,7 @@
 		</tr>
 		<tr>
 			<td align="center" style="width:150px;">No: Embarque</td>
-			<td align="center" style="color:#1f497d"><%= @ordem_service.boarding_item.boarding_id %></td>
+			<td align="center" style="color:#1f497d"><%#= @ordem_service.boarding_item.boarding_id %></td>
 		</tr>
 </table>
 
