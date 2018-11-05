@@ -21,11 +21,11 @@ describe OrdemServices::UpdateDeliveryService do
 
       context "when all ordem_service"
 
-        it "should false" do
+        it "should check_status_ordem_service? false" do
           expect(@ordem_service.boarding.reload.status).to equal(Boarding::TipoStatus::EMBARCADO)
         end
 
-        it "should true" do
+        it "should check_status_ordem_service? true" do
           expect(@ordem_service.boarding.reload.status).to equal(Boarding::TipoStatus::ENTREGUE)
         end
 
