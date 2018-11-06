@@ -36,6 +36,7 @@ module Transport
     #config.i18n.enforce_available_locales = true
     config.time_zone = 'Brasilia'
     #config.assets.prefix = '/assets'
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.js dashboard_boarding.css)
     #config.assets.precompile << %r(bootstrap-sass/assets/fonts/bootstrap/[\w-]+\.(?:eot|svg|ttf|woff2?)$)
     Paperclip.options[:command_path] = "/usr/bin/"
