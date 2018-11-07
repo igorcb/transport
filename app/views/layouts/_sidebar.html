@@ -23,7 +23,7 @@
         </div>
       </label>
     </div>
-    
+
     <div class="right-side">
         <i class="far fa-bell notification"></i>
         <%= link_to "Sair", destroy_user_session_path(:authenticity_token => form_authenticity_token()), method: "delete" %>
@@ -44,11 +44,11 @@
     </div>
       <div class="sidebar-container">
         <div class="sidebar-menu">
-          <!-- 
+          <!--
             <a href="#">
               <i class="fas fa-home menu-icon"></i>
               <p class="menu-text">Início</p>
-            </a> 
+            </a>
           -->
             <a href="/links">
               <i class="fas fa-clock menu-icon"></i>
@@ -141,7 +141,7 @@
                 <i class="fas fa-sign-in-alt menu-icon"></i>
                 <p class="menu-text">Atividades</p>
               </a>
-              
+
               <a href="#" class="has-level">
                 <i class="fas fa-clock menu-icon"></i>
                 <p class="menu-text">Produtos</p>
@@ -155,7 +155,7 @@
                   <i class="fas fa-sign-in-alt menu-icon"></i>
                   <p class="menu-text">Cadastro Produtos</p>
                 </a>
-              </div>  
+              </div>
               <a href="/segments">
                 <i class="fas fa-sign-in-alt menu-icon"></i>
                 <p class="menu-text">Segmento Mercado</p>
@@ -183,11 +183,11 @@
               <a href="/table_icms">
                 <i class="fas fa-sign-in-alt menu-icon"></i>
                 <p class="menu-text">Tabela ICMS</p>
-              </a>              
+              </a>
               <a href="/table_freights">
                 <i class="fas fa-sign-in-alt menu-icon"></i>
                 <p class="menu-text">Tabela Frete Minimo</p>
-              </a>              
+              </a>
 
               <div class="level">
                 <a href="#">
@@ -231,7 +231,7 @@
                   <i class="fas fa-sign-out-alt menu-icon"></i>
                   <p class="menu-text">Atendimento</p>
                 </a>
-                
+
                 <a href="/action_inspectors">
                   <i class="fas fa-sign-out-alt menu-icon"></i>
                   <p class="menu-text">Ação Fiscal</p>
@@ -249,7 +249,7 @@
                   <i class="fas fa-sign-out-alt menu-icon"></i>
                   <p class="menu-text">Gerar Embarque</p>
                 </a>
-                
+
                 <a href="/billing_group_places_ordem_services">
                   <i class="fas fa-sign-out-alt menu-icon"></i>
                   <p class="menu-text">Faturamento Placa</p>
@@ -259,7 +259,7 @@
                   <i class="fas fa-sign-out-alt menu-icon"></i>
                   <p class="menu-text">Pgto Efetuados OS</p>
                 </a>
-                <a href="/ordem_service_type_services">
+                <a href="/search">
                   <i class="fas fa-sign-out-alt menu-icon"></i>
                   <p class="menu-text">Consulta O.S.</p>
                 </a>
@@ -297,7 +297,7 @@
                     <i class="fas fa-sign-out-alt menu-icon"></i>
                     <p class="menu-text">Embarque Paletes</p>
                   </a>
-                </div>                
+                </div>
 
               </div>
             <!--
@@ -306,7 +306,7 @@
 
             <!--
               Inicio Menu Financeiro
-            -->            
+            -->
 
             <a href="#" class="has-level">
               <i class="fas fa-file-signature menu-icon"></i>
@@ -398,7 +398,7 @@
 
             <!--
               Fim Menu Financeiro
-            -->            
+            -->
 
 
             <a href="#">
@@ -414,12 +414,12 @@
     <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "alert alert-#{key}") %>
     <% end %>
-    
+
     <%= yield %>
     <%= debug(params) if Rails.env.development? %>
   </div>
 
-    
+
 <script type="text/javascript">
 
 const checkToggleSidebar = document.getElementById('check-toggle-sidebar');
@@ -484,7 +484,7 @@ btnCloseSidebar.addEventListener('click', function() {
 });
 
 </script>
-    
+
 
 
 </body>
