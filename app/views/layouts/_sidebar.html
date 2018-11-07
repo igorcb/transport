@@ -25,14 +25,14 @@
     </div>
 
     <div class="right-side">
-        <a href="companies/1">
+        <%= link_to companies_path(Company.first) do %>
           <i class="far fa-building notification"></i>
-        </a>
+        <% end %>
         <i class="far fa-bell notification"></i>
 
         <%= link_to destroy_user_session_path(:authenticity_token => form_authenticity_token()), method: "delete" do %>
           <i class="fas fa-sign-out-alt signout"></i>
-          
+
         <% end %>
     </div>
   </div>
