@@ -141,6 +141,7 @@ a {
     cursor: pointer;
     margin-right: 15px;}
 
+
 #check-toggle-sidebar {
   display: none; }
   #check-toggle-sidebar:checked + label > .btn-toggle-sidebar > span:first-of-type {
