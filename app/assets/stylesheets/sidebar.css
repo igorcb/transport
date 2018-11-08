@@ -219,7 +219,13 @@ a {
     position: relative; }
   .sidebar-logo {
     width: 250px;
-    /* background: url("l7-logo.png") no-repeat, #fff; */
+    /* background: url("l7-logo.png") no-repeat, #fff;*/
+    /* background: url('/home/igor/workspace/rails_app/transport/public/system/companies/images/000/000/001/original/l7-logo.png') no-repeat, #fff; */
+    /* background: url(<%= asset_data_uri '/home/igor/workspace/rails_app/transport/public/system/companies/images/000/000/001/original/l7-logo.png' %>) no-repeat, #fff; */
+    /* background: url(<%= asset_url "l7-logo.png" %>) no-repeat, #fff;*/
+    /* background: url(<%= image_tag(image_path("/system/companies/images/000/000/001/original/l7-logo.png")) %>);*/
+    /* background-image: url(/system/companies/images/000/000/001/original/l7-logo.png);*/
+    /* background: asset-url('l7-logo.png', image);*/
     
     background-size: 150px;
     background-position: 57px center;
