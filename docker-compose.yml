@@ -24,9 +24,15 @@ services:
     ports:
       - "3000:3000"
     stdin_open: true
-    tty: true      
+    tty: true
     volumes:
       - '.:/workspace/rails_app/transport'
+
+  mailcatcher:
+    image: yappabe/mailcatcher
+    ports:
+      - 1025:1025
+      - 1080:1080
 
 volumes:
     postgres:

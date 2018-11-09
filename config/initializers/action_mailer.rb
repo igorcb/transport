@@ -1,6 +1,6 @@
 # config/initializers/action_mailer.rb
 
-if Rails.env.development?
+if Rails.env.development? || Rails.env.test?
   # Define settings for mailcatcher
   Rails.application.config.action_mailer.tap do |action_mailer|
     action_mailer.delivery_method = :smtp
@@ -10,13 +10,13 @@ if Rails.env.development?
     action_mailer.default :charset => "utf-8"
     action_mailer.default_url_options = { host:'localhost', port: '3000' }
     action_mailer.smtp_settings = {
-      port: '587',
-      address: ENV['RAILS_MAIL_HOST'],
-      user_name: ENV['RAILS_MAIL_USERNAME'],
-      password: ENV['RAILS_MAIL_PASSWORD'],
-      domain: ENV['RAILS_MAIL_DOMAIN'],
-      authentication: :plain,
-      enable_starttls_auto: true
+      port: '1025',
+      address: 'mailcatcher',
+      #user_name: ENV['RAILS_MAIL_USERNAME'],
+      #password: ENV['RAILS_MAIL_PASSWORD'],
+      # domain: ENV['RAILS_MAIL_DOMAIN'],
+      # authentication: :plain,
+      # enable_starttls_auto: true
     }
   end
 end
