@@ -29,5 +29,11 @@ services:
     volumes:
       - '/home/igor/workspace/rails_app/transport:/workspace/rails_app/transport'
 
+  mailcatcher:
+    image: yappabe/mailcatcher
+    ports:
+      - 1025:1025
+      - 1080:1080
+
 volumes:
     postgres:
