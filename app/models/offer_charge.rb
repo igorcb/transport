@@ -7,18 +7,18 @@ class OfferCharge < ActiveRecord::Base
 
   belongs_to :user
 	has_one :direct_charge
-	
+
 	has_many :offer_items
-  accepts_nested_attributes_for :offer_items, allow_destroy: true, :reject_if => :all_blank	
+  accepts_nested_attributes_for :offer_items, allow_destroy: true, :reject_if => :all_blank
 
 	has_many :offer_drivers
-  accepts_nested_attributes_for :offer_drivers, allow_destroy: true, :reject_if => :all_blank	
+  accepts_nested_attributes_for :offer_drivers, allow_destroy: true, :reject_if => :all_blank
 
   has_one :cancellation, class_name: "Cancellation", foreign_key: "cancellation_id"
   has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
   accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
 
-	before_save do |offer| 
+	before_save do |offer|
 		offer.shipper = offer.shipper.upcase
 		offer.shipping = offer.shipping.upcase
 		offer.local_loading = offer.local_loading.upcase
@@ -32,7 +32,7 @@ class OfferCharge < ActiveRecord::Base
 	end
 
 	scope :only_open, -> { where(status: TypeStatus::OPEN).order(date_shipment: :desc, id: :desc) }
-	scope :reorder, -> { order(date_shipment: :desc, id: :desc) }
+	#scope :reordered, -> { order(date_shipment: :desc, id: :desc) }
 
 	module TypeStatus
 		OPEN = 0
@@ -67,7 +67,7 @@ class OfferCharge < ActiveRecord::Base
 
   def self.ransackable_attributes(auth_object = nil)
     ['shipper', 'shipping', 'date_shipment', 'vehicle_situation', 'status']
-  end	
+  end
 
 	def qtde_pallets
 		self.offer_items.sum(:qtde_pallets).to_i
