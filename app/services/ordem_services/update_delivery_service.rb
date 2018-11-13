@@ -8,17 +8,17 @@ module OrdemServices
     def call
       # L7 LOGISTICA - Entrada de Mercadoria - Cria OrdemService - CriaEmbarque - Adiciona OrdemService no Embarque
       #               - OrdemService.update_delivery
+      #byebug
       ActiveRecord::Base.transaction do
-        @boarding = @ordem_service.boarding_item.boarding
+
         OrdemService.where(id: @ordem_service.id).update_all(delivery_user_id: @user.id,
                                                            delivery_user_time: Date.current,
                                                                        status: OrdemService::TipoStatus::ENTREGA_EFETUADA)
-        
-        if @boarding.check_status_ordem_service_entregue?
-          Boarding.where(
-            id: @ordem_service.boarding_item.boarding
-          ).update(status: Boarding::TipoStatus::ENTREGUE)
+
+        if @ordem_service.boarding.check_status_ordem_service_entregue?
+          Boarding.where(id: @ordem_service.boarding).update(status: Boarding::TipoStatus::ENTREGUE)
         end
+        OrdemServiceMailer.notification_delivery(@ordem_service).deliver_now #if ordem_service.input_control.present?
         return {success: true}
       end
 

@@ -2,16 +2,16 @@ class Client < ActiveRecord::Base
   validates :tipo_pessoa, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..1 }
   validates :cpf_cnpj, presence: true, uniqueness: true, length: { maximum: 18 }
   validates :group_client_id, presence: true
-  validates :nome, presence: true, length: { maximum: 100 } 
-  validates :fantasia, presence: true, length: { maximum: 100 } 
+  validates :nome, presence: true, length: { maximum: 100 }
+  validates :fantasia, presence: true, length: { maximum: 100 }
   validates :cep, presence: true, length: { maximum: 10 }
   validates :endereco, presence: true, length: { maximum: 100 }
-  validates :numero, presence: true, length: { maximum: 15 } 
+  validates :numero, presence: true, length: { maximum: 15 }
   validates :complemento, length: { maximum: 100 }
   validates :bairro, presence: true, length: { maximum: 100 }
   validates :cidade, presence: true, length: { maximum: 100 }
   validates :estado, presence: true, length: { maximum: 2 }
-  
+
   validates :inscricao_estadual, length: { maximum: 20 }
   validates :inscricao_municipal, length: { maximum: 20 }
 
@@ -22,7 +22,7 @@ class Client < ActiveRecord::Base
   validates :tipo_cliente, presence: true
 
   belongs_to :group_client
-  
+
   belongs_to :user_created, class_name: "User", foreign_key: "user_created_id"
   belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id"
 
@@ -49,7 +49,7 @@ class Client < ActiveRecord::Base
   accepts_nested_attributes_for :client_representatives, allow_destroy: true, reject_if: :all_blank
 
   has_many :representatives, :through => :client_representatives
-  
+
   #has_and_belongs_to_many :representatives
 
   has_one :client_table_price
@@ -71,8 +71,8 @@ class Client < ActiveRecord::Base
   	FISICA = 0
   	JURIDICA = 1
   end
-  
-  module TipoCliente 
+
+  module TipoCliente
     NORMAL = 0
     ESPECIAL = 1
   end
@@ -116,7 +116,7 @@ class Client < ActiveRecord::Base
   end
 
   def fone_all
-    #self.contacts.map {|m| [m.nome, m.fone]}  
+    #self.contacts.map {|m| [m.nome, m.fone]}
     self.contacts.map{|c| [c.nome + ':', c.fone + ', ']}.join()
     #self.contacts.select([:nome, :fone]). map {|c|  "#{c.nome}: #{c.fone}" }
   end
@@ -172,23 +172,23 @@ class Client < ActiveRecord::Base
   end
 
   def self.update_or_create(attributes)
-    assign_or_new(attributes).save! 
+    assign_or_new(attributes).save!
   end
 
   def self.assign_or_new(attributes)
     obj = first || new
     obj.assign_attributes(attributes)
     obj
-  end    
+  end
 
-  private 
+  private
     def can_destroy?
-      if self.ordem_services.present? || 
+      if self.ordem_services.present? ||
          self.account_payables.present? ||
          self.pallets.present?
 
         puts ">>>>>>>>>>>>>>>>>>>>>>>>>. não pode apagar"
-        errors.add(:base, "You can not delete record with relationship") 
+        errors.add(:base, "You can not delete record with relationship")
         #self.errors[:base] << "You can not delete record with relationship"
         #errors.add_to_base "You can not delete record with relationship"
         return false

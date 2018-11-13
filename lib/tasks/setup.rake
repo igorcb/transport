@@ -2,14 +2,19 @@ require 'rake'
 require 'database_cleaner'
 
 namespace :test do
+
 	title = "Development Test Automated."
 	desc title
 	puts "#{title}"
+
 	namespace :db do
 		body = "Populate database, setup initial."
+
 		desc body
 		puts " - #{body}"
 		task :setup => [:environment] do |t, args|
+			puts "Cleaned database, wait..."
+			DatabaseCleaner.clean_with(:truncation)
 
 			puts "  - Create User"
 			FactoryBot.create_list(:employee, 2)
@@ -25,8 +30,26 @@ namespace :test do
 			FactoryBot.create(:driver, user_created: User.first, user_updated: User.first)
 			FactoryBot.create(:vehicle, user_created: User.first, user_updated: User.first)
 
+      sectors = [
+				'ADMINISTRATIVO',
+				'COMERCIAL',
+				'FINANCEIRO',
+				'REPRESENTANTE',
+				'OPERACIONAL',
+				'PALLETS',
+				'LOGISTICA_REVERSA',
+				'REGISTROS_OCORRENCIA',
+				'CONFIRMACAO_ENTREGA',
+				'TAREFAS']
+
+			puts "  - Create Sector"
+			sectors.each { |sector| Sector.create!(name: sector) }
+			puts "   - Count: #{Sector.count}"
+
 			puts "  - Create Client"
 			FactoryBot.create_list(:client, 3, user_created: User.first, user_updated: User.first)
+			# Client.first.emails.create(FactoryBot.create(:email, sector_id: Sector::TypeSector::CONFIRMACAO_ENTREGA))
+			# Client.second.emails.create(FactoryBot.create(:email))
 			puts "   - Count: #{Client.count}"
 
 			puts "  - Create Ordem Service"

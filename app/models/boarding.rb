@@ -167,7 +167,6 @@ class Boarding < ActiveRecord::Base
   def check_status_ordem_service?
     positivo = true
     self.boarding_items.order(:delivery_number).each do |item|
-      #puts "Status: #{item.ordem_service.status} - #{item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO}"
       positivo = item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO
       return false if positivo == false
     end
