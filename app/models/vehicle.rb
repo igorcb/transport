@@ -44,9 +44,12 @@ class Vehicle < ActiveRecord::Base
   has_many :owners, :through => :ownerships
   accepts_nested_attributes_for :ownerships, allow_destroy: true, reject_if: :all_blank
 
-  has_and_belongs_to_many :antts
+  #has_and_belongs_to_many :antts
+  #NameError (uninitialized constant Vehicle::AnttsVehicle
 
-  has_many :antts_vehicles
+  has_many :antts_vehicles, class_name: "AnttsVehicles"
+
+	has_many :antts, through: :antts_vehicles
 
   scope :driver_all, -> (driver) { joins(:drivings).where("drivings.driver_id = ?", driver.id) }
 
@@ -107,7 +110,7 @@ class Vehicle < ActiveRecord::Base
 
   #validations
   def tipo_reboque?
-    puts ">>>>>>>>>>>>>> tipo_reboque: #{self.tipo}"
+    #puts ">>>>>>>>>>>>>> tipo_reboque: #{self.tipo}"
     self.tipo == Tipo::REBOQUE
   end
 

@@ -4,7 +4,9 @@ class Antt < ActiveRecord::Base
   validates :name, presence: true
   validates :date_expiration, presence: true
 
-  has_and_belongs_to_many :vehicles
+  #has_and_belongs_to_many :vehicles
 
-  has_many :antts_vehicles
+  has_many :antts_vehicles, class_name: "AnttsVehicles"
+
+	has_many :vehicles, through: :antts_vehicles
 end
