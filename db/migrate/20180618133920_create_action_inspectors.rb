@@ -1,4 +1,4 @@
-class CreateActionInspectors < ActiveRecord::Migration
+class CreateActionInspectors < ActiveRecord::Migration[5.0]
   def change
     create_table :action_inspectors do |t|
       t.references :input_control, index: true

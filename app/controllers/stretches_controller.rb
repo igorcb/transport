@@ -1,5 +1,5 @@
 class StretchesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_stretch, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 

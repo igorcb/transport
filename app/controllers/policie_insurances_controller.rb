@@ -1,5 +1,5 @@
 class PolicieInsurancesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_policie_insurance, only: [:show, :edit, :update, :destroy]
   before_action :find_insurer, only: [:new, :create, :index]
 

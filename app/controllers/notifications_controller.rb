@@ -1,6 +1,6 @@
 class NotificationsController < ApplicationController
   include ActionView::RecordIdentifier
-	before_filter :authenticate_user!
+	before_action :authenticate_user!
 
 	def index
     @notifications = unreader

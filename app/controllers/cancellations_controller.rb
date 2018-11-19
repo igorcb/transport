@@ -1,5 +1,5 @@
 class CancellationsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_cancel, only: [:show, :confirmation]
   load_and_authorize_resource
   respond_to :html

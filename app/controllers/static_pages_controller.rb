@@ -1,8 +1,8 @@
 class StaticPagesController < ApplicationController
-	before_filter :authenticate_user!	
-	
+	before_action :authenticate_user!	
+
   def home
-  	
+
   end
 
   def dashboard_agent
@@ -14,7 +14,7 @@ class StaticPagesController < ApplicationController
 	end
 
 	def dashboard_client
-		
+
 	end
 
 	def dashboard_oper
@@ -23,7 +23,7 @@ class StaticPagesController < ApplicationController
 
 	def dashboard_port
 		@boardings = Boarding.the_day
-	end	
+	end
 
 	def dashboard_boarding
     @opened = Boarding.where(status: [Boarding::TipoStatus::ABERTO]).count

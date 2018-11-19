@@ -1,4 +1,4 @@
-class CreateTablePrices < ActiveRecord::Migration
+class CreateTablePrices < ActiveRecord::Migration[5.0]
   def change
     create_table :table_prices do |t|
       t.integer :uf_tipo, null: false

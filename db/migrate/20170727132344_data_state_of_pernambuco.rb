@@ -1,4 +1,4 @@
-class DataStateOfPernambuco < ActiveRecord::Migration
+class DataStateOfPernambuco < ActiveRecord::Migration[5.0]
   def data
   	City.create!(code: '2600054', name: 'Abreu e Lima', uf: 'PE');
     City.create!(code: '2600104', name: 'Afogados da Ingazeira', uf: 'PE');

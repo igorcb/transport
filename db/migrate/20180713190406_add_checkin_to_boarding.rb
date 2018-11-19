@@ -1,4 +1,4 @@
-class AddCheckinToBoarding < ActiveRecord::Migration
+class AddCheckinToBoarding < ActiveRecord::Migration[5.0]
   def change
     add_column :boardings, :driver_checkin, :boolean, default: false
     add_column :boardings, :driver_checkin_palce_horse, :string

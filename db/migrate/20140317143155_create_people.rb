@@ -1,4 +1,4 @@
-class CreatePeople < ActiveRecord::Migration
+class CreatePeople < ActiveRecord::Migration[5.0]
   def change
     create_table :people do |t|
       t.string :cpf_cnpj, limit: 18, null: false

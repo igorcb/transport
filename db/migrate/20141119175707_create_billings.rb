@@ -1,4 +1,4 @@
-class CreateBillings < ActiveRecord::Migration
+class CreateBillings < ActiveRecord::Migration[5.0]
   def change
     create_table :billings do |t|
       t.date :data, null: false, index: true

@@ -1,4 +1,4 @@
-class AddAttachmentAssetToCteXmls < ActiveRecord::Migration
+class AddAttachmentAssetToCteXmls < ActiveRecord::Migration[5.0]
   def self.up
     change_table :cte_xmls do |t|
       t.attachment :asset

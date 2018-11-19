@@ -7,11 +7,11 @@ class Boarding < ActiveRecord::Base
   belongs_to :carrier
   belongs_to :driver
 
-  belongs_to :started_user, class_name: "User", foreign_key: "started_user_id"
-  belongs_to :confirmed_user, class_name: "User", foreign_key: "confirmed_user_id"
-  belongs_to :driver_checkin_user, class_name: "User", foreign_key: "driver_checkin_user_id"
-  belongs_to :insurer
-  
+  belongs_to :started_user, class_name: "User", foreign_key: "started_user_id", required: false
+  belongs_to :confirmed_user, class_name: "User", foreign_key: "confirmed_user_id", required: false
+  belongs_to :driver_checkin_user, class_name: "User", foreign_key: "driver_checkin_user_id", required: false
+  belongs_to :insurer, required: false
+
   has_one :account_payable
   has_many :account_payables
 
@@ -23,7 +23,7 @@ class Boarding < ActiveRecord::Base
   has_many :boarding_vehicles
   has_many :vehicles, :through => :boarding_vehicles
   accepts_nested_attributes_for :boarding_vehicles, allow_destroy: true, :reject_if => :all_blank
- 
+
   has_many :cte_keys, class_name: "CteKey", foreign_key: "cte_id", :as => :cte, dependent: :destroy
   accepts_nested_attributes_for :cte_keys, allow_destroy: true, :reject_if => :all_blank
 
@@ -36,7 +36,7 @@ class Boarding < ActiveRecord::Base
   has_many :control_pallet_internals
 
   has_many :breakdowns, as: :breakdown, dependent: :destroy
-  accepts_nested_attributes_for :breakdowns, allow_destroy: true, reject_if: :all_blank  
+  accepts_nested_attributes_for :breakdowns, allow_destroy: true, reject_if: :all_blank
 
   scope :status_open, -> { includes(:driver).where(status: [TipoStatus::ABERTO, TipoStatus::EMBARCADO]).order("id desc") }
   scope :the_day, -> { includes(:driver).where(date_boarding: Date.current).order("id desc") }
@@ -50,15 +50,15 @@ class Boarding < ActiveRecord::Base
   # DRIVER_NOT_INFORMATION = 105
   # CARRIER_NOT_INFORMATION = 3
 
-  before_save do |item| 
+  before_save do |item|
     item.driver_checkin_palce_horse = driver_checkin_palce_horse.upcase if driver_checkin_palce_horse.present?
     item.driver_checkin_palce_cart_1 = driver_checkin_palce_cart_1.upcase if driver_checkin_palce_cart_1.present?
     item.driver_checkin_palce_cart_2 = driver_checkin_palce_cart_2.upcase if driver_checkin_palce_cart_2.present?
-  end  
+  end
 
-  # before_create do |item| 
+  # before_create do |item|
   #   item.driver_checkin = false
-  # end  
+  # end
 
   module TipoStatus
   	ABERTO = 0
@@ -136,7 +136,7 @@ class Boarding < ActiveRecord::Base
     #   rescue Exception => e
     #     puts e.message
     #     self.errors.add(:cancellation, e.message)
-    #     return false        
+    #     return false
     # end
 
   def self.generate_shipping(ids)
@@ -162,17 +162,16 @@ class Boarding < ActiveRecord::Base
         #Por favor verificar se já foi gerado um embarque com a nota fiscal selecionada
         boarding
     end
-  end  
+  end
 
   def check_status_ordem_service?
     positivo = true
     self.boarding_items.order(:delivery_number).each do |item|
-      #puts "Status: #{item.ordem_service.status} - #{item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO}"
-      positivo = item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO 
+      positivo = item.ordem_service.status == OrdemService::TipoStatus::EMBARCADO
       return false if positivo == false
     end
     positivo
-  end  
+  end
 
   def check_status_ordem_service_embarcado?
     positivo = true
@@ -187,7 +186,7 @@ class Boarding < ActiveRecord::Base
       return false if positivo == false
     end
     positivo
-  end  
+  end
 
   def check_status_ordem_service_entregue?
     positivo = true
@@ -196,7 +195,7 @@ class Boarding < ActiveRecord::Base
       return false if positivo == false
     end
     positivo
-  end 
+  end
 
   def date_scheduling_present?
     positivo = false
@@ -205,7 +204,7 @@ class Boarding < ActiveRecord::Base
       return true if positivo == true
     end
     positivo
-  end 
+  end
 
   def billing_client_blank?
     # Deve retornar true se tiver ordem de servico que não tenha tomador de servico
@@ -225,7 +224,7 @@ class Boarding < ActiveRecord::Base
     end
     positivo
   end
-  
+
   def ordem_service_cte_pending?
     positivo = false
     boarding_items.each do |item|
@@ -266,7 +265,7 @@ class Boarding < ActiveRecord::Base
   def value_boarding_greater_than_value_insurance
     if self.insurer.present?
       self.value_boarding.to_f > self.insurer.ordered_expired.first.value.to_f
-    end      
+    end
   end
 
   def sealing_pending?
@@ -274,12 +273,12 @@ class Boarding < ActiveRecord::Base
   end
 
   def pending?
-    self.nfe_dae_pending? || 
-    self.ordem_service_pending? || 
-    self.date_scheduling_present? || 
-    self.date_boarding.blank? || 
-    self.billing_client_blank? || 
-    self.carrier_id == Boarding.carrier_not_information || 
+    self.nfe_dae_pending? ||
+    self.ordem_service_pending? ||
+    self.date_scheduling_present? ||
+    self.date_boarding.blank? ||
+    self.billing_client_blank? ||
+    self.carrier_id == Boarding.carrier_not_information ||
     self.driver_id == Boarding.driver_not_information ||
     check_driver_restriction_with_client? ||
     DriverRestriction.where(driver_id: self.driver_id).present? ||
@@ -396,7 +395,7 @@ class Boarding < ActiveRecord::Base
   end
 
   def self.checkin(boarding_id)
-    ActiveRecord::Base.transaction do   
+    ActiveRecord::Base.transaction do
       Boarding.where(id: boarding_id).update_all(driver_checkin: true, driver_checkin_time: Time.current)
     end
   end
@@ -434,7 +433,7 @@ class Boarding < ActiveRecord::Base
   def valor_total
     #valor_ordem_service
     soma = 0
-    self.boarding_items.each do |item| 
+    self.boarding_items.each do |item|
       soma += item.ordem_service.valor_ordem_service
     end
     soma
@@ -442,7 +441,7 @@ class Boarding < ActiveRecord::Base
 
   def valor_nota_fiscal
     soma = 0
-    self.boarding_items.each do |item| 
+    self.boarding_items.each do |item|
       soma += item.ordem_service.valor_nota_fiscal
     end
     soma
@@ -586,7 +585,7 @@ class Boarding < ActiveRecord::Base
       rescue Exception => e
         puts e.message
         self.errors.add(:boarding, e.message)
-        return false 
+        return false
     end
   end
 
@@ -601,7 +600,7 @@ class Boarding < ActiveRecord::Base
   end
 
   private
-  
+
     def get_ordem_services_ids
       hash_ids = []
       boarding = Boarding.find(self.id)
@@ -612,4 +611,3 @@ class Boarding < ActiveRecord::Base
     end
 
 end
-

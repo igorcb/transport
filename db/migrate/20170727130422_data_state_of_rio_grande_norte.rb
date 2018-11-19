@@ -1,4 +1,4 @@
-class DataStateOfRioGrandeNorte < ActiveRecord::Migration
+class DataStateOfRioGrandeNorte < ActiveRecord::Migration[5.0]
   def data
 		City.create!(code: '2400109', name: 'Acari', uf:'RN');
 		City.create!(code: '2400208', name: 'Açu', uf:'RN');

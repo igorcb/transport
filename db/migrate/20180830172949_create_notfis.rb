@@ -1,4 +1,4 @@
-class CreateNotfis < ActiveRecord::Migration
+class CreateNotfis < ActiveRecord::Migration[5.0]
   def change
     create_table :notfis do |t|
       t.string :place

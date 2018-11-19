@@ -1,5 +1,5 @@
 class TransferEquipamentsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   #before_action :set_equipament, only: [:create]
   #load_and_authorize_resource
 

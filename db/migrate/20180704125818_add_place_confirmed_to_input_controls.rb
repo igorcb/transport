@@ -1,4 +1,4 @@
-class AddPlaceConfirmedToInputControls < ActiveRecord::Migration
+class AddPlaceConfirmedToInputControls < ActiveRecord::Migration[5.0]
   def change
     add_column :input_controls, :place_confirmed, :string
     add_column :input_controls, :start_time_discharge, :datetime

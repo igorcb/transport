@@ -1,4 +1,4 @@
-class CreateStretches < ActiveRecord::Migration
+class CreateStretches < ActiveRecord::Migration[5.0]
   def change
     create_table :stretches do |t|
       t.string :cidade, limit: 20

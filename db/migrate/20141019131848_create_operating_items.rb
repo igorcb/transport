@@ -1,4 +1,4 @@
-class CreateOperatingItems < ActiveRecord::Migration
+class CreateOperatingItems < ActiveRecord::Migration[5.0]
   def change
     create_table :operating_items do |t|
       t.references :operating, index: true

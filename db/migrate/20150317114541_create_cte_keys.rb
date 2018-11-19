@@ -1,4 +1,4 @@
-class CreateCteKeys < ActiveRecord::Migration
+class CreateCteKeys < ActiveRecord::Migration[5.0]
   def change
     create_table :cte_keys do |t|
       t.string :cte, limit: 20, null: false, index: true

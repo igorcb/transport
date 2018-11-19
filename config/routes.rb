@@ -1,4 +1,4 @@
-Transport::Application.routes.draw do
+Rails.application.routes.draw do
 
   resources :notifications do
     post :mark_as_read, on: :collection
@@ -35,11 +35,11 @@ Transport::Application.routes.draw do
 
   resources :clients_pallets
 
-  match "/table_freights/get_calc_freight_minimum", :controller => "table_freights", :action => "get_calc_freight_minimum", via: [:get] 
+  match "/table_freights/get_calc_freight_minimum", :controller => "table_freights", :action => "get_calc_freight_minimum", via: [:get]
   match '/calculate_liquidity', :controller => 'static_pages', :action => 'calculate_liquidity', via: [:get, :post]
-  match "/stretch_routes/get_stretch_route_by_id", :controller => "stretch_routes", :action => "get_stretch_route_by_id", via: [:get] 
-  match "/stretch_routes/get_stretch_route_by_state", :controller => "stretch_routes", :action => "get_stretch_route_by_state", via: [:get] 
-  match "/stretch_routes/get_stretch_route_by_state_source_ant_target", :controller => "stretch_routes", :action => "get_stretch_route_by_state_source_ant_target", via: [:get] 
+  match "/stretch_routes/get_stretch_route_by_id", :controller => "stretch_routes", :action => "get_stretch_route_by_id", via: [:get]
+  match "/stretch_routes/get_stretch_route_by_state", :controller => "stretch_routes", :action => "get_stretch_route_by_state", via: [:get]
+  match "/stretch_routes/get_stretch_route_by_state_source_ant_target", :controller => "stretch_routes", :action => "get_stretch_route_by_state_source_ant_target", via: [:get]
 
   resources :table_freights do
     collection do
@@ -52,7 +52,7 @@ Transport::Application.routes.draw do
       get :search
     end
   end
-  
+
   resources :antts_vehicles
 
   resources :antts do
@@ -73,7 +73,7 @@ Transport::Application.routes.draw do
 
   resources :advance_moneys
 
-  match "/get_stretch_routes_from_client_cnpj", :controller => "stretch_routes", :action => "get_stretch_routes_from_client_cnpj", via: [:get] 
+  match "/get_stretch_routes_from_client_cnpj", :controller => "stretch_routes", :action => "get_stretch_routes_from_client_cnpj", via: [:get]
   match "/get_client_table_price_of_by_client_cnpj_and_stretch_route", :controller => "client_table_prices", :action => "get_client_table_price_of_by_client_cnpj_and_stretch_route", via: [:get]
   match "/get_client_table_price_of_client", :controller => "client_table_prices", :action => "get_client_table_price_of_client", via: [:get]
   match "/get_client_table_price_of_client_service", :controller => "client_table_prices", :action => "get_client_table_price_of_client_service", via: [:get]
@@ -87,7 +87,7 @@ Transport::Application.routes.draw do
   resources :stretch_routes
 
   resources :stretches
-  
+
   resources :tasks do
     collection do
       get :search
@@ -95,7 +95,7 @@ Transport::Application.routes.draw do
     member do
       get :start
       get :finish
-    end    
+    end
   end
 
   match "list_input_scheduling" => "input_controls#list_input_scheduling",  via: [:get]
@@ -117,7 +117,7 @@ Transport::Application.routes.draw do
       get :noshow
       get :nonsuit
       get :reject_observation
-    end    
+    end
   end
 
   resources :offer_charges do
@@ -142,7 +142,7 @@ Transport::Application.routes.draw do
       post :create
     end
   end
-  
+
   resources :control_pallet_internals do
     member do
       get :term_pallet
@@ -161,7 +161,7 @@ Transport::Application.routes.draw do
     resources :breakdowns
     resources :breakdown_input_controls do
       get :product
-      post :update_product, on: :collection    
+      post :update_product, on: :collection
     end
     member do
       get 'select_nfe'
@@ -186,15 +186,15 @@ Transport::Application.routes.draw do
       get :search
       get :oper
     end
-    
-    get :received_weight, on: :collection 
-    get :received_weight_search, on: :collection 
+
+    get :received_weight, on: :collection
+    get :received_weight_search, on: :collection
   end
 
   #match '/select_xml_nfe_new_ordem_services', :controller => 'new_ordem_services', :action => 'select_xml_nfe', via: [:get, :post]
   resources :new_creation_ordem_services do
     get :select_xml_nfe, on: :collection
-    post :process_xml_nfe, on: :collection  
+    post :process_xml_nfe, on: :collection
   end
 
   resources :boardings do
@@ -218,15 +218,15 @@ Transport::Application.routes.draw do
       get :oper
     end
     resources :boarding_items do
-      post :update_row_order, on: :collection    
+      post :update_row_order, on: :collection
     end
-    #match :cancellation, :as => :cancellation, :via => [:get, :put]  
+    #match :cancellation, :as => :cancellation, :via => [:get, :put]
     get :selection_shipment_search, on: :collection
   end
 
   resources :boarding_items do
-    post :update_row_order, on: :collection  
-    match :update_status, :as => :update_status, :via => [:get, :put]  
+    post :update_row_order, on: :collection
+    match :update_status, :as => :update_status, :via => [:get, :put]
   end
 
   resources :lower_payables, only: [:destroy]
@@ -234,11 +234,11 @@ Transport::Application.routes.draw do
     get :quitter, on: :member
   end
 
-  resources :account_receivables do 
+  resources :account_receivables do
     member do
       get 'lower'
       post 'pay'
-    end    
+    end
     get :received_driver, on: :collection
     collection do
       get :search
@@ -246,13 +246,13 @@ Transport::Application.routes.draw do
     end
   end
 
-  resources :account_payables do 
+  resources :account_payables do
     member do
       get 'lower'
       post 'pay'
       get :send_mail
       #delete 'lower_payable/id'
-    end    
+    end
     collection do
       get 'cost_centers'
       get :search
@@ -280,7 +280,7 @@ Transport::Application.routes.draw do
       get :print
     end
   end
-  
+
   resources :inventories
 
   resources :cancellations, only: [:index, :show, :edit, :update, :create]  do
@@ -291,7 +291,7 @@ Transport::Application.routes.draw do
 
   resources :cashes do
   end
-  
+
   resources :nfe_xmls#, only: [:index, :edit, :update]
   resources :cte_xmls, only: [:index, :new, :create]
 
@@ -310,7 +310,7 @@ Transport::Application.routes.draw do
       get :search
     end
   end
-  
+
   get "internal_comments/create"
   resources :occurrences, only: [:index, :show]
 
@@ -330,7 +330,7 @@ Transport::Application.routes.draw do
   resources :cash_accounts
 
   match "/get_city_by_uf", :controller => "address", :action => "get_city_by_uf", via: [:get]
-  
+
   match '/dashboard_boarding', :controller => 'static_pages', :action => 'dashboard_boarding', via: [:get, :post]
   match '/get_address_by_cep', :controller => 'address', :action => 'get_address_by_cep', via: [:get]
   match '/dashboard_visit', :controller => 'static_pages', :action => 'dashboard_visit', via: [:get, :post]
@@ -416,8 +416,8 @@ Transport::Application.routes.draw do
       #get 'delivery'
       get :delivery
       patch :update_delivery
-      get 'close_os'  
-      patch 'close'  
+      get 'close_os'
+      patch 'close'
       get 'edit_agent'
       get 'show_agent'
       get 'pallet'
@@ -432,7 +432,7 @@ Transport::Application.routes.draw do
       #get 'request_cancelation_nfs'
     end
     match 'search' => 'people#search', via: [:get, :post], as: :search
-    
+
     collection do
       get "new_type/:id" => "ordem_services#new_type"
       get 'index_agent'
@@ -469,7 +469,7 @@ Transport::Application.routes.draw do
   resources :specialties
 
   resources :links do
-    post :update_row_order, on: :collection    
+    post :update_row_order, on: :collection
   end
 
   resources :owners
@@ -500,7 +500,7 @@ Transport::Application.routes.draw do
 
   resources :carriers do
     resources :client_table_prices
-    
+
     resources :carrier_credentials
     collection do
       get :search
@@ -518,16 +518,16 @@ Transport::Application.routes.draw do
       get :search
     end
   end
-  
-  devise_for :users  
-  
+
+  devise_for :users
+
   #resource :user, only: [:edit] do
   resource :user do
     collection do
       patch 'update_password'
       get :index
     end
-  end  
+  end
   #root 'links#index'
   root to: 'static_pages#home'
 

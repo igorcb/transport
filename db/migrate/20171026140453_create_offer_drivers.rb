@@ -1,4 +1,4 @@
-class CreateOfferDrivers < ActiveRecord::Migration
+class CreateOfferDrivers < ActiveRecord::Migration[5.0]
   def change
     create_table :offer_drivers do |t|
       t.references :offer_charge, index: true

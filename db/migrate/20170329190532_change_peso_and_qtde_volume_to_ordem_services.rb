@@ -1,4 +1,4 @@
-class ChangePesoAndQtdeVolumeToOrdemServices < ActiveRecord::Migration
+class ChangePesoAndQtdeVolumeToOrdemServices < ActiveRecord::Migration[5.0]
   def self.up
     change_table :ordem_services do |t|
       t.change :peso, :decimal, precision: 10, scale: 3, null: true

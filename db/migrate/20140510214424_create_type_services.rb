@@ -1,4 +1,4 @@
-class CreateTypeServices < ActiveRecord::Migration
+class CreateTypeServices < ActiveRecord::Migration[5.0]
   def change
     create_table :type_services do |t|
       t.string :descricao, limit: 100, null: false

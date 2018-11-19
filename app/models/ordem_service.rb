@@ -6,25 +6,24 @@ class OrdemService < ActiveRecord::Base
   validates :tipo, presence: true
   validates :target_client_id, presence: true
   validates :source_client_id, presence: true
-  validates :estado, presence: true, length: { maximum: 2 } 
+  validates :estado, presence: true, length: { maximum: 2 }
   validates :cidade, presence: true, length: { in: 3..100 }
   validates :carrier_id, presence: true, if: Proc.new { |o| o.tipo == TipoOS::AEREO }
-  
-  validates_associated :ordem_service_type_service  
+
+  validates_associated :ordem_service_type_service
 #  validate :validate_danfe
-  
+
   belongs_to :client, class_name: "Client", foreign_key: 'target_client_id'
   belongs_to :source_client, class_name: "Client", foreign_key: 'source_client_id'
-  belongs_to :billing_client, class_name: "Client", foreign_key: 'billing_client_id'
-  belongs_to :driver
+  belongs_to :billing_client, class_name: "Client", foreign_key: 'billing_client_id', required: false
+  belongs_to :driver, required: false
   belongs_to :carrier
-  belongs_to :pallet
-  belongs_to :billing
-  belongs_to :input_control
-  belongs_to :direct_charge
-  belongs_to :client_table_price
-
-  belongs_to :delivery_user, class_name: "User", foreign_key: "delivery_user_id"
+  belongs_to :pallet, required: false
+  belongs_to :billing, required: false
+  belongs_to :input_control, required: false
+  belongs_to :direct_charge, required: false
+  belongs_to :client_table_price, required: false
+  belongs_to :delivery_user, class_name: "User", foreign_key: "delivery_user_id", required: false
 
   has_one :boarding_item
   has_one :boarding, through: :boarding_item
@@ -58,7 +57,7 @@ class OrdemService < ActiveRecord::Base
 
   has_many :internal_comments, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
   has_many :internal_commentaries, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
-  
+
   has_one :ordem_service_logistic
   has_many :ordem_service_logistics
   accepts_nested_attributes_for :ordem_service_logistics, allow_destroy: true, :reject_if => :all_blank
@@ -66,7 +65,7 @@ class OrdemService < ActiveRecord::Base
   has_one :ordem_service_air
   has_many :ordem_service_airs
   accepts_nested_attributes_for :ordem_service_airs, allow_destroy: true, :reject_if => :all_blank
-  
+
   has_one :ordem_service_change
   has_many :ordem_service_changes
   accepts_nested_attributes_for :ordem_service_changes, allow_destroy: true, :reject_if => :all_blank
@@ -87,16 +86,17 @@ class OrdemService < ActiveRecord::Base
   scope :group_by, -> { is_not_billed.select("ordem_services.placa as placa, drivers.nome as motorista,
                                               type_services.descricao as tipo_servico,
                                               sum(ordem_service_type_services.valor) as valor,
-                                              sum(ordem_service_type_services.valor_pago) as valor_pago") 
+                                              sum(ordem_service_type_services.valor_pago) as valor_pago")
                                       .group("ordem_services.placa, drivers.nome, type_services.descricao")
-                                      .order("drivers.nome, ordem_services.placa")                                       
+                                      .order("drivers.nome, ordem_services.placa")
                       }
-  
-  before_save :set_values, :validates_type_service
-  
-  before_save :validates_client_table_price, :validates_client_table_price_and_type_service, if: :table_price_exist?
 
-  after_save :set_peso_and_volume #:generate_billing 
+  before_save :set_values
+  #, :validates_type_service
+
+  #before_save :validates_client_table_price, :validates_client_table_price_and_type_service, if: :table_price_exist?
+
+  after_save :set_peso_and_volume #:generate_billing
 
   before_destroy :can_destroy?
 
@@ -141,7 +141,7 @@ class OrdemService < ActiveRecord::Base
     peso = self.nfe_keys.sum(:peso)
     volume = self.nfe_keys.sum(:volume)
     ActiveRecord::Base.transaction do
-      puts "peso: #{peso} and volume: #{volume}"
+      #puts "peso: #{peso} and volume: #{volume}"
       OrdemService.where(id: self.id).update_all(peso: peso, qtde_volume: volume)
       OrdemServiceLogistic.where(ordem_service_id: self.id).update_all(peso: peso, qtde_volume: volume)
     end
@@ -167,7 +167,7 @@ class OrdemService < ActiveRecord::Base
       table_price = ClientTablePrice.where(id: client_table_price, client_id: client_id, type_service_id: service.type_service_id)
       puts ">>>>>>>>>>>>>>>>>>>>>>>>>> TablePrice present?: #{table_price.present?}"
       if table_price.present? == false
-        self.errors.add("Type Services", "Does not exist for this client, route and service.") 
+        self.errors.add("Type Services", "Does not exist for this client, route and service.")
         return false
       end
     end
@@ -201,7 +201,7 @@ class OrdemService < ActiveRecord::Base
       when 99 then "Pago***"
     else "Nao Definido"
     end
-  end 
+  end
 
   def alert
     #(self.date_otif - Date.today).round
@@ -239,12 +239,12 @@ class OrdemService < ActiveRecord::Base
       when 4 then "Aereo"
     else "Nao Definido"
     end
-  end 
+  end
 
 
   def self.locate(query)
     where("con_email ilike ?", "%#{query}%" )
-  end  
+  end
 
   def self.ransackable_attributes(auth_object = nil)
     ['data', 'data_entrega_servico', 'estado', 'cidade', 'senha_sefaz', "billing_id", "status", "date_entry", 'date_shipping' ]
@@ -261,17 +261,17 @@ class OrdemService < ActiveRecord::Base
     self.ordem_service_type_service.where(type_service_id: type_service).sum(:valor)
   end
 
-  def valor_volume 
+  def valor_volume
     valor = 0.00
     valor = self.ordem_service_logistic.qtde_volume * self.client.valor_volume if !self.ordem_service_logistic.qtde_volume.nil? && !self.client.valor_volume.nil?
-    return valor  
+    return valor
   end
-  
+
   def valor_peso
     valor = 0.00
     valor = self.ordem_service_logistic.peso * self.client.valor_peso if !self.ordem_service_logistic.peso.nil? && !self.client.valor_peso.nil?
-    return valor  
-  end 
+    return valor
+  end
 
   def valor_1500
     valor = 0.00
@@ -301,7 +301,7 @@ class OrdemService < ActiveRecord::Base
     valor_por_volume = 0.00
     valor_por_volume = client.valor_volume.to_f if client.present?
     valor = valor_por_volume.to_f * os_volume.to_f
-    valor_1500 = valor + ((valor * 30) / 100) #aplicar 30% do valor que foi cobrado a descarga por volume ou por peso 
+    valor_1500 = valor + ((valor * 30) / 100) #aplicar 30% do valor que foi cobrado a descarga por volume ou por peso
     return valor_1500.to_f
   end
 
@@ -396,7 +396,7 @@ class OrdemService < ActiveRecord::Base
     puts ">>>>>>>>>>>>>>>>>>> Check Left Handed NF-e"
     nfes.each do |nfe|
       puts ">>>>>>>>>>>>>>>>>>> NF-e: #{nfe.asset.present?}"
-      positivo = nfe.asset.present? 
+      positivo = nfe.asset.present?
       return false if positivo == false
     end
     positivo
@@ -421,7 +421,7 @@ class OrdemService < ActiveRecord::Base
     input_control = InputControl.find(self.input_control_id)
     input_control.ordem_services.each do |os|
       positivo = ((os.status == OrdemService::TipoStatus::FECHADO) or (os.status == OrdemService::TipoStatus::FATURADO))
-      return false if positivo == false      
+      return false if positivo == false
     end
     positivo
   end
@@ -439,7 +439,7 @@ class OrdemService < ActiveRecord::Base
     data = Time.now.strftime('%Y-%m-%d')
     qtde = OrdemServiceTypeService.where(ordem_service_id: ordem_service).sum(:qtde_recebida)
     ActiveRecord::Base.transaction do
-      Pallet.update(ordem_service.pallet, status: Pallet::TipoStatus::CONCLUIDO, qtde: qtde, data_fechamento: data) if ordem_service.pallet.present?
+      #Pallet.update(ordem_service.pallet, status: Pallet::TipoStatus::CONCLUIDO, qtde: qtde, data_fechamento: data) if ordem_service.pallet.present?
       OrdemService.update(ordem_service, data_fechamento: data,  status: TipoStatus::FECHADO)
     end
   end
@@ -453,7 +453,7 @@ class OrdemService < ActiveRecord::Base
         Boarding.where(id: boarding.id).update_all(status: Boarding::TipoStatus::ENTREGUE) if boarding.check_status_ordem_service_entregue?
       end
       puts ">>>>>>>>>>>>>> information_delivery: pode enviar email?: #{ordem_service.input_control.present?}"
-      OrdemServiceMailer.notification_delivery(ordem_service).deliver! if ordem_service.input_control.present?
+      OrdemServiceMailer.notification_delivery(ordem_service).deliver_now if ordem_service.input_control.present?
     end
   end
 
@@ -488,16 +488,16 @@ class OrdemService < ActiveRecord::Base
         #os.account_receivables.destroy_all #Não precisa mais apagar pois a conta só é criada quando fechar a OS
         # Centro de Custo Galpao = 54 isso é apenas um informativo
         case os.tipo
-          when TipoOS::LOGISTICA then 
+          when TipoOS::LOGISTICA then
             cost_center = OrdemService.receivable_cost_center #CostCenter.find(58)
             valor = os.valor_ordem_service
-          when TipoOS::MUDANCA then 
+          when TipoOS::MUDANCA then
             cost_center = OrdemService.receivable_cost_center #CostCenter.find(56)
             #definir com o Paulo de onde vem o valor da Ordem de Serviço
               #soma dos itens
               #do preenchimento do valor do servico = ordem_service_change.valor_total
             valor = os.valor_ordem_service.to_f
-          when TipoOS::AEREO then 
+          when TipoOS::AEREO then
             cost_center = CostCenter.find(57)
             valor = os.ordem_service_air.valor_total
         end
@@ -535,7 +535,7 @@ class OrdemService < ActiveRecord::Base
     historic = Historic.find(103)
     cost_center = CostCenter.find(49)
     sub_cost_center = SubCostCenter.find_by_type_service_id(item.type_service_id)
-    
+
     # puts ">>>>>>>>>>>>> payment_method: #{payment_method.id}"
     # puts ">>>>>>>>>>>>> historic: #{historic.id}"
     # puts ">>>>>>>>>>>>> cost_center: #{cost_center.id}"
@@ -545,7 +545,7 @@ class OrdemService < ActiveRecord::Base
 
     ActiveRecord::Base.transaction do
       AccountPayable.create!(type_account: 3,
-                            supplier_type: "Client", 
+                            supplier_type: "Client",
                               supplier_id: os.client_id,
                               historic_id: historic.id,
                         payment_method_id: payment_method.id,
@@ -560,7 +560,7 @@ class OrdemService < ActiveRecord::Base
                             )
       item.status = OrdemServiceTypeService::TipoStatus::PENDENTE
       item.save!
-   
+
     end
   end
 
@@ -638,13 +638,13 @@ class OrdemService < ActiveRecord::Base
     conf = ConfigSystem.where(config_key: 'ORDEM_SERVICE_COST_CENTER').first
     conf.config_value.to_i
   end
-  
-  def self.receivable_sub_cost_center 
+
+  def self.receivable_sub_cost_center
     conf = ConfigSystem.where(config_key: 'ORDEM_SERVICE_SUB_COST_CENTER').first
     conf.config_value.to_i
   end
-  
-  def self.receivable_sub_cost_center_three 
+
+  def self.receivable_sub_cost_center_three
     conf = ConfigSystem.where(config_key: 'ORDEM_SERVICE_SUB_COST_CENTER_THREE').first
     conf.config_value.to_i
   end
@@ -655,7 +655,7 @@ class OrdemService < ActiveRecord::Base
   end
 
   def advance_money
-    
+
   end
 
   def total_item_ordem_service_cubing
@@ -673,7 +673,7 @@ class OrdemService < ActiveRecord::Base
   def ordem_service_cte_pending?
     cte_keys.blank?
   end
-  
+
   def ordem_service_nfs_pending?
     nfs_keys.blank?
   end
@@ -681,13 +681,13 @@ class OrdemService < ActiveRecord::Base
   private
     def can_destroy?
       if self.account_payable.present?
-        errors.add(:base, "You can not delete record with relationship") 
+        errors.add(:base, "You can not delete record with relationship")
         return false
       end
     end
 
     def get_due_client(date_os, client)
-      #vencimento ficou pegando da quantidade de dias para faturamento de 
+      #vencimento ficou pegando da quantidade de dias para faturamento de
       #acordo com o que está no cadastro
 
       #calculo par fatuar a cada x dias
@@ -698,12 +698,12 @@ class OrdemService < ActiveRecord::Base
       #   if dia_os <= n
       #     vencimento = n+client.vencimento_para
       #     break
-      #   end        
+      #   end
       #   n += client.faturar_cada
       # end
       # data = Time.now + 15.days
       # data_vencimento = vencimento > 32 ? Date.new(data.year, data.month, client.vencimento_para) : Date.new(data.year, data.month, client.vencimento_para)
-      # data_vencimento      
+      # data_vencimento
       #fim do calculo para faturar a cada x dias
       #client.faturar_cada = vencimento para x dias a partir da criação da os
       data_vencimento = date_os + (client.faturar_cada.nil? ? UNIQ_PARC.days : client.faturar_cada.days)
@@ -724,7 +724,7 @@ class OrdemService < ActiveRecord::Base
     #   rescue Exception => e
     #     puts e.message
     #     self.errors.add(:cancellation, e.message)
-    #     return false        
+    #     return false
     # end
 
     def close_os_logistic
@@ -744,7 +744,7 @@ class OrdemService < ActiveRecord::Base
           rescue Exception => e
             puts e.message
             self.errors.add(:ordem_service, e.message)
-            return false        
+            return false
         end
       end
     end
@@ -763,7 +763,7 @@ class OrdemService < ActiveRecord::Base
         rescue Exception => e
           puts e.message
           self.errors.add(:ordem_service, e.message)
-          return false        
+          return false
       end
     end
 
@@ -780,7 +780,7 @@ class OrdemService < ActiveRecord::Base
         rescue Exception => e
           puts e.message
           self.errors.add(:ordem_service, e.message)
-          return false        
+          return false
       end
     end
 

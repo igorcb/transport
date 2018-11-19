@@ -1,4 +1,4 @@
-class DataStateOfPiaui < ActiveRecord::Migration
+class DataStateOfPiaui < ActiveRecord::Migration[5.0]
   def data
 		City.create!(code: '2200053', name: 'Acauã', uf: 'PI');
 		City.create!(code: '2200103', name: 'Agricolândia', uf: 'PI');

@@ -1,4 +1,4 @@
-class AddAttachmentAvatarToDrivers < ActiveRecord::Migration
+class AddAttachmentAvatarToDrivers < ActiveRecord::Migration[5.0]
   def self.up
     change_table :drivers do |t|
       t.attachment :avatar

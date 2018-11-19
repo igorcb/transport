@@ -14,7 +14,8 @@
 		</tr>
 		<tr>
 			<td align="center" style="width:150px;">Data da Ocorrência</td>
-			<td align="center" style="color:#1f497d"><%= l @ordem_service.data_entrega_servico, format: :long %></td>
+			<td align="center" style="color:#1f497d"><%= @ordem_service.data_entrega_servico.to_s %></td>
+				<%#= l @ordem_service.data_entrega_servico, format: :long %>
 		</tr>
 		<tr>
 			<td align="center" style="width:150px;">Veiculo/Placa</td>

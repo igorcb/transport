@@ -1,5 +1,5 @@
 class PalletsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_pallet, only: [:show, :edit, :update, :destroy, :driver_select]
 
   load_and_authorize_resource

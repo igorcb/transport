@@ -1,4 +1,4 @@
-class AddAereoToCarrier < ActiveRecord::Migration
+class AddAereoToCarrier < ActiveRecord::Migration[5.0]
   def change
     add_column :carriers, :aereo, :boolean
     add_column :carriers, :antt, :string, limit: 20

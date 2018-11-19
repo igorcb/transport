@@ -1,4 +1,4 @@
-class CreateMicroRegions < ActiveRecord::Migration
+class CreateMicroRegions < ActiveRecord::Migration[5.0]
   def change
     create_table :micro_regions do |t|
       t.string :name

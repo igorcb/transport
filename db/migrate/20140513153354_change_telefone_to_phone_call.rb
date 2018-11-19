@@ -1,4 +1,4 @@
-class ChangeTelefoneToPhoneCall < ActiveRecord::Migration
+class ChangeTelefoneToPhoneCall < ActiveRecord::Migration[5.0]
 def self.up
     change_table :phone_calls do |t|
       t.change :telefone, :string, limit: 50, null: false

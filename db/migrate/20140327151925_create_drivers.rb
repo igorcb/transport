@@ -1,4 +1,4 @@
-class CreateDrivers < ActiveRecord::Migration
+class CreateDrivers < ActiveRecord::Migration[5.0]
   def change
     create_table :drivers do |t|
       t.string :cpf, limit: 14, null: false

@@ -1,4 +1,4 @@
-class CreateOfferCharges < ActiveRecord::Migration
+class CreateOfferCharges < ActiveRecord::Migration[5.0]
   def change
     create_table :offer_charges do |t|
       t.string :shipper

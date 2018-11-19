@@ -1,5 +1,5 @@
 class AccountPayablesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_account_payable, only: [:show, :edit, :update, :destroy, :lower, :pay, :send_mail]
   load_and_authorize_resource
   respond_to :html

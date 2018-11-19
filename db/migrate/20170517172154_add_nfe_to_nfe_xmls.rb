@@ -1,4 +1,4 @@
-class AddNfeToNfeXmls < ActiveRecord::Migration
+class AddNfeToNfeXmls < ActiveRecord::Migration[5.0]
   def change
     add_column :nfe_xmls, :nfe_id, :integer
     add_column :nfe_xmls, :nfe_type, :string

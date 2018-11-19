@@ -11,19 +11,19 @@
 # if you're sharing your code publicly.
 #Transport::Application.config.secret_key_base = 'cec97dac6eb103294ce09864c6c9c1291de0c328025c0413b303b13454b579d55b86ba8debc3cb3f752068bb192f6f0c51dfe49825dd9668cb65c42ceb4e59cb'
 
-require 'securerandom'
-
-def secure_token
-  token_file = Rails.root.join('.secret')
-  if File.exist?(token_file)
-    # Use the existing token.
-    File.read(token_file).chomp
-  else
-    # Generate a new token and store it in token_file.
-    token = SecureRandom.hex(64)
-    File.write(token_file, token)
-    token
-  end
-end
-
-Transport::Application.config.secret_key_base = secure_token
+# require 'securerandom'
+#
+# def secure_token
+#   token_file = Rails.root.join('.secret')
+#   if File.exist?(token_file)
+#     # Use the existing token.
+#     File.read(token_file).chomp
+#   else
+#     # Generate a new token and store it in token_file.
+#     token = SecureRandom.hex(64)
+#     File.write(token_file, token)
+#     token
+#   end
+# end
+#
+# Transport::Application.config.secret_key_base = secure_token

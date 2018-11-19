@@ -1,4 +1,4 @@
-class CreateOrdemServices < ActiveRecord::Migration
+class CreateOrdemServices < ActiveRecord::Migration[5.0]
   def change
     create_table :ordem_services do |t|
       t.references :driver, index: true

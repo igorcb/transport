@@ -1,4 +1,4 @@
-class CreateAccountBanks < ActiveRecord::Migration
+class CreateAccountBanks < ActiveRecord::Migration[5.0]
   def change
     create_table :account_banks do |t|
       t.string :banco, limit: 3, null: false 

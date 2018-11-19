@@ -1,4 +1,4 @@
-class AddInputControlToAccountReceivable < ActiveRecord::Migration
+class AddInputControlToAccountReceivable < ActiveRecord::Migration[5.0]
   def change
     add_reference :account_receivables, :input_control, index: true
     add_column :account_receivables, :type_account, :integer, default: 3

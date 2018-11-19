@@ -1,4 +1,4 @@
-class ModifyPriceDecimalToClientTablePrices < ActiveRecord::Migration
+class ModifyPriceDecimalToClientTablePrices < ActiveRecord::Migration[5.0]
 	def self.up
     change_column :client_table_prices, :freight_weight,                    :decimal, precision: 10, scale: 4, default: 0
     change_column :client_table_prices, :freight_value,                     :decimal, precision: 10, scale: 4, default: 0

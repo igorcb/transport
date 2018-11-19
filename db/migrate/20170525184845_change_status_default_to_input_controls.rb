@@ -1,4 +1,4 @@
-class ChangeStatusDefaultToInputControls < ActiveRecord::Migration
+class ChangeStatusDefaultToInputControls < ActiveRecord::Migration[5.0]
   # def change
   # 	change_column :input_controls, :status, :integer, default: 0
   # end

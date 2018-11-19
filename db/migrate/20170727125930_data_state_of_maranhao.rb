@@ -1,4 +1,4 @@
-class DataStateOfMaranhao < ActiveRecord::Migration
+class DataStateOfMaranhao < ActiveRecord::Migration[5.0]
   def data
     City.create!(code: '2100055', name: 'Açailândia', uf: 'MA');
 		City.create!(code: '2100105', name: 'Afonso Cunha', uf: 'MA');

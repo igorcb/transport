@@ -1,4 +1,4 @@
-class AddBoxByPalletToProducts < ActiveRecord::Migration
+class AddBoxByPalletToProducts < ActiveRecord::Migration[5.0]
   def change
     add_column :products, :box_by_pallet, :integer
     add_column :products, :layer_pallet, :integer

@@ -1,6 +1,6 @@
 class ClientTablePricesController < ApplicationController
   include OrdemServiceHelper
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_client_table_price, only: [:show, :edit, :update, :destroy]
   before_action :find_client, only: [:new, :create, :index, :edit]
 

@@ -1,4 +1,4 @@
-class AddTipoToOrdemService < ActiveRecord::Migration
+class AddTipoToOrdemService < ActiveRecord::Migration[5.0]
   def up
     add_column :ordem_services, :tipo, :integer, default: 0
     execute "ALTER TABLE ordem_services ALTER COLUMN cte DROP NOT NULL"

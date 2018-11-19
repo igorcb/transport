@@ -1,4 +1,4 @@
-class CreateMovementActivities < ActiveRecord::Migration
+class CreateMovementActivities < ActiveRecord::Migration[5.0]
   def change
     create_table :movement_activities do |t|
       t.references :supplier, index: true

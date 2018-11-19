@@ -1,6 +1,6 @@
 require 'nokogiri'
 class NewCreationOrdemServicesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_ordem_service, only: [:show, :edit, :update, :destroy, :close_os ]
   load_and_authorize_resource :class => OrdemService
 	

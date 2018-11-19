@@ -1,4 +1,4 @@
-class DataStateOfParaiba < ActiveRecord::Migration
+class DataStateOfParaiba < ActiveRecord::Migration[5.0]
   def data
     City.create!(code: '2500106', name: 'Água Branca', uf: 'PB');
     City.create!(code: '2500205', name: 'Aguiar', uf: 'PB');

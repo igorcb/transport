@@ -1,4 +1,4 @@
-class CreateOperatingEmployees < ActiveRecord::Migration
+class CreateOperatingEmployees < ActiveRecord::Migration[5.0]
   def change
     create_table :operating_employees do |t|
       t.references :operating, index: true

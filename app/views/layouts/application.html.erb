@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= stylesheet_link_tag    "sidebar" %>
-   
+
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -15,10 +15,10 @@
 
 <body>
 
-<!--   
+<!--
   <div class="container">
      <%#= render 'layouts/menu' %>
-  </div> 
+  </div>
 -->
 
   <% if signed_in? %>
@@ -29,7 +29,7 @@
       <% flash.each do |key, value| %>
         <%= content_tag(:div, value, class: "alert alert-#{key}") %>
       <% end %>
-      
+
       <%= yield %>
       <%= debug(params) if Rails.env.development? %>
     </div>
@@ -39,5 +39,3 @@
 
 </body>
 </html>
-
-

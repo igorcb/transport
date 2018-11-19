@@ -1,4 +1,4 @@
-class AddIndexToInternalComment < ActiveRecord::Migration
+class AddIndexToInternalComment < ActiveRecord::Migration[5.0]
   def up
     add_index :internal_comments, [:comment_id, :comment_type], :name => "idx_internal_comments_on_os_id_and_os_type"
   end

@@ -1,4 +1,4 @@
-class CreateClientsPallets < ActiveRecord::Migration
+class CreateClientsPallets < ActiveRecord::Migration[5.0]
   def change
     create_table :clients_pallets do |t|
       t.references :client, index: true

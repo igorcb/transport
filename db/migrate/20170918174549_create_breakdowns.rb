@@ -1,4 +1,4 @@
-class CreateBreakdowns < ActiveRecord::Migration
+class CreateBreakdowns < ActiveRecord::Migration[5.0]
   def change
     create_table :breakdowns do |t|
       t.references :nfe_xml, index: true

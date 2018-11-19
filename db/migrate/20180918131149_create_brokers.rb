@@ -1,4 +1,4 @@
-class CreateBrokers < ActiveRecord::Migration
+class CreateBrokers < ActiveRecord::Migration[5.0]
   def change
     create_table :brokers do |t|
       t.string :cnpj

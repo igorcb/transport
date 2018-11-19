@@ -1,5 +1,5 @@
 #https://github.com/chandez/Estados-Cidades-IBGE/
-class DataStateOfPara < ActiveRecord::Migration
+class DataStateOfPara < ActiveRecord::Migration[5.0]
   def change
 		City.create!(uf: 'PA', code: '1500107',name: 'Abaetetuba')
 		City.create!(uf: 'PA', code: '1500131',name: 'Abel Figueiredo')

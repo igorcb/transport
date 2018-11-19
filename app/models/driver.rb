@@ -1,10 +1,10 @@
 class Driver < ActiveRecord::Base
   validates :cpf, presence: true, uniqueness: true, length: { maximum: 14 }
-  validates :nome, presence: true, length: { maximum: 100 } 
-  validates :fantasia, presence: true, length: { maximum: 100 } 
+  validates :nome, presence: true, length: { maximum: 100 }
+  validates :fantasia, presence: true, length: { maximum: 100 }
   validates :cep, presence: true, length: { maximum: 10 }
   validates :endereco, presence: true, length: { maximum: 100 }
-  validates :numero, presence: true, length: { maximum: 15 } 
+  validates :numero, presence: true, length: { maximum: 15 }
   validates :complemento, length: { maximum: 100 }
   validates :bairro, presence: true, length: { maximum: 100 }
   validates :cidade, presence: true, length: { maximum: 100 }
@@ -17,19 +17,20 @@ class Driver < ActiveRecord::Base
   validates :estado_nascimento, presence: true, length: { maximum: 2 }
   validates :estado_civil, presence: true
   validates :cor_da_pele, presence: true
-  validates :tipo_contrato, presence: true 
+  validates :tipo_contrato, presence: true
   validates :inss, presence: true, length: { maximum: 20 }
   validates :cnh, presence: true, length: { maximum: 20 }
   validates :registro_cnh, presence: true,length: { maximum: 20 }
   validates :validade_cnh, presence: true
+  validates :categoria, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..8 }
   validate  :expiration_validade_cnh
   validates :nome_do_pai, presence: true, length: { maximum: 100 }
   validates :nome_da_mae, presence: true, length: { maximum: 100 }
 
+  belongs_to :owner, required: false
+
   belongs_to :user_created, class_name: "User", foreign_key: "user_created_id"
   belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id"
-
-  validates :categoria, presence: true, :numericality => { :only_integer => true }, inclusion: { in: 0..8 }
 
   has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :contacts, allow_destroy: true
@@ -60,8 +61,6 @@ class Driver < ActiveRecord::Base
   has_many :ordem_services
   has_many :ocurrences
 
-  belongs_to :owner
-
   before_destroy :can_destroy?
 
   STANDARD = 105
@@ -85,7 +84,7 @@ class Driver < ActiveRecord::Base
     CASADO_SEPARACAO_DE_BENS = 4
     VIUVO = 5
     SEPARADO_JUDICIALMENTE = 6
-    DIVORCIADO = 7 
+    DIVORCIADO = 7
     CASADO_REGIME_TOTAL = 8
   end
 
@@ -160,11 +159,11 @@ class Driver < ActiveRecord::Base
 
   def self.ransackable_attributes(auth_object = nil)
     ['nome', 'cpf', 'fantasia', 'estado', 'cidade']
-  end  
-  
+  end
+
   #methods for validations
   def expiration_validade_cnh
-    if cnh_expired? 
+    if cnh_expired?
       errors.add(:validade_cnh, "expiration")
     end
   end
@@ -197,7 +196,7 @@ class Driver < ActiveRecord::Base
   end
 
   def pending?
-    self.cnh_expired? 
+    self.cnh_expired?
   end
 
   def pending
@@ -209,7 +208,7 @@ class Driver < ActiveRecord::Base
   private
     def can_destroy?
       if self.ordem_services.present? || self.account_payables.present?
-        errors.add(:base, "You can not delete record with relationship") 
+        errors.add(:base, "You can not delete record with relationship")
         return false
       end
     end

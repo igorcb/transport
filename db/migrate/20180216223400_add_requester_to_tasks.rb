@@ -1,4 +1,4 @@
-class AddRequesterToTasks < ActiveRecord::Migration
+class AddRequesterToTasks < ActiveRecord::Migration[5.0]
   def change
     add_column :tasks, :requester_id, :integer
   end

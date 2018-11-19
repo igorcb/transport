@@ -1,4 +1,4 @@
-class CreateClientTablePrices < ActiveRecord::Migration
+class CreateClientTablePrices < ActiveRecord::Migration[5.0]
   def change
     create_table :client_table_prices do |t|
       t.references :client, index: true

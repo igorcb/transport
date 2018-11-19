@@ -1,4 +1,4 @@
-class CreateNfsKeys < ActiveRecord::Migration
+class CreateNfsKeys < ActiveRecord::Migration[5.0]
   def change
     create_table :nfs_keys do |t|
       t.string :nfs, limit: 20, null: false, index: true

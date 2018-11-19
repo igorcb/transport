@@ -1,5 +1,5 @@
 class BoardingsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_boarding, only: [:show, :edit, :update, :destroy, :lower, :print, :letter_freight]
   load_and_authorize_resource
   respond_to :js, :html

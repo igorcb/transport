@@ -1,4 +1,4 @@
-class CreateClientDischarges < ActiveRecord::Migration
+class CreateClientDischarges < ActiveRecord::Migration[5.0]
   def change
     create_table :client_discharges do |t|
       t.references :client

@@ -1,4 +1,4 @@
-class CreateConfigSystems < ActiveRecord::Migration
+class CreateConfigSystems < ActiveRecord::Migration[5.0]
   def change
     create_table :config_systems do |t|
       t.string :config_key

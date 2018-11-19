@@ -1,6 +1,6 @@
 class BreakdownsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :load_all, except: [:destroy]
+  before_action :authenticate_user!
+  before_action :load_all, except: [:destroy]
   load_and_authorize_resource
 	respond_to :html, :js, :json
 
