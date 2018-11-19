@@ -34,6 +34,10 @@ class Carrier < ActiveRecord::Base
 
   before_destroy :can_destroy?
 
+  def self.ransackable_attributes(auth_object = nil)
+    ['nome', 'cnpj', 'fantasia', 'estado', 'cidade']
+  end 
+
   def name_state
     "#{nome} - #{estado}"
   end

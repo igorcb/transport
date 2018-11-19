@@ -3,10 +3,13 @@ class CarriersController < ApplicationController
   before_action :set_carrier, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
+  respond_to :html, :js
+
   # GET /carriers
   # GET /carriers.json
   def index
-    @carriers = Carrier.all
+    @carriers = Carrier.limit(50)
+    @q = Carrier.where(id: -1).search(params[:query])    
   end
 
   # GET /carriers/1
@@ -77,6 +80,14 @@ class CarriersController < ApplicationController
       format.js
     end
   end
+
+  def search
+    @q = Carrier.search(params[:query])
+    @carriers = @q.result
+    respond_with(@carriers) do |format|
+     format.js
+    end  
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.

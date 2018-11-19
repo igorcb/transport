@@ -1,0 +1,10 @@
+<tr>
+  <td><%= link_to carrier.cnpj, carrier %></td>
+  <td><%= link_to truncate(carrier.nome, length: 25), carrier, title: carrier.nome %></td>
+  <td><%= link_to truncate(carrier.fantasia, length: 25), carrier, title: carrier.fantasia %></td>
+  <td><%= carrier.estado %></td>
+  <td><%= carrier.cidade %></td>
+  <td><%= link_to 'Show', carrier, class: "btn btn-info btn-sm" %></td>
+  <td><%= link_to 'Edit', edit_carrier_path(carrier), class: "btn btn-blue btn-sm" %></td>
+  <td><%= link_to 'Destroy', carrier, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+</tr>
