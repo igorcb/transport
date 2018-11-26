@@ -1,57 +1,37 @@
-	<%= hidden_field_tag "account_payable[ordem_service_id]", @ordem_service.id if !@ordem_service.nil? %>  
-  <%= hidden_field_tag "account_payable[boarding_id]", @boarding.id if !@boarding.nil? %>  
-  /* hidden_field_account_payable  */
+	<%= hidden_field_tag "account_payable[ordem_service_id]", @ordem_service.id if !@ordem_service.nil? %>
+  <%= hidden_field_tag "account_payable[boarding_id]", @boarding.id if !@boarding.nil? %>
+  <! /* hidden_field_account_payable  */ ->
 
   <div class="">
     <%= f.label :type_account, "Tipo de Conta" %>
   </div>
-
-  <div class="radio">
-    <label class="radio-inline"> 
-      <%= f.radio_button :type_account, "1" %> Fornecedor 
-    </label>
-
-    <label class="radio-inline"> 
-      <%= f.radio_button :type_account, "2" %> Motorista
-    </label>
-
-    <label class="radio-inline"> 
-      <%= f.radio_button :type_account, "3" %> Cliente
-    </label>
-
-    <label class="radio-inline"> 
-      <%= f.radio_button :type_account, "4" %> Funcionario
-    </label>
-
-    <label class="radio-inline"> 
-      <%= f.radio_button :type_account, "5" %> Transportadora
-    </label>
-  </div>
-
+	<div class="form-group">
+	  <%= f.select :type_account, type_account_supplier, {prompt: 'SELECIONE UM TIPO DE FORNECEDOR'}, {class: "form-control", id: "accountPayableTypeSelect"} %>
+	</div>
   <div class="form-group">
     <%= f.label :supplier_id, "Fornecedor" %>
     <% if @account_payable.type_account.present? %>
       <%= f.collection_select :supplier_id, type_account_select(@account_payable.type_account), :id, :nome, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control"} %>
     <% else %>
       <%= f.collection_select :supplier_id, [], :id, :nome,  {prompt: "SELECT O TIPO DE CONTA"}, {class: "form-control"}  %>
-    <% end %>  
+    <% end %>
   </div>
 
   <div id="div_result_person">
-    
+
   </div>
 
   <div class="form-group">
     <%= f.label :cost_center_id, "Centro de Custo" %>
-    <%= f.select(:cost_center_id, CostCenter.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%= f.select(:cost_center_id, CostCenter.order(:descricao).collect {|c| [c.descricao, c.id]}, {include_blank: true}, {class: "form-control", id: "accountPayableCostCenter"} ) %>
   </div>
 
   <div class="form-group">
     <%= f.label :sub_cost_center_id, "Sub Centro de Custo" %>
     <% if @account_payable.cost_center_id.present? %>
-      <%= f.collection_select :sub_cost_center_id, sub_center(@account_payable.cost_center_id), :id, :descricao, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control"} %>
+      <%= f.collection_select :sub_cost_center_id, sub_center(@account_payable.cost_center_id), :id, :descricao, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control", id: "accountPayableSubCostCenter"} %>
     <% else %>
-      <%= f.collection_select :sub_cost_center_id, [], :id, :descricao,  {prompt: "SELECT PRIMEIRO CENTRO DE CUSTO"}, {class: "form-control"}  %>
+      <%= f.collection_select :sub_cost_center_id, [], :id, :descricao,  {prompt: "SELECT PRIMEIRO CENTRO DE CUSTO"}, {class: "form-control", id: "accountPayableSubCostCenter"}  %>
     <% end %>
   </div>
 
@@ -76,7 +56,7 @@
     <% else %>
       <%= f.text_field :data_vencimento, class: "form-control data", value: date_br(@account_payable.data_vencimento) %>
     <% end %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :payment_method_id, "Forma de Pgto" %>
@@ -98,10 +78,10 @@
     <%= f.text_area :observacao, class: "form-control" %>
   </div>
 
-  <h2>Documentos</h2> 
+  <h2>Documentos</h2>
   <div id="documents">
     <div class="items">
-      <%= f.nested_fields_for :assets do |f| 
+      <%= f.nested_fields_for :assets do |f|
         render 'shared/asset', f: f
       end  -%>
     </div> <br />
@@ -112,95 +92,17 @@
 
 
 <script type="text/javascript">
-  $(function(){
-    $("#account_payable_cost_center_id").change(function(){
-      var cost_center = "cost_center_id="+$(this).val();
-      console.log(cost_center);
-      $.getJSON('/sub_centro_custo_by_custo', cost_center, function(data){
-        var options = '<option value="">SELECIONE SUB CENTRO CUSTO</option>'; 
-        $.each(data, function(i, item) {
-          options += '<option value="' + item.id + '">' + item.n + '</option>';
-        });
-        $("#account_payable_sub_cost_center_id").html(options);
-      });
-    });
-  });
-</script>
-
-<script type="text/javascript">
-  $(function(){
-    $("#account_payable_sub_cost_center_id").change(function(){
-      var cost_center = $("#account_payable_cost_center_id").val();
-      var sub_cost_center = $(this).val();
-      var cost_and_sub_cost = {'cost_center_id': cost_center, 'sub_cost_center_id': sub_cost_center}
-      //var myLoc = { 'lat': 35, 'lon': -110 };
-      console.log(cost_and_sub_cost);
-      $.getJSON('/sub_centro_custo_three_by_custo', cost_and_sub_cost, function(data){
-        var options = '<option value="">SELECIONE SUB CENTRO CUSTO NIVEL 3</option>'; 
-        $.each(data, function(i, item) {
-          options += '<option value="' + item.id + '">' + item.n + '</option>';
-        });
-        $("#account_payable_sub_cost_center_three_id").html(options);
-      });
-    });
-  });
-</script>
-
-<script type="text/javascript">
-  $(function(){
-    $('input[name="account_payable[type_account]"]').change(function(){
-      var type_id = "type_id="+$(this).val();
-      console.log(type_id);
-      $.getJSON('/type_account_select', type_id, function(data){
-        var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
-        $.each(data, function(i, item) {
-          options += '<option value="' + item.id + '">' + item.n + '</option>';
-        });
-        $("#account_payable_supplier_id").html(options);
-      });
-    });     
-  });
 
 </script>
 
 <script type="text/javascript">
-jQuery(function($) {
-  // when the #country field changes
-  var type = -1;
 
-  $(function() {
-    $('input[name="account_payable[type_account]"]').change(function() {
-      type = ($(this).val());
-    });
-  });
-  
-  $("#account_payable_supplier_id").change(function() {
-    // make a POST call and replace the content
-    var url_name = "";
-    var id = $('select#account_payable_supplier_id :selected').val();
-    if(id == "") 
-      id="0";
-    //console.log("url:" + url_name + ' - type: ' + type)  ;
-    console.log("type:" + type);
-    if (type == 1)
-      url_name = "/suppliers/get_supplier_by_id";
-    else if (type == 2)
-      url_name = "/drivers/get_driver_by_id";
-    else if (type == 3)
-      url_name = "/clients/get_client_by_id";
-    else if (type == 4)
-      url_name = "/employees/get_employee_by_id";
-    else if (type == 5)
-      url_name = "/carriers/get_carrier_by_id";
-    else url_name = '/';
-     //"\""+url_name+"\""
-    console.log("url: " + url_name);
-    $.ajax({
-      type: "GET",
-      data: {id: id},
-      url: url_name
-    });
-    return false;
-  });
-})
+</script>
+
+<script type="text/javascript">
+
+
+</script>
+
+<script type="text/javascript">
 </script>

@@ -1,5 +1,5 @@
 class AccountPayable < ActiveRecord::Base
-  
+
   validates :type_account, presence: true
   validates :supplier_id, presence: true
   validates :cost_center_id, presence: true
@@ -12,17 +12,17 @@ class AccountPayable < ActiveRecord::Base
   validates :valor, presence: true, numericality: { greater_than: 0 }
   validates :observacao, presence: true
 
-  belongs_to :supplier, class_name: "Supplier", foreign_key: "supplier_id", polymorphic: true
-  belongs_to :cost_center
-  belongs_to :sub_cost_center
-  belongs_to :sub_cost_center_three
-  belongs_to :historic
-  belongs_to :payment_method
-  belongs_to :cash_account
-  belongs_to :current_account
-  belongs_to :ordem_service
-  belongs_to :boarding
-  belongs_to :ordem_service_type_service
+  belongs_to :supplier, class_name: "Supplier", foreign_key: "supplier_id", polymorphic: true, required: false
+  belongs_to :cost_center, required: false
+  belongs_to :sub_cost_center, required: false
+  belongs_to :sub_cost_center_three, required: false
+  belongs_to :historic, required: false
+  belongs_to :payment_method, required: false
+  belongs_to :cash_account, required: false
+  belongs_to :current_account, required: false
+  belongs_to :ordem_service, required: false
+  belongs_to :boarding, required: false
+  belongs_to :ordem_service_type_service, required: false
   has_many :lower_account_payables
 
   has_many :assets, as: :asset, dependent: :destroy
@@ -53,7 +53,7 @@ class AccountPayable < ActiveRecord::Base
 
   def self.ransackable_attributes(auth_object = nil)
     ['data_vencimento', 'documento', 'supplier_id', 'supplier_type', 'type_account', 'status' ]
-  end  
+  end
 
   def status_name
     case self.status
@@ -64,7 +64,7 @@ class AccountPayable < ActiveRecord::Base
       when 4  then "Cancelado"
     else "Nao Definido"
     end
-  end 
+  end
 
   def type_account_name
     case self.type_account
@@ -105,7 +105,7 @@ class AccountPayable < ActiveRecord::Base
       if vr_total_pago >= self.valor
         self.status = TipoStatus::PAGO
         if self.ordem_service_type_service.present?
-          OrdemServiceTypeService.update(self.ordem_service_type_service, status: OrdemServiceTypeService::TipoStatus::PAGO) 
+          OrdemServiceTypeService.update(self.ordem_service_type_service, status: OrdemServiceTypeService::TipoStatus::PAGO)
         end
       elsif vr_total_pago < self.valor
         self.status = TipoStatus::PAGOPARCIAL
@@ -120,8 +120,8 @@ class AccountPayable < ActiveRecord::Base
                                           )
       self.save
 
-      Cash.create!(cash_account_id: options[:cash_account_id], 
-                            data: options[:data_pagamento],  
+      Cash.create!(cash_account_id: options[:cash_account_id],
+                            data: options[:data_pagamento],
                             valor: vr_pago,
                             tipo: Cash::TipoLancamento::DEBITO,
                             historico: "BAIXA CONTA A PAGAR: " + self.documento,
@@ -157,21 +157,21 @@ class AccountPayable < ActiveRecord::Base
   end
 
   def check_balance
-    self.status = self.lower_account_payables.sum(:valor_pago).to_f > 0.0 ? 
+    self.status = self.lower_account_payables.sum(:valor_pago).to_f > 0.0 ?
                   TipoStatus::PAGOPARCIAL : self.status = TipoStatus::ABERTO
     self.save!
   end
 
-  private 
+  private
     def can_destroy?
       if self.account_payables.present? ||
-        errors.add(:base, "You can not delete record with relationship") 
+        errors.add(:base, "You can not delete record with relationship")
         return false
       end
     end
 
   protected
-  
+
   def set_supplier_type
     case self.type_account
       when 1 then self.supplier_type = "Supplier"
