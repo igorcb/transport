@@ -2,10 +2,10 @@ class NfeKey < ActiveRecord::Base
   validates :nfe, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }
   validates :chave, length: { is: 44 }, numericality: { only_integer: true }, allow_blank: true
 	
-	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "nfe_id", dependent: :destroy#, polymorphic: true
-  belongs_to :pallet, class_name: "Pallet", foreign_key: "nfe_id", dependent: :destroy #, polymorphic: true
+	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "nfe_id", dependent: :destroy, required: false #, polymorphic: true
+  belongs_to :pallet, class_name: "Pallet", foreign_key: "nfe_id", dependent: :destroy, required: false  #, polymorphic: true
   
-  belongs_to :user_action_inspector_confirmed, class_name: "User", foreign_key: "action_inspector_user_confirmed_id"
+  belongs_to :user_action_inspector_confirmed, class_name: "User", foreign_key: "action_inspector_user_confirmed_id", required: false
 
   has_one :occurrence
 
