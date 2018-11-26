@@ -38,12 +38,8 @@ class StretchRoutesController < ApplicationController
 
   def get_stretch_routes_from_client_cnpj
     client = Client.where(cpf_cnpj: params[:cpf_cnpj]).first
-    stretch_routes = StretchRoute.includes(:stretch_source, :stretch_target).where(id: client.client_table_prices.select(:stretch_route_id).uniq.pluck(:stretch_route_id))
-    array = []
-    stretch_routes.each do |c|
-      array << {:id => c.id, :n => c.stretch_source_and_target_long}
-    end
-    render :text => array.to_json
+    stretchs = StretchRoute.includes(:stretch_source, :stretch_target).where(id: client.client_table_prices.select(:stretch_route_id).uniq.pluck(:stretch_route_id))
+    @stretch_routes = stretchs.map {|c| [c.stretch_source_and_target_long, c.id] }.insert(0, 'SELECIONE O TRECHO')
   end
 
   def get_stretch_route_by_id

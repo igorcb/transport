@@ -1,6 +1,6 @@
 #encoding: utf-8
 class AddressController < ApplicationController
-	require 'json/objects'
+	#require 'json/objects'
 	
   def get_address_by_cep
     puts ">>>>>>>>>>>>> localizando cep: #{params[:cep]}"
