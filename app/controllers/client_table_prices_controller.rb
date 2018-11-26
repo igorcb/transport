@@ -76,15 +76,15 @@ class ClientTablePricesController < ApplicationController
   end    
 
   def get_client_table_price_of_by_client_cnpj_and_stretch_route
+    # array = []
+    # client_table_prices.each do |c|
+    #   array << {:id => c.type_service.id, :n => c.type_service.descricao}
+    # end
+    # render :text => array.to_json
+
     client = Client.where(cpf_cnpj: params[:cpf_cnpj]).first
-    #client_table_prices = ClientTablePrice.where(client_id: client.id, stretch_route_id: params[:stretch_route_id])
-    #client_table_prices = client.client_table_prices.where(stretch_route_id: params[:stretch_route_id])
     client_table_prices = ClientTablePrice.includes(:stretch_route).where(client_table_price_id: client.id, stretch_route_id: params[:stretch_route_id])
-    array = []
-    client_table_prices.each do |c|
-      array << {:id => c.type_service.id, :n => c.type_service.descricao}
-    end
-    render :text => array.to_json
+    @client_table_prices = client_table_prices.map {|c| [c.type_service.descricao, c.type_service.id] }.insert(0, 'SELECIONE O SERVICO')
   end
 
   private
