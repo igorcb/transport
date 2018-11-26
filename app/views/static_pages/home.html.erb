@@ -1,16 +1,16 @@
 <div class="jumbotron">
   <h1 style="text-shadow: 3px 3px 2px #FFC700, 3px 3px 2px #EEEEEE;">
-  	<%= full_title(yield(:title)) if signed_in? %> 
+  	<%= full_title(yield(:title)) if signed_in? %>
   </h1>
   <p class="lead">
-		Logística de Transportes é um ramo da logística que envolve a escolha do melhor modal de transporte, 
-		para transportar o maior número de mercadorias, com o mínimo custo e menor tempo possível. Portanto, 
-		Transportar mercadorias garantindo a integridade da carga, no prazo combinado e a baixo custo exige o que se chama 
-		"logística de transporte".  	
+		Logística de Transportes é um ramo da logística que envolve a escolha do melhor modal de transporte,
+		para transportar o maior número de mercadorias, com o mínimo custo e menor tempo possível. Portanto,
+		Transportar mercadorias garantindo a integridade da carga, no prazo combinado e a baixo custo exige o que se chama
+		"logística de transporte".
   </p>
   <%= link_to "Sign up now!", new_user_session_path, class: "btn btn-large btn-blue" %>
 </div>
 
 <div align="center">
-  <%= link_to image_tag("logo_64.jpeg", size: "60%", alt: "image"), '#' %>
+  <%#= link_to image_tag("logo_64.jpeg", size: "60%", alt: "image"), '#' %>
 </div>
