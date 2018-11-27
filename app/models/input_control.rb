@@ -2,15 +2,15 @@ class InputControl < ActiveRecord::Base
   validates :carrier_id, :driver_id, presence: true
 	validates :place, :place_horse, :place_cart, :date_entry, :time_entry, presence: true
 
-  belongs_to :carrier
-  belongs_to :driver
-  belongs_to :user_received, class_name: "User", foreign_key: "received_user_id"
-  belongs_to :started_user, class_name: "User", foreign_key: "started_user_id"
-  belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id"
-  belongs_to :scheduling, class_name: "Scheduling", foreign_key: "conteiner_id"
-  belongs_to :client_table_price
-  belongs_to :strecht_route
-  belongs_to :type_service
+  belongs_to :carrier, required: false
+  belongs_to :driver, required: false
+  belongs_to :user_received, class_name: "User", foreign_key: "received_user_id", required: false
+  belongs_to :started_user, class_name: "User", foreign_key: "started_user_id", required: false
+  belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id", required: false
+  belongs_to :scheduling, class_name: "Scheduling", foreign_key: "conteiner_id", required: false
+  belongs_to :client_table_price, required: false
+  belongs_to :strecht_route, required: false
+  belongs_to :type_service, required: false
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
@@ -31,11 +31,11 @@ class InputControl < ActiveRecord::Base
 
   has_many :breakdowns, as: :breakdown, dependent: :destroy
   #has_many :breakdowns, -> { order(:lastname => :asc) }, as: :breakdown, dependent: :destroy
-  accepts_nested_attributes_for :breakdowns, allow_destroy: true, reject_if: :all_blank  
+  accepts_nested_attributes_for :breakdowns, allow_destroy: true, reject_if: :all_blank
 
   has_one :action_inspector
   has_many :action_inspectors
-  accepts_nested_attributes_for :action_inspectors, allow_destroy: true, :reject_if => :all_blank  
+  accepts_nested_attributes_for :action_inspectors, allow_destroy: true, :reject_if => :all_blank
 
   scope :the_day, -> { includes(:driver).where(date_entry: Date.current).order("id desc") }
   scope :the_day_scheduled, -> { includes(:driver).where(date_scheduled: Date.current).order(date_scheduled: :desc, time_scheduled: :asc) }
@@ -53,18 +53,18 @@ class InputControl < ActiveRecord::Base
 
   VALUE_DISCHARGE = 0.88 #POR TONELADA
 
-  before_save do |item| 
-    item.place = place.upcase 
-    item.place_horse = place_horse.upcase 
-    item.place_cart = place_cart.upcase 
-    item.place_cart_2 = place_cart_2.upcase 
+  before_save do |item|
+    item.place = place.upcase
+    item.place_horse = place_horse.upcase
+    item.place_cart = place_cart.upcase
+    item.place_cart_2 = place_cart_2.upcase
   end
-  
+
   before_create do |item|
     set_values
     item.date_scheduled = date_entry
     item.time_scheduled = time_entry
-  end 
+  end
 
   after_save :processa_nfe_xmls
 
@@ -214,7 +214,7 @@ class InputControl < ActiveRecord::Base
     end
     positivo
   end
-  
+
   def self.check_client?(ids)
     # verifica se o cliente da fatura é o mesmo para todas as nfe_xmls
     positivo = true
@@ -229,13 +229,13 @@ class InputControl < ActiveRecord::Base
 
   def self.client_not_credentials_sefaz?(client_ids)
     result = Client.where(id: [client_ids], client_credential_sefaz: false).present?
-  end  
+  end
 
   def self.start(input_control_id)
     ActiveRecord::Base.transaction do
       InputControl.where(id: input_control_id).update_all(start_time_discharge: Time.current, status: InputControl::TypeStatus::DISCHARGE)
     end
-  end  
+  end
 
   def received
     # so pode informar recebimento se a remessa estiver no status FINISH_TYPING
@@ -271,7 +271,7 @@ class InputControl < ActiveRecord::Base
                                cost_center_id: InputControl.recebimento_descarga_cost_center,
                            sub_cost_center_id: InputControl.recebimento_descarga_sub_cost_center,
                      sub_cost_center_three_id: InputControl.recebimento_descarga_sub_cost_center_three,
-                            payment_method_id: PaymentMethod.payment_method_default, 
+                            payment_method_id: PaymentMethod.payment_method_default,
                                   historic_id: InputControl.recebimento_descarga_historic,
                               data_vencimento: Date.today,
                                     documento: self.id,
@@ -293,7 +293,7 @@ class InputControl < ActiveRecord::Base
       self.errors[:base] << e.message
       return_value = false
       return false
-    end    
+    end
   end
 
   def self.create_stok_pallets(params = {})
@@ -324,7 +324,7 @@ class InputControl < ActiveRecord::Base
       end
 
     end
-  end    
+  end
 
   def carrier_credentials?
     carrier_default = Carrier.where(cnpj: Company.first.cnpj).first
@@ -339,8 +339,8 @@ class InputControl < ActiveRecord::Base
     target_client = nfe_xmls.first.target_client
     source_client = nfe_xmls.first.source_client
     billing_client = input_control.billing_client
-    
-    value_weight_average = BigDecimal.new(0)  
+
+    value_weight_average = BigDecimal.new(0)
 
     if input_control.client_table_price.present?
       value_weight_average = input_control.client_table_price.minimum_total_freight / total_weight
@@ -359,13 +359,13 @@ class InputControl < ActiveRecord::Base
       #puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico"
       ordem_service = OrdemService.create!( tipo: OrdemService::TipoOS::LOGISTICA,
                                 input_control_id: input_control.id,
-                                target_client_id: target_client.id, 
+                                target_client_id: target_client.id,
                                 source_client_id: source_client.id,
                            #     billing_client_id: billing_client.id,
                            # client_table_price_id: billing_client.client_table_price_reset.id,
                                       carrier_id: Carrier.carrier_default,
                                 carrier_entry_id: input_control.carrier.id,
-                                            peso: input_control.weight, 
+                                            peso: input_control.weight,
                                      qtde_volume: input_control.volume,
                                           estado: target_client.estado,
                                           cidade: target_client.cidade,
@@ -374,9 +374,9 @@ class InputControl < ActiveRecord::Base
                                       observacao: ""
                                                  )
       #puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico Logistica"
-      ordem_service.ordem_service_logistics.create!(driver_id: input_control.driver.id, 
-                                                        placa: input_control.place, 
-                                                         peso: input_control.weight, 
+      ordem_service.ordem_service_logistics.create!(driver_id: input_control.driver.id,
+                                                        placa: input_control.place,
+                                                         peso: input_control.weight,
                                                   qtde_volume: input_control.volume)
       #puts ">>>>>>>>>>>>>>>> Importar dados da NFE XML para NFE Keys"
       nfe_xmls.each do |nfe|
@@ -423,9 +423,9 @@ class InputControl < ActiveRecord::Base
           # end
 
         end
-        
-        NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM, 
-                              action_inspector_number: action_inspector_number,  
+
+        NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM,
+                              action_inspector_number: action_inspector_number,
                                              take_dae: take_dae)
       end
       #puts ">>>>>>>>>>>>>>>> update peso e volume:"
@@ -551,4 +551,4 @@ end
     # Location.group(:city, :province, :country)
     #     .select(:city, :province, :country, "SUM(images_girl_count) as sum_images_count")
     #     .order("sum_images_count DESC")
-    #     .collect{ |location| [location.city, location.province, location.country, location.sum_images_count] }                                 
+    #     .collect{ |location| [location.city, location.province, location.country, location.sum_images_count] }

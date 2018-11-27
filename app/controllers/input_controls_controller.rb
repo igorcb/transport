@@ -4,7 +4,7 @@ class InputControlsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_input_control, only: [:show, :edit, :update, :destroy, :select_nfe, :question]
-  load_and_authorize_resource  
+  load_and_authorize_resource
 
   respond_to :html, :js
 
@@ -14,7 +14,7 @@ class InputControlsController < ApplicationController
 
   def printing; end
 
-  def question; 
+  def question;
     if @input_control.status != InputControl::TypeStatus::RECEIVED
       flash[:danger] = "To send a comment or report breakdown the InputControl must be as RECEIVED"
       redirect_to (@input_control)
@@ -23,7 +23,7 @@ class InputControlsController < ApplicationController
       flash[:danger] = "Receipt date can not be blank."
       redirect_to (@input_control)
       return
-    end        
+    end
   end
 
   def quitter
@@ -90,7 +90,7 @@ class InputControlsController < ApplicationController
     elsif params[:input_control][:dock].blank?
       flash[:danger] = "Dock is not present."
       redirect_to oper_input_controls_path
-      return  
+      return
     elsif params[:input_control][:place_confirmed].upcase != @input_control.place_cart.upcase
       flash[:danger] = "Place is not present in Input Control."
       redirect_to oper_input_controls_path
@@ -98,7 +98,7 @@ class InputControlsController < ApplicationController
     end
     @input_control.started_user_id = current_user.id
     @input_control.update(input_control_params)
-    InputControl.start(params[:id])        
+    InputControl.start(params[:id])
     redirect_to oper_input_controls_path, flash: { success: "Input Control was successfully started" }
   end
 
@@ -118,7 +118,7 @@ class InputControlsController < ApplicationController
   end
 
   def reschedule
-    
+
   end
 
   def update_reschedule
@@ -173,7 +173,7 @@ class InputControlsController < ApplicationController
       return
     end
 
-    if @input_control.carrier_credentials? 
+    if @input_control.carrier_credentials?
       if InputControl.client_not_credentials_sefaz?(@input_control.nfe_xmls.client_ids) &&
         @input_control.action_inspector.blank? &&
 
@@ -192,7 +192,7 @@ class InputControlsController < ApplicationController
       flash[:danger] = "Can not generate Ordem Service while the Input Control is in Typing Digital."
       redirect_to (@input_control)
       return
-    end    
+    end
     # if !@input_control.status_received?
     #   flash[:danger] = "First declare that you received the products"
     #   redirect_to (@input_control)
@@ -274,14 +274,14 @@ class InputControlsController < ApplicationController
     @input_control.driver_id = driver.id
     @input_control.carrier_id = carrier.id
     @input_control.user_id = current_user.id
-    @input_control.billing_client_id = billing_client.id
+    @input_control.billing_client_id = billing_client.id #if billing_client.present?
     if params[:input_control][:stretch_route_id].present? && params[:input_control][:type_service_id].present?
       client_table_price = get_client_table_price
       @input_control.client_table_price_id = client_table_price.id
     end
 
     respond_to do |format|
-      if @input_control.save                               
+      if @input_control.save
         format.html { redirect_to @input_control, flash: { success: "Input Control was successfully created." } }
         format.json { render action: 'show', status: :created, location: @input_control }
       else
@@ -298,7 +298,7 @@ class InputControlsController < ApplicationController
         client_table_price = get_client_table_price
         @input_control.client_table_price_id = client_table_price.id
       end
-      if @input_control.update(input_control_params) 
+      if @input_control.update(input_control_params)
         format.html { redirect_to @input_control, flash: { success: "Input Control client was successfully updated." } }
         format.json { head :no_content }
       else
@@ -322,7 +322,7 @@ class InputControlsController < ApplicationController
       flash[:danger] = "Receipt date can not be blank."
       redirect_to (@input_control)
       return
-    end    
+    end
     @comment = Comment.new
   end
 
@@ -348,10 +348,10 @@ class InputControlsController < ApplicationController
     end
 
     def input_control_params
-      params.require(:input_control).permit(:carrier_id, :driver_id, :billing_client_id, :place, :place_cart, 
-        :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets, 
-        :observation, :charge_discharge, :shipment, :team, :dock, :hangar, :container, 
-        :stretch_route_id, :type_service_id, :place_confirmed, :place_horse, 
+      params.require(:input_control).permit(:carrier_id, :driver_id, :billing_client_id, :place, :place_cart,
+        :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets,
+        :observation, :charge_discharge, :shipment, :team, :dock, :hangar, :container,
+        :stretch_route_id, :type_service_id, :place_confirmed, :place_horse,
         :date_scheduled, :time_scheduled, :motive_scheduled,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         action_inspectors_attributes: [:number, :id, :_destroy],
@@ -360,7 +360,7 @@ class InputControlsController < ApplicationController
     end
 
     def get_client_table_price
-      client_table_price = ClientTablePrice.where(client_id: @input_control.billing_client_id, 
+      client_table_price = ClientTablePrice.where(client_id: @input_control.billing_client_id,
                                            stretch_route_id: params[:input_control][:stretch_route_id],
                                             type_service_id: params[:input_control][:type_service_id]).first
       client_table_price
@@ -383,8 +383,8 @@ class InputControlsController < ApplicationController
         report.start_new_page
         tag_header(report, input_control)
       end
-      send_data report.generate, filename: "tag#{input_control.id}_.pdf", 
-                                 type: 'application/pdf', 
+      send_data report.generate, filename: "tag#{input_control.id}_.pdf",
+                                 type: 'application/pdf',
                                  disposition: 'inline'
 
     end
@@ -413,7 +413,7 @@ class InputControlsController < ApplicationController
         end
 
         report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
-        
+
         report.start_new_page
 
         print_header_pdf(report)
@@ -429,16 +429,16 @@ class InputControlsController < ApplicationController
           nfe.item_input_controls.joins(:product).order("products.cod_prod").each do |item|
             report.list.add_row do |row|
               breakdown = Breakdown.where(breakdown_type: 'InputControl', breakdown_id: item.input_control_id, product_id: item.product_id).first
-              row.values prod_id: item.product.cod_prod, 
+              row.values prod_id: item.product.cod_prod,
                      prod_name: item.product.descricao
               end
           end
           report.start_new_page
           data_input_control(report)
         end
-        
-        send_data report.generate, filename: "blind#{task.id}_.pdf", 
-                                   type: 'application/pdf', 
+
+        send_data report.generate, filename: "blind#{task.id}_.pdf",
+                                   type: 'application/pdf',
                                    disposition: 'attachment'
     end
 
@@ -460,7 +460,7 @@ class InputControlsController < ApplicationController
         end
 
         report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
-        
+
         # Thinreports::Report.generate filename: t.output_filename do |report|
         #   report.use_layout t.layout_filename
         #   report.list.header title: 'Prices'
@@ -468,7 +468,7 @@ class InputControlsController < ApplicationController
         report.start_new_page
 
         print_header_pdf(report)
-  
+
         data_input_control(report)
         task.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
           report.page.item(:nfe_numero).value(nfe.numero)
@@ -484,7 +484,7 @@ class InputControlsController < ApplicationController
               faltas = breakdown.nil? ? nil : breakdown.faltas
               avarias = breakdown.nil? ? nil : breakdown.avarias
               und_med = breakdown.nil? ? item.unid_medida : breakdown.unid_medida
-              row.values prod_id: item.product.cod_prod, 
+              row.values prod_id: item.product.cod_prod,
                      prod_name: item.product.descricao,
                      prod_total: item.qtde_trib,
                      qtde: item.qtde,
@@ -497,11 +497,11 @@ class InputControlsController < ApplicationController
           report.start_new_page
           data_input_control(report)
         end
-        
-        send_data report.generate, filename: "ocorrencia_#{task.id}_.pdf", 
-                                   type: 'application/pdf', 
+
+        send_data report.generate, filename: "ocorrencia_#{task.id}_.pdf",
+                                   type: 'application/pdf',
                                    disposition: 'attachment'
-    end    
+    end
 
     def data_input_control(report)
       report.page.item(:input_control_id).value(@input_control.id)
