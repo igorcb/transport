@@ -59,12 +59,9 @@ class BoardingsController < ApplicationController
 	end
 
 	def create
-    byebug.inspec
     @boarding = Boarding.generate_shipping(params[:os][:ids]) #deve retornar o id
     if @boarding.errors.present?
-      puts ">>>>>>>>>>>>>>>>>> BoardingController: #{@boarding.errors.full_messages.count}"
       @boarding.errors.full_messages.each do |msg|
-        puts ">>>>>>>>>>>>>>>>> Error: #{msg}"
         flash[:danger] = msg
       end
       redirect_to boardings_path

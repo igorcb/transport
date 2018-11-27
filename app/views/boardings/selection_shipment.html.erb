@@ -5,7 +5,7 @@
 
 <%#= form_tag(selection_shipment_search_boardings_url, :method => :get, remote: true) do %>
 <%= search_form_for @q, remote: true, url: selection_shipment_search_boardings_path, :method => :get do |f| %>
-  
+
   <div class="panel panel-default">
     <div class="panel-heading">Pesquisar por</div>
     <div class="panel-body">
@@ -14,7 +14,7 @@
         <%= label_tag :source_client_group_client_id_eq, "Grupo de Cliente" %>
         <%= f.collection_select :source_client_group_client_id_eq, GroupClient.order(:descricao), :id, :descricao, {prompt: "SELECIONE O GRUPO DE CLIENTE"}, {class: "form-control"} %>
       </div>
-      
+
       <div class="form-group">
         <%= label_tag :estado, "Estado" %>
         <%= select_tag :estado, options_from_collection_for_select(State.order(:name), :uf, :name, 'CE'), :prompt => "Selecione um estado", class: "form-control" %>
@@ -32,7 +32,7 @@
       </div>
 
       <div class="form-group">
-        <%= submit_tag("Search") %> 
+        <%= submit_tag("Search") %>
       </div>
 
     </div>
@@ -49,16 +49,16 @@
   <div class="panel panel-default">
     <div class="panel-heading">Selecione as OS para Embarque</div>
     <div class="panel-body">
-
+			<%= hidden_field_tag "boarding[date_boarding]", nil, value: Date.current %>
       <div id="result_input">
 
         <%= render(partial: 'ordem_services', locals: {f: @ordem_services}) %>
 
-      </div>    
+      </div>
     </div>
   </div>
 
-  <%= submit_tag("Gerar Embarque", class: "btn btn-blue") %> 
+  <%= submit_tag("Gerar Embarque", class: "btn btn-blue") %>
 
   <% end %>
 </div>
@@ -67,12 +67,12 @@
 
 <script type="text/javascript">
 Number.prototype.formatMoney = function(c, d, t){
-var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
-    s = n < 0 ? "-" : "", 
-    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+var n = this,
+    c = isNaN(c = Math.abs(c)) ? 2 : c,
+    d = d == undefined ? "." : d,
+    t = t == undefined ? "," : t,
+    s = n < 0 ? "-" : "",
+    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
     j = (j = i.length) > 3 ? j % 3 : 0;
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
  };
@@ -132,7 +132,7 @@ jQuery(function($) {
       var uf = "uf="+$(this).val();
       console.log(uf);
       $.getJSON('/get_city_by_uf', uf, function(data){
-        var options = '<option value="">Selecione a cidade de origem</option>'; 
+        var options = '<option value="">Selecione a cidade de origem</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
