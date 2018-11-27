@@ -360,8 +360,8 @@ class OrdemService < ActiveRecord::Base
 
   def self.get_hash_ids(ids)
     hash_ids = []
-    ids.each do |i|
-      hash_ids << i[0].to_i
+    ids.keys.each do |i|
+      hash_ids << i.to_i
     end
     hash_ids
   end
@@ -369,9 +369,9 @@ class OrdemService < ActiveRecord::Base
   def self.invoice(ids, type_service, value)
     valor_total = 0
     hash_ids = []
-    ids.each do |i|
-      hash_ids << i[0].to_i
-      valor_total += i[1].to_f
+    ids.keys.each do |i|
+      hash_ids << i.to_i
+      valor_total += i.to_f
     end
 
     #if OrdemService.check_client_billing?(hash_ids)

@@ -160,7 +160,7 @@ class InputControlsController < ApplicationController
     # end
     # criar um modulo para get_hash_ids e check_client_billing
     ids = OrdemService.get_hash_ids(params[:nfe][:ids])
-    puts ">>>>>>>>>>>>>>>>>>>>>>> check_client_billing: #{InputControl.check_client_billing?(ids)} <<<<<<<<<<<<<<<<<<<<<<<<"
+    #puts ">>>>>>>>>>>>>>>>>>>>>>> check_client_billing: #{InputControl.check_client_billing?(ids)} <<<<<<<<<<<<<<<<<<<<<<<<"
     if !InputControl.check_client_billing?(ids)
       flash[:danger] = "Customer invoices are not the same."
       respond_with(@input_control)

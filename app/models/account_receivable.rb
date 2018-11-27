@@ -8,22 +8,22 @@ class AccountReceivable < ActiveRecord::Base
   validates :valor, presence: true, numericality: { greater_than: 0 }
 
   #belongs_to :client
-  belongs_to :client, class_name: "Client", foreign_key: "client_id", polymorphic: true
-  belongs_to :cost_center
-  belongs_to :sub_cost_center
-  belongs_to :historic
-  belongs_to :ordem_service
-  belongs_to :billing
-  belongs_to :sub_cost_center_three
-  belongs_to :payment_method
+  belongs_to :client, class_name: "Client", foreign_key: "client_id", polymorphic: true, required: false
+  belongs_to :cost_center, required: false
+  belongs_to :sub_cost_center, required: false
+  belongs_to :historic, required: false
+  belongs_to :ordem_service, required: false
+  belongs_to :billing, required: false
+  belongs_to :sub_cost_center_three, required: false
+  belongs_to :payment_method, required: false
 
   has_many :lower_account_receivables
 
-  scope :received_driver, -> { where("type_account = ?", TypeAccount::MOTORISTA).order(data_vencimento: :desc) }  
-  scope :last_seven_days, -> { where("created_at > ?", 7.days.ago).order(data_vencimento: :desc) }  
+  scope :received_driver, -> { where("type_account = ?", TypeAccount::MOTORISTA).order(data_vencimento: :desc) }
+  scope :last_seven_days, -> { where("created_at > ?", 7.days.ago).order(data_vencimento: :desc) }
 
   before_destroy :can_destroy?
- 
+
   module TipoStatus
     ABERTO = 0
     PAGOPARCIAL = 1
@@ -44,7 +44,7 @@ class AccountReceivable < ActiveRecord::Base
     CLIENTE       = "Client"
     FUNCIONARIO   = "Employee"
     TRANSPORTADORA= "Carrier"
-  end  
+  end
 
   def type_account_name
     case self.type_account
@@ -55,7 +55,7 @@ class AccountReceivable < ActiveRecord::Base
       when 5  then "Transportadora"
       else "*"
     end
-  end  
+  end
 
   def status_name
     case self.status
@@ -64,7 +64,7 @@ class AccountReceivable < ActiveRecord::Base
       when 2  then "Pago"
     else "Nao Definido"
     end
-  end 
+  end
 
   def input_control
     InputControl.where(id: self.input_control_id).first
@@ -80,7 +80,7 @@ class AccountReceivable < ActiveRecord::Base
 
   def valor_total_pago
     lower_account_receivables.sum(:valor_pago)
-  end  
+  end
 
   def payament(options)
     #options ||= {}
@@ -94,7 +94,7 @@ class AccountReceivable < ActiveRecord::Base
         puts ">>>>>>>>>>>> status: PAGO"
         self.status = TipoStatus::PAGO
         # if self.ordem_service_type_service.present?
-        #   OrdemServiceTypeService.update(self.ordem_service_type_service, status: OrdemServiceTypeService::TipoStatus::PAGO) 
+        #   OrdemServiceTypeService.update(self.ordem_service_type_service, status: OrdemServiceTypeService::TipoStatus::PAGO)
         # end
       elsif vr_total_pago < self.valor
         puts ">>>>>>>>>>>> status: PAGOPARCIAL"
@@ -111,8 +111,8 @@ class AccountReceivable < ActiveRecord::Base
                                           cash_account_id: options[:cash_account_id]
                                           )
 
-      Cash.create!(cash_account_id: options[:cash_account_id], 
-                              data: options[:data_pagamento],  
+      Cash.create!(cash_account_id: options[:cash_account_id],
+                              data: options[:data_pagamento],
                               valor: vr_pago,
                                tipo: Cash::TipoLancamento::CREDITO,
                           historico: "PAGAMENTO FATURA: " + self.billing_id.to_s,
@@ -123,8 +123,8 @@ class AccountReceivable < ActiveRecord::Base
               account_receivable_id: self.id
                             )
 
-      # CurrentAccount.create!(cash_account_id: options[:cash_account_id], 
-      #                       data: options[:data_pagamento],  
+      # CurrentAccount.create!(cash_account_id: options[:cash_account_id],
+      #                       data: options[:data_pagamento],
       #                       valor: vr_pago,
       #                       tipo: CurrentAccount::TipoLancamento::CREDITO,
       #                       historico: "BAIXA CONTA A RECEBER: " + self.documento,
@@ -134,17 +134,17 @@ class AccountReceivable < ActiveRecord::Base
   end
 
   def check_balance
-    self.status = self.lower_account_receivables.sum(:valor_pago).to_f > 0.0 ? 
+    self.status = self.lower_account_receivables.sum(:valor_pago).to_f > 0.0 ?
                   TipoStatus::PAGOPARCIAL : self.status = TipoStatus::ABERTO
     self.save!
   end
-  
+
   private
 
     def can_destroy?
       if self.lower_account_receivables.present?
         puts ">>>>>>>>>>>>>>>>>>>>>>>>>. não pode apagar"
-        errors.add(:base, "You can not delete record with relationship") 
+        errors.add(:base, "You can not delete record with relationship")
         return false
       end
     end
