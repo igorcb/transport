@@ -141,8 +141,8 @@ class Boarding < ActiveRecord::Base
 
   def self.generate_shipping(ids)
     hash_ids = []
-    ids.each do |i|
-      hash_ids << i[0].to_i
+    ids.keys.each do |i|
+      hash_ids << i.to_i
     end
     begin
       driver = Boarding.driver_not_information #Motorista Padrao - Motorista Não Identificado
