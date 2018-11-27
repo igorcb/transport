@@ -4,7 +4,7 @@
   <div class="form-group">
     <label for="exampleInputFile">Escolha uma imagem 3x4 </label>
     <%= f.file_field :avatar %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :cpf %><br>
@@ -13,7 +13,7 @@
 
   <div id="driver_result">
 
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :nome %><br>
@@ -49,7 +49,7 @@
   </div>
   <div class="form-group">
     <%= f.label :estado  %>
-    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :rg %><br>
@@ -75,19 +75,19 @@
   </div>
   <div class="form-group">
     <%= f.label :estado  %>
-    <%= f.select( :estado_nascimento, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+    <%= f.select( :estado_nascimento, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :estado_civil  %>
-    <%= f.select( :estado_civil, select_estado_civil, {include_blank: "Selecione o Estado Civil"}, {class: "form-control"} ) %>      
+    <%= f.select( :estado_civil, select_estado_civil, {include_blank: "Selecione o Estado Civil"}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :cor_da_pele  %>
-    <%= f.select( :cor_da_pele, select_cor_da_pele, {include_blank: "Selecione a cor da pele"}, {class: "form-control"} ) %>      
+    <%= f.select( :cor_da_pele, select_cor_da_pele, {include_blank: "Selecione a cor da pele"}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :tipo_contrato  %>
-    <%= f.select( :tipo_contrato, select_tipo_contrato, {include_blank: "Selecione a tipo de contrato"}, {class: "form-control"} ) %>      
+    <%= f.select( :tipo_contrato, select_tipo_contrato, {include_blank: "Selecione a tipo de contrato"}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :cnh %><br>
@@ -99,7 +99,7 @@
   </div>
   <div class="form-group">
     <%= f.label :categoria  %>
-    <%= f.select( :categoria, select_categoria, {include_blank: :false}, {class: "form-control"} ) %>      
+    <%= f.select( :categoria, select_categoria, {include_blank: :false}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :validade_cnh %><br>
@@ -149,7 +149,7 @@
       <%#= text_field_tag :owner_cpf, @driver.owner.cpf_cnpj, class: "form-control cpf", disabled: true if @driver.owner.present? %>
       <% if @driver.owner.present? %>
         <%= text_field_tag :owner_cpf, @driver.owner.cpf_cnpj, class: "form-control", disabled: true %>
-      <% else %>    
+      <% else %>
         <%= text_field_tag :owner_cpf, nil, class: "form-control" %>
       <% end %>
       <%= render partial: "owners/result_owner", locals: { owner: @driver.owner } if @driver.owner.present? %>
@@ -158,7 +158,7 @@
 
   <div id="owner_cpf_result">
 
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :obs, "Observação" %>
@@ -169,14 +169,14 @@
     <fieldset>
       <legend>Contatos</legend>
         <div class="items">
-          <%= f.nested_fields_for :contacts do |f| 
+          <%= f.nested_fields_for :contacts do |f|
             render 'shared/contact', f: f
           end -%>
         </div>
         <div class="row">
           <div class="col-xs-2">
-            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>  
-          </div>  
+            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>
+          </div>
         </div>
     </fieldset>
   </div>
@@ -185,14 +185,14 @@
     <fieldset>
       <legend>Restrições</legend>
         <div class="items">
-          <%= f.nested_fields_for :driver_restrictions do |f| 
+          <%= f.nested_fields_for :driver_restrictions do |f|
             render 'driver_restriction_fields', f: f
           end -%>
         </div>
         <div class="row">
           <div class="col-xs-2">
-            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Restrição</a>  
-          </div>  
+            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Restrição</a>
+          </div>
         </div>
     </fieldset>
   </div>
@@ -202,80 +202,80 @@
       <legend>E-Mail</legend>
 
       <div class="items">
-        <%= f.nested_fields_for :emails do |f| 
+        <%= f.nested_fields_for :emails do |f|
           render 'shared/email', f: f
         end -%>
       </div>
       <div class="row">
         <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>  
-        </div>  
+          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>
+        </div>
       </div>
 
     </fieldset>
 
   </div>
-  
+
 
   <div id="accounts">
     <fieldset>
       <legend>Contas Bancarias</legend>
       <div class="items">
         <%= f.nested_fields_for :account_banks do |f| %>
-          <%= render "shared/form_account_bank", f: f %> 
+          <%= render "shared/form_account_bank", f: f %>
         <% end %>
       </div>
-      
+
       <div class="row">
         <div class="col-xs-2">
-          <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>  
-        </div>  
+          <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>
+        </div>
       </div>
-    
+
     </fieldset>
-  </div>  
+  </div>
 
   <div id="prices">
     <fieldset>
       <legend>Tabela de Preços</legend>
       <div class="items">
         <%= f.nested_fields_for :table_prices do |f| %>
-          <%= render "form_table_price", f: f %> 
+          <%= render "form_table_price", f: f %>
         <% end %>
       </div>
       <div class="row">
         <div class="col-xs-2">
-          <a href="#" class="btn btn-success btn-sm add">[+] Tab. Preço</a>  
-        </div>  
+          <a href="#" class="btn btn-success btn-sm add">[+] Tab. Preço</a>
+        </div>
       </div>
     </fieldset>
   </div>
 
-  <h2>Documentos</h2> 
+  <h2>Documentos</h2>
   <div id="documents">
     <div class="items">
-      <%= f.nested_fields_for :assets do |f| 
+      <%= f.nested_fields_for :assets do |f|
         render 'shared/asset', f: f
       end  -%>
     </div>
-      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>
   </div>
 
   <div id="drivers">
     <fieldset>
       <legend>Veículos</legend>
       <div class="items">
-        <%= f.nested_fields_for :drivings do |f| 
+        <%= f.nested_fields_for :drivings do |f|
           render 'vehicle', f: f
         end  -%>
       </div>
       <div class="row">
         <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] Veiculo</a>  
-        </div>  
+          <br /> <a href="#" class="btn btn-success btn-sm add">[+] Veiculo</a>
+        </div>
       </div>
   </div>
-   
+
   <hr />
 
   <div class="form-actions">
@@ -289,7 +289,7 @@
 <script type="text/javascript">
 $(function(){
    $("#driver_cep").change(function(){
-     var cep     = $(this).val().replace(/[^0-9]/, ''); 
+     var cep     = $(this).val().replace(/[^0-9]/, '');
      var boxes   = $("#boxCampos");
      var msgErro = $("#mensagemErro");
      console.log('CEP: ' + cep)
@@ -311,7 +311,7 @@ $(function(){
        });
        }
    });
-});  
+});
 </script>
 
 

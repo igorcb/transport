@@ -1,9 +1,9 @@
 #encoding: utf-8
 class AddressController < ApplicationController
 	#require 'json/objects'
-	
+	require 'correios-cep'
   def get_address_by_cep
-    puts ">>>>>>>>>>>>> localizando cep: #{params[:cep]}"
+    #puts ">>>>>>>>>>>>> localizando cep: #{params[:cep]}"
     retorno = 1
     begin
       #data = Cep.new.cep(params[:cep])
@@ -12,9 +12,11 @@ class AddressController < ApplicationController
     rescue
       retorno = 0
     ensure
-      puts ">>>>>>>>> Endereco: #{data.to_json.force_encoding("UTF-8")}"
-      data = data.nil? ? nil : data.to_json.force_encoding("UTF-8")
-      render :text => data
+      #puts ">>>>>>>>> Endereco: #{data.to_json.force_encoding("UTF-8")}"
+			#@stretch_routes = stretchs.map {|c| [c.stretch_source_and_target_long, c.id] }.insert(0, 'SELECIONE O TRECHO')
+			puts ">>>>>>>>>>>>>>>> Return: #{@data}"
+			@data = data.nil? ? nil : data.to_json.force_encoding("UTF-8")
+      #render :text => data
     end
   end
 

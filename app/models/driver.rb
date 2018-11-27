@@ -29,8 +29,8 @@ class Driver < ActiveRecord::Base
 
   belongs_to :owner, required: false
 
-  belongs_to :user_created, class_name: "User", foreign_key: "user_created_id"
-  belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id"
+  belongs_to :user_created, class_name: "User", foreign_key: "user_created_id", required: false
+  belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id", required: false
 
   has_many :contacts, class_name: "Contact", foreign_key: "contact_id", :as => :contact, dependent: :destroy
   accepts_nested_attributes_for :contacts, allow_destroy: true
