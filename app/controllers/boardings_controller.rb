@@ -12,14 +12,14 @@ class BoardingsController < ApplicationController
   def selection_shipment_search
     if params[:region].blank?
       @q = OrdemService.includes(:client, :driver, :cte_keys, :nfe_keys, :nfs_keys, :ordem_service_logistics, :ordem_service_type_service).where(status: OrdemService::TipoStatus::ABERTO).search(params[:query])
-    else      
+    else
       region = MicroRegion.find(params[:region])
       @q = OrdemService.includes(:client, :driver, :cte_keys, :nfe_keys, :nfs_keys, :ordem_service_logistics, :ordem_service_type_service).where(status: OrdemService::TipoStatus::ABERTO).search(cidade_in_all: region.cities)
     end
-    @ordem_services = @q.result   
+    @ordem_services = @q.result
     respond_with(@ordem_services) do |format|
       format.js
-    end     
+    end
   end
 
 	def search_ordem_service
@@ -59,12 +59,13 @@ class BoardingsController < ApplicationController
 	end
 
 	def create
+    byebug.inspec
     @boarding = Boarding.generate_shipping(params[:os][:ids]) #deve retornar o id
     if @boarding.errors.present?
       puts ">>>>>>>>>>>>>>>>>> BoardingController: #{@boarding.errors.full_messages.count}"
       @boarding.errors.full_messages.each do |msg|
         puts ">>>>>>>>>>>>>>>>> Error: #{msg}"
-        flash[:danger] = msg  
+        flash[:danger] = msg
       end
       redirect_to boardings_path
     else
@@ -89,7 +90,7 @@ class BoardingsController < ApplicationController
 
   def oper
     @boardings = Boarding.the_day
-    #@boardings = Boarding.status_open    
+    #@boardings = Boarding.status_open
   end
 
   def confirmed
@@ -106,12 +107,12 @@ class BoardingsController < ApplicationController
     @boarding.update(boarding_params)
     Boarding.confirmed(params[:id])
     redirect_to dashboard_oper_path, flash: { success: "Boarding confirmed was successful" }
-  end  
+  end
 
   def start
     if @boarding.pending?
       flash[:danger] = @boarding.pending
-      redirect_to oper_boardings_path 
+      redirect_to oper_boardings_path
     end
   end
 
@@ -135,20 +136,20 @@ class BoardingsController < ApplicationController
     elsif params[:boarding][:dock].blank?
       flash[:danger] = "Dock is not present."
       redirect_to dashboard_oper_path
-      return      
+      return
     elsif !@boarding.places.include?(params[:boarding][:place].upcase)
       flash[:danger] = "Place is not present on boarding."
       redirect_to dashboard_oper_path
       return
-    end    
+    end
     @boarding.started_user_id = current_user.id
     @boarding.update(boarding_params)
-    Boarding.start(params[:id])        
+    Boarding.start(params[:id])
     redirect_to dashboard_oper_path, flash: { success: "Boarding initialization was successful" }
   end
 
   def checkin
-    
+
   end
 
   def update_checkin
@@ -168,7 +169,7 @@ class BoardingsController < ApplicationController
 
     @boarding.driver_checkin_user_id = current_user.id
     @boarding.update(boarding_params)
-    Boarding.checkin(params[:id])        
+    Boarding.checkin(params[:id])
     redirect_to dashboard_port_path, flash: { success: "Boarding Check IN was successful" }
   end
 
@@ -202,7 +203,7 @@ class BoardingsController < ApplicationController
       format.html
       format.pdf { render_letter_freight(@boarding) }
     end
-    
+
   end
 
   def print
@@ -240,7 +241,7 @@ class BoardingsController < ApplicationController
   end
 
   def request_pallet
-    
+
   end
 
   def requisition
@@ -265,13 +266,13 @@ class BoardingsController < ApplicationController
 	private
 
 		def set_boarding
-			@boarding = Boarding.find(params[:id])	
+			@boarding = Boarding.find(params[:id])
       @boarding_items = @boarding.boarding_items.order(:row_order) if @boarding.boarding_items.present?
       @boarding_item = BoardingItem.new
 		end
 
     def boarding_params
-      params.require(:boarding).permit(:date_boarding, :driver_id, :carrier_id, :value_boarding, :safe_rctr_c, 
+      params.require(:boarding).permit(:ids, :os, :date_boarding, :driver_id, :carrier_id, :value_boarding, :safe_rctr_c,
         :safe_optional, :number_tranking, :obs, :qtde_boarding, :manifesto, :chave_manifesto, :local_embarque,
         :action_inspector, :place, :qtde_pallets_shipped, :team, :hangar, :dock, :oper_observation,
         :driver_checkin_palce_horse, :driver_checkin_palce_cart_1, :driver_checkin_palce_cart_2, :sealing, :sealing_two, :sealing_three,
@@ -316,7 +317,7 @@ class BoardingsController < ApplicationController
       report.page.item(:tracao_renavan).value("RENAVAN: #{@boarding.vehicle_tracao.renavan}")
       report.page.item(:tracao_chassi).value("CHASSI: #{@boarding.vehicle_tracao.chassi}")
       report.page.item(:tracao_placa).value("PLACA: #{@boarding.vehicle_tracao.placa}")
-  
+
       if @boarding.vehicle_reboque.present?
         report.page.item(:reboque_marca).value("MARCA: #{@boarding.vehicle_reboque.marca}")
         report.page.item(:reboque_renavan).value("RENAVAN: #{@boarding.vehicle_reboque.renavan}")
@@ -331,8 +332,8 @@ class BoardingsController < ApplicationController
       report.page.item(:driver_district_city).value(boarding.driver.distric_city_state_cep)
       report.page.item(:data_and_hora).value(emitido)
 
-      send_data report.generate, filename: "letter_freight_#{boarding.id}_.pdf", 
-                                   type: 'application/pdf', 
+      send_data report.generate, filename: "letter_freight_#{boarding.id}_.pdf",
+                                   type: 'application/pdf',
                                    disposition: 'inline'
     end
 
@@ -387,7 +388,7 @@ class BoardingsController < ApplicationController
       #lista ordem de servico
       boarding.boarding_items.order(:row_order).each do |item|
         report.list(:list_ordem_service).add_row do |row|
-          
+
           row.values(os: item.ordem_service.id)
           row.values(data: date_br(item.ordem_service.data))
           row.values(cliente: item.ordem_service.client.nome)
@@ -407,11 +408,10 @@ class BoardingsController < ApplicationController
           #row.values(nfes: item.ordem_service.get_number_nfe)
         end
       end
-      send_data report.generate, filename: "embarque_#{boarding.id}_.pdf", 
-                                   type: 'application/pdf', 
+      send_data report.generate, filename: "embarque_#{boarding.id}_.pdf",
+                                   type: 'application/pdf',
                                    disposition: 'inline'
 
 
     end
 end
-
