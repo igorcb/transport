@@ -2,7 +2,7 @@ class OrdemServiceTypeServicesController < ApplicationController
 	before_action :authenticate_user!
   before_action :set_ordem_service_type_service, only: [:show, :edit, :update, :destroy]
 	respond_to :html, :js
-	
+
 	def index
     @q = OrdemServiceTypeService.where(id: -1).order('id desc').search(params[:q])
     @ordem_service_type_services = @q.result
@@ -30,12 +30,13 @@ class OrdemServiceTypeServicesController < ApplicationController
   end
 
   def edit
-    
+
   end
 
   def create
+		byebug
     @ordem_service_type_service = OrdemServiceTypeService.new(ordem_service_type_service_params)
-    client_table_price = ClientTablePrice.where(client_table_price_id: @ordem_service_type_service.ordem_service.billing_client, 
+    client_table_price = ClientTablePrice.where(client_table_price_id: @ordem_service_type_service.ordem_service.billing_client,
                                                       type_service_id: @ordem_service_type_service.type_service_id,
                                                      stretch_route_id: @ordem_service_type_service.stretch_route_id).first
     @ordem_service_type_service.client_table_price_id = client_table_price.id
@@ -47,7 +48,7 @@ class OrdemServiceTypeServicesController < ApplicationController
         format.json { render json: @ordem_service_type_service.errors, status: :unprocessable_entity }
       end
 
-    end    
+    end
   end
 
   def update
@@ -66,7 +67,7 @@ class OrdemServiceTypeServicesController < ApplicationController
   def destroy
     @ordem_service_type_service.destroy
     respond_with(@ordem_service_type_service)
-  end  
+  end
 
   private
 

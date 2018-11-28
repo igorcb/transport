@@ -553,7 +553,7 @@ class OrdemServicesController < ApplicationController
   end
 
   def request_payables
-    @ordem_service_type_service = OrdemServiceTypeService.open
+    @ordem_service_type_service = OrdemServiceTypeService.status_open
   end
 
   def create_payables

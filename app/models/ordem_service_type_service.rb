@@ -1,17 +1,18 @@
 class OrdemServiceTypeService < ActiveRecord::Base
+  #include UpdateOrCreate
   #validates :ordem_service, presence: true
   validates :type_service, presence: true
   validates :valor, presence: true, numericality: { greater_than: 0 }, if: :value_service?
 
-  belongs_to :ordem_service
-  belongs_to :type_service
-  belongs_to :client_table_price
-  belongs_to :stretch_route
+  belongs_to :ordem_service, required: false
+  belongs_to :type_service, required: false
+  belongs_to :client_table_price, required: false
+  belongs_to :stretch_route, required: false
   has_one :account_payable
   has_one :ordem_service_table_price, dependent: :destroy
 
   scope :both, -> { joins(:type_service, :ordem_service).order('ordem_services.data desc') }
-  scope :open, -> { joins(:type_service, :ordem_service).where(status: [0, 1]).order('ordem_services.data desc') }
+  scope :status_open, -> { joins(:type_service, :ordem_service).where(status: [0, 1]).order('ordem_services.data desc') }
   scope :close, -> { joins(:type_service, :ordem_service).where(status: 2).order('ordem_services.data desc') }
 #  scope :everyday, ->(date) { both.where("ordem_services.data = ?", date ) }
 
@@ -30,8 +31,8 @@ class OrdemServiceTypeService < ActiveRecord::Base
     LIBERADO_PAGAMENTO = 3
     PENDENTE = 4
     PENDENTE_PDF =5
-    APROVADO = 6 
-    REPROVADO = 7 
+    APROVADO = 6
+    REPROVADO = 7
     PEND_XML = 8
   end
 
@@ -42,7 +43,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
       when 2  then "Pago"
     else "Nao Definido"
     end
-  end 
+  end
 
   def status_login_name
     case self.status_login
@@ -57,7 +58,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
       when 8  then "PEND. XML"
     else "Nao Definido"
     end
-  end 
+  end
 
   def opened?
     self.status == TipoStatus::ABERTO
@@ -65,7 +66,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
 
   # def self.locate(query)
   #   where("con_email ilike ?", "%#{query}%" )
-  # end  
+  # end
 
   def self.ransackable_attributes(auth_object = nil)
     ['status' ]
@@ -74,7 +75,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   def self.send_report
     #puts ">>>>>>>>>>>>>>>>>>> model: vai enviar e-mail"
     #OrdemServiceTypeService.report_mailer.deliver_now
-    #Cobranca.notificar_financeiro_f13(cobranca) 
+    #Cobranca.notificar_financeiro_f13(cobranca)
   end
 
   def advance_money
@@ -86,7 +87,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   end
 
   def sum_total
-    self.valor +  
+    self.valor +
       calculate_margin_lucre +
       calculate_freight_weight +
       calculate_freight_volume +
@@ -119,9 +120,9 @@ class OrdemServiceTypeService < ActiveRecord::Base
   def calculate_iss
     iss = 0.00
     margin_lucre = value_service? ? calculate_margin_lucre : calc_minimum_total_freight
-    iss = self.client_table_price.collection_delivery_iss if self.client_table_price.present?
+    iss = 5 #self.client_table_price.collection_delivery_iss if self.client_table_price.present?
     perc_iss = 1 - ( iss / 100)
-    value_iss = ((self.valor + margin_lucre) / perc_iss) - (self.valor + margin_lucre) 
+    value_iss = ((self.valor.to_f + margin_lucre) / perc_iss) - (self.valor.to_f + margin_lucre)
   end
 
   def calculate_freight_weight
@@ -143,18 +144,18 @@ class OrdemServiceTypeService < ActiveRecord::Base
     icms = 0.00
     icms = self.client_table_price.collection_delivery_icms_taxpayer if self.client_table_price.present?
     valor_calc = calc_minimum_total_freight
-    perc_icms = 1 - ( icms / 100) 
-    value_icms = ((valor_calc) / perc_icms) - (valor_calc) 
+    perc_icms = 1 - ( icms / 100)
+    value_icms = ((valor_calc) / perc_icms) - (valor_calc)
     value_icms
   end
 
   def create_or_update_table_price
     #table_price = ClientTablePrice.where(id: self.client_table_price_id, client_id: self.ordem_service.billing_client_id, type_service_id: self.type_service_id).first
-    table_price = ClientTablePrice.where(client_table_price_id: self.ordem_service.billing_client_id, 
+    table_price = ClientTablePrice.where(client_table_price_id: self.ordem_service.billing_client_id,
                                                type_service_id: self.type_service_id,
                                               stretch_route_id: self.stretch_route_id).first
-    
-    ordem_service_table_price = OrdemServiceTablePrice.where(ordem_service_id: self.ordem_service_id, 
+    #puts ">>>>>>>>>>>>>>>>> TablePrice: #{table_price.present?}"
+    ordem_service_table_price = OrdemServiceTablePrice.where(ordem_service_id: self.ordem_service_id,
                                                               type_service_id: self.type_service_id,
                                                         client_table_price_id: self.client_table_price_id,
                                                 ordem_service_type_service_id: self.id)
@@ -174,6 +175,4 @@ class OrdemServiceTypeService < ActiveRecord::Base
                                                                 total_service: self.total_service)
   end
 
-
 end
-
