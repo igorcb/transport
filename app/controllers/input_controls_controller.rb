@@ -367,7 +367,7 @@ class InputControlsController < ApplicationController
     end
 
     def render_tag_input_control(input_control)
-      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'tag.tlf')
+      report = Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'tag.tlf')
       report.start_new_page
 
       @company = Company.first
@@ -412,7 +412,7 @@ class InputControlsController < ApplicationController
           return
         end
 
-        report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
+        report = Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
 
         report.start_new_page
 
@@ -459,7 +459,7 @@ class InputControlsController < ApplicationController
           return
         end
 
-        report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
+        report = Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'ocorrencia.tlf')
 
         # Thinreports::Report.generate filename: t.output_filename do |report|
         #   report.use_layout t.layout_filename

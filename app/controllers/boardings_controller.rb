@@ -280,7 +280,7 @@ class BoardingsController < ApplicationController
     end
 
     def render_letter_freight(boarding)
-      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'carta_frete.tlf')
+      report = Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'carta_frete.tlf')
       report.start_new_page
 
       # cabecalho empresa
@@ -335,7 +335,7 @@ class BoardingsController < ApplicationController
     end
 
     def render_print_boarding(boarding)
-      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'embarque.tlf')
+      report = Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'embarque.tlf')
       # valor = (quitter.total_pago.to_f * 100).to_i
       # local_data = "FORTALEZA, #{l Date.today , format: :long }"
       report.start_new_page

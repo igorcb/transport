@@ -53,7 +53,7 @@ class ControlPalletInternalsController < ApplicationController
     end
 
     def render_term_pallet(control)
-      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'term_pallet.tlf')
+      report = Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'term_pallet.tlf')
       # valor = (quitter.total_pago.to_f * 100).to_i
       # local_data = "FORTALEZA, #{l Date.today , format: :long }"
       report.start_new_page
@@ -70,7 +70,7 @@ class ControlPalletInternalsController < ApplicationController
       item = control.boarding.boarding_vehicles.first
 
       emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
-      
+
       texto = "Eu, #{control.responsable.nome}, motorista, \n" \
               "portador da CNH #{control.responsable.cnh} e do CPF nº #{control.responsable.cpf},\n" \
               "venho por meio deste declarar que sou responsável pelos #{control.qtde} pallets BPR do\n" \
@@ -90,17 +90,17 @@ class ControlPalletInternalsController < ApplicationController
               "\n \n \n" \
               "entregue" \
               "\n \n \n" \
-              "          Assinatura do motorista:______________________________________." 
+              "          Assinatura do motorista:______________________________________."
 
       report.page.item(:no_equipamento).value("Nº #{control.id}")
       report.page.item(:no_embarque).value("EMBARQUE: Nº #{control.boarding_id}")
       report.page.item(:notas_fiscais).value("#{control.boarding.get_number_nfe}")
       report.page.item(:text_complete).value(texto)
-      
-      report.page.item(:data_and_hora).value(emitido)      
 
-      send_data report.generate, filename: "term_pallet_#{control.id}_.pdf", 
-                                   type: 'application/pdf', 
+      report.page.item(:data_and_hora).value(emitido)
+
+      send_data report.generate, filename: "term_pallet_#{control.id}_.pdf",
+                                   type: 'application/pdf',
                                    disposition: 'inline'
     end
 end

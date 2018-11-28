@@ -96,7 +96,7 @@ class ControlPalletsController < ApplicationController
         StringIO.new(code.to_png(xdim: 2, height: 70))
       end
 
-      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'pallets.tlf')
+      report = Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'pallets.tlf')
       report.start_new_page
 
       ### cabecalho esquerdo
@@ -114,11 +114,11 @@ class ControlPalletsController < ApplicationController
       report.page.item(:chave_nfe_original).value(control_pallet.nfe_original)
       report.page.item(:chave_nfe_devolucao).value(control_pallet.nfd_original)
       report.page.item(:cod_bar_nfe_original).src(barcode(:ean_128, control_pallet.nfe_original))
-      report.page.item(:cod_bar_nfe_devolucao).src(barcode(:ean_128, control_pallet.nfd_original)) if control_pallet.nfd_original.present? 
+      report.page.item(:cod_bar_nfe_devolucao).src(barcode(:ean_128, control_pallet.nfd_original)) if control_pallet.nfd_original.present?
       report.page.item(:data_and_hora).value(emitido)
 
-      send_data report.generate, filename: "pallet_#{control_pallet.id}_.pdf", 
-                                   type: 'application/pdf', 
+      send_data report.generate, filename: "pallet_#{control_pallet.id}_.pdf",
+                                   type: 'application/pdf',
                                    disposition: 'inline'
 
 

@@ -11,7 +11,7 @@ class LowerReceivablesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to account_receivable_path(@account_receivable) }
       format.json { head :no_content }
-    end		
+    end
 	end
 
   def quitter
@@ -26,13 +26,13 @@ class LowerReceivablesController < ApplicationController
     end
 
     def render_quitter(quitter)
-      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'recibo.tlf')
+      report = Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'recibo.tlf')
       @company = Company.first
       src_image = @company.image.path
       valor = (quitter.total_pago.to_f * 100).to_i
       local_data = "FORTALEZA, #{l quitter.data_pagamento , format: :long }"
       report.start_new_page
-      
+
       #report.page.item(:image_logo).src('/path/to/image.png')
       report.page.item(:image_logo).src(@company.image.path) #@company.image.url
       report.page.item(:image_quitter).src(@company.quitter.path) #@company.image.url
@@ -48,8 +48,8 @@ class LowerReceivablesController < ApplicationController
       report.page.item(:valor_extenso).value(Extenso.moeda(valor))
       report.page.item(:account_obs).value(quitter.account_receivable.observacao)
       report.page.item(:issue_date).value(local_data)
-      send_data report.generate, filename: "recibo_#{quitter.id}_.pdf", 
-                                   type: 'application/pdf', 
+      send_data report.generate, filename: "recibo_#{quitter.id}_.pdf",
+                                   type: 'application/pdf',
                                    disposition: 'inline'
 
     end
