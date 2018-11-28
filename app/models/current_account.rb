@@ -5,14 +5,14 @@ class CurrentAccount < ActiveRecord::Base
   validates :tipo, presence: true
   validates :historico, presence: true
 
-  belongs_to :cash_account
+  belongs_to :cash_account, required: false
   has_many :account_payables
 
   module TipoLancamento
     CREDITO = 1
     DEBITO  = -1
   end
-  
+
   def credito_debito
   	case self.tipo
   		when -1 then "Débito"

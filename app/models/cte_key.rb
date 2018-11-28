@@ -2,8 +2,8 @@
 class CteKey < ActiveRecord::Base
   validates :cte, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }
   validates :chave, length: { is: 44 }, numericality: { only_integer: true }, allow_blank: true
-	
-	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "cte_id"
+
+	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "cte_id", required: false
   has_attached_file :asset
   validates_attachment_content_type :asset, :content_type => /\Aimage\/.*\Z/, allow_blank: true
 
@@ -15,8 +15,8 @@ class CteKey < ActiveRecord::Base
   def is_image?
     return false unless asset.content_type
     ['image/jpeg', 'image/jpg'].include?(asset.content_type)
-  end  
-  
+  end
+
   def tesseract_context?
     #%w('CT-e', 'CT-E', 'CTE', 'CTe').each {|str| puts str}
     if self.asset.present?
@@ -43,7 +43,7 @@ class CteKey < ActiveRecord::Base
           errors.add(:ordem_service, "you can not include CT-e while it is not canceled")
           return false
         end
-      else 
+      else
         positivo == false
         errors.add(:ordem_service, "you can not include CT-e while it is not canceled")
         return false

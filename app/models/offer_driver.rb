@@ -4,15 +4,15 @@ class OfferDriver < ActiveRecord::Base
   validates :driver, presence: true
   validates :date_incoming, presence: true
   validates :type_vehicle, presence: true
-	validates :place_horse, presence: true, length: { maximum: 8 }  
+	validates :place_horse, presence: true, length: { maximum: 8 }
 	validates :observation, length: { minimum: 15 }, if: Proc.new {|c| not c.observation.blank?}
   #validates :place_cart_first, length: { maximum: 8 } if: lambda { |d| d.place_cart_first.present? }
   #validates :place_cart_second, length: { maximum: 8 } if: Proc.new { |d| d.place_cart_second.present? }
   #validates :status, presence: true
 	#validates_uniqueness_of :status, conditions: -> { where(status: TypeStatus::WAITING) }
-	
-  belongs_to :offer_charge
-  belongs_to :user
+
+  belongs_to :offer_charge, required: false
+  belongs_to :user, required: false
 
  	before_create do |offer|
  		offer.driver = offer.driver.upcase
@@ -41,8 +41,8 @@ class OfferDriver < ActiveRecord::Base
 		case status
 			when 0 then "Aguardando"
 			when 1 then "Confirmado"
-			when 2 then "Rejeitado"	  
-			when 3 then "No Show"			
+			when 2 then "Rejeitado"
+			when 3 then "No Show"
 			when 4 then "Desistência"
 		end
 	end
@@ -68,8 +68,8 @@ class OfferDriver < ActiveRecord::Base
       rescue Exception => e
         puts e.message
         self.errors.add(:offer_driver, e.message)
-        return false        
-    end    
+        return false
+    end
 	end
 
 	def self.noshow(offer_driver)
@@ -90,4 +90,3 @@ class OfferDriver < ActiveRecord::Base
 		(self.status == TypeStatus::WAITING) or (self.status == TypeStatus::CONFIRMED)
 	end
 end
-

@@ -10,20 +10,20 @@ class Operating < ActiveRecord::Base
   validates :chave_nfe, presence: true, length: { is: 44 }, numericality: { only_integer: true }, uniqueness: true
   validates :chave_danfe_devolucao, length: { is: 44 }, uniqueness: true, numericality: { only_integer: true }, allow_blank: true
 
-  belongs_to :driver
-  belongs_to :client
+  belongs_to :driver, required: false
+  belongs_to :client, required: false
 
   has_many :operating_items, dependent: :destroy
-  accepts_nested_attributes_for :operating_items, allow_destroy: true  
+  accepts_nested_attributes_for :operating_items, allow_destroy: true
 
   has_many :operating_services, dependent: :destroy
-  accepts_nested_attributes_for :operating_services, allow_destroy: true  
+  accepts_nested_attributes_for :operating_services, allow_destroy: true
 
-  has_many :operating_employees 
-  accepts_nested_attributes_for :operating_employees, allow_destroy: true  
+  has_many :operating_employees
+  accepts_nested_attributes_for :operating_employees, allow_destroy: true
 
   has_many :assets, as: :asset, dependent: :destroy
-  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank  
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
 
 
@@ -32,7 +32,7 @@ class Operating < ActiveRecord::Base
       when 0 then "A Vista"
       when 1 then "A Prazo"
     end
-  end  
+  end
 
   def status_name
     case self.status

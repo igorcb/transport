@@ -4,6 +4,6 @@ class TableInsurance < ActiveRecord::Base
 	validates :state_target, presence: true
   validates :percent, presence: true, numericality: { greater_than: 0 }
 	validates :state_target, uniqueness: { scope: :state_source }
-	
-  belongs_to :insurer
+
+  belongs_to :insurer, required: false
 end

@@ -1,6 +1,6 @@
 class Notfis < ActiveRecord::Base
-  belongs_to :client
-  belongs_to :file_edi
+  belongs_to :client, required: false
+  belongs_to :file_edi, required: false
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
 

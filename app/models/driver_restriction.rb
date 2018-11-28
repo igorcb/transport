@@ -2,8 +2,8 @@ class DriverRestriction < ActiveRecord::Base
 	validates :client_id, presence: true
 	validates :restriction, presence: true
 
-	belongs_to :driver
-  belongs_to :client
+	belongs_to :driver, required: false
+  belongs_to :client, required: false
 
   module TypeRestriction
   	CARGA = 0

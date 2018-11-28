@@ -4,8 +4,8 @@ class Boarding < ActiveRecord::Base
   validates :status, presence: true
   #validates_associated :ordem_services
 
-  belongs_to :carrier
-  belongs_to :driver
+  belongs_to :carrier, required: false
+  belongs_to :driver, required: false
 
   belongs_to :started_user, class_name: "User", foreign_key: "started_user_id", required: false
   belongs_to :confirmed_user, class_name: "User", foreign_key: "confirmed_user_id", required: false

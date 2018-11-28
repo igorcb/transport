@@ -1,8 +1,8 @@
 class ControlPallet < ActiveRecord::Base
-  belongs_to :client
-  belongs_to :carrier
-  belongs_to :input_control
-  
+  belongs_to :client, required: false
+  belongs_to :carrier, required: false
+  belongs_to :input_control, required: false
+
   validates :client_id, :data, :tipo, :qte, presence: true
   validates :carrier_id, presence: true
 
@@ -47,8 +47,8 @@ class ControlPallet < ActiveRecord::Base
     hash_ids = options[:ids]
     ActiveRecord::Base.transaction do
 
-      ordem_service = OrdemService.create!(source_client_id: source_client.id, 
-                                           target_client_id: target_client.id, 
+      ordem_service = OrdemService.create!(source_client_id: source_client.id,
+                                           target_client_id: target_client.id,
                                                        tipo: OrdemService::TipoOS::LOGISTICA,
                                                      estado: source_client.estado,
                                                      cidade: source_client.cidade)
@@ -57,22 +57,22 @@ class ControlPallet < ActiveRecord::Base
                                                         placa: "XXX-0000"
                                                     )
       hash_ids.each do |i|
-        id = i[0].to_i 
+        id = i[0].to_i
         qtde_total += i[1].to_f
         ControlPallet.where(id: id).update_all(generate_ordem_service: true)
         control_pallet = ControlPallet.find(id)
         # control_pallet.generate_ordem_service = true
         # control_pallet.save!
         ordem_service.nfe_keys.create!(nfe: control_pallet.nfe, chave: control_pallet.nfe_original, volume: control_pallet.qte, peso: control_pallet.peso)
-        ControlPallet.create!(client_id: control_pallet.client_id, 
-                                   data: Date.today, 
-                                    qte: control_pallet.qte, 
-                                   tipo: CreditoDebito::SAIDA, 
+        ControlPallet.create!(client_id: control_pallet.client_id,
+                                   data: Date.today,
+                                    qte: control_pallet.qte,
+                                   tipo: CreditoDebito::SAIDA,
                                     nfe: control_pallet.nfe,
                                     nfd: control_pallet.nfd,
                            nfe_original: control_pallet.nfe_original,
                            nfd_original: control_pallet.nfd_original,
-                              historico: "Saida de Pallets OS: #{ordem_service.id}", 
+                              historico: "Saida de Pallets OS: #{ordem_service.id}",
                                    peso: control_pallet.peso,
                                  volume: control_pallet.volume,
                                  status: TipoStatus::ABERTO,
@@ -87,7 +87,7 @@ class ControlPallet < ActiveRecord::Base
   def self.saldo(client=nil)
     #date.nil? ? CurrentAccount.sum('price*type_launche') : CurrentAccount.where(date_ocurrence: date).sum('price*type_launche')
     client.nil? ? ControlPallet.sum('qte*tipo') : ControlPallet.where(client_id: client).sum('qte*tipo')
-  end  
+  end
 
   def self.entrada(client=nil)
     client.nil? ? ControlPallet.where(tipo: CreditoDebito::ENTRADA).sum(:qte) : ControlPallet.where(client_id: client, tipo: CreditoDebito::ENTRADA).sum(:qte)

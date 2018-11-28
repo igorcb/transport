@@ -3,14 +3,14 @@ class ClientRequirement < ActiveRecord::Base
   validates :client_source_id, presence: true
   validates :type_vehicle, presence: true
   validates :type_body, presence: true
-  validates :client_source_id, uniqueness: { scope: [:client_id, :type_vehicle, :type_body], 
+  validates :client_source_id, uniqueness: { scope: [:client_id, :type_vehicle, :type_body],
                                            message: ": tabela de exigencias com tipo de veiculo, tipo de carroceria já estão em uso. "}
 
-  belongs_to :client
-  belongs_to :client_source, class_name: "Client", foreign_key: :client_source_id
+  belongs_to :client, required: false
+  belongs_to :client_source, class_name: "Client", foreign_key: :client_source_id, required: false
 
-  belongs_to :created_user, class_name: "User", foreign_key: :created_user_id
-  belongs_to :updated_user, class_name: "User", foreign_key: :updated_user_id  
+  belongs_to :created_user, class_name: "User", foreign_key: :created_user_id, required: false
+  belongs_to :updated_user, class_name: "User", foreign_key: :updated_user_id, required: false
 
   module TypeFloor
     FERRO = 0
@@ -60,5 +60,5 @@ class ClientRequirement < ActiveRecord::Base
   		when TypeFloor::MADEIRA then "Madeira"
       when TypeFloor::TODOS then "Todos"
   	end
-  end  
+  end
 end

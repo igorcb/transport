@@ -1,11 +1,11 @@
 class SubCostCenter < ActiveRecord::Base
   validates :descricao, presence: true, uniqueness: { scope: :cost_center }
 
-  belongs_to :cost_center
-  belongs_to :type_service
+  belongs_to :cost_center, required: false
+  belongs_to :type_service, required: false
   has_many :account_payables
   has_many :sub_cost_center_threes
-  
+
   before_destroy :can_destroy?
 
   def valor_total
@@ -25,11 +25,11 @@ class SubCostCenter < ActiveRecord::Base
     valor_total - total_pago
   end
 
-  private 
+  private
     def can_destroy?
       if self.account_payables.present?
-        errors.add(:base, "You can not delete record with relationship") 
+        errors.add(:base, "You can not delete record with relationship")
         return false
       end
-    end    
+    end
 end

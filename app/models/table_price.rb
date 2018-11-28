@@ -3,9 +3,9 @@ class TablePrice < ActiveRecord::Base
   validates :tipo, presence: true
   validates :valor, presence: true
 
-	belongs_to :driver, class_name: "Driver", foreign_key: "table_price_id", polymorphic: true, dependent: :destroy
-	belongs_to :veichle, class_name: "Veichle", foreign_key: "table_price_id", polymorphic: true, dependent: :destroy
-  belongs_to :employee, class_name: "Employee", foreign_key: "table_price_id", polymorphic: true, dependent: :destroy
+	belongs_to :driver, class_name: "Driver", foreign_key: "table_price_id", polymorphic: true, dependent: :destroy, required: false
+	belongs_to :veichle, class_name: "Veichle", foreign_key: "table_price_id", polymorphic: true, dependent: :destroy, required: false
+  belongs_to :employee, class_name: "Employee", foreign_key: "table_price_id", polymorphic: true, dependent: :destroy, required: false
 
 
   def uf_tipo_nome
@@ -21,5 +21,5 @@ class TablePrice < ActiveRecord::Base
       when 1 then 'p/ Hora'
       when 2 then 'p/ Diaria'
     end
-  end	
+  end
 end

@@ -2,21 +2,21 @@ class DirectCharge < ActiveRecord::Base
   validates :carrier_id, :driver_id, presence: true
 	validates :place, :date_charge, presence: true
   validates :shipment, presence: true, uniqueness: true
-  
-  belongs_to :carrier
-  belongs_to :driver
-  belongs_to :user, class_name: "User", foreign_key: "user_id"
-  belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id"
-  belongs_to :client_table_price
-  belongs_to :type_service
-  belongs_to :stretch_route
+
+  belongs_to :carrier, required: false
+  belongs_to :driver, required: false
+  belongs_to :user, class_name: "User", foreign_key: "user_id", required: false
+  belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id", required: false
+  belongs_to :client_table_price, required: false
+  belongs_to :type_service, required: false
+  belongs_to :stretch_route, required: false
 
   #belongs_to :supplier, class_name: "Supplier", foreign_key: "supplier_id", polymorphic: true
   has_one :offer_charge
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
-  
+
   has_many :ordem_services
   has_many :item_input_controls
 
@@ -31,7 +31,7 @@ class DirectCharge < ActiveRecord::Base
 
   has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
 
-  default_scope { order(date_charge: :desc, id: :desc) } 
+  default_scope { order(date_charge: :desc, id: :desc) }
 
   #before_save { |item| item.email = email.downcase }
   RECEBIMENTO_DESCARGA_HISTORIC = 100
@@ -48,17 +48,17 @@ class DirectCharge < ActiveRecord::Base
   after_create do |offer|
     update_offer_charge
   end
-  
+
   before_create do |cte|
    set_values
-  end 
-
-  before_save do |item| 
-    item.place = place.upcase 
-    item.place_cart = place_cart.upcase 
-    #item.place_cart_2 = place_cart_2.upcase 
   end
-  
+
+  before_save do |item|
+    item.place = place.upcase
+    item.place_cart = place_cart.upcase
+    #item.place_cart_2 = place_cart_2.upcase
+  end
+
   module TipoCarga
     BATIDA = false
     PALETIZADA  = true
@@ -122,15 +122,15 @@ class DirectCharge < ActiveRecord::Base
   end
 
   def vehicle_horse
-    Vehicle.where(placa: self.place).first 
+    Vehicle.where(placa: self.place).first
   end
 
   def vehicle_cart_first
-    Vehicle.where(placa: self.place_cart).first 
+    Vehicle.where(placa: self.place_cart).first
   end
 
   def vehicle_cart_second
-    Vehicle.where(placa: self.place_cart_2).first 
+    Vehicle.where(placa: self.place_cart_2).first
   end
 
   def valor_tonelada
@@ -170,7 +170,7 @@ class DirectCharge < ActiveRecord::Base
         #                        cost_center_id: RECEBIMENTO_DESCARGA_COST_CENTER,
         #                    sub_cost_center_id: RECEBIMENTO_DESCARGA_SUB_COST_CENTER,
         #              sub_cost_center_three_id: RECEBIMENTO_DESCARGA_SUB_COST_CENTER_THREE,
-        #                     payment_method_id: RECEBIMENTO_DESCARGA_PAYMENT_METHOD, 
+        #                     payment_method_id: RECEBIMENTO_DESCARGA_PAYMENT_METHOD,
         #                           historic_id: RECEBIMENTO_DESCARGA_HISTORIC,
         #                       data_vencimento: Date.today,
         #                             documento: self.id,
@@ -219,12 +219,12 @@ class DirectCharge < ActiveRecord::Base
       puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico"
       ordem_service = OrdemService.create!( tipo: OrdemService::TipoOS::LOGISTICA,
                                 direct_charge_id: input_control.id,
-                                target_client_id: target_client.id, 
+                                target_client_id: target_client.id,
                                 source_client_id: source_client.id,
                                billing_client_id: billing_client.id,
                                       carrier_id: Carrier.carrier_default,
                                 carrier_entry_id: input_control.carrier.id,
-                                            peso: input_control.weight, 
+                                            peso: input_control.weight,
                                      qtde_volume: input_control.volume,
                                           estado: target_client.estado,
                                           cidade: target_client.cidade,
@@ -232,9 +232,9 @@ class DirectCharge < ActiveRecord::Base
                                       observacao: ""
                                                  )
       puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico Logistica"
-      ordem_service.ordem_service_logistics.create!(driver_id: input_control.driver.id, 
-                                                        placa: input_control.place, 
-                                                         peso: input_control.weight, 
+      ordem_service.ordem_service_logistics.create!(driver_id: input_control.driver.id,
+                                                        placa: input_control.place,
+                                                         peso: input_control.weight,
                                                   qtde_volume: input_control.volume)
       # puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico Tipo de Servico"
       # ordem_service.ordem_service_type_service.create!(type_service_id: input_control.client_table_price.type_service_id,
@@ -251,7 +251,7 @@ class DirectCharge < ActiveRecord::Base
                           nfe_source_type: nfe.nfe_type,
                               remessa_ype: input_control.shipment,
                                      peso: nfe.peso,
-                                  average: value_weight_average,                                     
+                                  average: value_weight_average,
                                    volume: nfe.volume
                                     )
 
@@ -268,7 +268,7 @@ class DirectCharge < ActiveRecord::Base
           puts ">>>>>>>>>>>>>>>>> se nota de palete lançar no controle de palete"
 
         end
-        
+
         NfeXml.where(id: nfe.id).update_all(create_os: NfeXml::TipoOsCriada::SIM)
       end
       #puts ">>>>>>>>>>>>>>>> update peso e volume"

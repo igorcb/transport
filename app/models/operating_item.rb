@@ -1,4 +1,4 @@
 class OperatingItem < ActiveRecord::Base
-  belongs_to :operating
-  belongs_to :product
+  belongs_to :operating, required: false
+  belongs_to :product, required: false
 end

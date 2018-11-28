@@ -1,18 +1,18 @@
 class Scheduling < ActiveRecord::Base
 
-  validates :client, presence: true, length: { maximum: 50 } 
+  validates :client, presence: true, length: { maximum: 50 }
   validates :type_modal, presence: true
   validates :date_scheduling, presence: true
   validates :time_scheduling, presence: true
 
-  belongs_to :user
+  belongs_to :user, required: false
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
 
   after_save :processa_nfe_xmls
 
-  default_scope { order(date_scheduling: :desc, time_scheduling: :desc, id: :desc) } 
+  default_scope { order(date_scheduling: :desc, time_scheduling: :desc, id: :desc) }
   #scope :the_day, -> { where(date_scheduling: Date.current).order(date_scheduling: :desc, time_scheduling: :desc, id: :desc) }
   scope :the_day, -> { where(date_scheduling: Date.current) }
 

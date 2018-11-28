@@ -1,9 +1,9 @@
 class Cancellation < ActiveRecord::Base
   validates :solicitation_user_id, presence: true
   validates :observacao, presence: true, length: { minimum: 15 }
-  belongs_to :solicitation_user, class_name: "User", foreign_key: 'solicitation_user_id'
-  belongs_to :authorization_user, class_name: "User", foreign_key: 'authorization_user_id'
-  
+  belongs_to :solicitation_user, class_name: "User", foreign_key: 'solicitation_user_id', required: false
+  belongs_to :authorization_user, class_name: "User", foreign_key: 'authorization_user_id', required: false
+
   # belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "cancellation_id", polymorphic: true, dependent: :destroy
   # belongs_to :boarding, class_name: "Boarding", foreign_key: "cancellation_id", polymorphic: true, dependent: :destroy
   # belongs_to :cancel, class_name: "Cancellation", foreign_key: "cancellation_id", polymorphic: true
@@ -49,7 +49,7 @@ class Cancellation < ActiveRecord::Base
       when "CteKey" then model = CteKey.find(self.cancellation_id)
       when "InputControl" then model = InputControl.find(self.cancellation_id)
       when "OfferCharge" then model = OfferCharge.find(self.cancellation_id)
-    end     
+    end
     model
   end
 
@@ -63,7 +63,7 @@ class Cancellation < ActiveRecord::Base
       when "CteKey" then model = CteKey.ordem_service(self.cancellation_id)
       when "InputControl" then model = InputControl.find(self.cancellation_id)
       when "OfferCharge" then model = OfferCharge.find(self.cancellation_id)
-    end     
+    end
     model
   end
 
@@ -105,7 +105,7 @@ class Cancellation < ActiveRecord::Base
       #cancel.send_notification_cancellation
     end
   end
-  
+
   def cancel_ordem_service(cancel, user)
     # colocar status da ordem de servico como cancelada
     # colocar status do cancelamento como CONFIRMADO
@@ -174,7 +174,7 @@ class Cancellation < ActiveRecord::Base
 
   def cancel_input_control(cancel, user)
     # colocar status da remessa de entrada como aberta
-    # se tiver contas a receber, excluir 
+    # se tiver contas a receber, excluir
       # se tiver com o pgto efetuado, não deixa excluir o contas a receber
     # colocar status do cancelamento como CONFIRMADO
     begin
@@ -189,7 +189,7 @@ class Cancellation < ActiveRecord::Base
       rescue Exception => e
         puts e.message
         self.errors.add(:cancellation, e.message)
-        return false        
+        return false
     end
   end
 
@@ -204,7 +204,7 @@ class Cancellation < ActiveRecord::Base
       rescue Exception => e
         puts e.message
         self.errors.add(:cancellation, e.message)
-        return false        
+        return false
     end
   end
 end

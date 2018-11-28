@@ -1,6 +1,6 @@
 class LowerAccountPayable < ActiveRecord::Base
-  belongs_to :account_payable
-	belongs_to :cash_account
+  belongs_to :account_payable, required: false
+	belongs_to :cash_account, required: false
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
@@ -12,15 +12,15 @@ class LowerAccountPayable < ActiveRecord::Base
   			data = Time.now.strftime('%Y-%m-%d')
   			account = self.account_payable
   			if self.cash_account_id.present?
-		      # CurrentAccount.create!(cash_account_id: self.cash_account_id, 
-		      #                       data: data,  
+		      # CurrentAccount.create!(cash_account_id: self.cash_account_id,
+		      #                       data: data,
 		      #                       valor: self.total_pago,
 		      #                       tipo: CurrentAccount::TipoLancamento::CREDITO,
 		      #                       historico: "ESTORNO CONTA A PAGAR: " + account.documento,
 		      #                       account_payable_id: self.id
 		      #                       )
-        Cash.create!(cash_account_id: self.cash_account_id, 
-                              data: data,  
+        Cash.create!(cash_account_id: self.cash_account_id,
+                              data: data,
                               valor: self.total_pago,
                               tipo: Cash::TipoLancamento::CREDITO,
                               historico: "ESTORNO CONTA A PAGAR: " + account.documento,

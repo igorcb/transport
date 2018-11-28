@@ -1,5 +1,5 @@
 class OrdemServiceLogistic < ActiveRecord::Base
-  belongs_to :ordem_service
+  belongs_to :ordem_service, required: false
 
   validates :driver_id, presence: true
   validates :placa, presence: true, length: { maximum: 10 }

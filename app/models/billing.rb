@@ -2,7 +2,7 @@ class Billing < ActiveRecord::Base
 
   validates :data_vencimento, presence: true
 
-  belongs_to :type_service
+  belongs_to :type_service, required: false
   has_many :ordem_services
 
   has_one :cancellation, class_name: "Cancellation", foreign_key: "cancellation_id"
@@ -19,7 +19,7 @@ class Billing < ActiveRecord::Base
   	ABERTO = 0
   	PAGO = 1
     CANCELADA = 2
-  end	
+  end
 
   def status_name
     case self.status
@@ -27,9 +27,9 @@ class Billing < ActiveRecord::Base
       when 1 then "Pago"
       when 2 then "Cancelada"
     else "Nao Definido"
-    end  	
+    end
   end
-  
+
   def feed_cancellations
     Cancellation.where("cancellation_type = ? and cancellation_id = ?", "Billing", self.id)
   end
@@ -41,7 +41,7 @@ class Billing < ActiveRecord::Base
         csv << os.attributes.values_at(*self.ordem_services.column_names)
       end
     end
-  end  
+  end
 
   private
 

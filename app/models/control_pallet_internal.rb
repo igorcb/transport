@@ -6,8 +6,8 @@ class ControlPalletInternal < ActiveRecord::Base
 	validates :qtde, presence: true
 	validates :equipament, presence: true
 
-  belongs_to :boarding
-  belongs_to :responsable, class_name: "Supplier", foreign_key: "responsable_id", polymorphic: true
+  belongs_to :boarding, required: false
+  belongs_to :responsable, class_name: "Supplier", foreign_key: "responsable_id", polymorphic: true, required: false
 
   #default_scope { order(date_launche: :desc, id: :desc) }
   scope :credit, -> { where(type_launche: CreditDebit::CREDIT) }
@@ -21,7 +21,7 @@ class ControlPalletInternal < ActiveRecord::Base
   default_scope { ordered }
 
   before_save :set_responsable_type
-  
+
   module TypeEquipament
   	PALLET = 1
   	BIG_BAG = 2
@@ -113,7 +113,7 @@ class ControlPalletInternal < ActiveRecord::Base
       puts e.message
       @source.errors.add(:ControlPalletInternal, e.message)
       @target.errors.add(:ControlPalletInternal, e.message)
-      return false 
+      return false
   end
 
   protected

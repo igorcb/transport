@@ -1,8 +1,8 @@
 class ClientTablePrice < ActiveRecord::Base
-  belongs_to :client, class_name: "Client", foreign_key: :client_table_price_id
-  belongs_to :carrier, class_name: "Carrier", foreign_key: :client_table_price_id
-  belongs_to :type_service
-  belongs_to :stretch_route
+  belongs_to :client, class_name: "Client", foreign_key: :client_table_price_id, required: false
+  belongs_to :carrier, class_name: "Carrier", foreign_key: :client_table_price_id, required: false
+  belongs_to :type_service, required: false
+  belongs_to :stretch_route, required: false
 
   scope :stretch_of_client, -> { ClientTablePrice.joins(stretch_route: [ :stretch_source, :stretch_target ]).order("stretches.destino") }
 
@@ -26,13 +26,13 @@ class ClientTablePrice < ActiveRecord::Base
 
   module AddIcmsValueFete
   	OBEDECE_CLIENTE = 0
-  	SIM = 1 
+  	SIM = 1
   	NAO = 2
   end
 
   module AddIcmsValueMinimum
   	OBEDECE_PREFERENCIA = 0
-  	SIM = 1 
+  	SIM = 1
   	NAO = 2
   end
 
@@ -108,5 +108,5 @@ class ClientTablePrice < ActiveRecord::Base
   	end
   end
 
-  
+
 end

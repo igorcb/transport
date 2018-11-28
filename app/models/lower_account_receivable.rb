@@ -1,6 +1,6 @@
 class LowerAccountReceivable < ActiveRecord::Base
-  belongs_to :account_receivable
-  belongs_to :cash_account
+  belongs_to :account_receivable, required: false
+  belongs_to :cash_account, required: false
 
   before_destroy :back_balance
   after_create :put_billing_payment
@@ -9,7 +9,7 @@ class LowerAccountReceivable < ActiveRecord::Base
   	puts ">>>>>>>>> check_full: "
   	if check_full_receivable_billing?
   		puts ">>>>>>>>> Baixar Fatura: #{self.account_receivable.billing_id} "
-  	  Billing.where(id: self.account_receivable.billing_id).update_all(status: Billing::TipoStatus::PAGO) 
+  	  Billing.where(id: self.account_receivable.billing_id).update_all(status: Billing::TipoStatus::PAGO)
     end
   end
 
@@ -32,15 +32,15 @@ class LowerAccountReceivable < ActiveRecord::Base
   			data = Time.now.strftime('%Y-%m-%d')
   			account = self.account_receivable
   			if self.cash_account_id.present?
-		      # CurrentAccount.create!(cash_account_id: self.cash_account_id, 
-		      #                       data: data,  
+		      # CurrentAccount.create!(cash_account_id: self.cash_account_id,
+		      #                       data: data,
 		      #                       valor: self.total_pago,
 		      #                       tipo: CurrentAccount::TipoLancamento::CREDITO,
 		      #                       historico: "ESTORNO CONTA A PAGAR: " + account.documento,
 		      #                       account_payable_id: self.id
 		      #                       )
-        Cash.create!(cash_account_id: self.cash_account_id, 
-                              data: data,  
+        Cash.create!(cash_account_id: self.cash_account_id,
+                              data: data,
                               valor: self.total_pago,
                               tipo: Cash::TipoLancamento::DEBITO,
                               historico: "ESTORNO CONTA A PAGAR: " + self.account_receivable.documento,

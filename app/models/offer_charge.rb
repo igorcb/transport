@@ -5,7 +5,7 @@ class OfferCharge < ActiveRecord::Base
 	validates :local_loading, presence: true
   validates :type_vehicle, presence: true
 
-  belongs_to :user
+  belongs_to :user, required: false
 	has_one :direct_charge
 
 	has_many :offer_items

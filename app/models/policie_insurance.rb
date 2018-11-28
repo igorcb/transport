@@ -8,8 +8,8 @@ class PolicieInsurance < ActiveRecord::Base
   validates :value, presence: true, numericality: { greater_than: 0 }
 	#validates :state_target, uniqueness: { scope: :state_source }
 
-  belongs_to :insurer
-  belongs_to :broker
+  belongs_to :insurer, required: false
+  belongs_to :broker, required: false
 
   #scope :ordered_expired, -> { where(status: TipoStatus::EMBARCADO).order("id desc") }
   scope :ordered_expired, -> { order(date_expired: :desc) }

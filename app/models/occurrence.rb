@@ -1,8 +1,8 @@
 class Occurrence < ActiveRecord::Base
 	include SettingEdiOco
 
-	belongs_to :file_occurrence
-	belongs_to :nfe_key
+	belongs_to :file_occurrence, required: false
+	belongs_to :nfe_key, required: false
 
 	def self.generate_file(name_file, nfe_key_ids)
 		#source_client = Trazes do Parametro do Filtro da tela de EDI Controller Index
@@ -15,10 +15,10 @@ class Occurrence < ActiveRecord::Base
 			nfe_keys = NfeKey.where(id: [nfe_key_ids])
 			nfe_key = nfe_keys.first
 			file_occurrence = FileOccurrence.create!(client_id: nfe_key.ordem_service.billing_client, date_file: Date.current, name_file: name_file, content: nil)
-			
+
 			#arquivo = []
 			arquivo = ""
-			arquivo << occurrence.generate_header(company, nfe_key.ordem_service.billing_client) 
+			arquivo << occurrence.generate_header(company, nfe_key.ordem_service.billing_client)
 			arquivo << "\n"
 			arquivo << occurrence.generate_body()
 			arquivo << "\n"

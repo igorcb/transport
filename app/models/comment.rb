@@ -1,10 +1,10 @@
 class Comment < ActiveRecord::Base
-  belongs_to :boarding, class_name: "Boarding", foreign_key: "comment_id"
-  belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "comment_id"
-  belongs_to :input_control, class_name: "InputControl", foreign_key: "comment_id"
-  
+  belongs_to :boarding, class_name: "Boarding", foreign_key: "comment_id", required: false
+  belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "comment_id", required: false
+  belongs_to :input_control, class_name: "InputControl", foreign_key: "comment_id", required: false
+
   validates :content, presence: true
-  
+
   def type_occurrence_name
     case self.title
       when 0 then "ALTERAÇÃO AGENDAMENTO"
@@ -32,4 +32,3 @@ class Comment < ActiveRecord::Base
     end
   end
 end
-

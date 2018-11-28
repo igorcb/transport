@@ -6,8 +6,8 @@ class FileEdi < ActiveRecord::Base
   validates :shipper_id, presence: true
 	#validates :date_boarding, presence: true
 
-	belongs_to :shipper
-	belongs_to :carrier
+	belongs_to :shipper, required: false
+	belongs_to :carrier, required: false
 
 	has_many :notfis
 

@@ -5,7 +5,6 @@ class Person < ActiveRecord::Base
 	validates :fantasia, presence: true, length: { maximum: 100 }
 	validates :numero, presence: true, length: { maximum: 15 }
 	validates :complemento, length: { maximum: 100 }
-	
-	belongs_to :address
-end
 
+	belongs_to :address, required: false
+end
