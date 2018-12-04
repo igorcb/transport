@@ -69,6 +69,8 @@ gem 'autoprefixer-rails', '~> 8.2'
 gem 'geocoder'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'sidekiq', '~> 5.2', '>= 5.2.3'
+gem 'sidekiq-scheduler', '~> 3.0'
 
 group :test do
   gem 'database_cleaner'
