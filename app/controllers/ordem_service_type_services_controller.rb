@@ -34,7 +34,7 @@ class OrdemServiceTypeServicesController < ApplicationController
   end
 
   def create
-		byebug
+		#byebug
     @ordem_service_type_service = OrdemServiceTypeService.new(ordem_service_type_service_params)
     client_table_price = ClientTablePrice.where(client_table_price_id: @ordem_service_type_service.ordem_service.billing_client,
                                                       type_service_id: @ordem_service_type_service.type_service_id,

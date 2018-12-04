@@ -1,0 +1,15 @@
+current directory: /workspace/rails_app/transport/box/gems/bindex-0.5.0/ext/bindex
+/usr/local/bin/ruby -r ./siteconf20181203-10-1w1o76b.rb extconf.rb
+creating Makefile
+
+current directory: /workspace/rails_app/transport/box/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR=" clean
+
+current directory: /workspace/rails_app/transport/box/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR="
+compiling cruby.c
+linking shared-object bindex/cruby.so
+
+current directory: /workspace/rails_app/transport/box/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20181203-10-xxegk9/bindex

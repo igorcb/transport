@@ -15,7 +15,7 @@ services:
     depends_on:
       - 'postgres'
     build: .
-#    command: bash start.sh
+    command: bash start.sh
     environment:
       - RAILS_MAIL_HOST=${RAILS_MAIL_HOST}
       - RAILS_MAIL_USERNAME=${RAILS_MAIL_USERNAME}
@@ -34,6 +34,11 @@ services:
     ports:
       - 1025:1025
       - 1080:1080
+
+  box:
+    image: busybox
+    volumes:
+      - /workspace/rails_app/transport/box
 
 volumes:
     postgres:

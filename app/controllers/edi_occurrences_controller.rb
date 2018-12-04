@@ -2,8 +2,8 @@ class EdiOccurrencesController < ApplicationController
 
   before_action :authenticate_user!
   #load_and_authorize_resource
-  
-  respond_to :html, :js, :json	
+
+  respond_to :html, :js, :json
 
   def index
     @q = NfeKey.where(id: -1).search(params[:query])
@@ -14,7 +14,7 @@ class EdiOccurrencesController < ApplicationController
 
   def search
     #byebug
-    # if params[:ordem_service_billing_client_cpf_cnpj_eq].nil? 
+    # if params[:ordem_service_billing_client_cpf_cnpj_eq].nil?
     #   flash[:danger] = "Inform CNPJ Client Billing"
     #   redirect_to edi_occurrences_path
     #   return
@@ -25,22 +25,34 @@ class EdiOccurrencesController < ApplicationController
     @nfe_keys = @q.result
     respond_with(@nfe_keys) do |format|
      format.js
-    end  	
+    end
   end
 
   def generate_file
     #EdiOccurrenceService.new(params[:nfe][:ids]).perform
     #flash[:success] = 'Arquivo sendo gerado aguarde...'
     #redirect_to edi_occurrences
+    if params[:nfe]
+      nfe_key_ids = OrdemService.get_hash_ids(params[:nfe][:ids])
+      result = EdiOccurrences::GenerateFileService.new(nfe_key_ids).call
+      flash[:success] = result[:message]
+    else
+      flash[:danger] = "Select one nfe."
+    end
+    redirect_to edi_occurrences_path
 
-    nfe_key_ids = OrdemService.get_hash_ids(params[:nfe][:ids])
-    date_file = Date.current.strftime('%d%m%Y')
-    hora_file = Time.current.strftime('%H%M%S')
-    sigla = Company.first.initials
-    name_file = "OCO#{sigla}_#{date_file}_#{hora_file}.txt"
+    # nfe_key_ids = OrdemService.get_hash_ids(params[:nfe][:ids])
+    #
+    # # date_file = Date.current.strftime('%d%m%Y')
+    # # hora_file = Time.current.strftime('%H%M%S')
+    # # sigla = Company.first.initials
+    # # name_file = "OCO#{sigla}_#{date_file}_#{hora_file}.txt"
+    # # file = Occurrence.generate_file(date_file, nfe_key_ids)
+    #
+    # result = EdiOccurrences::GenerateFileService.new(nfe_key_ids).call
+    #
+    # redirect_to edi_occurrences_path
 
-    file = Occurrence.generate_file(date_file, nfe_key_ids)
-
-    send_data file, filename: name_file, type: 'application/txt', disposition: 'inline'   
+    #send_data file, filename: result[:name_file], type: 'application/txt', disposition: 'inline'
   end
 end

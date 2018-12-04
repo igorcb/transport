@@ -1,0 +1,7 @@
+pkg
+pckg
+doc
+*.gem
+test/result
+spec/result
+Gemfile.lock

@@ -1,0 +1,43 @@
+language: ruby
+
+script: ruby test/thinreports-rails_test.rb
+
+sudo: false
+
+rvm:
+  - 2.4.1
+  - 2.3.1
+  - 2.2.4
+  - 2.2
+  - 2.1
+
+gemfile:
+  - gemfiles/Gemfile-rails.3.0.x
+  - gemfiles/Gemfile-rails.3.1.x
+  - gemfiles/Gemfile-rails.3.2.x
+  - gemfiles/Gemfile-rails.4.0.x
+  - gemfiles/Gemfile-rails.4.1.x
+  - gemfiles/Gemfile-rails.4.2.x
+  - gemfiles/Gemfile-rails.5.0.x
+  - gemfiles/Gemfile-rails.5.1.x
+
+matrix:
+  exclude:
+    - rvm: 2.1
+      gemfile: gemfiles/Gemfile-rails.5.0.x
+    - rvm: 2.1
+      gemfile: gemfiles/Gemfile-rails.5.1.x
+    - rvm: 2.2
+      gemfile: gemfiles/Gemfile-rails.5.0.x
+    - rvm: 2.2
+      gemfile: gemfiles/Gemfile-rails.5.1.x
+    - rvm: 2.4.1
+      gemfile: gemfiles/Gemfile-rails.3.0.x
+    - rvm: 2.4.1
+      gemfile: gemfiles/Gemfile-rails.3.1.x
+    - rvm: 2.4.1
+      gemfile: gemfiles/Gemfile-rails.3.2.x
+    - rvm: 2.4.1
+      gemfile: gemfiles/Gemfile-rails.4.0.x
+    - rvm: 2.4.1
+      gemfile: gemfiles/Gemfile-rails.4.1.x

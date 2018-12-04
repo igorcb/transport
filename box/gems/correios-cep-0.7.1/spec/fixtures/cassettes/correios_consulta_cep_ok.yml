@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:cli="http://cliente.bean.master.sigep.bsb.correios.com.br/"><soapenv:Header
+        /><soapenv:Body><cli:consultaCEP><cep>54250610</cep></cli:consultaCEP></soapenv:Body></soapenv:Envelope>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - text/xml; charset=utf-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 03 Nov 2015 00:23:04 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Vary:
+      - Accept-Encoding,User-Agent
+      Content-Length:
+      - '277'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PHNvYXA6RW52ZWxvcGUgeG1sbnM6c29hcD0iaHR0cDovL3NjaGVtYXMueG1s
+        c29hcC5vcmcvc29hcC9lbnZlbG9wZS8iPjxzb2FwOkJvZHk+PG5zMjpjb25z
+        dWx0YUNFUFJlc3BvbnNlIHhtbG5zOm5zMj0iaHR0cDovL2NsaWVudGUuYmVh
+        bi5tYXN0ZXIuc2lnZXAuYnNiLmNvcnJlaW9zLmNvbS5ici8iPjxyZXR1cm4+
+        PGJhaXJybz5DYXZhbGVpcm88L2JhaXJybz48Y2VwPjU0MjUwNjEwPC9jZXA+
+        PGNpZGFkZT5KYWJvYXTDo28gZG9zIEd1YXJhcmFwZXM8L2NpZGFkZT48Y29t
+        cGxlbWVudG8+PC9jb21wbGVtZW50bz48Y29tcGxlbWVudG8yPjwvY29tcGxl
+        bWVudG8yPjxlbmQ+UnVhIEZlcm5hbmRvIEFtb3JpbTwvZW5kPjxpZD4wPC9p
+        ZD48dWY+UEU8L3VmPjwvcmV0dXJuPjwvbnMyOmNvbnN1bHRhQ0VQUmVzcG9u
+        c2U+PC9zb2FwOkJvZHk+PC9zb2FwOkVudmVsb3BlPg==
+    http_version: 
+  recorded_at: Tue, 03 Nov 2015 00:23:06 GMT
+recorded_with: VCR 3.0.0

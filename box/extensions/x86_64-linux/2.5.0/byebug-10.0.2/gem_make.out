@@ -1,0 +1,19 @@
+current directory: /workspace/rails_app/transport/box/gems/byebug-10.0.2/ext/byebug
+/usr/local/bin/ruby -r ./siteconf20181203-10-1aunk08.rb extconf.rb
+creating Makefile
+
+current directory: /workspace/rails_app/transport/box/gems/byebug-10.0.2/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /workspace/rails_app/transport/box/gems/byebug-10.0.2/ext/byebug
+make "DESTDIR="
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.so
+
+current directory: /workspace/rails_app/transport/box/gems/byebug-10.0.2/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.so ./.gem.20181203-10-fllbnx/byebug

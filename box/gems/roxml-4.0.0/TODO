@@ -1,0 +1,37 @@
+Planned:
+
+v 3.2
+
+  * Support outputting namespaced attrs
+
+  * Consider class_inheritable_attribute rather than superclass.try stuff.
+
+  * Do some benchmarking
+
+  * Back with http://xml-object.rubyforge.org/doc/ to minimize need for specifications?
+
+  * Commandeer #parse to use opposite #from_xml, but in an unrooted, collection-friendly fashion,
+   ala HappyMapper's parse
+
+v 3.x
+
+  * :self => true for sending method_missing to this attribute?
+
+  * :attributes extensions ala HappyMapper?
+
+  * Add xml_attrs helper to share :in declarations between several attributes. E.g.:
+
+     xml_reader :count, :in => 'Attributes', :as => Integer
+     xml_reader :something_else, :in => 'Attributes', :as => Date
+
+    becomes:
+
+    xml_attrs :in => 'Attributes' do |xml|
+      xml.reader  :count, :as => Integer
+      xml.reader  :something_else, :as => Date
+    end
+
+  * Ensure (perhaps optionally) that references are unambiguous. That is error/warn
+   a singular specification has multiple possible node references
+
+  * Use lazy evaluation to minimize parsing time for large files

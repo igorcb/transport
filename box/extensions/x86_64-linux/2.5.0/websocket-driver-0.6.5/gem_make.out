@@ -1,0 +1,15 @@
+current directory: /workspace/rails_app/transport/box/gems/websocket-driver-0.6.5/ext/websocket-driver
+/usr/local/bin/ruby -r ./siteconf20181203-10-1lipkvo.rb extconf.rb
+creating Makefile
+
+current directory: /workspace/rails_app/transport/box/gems/websocket-driver-0.6.5/ext/websocket-driver
+make "DESTDIR=" clean
+
+current directory: /workspace/rails_app/transport/box/gems/websocket-driver-0.6.5/ext/websocket-driver
+make "DESTDIR="
+compiling websocket_mask.c
+linking shared-object websocket_mask.so
+
+current directory: /workspace/rails_app/transport/box/gems/websocket-driver-0.6.5/ext/websocket-driver
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20181203-10-1jtrix4
