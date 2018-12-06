@@ -76,6 +76,7 @@ group :test do
   gem 'database_cleaner'
   # gem "factory_bot_rails"
   # gem "ffaker"
+  gem 'rspec-sidekiq'
 end
 
 group :development, :test do
