@@ -77,6 +77,7 @@ group :test do
   # gem "factory_bot_rails"
   # gem "ffaker"
   gem 'rspec-sidekiq'
+
 end
 
 group :development, :test do
@@ -91,6 +92,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'rspec-collection_matchers'
 end
 
 group :development do

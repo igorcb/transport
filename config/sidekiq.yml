@@ -1,0 +1,4 @@
+:schedule:
+  edi_occurrences_generate_file_job:
+    cron: '0 * * * * *'   # Runs once per minute
+    class: EdiOccurrences::GenerateFileJob

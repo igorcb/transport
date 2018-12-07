@@ -12,9 +12,11 @@ WORKDIR $INSTALL_PATH
 
 ENV BUNDLE_PATH /workspace/rails_app/transport/box
 
-COPY Gemfile ./
+ADD Gemfile /workspace/rails_app/transport/Gemfile
+ADD Gemfile.lock /workspace/rails_app/transport/Gemfile.lock
 
-# RUN bundle install
+#COPY Gemfile ./
+#RUN bundle install
 
 COPY . .
 
