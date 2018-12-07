@@ -27,8 +27,8 @@ class Vehicle < ActiveRecord::Base
   #validates :kit_quimico, presence: true
   belongs_to :user, required: false
 
-  belongs_to :user_created, class_name: "User", foreign_key: "user_created_id"
-  belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id"
+  belongs_to :user_created, class_name: "User", foreign_key: "user_created_id", required: false
+  belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id", required: false
 
   has_many :table_prices, class_name: "TablePrice", foreign_key: "table_price_id", :as => :table_price, dependent: :destroy
   accepts_nested_attributes_for :table_prices, allow_destroy: true
