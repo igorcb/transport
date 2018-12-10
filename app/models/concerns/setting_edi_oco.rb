@@ -48,11 +48,11 @@ module SettingEdiOco
     def generate_header(trasnportadora, remetente)
       # TPREGISTRO 	Numérico	TAM 3 DEFAULT 000
       header = "000"
-      # IDREMETENTE 	CARACTERE	TAM 35 
+      # IDREMETENTE 	CARACTERE	TAM 35
       header << ajeita_texto(trasnportadora.razao_social[0..35], 35)
-      # IDREMETENTE 	CARACTERE	TAM 35 
+      # IDREMETENTE 	CARACTERE	TAM 35
       header << ajeita_texto(remetente.nome[0..35], 35)
-      # DATA 	DATA	TAM 06 
+      # DATA 	DATA	TAM 06
       header << ajeita_data(DateTime.now.in_time_zone("Brasilia").to_date)
       # DATA 	HORA	TAM 04
       header << DateTime.current.strftime("%d%m")
@@ -61,49 +61,52 @@ module SettingEdiOco
       # Preencher com espaços
       header << " " * 29
       ajeita_caracteres(header)
-    end   
+    end
 
     def generate_body()
     	# TPREGISTRO Numérico TAM 3 DEFAULT 340
     	body = '340'
       # tipo do arquivo Caracter TAM 5
       body << 'OCORR'
-      # DATA  DATA  TAM 04 
+      # DATA  DATA  TAM 04
       body << DateTime.current.strftime("%M%H")
     	# IDDOCUMENTO Caracter TAM 14
     	body << "07580"
-      
-    end 
+
+    end
 
     def generate_body_nfe(trasnportadora)
     	# TPREGISTRO Numérico TAM 3 DEFAULT 341
     	body_nfe = '341'
-    	# CGC Caracter TAM 14 
+    	# CGC Caracter TAM 14
     	body_nfe << remove_mask_cpf_cnpj(trasnportadora.cnpj)
     	# RAZAOSOCIAL Caracter TAM 40
     	body_nfe << ajeita_texto(trasnportadora.razao_social[0..40], 40)
-    end 
+    end
 
-    def generate_nfe(nfe) 
+    def generate_nfe(nfe)
+      #byebug
+      puts ">>>>>>>>>>>>> NF-e: #{nfe.nfe}"
+
       # LISTAGEM DAS NFE
 			# 3 TPREGISTRO Numérico 3 TAM DEFAULT 342
       arq_nfe = '342'
-      # 6 CGC Numérico TAM 14 
+      # 6 CGC Numérico TAM 14
       arq_nfe << remove_mask_cpf_cnpj(nfe.ordem_service.billing_client.cpf_cnpj)
-      # 9 CDSERIE Caracter TAM 3 
+      # 9 CDSERIE Caracter TAM 3
       arq_nfe << ajeita_texto(nfe.chave[24],3)
-      # 12 CDNOTA Numérico TAM 8 
+      # 12 CDNOTA Numérico TAM 8
       arq_nfe << ajeita_numero(nfe.nfe, 8)
       # 15 CDOCORRE Numérico TAM 2 DEFAULT 01:entrega realizada normalmente
       arq_nfe << ("01")
       # 18 DATA Numérico TAM 8 DDMMYYYY
-      # DATA  DATA  TAM 06 
+      # DATA  DATA  TAM 06
       arq_nfe << ajeita_data(nfe.ordem_service.data_entrega_servico)
-      # 21 HORA Numérico TAM 4 
+      # 21 HORA Numérico TAM 4
       arq_nfe << DateTime.current.strftime("%H%M")
       # 24 CDENTREGA Numérico TAM 2 de acordo com o CNPJ da Empresa
       arq_nfe << ("03")
-      # 27 TEXTO Caracter TAM 70 
+      # 27 TEXTO Caracter TAM 70
       arq_nfe << (" " * 70)
     end
 

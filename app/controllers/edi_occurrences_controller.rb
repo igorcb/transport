@@ -2,8 +2,8 @@ class EdiOccurrencesController < ApplicationController
 
   before_action :authenticate_user!
   #load_and_authorize_resource
-  
-  respond_to :html, :js, :json	
+
+  respond_to :html, :js, :json
 
   def index
     @q = NfeKey.where(id: -1).search(params[:query])
@@ -14,7 +14,7 @@ class EdiOccurrencesController < ApplicationController
 
   def search
     #byebug
-    # if params[:ordem_service_billing_client_cpf_cnpj_eq].nil? 
+    # if params[:ordem_service_billing_client_cpf_cnpj_eq].nil?
     #   flash[:danger] = "Inform CNPJ Client Billing"
     #   redirect_to edi_occurrences_path
     #   return
@@ -24,8 +24,8 @@ class EdiOccurrencesController < ApplicationController
 
     @nfe_keys = @q.result
     respond_with(@nfe_keys) do |format|
-     format.js
-    end  	
+      format.js
+    end
   end
 
   def generate_file
@@ -34,13 +34,16 @@ class EdiOccurrencesController < ApplicationController
     #redirect_to edi_occurrences
 
     nfe_key_ids = OrdemService.get_hash_ids(params[:nfe][:ids])
+    puts ">>>>>>>>>>>>>>> Controller IDs: nfe_key_ids"
     date_file = Date.current.strftime('%d%m%Y')
     hora_file = Time.current.strftime('%H%M%S')
     sigla = Company.first.initials
     name_file = "OCO#{sigla}_#{date_file}_#{hora_file}.txt"
 
     file = Occurrence.generate_file(date_file, nfe_key_ids)
+    send_data file, filename: name_file, type: 'application/txt', disposition: 'inline'
 
-    send_data file, filename: name_file, type: 'application/txt', disposition: 'inline'   
+    # EdiOccurrenceService.new(nfe_key_ids).perform
+    # redirect_to edi_occurrences
   end
 end

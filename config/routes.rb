@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   resources :clients_pallets
 
+  match "/phones", :controller => "static_pages", :action => "phones", via: [:get]
   match "/table_freights/get_calc_freight_minimum", :controller => "table_freights", :action => "get_calc_freight_minimum", via: [:get]
   match '/calculate_liquidity', :controller => 'static_pages', :action => 'calculate_liquidity', via: [:get, :post]
   match "/stretch_routes/get_stretch_route_by_id", :controller => "stretch_routes", :action => "get_stretch_route_by_id", via: [:get]

@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-	before_action :authenticate_user!	
+	before_action :authenticate_user!
 
   def home
 
@@ -36,5 +36,9 @@ class StaticPagesController < ApplicationController
 
 	def calculate_liquidity
 
+	end
+
+	def phones
+	  #code
 	end
 end
