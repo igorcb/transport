@@ -56,8 +56,10 @@ module EdiOccurrences
     			arquivo << occurrence.generate_body_nfe(company)
     			arquivo << "\n"
     			nfe_keys.each do |nfe_key|
+            puts ">>>>>>>>>>>>>>>. DataBaixa: #{nfe_key.ordem_service.data_entrega_servico.to_s}"
     				arquivo << occurrence.generate_nfe(nfe_key)
     				file_occurrence.occurrences.create!(date_occurrence: Date.current, number_nfe: nfe_key.nfe, nfe_key_id: nfe_key.id)
+            EdiQueue.where(nfe_key_id: nfe_key.id).update_all(status: 1)
     				arquivo << "\n"
     		  end
     			arquivo << "\n"

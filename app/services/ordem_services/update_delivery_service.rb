@@ -18,6 +18,9 @@ module OrdemServices
         if @ordem_service.boarding.check_status_ordem_service_entregue?
           Boarding.where(id: @ordem_service.boarding).update(status: Boarding::TipoStatus::ENTREGUE)
         end
+        
+        @ordem_service.nfe_keys.each {|nfe_key| nfe_key.edi_queues.create(status: 0)  }
+
         OrdemServiceMailer.notification_delivery(@ordem_service).deliver_now #if ordem_service.input_control.present?
         return {success: true}
       end
