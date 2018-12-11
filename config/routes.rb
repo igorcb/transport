@@ -1,6 +1,5 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
-  mount Sidekiq::Web => '/sidekiq'
   resources :notifications do
     post :mark_as_read, on: :collection
     post :mark_as_read, on: :member
@@ -519,6 +518,10 @@ Rails.application.routes.draw do
     collection do
       get :search
     end
+  end
+
+  authenticate :user do
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   devise_for :users

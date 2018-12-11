@@ -72,6 +72,8 @@ gem 'wkhtmltopdf-binary'
 gem 'sidekiq', '~> 5.2', '>= 5.2.3'
 gem 'sidekiq-scheduler', '~> 3.0'
 
+gem 'redis'
+
 group :test do
   gem 'database_cleaner'
   # gem "factory_bot_rails"
