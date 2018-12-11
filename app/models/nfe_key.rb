@@ -1,20 +1,22 @@
 class NfeKey < ActiveRecord::Base
   validates :nfe, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }
   validates :chave, length: { is: 44 }, numericality: { only_integer: true }, allow_blank: true
-	
+
 	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "nfe_id", dependent: :destroy, required: false #, polymorphic: true
   belongs_to :pallet, class_name: "Pallet", foreign_key: "nfe_id", dependent: :destroy, required: false  #, polymorphic: true
-  
+
   belongs_to :user_action_inspector_confirmed, class_name: "User", foreign_key: "action_inspector_user_confirmed_id", required: false
 
   has_one :occurrence
+
+  has_many :edi_queues
 
   has_attached_file :asset, :styles => {medium: "300x300>", thumb: "100x100>", mini: "32x32>"}
   has_attached_file :action_inspector
   # has_attached_file :asset,
   # :styles => {:medium => "300x300>", :thumb => "100x100>"},
   # :url => "assets/:class/:attachment/:id/:style/:basename.:extension",
-  # :path => ":rails_root/assets/:class/:attachment/:id/:style/:basename.:extension"   
+  # :path => ":rails_root/assets/:class/:attachment/:id/:style/:basename.:extension"
   validates_attachment_content_type :asset, :content_type => /\Aimage\/.*\Z/, allow_blank: true
 
   module TypeTakeDae
@@ -91,7 +93,7 @@ class NfeKey < ActiveRecord::Base
   end
 
   def retained_name
-    case self.retained 
+    case self.retained
       when 0 then "Não"
       when 1 then "Sim"
     end
@@ -104,8 +106,8 @@ class NfeKey < ActiveRecord::Base
   def is_image?
     return false unless asset.content_type
     ['image/jpeg', 'image/jpg'].include?(asset.content_type)
-  end  
-  
+  end
+
   def tesseract_context?
     #%w('CT-e', 'CT-E', 'CTE', 'CTe').each {|str| puts str}
     if self.asset.present?
@@ -141,11 +143,11 @@ class NfeKey < ActiveRecord::Base
   def dae_pending?
     result = false
     if self.take_dae?
-      if self.action_inspector_file_name.nil? 
+      if self.action_inspector_file_name.nil?
         result = true
       end
     end
-    result 
+    result
   end
 
   def self.take_dae(nfe_key)
@@ -155,4 +157,3 @@ class NfeKey < ActiveRecord::Base
   end
 
 end
-

@@ -4,6 +4,7 @@ class InputControl < ActiveRecord::Base
 
   belongs_to :carrier, required: false
   belongs_to :driver, required: false
+  belongs_to :user, required: false
   belongs_to :user_received, class_name: "User", foreign_key: "received_user_id", required: false
   belongs_to :started_user, class_name: "User", foreign_key: "started_user_id", required: false
   belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id", required: false
@@ -332,6 +333,7 @@ class InputControl < ActiveRecord::Base
   end
 
   def self.create_ordem_service_input_controls(params = {})
+    #byebug
     action_inspector_number = nil
     input_control = InputControl.find(params[:id])
     nfe_xmls = input_control.nfe_xmls.nfe.not_create_os.where(id: params[:nfe])
@@ -380,6 +382,7 @@ class InputControl < ActiveRecord::Base
                                                   qtde_volume: input_control.volume)
       #puts ">>>>>>>>>>>>>>>> Importar dados da NFE XML para NFE Keys"
       nfe_xmls.each do |nfe|
+        #byebug
         take_dae = input_control.carrier_credentials? && target_client.client_credential_sefaz == false
         ordem_service.nfe_keys.create!(nfe: nfe.numero,
                                     chave: nfe.chave,

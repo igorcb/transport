@@ -10,12 +10,16 @@ RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 
-COPY Gemfile ./
+ENV BUNDLE_PATH /workspace/rails_app/transport/box
 
-RUN bundle install
+ADD Gemfile /workspace/rails_app/transport/Gemfile
+ADD Gemfile.lock /workspace/rails_app/transport/Gemfile.lock
+
+#COPY Gemfile ./
+#RUN bundle install
 
 COPY . .
 
-EXPOSE 3000
-
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+# EXPOSE 3000
+#
+# CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
