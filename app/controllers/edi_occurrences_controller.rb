@@ -20,7 +20,12 @@ class EdiOccurrencesController < ApplicationController
     #   return
     # end
 
-  	@q = NfeKey.includes(:ordem_service).where("nfe_keys.id not in (select occurrences.nfe_key_id from occurrences)").where(nfe_source_type: "InputControl").order("ordem_services.data_entrega_servico asc").search(params[:query])
+  	@q = NfeKey.joins(:ordem_service).
+      where("nfe_keys.id not in (select occurrences.nfe_key_id from occurrences)").
+      where(nfe_source_type: "InputControl").
+      where("ordem_services.data_entrega_servico between ? and ?", '20181025', '29181230')
+      order("ordem_services.data_entrega_servico asc").
+      search(params[:query])
 
     @nfe_keys = @q.result
     respond_with(@nfe_keys) do |format|
