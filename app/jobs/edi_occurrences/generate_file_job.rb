@@ -10,6 +10,7 @@ class EdiOccurrences::GenerateFileJob < ApplicationJob
   def perform(*args)
     # Processar o Arquivo
     nfe_keys = EdiQueue.where(status: 0).pluck(:nfe_key_id)
+    return if nfe_keys.blank?
     result = EdiOccurrences::GenerateFileService.new(nfe_keys).call
     # Enviar o email
     file = File.read(Rails.root.join('public/system/file_edi', result[:name_file]))
