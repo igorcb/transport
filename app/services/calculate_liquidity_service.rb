@@ -34,7 +34,7 @@ class CalculateLiquidityService
     @payment_method = params["payment_method_id"]
     @type_vehicle = params["type_vehicle"]
     @select_seller_commission = params["select_seller_commission"].to_i
-    
+
     @params = params
   end
 
@@ -58,36 +58,36 @@ class CalculateLiquidityService
     @stretch_routes.each do |stretch|
     freight = TableFreightService.new(stretch, @type_charge, @eixos).call[:freight]
       discharge = calc_discharge(@weight, @value_ton)
-      
+
       secure = TableInsuranceService.new(@insurer, stretch, @valor_nota_fiscal).call[:secure]
 
       total_cost = freight.to_f + @daily_rate.to_f + discharge.to_f + secure.to_f + @risk_manager.to_f + @toll.to_f + @charge_value.to_f
-      
+
       lucre_percet = @lucre.to_f
-      lucre_gross = calc_lucre(total_cost, lucre_percet) 
-          
-      total_operation = total_cost.to_f + lucre_gross.to_f 
+      lucre_gross = calc_lucre(total_cost, lucre_percet)
+
+      total_operation = total_cost.to_f + lucre_gross.to_f
 
       icms = TableIcmsService.new(stretch, total_operation.to_f).call[:icms]
 
       pis_cofins = calc_pis_cofins(total_operation.to_f, PIS_COFINS)
 
       if @add_icms_value_frete == ClientTablePrice::AddIcmsValueFete::SIM
-        icms_value_frete_name = "Incide no valor do frete" 
+        icms_value_frete_name = "Incide no valor do frete"
         total_freight = total_operation.to_f + icms.to_f + pis_cofins.to_f
         value_to_advance = total_cost + icms.to_f + pis_cofins.to_f
       elsif @add_icms_value_frete == ClientTablePrice::AddIcmsValueFete::NAO
-        icms_value_frete_name = "Não incide no valor do frete" 
+        icms_value_frete_name = "Não incide no valor do frete"
         total_freight = total_operation.to_f + pis_cofins.to_f
         value_to_advance = total_cost + pis_cofins.to_f
       else #verificar processe que ClientTabelPrice::AddIcmsValueFete::OBEDECE_CLIENTE
-        icms_value_frete_name = "Não incide no valor do frete" 
+        icms_value_frete_name = "Não incide no valor do frete"
         total_freight = total_operation.to_f + pis_cofins.to_f
         value_to_advance = total_cost + pis_cofins.to_f
       end
 
       quantity_cars = (@quantity_cars.to_i < 1) ? 1 : @quantity_cars
-      
+
       advance = calc_advance(value_to_advance, @perc_advance, @number_days)
       late_payment_interest = advance.to_f - value_to_advance.to_f
 
@@ -105,7 +105,7 @@ class CalculateLiquidityService
       distance = stretch.distance
       value_per_kg = (total_freight.to_f / @weight)
       value_ton = value_per_kg * 1000
-
+      #byebug
       result = {
                  value_nf: @valor_nota_fiscal,
                    weight: @weight,
@@ -142,13 +142,14 @@ class CalculateLiquidityService
          total_pis_cofins: pis_cofins,
             total_freight: total_freight
            }
- 
+
       calculate_liquidity.push(result)
     end
+    #byebug
     input = @params
-    
+
     output = calculate_liquidity
-    
+
     hash = {}
     hash.store(:input, input)
     hash.store(:output, output)
@@ -169,8 +170,8 @@ class CalculateLiquidityService
     end
 
     def calc_pis_cofins(value, percent)
-      perc = 1 - ( percent / 100) 
-      value_calc = ((value) / perc) - (value) 
+      perc = 1 - ( percent / 100)
+      value_calc = ((value) / perc) - (value)
       value_calc
     end
 

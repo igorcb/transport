@@ -35,10 +35,12 @@ class TableFreightsController < ApplicationController
   def destroy
     @table_freight.destroy
     respond_with(@table_freight)
-  end 
+  end
 
   def calculate_liquidity #show get_calc_freight_minimum
     @company = Company.first
+    #byebug
+    puts ">>>>>>>>>>>>>>>> CalculateLiquidity: #{params[:value]}"
     @freight_minimum = CalculateLiquidityService.new(params[:value]).call #return Hash:[:input, :output]
     respond_to do |format|
       format.html
@@ -54,7 +56,7 @@ class TableFreightsController < ApplicationController
     @freight_minimums = CalculateLiquidityService.new(params).call #return Hash:[:input, :output]
     respond_to do |format|
       format.js
-    end    
+    end
   end
 
   private
