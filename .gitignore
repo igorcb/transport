@@ -25,4 +25,4 @@ config/database.yml
 yarn-error.log
 /.byebug_history
 /box
-/config/initializers/sidekiq.rb
+config/initializers/sidekiq.rb
