@@ -2,7 +2,7 @@
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Calculo do Frete</h3>
 		  </div>
-		  
+
 		  <div class="panel-body">
 				<p>
 					<strong>Trecho:</strong>
@@ -57,20 +57,20 @@
 					<strong>Carga: </strong>
 					<%= number_to_currency(@freight_minimum[:output].first[:charge_value], unit: "R$ ", separator: ",", delimiter: ".") %>
 					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:charge_value].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
-				</p>	
+				</p>
 
 				<p>
 					<strong>Descarga: </strong>
 					<%= number_to_currency(@freight_minimum[:output].first[:discharge], unit: "R$ ", separator: ",", delimiter: ".") %>
 					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:discharge].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
-				</p>	
+				</p>
 
 				<p>
 					<strong>Seguro: </strong>
 					<%= number_to_currency(@freight_minimum[:output].first[:secure], unit: "R$ ", separator: ",", delimiter: ".") %>
 					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:secure].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
 				</p>
-					
+
 				<p>
 					<strong>Consulta GR:</strong>
 					<%= number_to_currency(@freight_minimum[:output].first[:risk_manager], unit: "R$ ", separator: ",", delimiter: ".") %>
@@ -140,7 +140,7 @@
 					<strong>Valor do Emprestimo <%= number_with_precision(@freight_minimum[:output].first[:perc_advance], separator: ",", delimiter: ".", precision: 2)  %>%:</strong>
 					<%= number_to_currency(@freight_minimum[:output].first[:advance], unit: "R$ ", separator: ",", delimiter: ".") %>
 					<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:advance].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
-					<br />			
+					<br />
 			  	<span style="font-style: italic;font-size: 12px;" >
 			  		Total Custos + ICMS + PIS/Cofins + Emprestimo
 			  	</span>
@@ -174,7 +174,7 @@
 		<div class="panel panel-success">
 		  <div class="panel-body">
 		  	<strong>
-			    Total Frete: 
+			    Total Frete:
 			    <%= number_to_currency(@freight_minimum[:output].first[:total_freight], unit: "R$ ", separator: ",", delimiter: ".") %>
 		 			<%= " * #{@freight_minimum[:output].first[:quantity_cars].to_i } = " + number_to_currency(@freight_minimum[:output].first[:total_freight].to_f * @freight_minimum[:output].first[:quantity_cars].to_i, unit: "R$ ", separator: ",", delimiter: ".") if @freight_minimum[:output].first[:quantity_cars].to_i > 1%>
 		  	</strong>
@@ -182,18 +182,18 @@
 		</div>
 
 		<p style="font-size: 10px" align="center">
-			Emitido no dia 
-			<%= date_br(Date.today) %> às 
+			Emitido no dia
+			<%= date_br(Date.today) %> às
 			<%= time_br(Time.current) %>
 		</p>
 
 		<div class="form-group">
-			<%#= link_to "Imprimir", calculate_liquidity_table_freights_path(format: :pdf), class: "btn btn-blue" %>
+			<%#= link_to "Imprimir", calculate_liquidity_table_freights_path(format: :pdf), class: "btn btn-blue" .%>
 
-			<%= link_to "Imprimir", "#", class: 'btn btn-blue' %>
+			<%#= link_to "Imprimir", "#", class: 'btn btn-blue' %>
 
-			<%= link_to "PDF Client", calculate_liquidity_table_freights_path(format: :pdf, value: @freight_minimum[:input]), class: "btn btn-success" %>
-	
+			<%= link_to "PDF Client", calculate_liquidity_table_freights_path(format: :pdf, value: @freight_minimum[:input].to_unsafe_h), class: "btn btn-success" %>
+
 		  <%#= link_to "#", class: "btn btn-blue" do %>
 		    <!-- <i class="fa fa-envelope-square fa-1x" aria-hidden="true">Imprimir</i>  -->
 		  <%# end %>

@@ -3,7 +3,7 @@
 	  <div class="panel-body">
 
 	    <div class="table-responsive">
-	      
+
 	        <div id="result_tasks">
 
 	        <table class="table table-striped">
@@ -61,8 +61,8 @@
 	                <td><strong><%= number_to_currency(freight_minimum[:total_freight], unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
 	                <td>
 	                	<%= link_to "Show", calculate_liquidity_table_freights_path(
-											{ value: input }
-						
+											{ value: input.to_unsafe_h }
+
 										), class: 'btn btn-blue btn-xs show_calculate_liquidity' %>
 	                </td>
 	              </tr>
@@ -73,7 +73,6 @@
 	        </table>
 	      </div>
 
-	    </div>    
+	    </div>
 	  </div>
 	</div>
-

@@ -9,11 +9,15 @@ class EdiOccurrences::GenerateFileJob < ApplicationJob
 
   def perform(*args)
     # Processar o Arquivo
-    nfe_keys = EdiQueue.where(status: 0).pluck(:nfe_key_id)
-    return if nfe_keys.blank?
-    result = EdiOccurrences::GenerateFileService.new(nfe_keys).call
-    # Enviar o email
-    file = File.read(Rails.root.join('public/system/file_edi', result[:name_file]))
-    EdiNotfisMailer.notification(result[:name_file], file).deliver_now
+    # GroupClient 10 = Quimica Amparo
+    ype_cnpj = GroupClient.find(10).clients.pluck(:cpf_cnpj)
+    ype_cnpj.each do |cnpj|
+      nfe_keys = EdiQueue.joins(nfe_key: [ordem_service: [:billing_client]]).where("clients.cpf_cnpj = ?", cnpj).pluck(:nfe_key_id)
+      result = EdiOccurrences::GenerateFileService.new(nfe_keys).call
+      # Enviar o email
+      file = File.read(Rails.root.join('public/system/file_edi', result[:name_file]))
+      EdiNotfisMailer.notification(result[:name_file], file).deliver_now
+    end
+
   end
 end
