@@ -2,7 +2,7 @@
 
 <%= form_tag({:controller => "account_payables", action: :pay}, :method => "post", :name => "make_pay") do |f| %>
 <fieldset>
- 
+
   <legend></legend>
 
   <div class="form-group">
@@ -27,22 +27,22 @@
 
   <div class="form-group">
     <%= label_tag :juros %><br>
-    <%= text_field_tag "lower_payables[juros]", nil, class: "form-control money2" %>
+    <%= text_field_tag "lower_payables[juros]", nil, value: 0.000, class: "form-control money" %>
   </div>
 
   <div class="form-group">
     <%= label_tag :desconto %><br>
-    <%= text_field_tag "lower_payables[desconto]", nil, class: "form-control money2" %>
+    <%= text_field_tag "lower_payables[desconto]", nil, value: 0.000, class: "form-control money" %>
   </div>
 
   <hr />
-	
+
   <div class="form-group">
-  	<%= submit_tag("Efetuar Baixar", class: "btn btn-blue") %> 
-    <%= link_to "Voltar", @account_payable, class: "btn btn-default" %> 
-    <%= link_to "Listar Todos", account_payables_path, class: "btn btn-default" %> 
+  	<%= submit_tag("Efetuar Baixar", class: "btn btn-blue") %>
+    <%= link_to "Voltar", @account_payable, class: "btn btn-default" %>
+    <%= link_to "Listar Todos", account_payables_path, class: "btn btn-default" %>
 	</div>
-	
+
 </fieldset>
 
 
