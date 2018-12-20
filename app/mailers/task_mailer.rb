@@ -2,7 +2,7 @@ class TaskMailer < ActionMailer::Base
   default from: "sistema@l7logistica.com.br"
 
   def notification_employee(task)
-    byebug
+    #byebug
     @task = task
 
     if Rails.env.development?
