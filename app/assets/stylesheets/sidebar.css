@@ -44,14 +44,18 @@ a {
 .header {
   z-index: 5;
   width: calc(100% - 250px);
-  background: #ffffff;
+  background: #eeeeee;
   display: flex;
   align-items: center;
   padding: 0 30px 0 15px;
   height: 60px;
   justify-content: space-between;
   transition: all 0.2s ease;
-  margin-left: 250px; }
+  margin-left: 250px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #AAA;
+
+  }
   @media screen and (max-width: 768px) {
     .header {
       width: 100%;
@@ -135,6 +139,23 @@ a {
   cursor: pointer;
   margin-right: 15px; }
 
+#dropdownMenu1 {
+  position: relative;
+}
+
+#dropdownMenu1 > span {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  top: 2px;
+  right: 15px;
+
+}
+
 .signout {
   font-size: 24px;
     color: #FFC700;
@@ -142,7 +163,7 @@ a {
     margin-right: 15px;}
 
 
-#check-toggle-sidebar {
+  #check-toggle-sidebar {
   display: none; }
   #check-toggle-sidebar:checked + label > .btn-toggle-sidebar > span:first-of-type {
     transform: scaleX(0); }
@@ -226,7 +247,7 @@ a {
     /* background: url(<%= image_tag(image_path("/system/companies/images/000/000/001/original/l7-logo.png")) %>);*/
     /* background-image: url(/system/companies/images/000/000/001/original/l7-logo.png);*/
     /* background: asset-url('l7-logo.png', image);*/
-    
+
     background-size: 150px;
     background-position: 57px center;
     height: 60px;
