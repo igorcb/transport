@@ -7,6 +7,13 @@ class GroupClientsController < ApplicationController
   # GET /group_clients.json
   def index
     @group_clients = GroupClient.all
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = GroupClientPdf.new(@group_clients)
+        send_data pdf.render, filename: 'group_clients.pdf', type: 'application/pdf'
+      end
+    end
   end
 
   # GET /group_clients/1
@@ -29,7 +36,7 @@ class GroupClientsController < ApplicationController
     @group_client = GroupClient.new(group_client_params)
 
     respond_to do |format|
-      if @group_client.save                               
+      if @group_client.save
         format.html { redirect_to @group_client, flash: { success: "Group client was successfully created." } }
         format.json { render action: 'show', status: :created, location: @group_client }
       else
@@ -43,7 +50,7 @@ class GroupClientsController < ApplicationController
   # PATCH/PUT /group_clients/1.json
   def update
     respond_to do |format|
-      if @group_client.update(group_client_params) 
+      if @group_client.update(group_client_params)
         format.html { redirect_to @group_client, flash: { success: "Group client was successfully updated." } }
         format.json { head :no_content }
       else

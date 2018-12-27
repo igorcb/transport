@@ -8,6 +8,11 @@
           <tr>
             <th>Descrição</th>
             <th colspan="3">Opções</th>
+            <th>
+              <%= link_to group_clients_path(format: :pdf), class: "" do %>
+                <%= image_tag('image_pdf.png', style: 'height:16px;width:auto;') %>
+              <% end %>
+            </th>
           </tr>
         </thead>
 
@@ -18,10 +23,11 @@
               <td><%= link_to 'Show', group_client, class: "btn btn-info btn-sm" %></td>
               <td><%= link_to 'Edit', edit_group_client_path(group_client), class: "btn btn-blue btn-sm" %></td>
               <td><%= link_to 'Destroy', group_client, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+              <td></td>
             </tr>
           <% end %>
         </tbody>
       </table>
-    </div>    
+    </div>
   </div>
 </div>
