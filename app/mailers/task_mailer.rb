@@ -2,6 +2,7 @@ class TaskMailer < ActionMailer::Base
   default from: "sistema@l7logistica.com.br"
 
   def notification_employee(task)
+
     @task = task
 
     if Rails.env.development?
@@ -70,8 +71,8 @@ class TaskMailer < ActionMailer::Base
       email
     end
     text_subject = "FeedBack Task #{@task.id} - Funcionário: #{@task.employee.name.upcase} "
-
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
+
 
     mail to: email, bcc: nil, subject: "#{text_subject}"
   end

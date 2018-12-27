@@ -1,4 +1,5 @@
 :schedule:
   edi_occurrences_generate_file_job:
-    cron: '00 10 * * * *'   # Runs once per minute
+    #cron: '00 10 * * * *'   # Runs once per minute
+    cron: "0 10 00 * * America/Los_Angeles"
     class: EdiOccurrences::GenerateFileJob
