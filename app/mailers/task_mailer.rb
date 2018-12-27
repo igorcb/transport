@@ -2,7 +2,6 @@ class TaskMailer < ActionMailer::Base
   default from: "sistema@l7logistica.com.br"
 
   def notification_employee(task)
-    byebug
     @task = task
 
     if Rails.env.development?
@@ -15,7 +14,7 @@ class TaskMailer < ActionMailer::Base
       if @task.second_employee.present?
         #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
         second_employee  = @task.second_employee.email
-        email = primary_employee + second_employee
+        email = primary_employee + ', ' + second_employee
       end
       email
     end
@@ -36,11 +35,11 @@ class TaskMailer < ActionMailer::Base
       # email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
       email_employee = @task.employee.email
       email_requester = @task.requester.email
-      email = email_employee + email_requester
+      email = email_employee + ', ' + email_requester
       if @task.second_employee.present?
         #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
         second_employee  = @task.second_employee.email
-        email = email_employee + email_requester + second_employee
+        email = email_employee + ', ' + email_requester + ', ' + second_employee
       end
       email
     end
@@ -62,11 +61,11 @@ class TaskMailer < ActionMailer::Base
       # email_requester = @task.requester.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
       email_employee = @task.employee.email
       email_requester = @task.requester.email
-      email = email_employee + email_requester
+      email = email_employee + ', ' + email_requester
       if @task.second_employee.present?
         #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
         second_employee  = @task.second_employee.email
-        email = email_employee + email_requester + second_employee
+        email = email_employee + ', ' + email_requester + ', ' + second_employee
       end
       email
     end
