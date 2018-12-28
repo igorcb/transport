@@ -55,7 +55,7 @@ class StretchRoutesController < ApplicationController
     @stretch_routes.each do |s|
       stretch_array << {:id => s.id, :n => s.stretch_source_and_target_short}
     end
-    render :text => stretch_array.to_json.force_encoding("UTF-8")    
+    render :text => stretch_array.to_json.force_encoding("UTF-8")
   end
 
   def get_stretch_route_by_state_source_ant_target
@@ -64,7 +64,7 @@ class StretchRoutesController < ApplicationController
     @stretch_routes.each do |s|
       stretch_array << {:id => s.id, :n => s.stretch_source_and_target_short}
     end
-    render :text => stretch_array.to_json.force_encoding("UTF-8")    
+    render :json => stretch_array.to_json.force_encoding("UTF-8")    
   end
 
   private
@@ -73,7 +73,7 @@ class StretchRoutesController < ApplicationController
     end
 
     def stretch_route_params
-      params.require(:stretch_route).permit(:stretch_source_id, :stretch_target_id, :tax_rate, :non_tax_rate, :secure_rate, 
+      params.require(:stretch_route).permit(:stretch_source_id, :stretch_target_id, :tax_rate, :non_tax_rate, :secure_rate,
         :secure_rate_filch, :secure_rate_aggravated, :travel_time, :distance, :cost_kg, :tax_iss, :pis_cofins)
     end
 end

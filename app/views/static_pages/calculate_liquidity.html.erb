@@ -12,17 +12,17 @@
     <div class="form-group">
       <%= label_tag :payment_method_id, "Forma de Pagamento"  %>
       <%= select_tag :payment_method_id, options_for_select(select_payment_method), class: "form-control", onfocusout:"getFreightMinimum();" %>
-    </div>      
+    </div>
 
     <div class="form-group">
       <%= label_tag :type_charge_id, "Tipo de Carga"  %>
       <%= select_tag :type_charge_id, options_for_select(select_type_charge_freight, TableFreight::TypeCharge::CARGA_GERAL), class: "form-control", onfocusout:"getFreightMinimum();" %>
-    </div>      
+    </div>
 
     <div class="form-group">
       <%= label_tag :type_vehicle, "Tipo de Veículo"  %>
       <%= select_tag 'type_vehicle', grouped_options_for_select(select_tipo_carroceria), class: "form-control" %>
-    </div>      
+    </div>
 
     <div class="form-group">
       <%= label_tag :qtde_eixos, "Qtde de Eixos" %>
@@ -52,12 +52,12 @@
     <div class="form-group">
       <%= label_tag :type_insurance_id, "Tipo de Seguro"  %>
       <%= select_tag :type_insurance_id, options_for_select(select_type_policie, PolicieInsurance::TypePolicie::RCTRC), class: "form-control", onfocusout:"getFreightMinimum();" %>
-    </div>      
+    </div>
 
     <div class="form-group">
       <%= label_tag :add_icms_value_frete, "Adição de ICMS ao valor do frete"  %>
       <%= select_tag :add_icms_value_frete, options_for_select(select_add_icms_value_frete, ClientTablePrice::AddIcmsValueFete::SIM), class: "form-control", onfocusout:"getFreightMinimum();" %>
-    </div>      
+    </div>
 
 	  <div class="form-group">
 	    <%= label_tag :value_invoice, "Valor Nota Fiscal" %>
@@ -68,7 +68,7 @@
 	    <%= label_tag :weight, "Peso Bruto" %>
 	    <%= text_field :weight, nil, value: 0, class: "form-control money3", id: 'weight', onfocusout:"getFreightMinimum(); " %>
 	  </div>
-  
+
     <div class="form-group">
       <%= label_tag :value_charge, "Valor para carregamento" %>
       <%= text_field :value_charge, nil, value: 0, class: "form-control money2", id: 'value_charge', onfocusout:"getFreightMinimum();" %>
@@ -112,7 +112,7 @@
     <div class="form-group">
       <%= label_tag :select_seller_commission, "Calcular o valor da comissao"  %>
       <%= select_tag :select_seller_commission, options_for_select(select_seller_commission, TableFreight::TypeSellerCommission::FREIGHT), class: "form-control", onfocusout:"getFreightMinimum();" %>
-    </div>      
+    </div>
 
     <div class="form-group">
       <%= label_tag :perc_seller_commission, "Comissão do Vendedor %" %>
@@ -129,30 +129,29 @@
 
 <% end %>
 
-<div id="div_freight_minimal"></div>    
+<div id="div_freight_minimal"></div>
 
 <script type="text/javascript">
   $(document).ready(function() {
    $("#state_source, #state_target").change(function() {
-     
+
       var state_source = $('#state_source').val();
       var state_target = $('#state_target').val();
       var state_params = {state_source: state_source, state_target: state_target}
       console.log(state_params);
       $.getJSON('/stretch_routes/get_stretch_route_by_state_source_ant_target', state_params, function(data){
-        //var options = '<option value="">SELECIONE O TRECHO</option>'; 
-        var options = ''; 
+        var options = '<option value="">SELECIONE O TRECHO</option>';
+        var options = '';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
-
         $("#trecho_id").html(options);
       });
 
     });
   });
 
-    
+
 </script>
 
 <script type="text/javascript">
@@ -162,7 +161,7 @@
   //     //var myLoc = { 'lat': 35, 'lon': -110 };
   //     console.log(cost_and_sub_cost);
   //     $.getJSON('/sub_centro_custo_three_by_custo', cost_and_sub_cost, function(data){
-  //       var options = '<option value="">SELECIONE SUB CENTRO CUSTO NIVEL 3</option>'; 
+  //       var options = '<option value="">SELECIONE SUB CENTRO CUSTO NIVEL 3</option>';
   //       $.each(data, function(i, item) {
   //         options += '<option value="' + item.id + '">' + item.n + '</option>';
   //       });
@@ -202,12 +201,12 @@
 <script type="text/javascript">
 
   Number.prototype.formatMoney = function(c, d, t){
-  var n = this, 
-      c = isNaN(c = Math.abs(c)) ? 2 : c, 
-      d = d == undefined ? "." : d, 
-      t = t == undefined ? "," : t, 
-      s = n < 0 ? "-" : "", 
-      i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+  var n = this,
+      c = isNaN(c = Math.abs(c)) ? 2 : c,
+      d = d == undefined ? "." : d,
+      t = t == undefined ? "," : t,
+      s = n < 0 ? "-" : "",
+      i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
       j = (j = i.length) > 3 ? j % 3 : 0;
      return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
    };
@@ -216,7 +215,7 @@
     var value_nf   = $('#value_invoice').val();
     var weight     = $('#weight').val();
     var value_ton  = $('#value_ton').val();
-    var eixos      = $('#qtde_eixos').val(); 
+    var eixos      = $('#qtde_eixos').val();
     var daily_rate = $('#daily_rate').val();
     var risk_manager   = $('#risk_manager').val();
     var lucre          = $('#lucre').val();
@@ -233,7 +232,7 @@
       $.ajax({
         type: "GET",
         //data: {value_nf: value_nf, weight: weight, value_ton: value_ton, trecho_id: trecho_id, type_charge_id: type_charge_id, daily_rate: daily_rate, eixos: eixos, insurer_id: insurer_id, daily_rate: daily_rate, risk_manager: risk_manager, toll: toll, lucre: lucre, add_icms_value_frete: add_icms_value_frete, quantity_cars: quantity_cars, qtde_dias: qtde_dias, advance: advance},
-        data: $(".form_calculate_liquidy").serialize(),        
+        data: $(".form_calculate_liquidy").serialize(),
         dataType : 'html',
         url: '/table_freights/get_calc_freight_minimum',
         success: function(data){
@@ -262,7 +261,7 @@
   //   var vr_descarga = $("#valor_descarga").val();
   //   var vr_ton = vr_tonelada / 1000;
   //   var value_service = peso_bruto * vr_ton + parseFloat(vr_descarga);
-    
+
   //   //document.getElementById('valor_total').value = 'R$ ' + sum.formatMoney(2, ',', '.');
   //   $("#div_value_contract").html("<strong>Vr. Contrato:</strong> R$ " + value_service.formatMoney(2, ',', '.'));
   // }

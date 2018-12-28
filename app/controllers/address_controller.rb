@@ -28,6 +28,6 @@ class AddressController < ApplicationController
       city_array << {:id => s.name, :n => s.name}
     end
     #puts ">>>>>>>>>>>>>> #{city_array.to_json}"
-    render :text => city_array.to_json.force_encoding("UTF-8")
+    render :json => city_array.to_json.force_encoding("UTF-8")
   end
 end
