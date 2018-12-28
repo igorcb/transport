@@ -48,7 +48,7 @@ class CalculateLiquidityPdf < Prawn::Document
      ["Tipo de Veiculo", @freight_minimum[:output].first[:type_vehicle]],
      ["Trecho", @freight_minimum[:output].first[:stretch_long]],
      ["Vr. NF-e", number_to_currency(@freight_minimum[:output].first[:value_nf], unit: "R$ ", separator: ",", delimiter: ".")],
-     ["Peso Bruto", number_to_currency( @freight_minimum[:output].first[:weight], precision: 3, separator: ',', delimiter: '.')]
+     ["Peso Bruto", number_with_precision( @freight_minimum[:output].first[:weight], precision: 3, separator: ',', delimiter: '.')]
      ]
 
     table table_content_header, width: bounds.width do
