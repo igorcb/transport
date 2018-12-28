@@ -45,10 +45,14 @@ class TableFreightsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "calculate_liquidity",
-        #template: "table_freights/calculate_liquidity.html.erb",
-        layout: 'pdf.html'
+        pdf = CalculateLiquidityPdf.new(@freight_minimum)
+        send_data pdf.render, filename: 'calculate_liquidity.pdf', type: 'application/pdf'
       end
+      # format.pdf do
+      #   render pdf: "calculate_liquidity",
+      #   #template: "table_freights/calculate_liquidity.html.erb",
+      #   layout: 'pdf.html'
+      # end
     end
   end
 

@@ -7,12 +7,13 @@
   <%#= wicked_pdf_stylesheet_link_tag "application" -%>
 	<title>PDF</title>
 
-	<%= wicked_pdf_stylesheet_link_tag "pdf" -%>
-	<%= wicked_pdf_stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-	<%= wicked_pdf_javascript_include_tag "application", "data-turbolinks-track" => true %>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<%= stylesheet_link_tag wicked_pdf_asset_base64("pdf") %>
+	<%#= wicked_pdf_stylesheet_link_tag "pdf" -%>
+	<%#= wicked_pdf_stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	<%#= wicked_pdf_javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>  
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> -->
 
   <style type="text/css">
 /*    .header_left {
