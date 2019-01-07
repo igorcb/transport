@@ -1,6 +1,6 @@
 class NfsKey < ActiveRecord::Base
   validates :nfs, presence: true, length: { maximum: 20 }, numericality: { only_integer: true }
-  validates :chave, numericality: { only_integer: false }, allow_blank: true
+  validates :chave, length: { maximum: 44 }, allow_blank: true
 
 	belongs_to :ordem_service, class_name: "OrdemService", foreign_key: "nfs_id", dependent: :destroy, required: false
 
