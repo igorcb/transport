@@ -34,6 +34,20 @@ class InputControlsController < ApplicationController
     end
   end
 
+  def print_products
+    @company = Company.first
+    #byebug
+    #puts ">>>>>>>>>>>>>>>> CalculateLiquidity: #{params[:value]}"
+    file_name = "InputControl_#{@input_control.id}_product.pdf"
+    respond_to do |format|
+      #format.html
+      format.pdf do
+        pdf = InputControls::PrintProductPdf.new(@input_control)
+        send_data pdf.render, filename: file_name, type: 'application/pdf'
+      end
+    end
+  end
+
   def print_blind
     respond_to do |format|
       format.html
