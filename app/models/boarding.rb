@@ -307,6 +307,7 @@ class Boarding < ActiveRecord::Base
     pendings.append('Agente não informado.') if self.carrier_id == Boarding.carrier_not_information
     pendings.append('Motorista com restrição. Não pode efetuar entrega no cliente.') if check_driver_restriction_with_client?
     pendings.append('Motorista com restrição.') if DriverRestriction.where(driver_id: self.driver_id).present?
+    pendings.append('Peso total acima da capacidade do veículo.') if self.weight_exceeds_vehicle_capacity?
     pendings
   end
 
@@ -454,6 +455,21 @@ class Boarding < ActiveRecord::Base
     end
     soma
   end
+
+  def weight_exceeds_vehicle_capacity?
+    self.peso_bruto.to_f > vehicle_weight_capacity
+  end
+
+  def vehicle_weight_capacity
+    vehicle = vehicle_reboque
+    result = vehicle.nil? ? 0.00 : vehicle.capacity.to_f
+    result
+  end
+
+  # def vehicle_reboque
+  #   vehicle_temp = self.boarding_vehicles.joins(:vehicle).where("vehicles.tipo = ? ", Vehicle::Tipo::REBOQUE).first
+  #   vehicle_temp.nil? ? nil : Vehicle.find(vehicle_temp.vehicle_id)
+  # end
 
   def qtde_palets
     soma = 0

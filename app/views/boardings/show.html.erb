@@ -4,7 +4,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Dados do Embarque - No: <%= @boarding.id %></div>
   <div class="panel-body">
-		
+
 		<p>
 		  <strong>Data:</strong>
 		  <%= date_br(@boarding.date_boarding) %>
@@ -18,57 +18,57 @@
 		  <strong>Motorista:</strong>
 		  <%= link_to @boarding.driver.nome, @boarding.driver %>
       <% if @boarding.driver_checkin %>
-         <i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i> 
-      <% else %>   
+         <i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i>
+      <% else %>
          <i class="fa fa-times fa-2x" style="color: red" aria-hidden="true"></i>
       <% end %>
 		</p>
 
 		<p>
 		  <strong>Valor Frete:</strong>
-		  <%= number_to_currency(@boarding.value_boarding, unit: "R$ ", separator: ",", delimiter: ".") %> 
+		  <%= number_to_currency(@boarding.value_boarding, unit: "R$ ", separator: ",", delimiter: ".") %>
 		</p>
 
     <p>
       <strong>Seguro RCTR-C:</strong>
-      <%= number_to_currency(@boarding.safe_rctr_c, unit: "", separator: ",", delimiter: ".") %> 
+      <%= number_to_currency(@boarding.safe_rctr_c, unit: "", separator: ",", delimiter: ".") %>
     </p>
 
     <p>
       <strong>Seguro (opc.):</strong>
-      <%= number_to_currency(@boarding.safe_optional, unit: "", separator: ",", delimiter: ".") %> 
+      <%= number_to_currency(@boarding.safe_optional, unit: "", separator: ",", delimiter: ".") %>
     </p>
 
     <p>
       <strong>Numero Rastreador Correios</strong>
-      <%= @boarding.number_tranking %> 
+      <%= @boarding.number_tranking %>
     </p>
 
     <p>
       <strong>Local Embarque:</strong>
-      <%= @boarding.local_embarque_name %> 
+      <%= @boarding.local_embarque_name %>
     </p>
 
     <p>
       <strong>Manifesto No:</strong>
-      <%= @boarding.manifesto %> 
+      <%= @boarding.manifesto %>
     </p>
 
     <p>
       <strong>Chave Manifesto:</strong>
-      <%= @boarding.chave_manifesto %> 
+      <%= @boarding.chave_manifesto %>
     </p>
 
     <p>
       <strong>No. Ação Fiscal:</strong>
-      <%= @boarding.action_inspector %> 
+      <%= @boarding.action_inspector %>
     </p>
 
 		<p>
 		  <strong>Status:</strong>
 		  <%= @boarding.status_name %>
 		</p>
-    
+
     <p>
       <strong>Qtde paletes:</strong>
       <%= @boarding.qtde_palets %>
@@ -80,18 +80,25 @@
     </p>
 
     <p>
-      <strong>Valor Carga:</strong>
-      <%= number_to_currency(@boarding.valor_nota_fiscal, unit: "R$ ", separator: ",", delimiter: ".") %> 
+      <strong>Peso da Carreta:</strong>
+      <%= number_with_precision(@boarding.vehicle_weight_capacity, precision: 3, separator: ',', delimiter: '.') %>
     </p>
+
+    <p>
+      <strong>Valor Carga:</strong>
+      <%= number_to_currency(@boarding.valor_nota_fiscal, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
+
     <p>
       <strong>Peso Carga:</strong>
       <%= number_with_precision(@boarding.peso_bruto, precision: 3, separator: ',', delimiter: '.') %>
     </p>
 
+
     <p>
       <strong>Volume Carga:</strong>
       <%= number_with_precision(@boarding.volume_total, precision: 2, separator: ',', delimiter: '.') %>
-    </p>          
+    </p>
 
     <p>
       <strong>No. primeiro Lacre:</strong>
@@ -113,7 +120,7 @@
 		</p>
   </div>
 </div>
-  
+
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
@@ -148,14 +155,14 @@
         </p>
 
         <p>
-          <strong>Usuario </strong> <%= @boarding.started_user.email if @boarding.started_user.present? %> <strong>iniciou o embarque dia</strong> 
-          <%= date_br (@boarding.start_time_boarding) %> <strong>as</strong> 
+          <strong>Usuario </strong> <%= @boarding.started_user.email if @boarding.started_user.present? %> <strong>iniciou o embarque dia</strong>
+          <%= date_br (@boarding.start_time_boarding) %> <strong>as</strong>
           <%= time_br (@boarding.start_time_boarding) %>
         </p>
 
         <p>
-          <strong>Usuario </strong> <%= @boarding.confirmed_user.email if @boarding.confirmed_user.present? %> <strong>terminou o embarque dia</strong> 
-          <%= date_br (@boarding.finish_time_boarding) %> <strong>as</strong> 
+          <strong>Usuario </strong> <%= @boarding.confirmed_user.email if @boarding.confirmed_user.present? %> <strong>terminou o embarque dia</strong>
+          <%= date_br (@boarding.finish_time_boarding) %> <strong>as</strong>
           <%= time_br (@boarding.finish_time_boarding) %>
         </p>
 
@@ -186,7 +193,7 @@
 
         <% @boarding.control_pallet_internals.credit.each do |control_pallet_internal| %>
           <%= render 'control_pallet_internals/summary', control_pallet_internal: control_pallet_internal %>
-        <% end %>         
+        <% end %>
 
       </div>
     </div>
@@ -224,7 +231,7 @@
       <%= render 'comments/feed', comments: @boarding.feed %>
 
       <%#= render 'comments/form_comment_ordem_service' %>
-      
+
       </div>
     </div>
   </div>
@@ -248,7 +255,7 @@
       <%= render 'cancellations/feed', cancellations: @boarding.feed_cancellations %>
 
       <%= render 'cancellations/form_cancellation_boarding' %>
-      
+
       </div>
     </div>
   </div>
@@ -269,7 +276,7 @@
 </div>
 
 <div class="panel panel-default">
- 
+
   <div class="panel-heading">
     <h3 class="panel-title">Entregas</h3>
   </div>
