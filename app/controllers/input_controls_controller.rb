@@ -42,7 +42,7 @@ class InputControlsController < ApplicationController
     respond_to do |format|
       #format.html
       format.pdf do
-        pdf = InputControls::PrintProductPdf.new(@input_control)
+        pdf = InputControls::PrintProductPdf.new(@input_control, current_user)
         send_data pdf.render, filename: file_name, type: 'application/pdf'
       end
     end
@@ -56,7 +56,7 @@ class InputControlsController < ApplicationController
     respond_to do |format|
       #format.html
       format.pdf do
-        pdf = InputControls::PrintProductConferencePdf.new(@input_control)
+        pdf = InputControls::PrintProductConferencePdf.new(@input_control, current_user)
         send_data pdf.render, filename: file_name, type: 'application/pdf'
       end
     end
