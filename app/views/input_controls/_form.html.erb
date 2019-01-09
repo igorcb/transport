@@ -15,20 +15,20 @@
       <%= render partial: "carriers/result_carrier", locals: { carrier: @input_control.carrier } %>
     <% end %>
   </div>
-  
+
   <div id="carrier_cnpj_result">
 
-  </div>  
+  </div>
 
-  <%= f.fields_for :action_inspectors do |f| 
+  <%= f.fields_for :action_inspectors do |f|
       render 'action_inspector_fields', f: f
   end -%>
-  
+
 <!--   <div class="form-group">
     <%#= f.label :driver_id, "Motorista" %>
     <%#= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
- -->  
+ -->
   <div class="form-group">
     <%= label_tag :driver_id, "Motorista" %><br>
     <% if @input_control.new_record? %>
@@ -41,7 +41,7 @@
 
   <div id="driver_cpf_result">
 
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= label_tag :billing_client_cpf_cpnj, "CPF/CNPJ Tomador do Serviço" %><br>
@@ -52,12 +52,12 @@
       <%= render partial: "clients/result_client", locals: { client: @input_control.billing_client } %>
     <% end %>
   </div>
-  
+
   <div id="billing_client_cnpj_result">
 
-  </div>  
+  </div>
 
-<!--   
+<!--
   <div class="form-group">
     <%#= f.label :stretch_route_id, "Trecho" %>
     <%#= f.select(:stretch_route_id, StretchRoute.all.collect {|c| [c.stretch_source_and_target_long, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
@@ -71,7 +71,7 @@
     <% else %>
       <%= f.collection_select :stretch_route_id, [], :name, :name, {prompt: "SELECIONE TRECHO"}, {class: "form-control input-sm"}  %>
     <% end %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :type_service_id, "Tipo de Servico" %>
@@ -80,7 +80,7 @@
     <% else %>
       <%= f.collection_select :type_service_id, [], :id, :name, {prompt: "SELECIONE O SERVICO"}, {class: "form-control input-sm"}  %>
     <% end %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :place, "Placa NF-e" %>
@@ -115,12 +115,12 @@
   <div class="form-group">
     <%= f.label :date_entry, "Data Entrada NF-e" %>
     <%= f.text_field :date_entry, class: "form-control data", value: date_br(@input_control.date_entry) %>
-    
+
   </div>
 
   <div class="form-group">
     <%= f.label :time_entry, "Hora Entrada NF-e" %>
-    <%= f.text_field :time_entry, class: "form-control time" %>
+    <%= f.text_field :time_entry, class: "form-control time", value: time_br(@input_control.time_entry) %>
   </div>
 
   <div class="form-group">
@@ -135,7 +135,7 @@
       <%= f.check_box :charge_discharge %> Cobrar descarga?
     <% end %>
   </div>
-  
+
   <div class="form-group">
     <%= f.check_box :palletized %> Carga Paletizada?
   </div>
@@ -165,22 +165,22 @@
     <%= f.text_area :observation, class: "form-control" %>
   </div>
 
-  <h3>NF-e</h3> 
+  <h3>NF-e</h3>
   <div class="documents_itens">
-    <%= f.nested_fields_for :nfe_xmls do |f| 
+    <%= f.nested_fields_for :nfe_xmls do |f|
       render 'nfe_xml_fields', f: f
     end -%> <br />
     <%= link_to_add_association 'Add NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm" %> <br />
   </div> <br />
-  
-  <h3>Documentos</h3> 
+
+  <h3>Documentos</h3>
   <div id="documents">
     <div class="items">
-      <%= f.nested_fields_for :assets do |f| 
+      <%= f.nested_fields_for :assets do |f|
         render 'shared/asset', f: f
       end  -%>
     </div>
-      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>
   </div>
 
   <hr />
@@ -254,7 +254,7 @@
       var client_id = "cpf_cnpj="+$(this).val();
       console.log(client_id);
       $.getJSON('/get_stretch_routes_from_client_cnpj', client_id, function(data){
-        var options = '<option value="">SELECIONE O TRECHO</option>'; 
+        var options = '<option value="">SELECIONE O TRECHO</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
@@ -272,7 +272,7 @@
       var client_and_stretch_route = {'cpf_cnpj': cpf_cnpj, 'stretch_route_id': stretch_route_id}
       console.log(client_and_stretch_route);
       $.getJSON('/get_client_table_price_of_by_client_cnpj_and_stretch_route', client_and_stretch_route, function(data){
-        var options = '<option value="">SELECIONE O TIPO DE SERVICO</option>'; 
+        var options = '<option value="">SELECIONE O TIPO DE SERVICO</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
