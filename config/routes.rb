@@ -176,6 +176,7 @@ Rails.application.routes.draw do
       get :printing
       get :print_blind
       get :print_products
+      get :print_products_conference
       get :tag
       get :start
       patch :update_start
