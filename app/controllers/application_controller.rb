@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     #redirect_to dashboard_agent_path, flash: { danger: exception.message}
+    byebug
+    puts ">>>>>>>>>>>>>> Logando no Sistema"
     if current_user.has_role? :admin
       redirect_to root_path, flash: { danger: exception.message }
     elsif current_user.has_role? :visit
@@ -28,8 +30,10 @@ class ApplicationController < ActionController::Base
       redirect_to dashboard_oper_path, flash: { danger: exception.message }
     elsif current_user.has_role? :port
       redirect_to dashboard_port_path, flash: { danger: exception.message }
+    elsif current_user.has_role? :sup
+      redirect_to dashboard_sup_path, flash: { danger: exception.message }
     else
-      #root_path
+      root_path
     end
   end
 
@@ -46,6 +50,8 @@ class ApplicationController < ActionController::Base
       dashboard_oper_path
     elsif current_user.has_role? :port
       dashboard_port_path
+    elsif current_user.has_role? :sup
+      dashboard_sup_path
     else
       #root_path
     end

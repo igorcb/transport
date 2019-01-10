@@ -14,7 +14,7 @@ class Ability
   #       puts "Classe admin"
   #       level.create_access_admin
   #     end
-        
+
   #     # elsif level.is_a? :oper
   #     #   level.create_access_oper
   #     # elsif level.is_a? :visit
@@ -37,6 +37,8 @@ class Ability
       can :manage, Task
     elsif  user.has_role? :port
       can :manage, Boarding
+    elsif  user.has_role? :sup
+      can :manage, Boarding
     elsif  user.has_role? :visit
       can :manage, Pallet
     elsif  user.has_role? :client
@@ -49,12 +51,12 @@ class Ability
       # can :write, Forum, :id => Forum.with_role(:moderator, user).pluck(:id)
     end
     #
-    # The first argument to `can` is the action you are giving the user 
+    # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions
     # here are :read, :create, :update and :destroy.
     #
-    # The second argument is the resource the user can perform the action on. 
+    # The second argument is the resource the user can perform the action on.
     # If you pass :all it will apply to every resource. Otherwise pass a Ruby
     # class of the resource.
     #
@@ -102,6 +104,6 @@ class Ability
     def create_access_port
       puts "Criando acesso para create_access_port"
     end
-  end  
+  end
 
 end

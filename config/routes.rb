@@ -339,6 +339,7 @@ Rails.application.routes.draw do
   match '/dashboard_visit', :controller => 'static_pages', :action => 'dashboard_visit', via: [:get, :post]
   match '/dashboard_agent', :controller => 'static_pages', :action => 'dashboard_agent', via: [:get, :post]
   match '/dashboard_oper', :controller => 'static_pages', :action => 'dashboard_oper', via: [:get, :post]
+  match '/dashboard_sup', :controller => 'static_pages', :action => 'dashboard_sup', via: [:get, :post]
   match '/dashboard_port', :controller => 'static_pages', :action => 'dashboard_port', via: [:get, :post]
   match '/dashboard_client', :controller => 'static_pages', :action => 'dashboard_client', via: [:get, :post]
   #match '/client_ordem_service/:id', :controller=>'ordem_services', :action => '', via: [:get, :post]
