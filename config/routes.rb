@@ -219,6 +219,7 @@ Rails.application.routes.draw do
     collection do
       get :search
       get :oper
+      get :sup
     end
     resources :boarding_items do
       post :update_row_order, on: :collection

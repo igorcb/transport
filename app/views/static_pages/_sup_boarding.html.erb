@@ -1,0 +1,41 @@
+<strong>Embarque: </strong><%= boarding.id %><br />
+<strong>Data: </strong><%= date_br (boarding.date_boarding) %><br />
+<strong>Motorista: </strong><%= boarding.driver.nome %>
+
+<% if boarding.driver_checkin %>
+   <i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i>
+<% else %>
+	 <i class="fa fa-times fa-2x" style="color: red" aria-hidden="true"></i>
+<% end %>
+<br />
+<strong>Veículos: </strong>
+<%= boarding.boarding_vehicles.includes(:vehicle).pluck(:placa) %>
+<br />
+<strong>No Lacre Um: </strong><%= boarding.sealing %><br />
+<strong>No Lacre Dois: </strong><%= boarding.sealing_two %><br />
+<strong>No Lacre Tres: </strong><%= boarding.sealing_three %><br />
+
+
+<strong>Cidades: </strong> <%= boarding.get_cities %><br />
+<% if boarding.pending? %>
+	<strong>Observacao: </strong><label style="color: red">Embarque com restrição</label><br />
+<% end %>
+
+<% if boarding.driver_checkin %>
+
+	<% if !boarding.places.include?(boarding.driver_checkin_palce_horse) || !boarding.places.include?(boarding.driver_checkin_palce_cart_1) %>
+	    <div class="alert alert-danger">
+	    	<% if !boarding.places.include?(boarding.driver_checkin_palce_horse) %>
+	      <p>
+					Placa Cavalo não está presente no embarque
+	      </p>
+	      <% end %>
+	    	<% if boarding.places.include?(boarding.driver_checkin_palce_cart_1) %>
+	      <p>
+					Placa Carreta não está presente no embarque
+	      </p>
+	      <% end %>
+	    </div>
+	<% end %>
+
+<% end %>
