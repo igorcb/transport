@@ -1,0 +1,7 @@
+<%= render(:partial => 'vehicle', locals: {vehicle: @vehicle_restriction.vehicle})  %>
+
+<%#= render(:partial => 'motive', locals: {vehicle: @vehicle_restriction.motive})  %>
+
+<%= link_to lock_vehicle_restriction_path() do %>
+  <i class="fas fa-lock notification"></i>
+<% end %>

@@ -9,8 +9,12 @@
 <% end %>
 <br />
 <strong>Veículos: </strong>
-<%= boarding.boarding_vehicles.includes(:vehicle).pluck(:placa) %>
-<br />
+<% if VehicleRestriction.vehicle_loking?(boarding.boarding_vehicles.includes(:vehicle).pluck("vehicles.id")) %>
+  <%= boarding.boarding_vehicles.includes(:vehicle).pluck("vehicles.placa").to_sentence %><br />
+<% else %>
+  <%= link_to boarding.boarding_vehicles.includes(:vehicle).pluck("vehicles.placa").to_sentence, new_vehicle_vehicle_restriction_path(boarding.boarding_vehicles.includes(:vehicle).pluck("vehicles.id")) %><br />
+<% end %>
+
 <strong>No Lacre Um: </strong><%= boarding.sealing %><br />
 <strong>No Lacre Dois: </strong><%= boarding.sealing_two %><br />
 <strong>No Lacre Tres: </strong><%= boarding.sealing_three %><br />
