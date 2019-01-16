@@ -3,6 +3,11 @@ class VehicleRestrictionsController < ApplicationController
   before_action :set_vehicle, only: [:show], execept: [:unlock]
   load_and_authorize_resource
 
+
+  def index
+    @vehicle_restrictions = VehicleRestriction.locking
+  end
+
   def show
 
   end
@@ -29,7 +34,7 @@ class VehicleRestrictionsController < ApplicationController
     @vehicle_restriction = VehicleRestriction.find(params[:id])
     VehicleRestriction.unlock(@vehicle_restriction)
     respond_to do |format|
-      format.html { redirect_to dashboard_sup_path, flash: { success: "Vehicle Restriction was successfully unlocked." } }
+      format.html { redirect_to vehicle_restrictions_path, flash: { success: "Vehicle Restriction was successfully unlocked." } }
     end
   end
 
