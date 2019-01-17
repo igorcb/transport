@@ -39,6 +39,7 @@ class Ability
       can :manage, Boarding
     elsif  user.has_role? :sup
       can :manage, Boarding
+      can :manage, VehicleRestriction
     elsif  user.has_role? :visit
       can :manage, Pallet
     elsif  user.has_role? :client

@@ -1,5 +1,11 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  resources :vehicle_restrictions do
+    member do
+      get :unlock
+    end
+  end
+
   resources :notifications do
     post :mark_as_read, on: :collection
     post :mark_as_read, on: :member
@@ -219,6 +225,7 @@ Rails.application.routes.draw do
     collection do
       get :search
       get :oper
+      get :sup
     end
     resources :boarding_items do
       post :update_row_order, on: :collection
@@ -485,6 +492,8 @@ Rails.application.routes.draw do
   end
 
   resources :vehicles do
+    resources :vehicle_restrictions
+
     collection do
       get :search
     end

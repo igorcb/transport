@@ -1,0 +1,2 @@
+module VehicleRestrictionsHelper
+end

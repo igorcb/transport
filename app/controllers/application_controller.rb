@@ -16,8 +16,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     #redirect_to dashboard_agent_path, flash: { danger: exception.message}
-    byebug
-    puts ">>>>>>>>>>>>>> Logando no Sistema"
     if current_user.has_role? :admin
       redirect_to root_path, flash: { danger: exception.message }
     elsif current_user.has_role? :visit
