@@ -50,7 +50,7 @@ gem 'business_time'
 gem 'extensobr'
 gem 'ranked-model'
 gem 'roxml'
-gem 'ruby-nfe', '~> 0.0.3'
+gem 'ruby-nfe', '~> 0.0.4'
 gem 'thinreports'
 gem 'thinreports-rails'
 # #
