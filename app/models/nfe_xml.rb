@@ -143,8 +143,17 @@ class NfeXml < ActiveRecord::Base
           #antes de gerar a ordem de servico verificar se todas as notas está para o mesmo CNPJ emitente
           cnpj_source = nfe.emit.CNPJ.to_s
           cnpj_source.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
-          cnpj_target = nfe.dest.CNPJ.to_s
-          cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
+          #cnpj_target = nfe.dest.CNPJ.to_s
+          #cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
+
+					cnpj_target = nfe.dest.CNPJ.nil? ? nfe.dest.CPF.to_s : nfe.dest.CNPJ.to_s
+					if cnpj_target.length == 11
+						tipo_pessoa = 0
+					  cnpj_target.insert(3, '.').insert(7, '.').insert(11, '-')
+				  else
+						tipo_pessoa = 1
+            cnpj_target.insert(2, '.').insert(6, '.').insert(10, '/').insert(15, '-')
+          end
 
           #Location Source Client ou Create ou Update
           source_client = Client.create_with(
