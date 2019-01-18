@@ -6,7 +6,8 @@ class LinksController < ApplicationController
   # GET /links
   # GET /links.json
   def index
-    @links = Link.order(:row_order)
+    #@links = Link.order(:row_order)
+    @links = current_user.links.order(:row_order)
   end
 
   def update_row_order
@@ -34,7 +35,8 @@ class LinksController < ApplicationController
   # POST /links
   # POST /links.json
   def create
-    @link = Link.new(link_params)
+    #@link = Link.new(link_params)
+    @link = current_user.links.new(link_params)
 
     respond_to do |format|
       if @link.save

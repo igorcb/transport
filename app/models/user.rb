@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   belongs_to :employee, required: false
 	has_many :notifications, foreign_key: :recipient_id
+  has_many :links
 
 	def active_name
 		case self.active
