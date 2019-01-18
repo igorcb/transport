@@ -54,6 +54,9 @@ class InputControl < ActiveRecord::Base
 
   VALUE_DISCHARGE = 0.88 #POR TONELADA
 
+  ID_GROUP_QUIMICA_AMPARO_INT = 10
+  ID_GROUP_QUIMICA_AMPARO_STR = '10'
+
   before_save do |item|
     item.place = place.upcase
     item.place_horse = place_horse.upcase

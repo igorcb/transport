@@ -12,7 +12,7 @@ module InputControlsHelper
     ([["IMBATIVEIS", 1],["UNIDOS VENCEREMOS", 2], ["DIARISTA", 3]])
   end
 
-  def select_dock 
+  def select_dock
     ([["1", 1],["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7", 7]])
   end
 
@@ -39,6 +39,7 @@ module InputControlsHelper
   end
 
   def calculation_discharge(value)
+    value = 0.00 if value.nil?
     calc = value * (InputControl::VALUE_DISCHARGE / 1000)
     number_to_currency(calc, precision: 2, unit: "R$ ", separator: ",", delimiter: ".")
   end

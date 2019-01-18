@@ -355,10 +355,15 @@ class InputControlsController < ApplicationController
   end
 
   def received_weight_search
-    @input_controls = InputControl.where("date_receipt >= ? and date_receipt <= ?", params[:start_date], params[:end_date])
+    start_date = params[:start_date].blank? ? Date.current.beginning_of_month - 1.month : params[:start_date].to_date
+    end_date = params[:start_date].blank? ? Date.current : params[:start_date].to_date
+    @input_controls = InputControl.joins(nfe_xmls: [source_client: [:group_client]])
+                                  .where("group_clients.id = ? and date_receipt >= ? and date_receipt <= ?", params[:group_client_id], params[:start_date].to_date, params[:end_date].to_date)
                                   .select_date_receipt
-    @input_control_total = InputControl.where("date_receipt >= ? and date_receipt <= ?", params[:start_date], params[:end_date])
+    @input_control_total = InputControl.joins(nfe_xmls: [source_client: [:group_client]])
+                                  .where("group_clients.id = ? and date_receipt >= ? and date_receipt <= ?", params[:group_client_id], params[:start_date].to_date, params[:end_date].to_date)
                                   .select_date_receipt_total
+
     respond_with(@input_controls) do |format|
       format.js
     end

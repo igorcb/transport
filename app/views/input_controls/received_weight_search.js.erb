@@ -1,3 +1,5 @@
 $('#result_input').empty();
 // $("#result_input").append("<%= j(render(:partial => 'list_received_weight', input_control: @input_controls)) %>");
-$("#result_input").append("<%= j(render(:partial => 'list_received_weight', :locals => {input_control: @input_controls} )) %>");
+<% if @input_controls.present? -%>
+ $("#result_input").append("<%= j(render(:partial => 'list_received_weight', :locals => {input_control: @input_controls} )) %>");
+<% end -%>
