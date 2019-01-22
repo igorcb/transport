@@ -1,5 +1,11 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  resources :driver_restrictions do
+    member do
+      get :unlock
+    end
+  end
+
   resources :vehicle_restrictions do
     member do
       get :unlock
@@ -500,6 +506,7 @@ Rails.application.routes.draw do
   end
 
   resources :drivers do
+    resources :driver_restrictions
     collection do
       get :search
     end

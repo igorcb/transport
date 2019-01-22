@@ -1,0 +1,33 @@
+<%= form_for(@driver_restriction) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= hidden_field_tag "driver_id", @driver.id %>
+
+  <div class="form-group">
+    <%= label_tag :driver, "Driver" %><br>
+    <%= text_field_tag :driver, @driver.nome, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :client, "Client" %><br>
+    <%= f.select(:client_id, Client.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: "Informe o Cliente"}, {class: "form-control"} ) %>
+    <%#= f.select(:motive_id, options_for_select(VehicleRestriction.motive_ids.keys.to_a.map{ |w| [w.humanize, w] }), {include_blank: false}, class: "form-control") %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :tipo, "Tipo" %><br>
+    <%= f.select :restriction, select_restriction, {include_blank: "Motivo da Restrinção"}, {class: "form-control" }   %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :observation, "Observação" %><br>
+    <%= f.text_area :observation, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
+    <%#= link_to "Exibir",  vehicle_path(@vehicle), class: "btn btn-info" if !@vehicle.new_record? %>
+    <%#= link_to "Listar Todos", vehicles_path, class: "btn btn-default" %>
+  </div>
+
+<% end  %>

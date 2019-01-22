@@ -1,7 +1,11 @@
 <strong>Embarque: </strong><%= boarding.id %><br />
 <strong>Data: </strong><%= date_br (boarding.date_boarding) %><br />
-<strong>Motorista: </strong><%= boarding.driver.nome %>
-
+<strong>Motorista: </strong>
+<% if DriverRestriction.driver_loking?(boarding.driver.id) %>
+  <%= boarding.driver.nome %>
+<% else %>
+  <%= link_to boarding.driver.nome, new_driver_driver_restriction_path(boarding.driver.id) %>
+<% end %>
 <% if boarding.driver_checkin %>
    <i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i>
 <% else %>

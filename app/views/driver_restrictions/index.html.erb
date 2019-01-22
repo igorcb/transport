@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Motorista Bloqueados</div>
+  <div class="panel-body">
+    <%#= link_to 'Novo Veículos', new_vehicle_path, class: "btn btn-blue btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>CPF</th>
+            <th>Mototista</th>
+            <th>Tipo</th>
+            <th>Cliente</th>
+
+            <th colspan="3">Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @driver_restrictions.each do |driver_restriction| %>
+            <tr>
+              <td><%= driver_restriction.driver.cpf %></td>
+              <td><%= driver_restriction.driver.nome if driver_restriction.driver.present? %></td>
+              <td><%= driver_restriction.restriction_name %></td>
+              <td><%= driver_restriction.client.nome  %></td>
+
+              <td>
+                <%# unlock_vehicle_restriction_path(vehicle_restriction) %>
+                <%= link_to unlock_driver_restriction_path(driver_restriction) do %>
+                  <i class="fas fa-unlock notification"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
