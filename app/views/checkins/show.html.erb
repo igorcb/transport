@@ -18,8 +18,8 @@
 </p>
 
 <p>
-  <strong>Type:</strong>
-  <%= @checkin.status %>
+  <strong>Status:</strong>
+  <%= translate "activerecord.attributes.enums.checkin.status.#{@checkin.operation}" %>
 </p>
 
 <%= link_to 'Edit', edit_checkin_path(@checkin) %> |
