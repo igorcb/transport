@@ -9,4 +9,9 @@ class Checkin < ApplicationRecord
   scope :the_day, -> { where("DATE(created_at) = ?", Date.current).order("id desc") }
   scope :inside_all, -> {where(status: [:input, :start, :finish])}
   scope :driver_status, ->(cpf) {where(driver_cpf: cpf).last}
+
+  def self.service_checkout(driver_cpf, operation)
+    driver = Driver.where(cpf: driver_cpf).first
+    Checkin.create(driver_cpf: driver_cpf, driver_name: driver.nome.upcase, operation: operation, status: :checkout)
+  end
 end

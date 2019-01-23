@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
-  resources :checkins
+  resources :checkins do
+    member do
+      get :checkout
+    end
+  end
   resources :driver_restrictions do
     member do
       get :unlock

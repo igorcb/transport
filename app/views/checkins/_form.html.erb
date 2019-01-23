@@ -12,15 +12,34 @@
     <%= f.text_field :driver_name, class: "form-control" %>
   </div>
 
+  <%#= f.hidden_field :operation, value: 'input_control' %>
+
+  <%#= f.hidden_field :operation, value: 'boarding' %>
+
+  <%#= f.select :operation, options_for_select(select_checkin_operation.map {|k, v| [v, k]}), {include_blank: true}, {class: "form-control" }  %>
+
+  <%#= f.text_field :operation, value: 'input_control', class: "form-control", disabled: true %>
+
+  <%# if params[:operation] == 'input_control' %>
+
+
   <div class="form-group">
-    <%= f.label :operation %>
-    <%= f.select :operation, options_for_select(select_checkin_operation.map {|k, v| [v, k]}), {include_blank: true}, {class: "form-control" }  %>
+    <% if !params[:operation].blank? %>
+      <%= f.hidden_field :operation, value: params[:operation] %>
+    <% else %>
+      <%= f.label :operation %>
+      <%= f.select :operation, options_for_select(select_checkin_operation.map {|k, v| [v, k]}), {include_blank: true}, {class: "form-control" }  %>
+    <% end %>
   </div>
 
   <div class="form-group">
-    <%= f.label :status %>
-    <%#= f.select :type, options_for_select(select_checkin_type.map {|k, v| [v, k]}), {include_blank: true}, {class: "form-control" }  %>
-    <%= f.select :status, options_for_select(Checkin.statuses.keys.to_a.map{ |w| [w.humanize, w] }), {include_blank: true}, {class: "form-control" }  %>
+    <% if !params[:operation].blank? %>
+      <%#= f.text_field :status, value: 'input', class: "form-control", disabled: true %>
+      <%= f.hidden_field :status, value: 'input' %>
+    <% else %>
+      <%= f.label :status %>
+      <%= f.select :status, options_for_select(Checkin.statuses.keys.to_a.map{ |w| [w.humanize, w] }), {include_blank: true}, {class: "form-control" }  %>
+    <% end %>
   </div>
 
   <div class="actioform-groupns">

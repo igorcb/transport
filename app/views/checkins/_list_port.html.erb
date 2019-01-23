@@ -26,7 +26,7 @@
               <td><%= date_br checkin.created_at %></td>
               <td><%= time_br checkin.created_at %></td>
               <td>
-                <%= link_to '#' do %>
+                <%= link_to checkout_checkin_path(checkin.id, driver_cpf: checkin.driver_cpf, operation: checkin.operation ) do %>
                   <i class="fas fa-truck notification"></i>
                 <% end %>
               </td>

@@ -37,6 +37,7 @@ class Ability
       can :manage, Task
     elsif  user.has_role? :port
       can :manage, Boarding
+      can :manage, Checkin
     elsif  user.has_role? :sup
       can :manage, Boarding
       can :manage, DriverRestriction

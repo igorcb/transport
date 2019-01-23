@@ -28,7 +28,7 @@ class StaticPagesController < ApplicationController
 	def dashboard_port
 		#@boardings = Boarding.the_day
 		@checkins = Array.new
-		driver_cpf_array = Checkin.the_day.inside_all.pluck(:driver_cpf).uniq
+		driver_cpf_array = Checkin.the_day.inside_all.order(created_at: :asc).pluck(:driver_cpf).uniq
 		driver_cpf_array.each do |cpf|
 			@checkins.push(Checkin.driver_status(cpf))
 		end
