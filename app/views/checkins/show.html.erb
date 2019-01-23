@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>CPF:</strong>
+  <%= @checkin.driver_cpf %>
+</p>
+
+
+<p>
+  <strong>Nome:</strong>
+  <%= @checkin.driver_name %>
+</p>
+
+
+<p>
+  <strong>Operacao:</strong>
+  <%= translate "activerecord.attributes.enums.checkin.operation.#{@checkin.operation}" %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @checkin.status %>
+</p>
+
+<%= link_to 'Edit', edit_checkin_path(@checkin) %> |
+<%= link_to 'Back', checkins_path %>

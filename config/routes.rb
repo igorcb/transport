@@ -1,5 +1,6 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  resources :checkins
   resources :driver_restrictions do
     member do
       get :unlock

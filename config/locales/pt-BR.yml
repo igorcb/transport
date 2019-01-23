@@ -1,5 +1,16 @@
 pt-BR:
   activerecord:
+    attributes:
+      enums:
+        checkin:
+          status:
+            input: "Entrada"
+            start: "Inicio"
+            finish: "Fim"
+            checkout: "Saida"
+          operation:
+            input_control: "Entrada"
+            boarding: "Saida"
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
