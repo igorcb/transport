@@ -14,4 +14,10 @@ class Checkin < ApplicationRecord
     driver = Driver.where(cpf: driver_cpf).first
     Checkin.create(driver_cpf: driver_cpf, driver_name: driver.nome.upcase, operation: operation, status: :checkout)
   end
+
+  before_save do |v|
+    v.place_horse = v.place_horse.upcase
+    v.place_cart_1 = v.place_cart_1.upcase
+    v.place_cart_2 = v.place_cart_1.upcase
+  end
 end
