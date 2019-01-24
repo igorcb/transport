@@ -4,12 +4,12 @@
 
   <div class="form-group">
     <%= f.label :driver_cpf %>
-    <%= f.text_field :driver_cpf, class: "form-control cpf" %>
+    <%= f.text_field :driver_cpf, class: "form-control cpf", id: "driver_cpf" %>
   </div>
 
   <div class="form-group">
     <%= f.label :driver_name %>
-    <%= f.text_field :driver_name, class: "form-control" %>
+    <%= f.text_field :driver_name, class: "form-control", id: "driver_name" %>
   </div>
 
   <%#= f.hidden_field :operation, value: 'input_control' %>
@@ -47,3 +47,18 @@
   </div>
 
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#driver_cpf").focusout(function() {
+      var cpf = $('#driver_cpf').val();
+      var state_params = {cpf: cpf}
+
+      $.getJSON('/get_driver_name_by_cpf', state_params, function(data){
+         console.log(data.nome)
+         $("#driver_name").val(data.nome);
+        })
+      });
+    });
+  //});
+</script>

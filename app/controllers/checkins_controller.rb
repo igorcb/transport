@@ -1,7 +1,9 @@
 class CheckinsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_checkin, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  # before_action :authenticate_user!
+  # before_action :set_checkin, only: [:show, :edit, :update, :destroy, :get_driver_name_by_cpf]
+  #
+  # #get_driver_name_by_cpf
+  # load_and_authorize_resource
 
   # GET /checkins
   # GET /checkins.json
@@ -30,7 +32,7 @@ class CheckinsController < ApplicationController
 
     respond_to do |format|
       if @checkin.save
-        if current_user.has_role(:port)
+        if current_user.has_role?(:port)
           format.html { redirect_to dashboard_port_path, notice: 'Checkin was successfully created.' }
         else
           format.html { redirect_to @checkin, notice: 'Checkin was successfully created.' }
@@ -88,6 +90,12 @@ class CheckinsController < ApplicationController
   #     format.json { head :no_content }
   #   end
   # end
+
+  def get_driver_name_by_cpf
+    @driver = Driver.find_by_cpf(params[:cpf])
+    data = @driver.present? ? {name: @driver.nome} : {name: ""}
+    render :json => @driver.to_json.force_encoding("UTF-8")
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

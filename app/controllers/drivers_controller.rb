@@ -12,10 +12,10 @@ class DriversController < ApplicationController
     # banks.each do |b|
     #   bnk << {:id => b.id, :nome => b.nome}
     # end
-    # render :json => {:bnk => bnk.compact}.as_json  
+    # render :json => {:bnk => bnk.compact}.as_json
     bnk = Bank.find(bank_id)
-    #render :json => {:bnk => bnk.compact}.as_json  
-    render :json => bnk.as_json  
+    #render :json => {:bnk => bnk.compact}.as_json
+    render :json => bnk.as_json
   end
 
   # GET /drivers
@@ -98,8 +98,8 @@ class DriversController < ApplicationController
     @drivers = @q.result
     respond_with(@drivers) do |format|
      format.js
-    end  
-  end  
+    end
+  end
 
   def get_driver_by_id
     @driver = Driver.find(params[:id])
@@ -121,7 +121,7 @@ class DriversController < ApplicationController
       format.js
     end
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_driver
@@ -130,11 +130,11 @@ class DriversController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def driver_params
-      params.require(:driver).permit(:cpf, :nome, :fantasia, :inscricao_estadual, :instricao_municipal, :endereco, :numero, :complemento, 
+      params.require(:driver).permit(:cpf, :nome, :fantasia, :inscricao_estadual, :instricao_municipal, :endereco, :numero, :complemento,
         :bairro, :cidade, :estado, :cep, :rg, :data_emissao_rg, :orgao_expeditor, :obs,
-        :data_nascimento, :municipio_nascimento, :estado_nascimento, :inss, 
+        :data_nascimento, :municipio_nascimento, :estado_nascimento, :inss,
         :cnh, :registro_cnh, :categoria, :validade_cnh, :nome_do_pai, :nome_da_mae, :avatar,
-        :estado_civil, :cor_da_pele, :tipo_contrato, :date_expiration_medical, 
+        :estado_civil, :cor_da_pele, :tipo_contrato, :date_expiration_medical,
         :date_query_secure, :date_expiration_secure, :number_secure, :number_mopp, :date_expiration_mopp, :owner_id,
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],

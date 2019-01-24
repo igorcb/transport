@@ -386,6 +386,7 @@ Rails.application.routes.draw do
   match '/clients/get_client_by_id', :controller => 'clients', :action => 'get_client_by_id', via: [:get]
   match '/drivers/get_driver_by_id', :controller => 'drivers', :action => 'get_driver_by_id', via: [:get]
   match '/drivers/get_driver_by_cpf', :controller => 'drivers', :action => 'get_driver_by_cpf', via: [:get]
+  match '/get_driver_name_by_cpf', :controller => 'checkins', :action => 'get_driver_name_by_cpf', via: [:get]
   match '/drivers/get_driver_by_cpf_exist', :controller => 'drivers', :action => 'get_driver_by_cpf_exist', via: [:get]
   match '/suppliers/get_supplier_by_id', :controller => 'suppliers', :action => 'get_supplier_by_id', via: [:get]
   match '/carriers/get_carrier_by_id', :controller => 'carriers', :action => 'get_carrier_by_id', via: [:get]
