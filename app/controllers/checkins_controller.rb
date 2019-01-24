@@ -59,12 +59,6 @@ class CheckinsController < ApplicationController
         format.html { redirect_to dashboard_port_path, flash: { danger: "Can not checkout, is not operation status 'finish'. " } }
       end
     end
-
-    # @vehicle_restriction = VehicleRestriction.find(params[:id])
-    # VehicleRestriction.unlock(@vehicle_restriction)
-    # respond_to do |format|
-    #   format.html { redirect_to vehicle_restrictions_path, flash: { success: "Vehicle Restriction was successfully unlocked." } }
-    # end
   end
 
   # # PATCH/PUT /checkins/1

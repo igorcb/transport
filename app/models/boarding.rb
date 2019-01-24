@@ -615,6 +615,10 @@ class Boarding < ActiveRecord::Base
     conf.config_value.to_i
   end
 
+  def driver_checkin?
+    Checkin.the_day.input.where(driver_cpf: self.driver.cpf).present?
+  end
+
   private
 
     def get_ordem_services_ids
