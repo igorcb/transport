@@ -232,6 +232,7 @@ Rails.application.routes.draw do
       get :checkin
       patch :update_checkin
       get :detail
+      post :confirm_checkin
     end
     collection do
       get :search

@@ -395,9 +395,16 @@ class Boarding < ActiveRecord::Base
     end
   end
 
+  # def self.checkin(boarding_id)
+  #   ActiveRecord::Base.transaction do
+  #     Boarding.where(id: boarding_id).update_all(driver_checkin: true, driver_checkin_time: Time.current)
+  #   end
+  # end
+
   def self.checkin(boarding_id)
+    boarding = Boarding.find(boarding_id)
     ActiveRecord::Base.transaction do
-      Boarding.where(id: boarding_id).update_all(driver_checkin: true, driver_checkin_time: Time.current)
+      Checkin.the_day.input.where(driver_cpf: boarding.driver.cpf).update_all(operation_id: boarding.id)
     end
   end
 

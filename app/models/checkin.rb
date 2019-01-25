@@ -16,6 +16,7 @@ class Checkin < ApplicationRecord
     Checkin.create( driver_cpf: driver_cpf,
                    driver_name: driver.nome.upcase,
                 operation_type: operation,
+                  operation_id: checkin.operation_id,
                    place_horse: checkin.place_horse,
                   place_cart_1: checkin.place_cart_1,
                   place_cart_2: checkin.place_cart_2,

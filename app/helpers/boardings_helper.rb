@@ -1,6 +1,6 @@
 module BoardingsHelper
   def select_title_ocurrence
-    ([["ALTERAÇÃO AGENDAMENTO", 0], 
+    ([["ALTERAÇÃO AGENDAMENTO", 0],
     	["AVARIA NO RECEBIMENTO EM NOSSO CD", 1],
     	["AVARIA E FALTA NO RECEBIMENTO EM NOSSO CD", 2],
     	["CLIENTE RECUSOU A MERCADORIA", 3],
@@ -16,17 +16,21 @@ module BoardingsHelper
   end
 
   def select_status_boarding
-    ([["Aberto", 0], 
+    ([["Aberto", 0],
       ["Embarcado", 1],
       ["Entregue", 2]
      ])
   end
 
   def select_local_embarque
-    ([["Fortaleza/CE", 1], 
+    ([["Fortaleza/CE", 1],
       ["Juazeiro do Norte/CE", 2],
       ["Simões Filho/BA", 3]
      ])
+  end
+
+  def verify_checkin_exist?(driver_cpf)
+    Checkin.the_day.input.where(driver_cpf: driver_cpf).first.operation_id.present?
   end
 
 end
