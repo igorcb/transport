@@ -9,8 +9,8 @@ pt-BR:
             finish: "Fim"
             checkout: "Saida"
           operation_type:
-            input_control: "Entrada"
-            boarding: "Saida"
+            input_control: "Descarga"
+            boarding: "Embarque"
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'

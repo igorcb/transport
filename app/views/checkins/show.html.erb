@@ -1,26 +1,72 @@
-<p id="notice"><%= notice %></p>
+<p>
+  <strong><%= translate "activerecord.attributes.enums.checkin.operation_type.#{@checkin.operation_type}"%>:</strong>
+  <%= @checkin.operation_id %>
+</p>
 
 <p>
   <strong>CPF:</strong>
   <%= @checkin.driver_cpf %>
 </p>
 
-
 <p>
   <strong>Nome:</strong>
   <%= @checkin.driver_name %>
 </p>
 
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      </tr>
+    </thead>
 
-<p>
-  <strong>Operacao:</strong>
-  <%= translate "activerecord.attributes.enums.checkin.operation.#{@checkin.operation}" %>
-</p>
+    <tbody>
+      <% Checkin.where(driver_cpf: @checkin.driver_cpf).where("DATE(created_at) = ?", @checkin.created_at.to_date).each do |checkin| %>
+        <tr>
+          <td><%= translate "activerecord.attributes.enums.checkin.status.#{checkin.status}" %></td>
+          <td><%= time_br checkin.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<p>
-  <strong>Status:</strong>
-  <%= translate "activerecord.attributes.enums.checkin.status.#{@checkin.operation}" %>
-</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      </tr>
+    </thead>
 
-<%= link_to 'Edit', edit_checkin_path(@checkin) %> |
-<%= link_to 'Back', checkins_path %>
+    <tbody>
+
+        <tr>
+          <td>Tempo da chegada até o carregamento</td>
+          <td><%#= time_br time_between_checkin_to_start(@checkin) %></td>
+        </tr>
+
+        <tr>
+          <td>Tempo do inicio do carregamento até o fim</td>
+          <td>00:00</td>
+        </tr>
+
+        <tr>
+          <td>Tempo do fim do carregamento até a saída do veículo</td>
+          <td>00:00</td>
+        </tr>
+
+        <tr>
+          <td>Tempo total da entrada até a saída</td>
+          <td>00:00</td>
+        </tr>
+
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+<%#= link_to 'Edit', edit_checkin_path(@checkin) %> |
+<%#= link_to 'Back', checkins_path %>

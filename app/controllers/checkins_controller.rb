@@ -14,6 +14,7 @@ class CheckinsController < ApplicationController
   # GET /checkins/1
   # GET /checkins/1.json
   def show
+    @checkin = Checkin.find(params[:id])
   end
 
   # GET /checkins/new
