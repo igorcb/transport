@@ -19,11 +19,6 @@
 		  <%= link_to @boarding.driver.nome, @boarding.driver %>
       <% if @boarding.driver_checkin? %>
          <i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i>
-        <% if !verify_checkin_exist?(@boarding.driver.cpf) %>
-          <%= link_to confirm_checkin_boarding_path(), :method => :post do %>
-            <i class="btn btn-blue">Confirmar</i>
-          <% end %>
-        <% end %>
       <% else %>
          <i class="fa fa-times fa-2x" style="color: red" aria-hidden="true"></i>
       <% end %>

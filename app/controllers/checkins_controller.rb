@@ -48,7 +48,7 @@ class CheckinsController < ApplicationController
   def checkout
     @checkin = Checkin.driver_status(params[:driver_cpf])
 
-    if @checkin.status == "input"
+    if @checkin.finish?
       Checkin.service_checkout(params[:driver_cpf], params[:operation])
       respond_to do |format|
         format.html { redirect_to dashboard_port_path, flash: { success: "Driver was successfully checkout." } }

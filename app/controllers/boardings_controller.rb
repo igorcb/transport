@@ -175,13 +175,6 @@ class BoardingsController < ApplicationController
     redirect_to dashboard_port_path, flash: { success: "Boarding Check IN was successful" }
   end
 
-  def confirm_checkin
-    #@boarding
-    Boarding.checkin(params[:id])
-    redirect_to @boarding, flash: { success: "Boarding check-in was successful" }
-  end
-
-
   def detail; end
 
 
