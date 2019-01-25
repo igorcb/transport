@@ -1,9 +1,9 @@
 class Checkin < ApplicationRecord
-  validates :driver_cpf, :driver_name, :operation, :status,  presence: true
+  validates :driver_cpf, :driver_name, :operation_type, :status,  presence: true
 
   #belongs_to :driver
 
-  enum operation: { input_control: 0, boarding: 1}
+  enum operation_type: { input_control: 0, boarding: 1}
   enum status: { input: 0, start: 1, finish: 2, checkout: 3}
 
   scope :the_day, -> { where("DATE(created_at) = ?", Date.current).order("id desc") }
@@ -15,7 +15,7 @@ class Checkin < ApplicationRecord
     checkin = Checkin.input.where(driver_cpf: driver.cpf).last
     Checkin.create( driver_cpf: driver_cpf,
                    driver_name: driver.nome.upcase,
-                     operation: operation,
+                operation_type: operation,
                    place_horse: checkin.place_horse,
                   place_cart_1: checkin.place_cart_1,
                   place_cart_2: checkin.place_cart_2,

@@ -99,6 +99,6 @@ class CheckinsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checkin_params
-      params.require(:checkin).permit(:driver_cpf, :driver_name, :status, :operation, :place_horse, :place_cart_1, :place_cart_2 )
+      params.require(:checkin).permit(:driver_cpf, :driver_name, :status, :operation_type, :place_horse, :place_cart_1, :place_cart_2 )
     end
 end

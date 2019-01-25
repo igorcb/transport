@@ -10,6 +10,7 @@
             <th>Motorista</th>
             <th>Placa Cav.</th>
             <th>Operacao</th>
+            <th>ID</th>
             <th>Status</th>
             <th>Data</th>
             <th>Hora</th>
@@ -23,13 +24,14 @@
               <td><%= checkin.driver_cpf %></td>
               <td><%= checkin.driver_name %></td>
               <td><%= checkin.place_horse %></td>
-              <td><%= checkin.operation %></td>
+              <td><%= checkin.operation_type %></td>
+              <td><%= checkin.operation_id %></td>
               <td><%= checkin.status %></td>
               <td><%= date_br checkin.created_at %></td>
               <td><%= time_br checkin.created_at %></td>
               <td>
                 <% if !checkin.checkout? %>
-                  <%= link_to checkout_checkin_path(checkin.id, driver_cpf: checkin.driver_cpf, operation: checkin.operation ) do %>
+                  <%= link_to checkout_checkin_path(checkin.id, driver_cpf: checkin.driver_cpf, operation: checkin.operation_type ) do %>
                     <i class="fas fa-truck notification"></i>
                   <% end %>
                 <% end %>

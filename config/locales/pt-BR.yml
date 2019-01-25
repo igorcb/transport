@@ -8,7 +8,7 @@ pt-BR:
             start: "Inicio"
             finish: "Fim"
             checkout: "Saida"
-          operation:
+          operation_type:
             input_control: "Entrada"
             boarding: "Saida"
     errors:

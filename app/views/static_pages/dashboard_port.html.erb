@@ -16,7 +16,7 @@
 
       <div style="padding: 5px 10px; margin-left: 90px; height: 80px;">
         <span style="font-size: 20px; font-weight: 300 bold; color: rgb(66, 66, 66);">
-          <%= link_to "Check-In Descargas", new_checkin_path(operation: Checkin.operations.keys.first) %>
+          <%= link_to "Check-In Descargas", new_checkin_path(operation: Checkin.operation_types.keys.first) %>
         </span>
         <span style="display: block; font-weight: 500; font-size: 30px; color: rgb(66, 66, 66);">
 
@@ -34,7 +34,7 @@
       </span>
       <div style="padding: 5px 10px; margin-left: 90px; height: 80px;">
         <span style="font-size: 20px; font-weight: 300 bold; color: rgb(66, 66, 66);">
-          <%= link_to "Check-In Embarques", new_checkin_path(operation: Checkin.operations.keys.second) %>
+          <%= link_to "Check-In Embarques", new_checkin_path(operation: Checkin.operation_types.keys.second) %>
         </span>
 
         </span>

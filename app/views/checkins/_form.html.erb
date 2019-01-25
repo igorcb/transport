@@ -25,10 +25,10 @@
 
   <div class="form-group">
     <% if !params[:operation].blank? %>
-      <%= f.hidden_field :operation, value: params[:operation] %>
+      <%= f.hidden_field :operation_type, value: params[:operation] %>
     <% else %>
-      <%= f.label :operation %>
-      <%= f.select :operation, options_for_select(select_checkin_operation.map {|k, v| [v, k]}), {include_blank: true}, {class: "form-control" }  %>
+      <%= f.label :operation_type %>
+      <%= f.select :operation_type, options_for_select(select_checkin_operation.map {|k, v| [v, k]}), {include_blank: true}, {class: "form-control" }  %>
     <% end %>
   </div>
 
