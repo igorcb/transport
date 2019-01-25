@@ -1,6 +1,6 @@
 module CheckinsHelper
-  def select_checkin_type
-    translate 'activerecord.attributes.enums.checkin.type'
+  def select_checkin_status
+    translate 'activerecord.attributes.enums.checkin.status'
   end
 
   def select_checkin_operation

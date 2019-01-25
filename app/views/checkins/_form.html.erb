@@ -34,11 +34,11 @@
 
   <div class="form-group">
     <% if !params[:operation].blank? %>
-      <%#= f.text_field :status, value: 'input', class: "form-control", disabled: true %>
       <%= f.hidden_field :status, value: 'input' %>
     <% else %>
       <%= f.label :status %>
-      <%= f.select :status, options_for_select(Checkin.statuses.keys.to_a.map{ |w| [w.humanize, w] }), {include_blank: true}, {class: "form-control" }  %>
+      <%#= f.select :status, options_for_select(Checkin.statuses.keys.to_a.map{ |w| [w.humanize, w] }), {include_blank: true}, {class: "form-control" }  %>
+      <%= f.select :status, options_for_select(select_checkin_status.map {|k, v| [v, k]}), {include_blank: true}, {class: "form-control" }  %>
     <% end %>
   </div>
 
