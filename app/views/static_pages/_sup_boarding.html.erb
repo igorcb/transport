@@ -6,7 +6,7 @@
 <% else %>
   <%= link_to boarding.driver.nome, new_driver_driver_restriction_path(boarding.driver.id) %>
 <% end %>
-<% if boarding.driver_checkin %>
+<% if boarding.driver_checkin? %>
    <i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i>
 <% else %>
 	 <i class="fa fa-times fa-2x" style="color: red" aria-hidden="true"></i>
