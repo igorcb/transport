@@ -132,16 +132,16 @@
 
 <p>
   <strong>Cubagem:</strong>
-  <%= @vehicle.cubagem %>
+  <%= @vehicle.cubagem if @vehicle.altura.present? && @vehicle.largura.present? && @vehicle.comprimento.present?%>
 </p>
 
 <p>
-  <strong>Criado em:</strong> <%= date_br @vehicle.created_at %> as <%= time_br @vehicle.created_at %> 
+  <strong>Criado em:</strong> <%= date_br @vehicle.created_at %> as <%= time_br @vehicle.created_at %>
   <strong>por</strong> <%= @vehicle.user_created.email if @vehicle.user_created.present? %>
 </p>
 
 <p>
-  <strong>Última atualização:</strong> <%= date_br @vehicle.updated_at %> as <%= time_br @vehicle.updated_at %> 
+  <strong>Última atualização:</strong> <%= date_br @vehicle.updated_at %> as <%= time_br @vehicle.updated_at %>
   <strong>por</strong> <%= @vehicle.user_updated.email if @vehicle.user_updated.present? %>
 </p>
 
@@ -161,7 +161,7 @@
           <td><%= price.uf_tipo_nome %></td>
           <td><%= price.tipo_nome %></td>
           <td><%= price.valor.to_f %></td>
-      
+
         </tr>
       <% end %>
 
@@ -184,14 +184,14 @@
           <th>Fantasia</th>
           <th>CPF</th>
         </tr>
-      </thead>   
+      </thead>
 
       <% @vehicle.drivers.each do |driver| %>
         <tr>
           <td><%= link_to "#{driver.nome}", driver  %></td>
           <td><%= driver.fantasia %></td>
           <td><%= driver.cpf %></td>
-      
+
         </tr>
       <% end %>
 
@@ -212,7 +212,7 @@
           <th>Favorecido</th>
           <th>CPF/CNPJ</th>
         </tr>
-      </thead>      
+      </thead>
 
       <% @vehicle.owners.each do |owner| %>
         <tr>
@@ -231,7 +231,7 @@
 
 <h2>Dados da ANTT</h2>
 
-<% if @vehicle.antts.present? %>  
+<% if @vehicle.antts.present? %>
   <p>
     <strong>RNTRC:</strong>
     <%= link_to @vehicle.antts.first.rntrc, @vehicle.antts.first %>
