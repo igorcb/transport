@@ -99,6 +99,10 @@ class InputControlsController < ApplicationController
     @input_controls = InputControl.the_day_scheduled
   end
 
+  def sup
+    @input_controls = InputControl.the_day_scheduled
+  end
+
   def received
   end
 

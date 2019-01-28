@@ -1,0 +1,20 @@
+<h2>Entradas - Chefe de Galpão</h2>
+<ul class="list-group">
+  <% @input_controls.each do |input_control| %>
+  <% if input_control.status == InputControl::TypeStatus::DISCHARGE   %>
+    <li class="list-group-item list-group-item-info">
+  <% elsif input_control.status == InputControl::TypeStatus::RECEIVED %>
+    <li class="list-group-item list-group-item-success">
+  <% else %>
+    <li class="list-group-item">
+  <% end %>
+
+    <span class="badge"><%= input_control.quantity_pallets %></span>
+
+    <%= render 'static_pages/sup_input_control', input_control: input_control %>
+
+    <%#= link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
+    <%#= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::DISCHARGE %>
+  </li>
+  <% end %>
+</ul>

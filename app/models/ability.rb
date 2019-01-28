@@ -40,8 +40,10 @@ class Ability
       can :manage, Checkin
     elsif  user.has_role? :sup
       can :manage, Boarding
+      can :manage, InputControl
       can :manage, DriverRestriction
       can :manage, VehicleRestriction
+      can :manage, Task
     elsif  user.has_role? :visit
       can :manage, Pallet
     elsif  user.has_role? :client
