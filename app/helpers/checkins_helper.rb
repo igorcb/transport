@@ -11,6 +11,6 @@ module CheckinsHelper
     #checkin = Checkin.find(checkin_id)
     checkin_input = Checkin.the_day.input.where(driver_cpf: checkin.driver_cpf).last
     checkin_start = Checkin.the_day.start.where(driver_cpf: checkin.driver_cpf).last
-    checkin_start.created_at.to_time - checkin_input.created_at.to_time
+    TimeDifference.between(checkin_input.created_at, checkin_start.created_at)
   end
 end
