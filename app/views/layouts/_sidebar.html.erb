@@ -18,8 +18,10 @@
           <div class="profile-pic"></div>
           <p class="profile-name"><%= current_user.name %></p>
         </div>
+        
         <div class="profile-modal">
-          <a href="#">Alterar senha</a>
+          <!--<a href="#">Alterar senha</a> -->
+          <%= link_to "Alterar Senha", edit_user_path %>
         </div>
       </label>
     </div>
