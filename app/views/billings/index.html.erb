@@ -1,33 +1,43 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+      <%= render "form_search" %>
+
+    </div>
+  </div>
+
+</div>
+
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Faturamento</div>
   <div class="panel-body">
     <div class="table-responsive">
+
+      <div id="result_billing">
+
       <table class="table table-striped">
         <thead>
-          <tr>
-            <th>ID</th>
-            <th>Data Emissao</th>
-            <th>Data Vencto</th>
-            <th>Valor</th>
-            <th>Status</th>
-            <th>Options</th>
-          </tr>
+
+          <thead>
+            <%= render 'header' %>
+          </thead>
+
         </thead>
 
         <tbody>
-            <% @billings.each do |billing| %>
-            <tr>
-              <td><%= link_to billing.id, billing %></td>
-              <td><%= link_to date_br(billing.data), billing %></td>
-              <td><%= link_to date_br(billing.data_vencimento), billing if billing.data_vencimento.present? %></td>
-              <td><%= link_to number_with_precision(billing.valor, precision: 2, separator: '.'), billing %></td>
-              <td><%= link_to billing.status_name, billing %></td>
-              <td><%= link_to 'Show', billing_path(billing), class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_billing_path(billing), class: "btn btn-blue btn-xs" %></td>
-            </tr>
-          <% end %>
+            <%= render @billings %>
         </tbody>
       </table>
-    </div>    
+    </div>
   </div>
 </div>

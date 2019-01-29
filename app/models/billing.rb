@@ -21,6 +21,10 @@ class Billing < ActiveRecord::Base
     CANCELADA = 2
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ['id', 'data', 'data_vencimento', :ordem_services]
+  end
+
   def status_name
     case self.status
       when 0 then "Aberto"

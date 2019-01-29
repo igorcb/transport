@@ -418,7 +418,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :billings
+  resources :billings do
+    collection do
+      get :search
+    end  
+  end
   #match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
   match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
   match 'type_ordem_service/:type', :controller=>'ordem_services', :action => 'type_ordem_service', via: [:get, :post]
