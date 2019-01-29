@@ -1,0 +1,33 @@
+<div class="panel-body">
+  <%= search_form_for @q, remote: true, url: search_billings_path, :method => :get do |f| %>
+
+    <div class="form-group" >
+      <%= f.label :id, "Billing" %>
+      <%= f.search_field :id_eq, class: "form-control", placeholder: "" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :data_eq, "Date Billing" %>
+      <%= f.search_field :data_eq, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :data_vencimento_eq, "Due Date" %>
+      <%= f.search_field :data_vencimento_eq, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :ordem_service_id, "Ordem Service" %>
+      <%= text_field_tag :ordem_service_id, nil, class: "form-control", placeholder: "" %>
+    </div>
+    <div class="form-group">
+      ou
+    </div>
+    <div class="form-group">
+      <%= label_tag :input_control_id, "Input Control" %>
+      <%= text_field_tag :input_control_id, nil, class: "form-control", placeholder: "" %>
+    </div>
+
+    <div class="actions"><%= f.submit "Search" %></div>
+  <% end %>
+</div>

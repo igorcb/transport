@@ -1,0 +1,2 @@
+$('#result_billing').empty();
+$("#result_billing").append("<table class='table table-striped'><thead><%= j(render(:partial => 'header')) %></thead><tbody><%= j(render @billings) %></tbody></table>");
