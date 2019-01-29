@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Billing Input Controls</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <%= render 'header' %>
+         </tr>
+        </thead>
+
+        <tbody>
+          <% @input_controls.each do |input_control| %>
+            <tr>
+              <%= render input_control %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -380,7 +380,8 @@ Rails.application.routes.draw do
   match "lower_all" => "account_payables#lower_all", via: [:post]
 
   match '/search', :controller => 'ordem_services', :action => 'search', via: [:get, :post]
-  match 'faturamento' => "ordem_services#faturamento",  via: [:get]
+  match 'faturamento' => "ordem_services#faturamento", via: [:get]
+  match 'billing_input_control' => "input_controls#billing", via: [:get]
   match 'invoice' => "ordem_services#invoice",  via: [:post]
   match '/stocks', :controller => 'control_pallets', :action => 'estoque', via: [:get]
   match '/clients/get_client_by_cnpj', :controller => 'clients', :action => 'get_client_by_cnpj', via: [:get]
@@ -421,7 +422,7 @@ Rails.application.routes.draw do
   resources :billings do
     collection do
       get :search
-    end  
+    end
   end
   #match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
   match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]

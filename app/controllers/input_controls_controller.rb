@@ -380,6 +380,12 @@ class InputControlsController < ApplicationController
     respond_with(@input_controls)
   end
 
+  def billing
+    #@q = InputControl.where(status: -1).search(params[:q])
+    @input_controls = InputControl.includes(:carrier, :driver).where(status: InputControl::TypeStatus::CLOSED)
+    respond_with(@input_controls)
+  end
+
   private
     def set_input_control
       @input_control = InputControl.find(params[:id])
