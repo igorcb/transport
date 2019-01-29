@@ -4,6 +4,11 @@
     <%#= label_tag "type_service_id", "Tipo de Serviço" %> <br>
     <%= select_tag "type_service_id", options_from_collection_for_select(@type_services, "id", "descricao"), :prompt => "Selecione um Tipo de Servico", class: "form-control" %>
   </div>
+  <div id="input_control">
+    <div class="form-group"></div>
+    <%= label_tag "input_control_id", "Remessa de entrada" %>
+    <%= text_field_tag "input_control_id", nil, class: "form-control" %>
+  </div>
   <br>
 </div>
 
@@ -19,6 +24,7 @@
             <tr>
               <th></th>
               <th>No O.S.</th>
+              <th>Rem Ent.</th>
               <th>Placa</th>
               <th>Driver</th>
               <th>Client</th>
@@ -41,6 +47,7 @@
                   <!-- <input type="checkbox" name="choice" value="2" onchange="checkTotal()"/> -->
                 </td>
                 <td><%= link_to ordem_service.id, ordem_service %></td>
+                <td><%= link_to ordem_service.input_control_id, ordem_service if ordem_service.input_control.present? %></td>
                 <% if ordem_service.tipo == OrdemService::TipoOS::LOGISTICA %>
                 <td><%= link_to ordem_service.ordem_service_logistic.placa, ordem_service if ordem_service.ordem_service_logistic.placa.present? %></td>
                 <td><%= link_to truncate(ordem_service.ordem_service_logistic.driver.nome, length: 16), ordem_service if ordem_service.ordem_service_logistic.driver.present? %></td>
@@ -56,19 +63,19 @@
               </tr>
               <% i = i +1 %>
             <% end %>
-   
+
             <tr>
               <td colspan="8"><strong>Total Selecionado</strong></td>
               <td><%= text_field_tag :valor_total, "", value: 0, disabled: true, size: 10, style: "text-align: Right"  %></td>
               <td colspan="2"><strong></strong></td>
             </tr>
-   
+
         </table>
-      </div>    
+      </div>
     </div>
   </div>
 
-  <%= submit_tag("Faturar", class: "btn btn-blue") %> 
+  <%= submit_tag("Faturar", class: "btn btn-blue") %>
 
   <% end %>
 </div>
@@ -77,12 +84,12 @@
 
 <script type="text/javascript">
 Number.prototype.formatMoney = function(c, d, t){
-var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
-    s = n < 0 ? "-" : "", 
-    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+var n = this,
+    c = isNaN(c = Math.abs(c)) ? 2 : c,
+    d = d == undefined ? "." : d,
+    t = t == undefined ? "," : t,
+    s = n < 0 ? "-" : "",
+    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
     j = (j = i.length) > 3 ? j % 3 : 0;
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
  };
@@ -113,6 +120,21 @@ jQuery(function($) {
     var conta = $('select#type_service_id :selected').val();
     if(conta == "") conta="0";
     jQuery.get('/ordem_service_to_type_service/' + conta, function(data){
+        $("#ordem_service_type_service_id").html(data);
+    })
+    return false;
+  });
+})
+</script>
+
+<script type="text/javascript">
+jQuery(function($) {
+  // when the #country field changes
+  $("#input_control_id").focusout(function() {
+    // make a POST call and replace the content
+    var conta = $('#input_control_id').val();
+    if(conta == "") conta="0";
+    jQuery.get('/ordem_service_to_input_control/' + conta, function(data){
         $("#ordem_service_type_service_id").html(data);
     })
     return false;

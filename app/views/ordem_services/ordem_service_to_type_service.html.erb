@@ -11,6 +11,7 @@
             <tr>
               <th></th>
               <th>No O.S.</th>
+              <th>Rem Ent.</th>
               <th>Placa</th>
               <th>Driver</th>
               <th>Client</th>
@@ -24,7 +25,7 @@
           </thead>
 
           <tbody>
-            
+
             <% @ordem_services.each do |os_type_service| %>
               <tr>
                 <td>
@@ -33,6 +34,7 @@
                   <!-- <input type="checkbox" name="choice" value="2" onchange="checkTotal()"/> -->
                 </td>
                 <td><%= link_to os_type_service.ordem_service.id, os_type_service.ordem_service %></td>
+                <td><%= link_to os_type_service.input_control_id, ordem_service if os_type_service.input_control.present? %></td>
                 <td><%= link_to os_type_service.ordem_service.ordem_service_logistic.placa, os_type_service.ordem_service %></td>
                 <td><%= link_to truncate(os_type_service.ordem_service.ordem_service_logistic.driver.nome, length: 18), os_type_service.ordem_service, { :title => os_type_service.ordem_service.ordem_service_logistic.driver.nome } %></td>
                 <td><%= link_to truncate(os_type_service.ordem_service.client.nome, length: 18), os_type_service.ordem_service, { :title => os_type_service.ordem_service.client.nome } %></td>
@@ -44,21 +46,21 @@
                 <td><%= os_type_service.ordem_service.status_name %></td>
                 <td><%#= link_to 'Show', ordem_service, class: "btn btn-info btn-xs" %></td>
               </tr>
-              
+
             <% end %>
-   
+
             <tr>
               <td colspan="8"><strong>Total Selecionado</strong></td>
               <td><%= text_field_tag :valor_total, "", value: 0, disabled: true, size: 10, style: "text-align: Right"  %></td>
               <td colspan="2"><strong></strong></td>
             </tr>
-   
+
         </table>
-      </div>    
+      </div>
     </div>
   </div>
 
-<%= submit_tag("Faturar", class: "btn btn-blue") %> 
+<%= submit_tag("Faturar", class: "btn btn-blue") %>
 
 <% end %>
 
@@ -66,12 +68,12 @@
 
 <script type="text/javascript">
 Number.prototype.formatMoney = function(c, d, t){
-var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
-    s = n < 0 ? "-" : "", 
-    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+var n = this,
+    c = isNaN(c = Math.abs(c)) ? 2 : c,
+    d = d == undefined ? "." : d,
+    t = t == undefined ? "," : t,
+    s = n < 0 ? "-" : "",
+    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
     j = (j = i.length) > 3 ? j % 3 : 0;
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
  };

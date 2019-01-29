@@ -470,6 +470,13 @@ class OrdemServicesController < ApplicationController
     end
   end
 
+  def ordem_service_to_input_control
+    @ordem_services = OrdemService.where(input_control_id: params[:id], status: OrdemService::TipoStatus::FECHADO ).order(data: :asc)
+    respond_with(@ordem_services) do |format|
+      format.html { render :layout => !request.xhr? }
+    end
+  end
+
   def invoice
     ids = OrdemService.get_hash_ids(params[:os][:ids])
     puts ">>>>>>>>>>>>>>>>>>>>>>> check_client_billing: #{OrdemService.check_client_billing?(ids)} <<<<<<<<<<<<<<<<<<<<<<<<"

@@ -426,6 +426,7 @@ Rails.application.routes.draw do
   end
   #match '/employees/get_employee_by_id', :controller => 'employees', :action => 'get_employee_by_id', via: [:get]
   match 'ordem_service_to_type_service/:id', :controller=>'ordem_services', :action => 'ordem_service_to_type_service', via: [:get, :post]
+  match 'ordem_service_to_input_control/:id', :controller=>'ordem_services', :action => 'ordem_service_to_input_control', via: [:get, :post]
   match 'type_ordem_service/:type', :controller=>'ordem_services', :action => 'type_ordem_service', via: [:get, :post]
   match '/type_new_ordem_service', :controller => 'ordem_services', :action => 'type_new_ordem_service', via: [:get, :post]
   match '/calculate_freight', :controller => 'ordem_services', :action => 'calculate_freight', via: [:get, :post]
