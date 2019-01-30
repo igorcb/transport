@@ -387,6 +387,13 @@ class OrdemService < ActiveRecord::Base
       billing = Billing.create!(data: data, valor: valor_total, data_vencimento: venc ,type_service_id: type_service, status: Billing::TipoStatus::ABERTO , obs: hash_ids.to_s)
       OrdemService.where(id: hash_ids).update_all(status: TipoStatus::FATURADO, billing_id: billing.id)
       AccountReceivable.where(ordem_service_id: hash_ids).update_all(billing_id: billing.id, data_vencimento: venc)
+      hash_ids.each do |id_os|
+        ordem_service = OrdemService.find(id_os)
+        input_control = InputControl.where(id: ordem_service.input_control).first
+        if input_control.check_all_ordem_services_billing?
+          InputControl.update_input_control_billing(input_control)
+        end
+      end
     end
   end
 

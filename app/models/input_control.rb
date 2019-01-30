@@ -233,6 +233,20 @@ class InputControl < ActiveRecord::Base
     positivo
   end
 
+  def check_all_ordem_services_billing?
+    positivo = true
+    #input_control = InputControl.find(self.id)
+    self.ordem_services.each do |os|
+      positivo = (os.status == OrdemService::TipoStatus::FATURADO)
+      return false if positivo == false
+    end
+    positivo
+  end
+
+  def self.update_input_control_billing(input_control)
+    InputControl.where(id: input_control.id).update_all(status: TypeStatus::BILLED)
+  end
+
   def self.client_not_credentials_sefaz?(client_ids)
     result = Client.where(id: [client_ids], client_credential_sefaz: false).present?
   end
