@@ -644,7 +644,7 @@ class Boarding < ActiveRecord::Base
   end
 
   def driver_checkin?
-    Checkin.the_day.input.where(driver_cpf: self.driver.cpf).present?
+    Checkin.day(self.date_boarding).input.where(driver_cpf: self.driver.cpf).present?
   end
 
   private
