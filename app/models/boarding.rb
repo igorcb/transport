@@ -289,7 +289,8 @@ class Boarding < ActiveRecord::Base
 
   def pending_services?
     self.ordem_service_type_service_pending? ||
-    self.sealing_pending?
+    self.sealing_pending? ||
+    self.driver.cnh_expired?
   end
 
   def pending_all?
@@ -308,6 +309,7 @@ class Boarding < ActiveRecord::Base
     pendings.append('Motorista com restrição. Não pode efetuar entrega no cliente.') if check_driver_restriction_with_client?
     pendings.append('Motorista com restrição.') if DriverRestriction.where(driver_id: self.driver_id).present?
     pendings.append('Peso total acima da capacidade do veículo.') if self.weight_exceeds_vehicle_capacity?
+
     pendings
   end
 
@@ -316,6 +318,7 @@ class Boarding < ActiveRecord::Base
     pendings.append('Existe Ordem de Serviço sem Tipo de Serviço .') if self.ordem_service_type_service_pending?
     pendings.append('Existe Ordem de Serviço sem CT-e ou NFS-e.') if self.check_ordem_service_cte_and_nfs_pending?
     pendings.append('Informar os lacres do embarque.') if self.sealing_pending?
+    pendings.append('CNH do motorista está vencida.') if self.driver.cnh_expired?
     pendings
   end
 
@@ -644,7 +647,7 @@ class Boarding < ActiveRecord::Base
   end
 
   def driver_checkin?
-    Checkin.day(self.date_boarding).input.where(driver_cpf: self.driver.cpf).present?
+    Checkin.the_day.input.where(driver_cpf: self.driver.cpf).present?
   end
 
   private
