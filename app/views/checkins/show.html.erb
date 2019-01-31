@@ -42,8 +42,8 @@
 
         <tr>
           <td>Tempo da chegada até o carregamento</td>
-          <% if Checkin.the_day.input.where(driver_cpf: @checkin.driver_cpf).last.present? && Checkin.the_day.start.where(driver_cpf: @checkin.driver_cpf).last.present? %>
-            <td><%= raw_date = TimeDifference.between(Checkin.the_day.start.where(driver_cpf: @checkin.driver_cpf).last.created_at, Checkin.the_day.input.where(driver_cpf: @checkin.driver_cpf).last.created_at).humanize %></td>
+          <% if Checkin.day(@checkin.created_at.to_date).input.where(driver_cpf: @checkin.driver_cpf).last.present? && Checkin.day(@checkin.created_at.to_date).start.where(driver_cpf: @checkin.driver_cpf).last.present? %>
+            <td><%= raw_date = TimeDifference.between(Checkin.day(@checkin.created_at.to_date).start.where(driver_cpf: @checkin.driver_cpf).last.created_at, Checkin.day(@checkin.created_at.to_date).input.where(driver_cpf: @checkin.driver_cpf).last.created_at).humanize %></td>
           <% else %>
             <td>00:00</td>
           <% end %>
@@ -51,8 +51,8 @@
 
         <tr>
           <td>Tempo do inicio do carregamento até o fim</td>
-          <% if Checkin.the_day.start.where(driver_cpf: @checkin.driver_cpf).last && Checkin.the_day.finish.where(driver_cpf: @checkin.driver_cpf).last.present? %>
-            <td><%= raw_date = TimeDifference.between(Checkin.the_day.finish.where(driver_cpf: @checkin.driver_cpf).last.created_at, Checkin.the_day.start.where(driver_cpf: @checkin.driver_cpf).last.created_at).humanize %></td>
+          <% if Checkin.day(@checkin.created_at.to_date).start.where(driver_cpf: @checkin.driver_cpf).last && Checkin.day(@checkin.created_at.to_date).finish.where(driver_cpf: @checkin.driver_cpf).last.present? %>
+            <td><%= raw_date = TimeDifference.between(Checkin.day(@checkin.created_at.to_date).finish.where(driver_cpf: @checkin.driver_cpf).last.created_at, Checkin.day(@checkin.created_at.to_date).start.where(driver_cpf: @checkin.driver_cpf).last.created_at).humanize %></td>
           <% else %>
             <td>00:00</td>
           <% end %>
@@ -60,8 +60,8 @@
 
         <tr>
           <td>Tempo do fim do carregamento até a saída do veículo</td>
-          <% if Checkin.the_day.finish.where(driver_cpf: @checkin.driver_cpf).last.present? && Checkin.the_day.checkout.where(driver_cpf: @checkin.driver_cpf).last.present?  %>
-          <td><%= raw_date = TimeDifference.between(Checkin.the_day.checkout.where(driver_cpf: @checkin.driver_cpf).last.created_at, Checkin.the_day.finish.where(driver_cpf: @checkin.driver_cpf).last.created_at).humanize %></td>
+          <% if Checkin.day(@checkin.created_at.to_date).finish.where(driver_cpf: @checkin.driver_cpf).last.present? && Checkin.day(@checkin.created_at.to_date).checkout.where(driver_cpf: @checkin.driver_cpf).last.present?  %>
+          <td><%= raw_date = TimeDifference.between(Checkin.day(@checkin.created_at.to_date).checkout.where(driver_cpf: @checkin.driver_cpf).last.created_at, Checkin.day(@checkin.created_at.to_date).finish.where(driver_cpf: @checkin.driver_cpf).last.created_at).humanize %></td>
           <% else %>
             <td>00:00</td>
           <% end %>
@@ -69,8 +69,8 @@
 
         <tr>
           <td>Tempo total da entrada até a saída</td>
-          <% if Checkin.the_day.input.where(driver_cpf: @checkin.driver_cpf).last.present? && Checkin.the_day.checkout.where(driver_cpf: @checkin.driver_cpf).last.present?  %>
-          <td><%= raw_date = TimeDifference.between(Checkin.the_day.checkout.where(driver_cpf: @checkin.driver_cpf).last.created_at, Checkin.the_day.input.where(driver_cpf: @checkin.driver_cpf).last.created_at).humanize %></td>
+          <% if Checkin.day(@checkin.created_at.to_date).input.where(driver_cpf: @checkin.driver_cpf).last.present? && Checkin.day(@checkin.created_at.to_date).checkout.where(driver_cpf: @checkin.driver_cpf).last.present?  %>
+          <td><%= raw_date = TimeDifference.between(Checkin.day(@checkin.created_at.to_date).checkout.where(driver_cpf: @checkin.driver_cpf).last.created_at, Checkin.day(@checkin.created_at.to_date).input.where(driver_cpf: @checkin.driver_cpf).last.created_at).humanize %></td>
           <% else %>
             <td>00:00</td>
           <% end %>

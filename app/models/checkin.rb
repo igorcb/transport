@@ -7,6 +7,7 @@ class Checkin < ApplicationRecord
   enum status: { input: 0, start: 1, finish: 2, checkout: 3}
 
   scope :the_day, -> { where("DATE(created_at) = ?", Date.current).order("id desc") }
+  scope :day, ->(day) { where("DATE(created_at) = ?", day).order("id desc") }
   scope :inside_all, -> {where(status: [:input, :start, :finish])}
   scope :driver_status, ->(cpf) {where(driver_cpf: cpf).last}
 
