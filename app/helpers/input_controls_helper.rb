@@ -21,7 +21,7 @@ module InputControlsHelper
   end
 
   def link_to_ordem_service(number)
-		nfe_key = NfeKey.where(nfe_type: 'OrdemService', nfe: number)
+		nfe_key = NfeKey.where(nfe_type: 'OrdemService', chave: number)
 		if nfe_key.present?
       link_to number, nfe_key.first.ordem_service
 		else
