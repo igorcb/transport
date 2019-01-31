@@ -118,8 +118,8 @@ class NfeXml < ActiveRecord::Base
 
   def ordem_service(type_os)
     case type_os.downcase
-      when 'direct_charges' then nfe_key = NfeKey.where(nfe_source_type: 'DirectCharge', nfe_type: 'OrdemService', nfe: self.numero)
-      when 'input_controls' then nfe_key = NfeKey.where(nfe_source_type: 'InputControl', nfe_type: 'OrdemService', nfe: self.numero)
+		when 'direct_charges' then nfe_key = NfeKey.where(nfe_source_type: 'DirectCharge', nfe_type: 'OrdemService', nfe: self.numero, chave: self.chave)
+		when 'input_controls' then nfe_key = NfeKey.where(nfe_source_type: 'InputControl', nfe_type: 'OrdemService', nfe: self.numero, chave: self.chave)
     end
     ordem_service = nfe_key.present? ? nfe_key.first.ordem_service : nil
   end
