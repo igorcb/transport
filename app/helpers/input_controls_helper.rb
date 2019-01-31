@@ -20,10 +20,10 @@ module InputControlsHelper
     ([["1", 1],["2", 2],["3", 3]])
   end
 
-  def link_to_ordem_service(number)
-		nfe_key = NfeKey.where(nfe_type: 'OrdemService', chave: number)
+  def link_to_ordem_service(number, chave)
+		nfe_key = NfeKey.where(nfe_type: 'OrdemService', chave: chave)
 		if nfe_key.present?
-      link_to nfe_key.first.number, nfe_key.first.ordem_service
+      link_to number, nfe_key.first.ordem_service
 		else
 			number
 		end
