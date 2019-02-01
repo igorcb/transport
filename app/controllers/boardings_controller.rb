@@ -100,6 +100,11 @@ class BoardingsController < ApplicationController
   end
 
   def update_confirmed
+    if @boarding.status == Boarding::TipoStatus::EMBARCADO
+      flash[:danger] = "Embarque já foi confirmado."
+      redirect_to dashboard_oper_path
+      return
+    end
     if params[:boarding][:qtde_pallets_shipped].blank?
       flash[:danger] = "Informar qtde pallets."
       redirect_to dashboard_oper_path
