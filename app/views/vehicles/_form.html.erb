@@ -11,8 +11,8 @@
 
   <div id="vehicle_placa_result">
 
-  </div>  
-  
+  </div>
+
   <div class="form-group">
     <% if @vehicle.owners.present? %>
       <%= render(:partial => '/owners/result_owner', locals: {owner: @vehicle.owners.first}) %>
@@ -38,23 +38,27 @@
 
   <div class="form-group">
     <%= f.label :tipo %><br>
-    <%= f.select( :tipo, select_tipo, {include_blank: :true}, {class: "form-control"} ) %>      
+    <%= f.select( :tipo, select_tipo, {include_blank: :true}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :tipo_veiculo %><br>
-    <%= f.select( :tipo_veiculo, select_tipo_veiculo, {include_blank: :true}, {class: "form-control"} ) %>      
+    <%= f.select( :tipo_veiculo, select_tipo_veiculo, {include_blank: :true}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :tipo_carroceria %><br>
-    <%= f.select( :tipo_carroceria, select_tipo_carroceria, {include_blank: :true}, {class: "form-control"} ) %>      
+    <%= f.select( :tipo_carroceria, select_tipo_carroceria, {include_blank: :true}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :tipo_piso_assoalho %><br>
-    <%= f.select( :tipo_piso_assoalho, select_tipo_piso_assoalho, {include_blank: true}, {class: "form-control"} ) %>      
+    <%= f.select( :tipo_piso_assoalho, select_tipo_piso_assoalho, {include_blank: true}, {class: "form-control"} ) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :door, "Qtde Portas" %><br>
+    <%= f.number_field :door, in: 1...11, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :tracked, "Rastreado" %><br>
-    <%= f.select( :tracked, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+    <%= f.select( :tracked, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
@@ -63,7 +67,7 @@
   </div>
   <div class="form-group">
     <%= f.label :estado  %>
-    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :chassi %><br>
@@ -95,27 +99,27 @@
 
   <div class="form-group">
     <%= f.label :grade %><br>
-    <%= f.select( :grade, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+    <%= f.select( :grade, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
     <%= f.label :cordas %><br>
-    <%= f.select( :cordas, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+    <%= f.select( :cordas, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
     <%= f.label :lonas %><br>
-    <%= f.select( :lonas, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+    <%= f.select( :lonas, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
     <%= f.label :kit_quimico %><br>
-    <%= f.select( :kit_quimico, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+    <%= f.select( :kit_quimico, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
     <%= f.label :capcacitacao %><br>
-    <%= f.select( :capacitacao, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>      
+    <%= f.select( :capacitacao, select_sim_nao, {include_blank: false}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
@@ -160,31 +164,31 @@
     </div>
     <a href="#" class="btn btn-success btn-sm add">Add Price</a>
   </div>
-  
-  <h2>Documentos</h2> 
+
+  <h2>Documentos</h2>
   <div id="documents">
     <div class="items">
-      <%= f.nested_fields_for :assets do |f| 
+      <%= f.nested_fields_for :assets do |f|
         render 'shared/asset', f: f
       end  -%>
     </div>
     <a href="#" class="btn btn-success btn-sm add">Add Documento</a>
   </div>
 
-  <h2>Motoristas</h2> 
+  <h2>Motoristas</h2>
   <div id="drivers">
     <div class="items">
-      <%= f.nested_fields_for :drivings do |f| 
+      <%= f.nested_fields_for :drivings do |f|
         render 'driver', f: f
       end  -%>
     </div>
     <a href="#" class="btn btn-success btn-sm add">Add Motorista</a>
   </div>
-  
-  <h2>Proprietários</h2> 
+
+  <h2>Proprietários</h2>
   <div id="owners">
     <div class="items">
-      <%= f.nested_fields_for :ownerships do |f| 
+      <%= f.nested_fields_for :ownerships do |f|
         render 'owner', f: f
       end  -%>
     </div>

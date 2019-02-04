@@ -79,7 +79,7 @@ class VehiclesController < ApplicationController
     else
       respond_to do |format|
         format.js { render json: nil, status: 404 }
-      end      
+      end
       # data = {error: 404}
       # render :text => data
       # begin
@@ -111,8 +111,8 @@ class VehiclesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def vehicle_params
       params.require(:vehicle).permit(:marca, :modelo, :ano, :cor, :tipo, :tipo_veiculo, :tipo_carroceria, :municipio_emplacamento, :estado, :renavan, :chassi, :capacidade, :placa,
-        :especie, :numero_eixos, :numero_loks, :grade, :cordas, :lonas, :capacitacao, :kit_quimico, :largura, :altura, :comprimento, 
-        :obs, :antt, :qtde_paletes, :tipo_piso_assoalho, :tracked, :capacity,
+        :especie, :numero_eixos, :numero_loks, :grade, :cordas, :lonas, :capacitacao, :kit_quimico, :largura, :altura, :comprimento,
+        :obs, :antt, :qtde_paletes, :tipo_piso_assoalho, :tracked, :capacity, :door,
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
         antts_vehicles: [:vehicle_id, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy],
