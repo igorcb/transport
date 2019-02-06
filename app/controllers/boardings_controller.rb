@@ -48,6 +48,7 @@ class BoardingsController < ApplicationController
 	def show
     @account_payable = AccountPayable.new
     @cancellation = @boarding.cancellations.build
+    @sealingwax = Sealingwax.new
 	end
 
 	def new
@@ -55,7 +56,9 @@ class BoardingsController < ApplicationController
 	end
 
 	def edit
-
+    vehicle = @boarding.vehicles.first
+    x = vehicle.door.present? ? vehicle.door : 1
+    x.times {|v| @boarding.sealings.build}
 	end
 
 	def create

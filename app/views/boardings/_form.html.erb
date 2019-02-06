@@ -4,7 +4,7 @@
   <div class="form-group">
     <%= f.label :date_boarding, "Data da Embarque" %><br>
     <%= f.text_field :date_boarding, class: "form-control data", value: date_br(@boarding.date_boarding) %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :carrier_id, "Agente" %><br>
@@ -15,8 +15,8 @@
     <%= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
   <div id="div_result_person">
-    
-  </div>  
+
+  </div>
   <div class="form-group">
     <%= f.label :value_boarding, "Valor Embarque" %><br>
     <%= f.text_field :value_boarding, class: "form-control money2", value: to_real(f.object.value_boarding) %>
@@ -35,7 +35,7 @@
   </div>
   <div class="form-group">
     <%= f.label :local_embarque  %>
-    <%= f.select( :local_embarque, select_local_embarque, {include_blank: "Selecione o Local do Embarque"}, {class: "form-control"} ) %>      
+    <%= f.select( :local_embarque, select_local_embarque, {include_blank: "Selecione o Local do Embarque"}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :manifesto, "Manifesto No:" %><br>
@@ -53,28 +53,48 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :sealing, "No. primeiro Lacre:" %><br>
-    <%= f.text_field :sealing, class: "form-control" %>
+    <%#= f.label :sealing, "No. primeiro Lacre:" %><br>
+    <%#= f.text_field :sealing, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :sealing, "No. segundo Lacre:" %><br>
-    <%= f.text_field :sealing_two, class: "form-control" %>
+    <%#= f.label :sealing_two, "No. segundo Lacre:" %><br>
+    <%#= f.text_field :sealing_two, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :sealing, "No. terceiro Lacre:" %><br>
-    <%= f.text_field :sealing_three, class: "form-control" %>
+    <%#= f.label :sealing_three, "No. terceiro Lacre:" %><br>
+    <%#= f.text_field :sealing_three, class: "form-control" %>
   </div>
+<!--
+  <div id="sealing">
+    <fieldset>
+      <legend>Informe os lacres</legend>
+      <div class="items">
+        <%#= f.nested_fields_for :sealingwaxes do |f| %>
+          <%#= render "form_table_price", f: f %>
+        <%# end %>
+      </div>
+      <div class="row">
+        <div class="col-xs-2">
+          <a href="#" class="btn btn-success btn-sm add">[+] Tab. Preço</a>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+-->
+  <%= f.fields_for :sealings do |f|
+      render 'sealing_fields', f: f
+  end -%>
 
   <div class="form-group">
     <%= f.label :obs, "Observação" %>
     <%= f.text_area :obs, class: "form-control" %>
   </div>
-  
+
   <h3>Dados Veiculos</h3>
   <div class="cte_items">
-    <%= f.fields_for :boarding_vehicles do |f| 
+    <%= f.fields_for :boarding_vehicles do |f|
       render 'boarding_vehicle_fields', :f => f, driver: 999
       #render 'boarding_vehicle_fields', :f => f, driver: 999
     end -%> <br />

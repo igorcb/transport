@@ -1,0 +1,12 @@
+<%= form_for(@sealingwax, html: {multipart: true	}) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= hidden_field_tag "boarding[id]", @boarding.id %>
+
+  <div class="form-group">
+    <%= f.label :number %><br>
+    <%= f.text_field :number, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Salvar Lacre", class: "btn btn-success" %>
+<% end %>

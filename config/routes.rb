@@ -218,7 +218,10 @@ Rails.application.routes.draw do
     post :process_xml_nfe, on: :collection
   end
 
+  resources :sealingwaxes
+
   resources :boardings do
+    #resources :sealingwaxes
     resources :breakdown_boardings
     member do
       get :print
