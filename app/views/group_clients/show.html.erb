@@ -1,5 +1,5 @@
 <div class="alert alert-warning" role="alert">
-	<p> Este Grupo de Cliente é apenas para informar quais empresas fazem parte deste grupo  <br />	 
+	<p> Este Grupo de Cliente é apenas para informar quais empresas fazem parte deste grupo  <br />
 	como se fosse as filiais da empresa, e não colocar os clientes a qual o grupo atende. <br />
   </p>
 </div>
@@ -11,12 +11,24 @@
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           Grupo de Cliente: <%= @group_client.descricao %>
         </a>
+
       </h4>
+			<p>
+			  <strong>Valor Peso:</strong>
+				<%= @group_client.value_weight %>
+			</p>
+
+			<p>
+				<strong>Valor Tonelada:</strong>
+				<%= @group_client.value_ton %>
+			</p>
+
+
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-        
-          <div class="panel-body"> 
+
+          <div class="panel-body">
 
 				    <div class="table-responsive">
 				      <table class="table table-striped">
@@ -42,17 +54,17 @@
 				          <% end %>
 				        </tbody>
 				      </table>
-				    </div>    
+				    </div>
 
         </div>
       </div>
     </div>
   </div>
 
-<!-- Fim collapse  --> 
+<!-- Fim collapse  -->
 </div>
 
 <div class="form-group">
-	 <%= link_to 'Editar', edit_group_client_path(@group_client), class: "btn btn-blue" %> 
+	 <%= link_to 'Editar', edit_group_client_path(@group_client), class: "btn btn-blue" %>
    <%= link_to 'Voltar', group_clients_path, class: "btn btn-default" %>
 </div>

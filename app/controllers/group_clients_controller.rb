@@ -78,6 +78,6 @@ class GroupClientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_client_params
-      params.require(:group_client).permit(:descricao)
+      params.require(:group_client).permit(:descricao, :value_ton, :value_weight)
     end
 end
