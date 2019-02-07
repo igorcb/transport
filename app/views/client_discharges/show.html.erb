@@ -7,8 +7,13 @@
 
 		<p>
 			<strong>Remetente:</strong>
-			<%= @client_discharge.client_source.nome %> - 
+			<%= @client_discharge.client_source.nome %> -
 			<%= @client_discharge.client_source.cpf_cnpj %>
+		</p>
+
+    <p>
+			<strong>Tipo de Operacao:</strong>
+			<%= translate "activerecord.attributes.enums.checkin.operation_type.#{@client_discharge.type_operation}"%>
 		</p>
 
 		<p>

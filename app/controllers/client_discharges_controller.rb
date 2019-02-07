@@ -21,7 +21,7 @@ class ClientDischargesController < ApplicationController
 
   def create
   	@client_source = Client.where(cpf_cnpj: params[:client_source_cnpj]).first
-    @client_discharge = @client.client_discharges.build(client_discharge_params)  	
+    @client_discharge = @client.client_discharges.build(client_discharge_params)
     @client_discharge.client_source_id = @client_source.id if @client_source.present?
     @client_discharge.created_user_id = current_user.id
     respond_to do |format|
@@ -55,12 +55,12 @@ class ClientDischargesController < ApplicationController
 
   private
   	def set_client_discharge
-			find_client  		
+			find_client
   		@client_discharge = @client.client_discharges.where(id: params[:id]).first
   	end
 
     def client_discharge_params
-      params.require(:client_discharge).permit(:client_id, :type_unit, :type_charge, :type_calc, :price)
+      params.require(:client_discharge).permit(:client_id, :type_operation, :type_unit, :type_charge, :type_calc, :price)
     end
 
     def find_client
