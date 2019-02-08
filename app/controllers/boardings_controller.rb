@@ -56,9 +56,9 @@ class BoardingsController < ApplicationController
 	end
 
 	def edit
-    vehicle = @boarding.vehicles.first
-    x = vehicle.door.present? ? vehicle.door : 1
-    x.times {|v| @boarding.sealings.build}
+    #vehicle = @boarding.vehicles.first
+    #x = vehicle.door.present? ? vehicle.door : 1
+    #x.times {|v| @boarding.sealings.build}
 	end
 
 	def create
