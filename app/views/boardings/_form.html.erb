@@ -51,7 +51,7 @@
     <%= f.label :action_inspector, "No. Ação Fiscal: " %><br>
     <%= f.text_field :action_inspector, class: "form-control" %>
   </div>
-
+<!--
   <div class="form-group">
     <%#= f.label :sealing, "No. primeiro Lacre:" %><br>
     <%#= f.text_field :sealing, class: "form-control" %>
@@ -66,7 +66,7 @@
     <%#= f.label :sealing_three, "No. terceiro Lacre:" %><br>
     <%#= f.text_field :sealing_three, class: "form-control" %>
   </div>
-<!--
+
   <div id="sealing">
     <fieldset>
       <legend>Informe os lacres</legend>
@@ -83,9 +83,9 @@
     </fieldset>
   </div>
 -->
-  <%= f.fields_for :sealings do |f|
-      render 'sealing_fields', f: f
-  end -%>
+  <!-- <#%= f.fields_for :sealings do |f|
+    #  render 'sealing_fields', f: f
+  #end -%> -->
 
   <div class="form-group">
     <%= f.label :obs, "Observação" %>
