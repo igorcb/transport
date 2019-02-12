@@ -29,6 +29,7 @@ class CheckinsController < ApplicationController
   # POST /checkins
   # POST /checkins.json
   def create
+    driver = Driver.locking.where(cpf: params[:driver_cpf])]
     @checkin = Checkin.new(checkin_params)
 
     respond_to do |format|

@@ -73,32 +73,32 @@
 <p>
   <strong>Data de Nascimento:</strong>
   <%= date_br @driver.data_nascimento %>
-</p> 
+</p>
 
 <p>
   <strong>Municipio Nascimento:</strong>
   <%= @driver.municipio_nascimento %> - <strong>Estado:</strong> <%= @driver.estado_nascimento %>
-</p> 
+</p>
 
 <p>
   <strong>Estado Civil:</strong>
   <%= @driver.estado_civil_nome if @driver.estado_civil.present? %>
-</p> 
+</p>
 
 <p>
   <strong>Cor da pele:</strong>
-  <%= @driver.cor_da_pele_nome if @driver.cor_da_pele.present? %> 
-</p> 
+  <%= @driver.cor_da_pele_nome if @driver.cor_da_pele.present? %>
+</p>
 
 <p>
   <strong>Tipo de Contrato:</strong>
-  <%= @driver.tipo_de_contrato_nome if @driver.tipo_contrato.present? %> 
-</p> 
+  <%= @driver.tipo_de_contrato_nome if @driver.tipo_contrato.present? %>
+</p>
 
 <p>
   <strong>Inss:</strong>
   <%= @driver.inss %>
-</p> 
+</p>
 
 <p>
   <strong>Cnh:</strong>
@@ -161,12 +161,12 @@
 </p>
 
 <p>
-  <strong>Criado em:</strong> <%= date_br @driver.created_at %> as <%= time_br @driver.created_at %> 
+  <strong>Criado em:</strong> <%= date_br @driver.created_at %> as <%= time_br @driver.created_at %>
   <strong>por</strong> <%= @driver.user_created.email if @driver.user_created.present? %>
 </p>
 
 <p>
-  <strong>Última atualização:</strong> <%= date_br @driver.updated_at %> as <%= time_br @driver.updated_at %> 
+  <strong>Última atualização:</strong> <%= date_br @driver.updated_at %> as <%= time_br @driver.updated_at %>
   <strong>por</strong> <%= @driver.user_updated.email if @driver.user_updated.present? %>
 </p>
 
@@ -191,7 +191,7 @@
       <% @driver.driver_restrictions.each do |restriction| %>
         <tr>
           <td><%= restriction.client.nome %></td>
-          <td><%= restriction.restriction_name %></td>
+          <td><%= translate "activerecord.attributes.enums.driver_restriction.restriction.#{restriction.restriction}"%></td>
           <td><%= restriction.observation %></td>
         </tr>
       <% end %>
@@ -215,7 +215,7 @@
           <td><%= price.uf_tipo_nome %></td>
           <td><%= price.tipo_nome %></td>
           <td><%= price.valor.to_f %></td>
-      
+
         </tr>
       <% end %>
 
@@ -231,16 +231,16 @@
 <div id="gallery-car" data-toggle="modal-gallery" data-target="#modal-gallery">
   <% @driver.assets.each do |asset| %>
   <p>
-    <%= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"} %> 
+    <%= link_to image_tag( asset.asset.url(:thumb)), "#" ,  data: {:toggle=>"modal", :target=> "#myModal"} %>
   </p>
   <% end %>
-</div>    
-    
+</div>
+
 <%= render 'shared/document', object: @driver %>
 
 <%= render 'shared/show_vehicle_compact', object: @driver %>
 
-  
+
 <div class="form-actions">
   <%= link_to 'Editar', edit_driver_path(@driver), class: "btn btn-blue" %>
   <%= link_to 'Listar Todos', drivers_path, class: "btn btn-default" %>

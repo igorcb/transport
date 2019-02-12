@@ -11,6 +11,13 @@ pt-BR:
           operation_type:
             input_control: "Descarga"
             boarding: "Embarque"
+        driver_restriction:
+          restriction:
+            charge: "Carga"
+            client: "Cliente"
+            security: "Seguradora"
+            carrier: "Transportadora"
+
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'

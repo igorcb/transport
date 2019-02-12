@@ -20,8 +20,8 @@
             <tr>
               <td><%= driver_restriction.driver.cpf %></td>
               <td><%= driver_restriction.driver.nome if driver_restriction.driver.present? %></td>
-              <td><%= driver_restriction.restriction_name %></td>
-              <td><%= driver_restriction.client.nome  %></td>
+              <td><%= translate "activerecord.attributes.enums.driver_restriction.restriction.#{driver_restriction.restriction}"%></td>
+              <td><%= driver_restriction.client.nome if driver_restriction.client.present? %></td>
 
               <td>
                 <%# unlock_vehicle_restriction_path(vehicle_restriction) %>

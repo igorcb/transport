@@ -5,26 +5,11 @@ class DriverRestriction < ActiveRecord::Base
 	belongs_to :driver, required: false
   belongs_to :client, required: false
 
-	enum status: { locking: 0, unlocking: 1}
+	enum restriction: { charge: 0, client: 1, security: 2, carrier: 3 }
+	enum status: { locking: 0, unlocking: 1 }
 
 	before_save do |v|
     v.status = 0
-  end
-
-  module TypeRestriction
-  	CARGA = 0
-  	CLIENTE = 1
-  	SEGURADORA = 2
-  end
-
-  def restriction_name
-  	case self.restriction
-  		when 0 then "Carga"
-  		when 1 then "Cliente"
-  		when 2 then "Seguradora"
-      when 3 then "Transportadora"
-  		else "Nao Informado"
-  	end
   end
 
 	def self.driver_loking?(driver_id)
