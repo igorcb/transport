@@ -17,4 +17,26 @@ class VehicleRestriction < ApplicationRecord
   def self.unlock(vehicle_restriction)
     VehicleRestriction.where(id: vehicle_restriction.id).update_all(status: 1)
   end
+
+  def self.check_places_loking?(places)
+    positivo = false
+    places.each do |place|
+      vehicle = Vehicle.where(placa: place).first
+      if vehicle.blank?
+        positivo = false
+        return positivo
+      else
+        positivo = VehicleRestriction.vehicle_loking?(vehicle.id)
+        return positivo
+      end
+    end
+    positivo
+  end
+
 end
+
+# placa cavalo - tem Restricao
+# placa carreta - não tem restricao
+
+# se a placa não existe sai do loop
+# assim que achar a restrição no primeiro item sair do loop

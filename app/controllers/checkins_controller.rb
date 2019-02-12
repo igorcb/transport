@@ -29,7 +29,19 @@ class CheckinsController < ApplicationController
   # POST /checkins
   # POST /checkins.json
   def create
-    driver = Driver.locking.where(cpf: params[:driver_cpf])]
+    driver = Driver.where(cpf: params[:checkin][:driver_cpf]).first
+    if driver.present?
+      if DriverRestriction.driver_loking?(driver.id)
+        flash[:danger] = "Motorista com restrições, Não é possível fazer o checkin."
+        redirect_to dashboard_oper_path
+        return
+      end
+    end
+    if VehicleRestriction.check_places_loking?([params[:checkin][:place_horse], params[:checkin][:place_cart_1], params[:checkin][:place_cart_2]])
+      flash[:danger] = "Veículo com restrições, Não é possível fazer o checkin."
+      redirect_to dashboard_port_path
+      return
+    end
     @checkin = Checkin.new(checkin_params)
 
     respond_to do |format|

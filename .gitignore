@@ -16,6 +16,7 @@ config/database.yml
 
 # Ignore the default assets.
 /public/system/*
+public/system/
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
