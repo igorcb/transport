@@ -10,12 +10,20 @@
     <li class="list-group-item">
   <% end %>
 
-    <span class="badge"><%= input_control.quantity_pallets %></span>
+    <!-- <span class="badge"><%#= input_control.quantity_pallets %></span> -->
+
+    <% if input_control.check_nfe_xmls_have_qtde_pallets_total? %>
+      <span style="float: right;"><i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i></span>
+    <% else %>
+      <span style="float: right;"><i class="fa fa-times fa-2x" style="color: red" aria-hidden="true"></i></span>
+    <% end %>
 
     <%= render 'static_pages/sup_input_control', input_control: input_control %>
 
     <% if input_control.charge_type_delivery?  %>
-      <%= link_to 'Informar Qtde Palletes', list_nfe_xmls_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::RECEIVED %>
+      <% if !input_control.check_nfe_xmls_have_qtde_pallets_total? %>
+        <%= link_to 'Informar Qtde Palletes', list_nfe_xmls_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::RECEIVED %>
+      <% end %>
     <% end %>
   </li>
   <% end %>

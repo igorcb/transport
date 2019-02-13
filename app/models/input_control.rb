@@ -245,6 +245,15 @@ class InputControl < ActiveRecord::Base
     positivo
   end
 
+  def check_nfe_xmls_have_qtde_pallets_total?
+    positivo = true
+    self.nfe_xmls.each do |nfe|
+      positivo = nfe.qtde_pallet.blank? ? false : true
+      return false if positivo == false
+    end
+    positivo
+  end
+
   def self.update_input_control_billing(input_control)
     InputControl.where(id: input_control.id).update_all(status: TypeStatus::BILLED)
   end

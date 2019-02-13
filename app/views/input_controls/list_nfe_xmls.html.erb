@@ -26,7 +26,7 @@
             <tr>
               <td><%= nfe_xml.numero %></td>
               <td><%= nfe_xml.qtde_pallet %></td>
-              <td><%= link_to "Edit", edit_qtde_pallet_nfe_xml_path(nfe_xml), class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to "Edit", edit_qtde_pallet_nfe_xml_path(nfe_xml), class: "btn btn-info btn-xs" if nfe_xml.qtde_pallet.blank? %></td>
               <% if nfe_xml.qtde_pallet.blank? %>
                 <td><i class="fa fa-times fa-2x" style="color: red" aria-hidden="true"></i></td>
               <% else %>
