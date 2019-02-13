@@ -103,6 +103,10 @@ class InputControlsController < ApplicationController
     @input_controls = InputControl.the_day_scheduled
   end
 
+  def sup_qtde_pallets
+    #code
+  end
+
   def received
   end
 
@@ -394,7 +398,7 @@ class InputControlsController < ApplicationController
       params.require(:input_control).permit(:carrier_id, :driver_id, :billing_client_id, :place, :place_cart,
         :place_cart_2, :date_entry, :time_entry, :date_receipt, :palletized, :quantity_pallets,
         :observation, :charge_discharge, :shipment, :team, :dock, :hangar, :container,
-        :stretch_route_id, :type_service_id, :place_confirmed, :place_horse,
+        :stretch_route_id, :type_service_id, :place_confirmed, :place_horse, :charge_type_delivery,
         :date_scheduled, :time_scheduled, :motive_scheduled,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         action_inspectors_attributes: [:number, :id, :_destroy],

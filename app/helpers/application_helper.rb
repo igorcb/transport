@@ -7,7 +7,7 @@ module ApplicationHelper
     else
       "#{base_title} | #{page_title}"
     end
-  end	
+  end
 
   def fantasy_title(page_title)
     company = Company.first
@@ -17,11 +17,11 @@ module ApplicationHelper
     else
       "#{base_title} | #{page_title}"
     end
-  end 
+  end
 
   def select_uf
-    ([["AC","AC"],["AL","AL"],["AM","AM"],["AP","AP"],["BA","BA"],["CE","CE"],["DF","DF"],["ES","ES"],  
-    ["GO","GO"],["MA","MA"],["MG","MG"],["MS","MS"],["MT","MT"],["PA","PA"],["PB","PB"],["PE","PE"],["PI","PI"],["PR","PR"],  
+    ([["AC","AC"],["AL","AL"],["AM","AM"],["AP","AP"],["BA","BA"],["CE","CE"],["DF","DF"],["ES","ES"],
+    ["GO","GO"],["MA","MA"],["MG","MG"],["MS","MS"],["MT","MT"],["PA","PA"],["PB","PB"],["PE","PE"],["PI","PI"],["PR","PR"],
     ["RJ","RJ"],["RN","RN"],["RO","RO"],["RR","RR"],["RS","RS"],["SC","SC"],["SE","SE"],["SP","SP"],["TO","TO"]])
   end
 
@@ -35,10 +35,18 @@ module ApplicationHelper
 
   def extenso_boolean(params)
     #params = params.nil? ? false : false
-    case params 
+    case params
       when nil   then "Não"
       when false then "Não"
       when true  then "Sim"
+    end
+  end
+
+  def extenso_integer(params)
+    #params = params.nil? ? false : false
+    case params
+    when 0 then "Não"
+    when 1 then "Sim"
     end
   end
 
@@ -82,7 +90,7 @@ module ApplicationHelper
   end
 
   def type_account_supplier
-    ([["Fornecedor", 1],["Motorista", 2], ["Cliente", 3], ["Funcionario", 4], 
+    ([["Fornecedor", 1],["Motorista", 2], ["Cliente", 3], ["Funcionario", 4],
       ["Transportadora", 5]])
   end
 

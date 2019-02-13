@@ -11,18 +11,18 @@
 
     <p>
       <strong>No Ação Fiscal:</strong>
-      <%#=  object: @ordem_service.ordem_service_logistic.delivery_driver if @ordem_service.ordem_service_logistic.delivery_driver.present? %> 
+      <%#=  object: @ordem_service.ordem_service_logistic.delivery_driver if @ordem_service.ordem_service_logistic.delivery_driver.present? %>
       <%= @input_control.action_inspector.number if @input_control.action_inspector.present? %>
     </p>
 
     <p>
       <strong>No Remessa do Cliente:</strong>
-      <%= @input_control.shipment %> 
+      <%= @input_control.shipment %>
     </p>
 
     <p>
       <strong>No Container:</strong>
-      <%= @input_control.container %> 
+      <%= @input_control.container %>
     </p>
 
     <p>
@@ -81,10 +81,15 @@
     </p>
 
     <p>
+      <strong>Entrega é Paletizada:</strong>
+      <%= extenso_integer @input_control.charge_type_delivery %>
+    </p>
+
+    <p>
       <strong>Qtde Paletes:</strong>
       <%= @input_control.quantity_pallets %>
     </p>
-    
+
     <hr>
 
     <p>
@@ -116,11 +121,11 @@
       <strong>Contas a Receber:</strong>
       <%= link_to @input_control.account_receivable.id, @input_control.account_receivable if @input_control.account_receivable.present? %>
       <strong>Status:</strong>
-      <%= @input_control.account_receivable.status_name if @input_control.account_receivable.present? %>    
+      <%= @input_control.account_receivable.status_name if @input_control.account_receivable.present? %>
     </p>
 
     <hr>
-    
+
     <p>
       <strong>Recebimento confirmado por:</strong>
       <%= @input_control.user_received.email if @input_control.user_received.present? %>
@@ -130,4 +135,3 @@
       <strong>Observation:</strong>
       <pre><%= @input_control.observation %></pre>
     </p>
-
