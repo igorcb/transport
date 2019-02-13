@@ -14,8 +14,9 @@
 
     <%= render 'static_pages/sup_input_control', input_control: input_control %>
 
-    <%= link_to 'Informar Qtde Palletes', list_nfe_xmls_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::RECEIVED %>
-    <%#= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::DISCHARGE %>
+    <% if input_control.charge_type_delivery?  %>
+      <%= link_to 'Informar Qtde Palletes', list_nfe_xmls_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::RECEIVED %>
+    <% end %>
   </li>
   <% end %>
 </ul>

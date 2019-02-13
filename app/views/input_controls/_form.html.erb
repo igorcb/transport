@@ -141,7 +141,11 @@
   </div>
 
   <div class="form-group">
-    <%= f.check_box :charge_type_delivery %> Entrega é Paletizada?
+    <% if @input_control.new_record? %>
+      <%= f.check_box :charge_type_delivery, checked: true %> Entrega é Paletizada?
+    <% else %>
+      <%= f.check_box :charge_type_delivery %> Entrega é Paletizada?
+    <% end %>
   </div>
 
   <div class="form-group">
