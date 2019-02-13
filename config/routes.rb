@@ -199,6 +199,8 @@ Rails.application.routes.draw do
       patch :update_start
       get :received
       patch :confirm_received
+      get :list_nfe_xmls
+      # patch :confirm_qtde_pallets
       get :reschedule
       patch :update_reschedule
     end
@@ -317,7 +319,12 @@ Rails.application.routes.draw do
   resources :cashes do
   end
 
-  resources :nfe_xmls#, only: [:index, :edit, :update]
+  resources :nfe_xmls do #, only: [:index, :edit, :update]
+    member do
+      get :edit_qtde_pallet
+      patch :update_qtde_pallet
+    end
+  end
   resources :cte_xmls, only: [:index, :new, :create]
 
   resources :nfe_keys, only: [:index, :show, :edit, :update] do

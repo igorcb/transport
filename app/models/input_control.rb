@@ -38,6 +38,8 @@ class InputControl < ActiveRecord::Base
   has_many :action_inspectors
   accepts_nested_attributes_for :action_inspectors, allow_destroy: true, :reject_if => :all_blank
 
+  #enum charge_type_delivery: { nao: 0, sim: 1 }
+
   scope :the_day, -> { includes(:driver).where(date_entry: Date.current).order("id desc") }
   scope :the_day_scheduled, -> { includes(:driver).where(date_scheduled: Date.current).order(date_scheduled: :desc, time_scheduled: :asc) }
   scope :received, -> { includes(:driver).where(date_entry: Date.current, status: TypeStatus::RECEIVED ).order("id desc") }

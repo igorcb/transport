@@ -2,7 +2,7 @@ class NfeXmlsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_nfe_xml, only: [ :edit, :update ]
   load_and_authorize_resource
-  
+
   def index
     @nfe_xmls = NfeXml.order('id desc')
   end
@@ -33,8 +33,26 @@ class NfeXmlsController < ApplicationController
       else
         format.html { render action: 'edit' }
       end
-    end   
-  end  
+    end
+  end
+
+  def edit_qtde_pallet
+    #code
+  end
+
+  def update_qtde_pallet
+    if params[:nfe_xml][:qtde_pallet].blank?
+      flash[:danger] = "Qtde Pallets is not present."
+      redirect_to edit_qtde_pallet_nfe_xml_path(@nfe_xml)
+      return
+    end
+    if @nfe_xml.update(nfe_xml_params)
+      flash[:success] = "NF-e information pallet was successfully "
+    else
+      flash[:danger] = "Error NF-e information."
+    end
+    redirect_to list_nfe_xmls_input_control_path(@nfe_xml.input_control)
+  end
 
   private
     def set_nfe_xml
@@ -42,6 +60,6 @@ class NfeXmlsController < ApplicationController
     end
 
   	def nfe_xml_params
-  		params.require(:nfe_xml).permit(:asset, :action_inspector)
+  		params.require(:nfe_xml).permit(:asset, :action_inspector, :qtde_pallet)
   	end
 end

@@ -1,30 +1,6 @@
 class Ability
   include CanCan::Ability
 
-  # def self.levels
-  #   [Admin, Oper, Visit, Client, Agent]
-  # end
-
-  # def prepare
-  #   puts "Classe Preparadora de alguma coisa"
-  #   self.class.levels.each do |level|
-  #     puts ">>>>>>>>>>>> #{level.is_a}"
-
-  #     if level.is_a? Admin
-  #       puts "Classe admin"
-  #       level.create_access_admin
-  #     end
-
-  #     # elsif level.is_a? :oper
-  #     #   level.create_access_oper
-  #     # elsif level.is_a? :visit
-  #     #   level.create_access_visit
-  #     # elsif level.is_a? :agent
-  #     #   level.create_access_agent
-  #     # end
-  #   end
-  # end
-
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
@@ -44,6 +20,7 @@ class Ability
       can :manage, DriverRestriction
       can :manage, VehicleRestriction
       can :manage, Task
+      can [:edit_qtde_pallet, :update_qtde_pallet], NfeXml
     elsif  user.has_role? :visit
       can :manage, Pallet
     elsif  user.has_role? :client
@@ -108,6 +85,12 @@ class Ability
   class Port
     def create_access_port
       puts "Criando acesso para create_access_port"
+    end
+  end
+
+  class Sup
+    def create_access_sup
+      puts "Criando acesso para create_access_sup"
     end
   end
 

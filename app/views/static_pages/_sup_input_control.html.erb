@@ -2,5 +2,7 @@
 <strong>Data: </strong><%= date_br (input_control.date_scheduled) %> as <%= time_br (input_control.time_scheduled) %><br />
 <strong>Motorista: </strong><%= input_control.driver.nome %><br />
 <strong>Container: </strong><%= input_control.container %><br />
-<strong>Palletizada: </strong><%= input_control.palletized_status %><br />
+<strong>Carga Palletizada: </strong><%= input_control.palletized_status %><br />
+<strong>Entraga Palletizada: </strong><%= extenso_integer input_control.charge_type_delivery %><br />
 <strong>Pgto Descarga: </strong><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %><br />
+<strong>Status </strong><%= input_control.status_name %><br />

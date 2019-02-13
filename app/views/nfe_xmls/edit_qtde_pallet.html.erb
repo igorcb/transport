@@ -1,0 +1,38 @@
+<%= form_for @nfe_xml, url: update_qtde_pallet_nfe_xml_path, method: :patch, :html => { :multipart => true } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">NF-e: <%= @nfe_xml.id %></div>
+    <div class="panel-body">
+
+    <p>
+      <strong>Remetente:</strong>
+      <%= @nfe_xml.source_client.nome %>
+    </p>
+    <p>
+      <strong>Destinatario:</strong>
+      <%= @nfe_xml.target_client.nome %>
+    </p>
+    <p>
+      <strong>Peso:</strong>
+      <%= @nfe_xml.peso %>
+    </p>
+    <p>
+      <strong>Volume:</strong>
+      <%= @nfe_xml.volume %>
+    </p>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <%= f.label :qtde_pallet, "Qtde Pallets" %><br>
+    <%= f.number_field :qtde_pallet, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+		<%= f.submit "Informar Qtde Pallets", class: "btn btn-blue" if @nfe_xml.input_control.status == InputControl::TypeStatus::RECEIVED %>
+		<%#= link_to 'Voltar', oper_input_controls_path, class: "btn btn-default" %>
+  </div>
+
+<% end %>
