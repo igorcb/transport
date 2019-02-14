@@ -425,6 +425,7 @@ class InputControl < ActiveRecord::Base
                                   average: value_weight_average,
                   action_inspector_number: action_inspector_number,
                                  take_dae: take_dae,
+                              qtde_pallet: nfe.qtde_pallet,
                               observation: nfe.observation
                                     )
 

@@ -9,6 +9,7 @@
         <th>Cidade</th>
         <th>Estado</th>
         <th width:"10px">NF-e</th>
+        <th width:"10px">Pallet</th>
         <th align="right">Peso</th>
         <th align="right">Volume</th>
         <th>Status</th>
@@ -27,13 +28,14 @@
           <td><%= link_to ordem_service.client.cidade, ordem_service %></td>
           <td><%= link_to ordem_service.client.estado, ordem_service %></td>
           <td><div><%= link_to ordem_service.get_number_nfe, ordem_service if ordem_service.nfe_keys.present? %></div></td>
+          <td><div><%= ordem_service.nfe_keys.sum(:qtde_pallet) if ordem_service.nfe_keys.present? %></div></td>
           <td><%= link_to number_to_currency(ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: "."), ordem_service if !ordem_service.peso.blank? %></td>
           <td><%= link_to number_to_currency(ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: "."), ordem_service if !ordem_service.peso.blank? %></td>
           <td><%= ordem_service.status_name %></td>
         </tr>
         <% i = i +1 %>
       <% end %>
-   
+
       <tr>
         <td><strong>Total Registros: </strong></td>
         <td><%= @ordem_services.count %></td>
@@ -43,7 +45,7 @@
       </tr>
 
     </tbody>
-   
+
   </table>
 
-</div>        
+</div>
