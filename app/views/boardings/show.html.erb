@@ -80,6 +80,11 @@
     </p>
 
     <p>
+      <strong>Qtde Palete das NFe:</strong>
+      <%= @boarding.nfe_keys.sum(:qtde_pallet) %>
+    </p>
+
+    <p>
       <strong>Peso da Carreta:</strong>
       <%= number_with_precision(@boarding.vehicle_weight_capacity, precision: 3, separator: ',', delimiter: '.') %>
     </p>

@@ -84,8 +84,13 @@
     </p>
 
     <p>
+      <strong>Qtde Palete das NFe:</strong>
+      <%= @ordem_service.nfe_keys.sum(:qtde_pallet) %>
+    </p>
+
+    <p>
       <strong>Municipio:</strong>
-      <%= @ordem_service.cidade %> - 
+      <%= @ordem_service.cidade %> -
       <strong>Estado:</strong>
       <%= @ordem_service.estado %>
     </p>
@@ -99,4 +104,3 @@
       <strong>Informação sobre a carga:</strong>
       <pre><%= @ordem_service.observacao %></pre>
     </p>
-
