@@ -272,7 +272,21 @@ class Boarding < ActiveRecord::Base
   end
 
   def sealing_pending?
-    self.sealing.blank? && self.sealing_two.blank? && self.sealing_three.blank?
+    #self.sealing.blank? && self.sealing_two.blank? && self.sealing_three.blank?
+    checkin = Checkin.the_day.input.where(driver_cpf: self.driver.cpf).last
+      puts ">>>>>>>>>>>>>>>>>>> Positivo 0:"
+    if sealings.blank?
+      puts ">>>>>>>>>>>>>>>>>>> Positivo 1: "
+      return true
+    elsif checkin.nil?
+      puts ">>>>>>>>>>>>>>>>>>> Positivo 2: "
+      return true
+    elsif (checkin.door != self.sealings.count)
+      puts ">>>>>>>>>>>>>>>>>>> Positivo 3: "
+      return true
+    else
+      false
+    end
   end
 
   def pending?
