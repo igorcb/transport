@@ -3,22 +3,22 @@
 
   <div class="form-group">
     <%= f.label :cost_center_id, "Centro de Custo" %>
-    <%= f.select(:cost_center_id, CostCenter.order(:descricao).collect {|c| [c.descricao, c.id]}, {prompt: "SELECT CENTRO DE CUSTO"}, {class: "form-control"} ) %>
+    <%= f.select(:cost_center_id, CostCenter.order(:descricao).collect {|c| [c.descricao, c.id]}, {prompt: "SELECT CENTRO DE CUSTO"}, {class: "form-control", id: "accountPayableCostCenter"} ) %>
   </div>
 
   <div class="form-group">
     <%= f.label :sub_cost_center_id, "Sub Centro de Custo" %>
     <% if @sub_cost_center_three.cost_center_id.present? %>
-      <%= f.collection_select :sub_cost_center_id, sub_center(@sub_cost_center_three.cost_center_id), :id, :descricao, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control"} %>
+      <%= f.collection_select :sub_cost_center_id, sub_center(@sub_cost_center_three.cost_center_id), :id, :descricao, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control", id: "accountPayableSubCostCenter"} %>
     <% else %>
-      <%= f.collection_select :sub_cost_center_id, [], :id, :descricao, {prompt: "SELECT PRIMEIRO CENTRO DE CUSTO"}, {class: "form-control"}  %>
+      <%= f.collection_select :sub_cost_center_id, [], :id, :descricao, {prompt: "SELECT PRIMEIRO CENTRO DE CUSTO"}, {class: "form-control", id: "accountPayableSubCostCenter"}  %>
     <% end %>
   </div>
 
   <div class="form-group">
     <%= f.label :descricao %>
     <%= f.text_field :descricao, class: "form-control" %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-blue" %>
@@ -29,17 +29,17 @@
 <% end %>
 
 <script type="text/javascript">
-  $(function(){
-    $("#sub_cost_center_three_cost_center_id").change(function(){
-      var cost_center = "cost_center_id="+$(this).val();
-      console.log(cost_center);
-      $.getJSON('/sub_centro_custo_by_custo', cost_center, function(data){
-        var options = '<option value="">SELECIONE SUB CENTRO CUSTO</option>'; 
-        $.each(data, function(i, item) {
-          options += '<option value="' + item.id + '">' + item.n + '</option>';
-        });
-        $("#sub_cost_center_three_sub_cost_center_id").html(options);
-      });
-    });
-  });
+  // $(function(){
+  //   $("#sub_cost_center_three_cost_center_id").change(function(){
+  //     var cost_center = "cost_center_id="+$(this).val();
+  //     console.log(cost_center);
+  //     $.getJSON('/sub_centro_custo_by_custo', cost_center, function(data){
+  //       var options = '<option value="">SELECIONE SUB CENTRO CUSTO</option>';
+  //       $.each(data, function(i, item) {
+  //         options += '<option value="' + item.id + '">' + item.n + '</option>';
+  //       });
+  //       $("#sub_cost_center_three_sub_cost_center_id").html(options);
+  //     });
+  //   });
+  // });
 </script>
