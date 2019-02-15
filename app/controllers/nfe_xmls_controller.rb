@@ -46,7 +46,7 @@ class NfeXmlsController < ApplicationController
       redirect_to edit_qtde_pallet_nfe_xml_path(@nfe_xml)
       return
     end
-    if !(params[:nfe_xml][:qtde_pallet].to_i > 1)
+    if !(params[:nfe_xml][:qtde_pallet].to_i > 0)
       flash[:danger] = "Qtde Pallets must be greater than 0 (zero)."
       redirect_to edit_qtde_pallet_nfe_xml_path(@nfe_xml)
       return
