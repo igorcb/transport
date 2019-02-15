@@ -1,7 +1,6 @@
 class Checkin < ApplicationRecord
   validates :driver_cpf, :driver_name, :operation_type, :status,  presence: true
-
-  #belongs_to :driver
+  validates :door, presence: true, numericality: { greater_than: 0 }, if: :boarding?
 
   enum operation_type: { input_control: 0, boarding: 1}
   enum status: { input: 0, start: 1, finish: 2, checkout: 3}
@@ -28,5 +27,12 @@ class Checkin < ApplicationRecord
     v.place_horse = v.place_horse.upcase
     v.place_cart_1 = v.place_cart_1.upcase
     v.place_cart_2 = v.place_cart_2.upcase
+  end
+
+  def places
+    str_places = self.place_horse
+    str_places += ", #{self.place_cart_1 }" if self.place_cart_1.present?
+    str_places += ", #{self.place_cart_2 }" if self.place_cart_2.present?
+    str_places
   end
 end
