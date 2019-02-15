@@ -158,7 +158,7 @@ class BoardingsController < ApplicationController
     end
     @boarding.started_user_id = current_user.id
     @boarding.update(boarding_params)
-    Boarding.start(params[:id])
+    Boarding.start(@boarding.id)
     redirect_to dashboard_oper_path, flash: { success: "Boarding initialization was successful" }
   end
 
