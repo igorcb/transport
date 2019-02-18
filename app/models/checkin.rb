@@ -13,13 +13,14 @@ class Checkin < ApplicationRecord
   def self.service_checkout(driver_cpf, operation)
     driver = Driver.where(cpf: driver_cpf).first
     checkin = Checkin.input.where(driver_cpf: driver.cpf).last
-    Checkin.create( driver_cpf: driver_cpf,
+    Checkin.create!( driver_cpf: driver_cpf,
                    driver_name: driver.nome.upcase,
                 operation_type: operation,
                   operation_id: checkin.operation_id,
                    place_horse: checkin.place_horse,
                   place_cart_1: checkin.place_cart_1,
                   place_cart_2: checkin.place_cart_2,
+                          door: checkin.door,
                         status: :checkout)
   end
 

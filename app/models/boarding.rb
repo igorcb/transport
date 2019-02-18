@@ -407,13 +407,14 @@ class Boarding < ActiveRecord::Base
         OrdemService.where(id: item.ordem_service_id).update_all(carrier_id: boarding.carrier_id,  date_shipping: Date.current, status: OrdemService::TipoStatus::EMBARCADO)
         OrdemServiceLogistic.where(ordem_service_id: item.ordem_service_id).update_all(delivery_driver_id: boarding.driver_id)
       end
-      Checkin.create( driver_cpf: boarding.driver.cpf,
+      Checkin.create!( driver_cpf: boarding.driver.cpf,
                      driver_name: boarding.driver.nome.upcase,
                   operation_type: :boarding,
                     operation_id: boarding_id,
                      place_horse: checkin.place_horse,
                     place_cart_1: checkin.place_cart_1,
                     place_cart_2: checkin.place_cart_2,
+                            door: checkin.door,
                           status: :finish)
       #BoardingMailer.notification_confirmed(ordem_service).deliver! if ordem_service.input_control.present?
     end
@@ -424,13 +425,14 @@ class Boarding < ActiveRecord::Base
     checkin = Checkin.the_day.input.where(driver_cpf: boarding.driver.cpf).first
     ActiveRecord::Base.transaction do
       Checkin.where(id: checkin.id).update_all(operation_id: boarding_id)
-      Checkin.create( driver_cpf: boarding.driver.cpf,
+      Checkin.create!( driver_cpf: boarding.driver.cpf,
                      driver_name: boarding.driver.nome.upcase,
                   operation_type: :boarding,
                     operation_id: boarding_id,
                      place_horse: checkin.place_horse,
                     place_cart_1: checkin.place_cart_1,
                     place_cart_2: checkin.place_cart_2,
+                            door: checkin.door,
                           status: :start)
       Boarding.where(id: boarding_id).update_all(start_time_boarding: Time.current, status: Boarding::TipoStatus::INICIADO)
     end
