@@ -4,7 +4,7 @@ class NfeXmlsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @nfe_xmls = NfeXml.order('id desc')
+    @nfe_xmls = NfeXml.is_not_input.order('id desc')
   end
 
   def new
@@ -57,6 +57,15 @@ class NfeXmlsController < ApplicationController
       flash[:danger] = "Error NF-e information."
     end
     redirect_to list_nfe_xmls_input_control_path(@nfe_xml.input_control)
+  end
+
+  def xml_process
+    if @nfe_xml.xml_process
+      flash[:success] = "NF-e process was successfully "
+    else
+      flash[:danger] = "Error NF-e information."
+    end
+    redirect_to nfe_xmls_path
   end
 
   private

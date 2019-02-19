@@ -323,6 +323,7 @@ Rails.application.routes.draw do
     member do
       get :edit_qtde_pallet
       patch :update_qtde_pallet
+      post :xml_process
     end
   end
   resources :cte_xmls, only: [:index, :new, :create]
