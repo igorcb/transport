@@ -203,6 +203,8 @@ Rails.application.routes.draw do
       # patch :confirm_qtde_pallets
       get :reschedule
       patch :update_reschedule
+      get :add_nfe_xml
+      put :attach_xml
     end
     collection do
       get :search

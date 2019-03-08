@@ -37,17 +37,17 @@ services:
     volumes:
       - '/home/igor/workspace/rails_app/transport:/workspace/rails_app/transport'
 
-  jobs:
-    depends_on:
-      - 'postgres'
-      - 'redis'
-      - 'transport'
-    build: .
-    command: bash start_jobs.sh
-    volumes:
-      - '.:/workspace/rails_app/transport'
-    volumes_from:
-      - box
+  # jobs:
+  #   depends_on:
+  #     - 'postgres'
+  #     - 'redis'
+  #     - 'transport'
+  #   build: .
+  #   command: bash start_jobs.sh
+  #   volumes:
+  #     - '.:/workspace/rails_app/transport'
+  #   volumes_from:
+  #     - box
 
   mailcatcher:
     image: yappabe/mailcatcher

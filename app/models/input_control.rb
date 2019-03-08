@@ -1,4 +1,6 @@
 class InputControl < ActiveRecord::Base
+  include ClientCreateOrUpdate
+
   validates :carrier_id, :driver_id, presence: true
 	validates :place, :place_horse, :place_cart, :date_entry, :time_entry, presence: true
 
@@ -570,6 +572,12 @@ class InputControl < ActiveRecord::Base
     end
     positivo
   end
+
+  def self.add_nfe_xml_input_control(input_control, array_nfe_xml)
+		array_nfe_xml.each do |xml|
+      NfeXml.processado.where(chave: params[:nfe_xmls]).update_all(nfe_type: "InputControl", nfe_id: input_control.id)
+    end
+	end
 
 #  private
     def get_number_nfe_xmls

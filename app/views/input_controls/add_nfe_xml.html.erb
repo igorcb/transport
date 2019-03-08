@@ -1,0 +1,63 @@
+<style>
+  * { font-family:Arial; }
+  h2 { padding:0 0 5px 5px; }
+  h2 a { color: #224f99; }
+  a { color:#999; text-decoration: none; }
+  a:hover { color:#802727; }
+  p { padding:0 0 5px 0; }
+
+  input { padding:5px;
+           border:1px solid #999;
+           border-radius:4px;
+          -moz-border-radius:4px;
+          -web-kit-border-radius:4px;
+          -khtml-border-radius:4px; }
+</style>
+
+<%= form_for @input_control, url: attach_xml_input_control_path, method: :put, :html => { :multipart => true } do |f| %>
+  <div class="container1">
+    <div class="form-group">
+      <button class="add_form_field btn btn-success">Adicionar Chave &nbsp;
+        <span style="font-size:16px; font-weight:bold;"> + </span>
+      </button>
+    </div>
+    <div class="form-group">
+      <input type="text" name="nfe_xmls[]" size="50%" maxlength="44">
+      <a href="#" class="delete btn btn-danger btn-xs"> Delete </a>
+    </div>
+  </div>
+  <%= f.submit "Salvar", class: "btn btn-blue" %>
+<% end %>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    var max_fields      = 30;
+    var wrapper         = $(".container1");
+    var add_button      = $(".add_form_field");
+
+    var x = 1;
+    $(add_button).click(function(e){
+        e.preventDefault();
+        if(x < max_fields){
+            x++;
+            $(wrapper).append('<div class="form-group"><input type="text" name="nfe_xmls[]" size="50%" maxlength="44"/><a href="#" class="delete btn btn-danger btn-xs"> Delete </a></div>'); //add input box
+        }
+  else
+  {
+  alert('You Reached the limits')
+  }
+    });
+
+    $(wrapper).on("click",".delete", function(e){
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+});
+</script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+});
+</script>

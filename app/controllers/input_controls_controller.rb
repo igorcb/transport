@@ -389,6 +389,32 @@ class InputControlsController < ApplicationController
     respond_with(@input_controls)
   end
 
+  def attach_xml
+    nfe_not_exist = check_nfe_xmls(params[:nfe_xmls])
+    if nfe_not_exist.present?
+      flash[:danger] = "XML #{nfe_not_exist}, não existe."
+      redirect_to add_nfe_xml_input_control_path(@input_control)
+      return
+    end
+    has_present_and_not_process = has_present_and_not_process_nfe_xmls(params[:nfe_xmls])
+    if has_present_and_not_process.present?
+      flash[:danger] = "XML #{has_present_and_not_process}, não processado."
+      redirect_to add_nfe_xml_input_control_path(@input_control)
+      return
+    end
+    has_present = has_present_nfe_xmls(params[:nfe_xmls])
+    if has_present.present?
+      flash[:danger] = "XML #{has_present}, já cadastrado nesta remessa de entrada."
+      redirect_to add_nfe_xml_input_control_path(@input_control)
+      return
+    end
+
+    #NfeXml.processado.where(chave: params[:nfe_xmls]).update_all(nfe_type: "InputControl", nfe_id: @input_control.id)
+    InputControl.add
+    flash[:success] = "Attach NF-e to input control was successfully "
+    redirect_to (@input_control)
+  end
+
   private
     def set_input_control
       @input_control = InputControl.find(params[:id])
@@ -404,6 +430,42 @@ class InputControlsController < ApplicationController
         action_inspectors_attributes: [:number, :id, :_destroy],
         assets_attributes: [:asset, :id, :_destroy]
         )
+    end
+
+    def check_nfe_xmls(array_nfe_xml)
+      nfe_not_exist = []
+      nfe_xmls = array_nfe_xml
+      nfe_xmls.each do |arq|
+        nfe_not_exist.push(arq) if !NfeXml.where(asset_file_name: "#{arq}.xml").first.present?
+      end
+      nfe_not_exist
+    end
+
+    def has_present_and_not_process_nfe_xmls(array_nfe_xml)
+      has_present = []
+      nfe_xmls = array_nfe_xml
+      nfe_xmls.each do |arq|
+        has_present.push(arq) if NfeXml.nao_processado.where(asset_file_name: "#{arq}.xml").first.present?
+      end
+      has_present
+    end
+
+    def has_present_nfe_xmls(array_nfe_xml)
+      has_present = []
+      nfe_xmls = array_nfe_xml
+      nfe_xmls.each do |xml|
+        has_present.push(xml) if NfeXml.where(nfe_type: "InputControl", nfe_id: @input_control.id, chave: xml).first.present?
+      end
+      has_present
+    end
+
+    def has_present_nfe_xmls_other_input_control(array_nfe_xml)
+      has_present = []
+      nfe_xmls = array_nfe_xml
+      nfe_xmls.each do |xml|
+        has_present.push(xml) if NfeXml.where(nfe_type: "InputControl", chave: xml).first.present?
+      end
+      has_present
     end
 
     def get_client_table_price

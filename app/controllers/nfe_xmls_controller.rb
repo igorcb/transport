@@ -17,7 +17,8 @@ class NfeXmlsController < ApplicationController
   def create
     @nfe_xml = NfeXml.new(nfe_xml_params)
     respond_to do |format|
-      if @nfe_xml = NfeXml.create_ordem_service(params[:nfe_xml])
+      #if @nfe_xml = NfeXml.create_ordem_service(params[:nfe_xml])
+      if @nfe_xml.save
         format.html { redirect_to nfe_xmls_path, flash: { success: "nfe_xml was successfully created." } }
       else
         format.html { render action: 'new' }

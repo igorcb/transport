@@ -17,11 +17,11 @@
 
           <div class="panel panel-default">
 
-            <div class="panel-body"> 
+            <div class="panel-body">
               <%= render 'data_input' %>
             </div>
           </div>
-        
+
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
 
       </div>
     </div>
-  </div>  
+  </div>
 
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingTwo">
@@ -61,7 +61,7 @@
 
             <div class="panel panel-default">
 
-              <div class="panel-body"> 
+              <div class="panel-body">
                 <%= render 'carriers/carrier_data', object: @input_control.carrier if @input_control.carrier.present? %>
               </div>
             </div>
@@ -90,7 +90,7 @@
               <h2 class="panel-title">Dados do Motorista</h2>
             </div>
 
-            <div class="panel-body"> 
+            <div class="panel-body">
               <%= render 'drivers/driver_data', object: @input_control.driver if @input_control.driver.present? %>
             </div>
           </div>
@@ -117,7 +117,7 @@
               <h2 class="panel-title">Dados tomador do servico</h2>
             </div>
 
-            <div class="panel-body"> 
+            <div class="panel-body">
               <%= render 'clients/client_data', object: @input_control.billing_client if @input_control.billing_client.present? %>
             </div>
           </div>
@@ -137,7 +137,7 @@
     </div>
     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
 
-        <div class="panel-body"> 
+        <div class="panel-body">
           <%= render 'shared/document', object: @input_control %>
         </div>
 
@@ -158,7 +158,7 @@
       <%= render 'comments/feed', comments: @input_control.feed %>
 
       <%#= render 'comments/form_comment_ordem_service' %>
-      
+
       </div>
     </div>
   </div>
@@ -178,7 +178,7 @@
       <%= render 'cancellations/feed', cancellations: @input_control.feed_cancellations %>
 
       <%= render 'cancellations/form_cancellation_input_control' %>
-      
+
       </div>
     </div>
   </div>
@@ -194,7 +194,7 @@
     </div>
     <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
       <div class="panel-body">
-
+        <%= link_to '[+] NF-e XML', add_nfe_xml_input_control_path(@input_control), class: "btn btn-success btn-sm" %>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
@@ -212,19 +212,19 @@
               <tr>
                 <td><strong>Qtde NF-e: </strong> <%= @input_control.nfe_xmls.count %></td>
               </tr>
-              
+
             </tbody>
           </table>
-        </div>    
+        </div>
 
       </div>
     </div>
   </div>
-<!-- Fim collapse  --> 
+<!-- Fim collapse  -->
 </div>
 
 <div class="form-group">
-  <%= link_to 'Editar', edit_input_control_path(@input_control), class: "btn btn-blue" %> 
+  <%= link_to 'Editar', edit_input_control_path(@input_control), class: "btn btn-blue" %>
   <%= link_to 'Listar Todos', input_controls_path, class: "btn btn-default" %>
   <%= link_to 'Finalizar Digitação', finish_typing_input_control_path(@input_control), class: "btn btn-info" if @input_control.status == InputControl::TypeStatus::OPEN %>
   <%#= link_to 'Informar Recebimento', received_input_control_path(@input_control), class: "btn btn-blue" if @input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
@@ -234,6 +234,6 @@
   <%= link_to 'Gerar Ocorrência', comments_input_control_path(@input_control), class: "btn btn-warning" %>
   <%= link_to 'Informar Avarias', question_input_control_path(@input_control), class: "btn btn-blue" %>
   <%#= link_to 'Etiqueta', tag_input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %>
-  <%#= link_to 'Print', input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %> 
-  <%= link_to 'Imprimir', printing_input_control_path(@input_control), class: "btn btn-default" %> 
+  <%#= link_to 'Print', input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %>
+  <%= link_to 'Imprimir', printing_input_control_path(@input_control), class: "btn btn-default" %>
 </div>
