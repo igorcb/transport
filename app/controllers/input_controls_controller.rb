@@ -8,6 +8,94 @@ class InputControlsController < ApplicationController
 
   respond_to :html, :js
 
+  def index
+    #@input_controls = InputControl.order(date_entry: :desc, time_entry: :desc)
+    #@q = Boarding.where(status: -1).search(params[:q])
+    @q = InputControl.where(status: -1).search(params[:q])
+    @input_controls = InputControl.includes(:carrier, :driver).the_day_scheduled.order(date_scheduled: :desc, time_scheduled: :desc)
+    respond_with(@input_controls)
+  end
+
+  def search
+    @q = InputControl.includes(:carrier, :driver).order(date_entry: :desc, time_entry: :desc).search(params[:query])
+    @input_controls = @q.result
+    respond_with(@input_controls) do |format|
+      format.js
+    end
+  end
+
+  def show
+    @cancellation = @input_control.cancellations.build
+    #respond_with(@input_control)
+    respond_to do |format|
+      format.html # index.html.erb
+      # Example: Basic Usage
+      format.pdf { render_input_control(@input_control) }
+    end
+  end
+
+  def new
+    @input_control = InputControl.new
+    @input_control.action_inspectors.build
+    respond_with(@input_control)
+  end
+
+  def edit
+    # if @input_control.status != InputControl::TypeStatus::OPEN
+    #   flash[:danger] = "You can not edit an input control that has already been fed into the CD."
+    #   redirect_to @input_control
+    #   return
+    # end
+    @input_control.action_inspectors.build if !@input_control.action_inspectors.present?
+  end
+
+  def create
+    driver  = Driver.find_by_cpf(params[:driver_cpf])
+    carrier = Carrier.find_by_cnpj(params[:carrier_cnpj])
+    billing_client  = Client.find_by_cpf_cnpj(params[:billing_client_cpf_cpnj])
+
+    @input_control.driver_id = driver.id
+    @input_control.carrier_id = carrier.id
+    @input_control.user_id = current_user.id
+    @input_control.billing_client_id = billing_client.id #if billing_client.present?
+    if params[:input_control][:stretch_route_id].present? && params[:input_control][:type_service_id].present?
+      client_table_price = get_client_table_price
+      @input_control.client_table_price_id = client_table_price.id
+    end
+
+    respond_to do |format|
+      if @input_control.save
+        format.html { redirect_to @input_control, flash: { success: "Input Control was successfully created." } }
+        format.json { render action: 'show', status: :created, location: @input_control }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @input_control.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
+  def update
+    respond_to do |format|
+      if params[:input_control][:stretch_route_id].present? && params[:input_control][:type_service_id].present?
+        client_table_price = get_client_table_price
+        @input_control.client_table_price_id = client_table_price.id
+      end
+      if @input_control.update(input_control_params)
+        format.html { redirect_to @input_control, flash: { success: "Input Control client was successfully updated." } }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @input_control.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @input_control.destroy
+    respond_with(@input_control)
+  end
+
   def list_input_scheduling
     @input_controls = InputControl.where.not(container: nil)
   end
@@ -260,95 +348,6 @@ class InputControlsController < ApplicationController
     end
   end
 
-
-  def index
-    #@input_controls = InputControl.order(date_entry: :desc, time_entry: :desc)
-    #@q = Boarding.where(status: -1).search(params[:q])
-    @q = InputControl.where(status: -1).search(params[:q])
-    @input_controls = InputControl.includes(:carrier, :driver).the_day_scheduled.order(date_scheduled: :desc, time_scheduled: :desc)
-    respond_with(@input_controls)
-  end
-
-  def search
-    @q = InputControl.includes(:carrier, :driver).order(date_entry: :desc, time_entry: :desc).search(params[:query])
-    @input_controls = @q.result
-    respond_with(@input_controls) do |format|
-      format.js
-    end
-  end
-
-  def show
-    @cancellation = @input_control.cancellations.build
-    #respond_with(@input_control)
-    respond_to do |format|
-      format.html # index.html.erb
-      # Example: Basic Usage
-      format.pdf { render_input_control(@input_control) }
-    end
-  end
-
-  def new
-    @input_control = InputControl.new
-    @input_control.action_inspectors.build
-    respond_with(@input_control)
-  end
-
-  def edit
-    # if @input_control.status != InputControl::TypeStatus::OPEN
-    #   flash[:danger] = "You can not edit an input control that has already been fed into the CD."
-    #   redirect_to @input_control
-    #   return
-    # end
-    @input_control.action_inspectors.build if !@input_control.action_inspectors.present?
-  end
-
-  def create
-    driver  = Driver.find_by_cpf(params[:driver_cpf])
-    carrier = Carrier.find_by_cnpj(params[:carrier_cnpj])
-    billing_client  = Client.find_by_cpf_cnpj(params[:billing_client_cpf_cpnj])
-
-    @input_control.driver_id = driver.id
-    @input_control.carrier_id = carrier.id
-    @input_control.user_id = current_user.id
-    @input_control.billing_client_id = billing_client.id #if billing_client.present?
-    if params[:input_control][:stretch_route_id].present? && params[:input_control][:type_service_id].present?
-      client_table_price = get_client_table_price
-      @input_control.client_table_price_id = client_table_price.id
-    end
-
-    respond_to do |format|
-      if @input_control.save
-        format.html { redirect_to @input_control, flash: { success: "Input Control was successfully created." } }
-        format.json { render action: 'show', status: :created, location: @input_control }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @input_control.errors, status: :unprocessable_entity }
-      end
-    end
-
-  end
-
-  def update
-    respond_to do |format|
-      if params[:input_control][:stretch_route_id].present? && params[:input_control][:type_service_id].present?
-        client_table_price = get_client_table_price
-        @input_control.client_table_price_id = client_table_price.id
-      end
-      if @input_control.update(input_control_params)
-        format.html { redirect_to @input_control, flash: { success: "Input Control client was successfully updated." } }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @input_control.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @input_control.destroy
-    respond_with(@input_control)
-  end
-
   def comments
     if @input_control.status != InputControl::TypeStatus::RECEIVED
       flash[:danger] = "To send a comment or report breakdown the InputControl must be as RECEIVED"
@@ -410,8 +409,13 @@ class InputControlsController < ApplicationController
     end
 
     #NfeXml.processado.where(chave: params[:nfe_xmls]).update_all(nfe_type: "InputControl", nfe_id: @input_control.id)
-    InputControl.add
-    flash[:success] = "Attach NF-e to input control was successfully "
+    result = InputControl.add_nfe_xml_input_control(@input_control, params[:nfe_xmls])
+    puts ">>>>>>>>>>>>>>>>>>>>>. Result: #{result}"
+    if result[:success] == true
+      flash[:success] = "Attach NF-e to input control was successfully"
+    else
+      flash[:danger] = "NF-e is not Attach."
+    end
     redirect_to (@input_control)
   end
 

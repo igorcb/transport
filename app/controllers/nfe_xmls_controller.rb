@@ -61,7 +61,7 @@ class NfeXmlsController < ApplicationController
   end
 
   def xml_process
-    if @nfe_xml.xml_process
+    if @nfe_xml.xml_process(@nfe_xml.id)
       flash[:success] = "NF-e process was successfully "
     else
       flash[:danger] = "Error NF-e information."
@@ -75,6 +75,6 @@ class NfeXmlsController < ApplicationController
     end
 
   	def nfe_xml_params
-  		params.require(:nfe_xml).permit(:asset, :action_inspector, :qtde_pallet)
+  		params.require(:nfe_xml).permit(:asset, :action_inspector, :equipamento, :qtde_pallet)
   	end
 end

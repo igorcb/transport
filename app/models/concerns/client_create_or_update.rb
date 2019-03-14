@@ -1,10 +1,10 @@
+require 'active_support/concern'
 module ClientCreateOrUpdate
   extend ActiveSupport::Concern
 
-  #module ClassMethods
-  included do
-    def self.client_create_or_update_xml(type_client, nfe)
-      #TypeClient: source or target
+  class_methods do
+    def client_create_or_update_xml(type_client, nfe)
+      #TypeClient: source or target or billing
       client = (type_client == 'source') ? source_client(nfe) : target_client(nfe)
     end
 

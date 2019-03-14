@@ -2,12 +2,17 @@
 
 <%= form_for @nfe_xml, :url => nfe_xmls_path, :html => { :multipart => true } do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  
+
   <div class="form-group">
+    <%= f.label :equipamento, "Equipamento" %>
+    <%= f.select( :equipamento, select_equipamento, {include_blank: "Selecione o Equipamento"}, {class: "form-control"} ) %>
+
+  </div>
+  <div>
   <%= f.label :asset, "File input" %>
     <%= f.file_field :asset %>
     <p class="help-block">Example block-level help text here.</p>
   </div>
   <%= f.submit "Salvar", class: "btn btn-blue" %>
-  
+
 <% end %>

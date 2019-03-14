@@ -8,9 +8,10 @@ class NfeXml < ActiveRecord::Base
 	}
 
 	has_attached_file :action_inspector
-
+  #validates :asset, presence: true
   validates :asset_file_name, uniqueness: { scope: :nfe_type }
   validates :chave, uniqueness: { scope: :nfe_type }, allow_blank: true
+	validates :equipamento, presence: true
 
   belongs_to :scheduling, class_name: "Scheduling", foreign_key: "nfe_id", required: false
   belongs_to :input_control, class_name: "InputControl", foreign_key: "nfe_id", required: false
@@ -133,79 +134,13 @@ class NfeXml < ActiveRecord::Base
   #   ordem_service.status_name
   # end
 
-	def xml_process
-		begin
-	    ActiveRecord::Base.transaction do
-
-			  file = "#{Rails.root.join('public')}" + self.asset.url(:original, timestamp: false)
-				nfe = NFe::NotaFiscal.new.load_xml_serealize(file)
-
-				source_client = self.client_create_or_update_xml('source', nfe)
-				target_client = self.client_create_or_update_xml('target', nfe)
-				#Location Source Target ou Create ou Update
-
-				#NfeXml UpdateAttributes
-				peso = nfe.vol.pesoB.nil? ? nfe.vol.pesoL : nfe.vol.pesoB
-				place = nfe.veiculo.placa.blank? ? "XXX-0000" : nfe.veiculo.placa.insert(3,'-')
-
-				self.update_attributes(peso: peso,
-													peso_liquido: nfe.vol.pesoL,
-																volume: nfe.vol.qVol,
-																numero: nfe.ide.nNF,
-																 chave: nfe.infoProt.chNFe,
-														valor_nota: nfe.icms_tot.vNF,
-											source_client_id: source_client.id,
-											target_client_id: target_client.id,
-																 place: place,
-													 observation: nfe.info.infCpl,
-																status: :processado)
-
-			return true
-		end
-		rescue => e
-		  return {error: false, message: e.message}
-		end
+	def xml_process(id)
+		nfe_xml = NfeXml.find(id)
+		NfeXmls::ProcessXmlService.new(nfe_xml).call
 	end
 
   def self.processa_xml_input_control(params)
-		#byebug
-    #if params.status.upcas == TipoStatus::NAO_PROCESSADO
-    if params.nao_processado?
-	    begin
-        ActiveRecord::Base.transaction do
-	        nfe_xml = params
-          file = "#{Rails.root.join('public')}" + nfe_xml.asset.url(:original, timestamp: false)
-          nfe = NFe::NotaFiscal.new.load_xml_serealize(file)
-
-					source_client = client_create_or_update_xml('source', nfe)
-					target_client = client_create_or_update_xml('target', nfe)
-
-          peso = nfe.vol.pesoB.nil? ? nfe.vol.pesoL : nfe.vol.pesoB
-          place = nfe.veiculo.placa.blank? ? nfe_xml.input_control.place : nfe.veiculo.placa.insert(3,'-')
-
-					nfe_xml.update_attributes(peso: peso,
-                            peso_liquido: nfe.vol.pesoL,
-                                  volume: nfe.vol.qVol,
-                                  numero: nfe.ide.nNF,
-                                   chave: nfe.infoProt.chNFe,
-                              valor_nota: nfe.icms_tot.vNF,
-                        source_client_id: source_client.id,
-                        target_client_id: target_client.id,
-                                   place: place,
-                             observation: nfe.info.infCpl,
-                                  status: TipoStatus::PROCESSADO)
-				  #nfe_xml.reload
-					product_create_or_update_xml(nfe_xml, nfe)
-					return {success: true, message: "NF-e Xml processado com sucesso"}
-
-        end
-      rescue => e
-        puts e.message
-        return {success: false, message: e.message}
-      end
-		else
-			return {success: false, message: "NFe Xml já processado"}
-    end
+		NfeXmls::ProcessXmlInputControlService.new(params).call
   end
 
   def self.create_ordem_service(params)

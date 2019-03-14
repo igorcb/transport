@@ -574,8 +574,23 @@ class InputControl < ActiveRecord::Base
   end
 
   def self.add_nfe_xml_input_control(input_control, array_nfe_xml)
-		array_nfe_xml.each do |xml|
-      NfeXml.processado.where(chave: params[:nfe_xmls]).update_all(nfe_type: "InputControl", nfe_id: input_control.id)
+    begin
+      #byebug
+      ActiveRecord::Base.transaction do
+        array_nfe_xml.each do |xml|
+          #byebug
+          nfe_xml = NfeXml.where(chave: xml).first
+          file = "#{Rails.root.join('public')}" + nfe_xml.asset.url(:original, timestamp: false)
+          nfe = NFe::NotaFiscal.new.load_xml_serealize(file)
+          NfeXml.processado.where(chave: xml).update_all(nfe_type: "InputControl", nfe_id: input_control.id)
+          NfeXml.product_create_or_update_xml(input_control, nfe_xml, nfe)
+        end
+        return {success: true, message: "XML adicionado na remessa de entrada #{input_control.id} com sucesso."}
+      end
+
+    rescue => e
+      puts e.message
+      return {success: false, message: e.message}
     end
 	end
 

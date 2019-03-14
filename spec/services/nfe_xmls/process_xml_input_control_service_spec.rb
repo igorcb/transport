@@ -11,21 +11,30 @@ RSpec.describe NfeXmls::ProcessXmlInputControlService, type: :service do
 
     context "process xml" do
       before(:each) do
-        #@update_delivery = update_delivery_service(@ordem_service, @user)
+        path = "/home/igor#{Rails.root.join('public/system')}" + '/nfe_xmls/assets/000/000/001/original/29170343461789000514550020001747381419179629.xml'
+        puts ">>>>>>>>>>>>>>>>>>>>>>>> PATH: #{path}"
+        @nfe_xml = NfeXml.create(status: :processado, asset: File.open(path))
       end
 
-      it "when not exist xml" do
+      it "when not exist nfe_xml" do
         result = NfeXmls::ProcessXmlInputControlService.new('').call
         #expect(result).to match('Select one nfe')
         expect(result[:error]).to be_falsey
         expect(result[:message]).to match("NF-e XML not blank.")
       end
 
-      it "when not exist xml" do
-        result = NfeXmls::ProcessXmlInputControlService.new(NfeXml.last).call
-        #expect(result).to match('Select one nfe')
-        expect(result[:error]).to be_falsey
-        expect(result[:message]).to match("NF-e XML not blank.")
+      context "when exist xml" do
+        it "and not exist attachment" do
+          result = NfeXmls::ProcessXmlInputControlService.new(@nfe_xml).call
+          expect(result[:error]).to be_falsey
+          expect(result[:message]).to match("NF-e XML not blank.")
+        end
+
+        it "is already processed" do
+          result = NfeXmls::ProcessXmlInputControlService.new(@nfe_xml).call
+          expect(result[:error]).to be_falsey
+          expect(result[:message]).to match("NFe Xml já processado.")
+        end
       end
     end
 
