@@ -15,21 +15,23 @@
             <th>Volume</th>
             <th>Status</th>
             <th>Rem. Ent.</th>
+            <th>Opções</th>
           </tr>
         </thead>
 
         <tbody>
           <% @nfe_xmls.each do |nfe_xml| %>
             <tr>
-              <td><%= date_br nfe_xml.created_at %></td>
+              <td><%= date_br nfe_xml.issue_date %></td>
               <td><%= nfe_xml.place %></td>
               <td><%= nfe_xml.numero %></td>
               <td><%= nfe_xml.source_client.estado if nfe_xml.source_client.present? %></td>
               <td><%= nfe_xml.source_client.nome if nfe_xml.source_client.present? %></td>
               <td><%= nfe_xml.peso %></td>
               <td><%= nfe_xml.volume %></td>
-              <td><%= nfe_xml.status %></td>
+              <td><%= link_to nfe_xml.status, nfe_xml %></td>
               <td><%= nfe_xml.has_input_control %></td>
+              <td><%= link_to "Process", xml_process_nfe_xml_path(nfe_xml), method: :post %></td>
             </tr>
           <% end %>
         </tbody>
