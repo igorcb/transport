@@ -118,6 +118,10 @@ class NfeXml < ActiveRecord::Base
   #   ordem_service(type_os, number)
   # end
 
+	def has_input_control
+	  nfe_id.present? ? "Sim" : "Não"
+	end
+
   def self.client_ids
     NfeXml.select(:target_client_id).pluck(:target_client_id).uniq
   end

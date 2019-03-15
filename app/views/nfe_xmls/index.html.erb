@@ -6,14 +6,30 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <%= render 'nfe_header' %>
+            <th>Dt. Emissão</th>
+            <th>Placa</th>
+            <th>NF-e</th>
+            <th>Estado</th>
+            <th>Embarcador</th>
+            <th>Peso</th>
+            <th>Volume</th>
+            <th>Status</th>
+            <th>Rem. Ent.</th>
           </tr>
         </thead>
 
         <tbody>
           <% @nfe_xmls.each do |nfe_xml| %>
             <tr>
-              <%= render nfe_xml %>
+              <td><%= date_br nfe_xml.created_at %></td>
+              <td><%= nfe_xml.place %></td>
+              <td><%= nfe_xml.numero %></td>
+              <td><%= nfe_xml.source_client.estado if nfe_xml.source_client.present? %></td>
+              <td><%= nfe_xml.source_client.nome if nfe_xml.source_client.present? %></td>
+              <td><%= nfe_xml.peso %></td>
+              <td><%= nfe_xml.volume %></td>
+              <td><%= nfe_xml.status %></td>
+              <td><%= nfe_xml.has_input_control %></td>
             </tr>
           <% end %>
         </tbody>
