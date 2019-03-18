@@ -3,8 +3,12 @@ class NfeXmlsController < ApplicationController
   before_action :set_nfe_xml, only: [ :edit, :update ]
   load_and_authorize_resource
 
+  respond_to :html, :js
+
   def index
+    @q = NfeXml.where(id: -1).search(params[:q])
     @nfe_xmls = NfeXml.is_not_input.order('id desc')
+    respond_with(@nfe_xmls)
   end
 
   def new
@@ -67,6 +71,14 @@ class NfeXmlsController < ApplicationController
       flash[:danger] = "Error NF-e information."
     end
     redirect_to nfe_xmls_path
+  end
+
+  def search
+    @q = NfeXml.is_not_input.order('id desc').search(params[:query])
+    @nfe_xmls = @q.result
+    respond_with(@nfe_xmls) do |format|
+     format.js
+    end
   end
 
   private

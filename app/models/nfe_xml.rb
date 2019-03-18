@@ -76,6 +76,9 @@ class NfeXml < ActiveRecord::Base
     INPUT_CONTROL  = "input_controls"
   end
 
+	def self.ransackable_attributes(auth_object = nil)
+		['id', 'issue_date', 'numero']
+	end
   def status_os_create
     case self.create_os
       when 0 then "Nao"
