@@ -12,8 +12,10 @@ class Product < ActiveRecord::Base
   end
 
   def calculation_cubing
+		value = BigDecimal.new(0)
   	if (!height.nil?) || (!width.nil?) || (!length.nil?)
-  	  (height / 100 ) * (width / 100) * (length / 100)
+  	  value = 0
+			(height / 100 ) * (width / 100) * (length / 100)
     end
   end
 
