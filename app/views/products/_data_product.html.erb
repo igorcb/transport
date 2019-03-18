@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 
-  <div class="panel-body"> 
+  <div class="panel-body">
     <p>
       <strong>Categoria:</strong>
       <%= @product.category.descricao if @product.category.present? %>
@@ -44,10 +44,10 @@
 
   </div>
 </div>
-        
+
 <div class="panel panel-default">
 
-  <div class="panel-body"> 
+  <div class="panel-body">
     <p>
       <strong>Peso Liquido:</strong>
       <%= @product.weight_liquid %>
@@ -60,17 +60,17 @@
 
     <p>
       <strong>Largura:</strong>
-      <%= @product.width %>
+      <%= number_to_currency(@product.width, precision: 3, unit: "", separator: ",", delimiter: ".")  %>
     </p>
 
     <p>
       <strong>Comprimento:</strong>
-      <%= @product.length %>
+      <%= number_to_currency( @product.length, precision: 3, unit: "", separator: ",", delimiter: ".") %>
     </p>
 
     <p>
       <strong>Altura:</strong>
-      <%= @product.height %>
+      <%= number_to_currency(@product.height, precision: 3, unit: "", separator: ",", delimiter: ".") %>
     </p>
 
     <p>
@@ -82,7 +82,7 @@
       <strong>Cubagem:</strong>
       <%= @product.cubagem %> |
       <strong>Cubagem calculada:</strong>
-      <%= @product.calculation_cubing %> 
+      <%= @product.calculation_cubing %>
     </p>
 
   </div>
@@ -90,7 +90,7 @@
 
 <div class="panel panel-default">
 
-  <div class="panel-body"> 
+  <div class="panel-body">
 
     <p>
       <strong>Latro do Pallet:</strong>
@@ -119,7 +119,7 @@
 
 <div class="panel panel-default">
 
-  <div class="panel-body"> 
+  <div class="panel-body">
 
     <p>
       <strong>Volume:</strong>
@@ -143,5 +143,3 @@
 
   </div>
 </div>
-
-

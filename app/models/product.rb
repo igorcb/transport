@@ -14,9 +14,9 @@ class Product < ActiveRecord::Base
   def calculation_cubing
 		value = BigDecimal.new(0)
   	if (!height.nil?) || (!width.nil?) || (!length.nil?)
-  	  value = 0
-			(height / 100 ) * (width / 100) * (length / 100)
+  	  value = (height) * (width) * (length)
     end
+		value
   end
 
   def height_maximum_pallet
