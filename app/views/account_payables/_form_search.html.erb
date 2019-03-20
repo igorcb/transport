@@ -1,49 +1,49 @@
 <div class="panel-body">
   <%= search_form_for @q, remote: true, url: search_account_payables_path, :method => :get do |f| %>
-	
+
 	  <div class="form-group">
 	    <%= f.label :type_account_eq, "Tipo Fornecedor" %>
-	    <%= f.select :type_account_eq, type_account_supplier, {prompt: 'SELECIONE UM TIPO DE FORNECEDOR'}, {class: "form-control"} %>
-	  </div>
+	    <%= f.select :type_account_eq, type_account_supplier, {prompt: 'SELECIONE UM TIPO DE FORNECEDOR'}, {class: "form-control", id: "accountPayableTypeSelect"} %>
 
+	  </div>
     <div class="form-group">
       <%= f.label :supplier_id_eq, "Fornecedor" %>
-      <%= f.collection_select :supplier_id_eq, Supplier.where(id: -1), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+      <%= f.collection_select :supplier_id_eq, Supplier.where(id: -1), :id, :nome, {include_blank: true}, {class: "form-control", id: "account_payable_supplier_id"} %>
     </div>
 
     <div class="form-group">
       <%= f.label :documento_gteq, "Documento " %>
-      <%= f.search_field :documento_eq, class: "form-control" %>  
+      <%= f.search_field :documento_eq, class: "form-control" %>
     </div>
 
     <div class="row form-group">
       <div class="col-xs-6">
         <%= f.label :data_vencimento_gteq, "Vencimento de " %>
-        <%= f.search_field :data_vencimento_gteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+        <%= f.search_field :data_vencimento_gteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>
       </div>
 
       <div class="col-xs-6">
         <%= f.label :data_vencimento_lteq, "até" %>
-        <%= f.search_field :data_vencimento_lteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+        <%= f.search_field :data_vencimento_lteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>
       </div>
     </div>
 
     <div class="row form-group">
       <div class="col-xs-6">
         <%= f.label :lower_account_payables_data_pagamento_gteq, "Pagamento de " %>
-        <%= f.search_field :lower_account_payables_data_pagamento_gteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+        <%= f.search_field :lower_account_payables_data_pagamento_gteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>
       </div>
 
       <div class="col-xs-6">
         <%= f.label :lower_account_payables_data_pagamento_lteq, "até" %>
-        <%= f.search_field :lower_account_payables_data_pagamento_lteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+        <%= f.search_field :lower_account_payables_data_pagamento_lteq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>
       </div>
     </div>
 
 	  <div class="form-group">
 	    <%= f.label :status_eq, "Status" %>
 	    <%= f.select :status_eq, select_status_payables, {include_blank: true}, {class: "form-control"} %>
-	  </div>    
+	  </div>
 
 
     <div class="actions"><%= f.submit "Search" %></div>
@@ -56,13 +56,13 @@
       var type_id = "type_id="+$(this).val();
       console.log(type_id);
       $.getJSON('/type_account_select', type_id, function(data){
-        var options = '<option value="">SELECIONE O TIPO DE CONTA</option>'; 
+        var options = '<option value="">SELECIONE O TIPO DE CONTA</option>';
         console.log(data[0]);
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
         $("#query_supplier_id_eq").html(options);
       });
-    });     
+    });
   });
 </script>
