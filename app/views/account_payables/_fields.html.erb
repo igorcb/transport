@@ -70,7 +70,7 @@
 
   <div class="form-group">
     <%= f.label :valor %>
-    <%= f.text_field :valor, class: "form-control money2" %>
+    <%= f.text_field :valor, value: number_to_currency(@account_payable.valor, unit: "", separator: ",", delimiter: "."),  class: "form-control money2" %>
   </div>
 
   <div class="form-group">
