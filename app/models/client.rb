@@ -159,6 +159,10 @@ class Client < ActiveRecord::Base
     fone = fone += email
   end
 
+  def estado_cidade
+    "#{estado} - #{cidade}"
+  end
+
   def fantasia_cidade
     "#{fantasia} - #{cidade} - #{estado}"
   end

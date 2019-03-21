@@ -6,6 +6,12 @@
       <%= render partial: "clients/result_client", locals: { client: nil } %>
     </div>
 
+    <div class="form-group">
+      <%= f.label :target_client_cpf_cnpj_eq, "CNPJ Destinatario" %><br>
+      <%= f.search_field :target_client_cpf_cnpj_eq, class: "form-control cnpj" %>
+      <%= render partial: "clients/result_client", locals: { client: nil } %>
+    </div>
+
     <div class="row form-group">
       <div class="col-xs-6">
         <%= f.label :issue_date_gteq, "Data emissao" %>
@@ -24,10 +30,15 @@
     </div>
 
     <div class="form-group">
-      <%#= label_tag :ordem_service_status, "Status O.S." %>
-      <%#= f.select( :ordem_service_status_eq, select_status_os, {include_blank: true}, {class: "form-control"} ) %>
+      <%= label_tag :estado, "Estado" %>
+      <%= select_tag :estado, options_from_collection_for_select(State.order(:name), :uf, :name, 'CE'), :prompt => "Selecione um estado", class: "form-control" %>
     </div>
 
+    <div class="form-group">
+      <%= f.label :target_client_cidade_cont_all, "Cidade" %>
+      <%#= f.collection_select :cidade_cont, city_of_state('CE'), :name, :name, {prompt: "SELECIONE CIDADE"}, {class: "form-control"} %>
+      <%= f.text_field :target_client_cidade_cont_all, class: "form-control"  %>
+    </div>
 
 
     <div class="actions"><%= f.submit "Search" %></div>

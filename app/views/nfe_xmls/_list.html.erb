@@ -3,10 +3,9 @@
   <td><%= date_br nfe_xml.issue_date %></td>
   <td><%= nfe_xml.place %></td>
   <td><%= nfe_xml.numero %></td>
-  <td><%= nfe_xml.source_client.nome if nfe_xml.source_client.present? %></td>
-  <td><%= nfe_xml.source_client.estado if nfe_xml.source_client.present? %></td>
+  <td><%= nfe_xml.source_client.fantasia if nfe_xml.source_client.present? %></td>
   <td><%= nfe_xml.target_client.nome if nfe_xml.target_client.present? %></td>
-  <td><%= nfe_xml.target_client.estado if nfe_xml.target_client.present? %></td>
+  <td><%= nfe_xml.target_client.estado_cidade if nfe_xml.target_client.present? %></td>
   <td><%= nfe_xml.peso %></td>
   <td><%= nfe_xml.volume %></td>
   <% if nfe_xml.processado? %>
