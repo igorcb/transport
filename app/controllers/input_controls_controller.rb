@@ -410,7 +410,6 @@ class InputControlsController < ApplicationController
 
     #NfeXml.processado.where(chave: params[:nfe_xmls]).update_all(nfe_type: "InputControl", nfe_id: @input_control.id)
     result = InputControl.add_nfe_xml_input_control(@input_control, params[:nfe_xmls])
-    puts ">>>>>>>>>>>>>>>>>>>>>. Result: #{result}"
     if result[:success] == true
       flash[:success] = "Attach NF-e to input control was successfully"
     else
