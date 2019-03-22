@@ -8,7 +8,7 @@ class CheckinsController < ApplicationController
   # GET /checkins
   # GET /checkins.json
   def index
-    @checkins = Checkin.all
+    @checkins = Checkin.order(created_at: :desc)
   end
 
   # GET /checkins/1
