@@ -1,6 +1,7 @@
 require 'nfe'
 class NfeXml < ActiveRecord::Base
 	include ClientCreateOrUpdate
+	include CarrierCreateOrUpdate
 	include ProductCreateOrUpdate
 	has_attached_file :asset, { validate_media_type: false }
 	validates_attachment :asset, {
@@ -19,6 +20,7 @@ class NfeXml < ActiveRecord::Base
   belongs_to :notfis, class_name: "NotFis", foreign_key: "nfe_id", required: false
   belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id", required: false
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id", required: false
+	belongs_to :carrier, required: false
 
   has_many :item_input_controls
 

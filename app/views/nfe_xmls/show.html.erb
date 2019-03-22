@@ -1,0 +1,109 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          NF-e
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="panel panel-default">
+          <p>
+					  <strong>Dt. Emissão:</strong>
+					  <%= date_br @nfe_xml.issue_date %>
+					</p>
+
+					<p>
+					  <strong>NF-e:</strong>
+					  <%= @nfe_xml.numero %>
+					</p>
+
+					<p>
+					  <strong>Chave:</strong>
+					  <%= @nfe_xml.chave %>
+					</p>
+
+          <p>
+					  <strong>Equipamento:</strong>
+					  <%= @nfe_xml.equipamento %>
+					</p>
+
+					<p>
+					  <strong>status:</strong>
+					  <%= @nfe_xml.status %>
+					</p>
+
+          <p>
+					  <strong>asset_file_name:</strong>
+					  <%= @nfe_xml.asset_file_name %>
+					</p>
+
+          <p>
+					  <strong>Tipo NF-e:</strong>
+					  <%= @nfe_xml.nfe_type %> | <%= @nfe_xml.nfe_id %>
+					</p>
+
+
+          <p>
+					  <strong>Placa:</strong>
+					  <%= @nfe_xml.place %>
+					</p>
+
+          <p>
+					  <strong>Peso:</strong>
+					  <%= @nfe_xml.peso %>
+					</p>
+
+          <p>
+					  <strong>Volume:</strong>
+					  <%= @nfe_xml.volume %>
+					</p>
+
+          <p>
+					  <strong>Qtde pallet:</strong>
+					  <%= @nfe_xml.qtde_pallet %>
+					</p>
+
+          <p>
+					  <strong>OS Criada:</strong>
+					  <%= @nfe_xml.status_os_create %>
+					</p>
+
+          <p>
+					  <strong>Transportadora:</strong>
+					  <%= @nfe_xml.carrier.fantasia if @nfe_xml.carrier.present? %>
+					</p>
+
+          <p>
+					  <strong>Embarcador:</strong>
+					  <%= @nfe_xml.source_client.nome if @nfe_xml.source_client.present? %> |
+            <%= @nfe_xml.source_client.cpf_cnpj if @nfe_xml.source_client.present? %>
+					</p>
+
+          <p>
+					  <strong>Estado/Cidade:</strong>
+					  <%= @nfe_xml.source_client.estado_cidade if @nfe_xml.source_client.present? %>
+					</p>
+
+          <p>
+					  <strong>Destinatario:</strong>
+					  <%= @nfe_xml.target_client.fantasia if @nfe_xml.target_client.present? %> |
+            <%= @nfe_xml.target_client.cpf_cnpj if @nfe_xml.target_client.present? %>
+					</p>
+
+          <p>
+					  <strong>Estado/Cidade:</strong>
+					  <%= @nfe_xml.target_client.estado_cidade if @nfe_xml.target_client.present? %>
+					</p>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

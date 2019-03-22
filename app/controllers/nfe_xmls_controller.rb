@@ -11,6 +11,11 @@ class NfeXmlsController < ApplicationController
     respond_with(@nfe_xmls)
   end
 
+  def show
+    #code
+  end
+
+
   def new
     @nfe_xmls = NfeXml.new
   end

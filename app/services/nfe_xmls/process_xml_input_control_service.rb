@@ -21,8 +21,7 @@ module NfeXmls
             file = "#{Rails.root.join('public')}" + nfe_xml.asset.url(:original, timestamp: false)
             nfe = NFe::NotaFiscal.new.load_xml_serealize(file)
 
-            #nfe_xml = update_nfe_xmls(nfe_xml, nfe)
-
+            carrier = NfeXml.carrier_create_or_update_xml(nfe)
             source_client = NfeXml.client_create_or_update_xml('source', nfe)
             target_client = NfeXml.client_create_or_update_xml('target', nfe)
 
@@ -36,6 +35,7 @@ module NfeXmls
                                           numero: nfe.ide.nNF,
                                            chave: nfe.infoProt.chNFe,
                                       valor_nota: nfe.icms_tot.vNF,
+                                      carrier_id: carrier.id,
                                 source_client_id: source_client.id,
                                 target_client_id: target_client.id,
                                            place: place,
