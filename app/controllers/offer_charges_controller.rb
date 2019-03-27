@@ -42,7 +42,7 @@ class OfferChargesController < ApplicationController
   end
 
   def search
-    @q = OfferCharge.reorder.search(params[:query])
+    @q = OfferCharge.order(date_shipment: :desc).search(params[:query])
     @offer_charges = @q.result
     respond_with(@offer_charges) do |format|
      format.js
@@ -55,7 +55,7 @@ class OfferChargesController < ApplicationController
     end
 
     def offer_charge_params
-      params.require(:offer_charge).permit(:shipper, :date_shipment, :time_shipment, :shipping, :local_loading, 
+      params.require(:offer_charge).permit(:shipper, :date_shipment, :time_shipment, :shipping, :local_loading,
         :type_vehicle, :vehicle_detail, :vehicle_situation, :freight_min, :freight_max, :local_landing, :palletized,
         offer_items_attributes: [:offer_charge_id, :city, :state, :client, :date_schedule,:time_schedule, :qtde_pallets, :volume, :weight, :id, :_destroy],
         offer_drivers_attributes: [:offer_charge_id, :date_incoming, :time_incoming, :driver, :type_vehicle, :place_horse, :place_cart_first, :place_cart_second, :user_id, :id, :_destroy]
