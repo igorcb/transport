@@ -79,7 +79,11 @@ class NfeXmlsController < ApplicationController
   end
 
   def search
-    @q = NfeXml.is_not_input.order('id desc').search(params[:query])
+    if params[:query][:has_input_control] == 0 #NAO
+      @q = NfeXml.is_not_input.order('id desc').search(params[:query])
+    else
+      @q = NfeXml.order('id desc').search(params[:query])
+    end
     @nfe_xmls = @q.result
     respond_with(@nfe_xmls) do |format|
      format.js
