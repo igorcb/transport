@@ -288,7 +288,7 @@ class InputControl < ActiveRecord::Base
       puts e.message
       self.errors[:base] << e.message
       return_value = false
-      raise ActiveRecord::Rollback
+      #raise ActiveRecord::Rollback
     end
   end
 
