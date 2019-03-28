@@ -283,8 +283,10 @@ class InputControl < ActiveRecord::Base
         Scheduling.where(id: nfe_scheduling.nfe_id).update_all(date_receipt_at: Time.current, status: Scheduling::TypeStatus::RECEIVED) if nfe_scheduling.present?
         return_value = true
       end
-    rescue exception
+    rescue Exception => e
       self.update_attributes(date_receipt: nil, status: InputControl::TypeStatus::FINISH_TYPING)
+      puts e.message
+      self.errors[:base] << e.message
       return_value = false
       raise ActiveRecord::Rollback
     end
