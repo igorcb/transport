@@ -22,7 +22,7 @@ module CarrierCreateOrUpdate
                                     estado: nfe.transp.UF).find_or_create_by(cnpj: cnpj_carrier)
         carrier
       else
-        return {success: false, message: "Carrier not registered"}
+        nil
       end
     end
 

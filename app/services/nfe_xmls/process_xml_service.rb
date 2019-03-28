@@ -21,6 +21,8 @@ module NfeXmls
             nfe = NFe::NotaFiscal.new.load_xml_serealize(file)
 
             carrier = NfeXml.carrier_create_or_update_xml(nfe)
+            carrier_id = carrier.nil? ? nil : carrier.id
+
             source_client = NfeXml.client_create_or_update_xml('source', nfe)
             target_client = NfeXml.client_create_or_update_xml('target', nfe)
 
@@ -34,7 +36,7 @@ module NfeXmls
                                           numero: nfe.ide.nNF,
                                            chave: nfe.infoProt.chNFe,
                                       valor_nota: nfe.icms_tot.vNF,
-                                      carrier_id: carrier.id,
+                                      carrier_id: carrier_id,
                                 source_client_id: source_client.id,
                                 target_client_id: target_client.id,
                                            place: place,
