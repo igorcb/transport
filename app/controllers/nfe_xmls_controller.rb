@@ -63,6 +63,7 @@ class NfeXmlsController < ApplicationController
       return
     end
     if @nfe_xml.update(nfe_xml_params)
+      NfeKey.where(nfe: @nfe_xml.numero, nfe_type: 'OrdemService', nfe_id: @nfe_xml.ordem_service('input_controls').id).update_all(qtde_pallet: @nfe_xml.qtde_pallet)
       flash[:success] = "NF-e information pallet was successfully "
     else
       flash[:danger] = "Error NF-e information."
