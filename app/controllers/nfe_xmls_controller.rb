@@ -39,7 +39,8 @@ class NfeXmlsController < ApplicationController
   def update
     respond_to do |format|
       if @nfe_xml.update(nfe_xml_params)
-        format.html { redirect_to action_inspectors_path, flash: { success: "Confirma DAE was successfully updated." } }
+        #format.html { redirect_to action_inspectors_path, flash: { success: "Confirma DAE was successfully updated." } }
+        format.html { redirect_to @nfe_xml, flash: { success: "NF-e XML was successfully updated." } }
       else
         format.html { render action: 'edit' }
       end
@@ -96,6 +97,6 @@ class NfeXmlsController < ApplicationController
     end
 
   	def nfe_xml_params
-  		params.require(:nfe_xml).permit(:asset, :action_inspector, :equipamento, :qtde_pallet)
+  		params.require(:nfe_xml).permit(:asset, :action_inspector, :equipamento, :qtde_pallet, :place)
   	end
 end
