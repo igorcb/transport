@@ -17,7 +17,7 @@ class OrdemService < ActiveRecord::Base
   belongs_to :source_client, class_name: "Client", foreign_key: 'source_client_id'
   belongs_to :billing_client, class_name: "Client", foreign_key: 'billing_client_id', required: false
   belongs_to :driver, required: false
-  belongs_to :carrier
+  belongs_to :carrier, required: false
   belongs_to :pallet, required: false
   belongs_to :billing, required: false
   belongs_to :input_control, required: false
