@@ -31,7 +31,7 @@ class DirectCharge < ActiveRecord::Base
 
   has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
 
-  default_scope { order(date_charge: :desc, id: :desc) }
+  #default_scope { order(date_charge: :desc, id: :desc) }
 
   #before_save { |item| item.email = email.downcase }
   RECEBIMENTO_DESCARGA_HISTORIC = 100
@@ -103,15 +103,15 @@ class DirectCharge < ActiveRecord::Base
     self.value_ton  = VALOR_DA_TONELADA
   end
 
-  def set_peso_and_volume
-    peso = self.nfe_xmls.sum(:peso)
-    volume = self.nfe_xmls.sum(:volume)
-    valor_total = peso * valor_kg
-    ActiveRecord::Base.transaction do
-      puts "peso: #{peso} and volume: #{volume}"
-      DirectCharge.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
-    end
-  end
+  # def set_peso_and_volume
+  #   peso = self.nfe_xmls.sum(:peso)
+  #   volume = self.nfe_xmls.sum(:volume)
+  #   valor_total = peso * valor_kg
+  #   ActiveRecord::Base.transaction do
+  #     puts "peso: #{peso} and volume: #{volume}"
+  #     DirectCharge.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
+  #   end
+  # end
 
   def update_offer_charge
     ActiveRecord::Base.transaction do
@@ -155,6 +155,28 @@ class DirectCharge < ActiveRecord::Base
       set_peso_and_volume
     end
   end
+
+  def self.add_nfe_xml_direct_charge(direct_charge, array_nfe_xml)
+    begin
+      #byebug
+      ActiveRecord::Base.transaction do
+        array_nfe_xml.each do |xml|
+          #byebug
+          nfe_xml = NfeXml.where(chave: xml).first
+          file = "#{Rails.root.join('public')}" + nfe_xml.asset.url(:original, timestamp: false)
+          nfe = NFe::NotaFiscal.new.load_xml_serealize(file)
+          NfeXml.processado.is_not_input.where(chave: xml).update_all(nfe_type: "DirectCharge", nfe_id: direct_charge.id)
+          NfeXml.product_create_or_update_xml('direct_charges', direct_charge, nfe_xml, nfe)
+          DirectCharges::SetWeightAndVolumeService.new(direct_charge).call
+        end
+        return {success: true, message: "XML adicionado na Carga Direta No: #{direct_charge.id} com sucesso."}
+      end
+
+    rescue => e
+      puts e.message
+      return {success: false, message: e.message}
+    end
+	end
 
   def finish_typing
     return_value = false

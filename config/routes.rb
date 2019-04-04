@@ -172,6 +172,8 @@ Rails.application.routes.draw do
       get :finish_typing
       get :select_nfe
       post :create_ordem_service
+      get :add_nfe_xml
+      put :attach_xml
     end
   end
 

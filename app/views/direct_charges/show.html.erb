@@ -25,11 +25,11 @@
 
           <div class="panel panel-default">
 
-            <div class="panel-body"> 
+            <div class="panel-body">
               <%= render 'data_input' %>
             </div>
           </div>
-        
+
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
 
             <div class="panel panel-default">
 
-              <div class="panel-body"> 
+              <div class="panel-body">
                 <%= render 'carriers/carrier_data', object: @direct_charge.carrier if @direct_charge.carrier.present? %>
               </div>
             </div>
@@ -81,7 +81,7 @@
               <h2 class="panel-title">Dados do Motorista</h2>
             </div>
 
-            <div class="panel-body"> 
+            <div class="panel-body">
               <%= render 'drivers/driver_data', object: @direct_charge.driver if @direct_charge.driver.present? %>
             </div>
           </div>
@@ -108,7 +108,7 @@
               <h2 class="panel-title">Dados tomador do servico</h2>
             </div>
 
-            <div class="panel-body"> 
+            <div class="panel-body">
               <%= render 'clients/client_data', object: @direct_charge.billing_client if @direct_charge.billing_client.present? %>
             </div>
           </div>
@@ -128,7 +128,7 @@
     </div>
     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
 
-        <div class="panel-body"> 
+        <div class="panel-body">
           <%= render 'shared/document', object: @direct_charge %>
         </div>
 
@@ -149,7 +149,7 @@
       <%#= render 'comments/feed', comments: @direct_charge.feed %>
 
       <%#= render 'comments/form_comment_ordem_service' %>
-      
+
       </div>
     </div>
   </div>
@@ -169,7 +169,7 @@
       <%#= render 'cancellations/feed', cancellations: @direct_charge.feed_cancellations %>
 
       <%#= render 'cancellations/form_cancellation_direct_charge' %>
-      
+
       </div>
     </div>
   </div>
@@ -185,7 +185,7 @@
     </div>
     <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
       <div class="panel-body">
-
+        <%= link_to '[+] NF-e XML', add_nfe_xml_direct_charge_path(@direct_charge), class: "btn btn-success btn-sm" %>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
@@ -206,20 +206,20 @@
 
             </tbody>
           </table>
-        </div>    
+        </div>
 
       </div>
     </div>
   </div>
-<!-- Fim collapse  --> 
+<!-- Fim collapse  -->
 </div>
 
 <div class="form-group">
-  <%= link_to 'Editar', edit_direct_charge_path(@direct_charge), class: "btn btn-blue" %> 
+  <%= link_to 'Editar', edit_direct_charge_path(@direct_charge), class: "btn btn-blue" %>
   <%= link_to 'Listar Todos', direct_charges_path, class: "btn btn-default" %>
   <%= link_to 'Finalizar Digitação', finish_typing_direct_charge_path(@direct_charge), class: "btn btn-info" if @direct_charge.status == DirectCharge::TypeStatus::OPEN %>
   <%= link_to 'Gerar Ordem Servico', select_nfe_direct_charge_path, class: "btn btn-success"%>
   <%#= link_to 'Armazenar Paletes', select_pallets_input_control_path, class: "btn btn-yellow"%>
   <%#= link_to 'Gerar Ocorrência', comments_input_control_path(@input_control), class: "btn btn-warning" %>
-  <%#= link_to 'Print', input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %> 
+  <%#= link_to 'Print', input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %>
 </div>

@@ -585,7 +585,7 @@ class InputControl < ActiveRecord::Base
           file = "#{Rails.root.join('public')}" + nfe_xml.asset.url(:original, timestamp: false)
           nfe = NFe::NotaFiscal.new.load_xml_serealize(file)
           NfeXml.processado.is_not_input.where(chave: xml).update_all(nfe_type: "InputControl", nfe_id: input_control.id)
-          NfeXml.product_create_or_update_xml(input_control, nfe_xml, nfe)
+          NfeXml.product_create_or_update_xml('input_controls', input_control, nfe_xml, nfe)
           InputControls::SetWeightAndVolumeService.new(input_control).call
         end
         return {success: true, message: "XML adicionado na remessa de entrada #{input_control.id} com sucesso."}

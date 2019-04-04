@@ -22,7 +22,8 @@ class NfeXml < ActiveRecord::Base
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id", required: false
 	belongs_to :carrier, required: false
 
-  has_many :item_input_controls, dependent: :delete_all
+  has_many :item_direct_charges, dependent: :delete_all
+	has_many :item_input_controls, dependent: :delete_all
 
   scope :not_create_os, -> { where(create_os: TipoOsCriada::NAO) }
 	scope :is_not_input, -> { where(nfe_type: nil ) }

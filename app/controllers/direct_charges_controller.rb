@@ -4,7 +4,7 @@ class DirectChargesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_direct_charge, only: [:show, :edit, :update, :destroy, :select_nfe, :finish_typing]
-  #load_and_authorize_resource  
+  #load_and_authorize_resource
 
   respond_to :html
 
@@ -84,11 +84,11 @@ class DirectChargesController < ApplicationController
     carrier = Carrier.find_by_cnpj(params[:carrier_cnpj])
     billing_client  = Client.find_by_cpf_cnpj(params[:billing_client_cpf_cpnj])
     @direct_charge = DirectCharge.new(direct_charge_params)
-    
+
     @direct_charge.driver_id = driver.id
     @direct_charge.carrier_id = carrier.id
     @direct_charge.billing_client_id = billing_client.id
-    
+
     # client_table_price = get_client_table_price(billing_client.id)
     # @direct_charge.client_table_price_id = client_table_price.id
 
@@ -114,25 +114,96 @@ class DirectChargesController < ApplicationController
     respond_with(@direct_charge)
   end
 
+  def add_nfe_xml
+    @direct_charge = DirectCharge.find(params[:id])
+  end
+
+  def attach_xml
+    @direct_charge = DirectCharge.find(params[:id])
+    nfe_not_exist = check_nfe_xmls(params[:nfe_xmls])
+    if nfe_not_exist.present?
+      flash[:danger] = "XML #{nfe_not_exist}, não existe."
+      redirect_to add_nfe_xml_input_control_path(@direct_charge)
+      return
+    end
+    has_present_and_not_process = has_present_and_not_process_nfe_xmls(params[:nfe_xmls])
+    if has_present_and_not_process.present?
+      flash[:danger] = "XML #{has_present_and_not_process}, não processado."
+      redirect_to add_nfe_xml_input_control_path(@direct_charge)
+      return
+    end
+    has_present = has_present_nfe_xmls(params[:nfe_xmls])
+    if has_present.present?
+      flash[:danger] = "XML #{has_present}, já cadastrado nesta remessa de entrada."
+      redirect_to add_nfe_xml_input_control_path(@direct_charge)
+      return
+    end
+
+    #NfeXml.processado.where(chave: params[:nfe_xmls]).update_all(nfe_type: "InputControl", nfe_id: @input_control.id)
+    result = DirectCharge.add_nfe_xml_direct_charge(@direct_charge, params[:nfe_xmls])
+    if result[:success] == true
+      flash[:success] = "Attach NF-e to input control was successfully"
+    else
+      flash[:danger] = "NF-e is not Attach."
+    end
+    redirect_to (@direct_charge)
+  end
+
   private
     def set_direct_charge
       @direct_charge = DirectCharge.find(params[:id])
     end
 
     def get_client_table_price
-      client_table_price = ClientTablePrice.where(client_id: @direct_charge.billing_client_id, 
+      client_table_price = ClientTablePrice.where(client_id: @direct_charge.billing_client_id,
                                            stretch_route_id: params[:input_control][:stretch_route_id],
                                             type_service_id: params[:input_control][:type_service_id]).first
       client_table_price
     end
 
     def direct_charge_params
-      params.require(:direct_charge).permit(:carrier_id, :driver_id, :place, :place_cart, :place_cart_2, :date_charge, :palletized, 
-        :quantity_pallets, :weight, :volume, :source_state, :source_city, :target_state, :target_city, 
-        :observation, :user_id, :shipment, :stretch_route_id, :type_service_id, 
+      params.require(:direct_charge).permit(:carrier_id, :driver_id, :place, :place_cart, :place_cart_2, :date_charge, :palletized,
+        :quantity_pallets, :weight, :volume, :source_state, :source_city, :target_state, :target_city,
+        :observation, :user_id, :shipment, :stretch_route_id, :type_service_id,
         nfe_xmls_attributes: [:asset, :equipamento, :id, :_destroy],
         assets_attributes: [:asset, :user_id, :id, :_destroy]
 
         )
+    end
+
+    def check_nfe_xmls(array_nfe_xml)
+      nfe_not_exist = []
+      nfe_xmls = array_nfe_xml
+      nfe_xmls.each do |arq|
+        nfe_not_exist.push(arq) if !NfeXml.where(asset_file_name: "#{arq}.xml").or(NfeXml.where(asset_file_name: "#{arq}-procNFe.xml")).first.present?
+      end
+      nfe_not_exist
+    end
+
+    def has_present_and_not_process_nfe_xmls(array_nfe_xml)
+      has_present = []
+      nfe_xmls = array_nfe_xml
+      nfe_xmls.each do |arq|
+        has_present.push(arq) if NfeXml.nao_processado.where(asset_file_name: "#{arq}.xml").or(NfeXml.nao_processado.where(asset_file_name: "#{arq}-procNFe.xml")).first.present?
+      end
+      has_present
+    end
+
+    def has_present_nfe_xmls(array_nfe_xml)
+      has_present = []
+      nfe_xmls = array_nfe_xml
+      nfe_xmls.each do |xml|
+        has_present.push(xml) if NfeXml.where(nfe_type: "DirectCharge", nfe_id: @direct_charge.id, chave: xml).first.present?
+      end
+      has_present
+    end
+
+    def has_present_nfe_xmls_other_input_control(array_nfe_xml)
+      has_present = []
+      nfe_xmls = array_nfe_xml
+      nfe_xmls.each do |xml|
+        has_present.push(xml) if NfeXml.where(nfe_type: "DirectCharge", chave: xml).first.present?
+      end
+      has_present
     end
 end
