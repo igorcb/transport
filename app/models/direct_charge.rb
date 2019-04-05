@@ -103,15 +103,16 @@ class DirectCharge < ActiveRecord::Base
     self.value_ton  = VALOR_DA_TONELADA
   end
 
-  # def set_peso_and_volume
-  #   peso = self.nfe_xmls.sum(:peso)
-  #   volume = self.nfe_xmls.sum(:volume)
-  #   valor_total = peso * valor_kg
-  #   ActiveRecord::Base.transaction do
-  #     puts "peso: #{peso} and volume: #{volume}"
-  #     DirectCharge.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
-  #   end
-  # end
+  def set_peso_and_volume
+    # peso = self.nfe_xmls.sum(:peso)
+    # volume = self.nfe_xmls.sum(:volume)
+    # valor_total = peso * valor_kg
+    # ActiveRecord::Base.transaction do
+    #   puts "peso: #{peso} and volume: #{volume}"
+    #   DirectCharge.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
+    # end
+    DirectCharges::SetWeightAndVolumeService.new(self).call
+  end
 
   def update_offer_charge
     ActiveRecord::Base.transaction do
@@ -204,11 +205,17 @@ class DirectCharge < ActiveRecord::Base
         #   self.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
         # end
         self.update_attributes(status: DirectCharge::TypeStatus::FINISH_TYPING)
-        return_value = true
+        return {success: true, message: "Direct Charge finish_typing was successfully "}
       end
-    rescue exception
+    # rescue exception
+    #   return_value = false
+    #   raise ActiveRecord::Rollback
+    # end
+
+    rescue => e
       return_value = false
-      raise ActiveRecord::Rollback
+      puts e.message
+      return {success: false, message: e.message}
     end
   end
 
