@@ -50,7 +50,7 @@ class OfferDriver < ActiveRecord::Base
 	def self.confirmed(offer_driver)
     ActiveRecord::Base.transaction do
     	OfferDriver.where(id: offer_driver.id).update_all(status: TypeStatus::CONFIRMED)
-      OfferCharge.where(id: offer_driver.offer_charge.id).update_all(status: OfferCharge::TypeStatus::CLOSE)
+      OfferCharge.where(id: offer_driver.offer_charge.id).update_all(vehicle_situation: TypeStatus::CONFIRMED ,status: OfferCharge::TypeStatus::CLOSE)
     end
 	end
 
