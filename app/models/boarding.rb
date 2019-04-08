@@ -363,6 +363,7 @@ class Boarding < ActiveRecord::Base
   def ordem_service_pending?
     positivo = false
     self.boarding_items.order(:delivery_number).each do |item|
+      return false if item.ordem_service.type_direct_charge?
       positivo = item.ordem_service.input_control.present? ? item.ordem_service.input_control.status_open_and_finish_typing_and_discharge? : true
       return true if positivo == true
     end

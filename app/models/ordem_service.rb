@@ -90,6 +90,7 @@ class OrdemService < ActiveRecord::Base
                                       .group("ordem_services.placa, drivers.nome, type_services.descricao")
                                       .order("drivers.nome, ordem_services.placa")
                       }
+  enum ordem_service_type: { type_direct_charge: "type_direct_charge", type_input_control: "type_input_control"} #s, _prefix: :ordem_service_type
 
   before_save :set_values
   #, :validates_type_service
@@ -138,13 +139,14 @@ class OrdemService < ActiveRecord::Base
   end
 
   def set_peso_and_volume
-    peso = self.nfe_keys.sum(:peso)
-    volume = self.nfe_keys.sum(:volume)
-    ActiveRecord::Base.transaction do
-      #puts "peso: #{peso} and volume: #{volume}"
-      OrdemService.where(id: self.id).update_all(peso: peso, qtde_volume: volume)
-      OrdemServiceLogistic.where(ordem_service_id: self.id).update_all(peso: peso, qtde_volume: volume)
-    end
+    # peso = self.nfe_keys.sum(:peso)
+    # volume = self.nfe_keys.sum(:volume)
+    # ActiveRecord::Base.transaction do
+    #   #puts "peso: #{peso} and volume: #{volume}"
+    #   OrdemService.where(id: self.id).update_all(peso: peso, qtde_volume: volume)
+    #   OrdemServiceLogistic.where(ordem_service_id: self.id).update_all(peso: peso, qtde_volume: volume)
+    # end
+    OrdemServices::SetWeightAndVolumeService.new(self).call
   end
 
   def validates_type_service
