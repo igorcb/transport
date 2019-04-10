@@ -394,6 +394,7 @@ class InputControl < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       #puts ">>>>>>>>>>>>>>>> Criar Ordem de Servico"
       ordem_service = OrdemService.create!( tipo: OrdemService::TipoOS::LOGISTICA,
+                              ordem_service_type: 'type_input_control',
                                 input_control_id: input_control.id,
                                 target_client_id: target_client.id,
                                 source_client_id: source_client.id,
