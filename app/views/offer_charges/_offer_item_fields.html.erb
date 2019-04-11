@@ -1,8 +1,8 @@
 <div class='nested-fields'>
-  
+
   <div class="row">
     <div class="col-xs-2">
-      <%= f.select( :state, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+      <%= f.select( :state, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>
     </div>
 
     <div class="col-xs-2">
@@ -28,16 +28,17 @@
     </div>
 
     <div class="col-xs-2">
-      <%= f.text_field :date_schedule, class: "form-control input-sm data", placeholder: "Data Agendamento"   %>
+      <%#= f.text_field :date_schedule, class: "form-control input-sm data", placeholder: "Data Agendamento"   %>
+      <%= f.text_field :date_schedule, class: "form-control input-sm data", value: date_br(f.object.date_schedule), placeholder: "Data Agendamento" %>
     </div>
-    
+
     <div class="col-xs-2">
       <%= f.text_field :time_schedule, class: "form-control input-sm time", placeholder: "Hora Agendamento"   %>
     </div>
     <%= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
   </div>
 
-  
 
-  
+
+
 </div>

@@ -10,7 +10,7 @@
 
 <p>
   <strong>Data:</strong>
-  <%= date_br @offer_charge.date_shipment %>
+  <%= date_br @offer_charge.date_shipment %>  <%= time_br @offer_charge.time_shipment %>
 </p>
 
 <p>
@@ -101,5 +101,3 @@
   <strong>Criado por:</strong>
   <%= @offer_charge.user.email %>
 </p>
- 
-
