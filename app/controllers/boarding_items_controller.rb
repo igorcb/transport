@@ -4,14 +4,14 @@ class BoardingItemsController < ApplicationController
 	def index
 		@boarding = Boarding.find(params[:boarding_id])
 	end
-  
+
   def update_row_order
     @boarding_item = BoardingItem.find(boarding_item_params[:boarding_item_id])
     @boarding_item.row_order_position = boarding_item_params[:row_order_position]
     @boarding_item.save
 
     render nothing: true # this is a POST action, updates sent via AJAX, no view rendered
-  end  
+  end
 
   def update_status
     @boarding_item = BoardingItem.find(params[:boarding_item_id])
@@ -38,14 +38,14 @@ class BoardingItemsController < ApplicationController
 
 
 	def create
-		
+
     @boarding = Boarding.find(params[:boarding_id])
 
     @boarding_item = BoardingItem.new
     if params[:boarding_id].blank?
-      @boarding_item.errors.add("Boarding Item", "Embarque não pode ficar em branco") 
+      @boarding_item.errors.add("Boarding Item", "Embarque não pode ficar em branco")
     elsif params[:boarding_item][:ordem_service_id].blank?
-      @boarding_item.errors.add("Boarding Item", "Ordem de Servico não pode ficar em branco.") 
+      @boarding_item.errors.add("Boarding Item", "Ordem de Servico não pode ficar em branco.")
     elsif params[:boarding_item][:delivery_number].blank?
       @boarding_item.errors.add("Boarding Item", "Numero da Entrega não pode ficar em branco.")
     end
@@ -74,10 +74,10 @@ class BoardingItemsController < ApplicationController
       @boarding_item = @boarding.boarding_items.create!(boarding_item_params)
       OrdemService.where(id: params[:boarding_item][:ordem_service_id]).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
   	  if @boarding_item.save
-  	    flash.now[:notice] = "Boarding Items created successfully." 
+  	    flash.now[:notice] = "Boarding Items created successfully."
       else
         @boarding_item.errors.full_messages.each do |msg|
-          flash[:error] = msg  
+          flash[:error] = msg
         end
       end
     end
@@ -85,12 +85,19 @@ class BoardingItemsController < ApplicationController
 
   def destroy
     @boarding_item = BoardingItem.find(params[:id])
-    unless @boarding_item.can_destroy_item?
+    # unless @boarding_item.can_destroy_item?
+    #   Event.create(user: current_user, controller_name: "BoardingItem", action_name: 'destroy' , what: "Deletou a O.S. No: #{@boarding_item.ordem_service_id} do embarque No: #{@boarding_item.boarding_id}")
+    # end
+    # @ordem_service = OrdemService.where(id: @boarding_item.ordem_service_id).update_all(status: OrdemService::TipoStatus::ABERTO)
+    # @boarding_item.destroy
+    if @boarding_item.can_destroy_item?
       Event.create(user: current_user, controller_name: "BoardingItem", action_name: 'destroy' , what: "Deletou a O.S. No: #{@boarding_item.ordem_service_id} do embarque No: #{@boarding_item.boarding_id}")
-    end      
-    @ordem_service = OrdemService.where(id: @boarding_item.ordem_service_id).update_all(status: OrdemService::TipoStatus::ABERTO)
-    @boarding_item.destroy
-    flash[:success] = "BoardingItem destroyed successfully."
+      @ordem_service = OrdemService.where(id: @boarding_item.ordem_service_id).update_all(status: OrdemService::TipoStatus::ABERTO)
+      @boarding_item.destroy
+      flash[:success] = "BoardingItem destroyed successfully."
+    else
+      flash[:danger] = "You can not delete record with relationship"
+    end
     respond_with(@boarding_item)
   end
 

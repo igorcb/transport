@@ -23,11 +23,17 @@ class BoardingItem < ActiveRecord::Base
   end
 
   def can_destroy_item?
-    (
-      self.ordem_service.status == OrdemService::TipoStatus::ABERTO ||
-      self.ordem_service.status == OrdemService::TipoStatus::AGUARDANDO_EMBARQUE
-    )
-
+    # (
+    #   self.ordem_service.status == OrdemService::TipoStatus::ABERTO ||
+    #   self.ordem_service.status == OrdemService::TipoStatus::AGUARDANDO_EMBARQUE ||
+    #   !self.ordem_service.account_payables.present?
+    # )
+    if self.ordem_service.status == OrdemService::TipoStatus::ABERTO ||
+       self.ordem_service.status == OrdemService::TipoStatus::AGUARDANDO_EMBARQUE ||
+       self.ordem_service.account_payables.present?
+      errors.add(:base, "You can not delete record with relationship")
+      return false
+    end
   end
 
 
