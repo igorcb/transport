@@ -164,7 +164,8 @@ class AccountPayable < ActiveRecord::Base
 
   private
     def can_destroy?
-      if self.account_payables.present? ||
+      #byebug
+      if self.lower_account_payables.present?
         errors.add(:base, "You can not delete record with relationship")
         return false
       end
