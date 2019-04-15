@@ -19,7 +19,7 @@
               <td>
                 <%#= radio_button_tag "discharges", discharge.id, false, value: {"discharge": "#{discharge.id}", "value_discharge": "#{value_discharge.to_f}" } , onchange:"checkTotal();", class: "escolha" %>
                 <%= radio_button_tag "discharges", discharge.id, false, value: {discharge: discharge.id, value_discharge: value_discharge.to_f } , onchange:"checkTotal();", class: "escolha" %>
-              </td>              
+              </td>
               <td><%= discharge.type_unit_name %></td>
               <td><%= discharge.type_charge_name %></td>
               <td><%= discharge.type_calc_name %></td>
@@ -29,11 +29,18 @@
         </tbody>
       </table>
     </div>
-  
+
     <br />
     <% if object.boarding.present? %>
-      <% if object.boarding.driver_checkin or object.status == OrdemService::TipoStatus::EMBARCADO %>
-        <%= submit_tag("Solicitar Pagamento Descarga", class: "btn btn-success") %>   
+        <% if object.boarding.driver_checkin or object.status == OrdemService::TipoStatus::EMBARCADO %>
+           <% if object.account_payables.present? %>
+           <div class="alert alert-warning" role="alert">
+               Já foi feito uma solicitação de pagamento de descarga
+           </div>
+
+           <% else  %>
+             <%= submit_tag("Solicitar Pagamento Descarga", class: "btn btn-success") %>
+           <% end %>
       <% end %>
     <% end %>
   <% end %>
