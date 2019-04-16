@@ -15,7 +15,7 @@
         <tbody>
           <% ClientDischarge.where(client_id: object.client, client_source_id: object.source_client).order(:type_unit, :type_charge, :type_calc).each do |discharge| %>
             <tr>
-              <% value_discharge = calc_value_discharge({discharge: discharge, weight: object.peso, unit: object.qtde_palets, volume: object.qtde_volume}) %>
+              <% value_discharge = calc_value_discharge({discharge: discharge, weight: object.peso, unit: object.nfe_keys.sum(:qtde_pallet), volume: object.qtde_volume}) %>
               <td>
                 <%#= radio_button_tag "discharges", discharge.id, false, value: {"discharge": "#{discharge.id}", "value_discharge": "#{value_discharge.to_f}" } , onchange:"checkTotal();", class: "escolha" %>
                 <%= radio_button_tag "discharges", discharge.id, false, value: {discharge: discharge.id, value_discharge: value_discharge.to_f } , onchange:"checkTotal();", class: "escolha" %>
