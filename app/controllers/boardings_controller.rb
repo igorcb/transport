@@ -278,6 +278,10 @@ class BoardingsController < ApplicationController
     redirect_to boarding_path(@boarding)
   end
 
+  def payment_discharge_client
+    @boardings = Boarding.where(date_boarding: Date.current)
+  end
+
 	private
 
 		def set_boarding

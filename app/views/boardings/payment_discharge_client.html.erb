@@ -1,0 +1,8 @@
+<h1>Previsão de pagamentos de descargas</h1>
+<ul>
+  <% @boardings.each do |boarding| %>
+    <li><%= link_to boarding.id, boarding %></li>
+    <li><%= date_br boarding.date_boarding %></li>
+    <li><%= boarding.account_payables.sum(:valor).to_f %> </li>
+  <% end %>
+</ul>

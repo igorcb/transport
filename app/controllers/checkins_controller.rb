@@ -24,6 +24,7 @@ class CheckinsController < ApplicationController
 
   # GET /checkins/1/edit
   def edit
+    @checkin = Checkin.find(params[:id])
   end
 
   # POST /checkins

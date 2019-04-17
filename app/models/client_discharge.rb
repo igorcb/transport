@@ -14,7 +14,8 @@ class ClientDischarge < ActiveRecord::Base
   belongs_to :created_user, class_name: "User", foreign_key: :created_user_id, required: false
   belongs_to :updated_user, class_name: "User", foreign_key: :updated_user_id, required: false
 
-  enum type_operation: { input_control: 0, boarding: 1}
+  enum type_operation: { input_control: 0, boarding: 1 }
+  #[["Descarga", :input_control], ["Embarque", :boarding]]
 
   #scope :type_box_palletized_unit, -> { where(type_unit: TypeUnit::BOX, type_charge: TypeCharge::PALLETIZED, type_calc: TypeCalc::UNIT).first }
   #scope :type_box_palletized_value, -> { where(type_unit: TypeUnit::BOX, type_charge: TypeCharge::PALLETIZED, type_calc: TypeCalc::VALUE).first }
