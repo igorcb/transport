@@ -506,21 +506,32 @@ class OrdemServicesController < ApplicationController
 
     hash = eval(params[:discharges])
 
-    @account_payable = @ordem_service.account_payables.build
-    @account_payable.type_account = AccountPayable::TypeAccount::DRIVER
-    @account_payable.supplier_type = "Driver"
-    @account_payable.supplier_id = @ordem_service.ordem_service_logistic.delivery_driver_id
-    @account_payable.cost_center_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_COST_CENTER').first.config_value
-    @account_payable.sub_cost_center_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_SUB_COST_CENTER').first.config_value
-    @account_payable.sub_cost_center_three_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_SUB_COST_CENTER_THREE').first.config_value
-    @account_payable.payment_method_id = ConfigSystem.where(config_key: 'PAYMENT_METHOD_DEFAULT').first.config_value
-    @account_payable.historic_id = ConfigSystem.where(config_key: 'HISTORIC_DEFAULT').first.config_value
-    @account_payable.data_vencimento = Date.today
-    @account_payable.documento = "#{@ordem_service.id}/#{@ordem_service.boarding.id}"
-    @account_payable.valor = hash[:value_discharge]
-    @account_payable.observacao = "PAGAMENTO DE DESCARGA O.S No: #{@ordem_service.id}, NF-e: #{@ordem_service.get_number_nfe}"
-    @account_payable.status = AccountPayable::TipoStatus::ABERTO
-    @account_payable.save
+    # @account_payable = @ordem_service.account_payables.build
+    # @account_payable.type_account = AccountPayable::TypeAccount::DRIVER
+    # @account_payable.supplier_type = "Driver"
+    # @account_payable.supplier_id = @ordem_service.ordem_service_logistic.delivery_driver_id
+    # @account_payable.cost_center_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_COST_CENTER').first.config_value
+    # @account_payable.sub_cost_center_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_SUB_COST_CENTER').first.config_value
+    # @account_payable.sub_cost_center_three_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_SUB_COST_CENTER_THREE').first.config_value
+    # @account_payable.payment_method_id = ConfigSystem.where(config_key: 'PAYMENT_METHOD_DEFAULT').first.config_value
+    # @account_payable.historic_id = ConfigSystem.where(config_key: 'HISTORIC_DEFAULT').first.config_value
+    # @account_payable.data_vencimento = Date.today
+    # @account_payable.documento = "#{@ordem_service.id}/#{@ordem_service.boarding.id}"
+    # @account_payable.valor = hash[:value_discharge]
+    # @account_payable.observacao = "PAGAMENTO DE DESCARGA O.S No: #{@ordem_service.id}, NF-e: #{@ordem_service.get_number_nfe}"
+    # @account_payable.status = AccountPayable::TipoStatus::ABERTO
+    # @account_payable.save
+    puts ">>>>>>>>>>>>>>>>>>>>>>>>>> Hash: #{hash}"
+    @discharge = ClientDischarge.find(hash[:discharge])
+
+    if @ordem_service.discharge_payments.create!(type_unit: @discharge.type_unit,
+                                               type_charge: @discharge.type_charge,
+                                                 type_calc: @discharge.type_calc,
+                                                     price: hash[:value_discharge])
+      flash[:success] = "Request payment was successful."
+    else
+      flash[:danger] = "Error request payment."
+    end
     respond_with(@ordem_service)
     # else
     #   @ordem_service.errors.full_messages.each do |msg|

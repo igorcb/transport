@@ -671,6 +671,15 @@ class Boarding < ActiveRecord::Base
     Checkin.the_day.input.where(driver_cpf: self.driver.cpf).present?
   end
 
+  def total_discharge_payment
+    value = BigDecimal.new(0)
+    self.boarding_items.each do |item|
+      puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #{item.ordem_service.discharge_payments.sum(:price)}"
+      value += item.ordem_service.discharge_payments.sum(:price)
+    end
+    value
+  end
+
   private
 
     def get_ordem_services_ids

@@ -186,14 +186,14 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingFive">
+    <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           Equipamentos Solicitados
         </a>
       </h4>
     </div>
-    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
 
         <% @boarding.control_pallet_internals.credit.each do |control_pallet_internal| %>
@@ -205,14 +205,64 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingSix">
+    <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Pagamento de descarga
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+
+      <div class="panel-body">
+        <div class="table-responsive">
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>No O.S.</th>
+                <th>Tipo Unidade</th>
+                <th>Tipo Carga</th>
+                <th>Tipo Calculo</th>
+                <th>Valor da Descarga</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @boarding.boarding_items.each do |item| %>
+              <tr>
+                <td><%= link_to item.ordem_service.id, item.ordem_service %></td>
+                <td><%= item.ordem_service.discharge_payments.first.type_unit if item.ordem_service.discharge_payments.present? %></td>
+                <td><%= item.ordem_service.discharge_payments.first.type_charge  if item.ordem_service.discharge_payments.present?%> </td>
+                <td><%= item.ordem_service.discharge_payments.first.type_calc  if item.ordem_service.discharge_payments.present?%> </td>
+                <td><%= number_to_currency( item.ordem_service.discharge_payments.first.price, precision: 2, unit: "R$ ", separator: ",", delimiter: ".")  if item.ordem_service.discharge_payments.present? %></td>
+              </tr>
+              <% end %>
+              <tr>
+                <td><strong>Total</strong></td>
+                <td colspan="3"></td>
+                <td><strong><%= number_to_currency(  @boarding.total_discharge_payment, precision: 2, unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <%= form_tag({:controller => "boardings", :action => "request_payment"}, :method => "post", :name => "dischargeForm") do %>
+      <%= hidden_field_tag 'value_discharge', @boarding.total_discharge_payment %>
+      <%= submit_tag("Solicitar Pagamento Descarga", class: "btn btn-success") %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
           Contas a Pagar
         </a>
       </h4>
     </div>
-    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
       <div class="panel-body">
 
        <%#= render 'show_account_payables', account_payables: @ordem_service.account_payables %>
@@ -223,14 +273,14 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingNine">
+    <div class="panel-heading" role="tab" id="headingFive">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
           Ocorrencias
         </a>
       </h4>
     </div>
-    <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
       <div class="panel-body">
 
       <%= render 'comments/feed', comments: @boarding.feed %>
@@ -242,14 +292,14 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingEight">
+    <div class="panel-heading" role="tab" id="headingSix">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
           Lacres
         </a>
       </h4>
     </div>
-    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
       <div class="panel-body">
 
       <%= render 'sealing', sealings: @boarding.sealings %>
@@ -265,14 +315,14 @@
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingEleven">
+    <div class="panel-heading" role="tab" id="headingEight">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
           Dados do Cancelamento
         </a>
       </h4>
     </div>
-    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
       <div class="panel-body">
 
 

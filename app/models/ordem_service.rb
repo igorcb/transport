@@ -80,6 +80,8 @@ class OrdemService < ActiveRecord::Base
 
   has_many :ordem_service_table_prices
 
+  has_many :discharge_payments, class_name: "DischargePayment", foreign_key: "type_operation_id", dependent: :destroy
+
   #scope :is_not_billed, -> { joins(:ordem_service_type_services).where(status: [0,1]).order('ordem_services.data desc') }
   scope :status_open, -> { where(status: [TipoStatus::ABERTO, TipoStatus::AGUARDANDO_EMBARQUE]).order("id desc") }
   scope :is_not_billed, -> { joins(:driver, :ordem_service_type_service, :type_service).where(status: [0,1]) }
