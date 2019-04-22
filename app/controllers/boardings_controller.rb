@@ -56,8 +56,9 @@ class BoardingsController < ApplicationController
 	end
 
 	def edit
-    if boarding.accounts.present?
-      flash[:danger] = "Request payment was successful."
+    if @boarding.account_payables.present?
+      flash[:danger] = "it is not possible to change the shipment"
+      redirect_to @boarding
     end
 	end
 
