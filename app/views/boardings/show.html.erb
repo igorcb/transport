@@ -246,11 +246,17 @@
             </tbody>
           </table>
         </div>
-      <%= form_tag({:controller => "boardings", :action => "request_payment"}, :method => "post", :name => "dischargeForm") do %>
-      <%= hidden_field_tag 'value_discharge', @boarding.total_discharge_payment %>
-      <%= submit_tag("Solicitar Pagamento Descarga", class: "btn btn-success") %>
+        <% if @boarding.account_payables.present? %>
+          <div class="alert alert-warning" role="alert">
+              Já foi feito uma solicitação de pagamento de descarga
+          </div>
+        <% else %>
+          <%= form_tag({:controller => "boardings", :action => "request_payment"}, :method => "post", :name => "dischargeForm") do %>
+              <%= hidden_field_tag 'value_discharge', @boarding.total_discharge_payment %>
+              <%= submit_tag("Solicitar Pagamento Descarga", class: "btn btn-success") %>
+          <% end %>
+        <% end %>
       </div>
-    <% end %>
     </div>
   </div>
 
