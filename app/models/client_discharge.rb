@@ -5,7 +5,7 @@ class ClientDischarge < ActiveRecord::Base
   validates :type_charge, presence: true
   validates :type_calc, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }
-  validates :client_source_id, uniqueness: { scope: [:client_id, :type_unit, :type_charge, :type_calc],
+  validates :client_source_id, uniqueness: { scope: [:type_operation, :client_id, :type_unit, :type_charge, :type_calc],
                                            message: ": tabela de descagar com tipo de unidade, tipo de carga, tipo de calculo já estão em uso. "}
 
   belongs_to :client, required: false
