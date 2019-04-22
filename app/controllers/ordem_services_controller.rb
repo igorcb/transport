@@ -521,13 +521,16 @@ class OrdemServicesController < ApplicationController
     # @account_payable.observacao = "PAGAMENTO DE DESCARGA O.S No: #{@ordem_service.id}, NF-e: #{@ordem_service.get_number_nfe}"
     # @account_payable.status = AccountPayable::TipoStatus::ABERTO
     # @account_payable.save
-    puts ">>>>>>>>>>>>>>>>>>>>>>>>>> Hash: #{hash}"
+    #puts ">>>>>>>>>>>>>>>>>>>>>>>>>> Hash: #{hash}"
     @discharge = ClientDischarge.find(hash[:discharge])
 
-    if @ordem_service.discharge_payments.create!(type_unit: @discharge.type_unit,
-                                               type_charge: @discharge.type_charge,
-                                                 type_calc: @discharge.type_calc,
-                                                     price: hash[:value_discharge])
+    @discharge_payment = @ordem_service.discharge_payments.build(type_operation_type: "OrdemService",
+                                                                           type_unit: @discharge.type_unit,
+                                                                         type_charge: @discharge.type_charge,
+                                                                           type_calc: @discharge.type_calc,
+                                                                               price: hash[:value_discharge])
+
+    if @discharge_payment.save!                                                
       flash[:success] = "Request payment was successful."
     else
       flash[:danger] = "Error request payment."

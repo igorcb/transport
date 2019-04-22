@@ -97,6 +97,7 @@ class BoardingItemsController < ApplicationController
       flash[:success] = "BoardingItem destroyed successfully."
     else
       flash[:danger] = "You can not delete record with relationship"
+      #respond_to @boarding_item.boarding
     end
     respond_with(@boarding_item)
   end

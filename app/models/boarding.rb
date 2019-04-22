@@ -299,8 +299,8 @@ class Boarding < ActiveRecord::Base
     self.carrier_id == Boarding.carrier_not_information ||
     self.driver_id == Boarding.driver_not_information ||
     check_driver_restriction_with_client? ||
-    DriverRestriction.where(driver_id: self.driver_id).present? ||
-    self.value_not_boarding_present?
+    DriverRestriction.where(driver_id: self.driver_id).present? 
+    #self.value_not_boarding_present?
     # self.insurer.blank?
     # self.insurer.policie_insurances_expired?
   end
@@ -320,6 +320,7 @@ class Boarding < ActiveRecord::Base
     pendings.append('Existe Ordem de Serviço com remessa de entrada não recebida.') if self.ordem_service_pending?
     pendings.append('Existe NF-e com pendência de DAE.') if self.nfe_dae_pending?
     pendings.append('Data do Embarque não está presente.') if self.date_boarding.blank?
+    #pendings.append('Valor do embarque não foi informado.') if self.date_boarding.blank?
     pendings.append('Data Agendamento O.S. não está presente.') if self.date_scheduling_present?
     pendings.append('Adicionar cliente para faturamento.') if self.billing_client_blank?
     pendings.append('Informe o motorista.') if self.driver_id == Boarding.driver_not_information
