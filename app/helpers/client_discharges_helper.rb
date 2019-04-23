@@ -1,7 +1,7 @@
 module ClientDischargesHelper
   def select_type_unit
     ([["Caixaria", 0], ["Fardo", 1], ["Tambor", 2], ["Big Bag", 3]])
-  end	
+  end
 
   def select_type_charge
   	([["Paletizada", 0], ["Batida", 1], ["Mista", 2], ["Acertado", 3]])
@@ -20,6 +20,7 @@ module ClientDischargesHelper
   		 discharge.type_charge == ClientDischarge::TypeCharge::PALLETIZED &&
   		 discharge.type_calc == ClientDischarge::TypeCalc::WEIGHT
   		value_calc = discharge.calc_weight(params[:weight])
+      puts ">>>>>>>>>>>>>>>>>>>>>> Linha: 23"
   		return value_calc
   	end
 
@@ -27,6 +28,7 @@ module ClientDischargesHelper
   		 discharge.type_charge == ClientDischarge::TypeCharge::PALLETIZED &&
   		 discharge.type_calc == ClientDischarge::TypeCalc::UNIT
   		value_calc = discharge.calc_unit(params[:unit])
+      puts ">>>>>>>>>>>>>>>>>>>>>> Linha: 31"
   		return value_calc
   	end
 
@@ -34,6 +36,7 @@ module ClientDischargesHelper
   		 discharge.type_charge == ClientDischarge::TypeCharge::PALLETIZED &&
   		 discharge.type_calc == ClientDischarge::TypeCalc::VALUE
   		value_calc = discharge.price
+      puts ">>>>>>>>>>>>>>>>>>>>>> Linha: 39"
   		return value_calc
   	end
 
@@ -269,6 +272,6 @@ module ClientDischargesHelper
   	end
 
   end
-  	
+
 
 end

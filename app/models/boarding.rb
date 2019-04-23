@@ -299,7 +299,7 @@ class Boarding < ActiveRecord::Base
     self.carrier_id == Boarding.carrier_not_information ||
     self.driver_id == Boarding.driver_not_information ||
     check_driver_restriction_with_client? ||
-    DriverRestriction.where(driver_id: self.driver_id).present? 
+    DriverRestriction.where(driver_id: self.driver_id).present?
     #self.value_not_boarding_present?
     # self.insurer.blank?
     # self.insurer.policie_insurances_expired?
@@ -679,6 +679,15 @@ class Boarding < ActiveRecord::Base
       value += item.ordem_service.discharge_payments.sum(:price)
     end
     value
+  end
+
+  def observation_discharge_payment
+    # Adicionar OS/Cliente/ValorDescarga
+    obs = ["PAGAMENTO DE DESCARGA"]
+    self.boarding_items.each do |item|
+      obs.push("O.S. #{item.ordem_service_id}, Cliente: #{item.ordem_service.client.nome}, Valor: #{item.ordem_service.discharge_payments.sum(:price)}")
+    end
+    obs
   end
 
   private

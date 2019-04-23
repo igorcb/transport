@@ -284,6 +284,7 @@ class BoardingsController < ApplicationController
   end
 
   def request_payment
+    @boarding.observation_discharge_payment
     @account_payable = @boarding.account_payables.build
     @account_payable.type_account = AccountPayable::TypeAccount::DRIVER
     @account_payable.supplier_type = "Driver"
@@ -296,7 +297,8 @@ class BoardingsController < ApplicationController
     @account_payable.data_vencimento = Date.today
     @account_payable.documento = "#{@boarding.id}"
     @account_payable.valor = params[:value_discharge] #hash[:value_discharge]
-    @account_payable.observacao = "PAGAMENTO DE DESCARGA O.S No: #{@boarding.ordem_services_ids}, "
+    #@account_payable.observacao = "PAGAMENTO DE DESCARGA O.S No: #{@boarding.ordem_services_ids}, "
+    @account_payable.observacao = @boarding.observation_discharge_payment
     @account_payable.status = AccountPayable::TipoStatus::ABERTO
     if @account_payable.save!
       flash[:success] = "Request payment was successful."

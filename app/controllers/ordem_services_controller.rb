@@ -494,14 +494,14 @@ class OrdemServicesController < ApplicationController
       flash[:danger] = "There is not boarding associated with this ordem service."
       redirect_to ordem_service_path(@ordem_service)
       return
-    elsif @ordem_service.ordem_service_logistic.delivery_driver_id.nil?
-      flash[:danger] = "Select a driver to request payment."
-      redirect_to ordem_service_path(@ordem_service)
-      return
-    elsif @ordem_service.ordem_service_logistic.delivery_driver_id == Driver::STANDARD
-      flash[:danger] = "Select a driver to request payment."
-      redirect_to ordem_service_path(@ordem_service)
-      return
+    # elsif @ordem_service.ordem_service_logistic.delivery_driver_id.nil?
+    #   flash[:danger] = "Select a driver to request payment."
+    #   redirect_to ordem_service_path(@ordem_service)
+    #   return
+    # elsif @ordem_service.ordem_service_logistic.delivery_driver_id == Driver::STANDARD
+    #   flash[:danger] = "Select a driver to request payment."
+    #   redirect_to ordem_service_path(@ordem_service)
+    #   return
     end
 
     hash = eval(params[:discharges])
@@ -530,7 +530,7 @@ class OrdemServicesController < ApplicationController
                                                                            type_calc: @discharge.type_calc,
                                                                                price: hash[:value_discharge])
 
-    if @discharge_payment.save!                                                
+    if @discharge_payment.save!
       flash[:success] = "Request payment was successful."
     else
       flash[:danger] = "Error request payment."
