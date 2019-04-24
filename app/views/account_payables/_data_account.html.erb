@@ -54,10 +54,10 @@
 </p>
 
 
-<% if @account_payable.ordem_service.present? %>  
+<% if @account_payable.ordem_service.present? %>
   <p>
-    <strong>OS. No:</strong> 
-    <%= link_to @account_payable.ordem_service.id, @account_payable.ordem_service %> 
+    <strong>OS. No:</strong>
+    <%= link_to @account_payable.ordem_service.id, @account_payable.ordem_service %>
   </p>
   <p>
     <strong>Status da OS:</strong>
@@ -65,16 +65,16 @@
   </p>
   <p>
     <strong>Cte:</strong>
-    <%= @account_payable.ordem_service.cte %> -  
-    <strong>Chave Cte:</strong>  
+    <%= @account_payable.ordem_service.cte %> -
+    <strong>Chave Cte:</strong>
     <%= @account_payable.ordem_service.danfe_cte %>
   </p>
 <% end %>
 
-<% if @account_payable.boarding.present? %>  
+<% if @account_payable.boarding.present? %>
   <p>
     <strong>Embarque No:</strong>
-    <%= link_to @account_payable.boarding.id, @account_payable.boarding %> 
+    <%= link_to @account_payable.boarding.id, @account_payable.boarding %>
   </p>
 <% end %>
 
@@ -87,5 +87,3 @@
   <strong>Observacao:</strong>
   <pre><%= @account_payable.observacao %></pre>
 </p>
-
-

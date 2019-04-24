@@ -675,7 +675,7 @@ class Boarding < ActiveRecord::Base
   def total_discharge_payment
     value = BigDecimal.new(0)
     self.boarding_items.each do |item|
-      puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #{item.ordem_service.discharge_payments.sum(:price)}"
+      #puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #{item.ordem_service.discharge_payments.sum(:price)}"
       value += item.ordem_service.discharge_payments.sum(:price)
     end
     value
@@ -683,11 +683,14 @@ class Boarding < ActiveRecord::Base
 
   def observation_discharge_payment
     # Adicionar OS/Cliente/ValorDescarga
-    obs = ["PAGAMENTO DE DESCARGA"]
+    line = Array.new
+    line.push("PAGAMENTO DE DESCARGA - 2;")
+    line.push("PAGAMENTO DE DESCARGA - 2;")
+    line.push("PAGAMENTO DE DESCARGA - 2;")
     self.boarding_items.each do |item|
-      obs.push("O.S. #{item.ordem_service_id}, Cliente: #{item.ordem_service.client.nome}, Valor: #{item.ordem_service.discharge_payments.sum(:price)}")
+      #line.push("O.S. #{item.ordem_service_id}, Cliente: #{item.ordem_service.client.nome}, Valor: #{item.ordem_service.discharge_payments.sum(:price)};")
     end
-    obs
+    line
   end
 
   private

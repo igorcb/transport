@@ -262,7 +262,9 @@ Rails.application.routes.draw do
     match :update_status, :as => :update_status, :via => [:get, :put]
   end
 
-  resources :lower_payables, only: [:destroy]
+  resources :lower_payables, only: [:destroy] do
+    get :quitter, on: :member
+  end
   resources :lower_receivables, only: [:destroy] do
     get :quitter, on: :member
   end
