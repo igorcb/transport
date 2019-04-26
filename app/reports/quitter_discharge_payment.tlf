@@ -98,34 +98,8 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 30,
-      "y": 95,
-      "width": 174,
-      "height": 14,
-      "style": {
-        "font-family": [
-          "Helvetica"
-        ],
-        "font-size": 9,
-        "color": "#000000",
-        "text-align": "left",
-        "vertical-align": "top",
-        "line-height": "",
-        "line-height-ratio": "",
-        "letter-spacing": "",
-        "font-style": []
-      },
-      "texts": [
-        "DADOS DO PRESTADOR DE SERVIÇOS:"
-      ]
-    },
-    {
-      "id": "",
-      "type": "text",
-      "display": true,
-      "description": "",
-      "x": 310,
-      "y": 95,
+      "x": 35,
+      "y": 85,
       "width": 199,
       "height": 15,
       "style": {
@@ -142,7 +116,7 @@
         "font-style": []
       },
       "texts": [
-        "DADOS DO ADQUIRENTE DO SERVIÇO:"
+        "DADOS DO MOTORISTA:"
       ]
     },
     {
@@ -258,8 +232,8 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 194,
-      "y": 715,
+      "x": 192,
+      "y": 716,
       "width": 260.5,
       "height": 24,
       "style": {
@@ -277,33 +251,7 @@
       },
       "texts": [
         "__________________________________________",
-        "ASSINATURA DO PRESTADOR DO SERVIÇO"
-      ]
-    },
-    {
-      "id": "",
-      "type": "text",
-      "display": true,
-      "description": "",
-      "x": 161,
-      "y": 190,
-      "width": 125.4,
-      "height": 18,
-      "style": {
-        "font-family": [
-          "Helvetica"
-        ],
-        "font-size": 12,
-        "color": "#7f7f7f",
-        "text-align": "center",
-        "vertical-align": "top",
-        "line-height": "",
-        "line-height-ratio": "",
-        "letter-spacing": "",
-        "font-style": []
-      },
-      "texts": [
-        "Adiquirente do serviço"
+        "ASSINATURA DO MOTORISTA"
       ]
     },
     {
@@ -343,8 +291,8 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 313,
-      "y": 110,
+      "x": 37,
+      "y": 102,
       "width": 245,
       "height": 11,
       "style": {
@@ -375,8 +323,8 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 365,
-      "y": 125,
+      "x": 38,
+      "y": 130,
       "width": 192,
       "height": 11,
       "style": {
@@ -409,7 +357,7 @@
       "description": "",
       "x": 157.6,
       "y": 215,
-      "width": 398,
+      "width": 391,
       "height": 20,
       "style": {
         "font-family": [
@@ -439,8 +387,8 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 311,
-      "y": 125,
+      "x": 37,
+      "y": 118,
       "width": 52.8,
       "height": 17,
       "style": {
@@ -461,141 +409,13 @@
       ]
     },
     {
-      "id": "emp_fantasia",
-      "type": "text-block",
-      "display": true,
-      "description": "",
-      "x": 30,
-      "y": 110,
-      "width": 245,
-      "height": 11,
-      "style": {
-        "font-family": [
-          "Helvetica"
-        ],
-        "font-size": 10,
-        "color": "#7f7f7f",
-        "text-align": "left",
-        "vertical-align": "top",
-        "line-height": "",
-        "line-height-ratio": "",
-        "letter-spacing": "",
-        "font-style": [],
-        "overflow": "truncate",
-        "word-wrap": "break-word"
-      },
-      "reference-id": "",
-      "value": "",
-      "multiple-line": false,
-      "format": {
-        "base": "",
-        "type": ""
-      }
-    },
-    {
       "id": "emp_razao_social",
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 30,
-      "y": 125,
-      "width": 245,
-      "height": 11,
-      "style": {
-        "font-family": [
-          "Helvetica"
-        ],
-        "font-size": 10,
-        "color": "#7f7f7f",
-        "text-align": "left",
-        "vertical-align": "top",
-        "line-height": "",
-        "line-height-ratio": "",
-        "letter-spacing": "",
-        "font-style": [],
-        "overflow": "truncate",
-        "word-wrap": "break-word"
-      },
-      "reference-id": "",
-      "value": "",
-      "multiple-line": false,
-      "format": {
-        "base": "",
-        "type": ""
-      }
-    },
-    {
-      "id": "emp_cnpj",
-      "type": "text-block",
-      "display": true,
-      "description": "",
-      "x": 30,
-      "y": 140,
-      "width": 245,
-      "height": 11,
-      "style": {
-        "font-family": [
-          "Helvetica"
-        ],
-        "font-size": 10,
-        "color": "#7f7f7f",
-        "text-align": "left",
-        "vertical-align": "top",
-        "line-height": "",
-        "line-height-ratio": "",
-        "letter-spacing": "",
-        "font-style": [],
-        "overflow": "truncate",
-        "word-wrap": "break-word"
-      },
-      "reference-id": "",
-      "value": "",
-      "multiple-line": false,
-      "format": {
-        "base": "",
-        "type": ""
-      }
-    },
-    {
-      "id": "emp_fone",
-      "type": "text-block",
-      "display": true,
-      "description": "",
-      "x": 30,
-      "y": 155,
-      "width": 245,
-      "height": 11,
-      "style": {
-        "font-family": [
-          "Helvetica"
-        ],
-        "font-size": 10,
-        "color": "#7f7f7f",
-        "text-align": "left",
-        "vertical-align": "top",
-        "line-height": "",
-        "line-height-ratio": "",
-        "letter-spacing": "",
-        "font-style": [],
-        "overflow": "truncate",
-        "word-wrap": "break-word"
-      },
-      "reference-id": "",
-      "value": "",
-      "multiple-line": false,
-      "format": {
-        "base": "",
-        "type": ""
-      }
-    },
-    {
-      "id": "emp_cidade",
-      "type": "text-block",
-      "display": true,
-      "description": "",
-      "x": 30,
-      "y": 170,
-      "width": 245,
+      "x": 161,
+      "y": 190,
+      "width": 386.6,
       "height": 11,
       "style": {
         "font-family": [
@@ -629,20 +449,6 @@
       "y": 36,
       "width": 123,
       "height": 38,
-      "style": {
-        "position-x": "left",
-        "position-y": "top"
-      }
-    },
-    {
-      "id": "image_quitter",
-      "type": "image-block",
-      "display": true,
-      "description": "",
-      "x": 234,
-      "y": 670,
-      "width": 177.6,
-      "height": 53,
       "style": {
         "position-x": "left",
         "position-y": "top"

@@ -27,18 +27,11 @@ class LowerPayablesController < ApplicationController
       @company = Company.first
       src_image = @company.image.path
       valor = (lower.account_payable.total_pago.to_f * 100).to_i
-      local_data = "#{@company.cidade}, #{l lower.data_pagamento , format: :long }"
-      emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
+       local_data = "#{@company.cidade}, #{l lower.data_pagamento , format: :long }"
       report.start_new_page
 
-      #report.page.item(:image_logo).src('/path/to/image.png')
       report.page.item(:image_logo).src(@company.image.path) #@company.image.url
-      report.page.item(:image_quitter).src(@company.quitter.path) #@company.image.url
-      report.page.item(:emp_fantasia).value(@company.fantasia)
       report.page.item(:emp_razao_social).value(@company.razao_social)
-      report.page.item(:emp_cnpj).value("CNPJ: " + @company.cnpj)
-      report.page.item(:emp_fone).value("CONTATO: " + @company.phone_first)
-      report.page.item(:emp_cidade).value(@company.cidade_estado)
 
       report.page.item(:valor_numerico).value("R$ #{number_to_currency(lower.total_pago, precision: 2, unit: "", separator: ",", delimiter: ".")}")
       report.page.item(:nome).value(lower.account_payable.supplier.nome)
@@ -47,12 +40,15 @@ class LowerPayablesController < ApplicationController
       #report.page.item(:account_obs).value(lower.account_payable.boarding.observation_discharge_payment.compact.join("\n"))
       #boarding.observation_discharge_payment.compact.join("<br>").html_safe
       #@account_payable.boarding.observation_discharge_payment.compact.join("<br>").html_safe
+      report.list(:list_observation).add_row do |row|
+        row.values(description: "EMBARQUE Nº: #{lower.account_payable.id} ")
+      end
+
       lower.account_payable.boarding.observation_discharge_payment.each do |item|
         report.list(:list_observation).add_row do |row|
           row.values(description: item)
         end
       end
-      report.page.item(:data_and_hora).value(emitido)
 
       report.page.item(:issue_date).value(local_data)
       send_data report.generate, filename: "recibo_#{lower.id}_.pdf",

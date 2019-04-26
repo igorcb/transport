@@ -84,6 +84,16 @@
 </p>
 
 <p>
+  <strong>Criado em:</strong> <%= date_br @account_payable.created_at %> as <%= time_br @account_payable.created_at %>
+  <strong>por</strong> <%= @account_payable.user_created.email if @account_payable.user_created.present? %>
+</p>
+
+<p>
+  <strong>Última atualização:</strong> <%= date_br @account_payable.updated_at %> as <%= time_br @account_payable.updated_at %>
+  <strong>por</strong> <%= @account_payable.user_updated.email if @account_payable.user_updated.present? %>
+</p>
+
+<p>
   <strong>Observacao:</strong>
   <pre>
     <%#= @account_payable.observacao %>

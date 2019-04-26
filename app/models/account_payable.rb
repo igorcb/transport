@@ -23,6 +23,8 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :ordem_service, required: false
   belongs_to :boarding, required: false
   belongs_to :ordem_service_type_service, required: false
+  belongs_to :user_created, required: false
+  belongs_to :user_updated, required: false
   has_many :lower_account_payables
 
   has_many :assets, as: :asset, dependent: :destroy
