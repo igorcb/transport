@@ -27,7 +27,8 @@ class LowerPayablesController < ApplicationController
       @company = Company.first
       src_image = @company.image.path
       valor = (lower.account_payable.total_pago.to_f * 100).to_i
-       local_data = "FORTALEZA, #{l lower.data_pagamento , format: :long }"
+      local_data = "#{@company.cidade}, #{l lower.data_pagamento , format: :long }"
+      emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
       report.start_new_page
 
       #report.page.item(:image_logo).src('/path/to/image.png')
@@ -51,6 +52,7 @@ class LowerPayablesController < ApplicationController
           row.values(description: item)
         end
       end
+      report.page.item(:data_and_hora).value(emitido)
 
       report.page.item(:issue_date).value(local_data)
       send_data report.generate, filename: "recibo_#{lower.id}_.pdf",

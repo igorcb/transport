@@ -24,7 +24,7 @@
       "display": true,
       "description": "",
       "x": 460,
-      "y": 662,
+      "y": 651,
       "width": 109.4,
       "height": 90.8,
       "data": {
@@ -38,7 +38,7 @@
       "display": true,
       "description": "",
       "x": 25,
-      "y": 685,
+      "y": 665,
       "width": 189.6,
       "height": 10,
       "style": {
@@ -233,7 +233,7 @@
       "display": true,
       "description": "",
       "x": 25,
-      "y": 670,
+      "y": 650,
       "width": 78.6,
       "height": 11,
       "style": {
@@ -258,7 +258,7 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 200,
+      "x": 194,
       "y": 715,
       "width": 260.5,
       "height": 24,
@@ -639,7 +639,7 @@
       "type": "image-block",
       "display": true,
       "description": "",
-      "x": 240,
+      "x": 234,
       "y": 670,
       "width": 177.6,
       "height": 53,
@@ -656,7 +656,7 @@
       "x": 109.6,
       "y": 242,
       "width": 446,
-      "height": 414,
+      "height": 402,
       "header": {
         "enabled": false,
         "height": 0,
@@ -725,8 +725,42 @@
         },
         "items": []
       },
-      "content-height": 414,
+      "content-height": 402,
       "auto-page-break": false
+    },
+    {
+      "id": "data_and_hora",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 20,
+      "y": 766,
+      "width": 555.2,
+      "height": 16,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 8,
+        "color": "#7f7f7f",
+        "text-align": "center",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [
+          "bold"
+        ],
+        "overflow": "truncate",
+        "word-wrap": "break-word"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": true,
+      "format": {
+        "base": "",
+        "type": ""
+      }
     }
   ],
   "state": {
