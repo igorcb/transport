@@ -22,7 +22,7 @@ class Product < ActiveRecord::Base
   def height_maximum_pallet
   	value = BigDecimal.new(0)
   	if (!height.nil?) || (!layer_pallet.nil?)
-  		value = (height.to_f * layer_pallet.to_f) / 100
+  		value = (height.to_f * layer_pallet.to_f) #/ 100
     end
    	value
   end
