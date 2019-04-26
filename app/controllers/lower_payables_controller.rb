@@ -47,7 +47,6 @@ class LowerPayablesController < ApplicationController
       #boarding.observation_discharge_payment.compact.join("<br>").html_safe
       #@account_payable.boarding.observation_discharge_payment.compact.join("<br>").html_safe
       lower.account_payable.boarding.observation_discharge_payment.each do |item|
-        puts ">>>>>>>>>>>>>>>>>>>>>>>>>> Item: #{item}"
         report.list(:list_observation).add_row do |row|
           row.values(description: item)
         end

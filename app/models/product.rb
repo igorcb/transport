@@ -27,6 +27,14 @@ class Product < ActiveRecord::Base
    	value
   end
 
+	def total_box_pallet
+		value = BigDecimal.new(0)
+  	if (!ballast.nil?) || (!layer_pallet.nil?)
+  		value = (ballast.to_f * layer_pallet.to_f)# / 100
+    end
+   	value
+	end
+
 	def self.update_or_create(attributes)
 	  assign_or_new(attributes).save
 	end
