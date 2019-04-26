@@ -43,8 +43,16 @@ class LowerPayablesController < ApplicationController
       report.page.item(:nome).value(lower.account_payable.supplier.nome)
       report.page.item(:cpf_cnpj).value(lower.account_payable.supplier.cpf)
       report.page.item(:valor_extenso).value(Extenso.moeda(valor))
-      report.page.item(:account_obs).value(lower.account_payable.observacao)
-      
+      #report.page.item(:account_obs).value(lower.account_payable.boarding.observation_discharge_payment.compact.join("\n"))
+      #boarding.observation_discharge_payment.compact.join("<br>").html_safe
+      #@account_payable.boarding.observation_discharge_payment.compact.join("<br>").html_safe
+      lower.account_payable.boarding.observation_discharge_payment.each do |item|
+        puts ">>>>>>>>>>>>>>>>>>>>>>>>>> Item: #{item}"
+        report.list(:list_observation).add_row do |row|
+          row.values(description: item)
+        end
+      end
+
       report.page.item(:issue_date).value(local_data)
       send_data report.generate, filename: "recibo_#{lower.id}_.pdf",
                                    type: 'application/pdf',

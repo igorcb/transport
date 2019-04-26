@@ -684,11 +684,12 @@ class Boarding < ActiveRecord::Base
   def observation_discharge_payment
     # Adicionar OS/Cliente/ValorDescarga
     line = Array.new
-    line.push("PAGAMENTO DE DESCARGA - 2;")
-    line.push("PAGAMENTO DE DESCARGA - 2;")
-    line.push("PAGAMENTO DE DESCARGA - 2;")
+    # line.push("PAGAMENTO DE DESCARGA - 1;")
+    # line.push("PAGAMENTO DE DESCARGA - 2;")
+    # line.push("PAGAMENTO DE DESCARGA - 3;")
+    #puts line.compact.join("\n")
     self.boarding_items.each do |item|
-      #line.push("O.S. #{item.ordem_service_id}, Cliente: #{item.ordem_service.client.nome}, Valor: #{item.ordem_service.discharge_payments.sum(:price)};")
+      line.push("O.S. #{item.ordem_service_id}, Cliente: #{item.ordem_service.client.nome}, Valor: #{item.ordem_service.discharge_payments.sum(:price)};")
     end
     line
   end
