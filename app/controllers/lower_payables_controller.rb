@@ -1,7 +1,7 @@
 class LowerPayablesController < ApplicationController
   def destroy
 		@lower = LowerAccountPayable.find(params[:id])
-		@account_payable = AccountPayable.find(@lower.account_payable)
+    @account_payable = AccountPayable.where(id: @lower.account_payable).first
 		@lower.destroy
 		@account_payable.check_balance
     respond_to do |format|
@@ -27,7 +27,8 @@ class LowerPayablesController < ApplicationController
       @company = Company.first
       src_image = @company.image.path
       valor = (lower.account_payable.total_pago.to_f * 100).to_i
-       local_data = "#{@company.cidade}, #{l lower.data_pagamento , format: :long }"
+      local_data = "#{@company.cidade}, #{l lower.data_pagamento , format: :long }"
+      emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
       report.start_new_page
 
       report.page.item(:image_logo).src(@company.image.path) #@company.image.url
@@ -51,6 +52,7 @@ class LowerPayablesController < ApplicationController
       end
 
       report.page.item(:issue_date).value(local_data)
+      report.page.item(:data_and_hora).value(emitido)
       send_data report.generate, filename: "recibo_#{lower.id}_.pdf",
                                    type: 'application/pdf',
                                    disposition: 'inline'

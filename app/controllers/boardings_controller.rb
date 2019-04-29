@@ -299,6 +299,7 @@ class BoardingsController < ApplicationController
     @account_payable.valor = params[:value_discharge] #hash[:value_discharge]
     #@account_payable.observacao = "PAGAMENTO DE DESCARGA O.S No: #{@boarding.ordem_services_ids}, "
     @account_payable.observacao = @boarding.observation_discharge_payment
+    @account_payable.user_created_id = current_user.id
     @account_payable.status = AccountPayable::TipoStatus::ABERTO
     if @account_payable.save!
       flash[:success] = "Request payment was successful."

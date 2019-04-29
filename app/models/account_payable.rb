@@ -23,8 +23,9 @@ class AccountPayable < ActiveRecord::Base
   belongs_to :ordem_service, required: false
   belongs_to :boarding, required: false
   belongs_to :ordem_service_type_service, required: false
-  belongs_to :user_created, required: false
-  belongs_to :user_updated, required: false
+  belongs_to :user_created, class_name: "User", foreign_key: "user_created_id",required: false
+  belongs_to :user_updated, class_name: "User", foreign_key: "user_updated_id",required: false
+
   has_many :lower_account_payables
 
   has_many :assets, as: :asset, dependent: :destroy
@@ -96,7 +97,7 @@ class AccountPayable < ActiveRecord::Base
   end
 
 #  def payament(data, valor, juros, desconto)
-  def payament(options)
+  def payament(options, user_created_id)
     #options ||= {}
     ActiveRecord::Base.transaction do
       vr_pago = options[:valor_pago].to_f + options[:juros].to_f - options[:desconto].to_f
@@ -118,7 +119,8 @@ class AccountPayable < ActiveRecord::Base
                                           juros: options[:juros],
                                           desconto: options[:desconto],
                                           total_pago: options[:total_pago],
-                                          cash_account_id: options[:cash_account_id]
+                                          cash_account_id: options[:cash_account_id],
+                                          user_created_id: user_created_id
                                           )
       self.save
 

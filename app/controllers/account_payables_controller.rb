@@ -83,6 +83,7 @@ class AccountPayablesController < ApplicationController
 
   def update
     respond_to do |format|
+      @account_payable.user_updated_id = current_user.id
       if @account_payable.update(account_payable_params)
         format.html { redirect_to @account_payable, flash: { success: "AccountPayable was successfully updated." } }
         format.json { head :no_content }
@@ -163,7 +164,7 @@ class AccountPayablesController < ApplicationController
     end
 
     respond_to do |format|
-      if @account_payable.payament(params[:lower_payables])
+      if @account_payable.payament(params[:lower_payables], current_user.id )
         format.html { redirect_to @account_payable, flash: { success: "Lower AccountsPayable was successful." } }
         #format.json { render action: 'show', status: :created, location: @account_payable }
       else
