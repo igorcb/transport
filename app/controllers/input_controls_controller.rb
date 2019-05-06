@@ -448,7 +448,10 @@ class InputControlsController < ApplicationController
       has_present = []
       nfe_xmls = array_nfe_xml
       nfe_xmls.each do |arq|
-        has_present.push(arq) if NfeXml.nao_processado.where(asset_file_name: "#{arq}.xml").or(NfeXml.nao_processado.where(asset_file_name: "#{arq}-procNFe.xml")).first.present?
+        # has_present.push(arq) if NfeXml.nao_processado.where(asset_file_name: "#{arq}.xml").
+        #                       or(NfeXml.nao_processado.where(asset_file_name: "#{arq}-nfe.xml").
+        #                       or(NfeXml.nao_processado.where(asset_file_name: "#{arq}-procNFe.xml")).first.present?
+        has_present.push(arq) if NfeXml.nao_processado.where("asset_file_name LIKE ?", "%#{arq}%").first.present?
       end
       has_present
     end
