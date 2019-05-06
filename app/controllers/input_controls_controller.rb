@@ -439,7 +439,8 @@ class InputControlsController < ApplicationController
       nfe_not_exist = []
       nfe_xmls = array_nfe_xml
       nfe_xmls.each do |arq|
-        nfe_not_exist.push(arq) if !NfeXml.where(asset_file_name: "#{arq}.xml").or(NfeXml.where(asset_file_name: "#{arq}-procNFe.xml")).first.present?
+        #nfe_not_exist.push(arq) if !NfeXml.where(asset_file_name: "#{arq}.xml").or(NfeXml.where(asset_file_name: "#{arq}-procNFe.xml")).first.present?
+        nfe_not_exist.push(arq) if NfeXml.where("asset_file_name LIKE ?", "%#{arq}%").first.present?
       end
       nfe_not_exist
     end
