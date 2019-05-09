@@ -46,6 +46,13 @@ RSpec.describe Boardings::AddBoardingItemService, type: :service do
 
     end
 
+    it "when the O.S. does not exist" do
+      @ordem_service = OrdemService.where(id: -1).first
+      result = Boardings::AddBoardingItemService.new(@boarding, @ordem_service).call
+      expect(result[:success]).to be_falsey
+      expect(result[:message]).to match("O.S. does not exist.")
+    end
+
     it "when the O.S. does not have the status OPEN" do
       @ordem_service = set_ordem_service_status(@ordem_service, OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
       result = Boardings::AddBoardingItemService.new(@boarding, @ordem_service).call
