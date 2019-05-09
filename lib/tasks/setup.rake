@@ -29,6 +29,10 @@ namespace :test do
 	    ConfigSystem.create_with(config_key: "ORDEM_SERVICE_SUB_COST_CENTER", config_value: "1", config_description: "Sub Centro de Custo padrão do sistema para quando fechar uma ordem de serviço gerar o contas a receber").find_or_create_by(config_key: "ORDEM_SERVICE_SUB_COST_CENTER")
 	    ConfigSystem.create_with(config_key: "ORDEM_SERVICE_SUB_COST_CENTER_THREE", config_value: "1", config_description: "Terceiro Sub Centro de Custo padrão do sistema para quando fechar uma ordem de serviço gerar o contas a receber").find_or_create_by(config_key: "ORDEM_SERVICE_SUB_COST_CENTER_THREE")
 	    ConfigSystem.create_with(config_key: "ORDEM_SERVICE_PAYMENT_METHOD", config_value: "1", config_description: "Forma de pagamento padrão do sistema para quando fechar uma ordem de serviço gerar o contas a receber").find_or_create_by(config_key: "ORDEM_SERVICE_PAYMENT_METHOD")
+			ConfigSystem.create_with(config_key: "PAYMENT_DISCHARGE_COST_CENTER", config_value: "1", config_description: "Centro de custo padrão para quando solicita pagamento de descarga no embarque, gerar o contas a pagar.").find_or_create_by(config_key: "PAYMENT_DISCHARGE_COST_CENTER")
+			ConfigSystem.create_with(config_key: "PAYMENT_DISCHARGE_SUB_COST_CENTER", config_value: "1", config_description: "Sub Centro de custo padrão para quando solicita pagamento de descarga no embarque, gerar o contas a pagar").find_or_create_by(config_key: "PAYMENT_DISCHARGE_SUB_COST_CENTER")
+			ConfigSystem.create_with(config_key: "PAYMENT_DISCHARGE_SUB_COST_CENTER_THREE", config_value: "1", config_description: "Terceiro Nível Sub Centro de custo padrão para quando solicita pagamento de descargano embarque, gerar o contas a pagar.").find_or_create_by(config_key: "PAYMENT_DISCHARGE_SUB_COST_CENTER_THREE")
+
 			puts "   - Count: #{ConfigSystem.count}"
 
 			company = FactoryBot.create(:company)

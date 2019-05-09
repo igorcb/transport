@@ -1,5 +1,6 @@
 <%= form_for([@boarding, @boarding_item], :remote => true) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+  <%#= render 'shared/error_messages', object: f.object %>
+  <div class="messages"></div>
   <div style="text-align:center; margin: 0 auto;" class="center form-group">
     <%= f.text_field :ordem_service_id, :size => 20, style: "text-transform:uppercase", placeholder: "Num. O.S."  %>
     <%= f.text_field :delivery_number, :size => 20, style: "text-transform:uppercase", placeholder: "No Entrega"  %>

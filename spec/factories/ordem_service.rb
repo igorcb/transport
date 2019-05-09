@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :ordem_service do
     tipo { OrdemService::TipoOS::LOGISTICA }
-    target_client_id { 1 }
-    source_client_id { 1 }
+    target_client_id { Client.first.id }
+    source_client_id { Client.last.id }
     carrier
     carrier_entry_id { 1 }
     peso { 27000}

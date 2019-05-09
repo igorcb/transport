@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :client do
-    association :group_client, factory: :group_client 
+    #association :group_client, factory: :group_client
+    group_client_id {GroupClient.first.id}
     tipo_cliente { Client::TipoCliente::NORMAL }
     tipo_pessoa { Client::TipoPessoa::JURIDICA }
     cpf_cnpj { Faker::CNPJ.cnpj }
