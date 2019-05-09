@@ -9,7 +9,6 @@ module Boardings
 
     def call
       #byebug
-
       return {success: false, message: "Boarding does not have the status OPEN."} if @boarding.status != Boarding::TipoStatus::ABERTO
       return {success: false, message: "Boarding has payment discharge."} if @boarding.account_payables.present?
       return {success: false, message: "O.S. does not have the status AGUARDANDO_EMBARQUE."} if @ordem_service.status != OrdemService::TipoStatus::AGUARDANDO_EMBARQUE
