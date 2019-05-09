@@ -1,13 +1,13 @@
-<% if @boarding_item.errors.any? -%>
-  $("#menssagem").hide(300);
+<% if @result[:success] == false -%>
+  $("#messages").hide(300);
   $("#messages").empty("");
-  $("#messages").append("<div class='alert alert-danger'><%= j(render 'shared/error_messages', object: @boarding_item)%></div>");
-  $("#menssagem").show(300);
+  $("#messages").append("<div class='alert alert-danger'><%= @result[:message] %></div>");
+  $("#messages").show(300);
 <% else -%>
-  $("#menssagem").hide(300);
+  $("#messages").hide(300);
   $("#messages").empty("");
-  $("#menssagem").html('<%= j ( render ("shared/flash_messages") )%>');
-  $("#menssagem").show(300);
+  $("#messages").append("<div class='alert alert-success'><%= @result[:message] %></div>");
+  $("#messages").show(300);
   $(":input:not(input[type=submit])").val("");
   $("#boardings_items_list").html("<%= j( render "boarding_item", boarding_items: @boarding_items ) %>");
 <% end -%>

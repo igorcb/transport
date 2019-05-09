@@ -1,3 +1,12 @@
-$("#menssagem").show(300);
-$("#message").append("<div class='alert alert-success'>BoardingItem destroyed successfully.</div>");
-$('#boarding_items_id_<%= @boarding_item.id %>').remove();
+<% if @result[:success] == false -%>
+  $("#messages").hide(300);
+  $("#messages").empty("");
+  $("#messages").append("<div class='alert alert-danger'><%= @result[:message] %></div>");
+  $("#messages").show(300);
+<% else -%>
+  $("#messages").hide(300);
+  $("#messages").empty("");
+  $("#messages").append("<div class='alert alert-success'><%= @result[:message] %></div>");
+  $("#messages").show(300);
+  $('#boarding_items_id_<%= @boarding_item.id %>').remove();
+<% end -%>
