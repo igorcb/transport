@@ -46,11 +46,23 @@ namespace :test do
 			puts "   - Count: #{User.count}"
 
 			#FactoryBot.create_list(:carrier, 2)
+			puts "  - Create Carrier"
+	    Carrier.create_with(cnpj: "00.000.000/0000-00", nome: "TRANSPORTADORA NÃO IDENTIFICADO", fantasia: "TRANSPORTADORA NÃO IDENTIFICADO", cep: "60.000-000", endereco: "Rua da cidade", numero: "s/n", bairro: "Centro", cidade: "Fortaleza", estado: "CE").find_or_create_by(cnpj: "00.000.000/0000-00")
 			FactoryBot.create(:carrier, cnpj: company.cnpj)
 			FactoryBot.create(:carrier)
+			puts "   - Count: #{Carrier.count}"
+
 			FactoryBot.create(:group_client)
 			FactoryBot.create(:owner)
+
+			puts "  - Create Driver"
+			Driver.create_with(cpf: "000.000.000-00", nome: "MOTORISTA NÃO IDENTIFICADO", fantasia: "MOTORISTA NÃO IDENTIFICADO", cep: "60.000-000", endereco: "Rua da cidade", numero: "s/n", bairro: "Centro", cidade: "Fortaleza", estado: "CE",
+	                  rg: "000000000", orgao_expeditor: "SSP/CE", data_emissao_rg: "30/12/2099", data_nascimento: "30/12/1989", municipio_nascimento: "FORTALEZA", estado_nascimento: "CE", inss: "000", cnh: "000", registro_cnh: "0000",
+	                  validade_cnh: "30/12/2099", categoria: "1", estado_civil: 1, cor_da_pele: 2, tipo_contrato: 0,
+	                  nome_do_pai: "PAI DO MOTORISTA", nome_da_mae: "MAE DO MOTORISTA").find_or_create_by(cpf: "000.000.000-00")
 			FactoryBot.create(:driver, user_created: User.first, user_updated: User.first)
+			puts "   - Count: #{Driver.count}"
+
 			FactoryBot.create(:vehicle, user_created: User.first, user_updated: User.first)
 
       sectors = [
@@ -82,7 +94,7 @@ namespace :test do
 			puts "   - NfeXml Count: #{NfeXml.count}"
 
 			puts "  - Create OrdemService"
-			#ordem_service = FactoryBot.create(:ordem_service)
+			ordem_service = FactoryBot.create(:ordem_service)
 			#"id"=>"2027", "nfe"=>{"ids"=>{"7418"=>"7418", "7417"=>"7417", "7419"=>"7419", "7420"=>"7420"}}
 			#"id"=>"2027", "nfe"=>{"ids"=>{"7418"=>"7418"}}
 			hash = {}
@@ -106,9 +118,10 @@ namespace :test do
       ordem_service_first = OrdemService.first
 
 			puts "  - Create Boarding"
-
 			boarding = FactoryBot.create(:boarding)
 			boarding.boarding_items.create(ordem_service_id: ordem_service_first.id, delivery_number: 1)
+			puts "   - Count: #{Boarding.count}"
+			puts "   - Count Boarding Items: #{BoardingItem.count}"
 		end
 	end
 end
