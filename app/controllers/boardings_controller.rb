@@ -284,30 +284,6 @@ class BoardingsController < ApplicationController
   end
 
   def request_payment
-    # @boarding.observation_discharge_payment
-    # @account_payable = @boarding.account_payables.build
-    # @account_payable.type_account = AccountPayable::TypeAccount::DRIVER
-    # @account_payable.supplier_type = "Driver"
-    # @account_payable.supplier_id = @boarding.driver_id
-    # @account_payable.cost_center_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_COST_CENTER').first.config_value
-    # @account_payable.sub_cost_center_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_SUB_COST_CENTER').first.config_value
-    # @account_payable.sub_cost_center_three_id = ConfigSystem.where(config_key: 'PAYMENT_DISCHARGE_SUB_COST_CENTER_THREE').first.config_value
-    # @account_payable.payment_method_id = ConfigSystem.where(config_key: 'PAYMENT_METHOD_DEFAULT').first.config_value
-    # @account_payable.historic_id = ConfigSystem.where(config_key: 'HISTORIC_DEFAULT').first.config_value
-    # @account_payable.data_vencimento = Date.today
-    # @account_payable.documento = "#{@boarding.id}"
-    # @account_payable.valor = params[:value_discharge] #hash[:value_discharge]
-    # #@account_payable.observacao = "PAGAMENTO DE DESCARGA O.S No: #{@boarding.ordem_services_ids}, "
-    # @account_payable.observacao = @boarding.observation_discharge_payment
-    # @account_payable.user_created_id = current_user.id
-    # @account_payable.status = AccountPayable::TipoStatus::ABERTO
-    #
-    # if @account_payable.save!
-    #   flash[:success] = "Request payment was successful."
-    # else
-    #   flash[:danger] = "Error request payment."
-    # end
-    # redirect_to boarding_path(@boarding)
     result = Boardings::AddPaymentDischargeService.new(@boarding, current_user).call
     if result[:success]
       flash[:success] = result[:message]
