@@ -694,6 +694,17 @@ class Boarding < ActiveRecord::Base
     line
   end
 
+  def check_all_ordem_service_have_payment_discharge?
+    positivo = true
+    self.boarding_items.each do |item|
+      positivo = item.ordem_service.discharge_payments.present?
+      if positivo == false
+        return false
+      end
+    end
+    positivo
+  end
+
   private
 
     def get_ordem_services_ids
