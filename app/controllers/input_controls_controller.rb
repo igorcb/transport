@@ -495,6 +495,7 @@ class InputControlsController < ApplicationController
         report.page.item(:peso).value(nfe.peso)
         report.page.item(:cidade).value("#{nfe.target_client.cidade}/#{nfe.target_client.estado}")
         report.page.item(:nota_fiscal).value(nfe.numero)
+        report.page.item(:qtde_pallets).value(nfe.qtde_pallet)
         report.page.item(:client).value(nfe.target_client.nome)
         report.start_new_page
         tag_header(report, input_control)

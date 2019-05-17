@@ -22,9 +22,9 @@
       "display": true,
       "description": "",
       "x": 20,
-      "y": 20,
+      "y": 31,
       "width": 801.8,
-      "height": 555.2,
+      "height": 532,
       "style": {
         "border-color": "#000000",
         "border-width": 1,
@@ -39,7 +39,7 @@
       "display": true,
       "description": "",
       "x": 34.4,
-      "y": 180,
+      "y": 141,
       "width": 769,
       "height": 54,
       "style": {
@@ -70,8 +70,8 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 34.4,
-      "y": 244,
+      "x": 35.4,
+      "y": 198,
       "width": 769,
       "height": 168,
       "style": {
@@ -102,9 +102,9 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 85,
-      "y": 548,
-      "width": 712.4,
+      "x": 84,
+      "y": 535,
+      "width": 253.9,
       "height": 16,
       "style": {
         "font-family": [
@@ -134,9 +134,9 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 37.4,
-      "y": 550,
-      "width": 55,
+      "x": 34,
+      "y": 535,
+      "width": 46.9,
       "height": 20,
       "style": {
         "font-family": [
@@ -162,9 +162,9 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 35,
-      "y": 420,
-      "width": 760.4,
+      "x": 36,
+      "y": 370,
+      "width": 768.9,
       "height": 31,
       "style": {
         "font-family": [
@@ -381,13 +381,73 @@
       "display": true,
       "description": "",
       "x": 30,
-      "y": 33,
+      "y": 40,
       "width": 123,
       "height": 38,
       "style": {
         "position-x": "left",
         "position-y": "top"
       }
+    },
+    {
+      "id": "qtde_pallets",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 742,
+      "y": 500,
+      "width": 65.9,
+      "height": 53,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 48,
+        "color": "#000000",
+        "text-align": "right",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [],
+        "overflow": "truncate",
+        "word-wrap": "break-word"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": false,
+      "format": {
+        "base": "",
+        "type": ""
+      }
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 515,
+      "y": 503,
+      "width": 222.5,
+      "height": 53,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 36,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [
+          "bold"
+        ]
+      },
+      "texts": [
+        "Qtde Pallets:"
+      ]
     }
   ],
   "state": {
