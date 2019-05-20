@@ -525,9 +525,9 @@ class OrdemServicesController < ApplicationController
     @discharge = ClientDischarge.find(hash[:discharge])
 
     @discharge_payment = @ordem_service.discharge_payments.build(type_operation_type: "OrdemService",
-                                                                           type_unit: @discharge.type_unit,
-                                                                         type_charge: @discharge.type_charge,
-                                                                           type_calc: @discharge.type_calc,
+                                                                           type_unit: @discharge.type_unit.to_s,
+                                                                         type_charge: @discharge.type_charge.to_s,
+                                                                           type_calc: @discharge.type_calc.to_s,
                                                                                price: hash[:value_discharge])
 
     if @discharge_payment.save!
