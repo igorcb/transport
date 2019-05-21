@@ -1,21 +1,21 @@
 <h1>Iniciar Recebimento: <%= @input_control.id %></h1>
 <%= form_for @input_control, url: update_start_input_control_path, method: :patch, :html => { :multipart => true } do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  
+
   <div class="panel panel-default">
     <div class="panel-heading">Dados da Entrada - No: <%= @input_control.id %></div>
     <div class="panel-body">
-    
+
     <%= render 'static_pages/oper_input_control', input_control: @input_control %>
-    
+
     </div>
   </div>
 
 
   <div class="form-group">
     <%= f.label :place_confirmed, "Placa" %><br>
-    <%= f.text_field :place_confirmed, class: "form-control placa" %>
-  </div>    
+    <%= f.text_field :place_confirmed, class: "form-control " %>
+  </div>
 
   <div class="form-group">
     <%= f.label :team, "Equipe" %>
@@ -31,7 +31,7 @@
     <%= f.label :dock, "Doca" %>
     <%= f.select( :dock, select_dock, {include_blank: "Selecione uma doca"}, {class: "form-control"} ) %>
   </div>
-  
+
 
 	<%= f.submit "Iniciar Recebimento", class: "btn btn-blue" %>
 <% end %>
