@@ -12,6 +12,7 @@
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <div class="panel panel-default">
+          <div class="form-group">
           <p>
 					  <strong>Dt. Emissão:</strong>
 					  <%= date_br @nfe_xml.issue_date %>
@@ -100,9 +101,17 @@
 					  <%= @nfe_xml.target_client.estado_cidade if @nfe_xml.target_client.present? %>
 					</p>
 
+        </div>
+        <% if !@nfe_xml.processado? %>
+          <div class="form-group">
+            <%= link_to 'Destroy', @nfe_xmls, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          </div>
+        <% end %>
 
         </div>
+
       </div>
+
     </div>
   </div>
 

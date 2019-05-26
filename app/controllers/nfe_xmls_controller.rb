@@ -1,6 +1,6 @@
 class NfeXmlsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_nfe_xml, only: [ :edit, :update ]
+  before_action :set_nfe_xml, only: [ :edit, :update, :delete ]
   load_and_authorize_resource
 
   respond_to :html, :js
@@ -91,6 +91,11 @@ class NfeXmlsController < ApplicationController
     respond_with(@nfe_xmls) do |format|
      format.js
     end
+  end
+
+  def destroy
+    @nfe_xml.destroy
+    respond_with(@nfe_xml)
   end
 
   private
