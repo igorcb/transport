@@ -77,6 +77,8 @@ gem 'sidekiq', '~> 5.2', '>= 5.2.3'
 gem 'sidekiq-scheduler', '~> 3.0'
 
 gem 'redis'
+gem 'simple_token_authentication', '~> 1.0' # see semver.org
+
 
 group :test do
   gem 'database_cleaner'

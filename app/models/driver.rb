@@ -61,6 +61,10 @@ class Driver < ActiveRecord::Base
   has_many :ordem_services
   has_many :ocurrences
 
+  before_save do |item|
+    item.sync = false
+  end
+
   before_destroy :can_destroy?
 
   STANDARD = 105
