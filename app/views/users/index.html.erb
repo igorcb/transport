@@ -4,7 +4,7 @@
 
     <%#= link_to 'New Task', new_task_path, class: "btn btn-blue btn-sm btn-block" %>
     <div class="table-responsive">
-      
+
         <div id="result_tasks">
 
         <table class="table table-striped">
@@ -26,7 +26,7 @@
               <td><%= user.email %></td>
               <td><%= user.name %></td>
               <td><%= user.employee.id_name if user.employee.present? %></td>
-              <td><%= user.roles.first.name %></td>
+              <td><%= user.roles.first.name if user.roles.present? %></td>
               <td><%= user.active_name %></td>
             </tr>
             <% end %>
@@ -35,6 +35,6 @@
         </table>
       </div>
 
-    </div>    
+    </div>
   </div>
 </div>
