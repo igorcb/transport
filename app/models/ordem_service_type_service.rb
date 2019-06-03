@@ -118,7 +118,6 @@ class OrdemServiceTypeService < ActiveRecord::Base
   end
 
   def calculate_iss
-    byebug
     iss = 0.00
     margin_lucre = value_service? ? calculate_margin_lucre : calc_minimum_total_freight
     iss = 5.00 #self.client_table_price.collection_delivery_iss if self.client_table_price.present?
