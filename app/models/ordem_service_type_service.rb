@@ -120,7 +120,7 @@ class OrdemServiceTypeService < ActiveRecord::Base
   def calculate_iss
     iss = 0.00
     margin_lucre = value_service? ? calculate_margin_lucre : calc_minimum_total_freight
-    iss = 5.00 #self.client_table_price.collection_delivery_iss if self.client_table_price.present?
+    iss = self.client_table_price.collection_delivery_iss if self.client_table_price.present?
     perc_iss = 1 - ( iss / 100)
     value_iss = ((self.valor.to_f + margin_lucre) / perc_iss) - (self.valor.to_f + margin_lucre)
   end
