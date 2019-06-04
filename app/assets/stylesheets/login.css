@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #efefef;
+  background-image: url(pattern.png);
+  color: #666;
+}
+
+main.content {
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap: wrap;
+  height: 80vh;
+}
+
+.col {
+  padding: 20px;
+}
+
+.info {
+  text-align: center;
+  font-size: 1.2em;
+}
+.info h1 {
+  font-size: 1.1em;
+  color: #777;
+}
+.info img {
+  width: 300px;
+}
+.login {
+    width: 350px;
+}
+
+.form-item {
+  margin-top: 20px;
+}
+.error{
+  font-size: 0.8em;
+  color: #A00;
+}
+label {
+  display: block;
+}
+
+input {
+    height: 30px;
+    border: none;
+    font-size: 1.0em;
+}
+
+input[type="email"],
+input[type="password"] {
+  background: transparent;
+  border-bottom: 1px solid #AAA;
+  width:100%;
+  color: white;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-bottom: 1px solid #111;
+}
+
+input:focus,
+input:focus {
+  outline: none;
+}
+input.submit{
+  background: #e0aa19;
+  color: white;
+  padding: 0 15px;
+  float: right;
+  border: 1px #b7b205;
+  border-style: outset;
+}
+input.submit:hover{
+  background: #e6b72a;
+
+}
+input.submit:active{
+  background: #DA0;
+  border-style: inset;
+}
+
+input::-webkit-input-placeholder {
+   color: #AAA;
+   font-weight: bold;
+   font-size: 0.8em;
+}
+.msg{
+  display: block;
+  margin-top:15px;
+}
+
+
+@media (max-width: 640px)
+{
+  .info img
+   {
+    width:200px;
+   }
+}
