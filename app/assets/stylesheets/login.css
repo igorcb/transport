@@ -6,12 +6,12 @@
 }
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #efefef;
+  background-color: #efefef !important;
   background-image: url(pattern.png);
   color: #666;
 }
 
-main.content {
+main.content-login {
   display: flex;
   justify-content:center;
   align-items:center;
@@ -48,7 +48,7 @@ main.content {
 label {
   display: block;
 }
-
+/**/
 input {
     height: 30px;
     border: none;
@@ -58,9 +58,11 @@ input {
 input[type="email"],
 input[type="password"] {
   background: transparent;
+  border: none;
+  border-radius: 0;
   border-bottom: 1px solid #AAA;
   width:100%;
-  color: white;
+  color: #666;
 }
 
 input[type="email"]:focus,

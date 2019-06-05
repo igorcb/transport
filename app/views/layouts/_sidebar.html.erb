@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>L7 Logistica | Dashboard v2</title>
+  <title><%= fantasy_title(yield(:title)) %></title>
 
 </head>
 <body>
+  <div></div>
   <div class="overlay"></div>
   <div class="header">
     <div class="left-side">
@@ -18,7 +19,7 @@
           <div class="profile-pic"></div>
           <p class="profile-name"><%= current_user.name %></p>
         </div>
-        
+
         <div class="profile-modal">
           <!--<a href="#">Alterar senha</a> -->
           <%= link_to "Alterar Senha", edit_user_path %>

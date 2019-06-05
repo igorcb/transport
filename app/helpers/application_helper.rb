@@ -1,4 +1,5 @@
 module ApplicationHelper
+  #
   def full_title(page_title)
     company = Company.first
     base_title = company.razao_social
@@ -10,12 +11,17 @@ module ApplicationHelper
   end
 
   def fantasy_title(page_title)
-    company = Company.first
-    base_title = company.fantasia
-    if page_title.empty?
-      base_title
+    if signed_in?
+      company = Company.first
+      base_title = company.fantasia
+      if page_title.empty?
+        # base_title
+        "#{base_title} | #{page_title} - YOHAN"
+      else
+        "#{base_title} | #{page_title} - YOHAN"
+      end
     else
-      "#{base_title} | #{page_title}"
+      "YOHAN - Sistema WMS"
     end
   end
 
