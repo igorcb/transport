@@ -25,7 +25,19 @@
 -->
 
   <% if signed_in? %>
-    <%= render 'layouts/sidebar' %>
+<div class="main-conteiner">
+  <%= render 'layouts/sidebar' %>
+  <div class="right-container">
+    <%= render 'layouts/header' %>
+    <%= render 'layouts/content' %>
+  </div>
+</div>
+
+  <%= render 'layouts/footer' %>
+
+
+
+
   <% else %>
 
     <div class="container">

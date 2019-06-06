@@ -9,7 +9,7 @@
   box-sizing: border-box; }
 
 body {
-  width: 100vw;
+  /* width: 100vw; */
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -21,6 +21,9 @@ ul {
 a {
   text-decoration: none; }
 
+.main-conteiner{
+  display: flex;
+}
 .yellow-icon {
   color: #FFC700;
   font-size: 24px;
@@ -43,7 +46,7 @@ a {
 
 .header {
   z-index: 5;
-  width: calc(100% - 250px);
+  /* width: calc(100% - 250px); */
   background: #eeeeee;
   display: flex;
   align-items: center;
@@ -51,7 +54,7 @@ a {
   height: 60px;
   justify-content: space-between;
   transition: all 0.2s ease;
-  margin-left: 250px;
+  /* margin-left: 250px; */
   margin-bottom: 30px;
   border-bottom: 1px solid #AAA;
 
@@ -216,15 +219,15 @@ a {
 
 .sidebar {
   width: 250px;
-  height: 100%;
+  /* height: 100%; */
   background: #1A1C29;
-  position: fixed;
-  left: 0;
-  top: 0;
+  /* position: fixed; */
+  /* left: 0;
+  top: 0; */
   color: #ffffff;
   transition: all 0.2s ease;
-  overflow-y: auto;
-  overflow-x: hidden;
+  /* overflow-y: auto;
+  overflow-x: hidden; */
   transition: all 0.2s ease;
   z-index: 5; }
   @media screen and (max-width: 768px) {
@@ -351,11 +354,16 @@ a {
     .level > a > .menu-icon {
       color: #FFC700; }
 
+.right-container {
+    width: calc(100% - 250px);
+}
+
 .content {
-  width: calc(100% - 250px);
+  /* width: calc(100% - 250px); */
   height: calc(100% - 60px);
   transition: all 0.2s ease;
-  margin-left: 250px; }
+  /* margin-left: 250px; */
+ }
   @media screen and (max-width: 768px) {
     .content {
       width: 100%;

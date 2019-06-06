@@ -7,6 +7,13 @@ body {
   margin: 10px;
 }
 
+
+.table-responsive{
+  display: block;
+  width: 100%;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
 select {
   width: 220px;
   border: 1px solid #cccccc;
@@ -56,31 +63,31 @@ select.date-select {
 }
 
 .operatings-client-show .fields {
-  color: red; 
+  color: red;
 }
 
 .header_print {
-    visibility: hidden;        
+    visibility: hidden;
   }
 
 .img_not_printer {
-    visibility: hidden;        
+    visibility: hidden;
   }
 
 .header_print_duplicate {
-    visibility: hidden;        
+    visibility: hidden;
   }
 
 .img_not_printer_duplicate {
-    visibility: hidden;        
+    visibility: hidden;
   }
 
 .duplicate_view {
-    visibility: hidden;        
+    visibility: hidden;
   }
 
 .signature_not_printer {
-   visibility: hidden;        
+   visibility: hidden;
 }
 
 .thumb {
