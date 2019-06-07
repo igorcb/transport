@@ -1,0 +1,72 @@
+
+  <div class="overlay"></div>
+  <div class="header">
+    <div class="left-side">
+      <i class="fa fa-bars btn-open-sidebar-mobile yellow-icon"></i>
+      <input type="checkbox" id="check-profile-modal">
+      <label for="check-profile-modal">
+        <div class="left-side">
+          <div class="profile-pic"></div>
+          <p class="profile-name"><%= current_user.name %></p>
+        </div>
+
+        <div class="profile-modal">
+          <!--<a href="#">Alterar senha</a> -->
+          <%= link_to "Alterar Senha", edit_user_path %>
+        </div>
+      </label>
+    </div>
+
+    <div class="right-side" data-behavior="notifications">
+      <a class="dropdown-toggle nav-link" type="button" data-behavior='notifications-link' id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="far fa-bell notification" aria-hidden="true"></i>
+        <span data-behavior="unread-count" ></span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu1" data-behavior="notification-items">
+
+      </div>
+
+      <%= link_to phones_path do %>
+        <i class="fas fa-phone notification"></i>
+      <% end %>
+
+      <% if current_user.has_role? :admin %>
+        <%= link_to company_path(Company.first) do %>
+          <i class="far fa-building notification"></i>
+        <% end %>
+      <% end %>
+
+      <%= link_to destroy_user_session_path(:authenticity_token => form_authenticity_token()), method: "delete" do %>
+        <i class="fas fa-sign-out-alt signout"></i>
+      <% end %>
+
+<!--
+        <%#= link_to phones_path do %>
+          <i class="fas fa-phone notification" data-behavior="notifications"></i>
+        <%# end %>
+
+        <%#= link_to company_path(Company.first) do %>
+          <i class="far fa-building notification"></i>
+        <%# end %>
+        <i class="far fa-bell notification"></i>
+
+        <%#= link_to destroy_user_session_path(:authenticity_token => form_authenticity_token()), method: "delete" do %>
+          <i class="fas fa-sign-out-alt signout"></i>
+
+        <%# end %>
+-->
+    </div>
+
+    <!-- <li class="nav-item btn-group" data-behavior="notifications">
+      <a class="dropdown-toggle nav-link" type="button" data-behavior='notifications-link' id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-bell" aria-hidden="true"></i>
+        <span data-behavior="unread-count" ></span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu1" data-behavior="notification-items">
+
+
+      </div>
+    </li> -->
+
+
+  </div>

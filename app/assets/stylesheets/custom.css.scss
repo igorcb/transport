@@ -14,6 +14,10 @@ body {
   overflow-x: auto !important;
   -webkit-overflow-scrolling: touch;
 }
+
+fieldset {
+  margin-top: 30px!important;
+}
 select {
   width: 220px;
   border: 1px solid #cccccc;

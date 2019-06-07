@@ -1,44 +1,42 @@
-<fieldset class="item">
-
-  <div class="row">
-    <div class="col-xs-3">
-      <%= f.collection_select :sector_id, Sector.order(:name), :id, :name, {include_blank: "Selecione o Setor"}, {class: "form-control input-sm"} %>
-    </div>  
-
-    <div class="col-xs-2">
-      <%= f.text_field :contato, class: "form-control input-sm", placeholder: "Contato" %>
-    </div>
-    
-    <div class="col-xs-3">
-      <%= f.text_field :email, class: "form-control input-sm", placeholder: "e-mail" %>
-    </div>
-
-    <div class="col-xs-2">
-      <%= f.text_field :setor, class: "form-control input-sm", placeholder: "Historico" %>
-    </div>
-
-
-    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
-  </div> 
-
-  <div class="row">
-    <div class="col-xs-3">
-      <%= f.label "", class: "checkbox-inline" do %>
-        <%= f.check_box :responsavel_carga, checked: f.object.responsavel_carga %> Responsavel pela carga
-      <% end %>
-    </div>
-
-    <div class="col-xs-3">  
-      <%= f.label "", class: "checkbox-inline" do %>
-        <%= f.check_box :comprovante, checked: f.object.comprovante %> Recebe comprovante
-      <% end %>
-    </div>
-
+<div class="row" style="margin-top:15px;">
+  <div class="col-xs-4">
+    <%= f.label "", class: "checkbox-inline" do %>
+    <%= f.check_box :responsavel_carga, checked: f.object.responsavel_carga %> Resp. pela carga
+    <% end %>
   </div>
 
-  <hr />
+  <div class="col-xs-4">
+    <%= f.label "", class: "checkbox-inline" do %>
+    <%= f.check_box :comprovante, checked: f.object.comprovante %> Recebe comprovante
+    <% end %>
+  </div>
 
-  <%= f.hidden_field :id %>
-  <%= f.hidden_field :_destroy %>
-  
-</fieldset>
+</div>
+
+<div class="row" style="margin-top:10px;">
+  <div class="col-xs-2">
+    <%= f.collection_select :sector_id, Sector.order(:name), :id, :name, {include_blank: "Selecione o Setor"}, {class: "form-control input-sm"} %>
+  </div>
+
+  <div class="col-xs-3">
+    <%= f.text_field :contato, class: "form-control input-sm", placeholder: "Contato" %>
+  </div>
+
+  <div class="col-xs-3">
+    <%= f.text_field :email, class: "form-control input-sm", placeholder: "e-mail" %>
+  </div>
+
+  <div class="col-xs-3">
+    <%= f.text_field :setor, class: "form-control input-sm", placeholder: "Historico" %>
+  </div>
+
+  <div class="col-xs-1">
+    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?"><i class="fas fa-times"></i></a>
+  </div>
+
+</div>
+
+
+
+<%= f.hidden_field :id %>
+<%= f.hidden_field :_destroy %>

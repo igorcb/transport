@@ -1,26 +1,26 @@
-<fieldset class="item">
-  <div class="row">
-    <div class="col-xs-2">  
-      <%= f.select :tipo, [['FIXO', '0'], ['CELULAR', '1'], ['E-MAIL', '2'], ['TWITTER', '3'], ['FACEBOOK', '4'], 
-          ['RESPONSAVEL CARGA', '5'], ['RESPONSAVEL PALETE', '6']], {include_blank: true}, {class: "form-control input-sm" }  %>
-    </div>
-
-    <div class="col-xs-2">  
-      <%= f.text_field :nome, class: "form-control input-sm", placeholder: "Nome do contato"  %>
-    </div>
-
-    <div class="col-xs-2">  
-      <%= f.text_field :fone, class: "form-control input-sm phone_with_ddd", placeholder: "Telefone"  %>
-    </div>
-
-    <div class="col-xs-4">  
-      <%= f.text_field :complemento, class: "form-control input-sm", placeholder: "complemento"  %>
-    </div>
-
-    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
-
+<div class="row" style="margin-top:5px;">
+  <div class="col-xs-2">
+    <%= f.select :tipo, [['FIXO', '0'], ['CELULAR', '1'], ['E-MAIL', '2'], ['TWITTER', '3'], ['FACEBOOK', '4'],
+        ['RESPONSAVEL CARGA', '5'], ['RESPONSAVEL PALETE', '6']], {include_blank: "Tipo"}, {class: "form-control input-sm" }  %>
   </div>
 
-  <%= f.hidden_field :id %>
-  <%= f.hidden_field :_destroy %>
-</fieldset>
+  <div class="col-xs-2">
+    <%= f.text_field :nome, class: "form-control input-sm", placeholder: "Nome do contato"  %>
+  </div>
+
+  <div class="col-xs-3">
+    <%= f.text_field :fone, class: "form-control input-sm phone_with_ddd", placeholder: "Telefone"  %>
+  </div>
+
+  <div class="col-xs-4">
+    <%= f.text_field :complemento, class: "form-control input-sm", placeholder: "complemento"  %>
+  </div>
+  <div class="col-xs-1">
+    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?"><i class="fas fa-times"></i></a>
+  </div>
+
+
+</div>
+
+<%= f.hidden_field :id %>
+<%= f.hidden_field :_destroy %>

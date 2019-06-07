@@ -22,9 +22,11 @@ class EmployeesController < ApplicationController
   def new
     @employee = Employee.new
     @employee.contacts.build
+    @employee.emails.build
     @employee.assets.build
     @employee.table_prices.build
     @employee.specialty_employees.build
+    @employee.account_banks.build
   end
 
   # GET /employees/1/edit
@@ -51,7 +53,7 @@ class EmployeesController < ApplicationController
   # PATCH/PUT /employees/1.json
   def update
     respond_to do |format|
-      if @employee.update(employee_params) 
+      if @employee.update(employee_params)
         format.html { redirect_to @employee, flash: { success: "Employee was successfully updated." } }
         format.json { head :no_content }
       else
@@ -91,7 +93,9 @@ class EmployeesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:cpf, :nome, :apelido, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :cep, :tipo,
-        :rg, :orgao_emissor, :data_emissao_rg, :avatar, :obs,
+        :rg, :orgao_emissor, :data_emissao_rg, :avatar, :obs, :data_nascimento, :nacionalidade, :naturalidade, :grau_de_instrucao,
+        :nome_da_mae, :nome_do_pai, :ctps, :ctps_serie, :ctps_uf, :ctps_expedicao, :pis, :cnh, :registro_cnh, :validade_cnh,
+        :categoria, :titulo_eleitor, :zona_eleitor, :secao_eleitor,
         contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
         table_prices_attributes: [:uf_tipo, :tipo, :valor, :id, :_destroy],
         emails_attributes: [:sector_id, :setor, :contato, :email, :responsavel_carga, :comprovante, :id, :_destroy],
@@ -100,5 +104,3 @@ class EmployeesController < ApplicationController
         assets_attributes: [:asset, :id, :_destroy])
     end
 end
-
-

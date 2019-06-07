@@ -1,36 +1,40 @@
 <% if f.object.new_record? %>
 
-	<fieldset class="item">
-    <div class="form-group">
+	<div class="row">
+    <div class="form-group col-md-5">
 	    <%= f.file_field :asset %>
     </div>
-
-    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
+		<div class="col-md1">
+			<a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?"><i class="fas fa-times"></i></a>
+		</div>
 
 	  <%= f.hidden_field :id %>
 	  <%= f.hidden_field :_destroy %>
-	</fieldset>
+	</div>
 
 <% end %>
 
-       
-<% unless f.object.new_record? %>
-  <fieldset class="item">
-     
-    <% if f.object.is_image? %>
-      <%= link_to image_tag(f.object.asset.url(:thumb)), "#modalcar", data: {:toggle=>"modal"} %> 
-    <% else %>
-      <%= link_to image_tag("image_pdf.png", size: "120x90"), f.object.asset.url(:thumb, false) %>
-    <% end  %>
 
-    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
-     
+<% unless f.object.new_record? %>
+  <div class="row">
+		<div class="col-md-5">
+			<% if f.object.is_image? %>
+			<%= link_to image_tag(f.object.asset.url(:thumb)), "#modalcar", data: {:toggle=>"modal"} %>
+			<% else %>
+			<%= link_to image_tag("image_pdf.png", size: "120x90"), f.object.asset.url(:thumb, false) %>
+			<% end  %>
+		</div>
+		<div class="col-md-1">
+			<a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?"><i class="fas fa-times"></i></a>
+
+		</div>
+
+
     <%= f.label :asset_file_name %>
 
     <%= f.hidden_field :id %>
     <%= f.hidden_field :_destroy %>
-     
-  </fieldset>
+
+  </div>
 
 <% end %>
-  

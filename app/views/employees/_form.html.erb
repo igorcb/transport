@@ -1,153 +1,252 @@
-<%= form_for @employee, html: { multipart: true } do |f| %>
- 
-  <%= render 'shared/error_messages', object: f.object %>
- 
-  <div class="form-group">
-    <label for="exampleInputFile">Escolha uma imagem 3x4 </label>
-    <%= f.file_field :avatar %>
-  </div>  
-
-  <div class="form-group">
-    <%= f.label :cpf %><br>
-    <%= f.text_field :cpf, class: "form-control cpf" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :nome %><br>
-    <%= f.text_field :nome, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :apelido %><br>
-    <%= f.text_field :apelido, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :cep %><br>
-    <%= f.text_field :cep, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :endereco %><br>
-    <%= f.text_field :endereco, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :numero %><br>
-    <%= f.text_field :numero, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :complemento %><br>
-    <%= f.text_field :complemento, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :bairro %><br>
-    <%= f.text_field :bairro, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :cidade %><br>
-    <%= f.text_field :cidade, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :estado  %>
-    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
-  </div>
-  <div class="form-group">
-    <%= f.label :rg %>
-    <%= f.text_field :rg, class: "form-control"  %>
-  </div>
-  <div class="form-group">
-    <%= f.label :data_emissao_rg  %><br />
-    <%#= f.date_select :data_emissao_rg, class: "form-control", start_year: 1920  %>
-    <%= f.text_field :data_emissao_rg , value: date_br(@employee.data_emissao_rg), class: "form-control data" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :orgao_emissor %>
-    <%= f.text_field :orgao_emissor, class: "form-control"  %>
-  </div>
-  <div class="form-group">
-    <%= f.label :tipo  %>
-    <%= f.select( :tipo, select_tipo_employee, {include_blank: :true}, {class: "form-control"} ) %>      
-  </div>
-
-  <div class="form-group">
-    <%= f.label :obs, "Observação" %>
-    <%= f.text_area :obs, class: "form-control"  %>
-  </div>
+<div class="container-fluid">
+  <div class="row">
+    <%= form_for @employee, html: { multipart: true } do |f| %>
 
 
-<!--   <div class="checkbox">
-      <%#= f.check_box :carrega, checked: false %> Carrega
-  </div>  
+    <div class="col-md-12">
+      <div class="row">
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="form-group col-md-12">
+          <label for="exampleInputFile">Escolha uma imagem 3x4 </label>
+          <%= f.file_field :avatar %>
+        </div>
+      </div>
 
-  <div class="checkbox">
-    <%#= f.check_box :embala, checked: false %> Embala
-  </div>
+      <fieldset>
+          <legend>Informações pessoais</legend>
+          <div class="row">
+            <div class="form-group col-md-5">
+              <%= f.label :cpf %><br>
+              <%= f.text_field :cpf, class: "form-control cpf" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-groupm col-md-6">
+              <%= f.label :nome %><br>
+              <%= f.text_field :nome, class: "form-control" %>
+            </div>
+            <div class="form-group col-md-4">
+              <%= f.label :apelido %><br>
+              <%= f.text_field :apelido, class: "form-control" %>
+            </div>
+          </div>
 
-  <div class="checkbox">
-    <%#= f.check_box :desmonta, checked: false %> Monta/Desmonta Móveis
-  </div>
+          <div class="row">
+            <div class="form-group col-md-4">
+              <%= f.label :data_nascimento %><br>
+              <%= f.date_field :data_nascimento, class: "form-control" %>
+            </div>
 
-  <div class="checkbox">
-    <%#= f.check_box :icamento, checked: false %> Faz Içamento
-  </div>
+            <div class="form-group col-md-4">
+              <%= f.label :nacionalidade %><br>
+              <%= f.text_field :nacionalidade, class: "form-control" %>
+            </div>
 
-  <div class="checkbox">
-    <%#= f.check_box :arruma, checked: false %> Arruma Caminhão
-  </div>
+            <div class="form-group col-md-4">
+              <%= f.label :naturalidade %><br>
+              <%= f.text_field :naturalidade, class: "form-control" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-5">
+              <%= f.label :grau_de_instrucao %><br>
+              <%= f.select :grau_de_instrucao, select_escolaridade_employee, {include_blank: "Escolha sua escolaridade"},{ class: "form-control" }%>
 
-  <div class="checkbox">
-    <%#= f.check_box :iventarista, checked: false %> Iventarista
-  </div>
+            </div>
+          </div>
 
-  <div class="checkbox">
-    <%#= f.check_box :confere_carga, checked: false %> Conferente de Carga
-  </div>
- -->  
+          <div class="row">
+            <div class="form-group col-md-10">
+              <%= f.label :nome_da_mae %><br>
+              <%= f.text_field :nome_da_mae, class: "form-control" %>
+            </div>
+          </div>
 
+          <div class="row">
+            <div class="form-group col-md-10">
+              <%= f.label :nome_do_pai %><br>
+              <%= f.text_field :nome_do_pai, class: "form-control" %>
+            </div>
+          </div>
+      <fieldset>
+
+
+      <fieldset>
+          <legend>Endereço</legend>
+          <div class="row">
+            <div class="form-group col-md-4">
+              <%= f.label :cep %><br>
+              <%= f.text_field :cep, class: "form-control" %>
+            </div>
+            <div class="form-group col-md-6">
+              <%= f.label :endereco %><br>
+              <%= f.text_field :endereco, class: "form-control" %>
+            </div>
+            <div class="form-group col-md-2">
+              <%= f.label :numero %><br>
+              <%= f.text_field :numero, class: "form-control" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-10">
+              <%= f.label :complemento %><br>
+              <%= f.text_field :complemento, class: "form-control" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-5">
+              <%= f.label :bairro %><br>
+              <%= f.text_field :bairro, class: "form-control" %>
+            </div>
+            <div class="form-group col-md-5">
+              <%= f.label :cidade %><br>
+              <%= f.text_field :cidade, class: "form-control" %>
+            </div>
+            <div class="form-group col-md-2">
+              <%= f.label :estado  %>
+              <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Documentação</legend>
+          <div class="row">
+            <div class="form-group col-md-5">
+              <%= f.label :rg %>
+              <%= f.text_field :rg, class: "form-control"  %>
+            </div>
+            <div class="form-group col-md-4">
+              <%= f.label :data_emissao_rg  %><br />
+              <%#= f.date_select :data_emissao_rg, class: "form-control", start_year: 1920  %>
+              <%= f.text_field :data_emissao_rg , value: date_br(@employee.data_emissao_rg), class: "form-control data" %>
+            </div>
+            <div class="form-group col-md-3">
+              <%= f.label :orgao_emissor %>
+              <%= f.text_field :orgao_emissor, class: "form-control"  %>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="form-group col-md-3">
+              <%= f.label :ctps  %>
+              <%= f.text_field :ctps, class: "form-control"  %>
+            </div>
+            <div class="form-group col-md-3">
+              <%= f.label :ctps_serie  %>
+              <%= f.text_field :ctps_serie, class: "form-control"  %>
+            </div>
+            <div class="form-group col-md-2">
+              <%= f.label :ctps_uf  %>
+              <%= f.select( :ctps_uf, select_uf, {include_blank: true}, class: "form-control" ) %>
+            </div>
+            <div class="form-group col-md-3">
+              <%= f.label :ctps_expedicao  %>
+              <%= f.date_field :ctps_expedicao, class: "form-control"  %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-5">
+              <%= f.label :pis  %>
+              <%= f.text_field :pis, class: "form-control"  %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-3">
+              <%= f.label :cnh  %>
+              <%= f.text_field :cnh, class: "form-control"  %>
+            </div>
+            <div class="form-group col-md-3">
+              <%= f.label :registro_cnh  %>
+              <%= f.text_field :registro_cnh, class: "form-control"  %>
+            </div>
+            <div class="form-group col-md-3">
+              <%= f.label :validade_cnh  %>
+              <%= f.date_field :validade_cnh, class: "form-control"  %>
+            </div>
+            <div class="form-group col-md-3">
+              <%= f.label :categoria  %>
+              <%= f.select :categoria, select_categoria, {include_blank: :false}, class: "form-control"  %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-4">
+              <%= f.label :titulo_eleitor  %>
+              <%= f.text_field :titulo_eleitor, class: "form-control"  %>
+            </div>
+            <div class="form-group col-md-4">
+              <%= f.label :zona_eleitor  %>
+              <%= f.text_field :zona_eleitor, class: "form-control"  %>
+            </div>
+            <div class="form-group col-md-4">
+              <%= f.label :secao_eleitor  %>
+              <%= f.date_field :secao_eleitor, class: "form-control"  %>
+            </div>
+          </div>
+        </fieldset>
+
+      <div class="row">
+        <div class="form-group col-md-5">
+          <%= f.label :tipo  %>
+          <%= f.select( :tipo, select_tipo_employee, {include_blank: :true}, {class: "form-control"} ) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :obs, "Observação" %>
+        <%= f.text_area :obs, class: "form-control"  %>
+      </div>
 
   <div id="phones">
     <fieldset>
       <legend>Contatos</legend>
-        <div class="items">
-          <%= f.nested_fields_for :contacts do |f| 
-            render 'shared/contact', f: f
-          end -%>
+      <div class="col-xs-1">
+      </div>
+      <div class="items col-xs-11">
+        <%= f.nested_fields_for :contacts do |f|
+        render 'shared/contact', f: f
+        end -%>
+      </div>
+      <div class="row">
+        <div class="col-xs-1" style="margin-top: -30px;">
+          <a href="#" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></a>
         </div>
-        <div class="row">
-          <div class="col-xs-2">
-            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>  
-          </div>  
-        </div>
+      </div>
     </fieldset>
   </div>
 
   <div id="emails">
     <fieldset>
       <legend>E-Mail</legend>
-
-      <div class="items">
-        <%= f.nested_fields_for :emails do |f| 
-          render 'shared/email', f: f
+      <div class="col-xs-1">
+      </div>
+      <div class="items col-xs-11">
+        <%= f.nested_fields_for :emails do |f|
+        render 'shared/email', f: f
         end -%>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>  
-        </div>  
+        <div class="col-xs-2" style="margin-top: -30px;">
+          <a href="#" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></a>
+        </div>
       </div>
-
     </fieldset>
-
   </div>
 
   <div id="prices">
     <fieldset>
       <legend>Tabela de Preços</legend>
-      <div class="items">
+      <div class="col-xs-1">
+      </div>
+      <div class="items col-xs-11">
         <%= f.nested_fields_for :table_prices do |f| %>
-          <%= render "form_table_price", f: f %> 
+        <%= render "form_table_price", f: f %>
         <% end %>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <a href="#" class="btn btn-success btn-sm add">[+] Tab. Preço</a>  
-        </div>  
+        <div class="col-xs-2" style="margin-top: -30px;">
+          <a href="#" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></a>
+        </div>
       </div>
     </fieldset>
   </div>
@@ -155,15 +254,17 @@
   <div id="prices">
     <fieldset>
       <legend>Tabela de Preços de Especialidades</legend>
-      <div class="items">
+      <div class="col-xs-1">
+      </div>
+      <div class="items col-xs-11">
         <%= f.nested_fields_for :specialty_employees do |f| %>
-          <%= render "specialty_employees", f: f %> 
+        <%= render "specialty_employees", f: f %>
         <% end %>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <a href="#" class="btn btn-success btn-sm add">[+] Especialidade</a>  
-        </div>  
+        <div class="col-xs-2" style="margin-top: -30px;">
+          <a href="#" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></a>
+        </div>
       </div>
     </fieldset>
   </div>
@@ -172,46 +273,53 @@
   <div id="accounts">
     <fieldset>
       <legend>Contas Bancarias</legend>
-      <div class="items">
+      <div class="col-xs-1"></div>
+      <div class="items col-xs-11">
         <%= f.nested_fields_for :account_banks do |f| %>
-          <%= render "shared/form_account_bank", f: f %> 
+        <%= render "shared/form_account_bank", f: f %>
         <% end %>
       </div>
-      
+
       <div class="row">
-        <div class="col-xs-2">
-          <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>  
-        </div>  
+        <div class="col-xs-2" style="margin-top: -30px;">
+          <a href="#" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></a>
+        </div>
       </div>
-    
+
     </fieldset>
-  </div>  
- 
-  <h2>Documentos</h2> 
+  </div>
+
+  <h2>Documentos</h2>
   <div id="documents">
     <div class="items">
-      <%= f.nested_fields_for :assets do |f| 
-        render 'shared/asset', f: f
+      <%= f.nested_fields_for :assets do |f|
+      render 'shared/asset', f: f
       end  -%>
     </div>
-      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+     <a href="#" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></a>
   </div>
 
   <hr />
 
   <div class="form-actions">
-      <%= f.submit "Salvar", class: "btn btn-blue" %>
-      <%= link_to "Exibir",  employees_path(@client), class: "btn btn-info" if !@employee.new_record? %>
-      <%= link_to "Listar Todos", employees_path, class: "btn btn-default" %>
+    <%= f.submit "Salvar", class: "btn btn-blue" %>
+    <%= link_to "Exibir",  employees_path(@client), class: "btn btn-info" if !@employee.new_record? %>
+    <%= link_to "Listar Todos", employees_path, class: "btn btn-default" %>
   </div>
-  
-<% end %>
+
+  <% end %>
+
+
+      </div>
+
+    </div>
+  </div>
 
 
 <script type="text/javascript">
 $(function(){
    $("#employee_cep").change(function(){
-     var cep     = $(this).val().replace(/[^0-9]/, ''); 
+     var cep     = $(this).val().replace(/[^0-9]/, '');
      var boxes   = $("#boxCampos");
      var msgErro = $("#mensagemErro");
      console.log('CEP: ' + cep)
@@ -233,5 +341,5 @@ $(function(){
        });
        }
    });
-});  
+});
 </script>

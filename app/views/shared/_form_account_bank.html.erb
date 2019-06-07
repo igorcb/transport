@@ -1,5 +1,5 @@
 <fieldset class="item">
- 
+
   <%#= f.label :banco, "Banco" %>
   <%#= f.collection_select :banco, Bank.order('banco'), :id, :banco, {include_blank: "Selecione o Banco"}, :style => "width:60px" %>
 
@@ -21,36 +21,35 @@
 <!--   <div class="form-group">
     <%#= f.label :descricao %><br>
     <%#= f.text_field :descricao, class: "form-control" %>
-  </div>  
+  </div>
  -->
 
-  <br > 
-  <div class="form-group">
-    <%= f.select(:banco, Bank.order("banco").collect {|b| ["#{b.banco} - ""#{b.nome}", b.id ] }, {include_blank: "Selecione o Banco"}, {class: "form-control input-sm" }) %>
-  </div>
-  <div class="form-group">
-    <%= f.select( :tipo_operacao, [['Conta Corrente', 0], ['Conta Poupança', 1],["Conta Salário", 2]], {include_blank: "Selecione o Operação"}, {class: "form-control input-sm"} ) %>      
+
+  <div class="row" style="margin-top:5px;">
+    <div class="form-group col-md-2">
+      <%= f.select(:banco, Bank.order("banco").collect {|b| ["#{b.banco} - ""#{b.nome}", b.id ] }, {include_blank: "Selecione o Banco"}, {class: "form-control input-sm" }) %>
+    </div>
+    <div class="form-group col-md-2">
+      <%= f.select( :tipo_operacao, [['Conta Corrente', 0], ['Conta Poupança', 1],["Conta Salário", 2]], {include_blank: "Selecione o Operação"}, {class: "form-control input-sm"} ) %>
+    </div>
+    <div class="form-group col-xs-2">
+      <%= f.text_field :agencia, size: 10, class: "form-control input-sm", placeholder: "Agencia"  %>
+    </div>
+    <div class="form-group col-xs-2">
+      <%= f.text_field :conta_corrente, size: 10, class: "form-control input-sm", placeholder: "Conta Corrente"  %>
+    </div>
+    <div class="form-group col-xs-2">
+      <%= f.text_field :cpf_cnpj, class: "form-control input-sm", placeholder: "Cnpj ou CPF" %>
+    </div>
   </div>
 
   <div class="row">
-    <div class="col-xs-2">
-      <%= f.label :agencia %>
-      <%= f.text_field :agencia, size: 10, class: "form-control input-sm", placeholder: "Agencia"  %>
-    </div>
-    <div class="col-xs-2">
-      <%= f.label :conta_corrente %>
-      <%= f.text_field :conta_corrente, size: 10, class: "form-control input-sm", placeholder: "Conta Corrente"  %>
-    </div>
-    <div class="col-xs-3">
-      <%= f.label :cpf_cnpj %>
-      <%= f.text_field :cpf_cnpj, class: "form-control input-sm", placeholder: "Cnpj ou CPF" %>
-    </div>
-    <div class="col-xs-4">
-      <%= f.label :favorecido %>
+    <div class="col-md-5">
       <%= f.text_field :favorecido, class: "form-control input-sm", placeholder: "Favorecido" %>
     </div>
-    <br >
-    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
+    <div class="col-md-1">
+      <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?"><i class="fas fa-times"></i></a>
+    </div>
   </div>
 
   <%= f.hidden_field :id %>

@@ -1,19 +1,19 @@
-<fieldset class="item">
-  <div class="row">
-    <div class="col-xs-2">
-      <%= f.select :uf_tipo, [['Dentro Do Estado', '0'], ['Fora do Estado', '1']], {include_blank: true}, {class: "form-control input-sm" }    %>
-    </div>  
-    
-    <div class="col-xs-2">
-      <%= f.select :tipo, [['p/ KM', '0'], ['p/ Hora', '1'], ['p/ Diária', '2']], {include_blank: true}, {class: "form-control input-sm" }   %>
-    </div>  
-    
-    <div class="col-xs-2">
-      <%= f.text_field :valor, class: "form-control input-sm money2" %>
-    </div>  
-    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?">[-] Apagar</a>
+<div class="row" style="margin-top:5px;">
+  <div class="col-xs-3">
+    <%= f.select :uf_tipo, [['Dentro Do Estado', '0'], ['Fora do Estado', '1']], {include_blank: "Tipo UF"}, {class: "form-control input-sm" }    %>
   </div>
 
-  <%= f.hidden_field :id %>
-  <%= f.hidden_field :_destroy %>
-</fieldset>
+  <div class="col-xs-3">
+    <%= f.select :tipo, [['p/ KM', '0'], ['p/ Hora', '1'], ['p/ Diária', '2']], {include_blank: "Tipo"}, {class: "form-control input-sm" }   %>
+  </div>
+
+  <div class="col-xs-5">
+    <%= f.text_field :valor, class: "form-control input-sm money2", placeholder: "Valor" %>
+  </div>
+  <div class="col-xs-1">
+    <a href="#" class="btn btn-danger btn-sm remove" data-confirm="Are you sure?"><i class="fas fa-times"></i></a>
+  </div>
+</div>
+
+<%= f.hidden_field :id %>
+<%= f.hidden_field :_destroy %>
