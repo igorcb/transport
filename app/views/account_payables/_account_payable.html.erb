@@ -1,6 +1,6 @@
 <tr>
   <td><%= truncate(account_payable.type_account_name ) if account_payable.type_account.present? %></td>
-  <td><%= truncate(account_payable.supplier.nome, length: 20 ) %></td>
+  <td><%= truncate(account_payable.supplier.nome, length: 20 ) if account_payable.supplier.present? %></td>
   <td><%= date_br(account_payable.data_vencimento )%></td>
   <td><%= account_payable.payment_method.descricao if account_payable.payment_method.present? %></td>
   <td><%= account_payable.documento %></td>

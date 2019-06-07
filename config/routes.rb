@@ -255,6 +255,7 @@ Rails.application.routes.draw do
     #match :cancellation, :as => :cancellation, :via => [:get, :put]
     get :selection_shipment_search, on: :collection
     get :payment_discharge_client, on: :collection
+
   end
 
   resources :boarding_items do
