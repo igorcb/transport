@@ -1,16 +1,25 @@
 
   <div class="sidebar">
+
     <div class="sidebar-logo" >
+      <div class="button-collapse">
+        <input type="checkbox" id="check-toggle-sidebar">
+        <label for="check-toggle-sidebar">
+          <div class="btn-toggle-sidebar">
+            <i class="fas fa-angle-left"></i>
+          </div>
+        </label>
+      </div>
       <%= Company.first.fantasia%>
       <i class="fa fa-times yellow-icon btn-close-sidebar-mobile"></i>
-      <input type="checkbox" id="check-toggle-sidebar">
+      <!-- <input type="checkbox" id="check-toggle-sidebar">
       <label for="check-toggle-sidebar">
         <div class="btn-toggle-sidebar">
           <span></span>
           <span></span>
           <span></span>
         </div>
-      </label>
+      </label> -->
     </div>
       <div class="sidebar-container">
 

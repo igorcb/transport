@@ -15,6 +15,27 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+.list .row{
+  padding: 8px 0;
+}
+.list .row:nth-child(even){
+  background-color: rgba(180,180,180,0.3);
+}
+
+.thumb-container{
+  border: 2px dashed #444;
+  img {
+     height: 150px;
+
+     &.img-default {
+         opacity: 0.5;
+         &:hover{
+           opacity: 1;
+         }
+     }
+  }
+}
+
 fieldset {
   margin-top: 30px!important;
 }

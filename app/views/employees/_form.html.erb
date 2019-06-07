@@ -1,5 +1,4 @@
-<div class="container-fluid">
-  <div class="row">
+<div class="row">
     <%= form_for @employee, html: { multipart: true } do |f| %>
 
 
@@ -7,8 +6,14 @@
       <div class="row">
         <%= render 'shared/error_messages', object: f.object %>
         <div class="form-group col-md-12">
-          <label for="exampleInputFile">Escolha uma imagem 3x4 </label>
-          <%= f.file_field :avatar %>
+          <label for="avatar">
+            Escolha uma imagem 3x4
+            <br>
+            <div class="thumb-container">
+              <%= image_tag "upload-image.png", class: "img-default" %>
+            </div>
+          </label>
+          <%= f.file_field :avatar, id: "avatar", style: "display:none" %>
         </div>
       </div>
 
@@ -118,7 +123,7 @@
             <div class="form-group col-md-4">
               <%= f.label :data_emissao_rg  %><br />
               <%#= f.date_select :data_emissao_rg, class: "form-control", start_year: 1920  %>
-              <%= f.text_field :data_emissao_rg , value: date_br(@employee.data_emissao_rg), class: "form-control data" %>
+              <%= f.date_field :data_emissao_rg , value: date_br(@employee.data_emissao_rg), class: "form-control data" %>
             </div>
             <div class="form-group col-md-3">
               <%= f.label :orgao_emissor %>
@@ -129,7 +134,7 @@
 
           <div class="row">
             <div class="form-group col-md-3">
-              <%= f.label :ctps  %>
+              <%= f.label :ctps, "CTPS"  %>
               <%= f.text_field :ctps, class: "form-control"  %>
             </div>
             <div class="form-group col-md-3">
@@ -313,7 +318,7 @@
       </div>
 
     </div>
-  </div>
+
 
 
 <script type="text/javascript">
@@ -341,5 +346,11 @@ $(function(){
        });
        }
    });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+  $("#avatar").imagePreview(".thumb-container");
 });
 </script>

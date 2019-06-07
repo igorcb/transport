@@ -1,82 +1,60 @@
-<p>
-  <% image_avatar = @employee.avatar.present? ? @employee.avatar.url(:mini) : "image_not_found.jpg"  %>
-  <%= image_tag image_avatar, size: "144x90"  %>
-</p>
+<div class="container-fluid list">
+  <div class="row">
+    <div class="col-md-4">
+      <% image_avatar = @employee.avatar.present? ? @employee.avatar.url(:mini) : "image_not_found.jpg"  %>
+      <%= image_tag image_avatar, style: "height:169; width:auto"  %>
+    </div>
+    <div class="col-md-8">
+      <%= show_line_build @employee.cpf, "Cpf" %>
+      <%= show_line_build @employee.nome, "Nome" %>
+      <%= show_line_build @employee.apelido, "Apelido" %>
+      <%= show_line_build @employee.data_nascimento, "Data de Nascimento", 4 %>
+      <%= show_line_build @employee.nacionalidade, "Nacionalidade" %>
+    </div>
+  </div>
 
-<p>
-  <strong>Cpf:</strong>
-  <%= @employee.cpf %>
-</p>
+  <%= show_line_build @employee.naturalidade, "Naturalidade" %>
+  <%= show_line_build @employee.grau_de_instrucao, "Escolaridade" %>
+  <%= show_line_build @employee.nome_da_mae, "Nome da mae" %>
+  <%= show_line_build @employee.nome_do_pai, "Nome do pai" %>
+  <hr>
 
-<p>
-  <strong>Nome:</strong>
-  <%= @employee.nome %>
-</p>
+  <h2>Endereço</h2>
+  <%= show_line_build @employee.endereco, "Endereço" %>
+  <%= show_line_build @employee.numero, "Número" %>
+  <%= show_line_build @employee.complemento, "Complemento" %>
+  <%= show_line_build @employee.bairro, "Bairro" %>
+  <%= show_line_build @employee.cidade, "Cidade" %>
+  <%= show_line_build @employee.estado, "Estado" %>
+  <%= show_line_build @employee.cep, "Cep" %>
 
-<p>
-  <strong>Apelido:</strong>
-  <%= @employee.apelido %>
-</p>
 
-<p>
-  <strong>Endereco:</strong>
-  <%= @employee.endereco %>
-</p>
+  <hr>
+  <h2>Documentos</h2>
+  <%= show_line_build @employee.rg, "Rg" %>
+  <%= show_line_build @employee.data_emissao_rg, "Data emissao" %>
+  <%= show_line_build @employee.orgao_emissor, "Orgao emissor" %>
 
-<p>
-  <strong>Numero:</strong>
-  <%= @employee.numero %>
-</p>
+  <%= show_line_build @employee.ctps, "CTPS" %>
+  <%= show_line_build @employee.ctps_serie, "CTPS serie" %>
+  <%= show_line_build @employee.ctps_uf, "CTPS uf" %>
+  <%= show_line_build @employee.ctps_expedicao, "CTPS expedição" %>
+  <%= show_line_build @employee.pis, "PIS" %>
 
-<p>
-  <strong>Complemento:</strong>
-  <%= @employee.complemento %>
-</p>
+  <%= show_line_build @employee.cnh, "CNH" %>
+  <%= show_line_build @employee.registro_cnh, "Registro da CNH" %>
+  <%= show_line_build @employee.validade_cnh, "validade da CNH" %>
+  <%= show_line_build @employee.categoria, "Categoria da CNH" %>
 
-<p>
-  <strong>Bairro:</strong>
-  <%= @employee.bairro %>
-</p>
+  <%= show_line_build @employee.titulo_eleitor, "Titulo de Eleitor" %>
+  <%= show_line_build @employee.zona_eleitor, "Zona de Eleitor" %>
+  <%= show_line_build @employee.secao_eleitor, "Secao de Eleitor" %>
 
-<p>
-  <strong>Cidade:</strong>
-  <%= @employee.cidade %>
-</p>
+  <%= show_line_build @employee.tipo_funcionario, "Tipo" %>
+  <%= show_line_build @employee.obs, "Observação" %>
 
-<p>
-  <strong>Estado:</strong>
-  <%= @employee.estado %>
-</p>
+</div>
 
-<p>
-  <strong>Cep:</strong>
-  <%= @employee.cep %>
-</p>
-
-<p>
-  <strong>Rg:</strong>
-  <%= @employee.rg %>
-</p>
-
-<p>
-  <strong>Data emissao:</strong>
-  <%= @employee.data_emissao_rg %>
-</p>
-
-<p>
-  <strong>Orgao emissor:</strong>
-  <%= @employee.orgao_emissor %>
-</p>
-
-<p>
-  <strong>Tipo:</strong>
-  <%= @employee.tipo_funcionario %>
-</p>
-
-<p>
-  <strong>Observação:</strong>
-  <pre><%= @employee.obs %></pre>
-</p>
 
 
 
@@ -115,53 +93,58 @@
   <%#= extenso_boolean(@employee.confere_carga) %>
 </p>
  -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <%= render 'shared/show_contacts', object: @employee %>
 
- 
-<%= render 'shared/show_contacts', object: @employee %>
+      <%= render 'shared/show_emails', object: @employee %>
 
-<%= render 'shared/show_emails', object: @employee %>
+      <h2>Tabela de Preços</h2>
+      <% if @employee.table_prices.any? %>
+      <table class="table table-striped">
+        <tbody>
+          <% @employee.table_prices.each do |price| %>
+          <tr>
+            <td><%= price.uf_tipo_nome %></td>
+            <td><%= price.tipo_nome %></td>
+            <td><%= price.valor.to_f %></td>
 
-<h2>Tabela de Preços</h2>
-<% if @employee.table_prices.any? %>
-  <table class="table table-striped">
-    <tbody>
-      <% @employee.table_prices.each do |price| %>
-        <tr>
-          <td><%= price.uf_tipo_nome %></td>
-          <td><%= price.tipo_nome %></td>
-          <td><%= price.valor.to_f %></td>
-      
-        </tr>
+          </tr>
+          <% end %>
+
+        </tbody>
+
+      </table>
+      <% else %>
+      <p>This person has no table price yet.</p>
       <% end %>
 
-    </tbody>
-
-  </table>
-<% else %>
-  <p>This person has no table price yet.</p>
-<% end %>
-
-<h2>Tabela de Preços Especialidades</h2>
-<% if @employee.specialty_employees.any? %>
-  <table class="table table-striped">
-    <tbody>
-      <% @employee.specialty_employees.each do |price| %>
-        <tr>
-          <td><%= price.specialty.descricao if !price.specialty.nil? %></td>
-          <td><%= price.valor.to_f %></td>
-        </tr>
+      <h2>Tabela de Preços Especialidades</h2>
+      <% if @employee.specialty_employees.any? %>
+      <table class="table table-striped">
+        <tbody>
+          <% @employee.specialty_employees.each do |price| %>
+          <tr>
+            <td><%= price.specialty.descricao if !price.specialty.nil? %></td>
+            <td><%= price.valor.to_f %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% else %>
+      <p>This person has no table price yet.</p>
       <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>This person has no table price yet.</p>
-<% end %>
 
-<%= render 'shared/show_account_bank', object: @employee %>
+      <%= render 'shared/show_account_bank', object: @employee %>
 
-<%= render 'shared/document', object: @employee %>
+      <%= render 'shared/document', object: @employee %>
 
-<div class="form-group">
-  <%= link_to 'Editar', edit_employee_path(@employee), class: "btn btn-blue" %>
-  <%= link_to 'Listar Todos', employees_path, class: "btn btn-default" %>
+      <div class="form-group">
+        <%= link_to 'Editar', edit_employee_path(@employee), class: "btn btn-blue" %>
+        <%= link_to 'Listar Todos', employees_path, class: "btn btn-default" %>
+      </div>
+
+    </div>
+  </div>
 </div>
