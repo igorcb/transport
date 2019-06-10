@@ -30,6 +30,8 @@ class ApplicationController < ActionController::Base
       redirect_to dashboard_port_path, flash: { danger: exception.message }
     elsif current_user.has_role? :sup
       redirect_to dashboard_sup_path, flash: { danger: exception.message }
+    elsif current_user.has_role? :boarding
+      redirect_to boardings_path, flash: { danger: exception.message }
     else
       root_path
     end
