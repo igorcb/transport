@@ -31,7 +31,7 @@ class Ability
     elsif user.has_role? :boarding
       #can :manage, Client
       can :manage, [Boarding, OrdemService, Driver, Task]
-      can [:read, :search], [Client, InputControl, NfeXml, NfeKey]
+      can [:read, :search], [Client, InputControl, NfeXml, NfeKey, Vehicle]
       can [:create, :read, :type_account_select, :sub_centro_custo_by_custo, :sub_centro_custo_three_by_custo], AccountPayable
     end
     #if user.has_role?(:agent, OrdemSerice.where(carrier_id: ?, user.carrier_id))
