@@ -15,16 +15,16 @@
 	          <h2 class="panel-title">Dados motorista da entrega</h2>
 	        </div>
 
-	        <div class="panel-body"> 
+	        <div class="panel-body">
 					  <%= render 'drivers/driver_data', object: @ordem_service.ordem_service_logistic.delivery_driver if @ordem_service.ordem_service_logistic.delivery_driver.present? %>
             <%#= @ordem_service.ordem_service_logistic.delivery_driver.present? %>
 					</div>
-				
+
 	        <div class="panel-heading">
 	          <h2 class="panel-title">Dados Agente</h2>
 	        </div>
 
-	        <div class="panel-body"> 
+	        <div class="panel-body">
 					  <%= render 'carriers/carrier_data', object: @ordem_service.carrier if @ordem_service.carrier.present? %>
 					</div>
 
@@ -32,10 +32,10 @@
 	          <h2 class="panel-title">Dados Ordem de Serviço</h2>
 	        </div>
 
-	        <div class="panel-body"> 
+	        <div class="panel-body">
 					  <%= render 'ordem_service_data' %>
 					</div>
-				
+
 				</div>
       </div>
     </div>
@@ -60,7 +60,7 @@
               <h2 class="panel-title">Dados Remetente</h2>
             </div>
 
-            <div class="panel-body"> 
+            <div class="panel-body">
               <%= render 'clients/client_data', object: @ordem_service.source_client if @ordem_service.source_client.present? %>
             </div>
 
@@ -68,7 +68,7 @@
               <h2 class="panel-title">Dados Destinatário</h2>
             </div>
 
-            <div class="panel-body"> 
+            <div class="panel-body">
               <%= render 'clients/client_data', object: @ordem_service.client if @ordem_service.client.present? %>
             </div>
 
@@ -94,7 +94,7 @@
             <h2 class="panel-title">Dados do motorista</h2>
           </div>
 
-          <div class="panel-body"> 
+          <div class="panel-body">
             <p>
               <strong>Placa:</strong>
               <%= @ordem_service.ordem_service_logistic.placa %>
@@ -107,7 +107,7 @@
           </div>
 
 
-          <div class="panel-body"> 
+          <div class="panel-body">
             <%= render 'show_nfs_keys', object: @ordem_service %>
           </div>
 
@@ -115,7 +115,7 @@
             <h2 class="panel-title">Dados CT-e</h2>
           </div>
 
-          <div class="panel-body"> 
+          <div class="panel-body">
             <%= render 'show_cte_keys', object: @ordem_service %>
           </div>
 
@@ -123,7 +123,7 @@
             <h2 class="panel-title">Dados NF-e</h2>
           </div>
 
-          <div class="panel-body"> 
+          <div class="panel-body">
             <%= render 'show_nfe_keys', object: @ordem_service %>
           </div>
         </div>
@@ -147,7 +147,7 @@
           </div>
  -->
 
-<!--            <div class="panel-body"> 
+<!--            <div class="panel-body">
             <%#= render 'show_item_ordem_services', object: @ordem_service %>
           </div>
  -->          <%= render 'show_item_ordem_services', object: @ordem_service %>
@@ -239,10 +239,10 @@
             <h2 class="panel-title">Dados tomador do serviço</h2>
           </div>
 
-          <div class="panel-body"> 
+          <div class="panel-body">
             <%= render 'clients/client_data', object: @ordem_service.billing_client if @ordem_service.billing_client.present? %>
           </div>
-        
+
         </div>
       </div>
     </div>
@@ -260,7 +260,7 @@
       <div class="panel-body">
 
       <%= render 'shared/document', object: @ordem_service %>
-      
+
       </div>
     </div>
   </div>
@@ -276,10 +276,10 @@
     <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
       <div class="panel-body">
 
-      <%= render 'comments/feed', comments: @ordem_service.feed %>
+      <%#= render 'comments/feed', comments: @ordem_service.feed %>
 
-      <%= render 'comments/form_comment_ordem_service' %>
-      
+      <%#= render 'comments/form_comment_ordem_service' %>
+
       </div>
     </div>
   </div>
@@ -288,17 +288,17 @@
     <div class="panel-heading" role="tab" id="headingTen">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-          Comentarios Internos 
+          Comentarios Internos
         </a>
       </h4>
     </div>
     <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
       <div class="panel-body">
 
-      <%= render 'internal_comments/feed', comments: @ordem_service.feed_internal_comments %>
+      <%#= render 'internal_comments/feed', comments: @ordem_service.feed_internal_comments %>
 
-      <%= render 'internal_comments/form_comment' %>
-      
+      <%#= render 'internal_comments/form_comment' %>
+
       </div>
     </div>
   </div>
@@ -315,10 +315,10 @@
       <div class="panel-body">
 
 
-      <%= render 'cancellations/feed', cancellations: @ordem_service.feed_cancellations %>
+      <%#= render 'cancellations/feed', cancellations: @ordem_service.feed_cancellations %>
 
-      <%= render 'cancellations/form_cancellation_ordem_service' %>
-      
+      <%#= render 'cancellations/form_cancellation_ordem_service' %>
+
       </div>
     </div>
   </div>
