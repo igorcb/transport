@@ -1,0 +1,36 @@
+<div class="container-fluid">
+
+  <p id="notice"><%= notice %></p>
+
+  <h1>Warehouses</h1>
+
+  <%= link_to 'New Warehouse', new_warehouse_path, class: "btn btn-primary" %>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>District</th>
+        <th>City</th>
+        <th>State</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @warehouses.each do |warehouse| %>
+        <tr>
+          <td><%= warehouse.name %></td>
+          <td><%= warehouse.district %></td>
+          <td><%= warehouse.city %></td>
+          <td><%= warehouse.state %></td>
+          <td><%= link_to 'Show', warehouse, class:"btn btn-info" %></td>
+          <td><%= link_to 'Edit', edit_warehouse_path(warehouse), class:"btn btn-primary" %></td>
+          <td><%#= link_to 'Destroy', warehouse, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+</div>

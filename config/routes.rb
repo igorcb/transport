@@ -1,5 +1,8 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+
+
+  resources :warehouses
   resources :checkins do
     member do
       get :checkout

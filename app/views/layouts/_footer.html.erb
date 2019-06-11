@@ -4,19 +4,21 @@
 
 const checkToggleSidebar = document.getElementById('check-toggle-sidebar');
 const sidebar = document.querySelector('.sidebar');
+const rightContainer = document.querySelector('.right-container');
 const menuTexts = document.querySelectorAll('.menu-text');
 const profileName = document.querySelector('.profile-name');
 const header = document.querySelector('.header');
 const hasLevels = document.querySelectorAll('.has-level');
 const isActives = document.querySelectorAll('.-is-active');
 const btnOpenSidebar = document.querySelector('.btn-open-sidebar-mobile');
-const btnCloseSidebar = document.querySelector('.do-close');
+const btnCloseSidebar = document.querySelector('.btn-close-sidebar-mobile');
 const content = document.querySelector('.content');
 const overlay = document.querySelector('.overlay');
 
 checkToggleSidebar.addEventListener('change', function() {
     if (this.checked) {
         sidebar.classList.add('-is-collapsed');
+        rightContainer.classList.add('-is-expanded');
         menuTexts.forEach(menuText => {
             menuText.classList.add('-w-sidebar-collapsed');
         });
@@ -31,6 +33,7 @@ checkToggleSidebar.addEventListener('change', function() {
     }
     else {
         sidebar.classList.remove('-is-collapsed');
+        rightContainer.classList.remove('-is-expanded');
         menuTexts.forEach(menuText => {
             menuText.classList.remove('-w-sidebar-collapsed');
         });
