@@ -1,63 +1,73 @@
-<%= form_with(model: warehouse, local: true) do |form| %>
-  <% if warehouse.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(warehouse.errors.count, "error") %> prohibited this warehouse from being saved:</h2>
+<%= form_with(model: warehouse, local: true) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
 
-      <ul>
-      <% warehouse.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
   <div class="row">
     <div class="form_group col-md-6">
-      <%= form.label :name %>
-      <%= form.text_field :name, id: :warehouse_name, class: "form-control" %>
+      <%= f.label :name %>
+      <%= f.text_field :name, id: :warehouse_name, class: "form-control" %>
     </div>
   </div>
 
   <div class="row">
     <div class="form_group col-md-8">
-      <%= form.label :address %>
-      <%= form.text_field :address, id: :warehouse_address, class: "form-control" %>
+      <%= f.label :address %>
+      <%= f.text_field :address, id: :warehouse_address, class: "form-control" %>
     </div>
 
     <div class="form_group col-md-2">
-      <%= form.label :number %>
-      <%= form.text_field :number, id: :warehouse_number, class: "form-control" %>
+      <%= f.label :number %>
+      <%= f.text_field :number, id: :warehouse_number, class: "form-control" %>
     </div>
   </div>
 
   <div class="row">
     <div class="form_group col-md-3">
-      <%= form.label :district %>
-      <%= form.text_field :district, id: :warehouse_district, class: "form-control" %>
+      <%= f.label :district %>
+      <%= f.text_field :district, id: :warehouse_district, class: "form-control" %>
     </div>
 
     <div class="form_group col-md-2">
-      <%= form.label :state %>
-      <%= form.select :state, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"}  %>
+      <%= f.label :state %>
+      <%= f.select :state, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control", id: "warehouse_state_id"}  %>
+    </div>
+
+    <div class="form-group col-md-5">
+      <%= f.label :city %><br>
+      <% if @warehouse.state.present? %>
+        <%= f.collection_select :city, city_of_state(@warehouse.state), :name, :name, {include_blank: "Selecione a Cidade"}, {class: "form-control", id: "warehouse_city_id"}  %>
+      <% else %>
+        <%= f.select :city, [], {include_blank: "Selecione a Cidade"}, {class: "form-control", id: "warehouse_city_id"}  %>
+      <% end %>
     </div>
 
     <div class="form_group col-md-3">
-      <%= form.label :city %>
-      <%= form.text_field :city, id: :warehouse_city, class: "form-control" %>
-    </div>
-
-    <div class="form_group col-md-3">
-      <%= form.label :zip_code %>
-      <%= form.text_field :zip_code, id: :warehouse_zip_code, class: "form-control" %>
+      <%= f.label :zip_code %>
+      <%= f.text_field :zip_code, id: :warehouse_zip_code, class: "form-control" %>
     </div>
   </div>
 
   <div class="row">
     <div class="actions col-md-12">
-      <%= form.submit "Salvar", class: "btn btn-blue" %>
+      <%= f.submit "Salvar", class: "btn btn-blue" %>
       <%= link_to 'Back', warehouses_path, class:"btn btn-default" %>
     </div>
   </div>
 
-
-
 <% end %>
+
+
+<script type="text/javascript">
+  $(function(){
+    $("#warehouse_state_id").change(function(){
+      var uf = "uf="+$(this).val();
+      console.log(uf);
+      $.getJSON('/get_city_by_uf', uf, function(data){
+        var options = '<option value="">Selecione a cidade de origem</option>';
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#warehouse_city_id").html(options);
+      });
+    });
+  });
+</script>
