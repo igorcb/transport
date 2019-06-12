@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Floors</h1>
+  <%= link_to 'New Floor', new_floor_path,  class: "btn btn-primary" %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Street</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @floors.each do |floor| %>
+      <tr>
+        <td><%= floor.name %></td>
+        <td><%= floor.street.name %></td>
+        <td><%= link_to 'Edit', edit_floor_path(floor), class:"btn btn-info" %></td>
+        <td><%= link_to 'Destroy', floor, method: :delete, data: { confirm: 'Are you sure?', class:"btn btn-danger" } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

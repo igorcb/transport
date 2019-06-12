@@ -1,0 +1,21 @@
+<%= form_with(model: floor, local: true) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="row">
+    <div class="form_group col-md-6">
+      <%= f.label :street_id %>
+      <%= select("floor", "street_id", Street.all.collect {|p| [ p.name, p.id ] }, { include_blank: "Escolha uma rua" }, {class: "form-control"}) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form_group col-md-6">
+      <%= f.label :name %>
+      <%= f.text_field :name, id: :floor_name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to 'Back', floors_path, class: "btn btn-default" %>
+  </div>
+<% end %>
