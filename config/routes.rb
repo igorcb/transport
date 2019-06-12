@@ -2,6 +2,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :streets
   resources :deposits
   resources :warehouses
   resources :checkins do
