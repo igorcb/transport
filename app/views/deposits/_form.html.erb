@@ -1,15 +1,5 @@
 <%= form_with(model: deposit, local: true) do |f| %>
-  <% if deposit.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(deposit.errors.count, "error") %> prohibited this deposit from being saved:</h2>
-
-      <ul>
-      <% deposit.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= render 'shared/error_messages', object: f.object %>
 
   <div class="row">
     <div class="form_group col-md-5">
