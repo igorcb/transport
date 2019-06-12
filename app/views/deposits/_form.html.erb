@@ -1,0 +1,31 @@
+<%= form_with(model: deposit, local: true) do |f| %>
+  <% if deposit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(deposit.errors.count, "error") %> prohibited this deposit from being saved:</h2>
+
+      <ul>
+      <% deposit.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="form_group col-md-5">
+      <%= f.label :warehouse_id %>
+      <%= select("deposit", "warehouse_id", Warehouse.all.collect {|p| [ p.name, p.id ] }, { include_blank: "escolha um armazém" }, {class: "form-control"}) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form_group col-md-5">
+      <%= f.label :name %>
+      <%= f.text_field :name, id: :deposit_name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to 'Back', deposits_path, class: "btn btn-default" %>
+  </div>
+<% end %>
