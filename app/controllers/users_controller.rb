@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	before_action :authenticate_user!
 
   def index
-    @users = User.order(:id)  
+    @users = User.order(:id)
   end
 
 	def edit
@@ -18,6 +18,8 @@ class UsersController < ApplicationController
       	redirect_to root_path, flash: { success: "You updated your account successfully" }
       elsif @user.has_role? :visit
       	redirect_to dashboard_visit_path, flash: { success: "You updated your account successfully" }
+			elsif @user.has_role? :boarding
+      	redirect_to boardings_path, flash: { success: "You updated your account successfully" }
       else
         redirect_to dashboard_agent_path, flash: { success: "You updated your account successfully" }
       end
@@ -25,7 +27,7 @@ class UsersController < ApplicationController
     	#flash: { danger: "You updated your account successfully" }
       render "edit"
     end
-  end  
+  end
 
   private
 
