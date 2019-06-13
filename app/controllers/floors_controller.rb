@@ -9,8 +9,8 @@ class FloorsController < ApplicationController
 
   # GET /floors/1
   # GET /floors/1.json
-  # def show
-  # end
+  def show
+  end
 
   # GET /floors/new
   def new
@@ -28,7 +28,7 @@ class FloorsController < ApplicationController
 
     respond_to do |format|
       if @floor.save
-        format.html { redirect_to floors_path, notice: 'Floor was successfully created.' }
+        format.html { redirect_to @floor, notice: 'Floor was successfully created.' }
         format.json { render :show, status: :created, location: @floor }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class FloorsController < ApplicationController
   def update
     respond_to do |format|
       if @floor.update(floor_params)
-        format.html { redirect_to floors_path, notice: 'Floor was successfully updated.' }
+        format.html { redirect_to @floor, notice: 'Floor was successfully updated.' }
         format.json { render :show, status: :ok, location: @floor }
       else
         format.html { render :edit }
@@ -60,6 +60,27 @@ class FloorsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def get_deposit_by_warehouse
+    warehouse = params[:warehouse]
+    deposit = Deposit.where(warehouse: warehouse)
+    deposit_array = []
+    deposit.each do |d|
+      deposit_array << {:id => d.id, :n => d.name}
+    end
+    render :json => deposit_array.to_json
+  end
+
+  def get_street_by_deposit
+    deposit = params[:deposit]
+    street = Street.where(deposit: deposit)
+    street_array = []
+    street.each do |s|
+      street_array << {:id => s.id, :n => s.name}
+    end
+    render :json => street_array.to_json
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

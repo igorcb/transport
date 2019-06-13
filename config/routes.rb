@@ -2,7 +2,12 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
-  resources :floors
+  resources :floors do
+    collection do
+      get :get_deposit_by_warehouse
+      get :get_street_by_deposit
+    end
+  end
   resources :streets
   resources :deposits
   resources :warehouses
