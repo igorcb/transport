@@ -1,0 +1,15 @@
+
+<div class="container-fluid list">
+
+  <p id="notice"><%= notice %></p>
+      <%= show_line_build @house.name, "Name" %>
+      <%= show_line_build @house.floor.name, "Floor" %>
+      <%= show_line_build @house.street.name, "Street" %>
+      <%= show_line_build @house.deposit.name, "Deposit" %>
+      <%= show_line_build @house.warehouse.name, "Warehouse" %>
+
+
+  <%= link_to 'Edit', edit_house_path(@house), class: "btn btn-primary" %>
+  <%= link_to 'Back', houses_path, class: "btn btn-default" %>
+
+</div>
