@@ -1,17 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Boardings::AddVehiclesService, type: :service do
+  #context "insert TRACAO or REBOQUE" do
   context "insert" do
     before(:each) do
-      #byebug
-      # @user = FactoryBot.create(:user)
-      # @client = FactoryBot.create(:client)
-      # @source_client = FactoryBot.create(:client)
-      # @driver = FactoryBot.create(:driver)
-      # @carrier = FactoryBot.create(:carrier)
-      # @ordem_service = FactoryBot.create(:ordem_service)
-
-      ###################
       @boarding = FactoryBot.create(:boarding)
       @vehicle_not_exist = Vehicle.where(id: -1) #FactoryBot.create(:vehicle)
       @vehicle_tracao = FactoryBot.create(:vehicle_tracao)
@@ -75,10 +67,15 @@ RSpec.describe Boardings::AddVehiclesService, type: :service do
       expect(result[:message]).to match("Boarding, vehicle created successfully.")
     end
 
+    it "when the first vehicle is TRACAO_BAU, you can not have another type of vehicle" do
+      @vehicle_tracao_bau = FactoryBot.create(:vehicle_tracao_bau)
+      @vehicle_tracao_bau_other = FactoryBot.create(:vehicle_reboque)
+      @boarding.boarding_vehicles.create(vehicle_id: @vehicle_tracao_bau.id)
+      result = Boardings::AddVehiclesService.new(@boarding, @vehicle_tracao_bau_other).call
+      expect(result[:success]).to be_falsey
+      expect(result[:message]).to match("Boarding, you can not have another type of vehicle.")
+    end
 
-    # it "" do
-    #   #puts ">>>>>>>>>>>> VehicleCount: #{Vehicle.count}"
-    # end
   end
 
 end
