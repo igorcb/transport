@@ -1,0 +1,29 @@
+module Boardings
+  class AddVehiclesService
+
+    def initialize(boarding, vehicle)
+      @boarding = boarding
+      @vehicle = vehicle
+    end
+
+    def call
+      #byebug
+      return {success: false, message: "Boarding, vehicle does not exist."} if !@vehicle.present?
+      return {success: false, message: "Boarding, must have at least one vehicle."} if BoardingVehicle.where(boarding_id: @boarding.id, vehicle_id: @vehicle.id).present?
+      #return {success: false, message: "Boarding, vehicles are of the same type."} if BoardingVehicle.joins(:vehicle).where(boarding_id: @boarding.id, vehicles: {tipo: Vehicle::Tipo::TRACAO}).present?
+      return {success: false, message: "Boarding, vehicles are of the same type."} if BoardingVehicle.joins(:vehicle).where(boarding_id: @boarding.id, vehicles: {tipo: @vehicle.tipo}).present?
+
+      begin
+        ActiveRecord::Base.transaction do
+          # BoardingItem.where(ordem_service_id: @ordem_service.id).destroy_all
+          @boarding.boarding_vehicles.create!(vehicle_id: @vehicle.id)
+          return {success: true, message: "Boarding, vehicle created successfully."}
+        end
+      rescue => e
+        return {success: false, message: e.message}
+      end
+    end
+
+    private
+  end
+end
