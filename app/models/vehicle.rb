@@ -61,6 +61,7 @@ class Vehicle < ActiveRecord::Base
   module Tipo
     REBOQUE = 0
     TRACAO = 1
+    TRACAO_BAU = 2
   end
 
   module TipoCarroceria
@@ -123,6 +124,7 @@ class Vehicle < ActiveRecord::Base
     case self.tipo
       when 0 then "REBOQUE"
       when 1 then "TRACAO"
+      when 1 then "TRACAO_BAU"
     end
   end
 
