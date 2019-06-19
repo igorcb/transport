@@ -299,6 +299,8 @@ class BoardingsController < ApplicationController
 			@boarding = Boarding.find(params[:id])
       @boarding_items = @boarding.boarding_items.order(:row_order) if @boarding.boarding_items.present?
       @boarding_item = BoardingItem.new
+      @boarding_vehicle = BoardingVehicle.new
+      @boarding_vehicles = @boarding.boarding_items.order(:id) if @boarding.boarding_vehicles.present?
 		end
 
     def boarding_params

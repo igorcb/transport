@@ -26,6 +26,12 @@ module Boardings
           return {success: false, message: "Boarding, you can not have another type of vehicle."} if @vehicles.present?
         end
       end
+      if @vehicles.count == 2
+        vehicle = BoardingVehicle.joins(:vehicle).where(boarding_id: @boarding.id, vehicles: {tipo: [Vehicle::Tipo::TRACAO, Vehicle::Tipo::REBOQUE]})
+        if vehicle.present?
+          return {success: false, message: "Boarding, you already have the types of vehicles."}
+        end
+      end
 
       begin
         ActiveRecord::Base.transaction do

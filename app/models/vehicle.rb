@@ -124,7 +124,7 @@ class Vehicle < ActiveRecord::Base
     case self.tipo
       when 0 then "REBOQUE"
       when 1 then "TRACAO"
-      when 1 then "TRACAO_BAU"
+      when 2 then "TRACAO_BAU"
     end
   end
 

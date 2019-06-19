@@ -76,6 +76,14 @@ RSpec.describe Boardings::AddVehiclesService, type: :service do
       expect(result[:message]).to match("Boarding, you can not have another type of vehicle.")
     end
 
+    it "when the first vehicle is TRACAO and REBOQUE, must not accept vehicles" do
+      @vehicle_tracao_bau_other = FactoryBot.create(:vehicle_tracao_bau)
+      @boarding.boarding_vehicles.create(vehicle_id: @vehicle_tracao.id)
+      @boarding.boarding_vehicles.create(vehicle_id: @vehicle_reboque.id)
+      result = Boardings::AddVehiclesService.new(@boarding, @vehicle_tracao_bau_other).call
+      expect(result[:success]).to be_falsey
+      expect(result[:message]).to match("Boarding, you already have the types of vehicles.")
+    end
   end
 
 end
