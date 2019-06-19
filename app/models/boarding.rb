@@ -338,7 +338,12 @@ class Boarding < ActiveRecord::Base
     pendings.append('Existe Ordem de Serviço sem CT-e ou NFS-e.') if self.check_ordem_service_cte_and_nfs_pending?
     pendings.append('Informar os lacres do embarque.') if self.sealing_pending?
     pendings.append('CNH do motorista está vencida.') if self.driver.cnh_expired?
+    pendings.append('Qtde de Palletes do veículo é menor do que a qtde de pallets do embarque') if capacity_exceeded_vehicle?
     pendings
+  end
+
+  def capacity_exceeded_vehicle?
+    self.nfe_keys.sum(:qtde_pallet).to_f > self.capacidade_paletes.to_f
   end
 
   def nfe_dae_pending?
