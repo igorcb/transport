@@ -335,6 +335,8 @@ class Boarding < ActiveRecord::Base
     pendings.append('ANTT não existe para o segundo veículo.') if check_annt_exist_vehicle_second?
     pendings.append('Validade ANTT exipirada para primeiro veículo.') if check_annt_exipired_vehicle_first?
     pendings.append('Validade ANTT exipirada para segundo veículo. ') if check_annt_exipired_vehicle_second?
+    pendings.append('Embarque deve ter um veiculo') if check_vehicle_exist?
+    pendings.append('Embarque deve ter um veiculo TRACAO e um REBOQUE') if check_type_vehicle_tracao_and_reboque?
     pendings
   end
 
@@ -346,6 +348,29 @@ class Boarding < ActiveRecord::Base
     pendings.append('CNH do motorista está vencida.') if self.driver.cnh_expired?
     pendings.append('Qtde de Palletes do veículo é menor do que a qtde de pallets do embarque') if capacity_exceeded_vehicle?
     pendings
+  end
+
+  def check_vehicle_exist?
+    result = !self.boarding_vehicles.present?
+  end
+
+  def check_type_vehicle_tracao_and_reboque?
+    #Quando existir um reboque no embarque, tem que ter obrigatoriamente uma tracao
+    if self.boarding_vehicles.present?
+      if self.boarding_vehicles.count > 1 then
+        if BoardingVehicle.joins(:vehicle).where(boarding_id: self.id, vehicles: {tipo: [Vehicle::Tipo::TRACAO, Vehicle::Tipo::REBOQUE]}).count == 2
+          result = false
+        else
+          result = true
+        end
+      else
+        if self.boarding_vehicles.first.vehicle.tipo == Vehicle::Tipo::TRACAO_BAU
+          result = false
+        else
+          result = true
+        end
+      end
+    end
   end
 
   def check_annt_exipired_vehicle_first?
@@ -389,6 +414,7 @@ class Boarding < ActiveRecord::Base
       false
     end
   end
+
 
   def capacity_exceeded_vehicle?
     self.nfe_keys.sum(:qtde_pallet).to_f > self.capacidade_paletes.to_f
