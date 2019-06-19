@@ -299,10 +299,13 @@ class Boarding < ActiveRecord::Base
     self.carrier_id == Boarding.carrier_not_information ||
     self.driver_id == Boarding.driver_not_information ||
     check_driver_restriction_with_client? ||
-    DriverRestriction.where(driver_id: self.driver_id).present?
+    DriverRestriction.where(driver_id: self.driver_id).present? ||
+    check_annt_exist_vehicle_first?
+    check_annt_exist_vehicle_second?
     #self.value_not_boarding_present?
     # self.insurer.blank?
     # self.insurer.policie_insurances_expired?
+
   end
 
   def pending_services?
@@ -328,7 +331,10 @@ class Boarding < ActiveRecord::Base
     pendings.append('Motorista com restrição. Não pode efetuar entrega no cliente.') if check_driver_restriction_with_client?
     pendings.append('Motorista com restrição.') if DriverRestriction.where(driver_id: self.driver_id).present?
     pendings.append('Peso total acima da capacidade do veículo.') if self.weight_exceeds_vehicle_capacity?
-
+    pendings.append('ANTT não existe para o primeiro veículo.') if check_annt_exist_vehicle_first?
+    pendings.append('ANTT não existe para o segundo veículo.') if check_annt_exist_vehicle_second?
+    pendings.append('Validade ANTT exipirada para primeiro veículo.') if check_annt_exipired_vehicle_first?
+    pendings.append('Validade ANTT exipirada para segundo veículo. ') if check_annt_exipired_vehicle_second?
     pendings
   end
 
@@ -340,6 +346,48 @@ class Boarding < ActiveRecord::Base
     pendings.append('CNH do motorista está vencida.') if self.driver.cnh_expired?
     pendings.append('Qtde de Palletes do veículo é menor do que a qtde de pallets do embarque') if capacity_exceeded_vehicle?
     pendings
+  end
+
+  def check_annt_exipired_vehicle_first?
+    if self.boarding_vehicles.present?
+      antt_vehicle = AnttsVehicles.where(vehicle_id: self.boarding_vehicles.order(:id).first.vehicle_id).first
+      if antt_vehicle.present?
+        result = Date.current > antt_vehicle.antt.date_expiration
+      else
+        result = false
+      end
+    else
+      result = false
+    end
+  end
+
+  def check_annt_exipired_vehicle_second?
+    if self.boarding_vehicles.count > 1
+      antt_vehicle = AnttsVehicles.where(vehicle_id: self.boarding_vehicles.order(:id).second.vehicle_id).first
+      if antt_vehicle.present?
+        result = Date.current > antt_vehicle.antt.date_expiration
+      else
+        result = false
+      end
+    else
+      result = false
+    end
+  end
+
+  def check_annt_exist_vehicle_first?
+    if self.boarding_vehicles.present?
+      result = !AnttsVehicles.where(vehicle_id: self.boarding_vehicles.order(:id).first.vehicle_id).present?
+    else
+      false
+    end
+  end
+
+  def check_annt_exist_vehicle_second?
+    if self.boarding_vehicles.count > 1
+      result = !AnttsVehicles.where(vehicle_id: self.boarding_vehicles.order(:id).second.vehicle_id).present?
+    else
+      false
+    end
   end
 
   def capacity_exceeded_vehicle?
