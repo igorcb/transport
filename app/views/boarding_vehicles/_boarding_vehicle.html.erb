@@ -15,6 +15,7 @@
             <th>Tipo veiculo</th>
             <th>No.Eixo</th>
             <th>Qtde Pallets</th>
+            <th>Peso</th>
             <th>Piso</th>
             <th>Motorista</th>
             <th>Proprietário</th>
@@ -30,6 +31,7 @@
               <td><%= link_to item.vehicle.tipo_veiculo_nome, item.vehicle if item.vehicle.tipo_veiculo.present? %></td>
               <td align="center"><%= link_to item.vehicle.numero_eixos, item.vehicle if item.vehicle.numero_eixos.present? %></td>
               <td><%= link_to "#{item.vehicle.qtde_paletes}", item.vehicle %></td>
+              <td><%= link_to "#{item.vehicle.capacity}", item.vehicle %></td>
               <td><%= link_to item.vehicle.tipo_piso_assoalho_nome, item.vehicle if item.vehicle.tipo_piso_assoalho.present? %></td>
               <td><%= link_to item.vehicle.drivers.first.nome, item.vehicle.drivers.first  if item.vehicle.drivers.present? %></td>
               <td><%= link_to item.vehicle.owners.first.fantasia, item.vehicle.owners.first  if item.vehicle.owners.present? %></td>
