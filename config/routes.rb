@@ -3,8 +3,7 @@ Rails.application.routes.draw do
 
   resources :floors do
     collection do
-      get :get_deposit_by_warehouse
-      get :get_street_by_deposit
+      get :get_floor_by_street
     end
   end
   resources :streets
@@ -261,6 +260,9 @@ Rails.application.routes.draw do
     end
     resources :boarding_items do
       post :update_row_order, on: :collection
+    end
+    resources :boarding_vehicles do
+      #code
     end
     #match :cancellation, :as => :cancellation, :via => [:get, :put]
     get :selection_shipment_search, on: :collection

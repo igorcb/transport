@@ -1,0 +1,2 @@
+module BoardingVehiclesHelper
+end

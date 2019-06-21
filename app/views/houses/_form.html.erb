@@ -1,0 +1,107 @@
+<%= form_for(@house) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= f.label :warehouse %>
+      <% if @house.new_record? %>
+        <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name"),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
+      <% else %>
+        <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name", @house.warehouse.id),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
+      <% end %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= f.label :deposit %>
+      <% if @house.new_record? %>
+        <%= select_tag "deposit", [],  {disabled: true, class: "form-control", id: "deposit-select"} %>
+      <% else %>
+        <%= select_tag "deposit", options_from_collection_for_select(Deposit.where(warehouse_id: @house.warehouse.id), "id", "name", @house.deposit.id),  {include_blank: "Escolha seu armazém", class: "form-control", id: "deposit-select"} %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form_group col-md-6">
+      <%= f.label :street_id %>
+      <% if @house.new_record? %>
+        <%= select_tag "street", [],  {disabled: true, class: "form-control", id: "street-select"} %>
+        <%#= select("floor", "street_id", [], { include_blank: "Escolha uma rua" }, {disabled: true, class: "form-control", id: "street-select"}) %>
+      <% else %>
+      <%= select_tag "street", options_from_collection_for_select(Street.where(deposit_id: @house.deposit.id), "id", "name", @house.deposit.id),  {include_blank: "Escolha seu armazém", class: "form-control", id: "street-select"} %>
+        <%#= select("floor", "street_id", Street.where(deposit_id: @house.deposit.id).collect {|p| [ p.name, p.id ] }, { include_blank: "Escolha uma rua" }, {class: "form-control", id: "street-select"}) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= f.label :floor_id %>
+      <% if @house.new_record? %>
+        <%= select("house", "floor_id", [], { include_blank: "Escolha uma rua" }, {disabled: true, class: "form-control", id: "floor-select"}) %>
+      <% else %>
+        <%= select("house", "floor_id", Floor.where(street_id: @house.street.id).collect {|p| [ p.name, p.id ] }, { include_blank: "Escolha um andar" }, {class: "form-control", id: "floor-select"}) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= f.label :name %>
+      <%= f.text_field :name, id: :house_name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "salvar", class: "btn btn-primary" %>
+    <%= link_to 'Back', houses_path, class: "btn btn-default" %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  $(function(){
+    $("#warehouse-select").change(function(){
+      var warehouse = "warehouse="+$(this).val();
+      console.log(warehouse);
+      $.getJSON('/floors/get_deposit_by_warehouse', warehouse, function(data){
+        var options = '<option value="">Selecione um galpão</option>';
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#street-select").html("").prop("disabled", true)
+        $("#deposit-select").html(options).prop("disabled", false);
+      });
+    });
+
+
+    $("#deposit-select").change(function(){
+      var deposit = "deposit="+$(this).val();
+      console.log(deposit);
+      $.getJSON('/floors/get_street_by_deposit', deposit, function(data){
+        var options = '<option value="">Selecione uma rua</option>';
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#street-select").html(options).prop("disabled", false);
+      });
+    });
+
+
+    $("#street-select").change(function(){
+      var street = "street="+$(this).val();
+      console.log(street);
+      $.getJSON('/houses/get_floor_by_street', street, function(data){
+        var options = '<option value="">Selecione uma rua</option>';
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#floor-select").html(options).prop("disabled", false);
+      });
+    });
+
+  });
+
+</script>

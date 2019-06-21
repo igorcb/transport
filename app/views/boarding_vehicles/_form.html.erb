@@ -1,0 +1,7 @@
+<%= form_for([@boarding, @boarding_vehicle], :remote => true) do |f| %>
+  <div class="messages"></div>
+  <div style="text-align:center; margin: 0 auto;" class="center form-group">
+    <%= f.text_field :vehicle_id, :size => 20, style: "text-transform:uppercase", placeholder: "informe a placa"  %>
+    <%= f.submit 'Salvar', :id => "add_vehicle", class: "btn btn-success btn-sm" %>
+  </div>
+<% end %>

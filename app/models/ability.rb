@@ -4,6 +4,9 @@ class Ability
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
+    # elsif  user.has_role? :client
+      #can :manage, Pallet
+
 
     if user.has_role? :admin
       can :manage, :all
@@ -23,15 +26,19 @@ class Ability
       can [:edit_qtde_pallet, :update_qtde_pallet], NfeXml
     elsif  user.has_role? :visit
       can :manage, Pallet
-    elsif  user.has_role? :client
-      #can :manage, Pallet
     elsif  user.has_role? :agent
       can :manage, OrdemService, :carrier_id => user.carrier_id
-      #if user.has_role?(:agent, OrdemSerice.where(carrier_id: ?, user.carrier_id))
-      #can :manage, OrdemService
-      # can :write, Forum if user.has_role?(:moderator, Forum)
-      # can :write, Forum, :id => Forum.with_role(:moderator, user).pluck(:id)
+    elsif user.has_role? :boarding
+      #can :manage, Client
+      can :manage, [Boarding, OrdemService, Driver, Task]
+      can [:read, :search], [Client, InputControl, NfeXml, NfeKey, Vehicle]
+      can [:create, :read, :type_account_select, :sub_centro_custo_by_custo, :sub_centro_custo_three_by_custo], AccountPayable
     end
+    #if user.has_role?(:agent, OrdemSerice.where(carrier_id: ?, user.carrier_id))
+    #can :manage, OrdemService
+    # can :write, Forum if user.has_role?(:moderator, Forum)
+    # can :write, Forum, :id => Forum.with_role(:moderator, user).pluck(:id)
+
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
@@ -52,46 +59,46 @@ class Ability
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
   end
 
-  class Admin
-    def create_access_admin
-      puts "Criando acesso para create_access_admin"
-    end
-  end
-
-  class Oper
-    def create_access_oper
-      puts "Criando acesso para create_access_oper"
-    end
-  end
-
-  class Client
-    def create_access_client
-      puts "Criando acesso para create_access_client"
-    end
-  end
-
-  class Visit
-    def create_access_visit
-      puts "Criando acesso para create_access_visit"
-    end
-  end
-
-  class Agent
-    def create_access_agent
-      puts "Criando acesso para create_access_agent"
-    end
-  end
-
-  class Port
-    def create_access_port
-      puts "Criando acesso para create_access_port"
-    end
-  end
-
-  class Sup
-    def create_access_sup
-      puts "Criando acesso para create_access_sup"
-    end
-  end
+  # class Admin
+  #   def create_access_admin
+  #     puts "Criando acesso para create_access_admin"
+  #   end
+  # end
+  #
+  # class Oper
+  #   def create_access_oper
+  #     puts "Criando acesso para create_access_oper"
+  #   end
+  # end
+  #
+  # class Client
+  #   def create_access_client
+  #     puts "Criando acesso para create_access_client"
+  #   end
+  # end
+  #
+  # class Visit
+  #   def create_access_visit
+  #     puts "Criando acesso para create_access_visit"
+  #   end
+  # end
+  #
+  # class Agent
+  #   def create_access_agent
+  #     puts "Criando acesso para create_access_agent"
+  #   end
+  # end
+  #
+  # class Port
+  #   def create_access_port
+  #     puts "Criando acesso para create_access_port"
+  #   end
+  # end
+  #
+  # class Sup
+  #   def create_access_sup
+  #     puts "Criando acesso para create_access_sup"
+  #   end
+  # end
 
 end
