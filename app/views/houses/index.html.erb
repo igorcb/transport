@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Houses</h1>
+  <%= link_to 'New House', new_house_path, class: "btn btn-primary" %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Floor</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @houses.each do |house| %>
+        <tr>
+          <td><%= house.name %></td>
+          <td><%= house.floor.name %></td>
+          <td><%= house.street.name %></td>
+          <td><%= house.deposit.name %></td>
+          <td><%= house.warehouse.name %></td>
+          <td><%= link_to 'Show', house, class: "btn btn-info" %></td>
+          <td><%= link_to 'Edit', edit_house_path(house), class: "btn btn-primary" %></td>
+          <td><%= link_to 'Destroy', house, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
