@@ -1,7 +1,6 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
 
-
   resources :floors do
     collection do
       get :get_deposit_by_warehouse
