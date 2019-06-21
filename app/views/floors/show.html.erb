@@ -1,0 +1,14 @@
+<div class="container-fluid list">
+  <p id="notice"><%= notice %></p>
+  <h1>Show Floor</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <%= show_line_build @floor.warehouse.name, "Warehouse" %>
+      <%= show_line_build @floor.deposit.name, "Deposit" %>
+      <%= show_line_build @floor.street.name, "Street" %>
+      <%= show_line_build @floor.name, "Name" %>
+    </div>
+  </div>
+  <%= link_to 'Edit', edit_floor_path(@floor), class: "btn btn-primary" %>
+  <%= link_to 'Back', floors_path, class: "btn btn-default" %>
+</div>

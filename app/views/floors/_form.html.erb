@@ -1,0 +1,80 @@
+<%= form_for(@floor) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="row">
+    <div class="form_group col-md-6">
+      <%= f.label :warehouse %>
+      <% if @floor.new_record? %>
+        <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name"),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
+      <% else %>
+        <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name", @floor.warehouse.id),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
+      <% end %>
+    </div>
+  </div>
+  <%#= Deposit.where(id: @floor.warehouse.id) %>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= f.label :deposit %>
+      <% if @floor.new_record? %>
+        <%= select_tag "deposit", [],  {disabled: true, class: "form-control", id: "deposit-select"} %>
+      <% else %>
+        <%= select_tag "deposit", options_from_collection_for_select(Deposit.where(warehouse_id: @floor.warehouse.id), "id", "name", @floor.deposit.id),  {include_blank: "Escolha seu armazém", class: "form-control", id: "deposit-select"} %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form_group col-md-6">
+      <%= f.label :street_id %>
+      <% if @floor.new_record? %>
+        <%= select("floor", "street_id", [], { include_blank: "Escolha uma rua" }, {disabled: true, class: "form-control", id: "street-select"}) %>
+      <% else %>
+        <%= select("floor", "street_id", Street.where(deposit_id: @floor.deposit.id).collect {|p| [ p.name, p.id ] }, { include_blank: "Escolha uma rua" }, {class: "form-control", id: "street-select"}) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form_group col-md-6">
+      <%= f.label :name %>
+      <%= f.text_field :name, id: :floor_name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <%= link_to 'Back', floors_path, class: "btn btn-default" %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  $(function(){
+    $("#warehouse-select").change(function(){
+      var warehouse = "warehouse="+$(this).val();
+      console.log(warehouse);
+      $.getJSON('/floors/get_deposit_by_warehouse', warehouse, function(data){
+        var options = '<option value="">Selecione um galpão</option>';
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#street-select").html("").prop("disabled", true)
+        $("#deposit-select").html(options).prop("disabled", false);
+      });
+    });
+
+
+    $("#deposit-select").change(function(){
+      var deposit = "deposit="+$(this).val();
+      console.log(deposit);
+      $.getJSON('/floors/get_street_by_deposit', deposit, function(data){
+        var options = '<option value="">Selecione uma rua</option>';
+        $.each(data, function(i, item) {
+          options += '<option value="' + item.id + '">' + item.n + '</option>';
+        });
+        $("#street-select").html(options).prop("disabled", false);
+      });
+    });
+
+  });
+
+</script>

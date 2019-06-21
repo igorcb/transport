@@ -1,0 +1,95 @@
+class FloorsController < ApplicationController
+  before_action :set_floor, only: [:show, :edit, :update, :destroy]
+
+  # GET /floors
+  # GET /floors.json
+  def index
+    @floors = Floor.all
+  end
+
+  # GET /floors/1
+  # GET /floors/1.json
+  def show
+  end
+
+  # GET /floors/new
+  def new
+    @floor = Floor.new
+  end
+
+  # GET /floors/1/edit
+  def edit
+  end
+
+  # POST /floors
+  # POST /floors.json
+  def create
+    @floor = Floor.new(floor_params)
+
+    respond_to do |format|
+      if @floor.save
+        format.html { redirect_to @floor, notice: 'Floor was successfully created.' }
+        format.json { render :show, status: :created, location: @floor }
+      else
+        format.html { render :new }
+        format.json { render json: @floor.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /floors/1
+  # PATCH/PUT /floors/1.json
+  def update
+    respond_to do |format|
+      if @floor.update(floor_params)
+        format.html { redirect_to @floor, notice: 'Floor was successfully updated.' }
+        format.json { render :show, status: :ok, location: @floor }
+      else
+        format.html { render :edit }
+        format.json { render json: @floor.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /floors/1
+  # DELETE /floors/1.json
+  def destroy
+    @floor.destroy
+    respond_to do |format|
+      format.html { redirect_to floors_url, notice: 'Floor was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def get_deposit_by_warehouse
+    warehouse = params[:warehouse]
+    deposit = Deposit.where(warehouse: warehouse)
+    deposit_array = []
+    deposit.each do |d|
+      deposit_array << {:id => d.id, :n => d.name}
+    end
+    render :json => deposit_array.to_json
+  end
+
+  def get_street_by_deposit
+    deposit = params[:deposit]
+    street = Street.where(deposit: deposit)
+    street_array = []
+    street.each do |s|
+      street_array << {:id => s.id, :n => s.name}
+    end
+    render :json => street_array.to_json
+  end
+
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_floor
+      @floor = Floor.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def floor_params
+      params.require(:floor).permit(:name, :street_id)
+    end
+end
