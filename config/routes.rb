@@ -7,13 +7,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :floors do
-    collection do
-      get :get_deposit_by_warehouse
-      get :get_street_by_deposit
-    end
-  end
-  resources :streets
   resources :deposits
   resources :warehouses
   resources :checkins do
