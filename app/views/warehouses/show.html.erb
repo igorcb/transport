@@ -1,0 +1,16 @@
+<div class="container-fluid list">
+  <h1>Show warehouse</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <%= show_line_build @warehouse.name, "Name" %>
+      <%= show_line_build @warehouse.address, "Address" %>
+      <%= show_line_build @warehouse.number, "Number" %>
+      <%= show_line_build @warehouse.district, "District" %>
+      <%= show_line_build @warehouse.city, "City" %>
+      <%= show_line_build @warehouse.state, "State" %>
+      <%= show_line_build @warehouse.zip_code, "Zip code" %>
+    </div>
+  </div>
+  <%= link_to 'Edit', edit_warehouse_path(@warehouse), class: "btn btn-primary" %>
+  <%= link_to 'Back', warehouses_path, class: "btn btn-default" %>
+</div>
