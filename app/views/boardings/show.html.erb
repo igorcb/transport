@@ -356,7 +356,6 @@
 </div>
 
 <div class="panel panel-default">
-
   <div class="panel-heading">
     <h3 class="panel-title">Entregas</h3>
   </div>
@@ -367,8 +366,18 @@
     <div id="boardings_items_form"><%= render "/boarding_items/form" %></div>
     <div id="boardings_items_list"><%= render "/boarding_items/boarding_item", boarding_items: @boarding_items %></div>
   </div>
-
 </div>
 
-<%#= render 'show_vehicle', object: @boarding  %>
-<%= render 'shared/show_vehicle_compact', object: @boarding %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Veiculos</h3>
+  </div>
+
+  <div id="messages_vehicles"></div>
+  <!-- <div id="messages_vehicles"></div> -->
+
+  <div class="panel-body">
+    <div id="boardings_vehicles_form"><%= render "/boarding_vehicles/form" %></div>
+    <div id="boardings_vehicles_list"><%= render "/boarding_vehicles/boarding_vehicle", boarding_items: @boarding_vehicles %></div>
+  </div>
+</div>

@@ -46,6 +46,9 @@
         	  <%= render 'layouts/sidebar_sup' %>
         	<% end %>
 
+          <% if current_user.has_role? :boarding %>
+        	  <%= render 'layouts/sidebar_admin' %>
+        	<% end %>
 
     </div>
   </div>

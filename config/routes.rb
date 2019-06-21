@@ -261,6 +261,9 @@ Rails.application.routes.draw do
     resources :boarding_items do
       post :update_row_order, on: :collection
     end
+    resources :boarding_vehicles do
+      #code 
+    end
     #match :cancellation, :as => :cancellation, :via => [:get, :put]
     get :selection_shipment_search, on: :collection
     get :payment_discharge_client, on: :collection

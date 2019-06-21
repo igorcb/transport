@@ -205,14 +205,43 @@ class BoardingsController < ApplicationController
       flash[:danger] = "Date Boarding is not present."
       redirect_to boarding_path(@boarding)
       return
-    elsif !@boarding.vehicle_tracao.present?
-      flash[:danger] = "Vehicle Traction is not present.."
+    elsif !@boarding.boarding_vehicles.present?
+      flash[:danger] = "Vehicle is not present.."
       redirect_to boarding_path(@boarding)
       return
-    elsif !@boarding.vehicle_tracao.owners.present?
-      flash[:danger] = "Vehicle Traction is not present does not have an owner."
+    elsif ((@boarding.check_type_vehicle_tracao_and_reboque?) && (@boarding.boarding_vehicles.count > 1))
+      flash[:danger] = "Boarding, vehicle must have a TRACAO and REBOQUE"
       redirect_to boarding_path(@boarding)
       return
+    elsif @boarding.boarding_vehicles.present?
+      if @boarding.boarding_vehicles.count == 1
+        if @boarding.boarding_vehicles.first.vehicle.tipo == Vehicle::Tipo::TRACAO_BAU
+          if !@boarding.boarding_vehicles.first.vehicle.owners.present?
+            flash[:danger] = "Boarding, vehicle must have an owner"
+            redirect_to boarding_path(@boarding)
+            return
+          end
+        else
+          #code
+        end
+      elsif @boarding.boarding_vehicles.count == 2
+        vehicle = @boarding.boarding_vehicles.joins(:vehicle).where(vehicles: {tipo: Vehicle::Tipo::TRACAO}).first.vehicle
+        if !vehicle.owners.present?
+          flash[:danger] = "Boarding, vehicle TRACAO must have an owner"
+          redirect_to boarding_path(@boarding)
+          return
+        end
+        vehicle = @boarding.boarding_vehicles.joins(:vehicle).where(vehicles: {tipo: Vehicle::Tipo::REBOQUE}).first.vehicle
+        if !vehicle.owners.present?
+          flash[:danger] = "Boarding, vehicle REBOQUE must have an owner"
+          redirect_to boarding_path(@boarding)
+          return
+        end
+      end
+      # flash[:danger] = "Boarding, vehicle must have an owner"
+      # redirect_to boarding_path(@boarding)
+      # return
+
     end
 
     respond_to do |format|
@@ -299,6 +328,8 @@ class BoardingsController < ApplicationController
 			@boarding = Boarding.find(params[:id])
       @boarding_items = @boarding.boarding_items.order(:row_order) if @boarding.boarding_items.present?
       @boarding_item = BoardingItem.new
+      @boarding_vehicle = BoardingVehicle.new
+      @boarding_vehicles = @boarding.boarding_items.order(:id) if @boarding.boarding_vehicles.present?
 		end
 
     def boarding_params
@@ -326,7 +357,7 @@ class BoardingsController < ApplicationController
       report.page.item(:emp_cidade).value(@company.cidade_estado)
 
       emitido = "EMITIDO EM: #{date_br(Date.current)} as #{time_br(Time.current)} por #{current_user.email} - IP. #{current_user.current_sign_in_ip}"
-      owner = @boarding.vehicle_tracao.owners.first
+      owner = get_vehicle_owner(@boarding)
       local_data = "FORTALEZA, #{l boarding.date_boarding , format: :long }"
 
       report.page.item(:no_contrato).value(boarding.id)
@@ -342,18 +373,32 @@ class BoardingsController < ApplicationController
       report.page.item(:owner_address).value(owner.endereco + ',' + owner.numero)
       report.page.item(:owner_complement).value(owner.complemento)
       report.page.item(:owner_district_city).value(owner.distric_city_state_cep)
+      if @boarding.boarding_vehicles.count == 1
+        vehicle = @boarding.boarding_vehicles.joins(:vehicle).where(vehicles: {tipo: Vehicle::Tipo::TRACAO_BAU}).first.vehicle
+        report.page.item(:tracao_marca).value("MARCA: #{vehicle.marca}")
+        report.page.item(:tracao_renavan).value("RENAVAN: #{vehicle.renavan}")
+        report.page.item(:tracao_chassi).value("CHASSI: #{vehicle.chassi}")
+        report.page.item(:tracao_placa).value("PLACA: #{vehicle.placa}")
+      else
+        vehicle_tracao = @boarding.boarding_vehicles.joins(:vehicle).where(vehicles: {tipo: Vehicle::Tipo::TRACAO}).first.vehicle
+        report.page.item(:tracao_marca).value("MARCA: #{vehicle_tracao.marca}")
+        report.page.item(:tracao_renavan).value("RENAVAN: #{vehicle_tracao.renavan}")
+        report.page.item(:tracao_chassi).value("CHASSI: #{vehicle_tracao.chassi}")
+        report.page.item(:tracao_placa).value("PLACA: #{vehicle_tracao.placa}")
 
-      report.page.item(:tracao_marca).value("MARCA: #{@boarding.vehicle_tracao.marca}")
-      report.page.item(:tracao_renavan).value("RENAVAN: #{@boarding.vehicle_tracao.renavan}")
-      report.page.item(:tracao_chassi).value("CHASSI: #{@boarding.vehicle_tracao.chassi}")
-      report.page.item(:tracao_placa).value("PLACA: #{@boarding.vehicle_tracao.placa}")
-
-      if @boarding.vehicle_reboque.present?
-        report.page.item(:reboque_marca).value("MARCA: #{@boarding.vehicle_reboque.marca}")
-        report.page.item(:reboque_renavan).value("RENAVAN: #{@boarding.vehicle_reboque.renavan}")
-        report.page.item(:reboque_chassi).value("CHASSI: #{@boarding.vehicle_reboque.chassi}")
-        report.page.item(:reboque_placa).value("PLACA: #{@boarding.vehicle_reboque.placa}")
+        vehicle_reboque = @boarding.boarding_vehicles.joins(:vehicle).where(vehicles: {tipo: Vehicle::Tipo::REBOQUE}).first.vehicle
+        report.page.item(:reboque_marca).value("MARCA: #{vehicle_reboque.marca}")
+        report.page.item(:reboque_renavan).value("RENAVAN: #{vehicle_reboque.renavan}")
+        report.page.item(:reboque_chassi).value("CHASSI: #{vehicle_reboque.chassi}")
+        report.page.item(:reboque_placa).value("PLACA: #{vehicle_reboque.placa}")
       end
+
+      # if @boarding.vehicle_reboque.present?
+      #   report.page.item(:reboque_marca).value("MARCA: #{@boarding.vehicle_reboque.marca}")
+      #   report.page.item(:reboque_renavan).value("RENAVAN: #{@boarding.vehicle_reboque.renavan}")
+      #   report.page.item(:reboque_chassi).value("CHASSI: #{@boarding.vehicle_reboque.chassi}")
+      #   report.page.item(:reboque_placa).value("PLACA: #{@boarding.vehicle_reboque.placa}")
+      # end
 
       report.page.item(:driver_name).value(boarding.driver.nome)
       report.page.item(:driver_cpf).value(boarding.driver.cpf)
@@ -443,5 +488,13 @@ class BoardingsController < ApplicationController
                                    disposition: 'inline'
 
 
+    end
+
+    def get_vehicle_owner(boarding)
+      if boarding.boarding_vehicles.count == 1
+        owner = boarding.boarding_vehicles.joins(:vehicle).where(vehicles: {tipo: Vehicle::Tipo::TRACAO_BAU}).first.vehicle.owners.first
+      else
+        owner = boarding.boarding_vehicles.joins(:vehicle).where(vehicles: {tipo: Vehicle::Tipo::REBOQUE}).first.vehicle.owners.first
+      end
     end
 end

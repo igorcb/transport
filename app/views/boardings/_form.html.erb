@@ -92,14 +92,14 @@
     <%= f.text_area :obs, class: "form-control" %>
   </div>
 
-  <h3>Dados Veiculos</h3>
+  <!-- <h3>Dados Veiculos</h3>
   <div class="cte_items">
-    <%= f.fields_for :boarding_vehicles do |f|
+    <%#= f.fields_for :boarding_vehicles do |f|
       render 'boarding_vehicle_fields', :f => f, driver: 999
       #render 'boarding_vehicle_fields', :f => f, driver: 999
-    end -%> <br />
-    <%= link_to_add_association 'Add Veiculo', f, :boarding_vehicles, class: "btn btn-success btn-sm" %> <br />
-  </div>
+    #end -%> <br />
+    <%#= link_to_add_association 'Add Veiculo', f, :boarding_vehicles, class: "btn btn-success btn-sm" %> <br />
+  </div> -->
 
   <hr />
 

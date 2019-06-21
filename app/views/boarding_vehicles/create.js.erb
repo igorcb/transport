@@ -1,0 +1,13 @@
+<% if @result[:success] -%>
+  $("#messages_vehicles").hide(300);
+  $("#messages_vehicles").empty("");
+  $("#messages_vehicles").append("<div class='alert alert-success'><%= @result[:message] %></div>");
+  $("#messages_vehicles").show(300);
+  $(":input:not(input[type=submit])").val("");
+  $("#boardings_vehicles_list").html("<%= j( render "boarding_vehicle", boarding_items: @boarding_vehicles ) %>");
+<% else -%>
+  $("#messages_vehicles").hide(300);
+  $("#messages_vehicles").empty("");
+  $("#messages_vehicles").append("<div class='alert alert-danger'><%= @result[:message] %></div>");
+  $("#messages_vehicles").show(300);
+<% end -%>

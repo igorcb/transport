@@ -31,8 +31,15 @@ class OrdemServicesController < ApplicationController
         #redirect_to show_agent_ordem_service_path(@ordem_service.id)
       end
       #respond_with(@ordem_service)
+    elsif current_user.has_role? :boarding
+      respond_to do |format|
+        format.html { ordem_service_path(@ordem_service) }
+        #redirect_to show_agent_ordem_service_path(@ordem_service.id)
+      end
     else
-      redirect_to show_agent_ordem_service_path(@ordem_service)
+      #redirect_to show_agent_ordem_service_path(@ordem_service)
+      redirect_to root_path, flash: { danger: exception.message }
+
     end
   end
 
