@@ -28,7 +28,7 @@ class DepositsController < ApplicationController
 
     respond_to do |format|
       if @deposit.save
-        format.html { redirect_to deposits_path, notice: 'Deposit was successfully created.' }
+        format.html { redirect_to @deposit, notice: 'Deposit was successfully created.' }
         format.json { render :show, status: :created, location: @deposit }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class DepositsController < ApplicationController
   def update
     respond_to do |format|
       if @deposit.update(deposit_params)
-        format.html { redirect_to deposits_path, notice: 'Deposit was successfully updated.' }
+        format.html { redirect_to @deposit, notice: 'Deposit was successfully updated.' }
         format.json { render :show, status: :ok, location: @deposit }
       else
         format.html { render :edit }
