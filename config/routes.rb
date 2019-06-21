@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  resources :houses do
 
+  end
   resources :floors do
     collection do
       get :get_floor_by_street
