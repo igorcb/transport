@@ -8,7 +8,7 @@
       <tr>
         <th>Warehouse</th>
         <th>Name</th>
-        <th colspan="2"></th>
+        <th colspan="3"></th>
       </tr>
     </thead>
 
@@ -17,6 +17,7 @@
       <tr>
         <td><%= deposit.warehouse.name %></td>
         <td><%= deposit.name %></td>
+        <td><%= link_to 'Show', deposit, class:"btn btn-info" %></td>
         <td><%= link_to 'Edit', edit_deposit_path(deposit), class:"btn btn-primary" %></td>
         <td><%#git= link_to 'Destroy', deposit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
