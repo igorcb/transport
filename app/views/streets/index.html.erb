@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Streets</h1>
+  <%= link_to 'New Street', new_street_path,  class: "btn btn-primary" %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Deposit</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @streets.each do |street| %>
+      <tr>
+        <td><%= street.name %></td>
+        <td><%= street.deposit.name %></td>
+        <td><%= link_to 'Edit', edit_street_path(street), class:"btn btn-info" %></td>
+        <td><%= link_to 'Destroy', street, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
