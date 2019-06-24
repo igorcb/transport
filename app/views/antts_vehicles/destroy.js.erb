@@ -1,0 +1,13 @@
+<% if @antt.errors.any?  -%>
+  $("#messages").hide(300);
+  $("#messages").empty("");
+  $("#messages").append("<div class='alert alert-danger'><%= @antt %></div>");
+  $("#messages").show(300);
+<% else -%>
+  $("#messages").hide(300);
+  $("#messages").empty("");
+  $("#messages").append("<div class='alert alert-success'><%= @antt %></div>");
+  $("#messages").show(300);
+  console.log('<%= @antts_vehicles_id %>');
+  $('#antts_vehicles_id_<%= @antts_vehicles_id %>').remove();
+<% end -%>
