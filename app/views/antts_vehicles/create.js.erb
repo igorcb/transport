@@ -4,11 +4,12 @@
   $("#messages").append("<div class='alert alert-danger'><%= j(render 'shared/error_messages', object: @antts_vehicles)%></div>");
   $("#menssagem").show(300);
 <% else -%>
-  $("#boardings_items_list").empty();
+  $("#antts_vehicles_list").empty();
   $("#menssagem").hide(300);
   $("#messages").empty("");
   $("#menssagem").html('<%= j ( render ("shared/flash_messages") )%>');
   $("#menssagem").show(300);
   $(":input:not(input[type=submit])").val("");
-  $("#boardings_items_list").html("<%= j( render "antts_vehicles", antts_vehicles: @antts_vehicles ) %>");
+
+  $("#antts_vehicles_list").html("<%= j( render "antts_vehicles", antts_vehicles: @antts_vehicles ) %>");
 <% end -%>
