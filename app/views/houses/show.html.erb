@@ -3,6 +3,8 @@
 
   <p id="notice"><%= notice %></p>
       <%= show_line_build @house.name, "Name" %>
+      <%= show_line_build @house.actived ? "Actived" : "Not Actived" , "Actived" %>
+      <%= show_line_build @house.occupied ? "Occupied" : "No occupied" , "Actived" %>
       <%= show_line_build @house.floor.name, "Floor" %>
       <%= show_line_build @house.street.name, "Street" %>
       <%= show_line_build @house.deposit.name, "Deposit" %>
