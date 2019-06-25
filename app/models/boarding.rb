@@ -275,15 +275,11 @@ class Boarding < ActiveRecord::Base
     #self.sealing.blank? && self.sealing_two.blank? && self.sealing_three.blank?
     #return false if ordem_service.type_direct_charge?
     checkin = Checkin.the_day.input.where(driver_cpf: self.driver.cpf).last
-      puts ">>>>>>>>>>>>>>>>>>> Positivo 0:"
     if sealings.blank?
-      puts ">>>>>>>>>>>>>>>>>>> Positivo 1: "
       return true
     elsif checkin.nil?
-      puts ">>>>>>>>>>>>>>>>>>> Positivo 2: "
       return true
     elsif (checkin.door != self.sealings.count)
-      puts ">>>>>>>>>>>>>>>>>>> Positivo 3: "
       return true
     else
       false
@@ -291,20 +287,23 @@ class Boarding < ActiveRecord::Base
   end
 
   def pending?
-    self.nfe_dae_pending? ||
     self.ordem_service_pending? ||
-    self.date_scheduling_present? ||
+    self.nfe_dae_pending? ||
     self.date_boarding.blank? ||
+    self.date_scheduling_present? ||
     self.billing_client_blank? ||
     self.carrier_id == Boarding.carrier_not_information ||
     self.driver_id == Boarding.driver_not_information ||
+    self.driver.cnh_expired? ||
     check_driver_restriction_with_client? ||
     DriverRestriction.where(driver_id: self.driver_id).present? ||
-    check_annt_exist_vehicle_first?
-    check_annt_exist_vehicle_second?
-    #self.value_not_boarding_present?
-    # self.insurer.blank?
-    # self.insurer.policie_insurances_expired?
+    weight_exceeds_vehicle_capacity? ||
+    check_annt_exist_vehicle_first? ||
+    check_annt_exist_vehicle_second? ||
+    check_annt_exipired_vehicle_first? ||
+    check_annt_exipired_vehicle_second? ||
+    check_vehicle_exist? ||
+    check_type_vehicle_tracao_and_reboque?
 
   end
 
@@ -330,6 +329,7 @@ class Boarding < ActiveRecord::Base
     pendings.append('Agente não informado.') if self.carrier_id == Boarding.carrier_not_information
     pendings.append('Motorista com restrição. Não pode efetuar entrega no cliente.') if check_driver_restriction_with_client?
     pendings.append('Motorista com restrição.') if DriverRestriction.where(driver_id: self.driver_id).present?
+    pendings.append('CNH do motorista está vencida.') if self.driver.cnh_expired?
     pendings.append('Peso total acima da capacidade do veículo.') if self.weight_exceeds_vehicle_capacity?
     pendings.append('ANTT não existe para o primeiro veículo.') if check_annt_exist_vehicle_first?
     pendings.append('ANTT não existe para o segundo veículo.') if check_annt_exist_vehicle_second?
@@ -345,7 +345,6 @@ class Boarding < ActiveRecord::Base
     pendings.append('Existe Ordem de Serviço sem Tipo de Serviço .') if self.ordem_service_type_service_pending?
     pendings.append('Existe Ordem de Serviço sem CT-e ou NFS-e.') if self.check_ordem_service_cte_and_nfs_pending?
     pendings.append('Informar os lacres do embarque.') if self.sealing_pending?
-    pendings.append('CNH do motorista está vencida.') if self.driver.cnh_expired?
     pendings.append('Qtde de Palletes do veículo é menor do que a qtde de pallets do embarque') if capacity_exceeded_vehicle?
     pendings
   end
