@@ -1,5 +1,5 @@
 class Warehouse < ApplicationRecord
-  has_many :deposit
+  has_many :deposits
   has_many :streets , through: :deposits
 
   validates :name, :district, :state, :city, :zip_code, presence: true
