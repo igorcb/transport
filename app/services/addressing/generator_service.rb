@@ -2,13 +2,13 @@ module Addressing
   class GeneratorService
 
     def initialize(params={})
-      @wharehouse = params[:wharehouse]
       # @deposit = Deposit.find(params[:deposit])
       @deposit = params[:deposit]
       @initStreet = params[:initStreet]
       @endStreet = params[:endStreet]
       @maxFloor = params[:maxFloor]
       @maxHouse = params[:maxHouse]
+      @spaceHouse = params[:spaceHouse]
     end
 
     def call
@@ -23,6 +23,7 @@ module Addressing
     def createFloors street
       (1..@maxFloor).each do |f|
         floor = Floor.create(name: f, street_id: street.id)
+        createHouses floor
       end
     end
 
