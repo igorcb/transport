@@ -24,10 +24,10 @@ class Checkin < ApplicationRecord
                         status: :checkout)
   end
 
-  before_create do |v|
-    v.place_horse = v.place_horse.upcase
-    v.place_cart_1 = v.place_cart_1.upcase
-    v.place_cart_2 = v.place_cart_2.upcase
+  before_create do |item|
+    item.place_horse  = item.place_horse.upcase if item.place_horse.present?
+    item.place_cart_1 = item.place_cart_1.upcase if item.place_cart_1.present?
+    item.place_cart_2 = item.place_cart_2.upcase if item.place_cart_2.present?
   end
 
   def places

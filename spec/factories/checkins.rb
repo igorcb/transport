@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :checkin do
-    driver { nil }
-    type { "" }
+    driver_cpf { Faker::CPF.cpf }
+    driver_name { Faker::Name.unique.name }
+    operation_type { "input_control" }
+    status {"input"}
   end
 end
