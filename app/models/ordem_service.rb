@@ -103,6 +103,10 @@ class OrdemService < ActiveRecord::Base
 
   before_destroy :can_destroy?
 
+  before_create do |item|
+    item.placa = item.placa.upcase if item.placa.present?
+  end
+
   # RECEIVABLE_COST_CENTER = 58  #LOGISTICA
   # RECEIVABLE_SUB_COST_CENTER = 185 # OUTROS
   # RECEIVABLE_COST_CENTER_THREE = 175 # OUTROS FATURAMENTO
