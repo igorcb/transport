@@ -54,9 +54,8 @@ class DirectCharge < ActiveRecord::Base
   end
 
   before_save do |item|
-    item.place = place.upcase
-    item.place_cart = place_cart.upcase
-    #item.place_cart_2 = place_cart_2.upcase
+    item.place = item.place.upcase if item.place.present?
+    item.place_cart = item.place_cart.upcase if item.place_cart.present?
   end
 
   module TipoCarga
