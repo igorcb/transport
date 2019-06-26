@@ -13,6 +13,10 @@ class FileEdi < ActiveRecord::Base
 
 	has_many :nfe_xmls, through: :notfis
 
+  before_create do |item|
+		item.place = item.place.upcase if item.place.present?
+  end
+
 	module TypeFile
 		EDI_OCCURRENCE = "EDI_OCCURRENCE"
 		EDI_NOTFIS = "EDI_NOTFIS"

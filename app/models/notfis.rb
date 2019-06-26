@@ -4,6 +4,10 @@ class Notfis < ActiveRecord::Base
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
 
+  before_create do |item|
+		item.place = item.place.upcase if item.place.present?
+  end
+
   def weight
   	nfe_xmls.sum(:peso)
   end

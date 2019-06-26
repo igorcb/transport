@@ -32,10 +32,11 @@ class NfeXml < ActiveRecord::Base
 
 	enum status: { nao_processado: 0, processando: 1, processado: 2 }
 
-	before_create do |cte|
-		cte.status = 0
-		cte.error = 0
-    cte.create_os = 0
+	before_create do |item|
+		item.status = 0
+		item.error = 0
+    item.create_os = 0
+		item.place = item.place.upcase if item.place.present?
 	end
 
   module TypeNfe
