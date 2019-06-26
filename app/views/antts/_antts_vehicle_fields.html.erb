@@ -1,10 +1,10 @@
   <div class="form-group">
     <%= f.label :vehicle_id, "Placa" %>
-    <%= f.text_field :vehicle_id, class: "form-control placa" %>
+    <%= f.text_field :vehicle_id, class: "form-control", style: 'text-transform:uppercase' %>
   </div>
 
   <div id="vehicle_place_result">
-  
+
   </div>
 
  <script type="text/javascript">
@@ -25,7 +25,7 @@
           }
         },
         success: function(data){
-          $('#vehicle_place_result').empty(); 
+          $('#vehicle_place_result').empty();
         },
       });
     });

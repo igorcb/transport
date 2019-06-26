@@ -10,10 +10,10 @@
       <%= render partial: "carriers/result_carrier", locals: { carrier: @direct_charge.carrier } %>
     <% end %>
   </div>
-  
+
   <div id="carrier_cnpj_result">
 
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= label_tag :driver_id, "Motorista" %><br>
@@ -41,11 +41,11 @@
         <%= text_field_tag :billing_client_cpf_cpnj, nil, class: "form-control cnpj" %>
       <% end %>
     <% end %>
-  </div>    
+  </div>
 
   <div id="billing_client_cnpj_result">
 
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :stretch_route_id, "Trecho" %>
@@ -54,7 +54,7 @@
     <% else %>
       <%= f.collection_select :stretch_route_id, [], :name, :name, {prompt: "SELECIONE TRECHO"}, {class: "form-control input-sm"}  %>
     <% end %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :type_service_id, "Tipo de Servico" %>
@@ -63,21 +63,21 @@
     <% else %>
       <%= f.collection_select :type_service_id, [], :id, :name, {prompt: "SELECIONE O SERVICO"}, {class: "form-control input-sm"}  %>
     <% end %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :place, "Placa" %>
-    <%= f.text_field :place, class: "form-control placa" %>
+    <%= f.text_field :place, class: "form-control", style: 'text-transform:uppercase' %>
   </div>
 
   <div class="form-group">
     <%= f.label :place_cart, "Placa Carreta" %>
-    <%= f.text_field :place_cart, class: "form-control placa" %>
+    <%= f.text_field :place_cart, class: "form-control", style: 'text-transform:uppercase' %>
   </div>
 
   <div class="form-group">
     <%= f.label :place_cart_2, "Placa Carreta 2" %>
-    <%= f.text_field :place_cart_2, class: "form-control placa" %>
+    <%= f.text_field :place_cart_2, class: "form-control", style: 'text-transform:uppercase' %>
   </div>
 
   <div class="form-group">
@@ -132,23 +132,23 @@
     <%= f.text_area :observation, class: "form-control" %>
   </div>
 
-  <h3>NF-e</h3> 
+  <h3>NF-e</h3>
   <div class="documents_itens">
-    <%= f.nested_fields_for :nfe_xmls do |f| 
+    <%= f.nested_fields_for :nfe_xmls do |f|
       render 'nfe_xml_fields', f: f
     end -%> <br />
     <%= link_to_add_association '[+] NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm"  %> <br />
     <%#= if @direct_charge.status == InputControl::TypeStatus::OPEN %>
   </div> <br />
-  
-  <h3>Documentos</h3> 
+
+  <h3>Documentos</h3>
   <div id="documents">
     <div class="items">
-      <%= f.nested_fields_for :assets do |f| 
+      <%= f.nested_fields_for :assets do |f|
         render 'shared/asset', f: f
       end  -%>
     </div>
-       <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>   
+       <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>
   </div>
 
   <hr />
@@ -167,7 +167,7 @@
       var uf = "uf="+$(this).val();
       console.log(uf);
       $.getJSON('/get_city_by_uf', uf, function(data){
-        var options = '<option value="">Selecione a cidade de origem</option>'; 
+        var options = '<option value="">Selecione a cidade de origem</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
@@ -183,7 +183,7 @@
       var uf = "uf="+$(this).val();
       console.log(uf);
       $.getJSON('/get_city_by_uf', uf, function(data){
-        var options = '<option value="">Selecione a cidade de destino</option>'; 
+        var options = '<option value="">Selecione a cidade de destino</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
@@ -252,7 +252,7 @@
       var client_id = "cpf_cnpj="+$(this).val();
       console.log(client_id);
       $.getJSON('/get_stretch_routes_from_client_cnpj', client_id, function(data){
-        var options = '<option value="">SELECIONE O TRECHO</option>'; 
+        var options = '<option value="">SELECIONE O TRECHO</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
@@ -270,7 +270,7 @@
       var client_and_stretch_route = {'cpf_cnpj': cpf_cnpj, 'stretch_route_id': stretch_route_id}
       console.log(client_and_stretch_route);
       $.getJSON('/get_client_table_price_of_by_client_cnpj_and_stretch_route', client_and_stretch_route, function(data){
-        var options = '<option value="">SELECIONE O TIPO DE SERVICO</option>'; 
+        var options = '<option value="">SELECIONE O TIPO DE SERVICO</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });

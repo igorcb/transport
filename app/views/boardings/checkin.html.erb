@@ -1,31 +1,31 @@
 <h1>Iniciar Embarque: <%= @boarding.id %></h1>
 <%= form_for @boarding, url: update_checkin_boarding_path, method: :patch, :html => { :multipart => true } do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  
+
   <div class="panel panel-default">
     <div class="panel-heading">Dados do Embarque - No: <%= @boarding.id %></div>
     <div class="panel-body">
-    
+
     <%= render 'static_pages/oper_boarding', boarding: @boarding %>
-    
+
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :driver_checkin_palce_horse, "Placa Cavalo" %><br>
-    <%= f.text_field :driver_checkin_palce_horse, class: "form-control placa" %>
-  </div>    
+    <%= f.text_field :driver_checkin_palce_horse, class: "form-control", style: 'text-transform:uppercase' %>
+  </div>
 
   <div class="form-group">
     <%= f.label :driver_checkin_palce_cart_1, "Placa Carreta 1" %><br>
-    <%= f.text_field :driver_checkin_palce_cart_1, class: "form-control placa" %>
-  </div>    
+    <%= f.text_field :driver_checkin_palce_cart_1, class: "form-control", style: 'text-transform:uppercase' %>
+  </div>
 
   <div class="form-group">
     <%= f.label :driver_checkin_palce_cart_2, "Placa Carreta 2" %><br>
-    <%= f.text_field :driver_checkin_palce_cart_2, class: "form-control placa" %>
-  </div>    
-  
+    <%= f.text_field :driver_checkin_palce_cart_2, class: "form-control", style: 'text-transform:uppercase' %>
+  </div>
+
 
 	<%= f.submit "Check IN", class: "btn btn-blue" %>
 <% end %>

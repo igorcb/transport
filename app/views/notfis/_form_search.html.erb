@@ -4,38 +4,38 @@
     <div class="row form-group">
       <div class="col-xs-6">
         <%= f.label :file_edi_date_boarding_gteq, "Data Embarque de" %>
-        <%= f.search_field :file_edi_date_boarding_gteq, class: "form-control data", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>  
+        <%= f.search_field :file_edi_date_boarding_gteq, class: "form-control data", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>
       </div>
 
       <div class="col-xs-6">
         <%= f.label :file_edi_date_boarding_lteq, "até" %>
-        <%= f.search_field :file_edi_date_boarding_lteq, class: "form-control data", placeholder: "Informe a Data do Entrada ex: 05-12-2014" %>  
+        <%= f.search_field :file_edi_date_boarding_lteq, class: "form-control data", placeholder: "Informe a Data do Entrada ex: 05-12-2014" %>
       </div>
     </div>
 
     <div class="form-group">
       <%= f.label :file_edi_place_eq, "Placa" %>
-      <%= f.search_field :file_edi_place_eq, class: "form-control placa" %>  
+      <%= f.search_field :file_edi_place_eq, class: "form-control", style: 'text-transform:uppercase' %>  
     </div>
 
     <div class="form-group">
       <%= f.label :nfe_xmls_numero_eq, "NF-e" %>
-      <%= f.search_field :nfe_xmls_numero_eq, class: "form-control" %>  
+      <%= f.search_field :nfe_xmls_numero_eq, class: "form-control" %>
     </div>
 
     <div class="form-group">
       <%= f.label :client_cpf_cnpj_eq, "CNPJ Destinatario" %>
-      <%= f.search_field :client_cpf_cnpj_eq, class: "form-control cnpj" %>  
+      <%= f.search_field :client_cpf_cnpj_eq, class: "form-control cnpj" %>
     </div>
 
     <div class="form-group">
       <%= f.label :client_cidade_cont, "Cidade" %>
-      <%= f.search_field :client_cidade_cont, class: "form-control" %>  
+      <%= f.search_field :client_cidade_cont, class: "form-control" %>
     </div>
-    
+
     <div class="form-group">
       <%#= f.label :status_eq, "Status" %>
-      <%#= f.select( :status_eq, select_status_scheduling, {include_blank: true}, {class: "form-control"} ) %> 
+      <%#= f.select( :status_eq, select_status_scheduling, {include_blank: true}, {class: "form-control"} ) %>
     </div>
 
     <div class="actions"><%= f.submit "Search" %></div>

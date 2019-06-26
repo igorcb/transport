@@ -22,7 +22,7 @@
   </div>
   <div class="form-group">
     <%= label_tag "ordem_services[placa]", "Placa" %>
-    <%= text_field_tag "ordem_services[placa]", nil, class: "form-control placa" %>
+    <%= text_field_tag "ordem_services[placa]", nil, class: "form-control", style: 'text-transform:uppercase' %>
   </div>
   <div class="form-group">
     <%= label_tag "ordem_services[estado]", "Estado" %>
@@ -36,7 +36,7 @@
     <%= hidden_field_tag "ordem_services[cidade]", @pallet.client.cidade %>
   </div>
 
-  <%= submit_tag("Criar OS", class: "btn btn-blue") %> 
+  <%= submit_tag("Criar OS", class: "btn btn-blue") %>
 
   <br/>
   <br/>

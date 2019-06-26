@@ -16,10 +16,10 @@
       <%= f.search_field :source_client_cpf_cnpj_eq, class: "form-control cnpj" %>
       <%= render partial: "clients/result_client", locals: { client: nil } %>
     </div>
-  
+
     <div id="source_client_cnpj_result">
 
-    </div>  
+    </div>
 
     <div class="form-group">
       <%= f.label :client_cpf_cnpj_eq, "CNPJ Destinatario" %><br>
@@ -50,11 +50,11 @@
 
     <div class="form-group">
       <%= f.label :cte_keys_cte_eq, "CTE" %>
-      <%= f.search_field :cte_keys_cte_eq, class: "form-control numericOnly", placeholder: "Informe o No CTE ex: 187212" %>  
+      <%= f.search_field :cte_keys_cte_eq, class: "form-control numericOnly", placeholder: "Informe o No CTE ex: 187212" %>
     </div>
     <div class="form-group">
       <%= f.label :ordem_service_logistic_placa_cont_any, "Placa" %>
-      <%= f.search_field :ordem_service_logistic_placa_cont_any, class: "form-control placa", placeholder: "Informe a placa do veículo ex: AAU-3289" %>
+      <%= f.search_field :ordem_service_logistic_placa_cont_any, class: "form-control", placeholder: "Informe a placa do veículo ex: AAU-3289", style: 'text-transform:uppercase' %>
     </div>
     <div class="form-group">
       <%= f.label :ordem_service_logistic_senha_sefaz_eq, "Senha Sefaz" %>
@@ -63,55 +63,55 @@
 
     <div class="form-group">
       <%= f.label :data_eq, "Data do Agendamento" %>
-      <%= f.search_field :data_eq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>  
+      <%= f.search_field :data_eq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>
     </div>
 
     <div class="row form-group">
       <div class="col-xs-6">
         <%= f.label :data_gteq, "Data do Agendamento de" %>
-        <%= f.search_field :data_gteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>  
+        <%= f.search_field :data_gteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>
       </div>
 
       <div class="col-xs-6">
         <%= f.label :data_lteq, "até" %>
-        <%= f.search_field :data_lteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>  
+        <%= f.search_field :data_lteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>
       </div>
     </div>
-    
+
     <div class="form-group">
       <%= f.label :data_entrega_servico_eq, "Data da Entrega do Serviço" %>
-      <%= f.search_field :data_entrega_servico_eq, class: "form-control data", placeholder: "Informe a Data da entrega do Serviço ex: 05-12-2014" %>  
+      <%= f.search_field :data_entrega_servico_eq, class: "form-control data", placeholder: "Informe a Data da entrega do Serviço ex: 05-12-2014" %>
     </div>
 
     <div class="row form-group">
       <div class="col-xs-6">
         <%= f.label :data_entrega_servico_gteq, "Data da Entrega do Serviço de" %>
-        <%= f.search_field :data_entrega_servico_gteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>  
+        <%= f.search_field :data_entrega_servico_gteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>
       </div>
 
       <div class="col-xs-6">
         <%= f.label :data_entrega_servico_lteq, "até" %>
-        <%= f.search_field :data_entrega_servico_lteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>  
+        <%= f.search_field :data_entrega_servico_lteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>
       </div>
 
     </div>
-  
+
 
     <div class="form-group">
       <%= f.label :date_entry_eq, "Data da Entrada" %>
-      <%= f.search_field :date_entry_eq, class: "form-control data", placeholder: "Informe a Data da entrada na Transportadora ex: 05-12-2014" %>  
+      <%= f.search_field :date_entry_eq, class: "form-control data", placeholder: "Informe a Data da entrada na Transportadora ex: 05-12-2014" %>
     </div>
     <div class="form-group">
       <%= f.label :date_shipping_eq, "Data da Expedição" %>
-      <%= f.search_field :date_shipping_eq, class: "form-control data", placeholder: "Informe a Data da Expedição ex: 05-12-2014" %>  
+      <%= f.search_field :date_shipping_eq, class: "form-control data", placeholder: "Informe a Data da Expedição ex: 05-12-2014" %>
     </div>
     <div class="form-group">
       <%= f.label :nfe_keys_nfe_eq, "NF-e" %>
-      <%= f.search_field :nfe_keys_nfe_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NF-e ex: 123456" %>  
+      <%= f.search_field :nfe_keys_nfe_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NF-e ex: 123456" %>
     </div>
     <div class="form-group">
       <%= f.label :nfs_keys_nfs_eq, "NFS-e" %>
-      <%= f.search_field :nfs_keys_nfs_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NFS-e ex: 123456" %>  
+      <%= f.search_field :nfs_keys_nfs_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NFS-e ex: 123456" %>
     </div>
     <div class="form-group">
       <%= f.label :ordem_service_type_service_type_service_id_eq, "Tipo de Serviço" %>
@@ -128,7 +128,7 @@
     </div>
     <div class="form-group">
       <%= f.label :status_eq, "Status" %>
-      <%= f.select( :status_eq, select_status_os, {include_blank: true}, {class: "form-control"} ) %> 
+      <%= f.select( :status_eq, select_status_os, {include_blank: true}, {class: "form-control"} ) %>
     </div>
 
     <div class="actions"><%= f.submit "Search" %></div>
@@ -145,7 +145,7 @@
       var uf = "uf="+$(this).val();
       console.log(uf);
       $.getJSON('/get_city_by_uf', uf, function(data){
-        var options = '<option value="">Selecione a cidade de origem</option>'; 
+        var options = '<option value="">Selecione a cidade de origem</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
