@@ -35,7 +35,7 @@ $ ->
     param = $("#deposit-select").val();
     if param != null and param != ""
       get_houses("deposit="+param)
-  ), 3000
+  ), 10000
 
 
 # functions
@@ -56,7 +56,7 @@ get_houses = (param) ->
         $.each s.floors, (key, f) ->
           html += "<div class='floors'><div class='houses'>#{f.name} stage</div>"
           $.each f.houses, (key, h) ->
-            html += "<div class='houses #{if h.occupied == "occuped" then " occupied" }'>#{h.address}</div>"
+            html += "<div class='houses #{if h.occupied == "occuped" then " occupied" }' title='#{h.id}'>#{h.address}</div>"
           html += "</div>"
 
       $('#view-houses').html(html)
