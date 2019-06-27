@@ -61,6 +61,16 @@ class DepositsController < ApplicationController
     end
   end
 
+  def get_deposits_by_warehouse
+    warehouse = params[:warehouse]
+    deposit = Deposit.where(warehouse: warehouse)
+    deposit_array = []
+    deposit.each do |d|
+      deposit_array << {:id => d.id, :n => d.name}
+    end
+    render :json => deposit_array.to_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_deposit
