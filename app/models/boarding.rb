@@ -601,9 +601,10 @@ class Boarding < ActiveRecord::Base
   end
 
   def vehicle_weight_capacity
-    vehicle = vehicle_reboque
-    result = vehicle.nil? ? 0.00 : vehicle.capacity.to_f
-    result
+    #vehicle = vehicle_reboque
+    vehicles_capacity = self.boarding_vehicles.joins(:vehicle).sum("vehicles.capacity")
+    # result = vehicle.nil? ? 0.00 : vehicle.capacity.to_f
+    # result
   end
 
   # def vehicle_reboque
