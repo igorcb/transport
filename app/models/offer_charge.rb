@@ -3,6 +3,7 @@ class OfferCharge < ActiveRecord::Base
   validates :date_shipment, presence: true
 	validates :shipping, presence: true, uniqueness: true
 	validates :local_loading, presence: true
+  validates :local_landing, presence: true
   validates :type_vehicle, presence: true
 
   belongs_to :user, required: false
@@ -18,17 +19,17 @@ class OfferCharge < ActiveRecord::Base
   has_many :cancellations, class_name: "Cancellation", foreign_key: "cancellation_id", :as => :cancellation, dependent: :destroy
   accepts_nested_attributes_for :cancellations, allow_destroy: true, :reject_if => :all_blank
 
-	before_save do |offer|
-		offer.shipper = offer.shipper.upcase
-		offer.shipping = offer.shipping.upcase
-		offer.local_loading = offer.local_loading.upcase
-		offer.type_vehicle = offer.type_vehicle.upcase
-		offer.vehicle_detail = offer.vehicle_detail.upcase
+	before_save do |item|
+		item.shipper = item.shipper.upcase
+		item.shipping = item.shipping.upcase
+		item.local_loading = item.local_loading.upcase
+		item.type_vehicle = item.type_vehicle.upcase
+		item.vehicle_detail = item.vehicle_detail.upcase if item.vehicle_detail.present?
 	end
 
-	before_create do |offer|
-		offer.vehicle_situation = '0'
-		offer.status = TypeStatus::OPEN
+	before_create do |item|
+		item.vehicle_situation = '0'
+		item.status = TypeStatus::OPEN
 	end
 
 	scope :only_open, -> { where(status: TypeStatus::OPEN).order(date_shipment: :desc, id: :desc) }
