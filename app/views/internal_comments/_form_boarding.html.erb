@@ -1,6 +1,6 @@
 <%= form_for(@internal_comment, html: {multipart: true	}) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-
+  <%#=  %>
   <%= hidden_field_tag "internal_comment[comment_id]", @boarding.id %>
   <%= hidden_field_tag "internal_comment[comment_type]", "Boarding" %>
 
