@@ -127,14 +127,14 @@
 </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
+    <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
           Dados da Confirmação de Embarque
         </a>
       </h4>
     </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
 
         <p>
@@ -318,7 +318,22 @@
     </div>
   </div>
 
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSeven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          Comentarios Internos
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+      <div class="panel-body">
+        <%= render 'internal_comments/feed', comments: @boarding.feed_internal_comments %>
+
+        <%= render 'internal_comments/form_boarding' %>
+      </div>
+    </div>
+  </div>
 
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingEight">
@@ -331,17 +346,13 @@
     <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
       <div class="panel-body">
 
+        <%= render 'cancellations/feed', cancellations: @boarding.feed_cancellations %>
 
-      <%= render 'cancellations/feed', cancellations: @boarding.feed_cancellations %>
-
-      <%= render 'cancellations/form_cancellation_boarding' %>
+        <%= render 'cancellations/form_cancellation_boarding' %>
 
       </div>
     </div>
   </div>
-
-</div>
-
 
 
 <div class="form-group">

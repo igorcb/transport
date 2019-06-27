@@ -3,15 +3,16 @@ class InternalCommentsController < ApplicationController
   load_and_authorize_resource
 
   def create
-  	
-    
     case params[:internal_comment][:comment_type]
-      when "OrdemService" then 
+      when "OrdemService" then
         @ordem_service = OrdemService.find(params[:internal_comment][:comment_id])
         @comment = @ordem_service.internal_comments.build(internal_comment_params)
-      when "Task" then 
+      when "Task" then
         @task = Task.find(params[:internal_comment][:comment_id])
         @comment = @task.internal_comments.build(internal_comment_params)
+      when "Boarding" then
+        @boarding = Boarding.find(params[:internal_comment][:comment_id])
+        @comment = @boarding.internal_comments.build(internal_comment_params)
     end
 
     @comment.email = current_user.email
@@ -21,14 +22,16 @@ class InternalCommentsController < ApplicationController
       case params[:internal_comment][:comment_type]
         when "OrdemService" then redirect_to ordem_service_path (@ordem_service)
         when "Task" then redirect_to task_path (@task)
+        when "Boarding" then redirect_to boarding_path (@boarding)
       end
     else
       flash[:danger] = "Error Internal Comment!"
       case params[:internal_comment][:comment_type]
         when "OrdemService" then redirect_to ordem_service_path (@ordem_service)
         when "Task" then redirect_to task_path (@task)
+        when "Boarding" then redirect_to boarding_path (@boarding)
       end
-    end      
+    end
   end
 
   private

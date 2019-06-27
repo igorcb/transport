@@ -49,6 +49,8 @@ class BoardingsController < ApplicationController
     @account_payable = AccountPayable.new
     @cancellation = @boarding.cancellations.build
     @sealingwax = Sealingwax.new
+    puts ">>>>>>>>>>>>>>>>>> InternalComment"
+    @internal_comment = @boarding.internal_comments.build
 	end
 
 	def new

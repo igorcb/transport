@@ -33,6 +33,10 @@ class Boarding < ActiveRecord::Base
 
   has_many :comments, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
   #has_many :commentaries, class_name: "Comment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+  has_many :internal_comments, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+  # has_many :internal_commentaries, class_name: "InternalComment", foreign_key: "comment_id", :as => :comment, dependent: :destroy
+
+
   has_many :control_pallet_internals
 
   has_many :breakdowns, as: :breakdown, dependent: :destroy
@@ -119,6 +123,11 @@ class Boarding < ActiveRecord::Base
   def feed_cancellations
     Cancellation.where("cancellation_type = ? and cancellation_id = ?", "Boarding", self.id)
   end
+
+  def feed_internal_comments
+    InternalComment.where("comment_type = ? and comment_id = ?", "Boarding", self.id)
+  end
+
 
   def erase_boarding_items
     ActiveRecord::Base.transaction do
