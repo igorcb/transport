@@ -52,7 +52,7 @@
     $("#warehouse-select").change(function(){
       var warehouse = "warehouse="+$(this).val();
       console.log(warehouse);
-      $.getJSON('/floors/get_deposit_by_warehouse', warehouse, function(data){
+      $.getJSON('/deposits/get_deposits_by_warehouse', warehouse, function(data){
         var options = '<option value="">Selecione um galpão</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
