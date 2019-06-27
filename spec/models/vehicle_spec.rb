@@ -1,28 +1,38 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Vehicle do
-  before do 
-  	# @vehicle = Vehicle.create(marca: "Mercedes",
-  	# 	                       modelo: "BAU",
-  	# 	                          ano: 1900,
-  	# 	                          cor: "BRANCA",
-  	# 	                 tipo_veiculo: Vehicle::TipoVeiculo::STANDARD,
-  	# 	       municipio_emplacamento: "Forteleza",
-  	# 	                       estado: "CE",
-  	# 	                      renavan: "00009987",
-  	# 	                       chassi: "9BGRD08X04G117974",
-  	# 	                   capacidade: "10",
-  	# 	                        placa: "HXQ3666",
-   #                          especie: "s/n",
-   #                     numero_eixos: 1,
-   #                      numero_loks: 1,
-   #                            grade: false,
-   #                           cordas: false,
-   #                            lonas: false,
-   #                      capacitacao: false,
-   #                      kit_quimico: false
-  	# 	                      	)
+#describe OrdemService do
+RSpec.describe Vehicle, type: :model do
+	let(:vehicle) { FactoryBot.create(:vehicle) }
+
+  it 'is valid if all fields have value' do
+    expect { vehicle }.to change { Vehicle.count }.by(1)
   end
+end
+
+#require 'spec_helper'
+# describe Vehicle do
+  # before do
+  # 	# @vehicle = Vehicle.create(marca: "Mercedes",
+  # 	# 	                       modelo: "BAU",
+  # 	# 	                          ano: 1900,
+  # 	# 	                          cor: "BRANCA",
+  # 	# 	                 tipo_veiculo: Vehicle::TipoVeiculo::STANDARD,
+  # 	# 	       municipio_emplacamento: "Forteleza",
+  # 	# 	                       estado: "CE",
+  # 	# 	                      renavan: "00009987",
+  # 	# 	                       chassi: "9BGRD08X04G117974",
+  # 	# 	                   capacidade: "10",
+  # 	# 	                        placa: "HXQ3666",
+  #  #                          especie: "s/n",
+  #  #                     numero_eixos: 1,
+  #  #                      numero_loks: 1,
+  #  #                            grade: false,
+  #  #                           cordas: false,
+  #  #                            lonas: false,
+  #  #                      capacitacao: false,
+  #  #                      kit_quimico: false
+  # 	# 	                      	)
+  # end
 
   # subject { @vehicle }
 
@@ -48,92 +58,92 @@ describe Vehicle do
   # describe "when marca is not present" do
   #   before { @vehicle.marca = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when modelo is not present" do
   #   before { @vehicle.modelo = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when ano is not present" do
   #   before { @vehicle.ano = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when tipo_veiculo is not present" do
   #   before { @vehicle.tipo_veiculo = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when municipio_emplacamento is not present" do
   #   before { @vehicle.municipio_emplacamento = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when estado is not present" do
   #   before { @vehicle.estado = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when renavan is not present" do
   #   before { @vehicle.renavan = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when chassi is not present" do
   #   before { @vehicle.chassi = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when capacidade is not present" do
   #   before { @vehicle.capacidade = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when placa is not present" do
   #   before { @vehicle.placa = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when especie is not present" do
   #   before { @vehicle.especie = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when numero_eixos is not present" do
   #   before { @vehicle.numero_eixos = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when numero_loks is not present" do
   #   before { @vehicle.numero_loks = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when grade is not present" do
   #   before { @vehicle.grade = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when corda is not present" do
   #   before { @vehicle.cordas = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when lonas is not present" do
   #   before { @vehicle.lonas = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when capacitacao is not present" do
   #   before { @vehicle.capacitacao = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "when kit_quimico is not present" do
   #   before { @vehicle.kit_quimico = '' }
   #   it { should_not be_valid }
-  # end  
+  # end
 
   # describe "with marca that is too long" do
   #   before { @vehicle.marca = "a" * 22 }
@@ -191,4 +201,4 @@ describe Vehicle do
   #   it { should_not be_valid }
   # end
 
-end
+# end
