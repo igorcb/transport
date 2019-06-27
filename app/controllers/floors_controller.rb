@@ -61,15 +61,7 @@ class FloorsController < ApplicationController
     end
   end
 
-  def get_deposit_by_warehouse
-    warehouse = params[:warehouse]
-    deposit = Deposit.where(warehouse: warehouse)
-    deposit_array = []
-    deposit.each do |d|
-      deposit_array << {:id => d.id, :n => d.name}
-    end
-    render :json => deposit_array.to_json
-  end
+  
 
   def get_street_by_deposit
     deposit = params[:deposit]

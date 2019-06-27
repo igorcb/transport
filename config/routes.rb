@@ -1,5 +1,11 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+
+  #get '/addresses_houses', to: 'addresses_houses#index'
+  match '/addresses_houses', :controller => 'addresses_houses', :action => 'index', via: [:get]
+  match '/addresses_houses/houses', :controller => 'addresses_houses', :action => 'houses', via: [:get]
+  # resources :addresses_houses
+
   resources :houses do
 
   end
@@ -9,7 +15,11 @@ Rails.application.routes.draw do
     end
   end
   resources :streets
-  resources :deposits
+  resources :deposits do
+    collection do
+      get :get_deposits_by_warehouse
+    end
+  end
   resources :warehouses
   resources :checkins do
     member do
