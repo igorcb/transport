@@ -15,22 +15,22 @@
           <%= search_form_for @q, remote: true, url: search_boardings_path, :method => :get do |f| %>
             <div class="form-group">
               <%= f.label :id_eq, "No: Embarque " %>
-              <%= f.search_field :id_eq, class: "form-control", placeholder: "" %>  
+              <%= f.search_field :id_eq, class: "form-control", placeholder: "" %>
             </div>
             <div class="form-group">
               <%= f.label :date_boarding_eq, "Data Embarque " %>
-              <%= f.search_field :date_boarding_eq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>  
+              <%= f.search_field :date_boarding_eq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>
             </div>
 
             <div class="row form-group">
               <div class="col-xs-6">
                 <%= f.label :date_boarding_gteq, "Data Embarque de" %>
-                <%= f.search_field :date_boarding_gteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>  
+                <%= f.search_field :date_boarding_gteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>
               </div>
 
               <div class="col-xs-6">
                 <%= f.label :date_boarding_lteq, "até" %>
-                <%= f.search_field :date_boarding_lteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>  
+                <%= f.search_field :date_boarding_lteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>
               </div>
             </div>
 
@@ -40,23 +40,18 @@
             </div>
 
             <div class="form-group">
-              <%= f.label :sealing_eq, "No Lacre Um:" %>
-              <%= f.search_field :sealing_eq, class: "form-control"%>  
+              <%= f.label :placa, "Placa" %>
+              <%= f.search_field :vehicles_placa_eq, class: "form-control"%>
             </div>
 
             <div class="form-group">
-              <%= f.label :sealing_two_eq, "No Lacre Dois:" %>
-              <%= f.search_field :sealing_two_eq, class: "form-control"%>  
-            </div>
-
-            <div class="form-group">
-              <%= f.label :sealing_three_eq, "No Lacre Tres:" %>
-              <%= f.search_field :sealing_three_eq, class: "form-control"%>  
+              <%= f.label :nfe_keys_nfe_eq, "NF-e" %>
+              <%= f.search_field :nfe_keys_nfe_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NF-e ex: 123456" %>
             </div>
 
             <div class="form-group">
               <%= f.label :status_eq, "Status" %>
-              <%= f.select( :status_eq, select_status_boarding, {include_blank: true}, {class: "form-control"} ) %> 
+              <%= f.select( :status_eq, select_status_boarding, {include_blank: true}, {class: "form-control"} ) %>
             </div>
             <div class="actions"><%= f.submit "Search" %></div>
           <% end %>
