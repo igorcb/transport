@@ -564,6 +564,10 @@ Rails.application.routes.draw do
 
     collection do
       get :search
+      # match '/vehicles/get_vehicle_by_place', :controller => 'vehicles', :action => 'get_vehicle_by_place', via: [:get]
+      # match '/vehicles/get_vehicle_by_renavan', :controller => 'vehicles', :action => 'get_vehicle_by_renavan', via: [:get]
+      get :get_by_place
+      # get :get_vehicle_by_renavan
     end
   end
 

@@ -4,11 +4,11 @@
 
   <div class="form-group">
     <%= label_tag :place, "Placa" %>
-    <%= text_field_tag :place, nil, class: "form-control placa" %>
+    <%= text_field_tag :place, nil, class: "form-control", style: 'text-transform:uppercase', maxlength: '8' %>
   </div>
 
   <div id="vehicle_place_result">
-  
+
   </div>
 
  <script type="text/javascript">
@@ -29,7 +29,7 @@
           }
         },
         success: function(data){
-          $('#vehicle_place_result').empty(); 
+          $('#vehicle_place_result').empty();
         },
       });
     });

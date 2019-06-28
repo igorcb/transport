@@ -102,6 +102,11 @@ class VehiclesController < ApplicationController
     end
   end
 
+  def get_by_place
+    @vehicle = Vehicle.where(placa: params[:place].upcase).first
+    render layout: false
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vehicle
