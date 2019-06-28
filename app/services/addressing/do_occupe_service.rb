@@ -1,12 +1,22 @@
 module Addressing
   class DoOccupeService
 
-    def initialize(house_id)
-      @house_id = house_id
+    def initialize(house)
+      @house = house
     end
 
     def call
-      House.where(id: @house_id).update(occupied: true)
+      puts ">>>>>>>>>>>>>>>>>> #{@house.present?}"
+      return {success: false, message: "Deposit does not exist."} if !@house.present?
+
+      begin
+        ActiveRecord::Base.transaction do
+          House.where(id: @house.id).update(occupied: true)
+          return {success: true, message: "Generation Houses created successfully."}
+        end
+      rescue => e
+        return {success: false, message: e.message}
+      end
     end
 
   end
