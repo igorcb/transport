@@ -60,17 +60,25 @@ body {
     width: 100px;
     height: 50px;
     border: 2px white solid;
-    background: #4CAF50;
+    background-color: #4CAF50;
     padding: 0 5px;
+    cursor: pointer;
+    &.load{
+      background-image: asset_url("load.gif");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    &:first-child {
+        background: #CCC;
+        cursor: default;
+    }
+    &.occupied{
+      background-color: #880000;
+      color: white;
+      cursor: default;
+    }
   }
 
-  .houses:first-child {
-      background: #CCC;
-  }
-  .houses.occupied{
-    background: #880000;
-    color: white;
-  }
   .bar{
     background: #CCC;
     width:500px

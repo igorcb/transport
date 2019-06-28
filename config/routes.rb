@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   #get '/addresses_houses', to: 'addresses_houses#index'
   match '/addresses_houses', :controller => 'addresses_houses', :action => 'index', via: [:get]
   match '/addresses_houses/houses', :controller => 'addresses_houses', :action => 'houses', via: [:get]
+  match '/addresses_houses/do_occupe', :controller => 'addresses_houses', :action => 'do_occupe', via: [:get]
+  match '/addresses_houses/do_vacate', :controller => 'addresses_houses', :action => 'do_vacate', via: [:get]
   # resources :addresses_houses
 
   resources :houses do
