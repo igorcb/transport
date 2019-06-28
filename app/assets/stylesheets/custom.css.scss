@@ -22,6 +22,78 @@ body {
   background-color: rgba(180,180,180,0.3);
 }
 
+#content-house{
+  background: white;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 99;
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  padding: 15px;
+  display:none;
+  .close{
+    background: #C00;
+    color: white;
+    font-weight: bold;
+    display: block;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    padding-top: 6px;
+    margin-left: auto;
+    opacity: 1;
+  }
+  #view-houses{
+    overflow: auto;
+    height: calc(100% - 50px);
+    margin-top: 50px;
+  }
+  .floors{
+    display: flex;
+    width:100%;
+  }
+  .streets{
+    margin-top: 80px;
+  }
+  .houses {
+    width: 100px;
+    height: 50px;
+    border: 2px white solid;
+    background-color: #4CAF50;
+    padding: 0 5px;
+    cursor: pointer;
+    &.load{
+      background-image: asset_url("load.gif");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    &:first-child {
+        background: #CCC;
+        cursor: default;
+    }
+    &.occupied{
+      background-color: #880000;
+      color: white;
+      cursor: default;
+    }
+  }
+
+  .bar{
+    background: #CCC;
+    width:500px
+  }
+  .progress{
+    background: #880000;
+    padding-right:5px;
+    min-width: 25px;
+    height:20px;
+    color: white;
+    font-size: bold;
+    text-align: right;
+  }
+}
+
 .thumb-container{
   border: 2px dashed #444;
   img {

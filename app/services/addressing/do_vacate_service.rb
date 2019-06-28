@@ -1,12 +1,12 @@
 module Addressing
   class DoVacateService
 
-    def initialize(house_id)
-      @house_id = house_id
+    def initialize(house)
+      @house = house
     end
 
     def call
-      House.where(id: @house_id).update(occupied: false)
+      House.where(id: @house.id).update(occupied: false)
     end
 
   end
