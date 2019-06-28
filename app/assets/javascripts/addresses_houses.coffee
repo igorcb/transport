@@ -34,13 +34,12 @@ $ ->
     param = "deposit="+$("#deposit-select").val()
     get_houses(param)
     $("body").css("overflow", "hidden").add("html").scrollTop(0)
-    $("#view-houses").show(800)
+    $("#content-house").show(800)
     false
 
-  $("#view-houses").before().click ->
+  $("#content-house .close").before().on "click", ->
     $("body").css("overflow", "")
-    $(this).hide(800)
-    false
+    $("#content-house").hide(800)
 
   setInterval ( =>
     param = $("#deposit-select").val()
