@@ -1,40 +1,3 @@
-<style>
-  .floors{
-    display: flex;
-    width:100%;
-  }
-  .streets{
-    margin-top: 80px;
-  }
-  .houses {
-    width: 100px;
-    height: 50px;
-    border: 2px white solid;
-    background: #4CAF50;
-    padding: 0 5px;
-  }
-
-  .houses:first-child {
-      background: #CCC;
-  }
-  .houses.occupied{
-    background: #880000;
-    color: white;
-  }
-  .bar{
-    background: #CCC;
-    width:500px
-  }
-  .progress{
-    background: #880000;
-    padding-right:5px;
-    min-width: 25px;
-    height:20px;
-    color: white;
-    font-size: bold;
-    text-align: right;
-  }
-</style>
 <div class="container-fluid">
   <div class="row">
     <div class="form_group col-md-6">
@@ -46,6 +9,11 @@
     <div class="form-group col-md-6">
       <%= label_tag :deposit %>
       <%= select_tag "deposit", [],  {disabled: true, class: "form-control", id: "deposit-select"} %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= link_to 'See', "#", class:"btn-see btn btn-primary", style: "display:none" %>
     </div>
   </div>
   <div id="view-houses"></div>

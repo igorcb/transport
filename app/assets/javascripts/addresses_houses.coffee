@@ -28,11 +28,22 @@ $ ->
   Load houses
   ###
   $(document).on 'change', '#deposit-select', ->
-    param = "deposit="+$(this).val();
+    $(".btn-see").show()
+
+  $(document).on 'click', '.btn-see', ->
+    param = "deposit="+$("#deposit-select").val()
     get_houses(param)
+    $("body").css("overflow", "hidden").add("html").scrollTop(0)
+    $("#view-houses").show(800)
+    false
+
+  $("#view-houses").before().click ->
+    $("body").css("overflow", "")
+    $(this).hide(800)
+    false
 
   setInterval ( =>
-    param = $("#deposit-select").val();
+    param = $("#deposit-select").val()
     if param != null and param != ""
       get_houses("deposit="+param)
   ), 10000
