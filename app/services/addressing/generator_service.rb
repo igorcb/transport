@@ -3,12 +3,16 @@ module Addressing
 
     def initialize(params={})
       #byebug
+      # converte Hash
+      params.each do |key, value|
+        params[key.to_sym] = value.to_i
+      end
       @deposit = Deposit.where(id: params[:deposit_id]).first
       @initStreet = params[:initStreet].present? ? params[:initStreet] : nil
       @endStreet = params[:endStreet].present? ? params[:endStreet] : nil
       @maxFloor = params[:maxFloor].present? ? params[:maxFloor] : nil
       @maxHouse = params[:maxHouse].present? ? params[:maxHouse] : nil
-      @spaceHouse = params[:spaceHouse].present? ? params[:spaceHouse] : nil
+      # @spaceHouse = params[:spaceHouse].present? ? params[:spaceHouse] : nil
     end
 
     def call
@@ -18,7 +22,7 @@ module Addressing
       return {success: false, message: "initStreet can not great than endStreet"} if (@initStreet.to_i > @endStreet.to_i )
       return {success: false, message: "maxFloor are empty."} if @maxFloor.nil?
       return {success: false, message: "maxHouse are empty."} if @maxHouse.nil?
-      return {success: false, message: "spaceHouse are empty."} if @spaceHouse.nil?
+      # return {success: false, message: "spaceHouse are empty."} if @spaceHouse.nil?
 
       begin
         ActiveRecord::Base.transaction do

@@ -2,12 +2,20 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
   #get '/addresses_houses', to: 'addresses_houses#index'
-  match '/addresses_houses', :controller => 'addresses_houses', :action => 'index', via: [:get]
-  match '/addresses_houses/houses', :controller => 'addresses_houses', :action => 'houses', via: [:get]
-  match '/addresses_houses/do_occupe', :controller => 'addresses_houses', :action => 'do_occupe', via: [:get]
-  match '/addresses_houses/do_vacate', :controller => 'addresses_houses', :action => 'do_vacate', via: [:get]
+  # match '/addresses_houses', :controller => 'addresses_houses', :action => 'index', via: [:get]
+  # match '/addresses_houses/houses', :controller => 'addresses_houses', :action => 'houses', via: [:get]
+  # match '/addresses_houses/do_occupe', :controller => 'addresses_houses', :action => 'do_occupe', via: [:get]
+  # match '/addresses_houses/do_vacate', :controller => 'addresses_houses', :action => 'do_vacate', via: [:get]
+  # match '/addresses_houses/generator', :controller => 'addresses_houses', :action => 'generator', via: [:get, :post]
   # resources :addresses_houses
-
+  resources :addresses_houses do
+    collection do
+      get :do_occupe
+      get :do_vacate
+      get :houses
+      post :generator
+    end
+  end
   resources :houses do
 
   end

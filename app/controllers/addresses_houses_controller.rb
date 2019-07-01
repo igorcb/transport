@@ -26,9 +26,16 @@ class AddressesHousesController < ApplicationController
     render layout: false
   end
 
-  def teste
-    @occupied_percent = House.occupied_percent
-    render layout: false
+  def new
+  end
+
+  def generator
+
+    address = params[:address].to_unsafe_h
+
+    Addressing::GeneratorService.new(address).call
+    redirect_to "/addresses_houses", notice: 'Your generator was successfully updated.'
+    # render inline: address.inspect
   end
 
 end
