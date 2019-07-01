@@ -452,7 +452,7 @@ class InputControlsController < ApplicationController
         # has_present.push(arq) if NfeXml.nao_processado.where(asset_file_name: "#{arq}.xml").
         #                       or(NfeXml.nao_processado.where(asset_file_name: "#{arq}-nfe.xml").
         #                       or(NfeXml.nao_processado.where(asset_file_name: "#{arq}-procNFe.xml")).first.present?
-        has_present.push(arq) if NfeXml.nao_processado.where("asset_file_name LIKE ?", "%#{arq}%").first.present?
+        has_present.push(arq) if NfeXml.nao_processado.where(nfe_type: nil, "asset_file_name LIKE ?", "%#{arq}%").first.present?
       end
       has_present
     end
