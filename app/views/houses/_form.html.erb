@@ -49,15 +49,12 @@
   </div>
 
   <div class="row">
-    <div class="form-check col-md-3">
-      <%= f.check_box :actived, class: "form-check-input" %>
-      <%= f.label :actived, class: "form-check-label" %>
-      <%#= select("house", "actived", ["Actived", "Not actived"], { include_blank: true }, {class: "form-control"}) %>
+    <div class="form-group col-md-3">
+      <%#= f.check_box :actived, class: "form-check-input" %>
+      <%= f.label :actived %>
+      <%= select("house", "actived", [["Actived", "active"],["No actived", "no_active"]], { include_blank: true }, {class: "form-control"}) %>
     </div>
-    <!-- <div class="form-check col-md-5">
-      <%= f.check_box :occupied, class: "form-check-input" %>
-      <%= f.label :occupied, class: "form-check-label" %>
-    </div> -->
+
   </div>
 
   <div class="row">
@@ -72,49 +69,3 @@
     <%= link_to 'Back', houses_path, class: "btn btn-default" %>
   </div>
 <% end %>
-
-
-<script type="text/javascript">
-  $(function(){
-    $("#warehouse-select").change(function(){
-      var warehouse = "warehouse="+$(this).val();
-      console.log(warehouse);
-      $.getJSON('/floors/get_deposit_by_warehouse', warehouse, function(data){
-        var options = '<option value="">Selecione um galpão</option>';
-        $.each(data, function(i, item) {
-          options += '<option value="' + item.id + '">' + item.n + '</option>';
-        });
-        $("#street-select").html("").prop("disabled", true)
-        $("#deposit-select").html(options).prop("disabled", false);
-      });
-    });
-
-
-    $("#deposit-select").change(function(){
-      var deposit = "deposit="+$(this).val();
-      console.log(deposit);
-      $.getJSON('/floors/get_street_by_deposit', deposit, function(data){
-        var options = '<option value="">Selecione uma rua</option>';
-        $.each(data, function(i, item) {
-          options += '<option value="' + item.id + '">' + item.n + '</option>';
-        });
-        $("#street-select").html(options).prop("disabled", false);
-      });
-    });
-
-
-    $("#street-select").change(function(){
-      var street = "street="+$(this).val();
-      console.log(street);
-      $.getJSON('/houses/get_floor_by_street', street, function(data){
-        var options = '<option value="">Selecione uma rua</option>';
-        $.each(data, function(i, item) {
-          options += '<option value="' + item.id + '">' + item.n + '</option>';
-        });
-        $("#floor-select").html(options).prop("disabled", false);
-      });
-    });
-
-  });
-
-</script>

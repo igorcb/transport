@@ -61,15 +61,7 @@ class HousesController < ApplicationController
     end
   end
 
-  def get_floor_by_street
-    street = params[:street]
-    floor = Floor.where(street: street)
-    floor_array = []
-    floor.each do |d|
-      floor_array << {:id => d.id, :n => d.name}
-    end
-    render :json => floor_array.to_json
-  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

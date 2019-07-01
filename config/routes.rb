@@ -13,10 +13,15 @@ Rails.application.routes.draw do
   end
   resources :floors do
     collection do
-      get :get_floor_by_street
+      get :get_floors_by_street
     end
   end
-  resources :streets
+  resources :streets do
+    collection do
+      get :get_streets_by_deposit
+    end
+  end
+
   resources :deposits do
     collection do
       get :get_deposits_by_warehouse

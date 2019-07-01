@@ -1,12 +1,24 @@
 <%= form_with(model: street, local: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-<div class="row">
-  <div class="form_group col-md-6">
-    <%= f.label :deposit_id %>
-    <%= select("street", "deposit_id", Deposit.all.collect {|p| [ p.name, p.id ] }, { include_blank: "Escolha um depósito" }, {class: "form-control"}) %>
+
+  <div class="row">
+    <div class="form_group col-md-6">
+      <%= f.label :warehouse %>
+      <% if @street.new_record? %>
+        <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name"),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
+      <% else %>
+        <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name", @floor.warehouse.id),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
+      <% end %>
+    </div>
   </div>
-</div>
+
+  <div class="row">
+    <div class="form_group col-md-6">
+      <%= f.label :deposit_id %>
+        <%= select_tag "street[deposit_id]", [],  {disabled: true, class: "form-control", id: "deposit-select"} %>
+    </div>
+  </div>
 
 <div class="row">
   <div class="form_group col-md-6">

@@ -18,10 +18,35 @@ $ ->
         options += '<option value="' + item.id + '">' + item.n + '</option>'
 
       # console.log(options);
-      $("#street-select").html("").prop("disabled", true)
+      $("#street-select").prop("disabled", true)
       $("#deposit-select").html(options).prop("disabled", false)
     )
 
+  # load select street
+  $("#deposit-select").change ->
+    param = "deposit="+$(this).val();
+    $.getJSON('/streets/get_streets_by_deposit', param, (data) ->
+      options = '<option value="">Selecione uma rua</option>'
+      $.each data, (i, item) =>
+        options += '<option value="' + item.id + '">' + item.n + '</option>'
+
+      # console.log(options);
+      $("#floor-select").prop("disabled", true)
+      $("#street-select").html(options).prop("disabled", false)
+    )
+
+  # load select floor
+  $("#street-select").change ->
+    param = "street="+$(this).val();
+    $.getJSON('/floors/get_floors_by_street', param, (data) ->
+      options = '<option value="">Selecione um andar</option>'
+      $.each data, (i, item) =>
+        options += '<option value="' + item.id + '">' + item.n + '</option>'
+
+      # console.log(options);
+      # $("#floor-select").prop("disabled", true)
+      $("#floor-select").html(options).prop("disabled", false)
+    )
 
   ###
   Select deposit

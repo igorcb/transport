@@ -45,36 +45,3 @@
     <%= link_to 'Back', floors_path, class: "btn btn-default" %>
   </div>
 <% end %>
-
-
-<script type="text/javascript">
-  $(function(){
-    $("#warehouse-select").change(function(){
-      var warehouse = "warehouse="+$(this).val();
-      console.log(warehouse);
-      $.getJSON('/deposits/get_deposits_by_warehouse', warehouse, function(data){
-        var options = '<option value="">Selecione um galpão</option>';
-        $.each(data, function(i, item) {
-          options += '<option value="' + item.id + '">' + item.n + '</option>';
-        });
-        $("#street-select").html("").prop("disabled", true)
-        $("#deposit-select").html(options).prop("disabled", false);
-      });
-    });
-
-
-    $("#deposit-select").change(function(){
-      var deposit = "deposit="+$(this).val();
-      console.log(deposit);
-      $.getJSON('/floors/get_street_by_deposit', deposit, function(data){
-        var options = '<option value="">Selecione uma rua</option>';
-        $.each(data, function(i, item) {
-          options += '<option value="' + item.id + '">' + item.n + '</option>';
-        });
-        $("#street-select").html(options).prop("disabled", false);
-      });
-    });
-
-  });
-
-</script>

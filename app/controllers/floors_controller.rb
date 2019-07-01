@@ -61,16 +61,16 @@ class FloorsController < ApplicationController
     end
   end
 
-  
 
-  def get_street_by_deposit
-    deposit = params[:deposit]
-    street = Street.where(deposit: deposit)
-    street_array = []
-    street.each do |s|
-      street_array << {:id => s.id, :n => s.name}
+
+  def get_floors_by_street
+    street = params[:street]
+    floor = Floor.where(street: street)
+    floor_array = []
+    floor.each do |d|
+      floor_array << {:id => d.id, :n => d.name}
     end
-    render :json => street_array.to_json
+    render :json => floor_array.to_json
   end
 
 

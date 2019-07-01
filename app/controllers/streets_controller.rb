@@ -61,6 +61,16 @@ class StreetsController < ApplicationController
     end
   end
 
+  def get_streets_by_deposit
+    deposit = params[:deposit]
+    street = Street.where(deposit: deposit)
+    street_array = []
+    street.each do |d|
+      street_array << {:id => d.id, :n => d.name}
+    end
+    render :json => street_array.to_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_street
