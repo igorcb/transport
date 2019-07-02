@@ -1,27 +1,30 @@
+
 module Addressing
   class GeneratorService
 
     def initialize(params={})
-      #byebug
+      # byebug
       # converte Hash
       params.each do |key, value|
         params[key.to_sym] = value.to_i
       end
+
+      # puts params.inspect
       @deposit = Deposit.where(id: params[:deposit_id]).first
-      @initStreet = params[:initStreet].present? ? params[:initStreet] : nil
-      @endStreet = params[:endStreet].present? ? params[:endStreet] : nil
-      @maxFloor = params[:maxFloor].present? ? params[:maxFloor] : nil
-      @maxHouse = params[:maxHouse].present? ? params[:maxHouse] : nil
+      @initStreet = params[:initStreet].present? ? params[:initStreet] : 0
+      @endStreet = params[:endStreet].present? ? params[:endStreet] : 0
+      @maxFloor = params[:maxFloor].present? ? params[:maxFloor] : 0
+      @maxHouse = params[:maxHouse].present? ? params[:maxHouse] : 0
       # @spaceHouse = params[:spaceHouse].present? ? params[:spaceHouse] : nil
     end
 
     def call
       #byebug
       return {success: false, message: "Deposit does not exist."} if !@deposit.present?
-      return {success: false, message: "initStreet or endStreet are empty."} if ((@initStreet.nil?) or (@endStreet.nil?))
-      return {success: false, message: "initStreet can not great than endStreet"} if (@initStreet.to_i > @endStreet.to_i )
-      return {success: false, message: "maxFloor are empty."} if @maxFloor.nil?
-      return {success: false, message: "maxHouse are empty."} if @maxHouse.nil?
+      return {success: false, message: "initStreet or endStreet are zero."} if ((@initStreet.zero?) or (@endStreet.zero?))
+      return {success: false, message: "initStreet can not great than endStreet."} if (@initStreet.to_i > @endStreet.to_i )
+      return {success: false, message: "maxFloor are zero."} if (@maxFloor.zero?)
+      return {success: false, message: "maxHouse are zero."} if (@maxHouse.zero?)
       # return {success: false, message: "spaceHouse are empty."} if @spaceHouse.nil?
 
       begin

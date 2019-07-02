@@ -17,10 +17,10 @@ RSpec.describe Addressing::GeneratorService, type: :service do
     expect(result[:message]).to match("Generation Houses created successfully.")
   end
 
-  it "when iniStreet or endStreet are empty" do
+  it "initStreet or endStreet are zero" do
     result = Addressing::GeneratorService.new(deposit_id: @deposit.id, initStreet: nil, endStreet: nil, maxFloor: 1, maxHouse: 1, spaceHouse: 1).call
     expect(result[:success]).to be_falsey
-    expect(result[:message]).to match("initStreet or endStreet are empty.")
+    expect(result[:message]).to match("initStreet or endStreet are zero.")
   end
 
   it "when endStreet can not less than initStreet" do
@@ -35,10 +35,10 @@ RSpec.describe Addressing::GeneratorService, type: :service do
     expect(result[:message]).to match("Generation Houses created successfully.")
   end
 
-  it "when maxFloor are empty" do
+  it "maxFloor are zero" do
     result = Addressing::GeneratorService.new(deposit_id: @deposit.id, initStreet: 1, endStreet: 1, maxFloor: nil, maxHouse: 1, spaceHouse: 1).call
     expect(result[:success]).to be_falsey
-    expect(result[:message]).to match("maxFloor are empty.")
+    expect(result[:message]).to match("maxFloor are zero.")
   end
 
   it "when maxFloor are populated" do
