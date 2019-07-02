@@ -16,11 +16,11 @@
     <div class="row">
       <div class="form-group col-md-2">
         <%= label_tag "Inicio da rua" %>
-        <%= number_field_tag "address[initStreet]", "", {class: "form-control"} %>
+        <%= number_field_tag "address[initStreet]", "", {class: "form-control", id:"initStreet"} %>
       </div>
       <div class="form-group col-md-2">
         <%= label_tag "Fim da rua" %>
-        <%= number_field_tag "address[endStreet]", "", {class: "form-control"} %>
+        <%= number_field_tag "address[endStreet]", "", {class: "form-control", id:"endStreet"} %>
       </div>
     </div>
     <div class="row">
@@ -33,6 +33,12 @@
       <div class="form-group col-md-3">
         <%= label_tag "Nº max de casas" %>
         <%= number_field_tag "address[maxHouse]", "", {class: "form-control"} %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <%= label_tag "espaços entre casas" %>
+        <%= select_tag "address[spaceHouse]", options_for_select(["",2,3,4,5,6,7,8,9]),  {class: "form-control"} %>
       </div>
     </div>
     <div class="actions">

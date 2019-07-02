@@ -17,7 +17,7 @@ RSpec.describe Addressing::GeneratorService, type: :service do
     expect(result[:message]).to match("Generation Houses created successfully.")
   end
 
-  it "initStreet or endStreet are zero" do
+  it "when initStreet or endStreet are zero" do
     result = Addressing::GeneratorService.new(deposit_id: @deposit.id, initStreet: nil, endStreet: nil, maxFloor: 1, maxHouse: 1, spaceHouse: 1).call
     expect(result[:success]).to be_falsey
     expect(result[:message]).to match("initStreet or endStreet are zero.")
@@ -35,7 +35,7 @@ RSpec.describe Addressing::GeneratorService, type: :service do
     expect(result[:message]).to match("Generation Houses created successfully.")
   end
 
-  it "maxFloor are zero" do
+  it "when maxFloor are zero" do
     result = Addressing::GeneratorService.new(deposit_id: @deposit.id, initStreet: 1, endStreet: 1, maxFloor: nil, maxHouse: 1, spaceHouse: 1).call
     expect(result[:success]).to be_falsey
     expect(result[:message]).to match("maxFloor are zero.")
@@ -45,6 +45,12 @@ RSpec.describe Addressing::GeneratorService, type: :service do
     result = Addressing::GeneratorService.new(deposit_id: @deposit.id, initStreet: 1, endStreet: 1, maxFloor: 1, maxHouse: 1, spaceHouse: 1).call
     expect(result[:success]).to be_truthy
     expect(result[:message]).to match("Generation Houses created successfully.")
+  end
+
+  it "when spaceHouse are empty" do
+    result = Addressing::GeneratorService.new(deposit_id: @deposit.id, initStreet: 1, endStreet: 1, maxFloor: 1, maxHouse: 1).call
+    expect(result[:success]).to be_falsey
+    expect(result[:message]).to match("spaceHouse are empty.")
   end
 
   # it 'count qtde houses' do

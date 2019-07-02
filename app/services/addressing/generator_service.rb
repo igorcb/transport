@@ -15,7 +15,7 @@ module Addressing
       @endStreet = params[:endStreet].present? ? params[:endStreet] : 0
       @maxFloor = params[:maxFloor].present? ? params[:maxFloor] : 0
       @maxHouse = params[:maxHouse].present? ? params[:maxHouse] : 0
-      # @spaceHouse = params[:spaceHouse].present? ? params[:spaceHouse] : nil
+      @spaceHouse = params[:spaceHouse].present? ? params[:spaceHouse] : 0
     end
 
     def call
@@ -25,7 +25,7 @@ module Addressing
       return {success: false, message: "initStreet can not great than endStreet."} if (@initStreet.to_i > @endStreet.to_i )
       return {success: false, message: "maxFloor are zero."} if (@maxFloor.zero?)
       return {success: false, message: "maxHouse are zero."} if (@maxHouse.zero?)
-      # return {success: false, message: "spaceHouse are empty."} if @spaceHouse.nil?
+      return {success: false, message: "spaceHouse are empty."} if (@spaceHouse.zero?)
 
       begin
         ActiveRecord::Base.transaction do
@@ -35,7 +35,17 @@ module Addressing
             (1..@maxFloor).each do |f|
               floor = street.floors.create(name: f)
               (1..@maxHouse).each do |h|
-                house = floor.houses.create(name: h)
+                # house = floor.houses.create(name: h)
+                data = []
+                if(@spaceHouse.zero?)
+                  data = {name: h}
+                else
+                  (1..@spaceHouse).each do |space|
+                    data[space] = {name: "#{h}#{space}"}
+                  end
+                  data.delete_at(0);
+                end
+                house = floor.houses.create(data)
               end
             end
           end
