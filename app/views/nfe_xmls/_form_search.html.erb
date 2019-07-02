@@ -41,6 +41,11 @@
     </div>
 
     <div class="form-group">
+      <%= f.label :chave_eq, "Chave" %>
+      <%= f.search_field :chave_eq, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
       <%= label_tag :estado, "Estado" %>
       <%= select_tag :estado, options_from_collection_for_select(State.order(:name), :uf, :name, 'CE'), :prompt => "Selecione um estado", class: "form-control" %>
     </div>

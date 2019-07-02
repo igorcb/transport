@@ -81,7 +81,7 @@ class NfeXml < ActiveRecord::Base
   end
 
 	def self.ransackable_attributes(auth_object = nil)
-		['id', 'issue_date', 'numero']
+		['id', 'issue_date', 'numero', 'chave']
 	end
   def status_os_create
     case self.create_os
