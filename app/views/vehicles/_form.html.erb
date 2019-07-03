@@ -53,8 +53,12 @@
     <%= f.select( :tipo_piso_assoalho, select_tipo_piso_assoalho, {include_blank: true}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
+    <%#= f.label :door, "Qtde Portas" %><br>
+    <%#= f.number_field :door, in: 1...11, class: "form-control" %>
+  </div>
+  <div class="form-group">
     <%= f.label :door, "Qtde Portas" %><br>
-    <%= f.number_field :door, in: 1...11, class: "form-control" %>
+    <%= f.text_field :door, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :tracked, "Rastreado" %><br>
@@ -79,7 +83,7 @@
   </div>
   <div class="form-group">
     <%= f.label :capacity, "Capacidade em KG" %><br>
-    <%= f.text_field :capacity, class: "form-control money2", placeholder: "Peso igual ao da NF-e 27.500,30" %>
+    <%= f.text_field :capacity, value: number_to_currency(@vehicle.capacity, unit: "", separator: ",", delimiter: "."),  class: "form-control money2" %>
   </div>
 
   <div class="form-group">

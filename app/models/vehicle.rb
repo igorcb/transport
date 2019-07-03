@@ -17,8 +17,11 @@ class Vehicle < ActiveRecord::Base
   validates :numero_eixos, presence: true
   validates :numero_loks, presence: true
   validates :qtde_paletes, presence: true
+  #validates :qtde_paletes, numericality: { greater_than: 0 }, :if => :tipo_reboque?
   validates :qtde_paletes, numericality: { greater_than: 0 }, :if => :tipo_reboque?
-
+  #validates :qtde_paletes, numericality: { greater_than: 0 }, :if => :door?
+  validates :door, numericality: { greater_than: 0 }, :if => :tipo_reboque?
+  validates :door, numericality: { equal_to: 0 }, :if => :tipo_tracao?
 
   #validates :grade, presence: true
   #validates :cordas, presence: true
@@ -110,11 +113,14 @@ class Vehicle < ActiveRecord::Base
   end
 
   #validations
-  def tipo_reboque?
-    #puts ">>>>>>>>>>>>>> tipo_reboque: #{self.tipo}"
-    self.tipo == Tipo::REBOQUE
+  def tipo_tracao?
+    (self.tipo == Tipo::TRACAO)
   end
 
+  #validations
+  def tipo_reboque?
+    (self.tipo == Tipo::REBOQUE) or (self.tipo == Tipo::TRACAO_BAU)
+  end
 
   def cubagem
     largura * altura * comprimento
