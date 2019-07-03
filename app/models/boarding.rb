@@ -281,18 +281,25 @@ class Boarding < ActiveRecord::Base
   end
 
   def sealing_pending?
-    #self.sealing.blank? && self.sealing_two.blank? && self.sealing_three.blank?
-    #return false if ordem_service.type_direct_charge?
-    checkin = Checkin.the_day.input.where(driver_cpf: self.driver.cpf).last
-    if sealings.blank?
-      return true
-    elsif checkin.nil?
-      return true
-    elsif (checkin.door != self.sealings.count)
-      return true
-    else
-      false
-    end
+    # #self.sealing.blank? && self.sealing_two.blank? && self.sealing_three.blank?
+    # #return false if ordem_service.type_direct_charge?
+    # checkin = Checkin.the_day.input.where(driver_cpf: self.driver.cpf).last
+    # if sealings.blank?
+    #   return true
+    # elsif checkin.nil?
+    #   return true
+    # elsif (checkin.door != self.sealings.count)
+    #   return true
+    # else
+    #   false
+    # end
+    (qtde_doors.to_i == sealings.count)? false : true
+
+  end
+
+  def qtde_doors
+    #boarding_vehicles.joins(:vehicle).sum(vehicles: {:door})
+    boarding_vehicles.joins(:vehicle).sum("vehicles.door")
   end
 
   def pending?
