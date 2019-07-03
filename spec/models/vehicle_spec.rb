@@ -2,11 +2,45 @@ require 'rails_helper'
 
 #describe OrdemService do
 RSpec.describe Vehicle, type: :model do
-	let(:vehicle) { FactoryBot.create(:vehicle) }
+	# let(:vehicle) { FactoryBot.create(:vehicle) }
+	# let(:vehicle_tracao) { FactoryBot.create(:vehicle_tracao) }
+	# let(:vehicle_reboque) { FactoryBot.create(:vehicle_reboque) }
+	# let(:vehicle_tracao_bau) { FactoryBot.create(:vehicle_tracao_bau) }
 
-  it 'is valid if all fields have value' do
-    expect { vehicle }.to change { Vehicle.count }.by(1)
-  end
+	before(:each) do
+
+	end
+
+  # it 'is valid if all fields have value' do
+  #   expect { vehicle }.to change { Vehicle.count }.by(1)
+  # end
+
+	context "type vehicle" do
+		before(:each) do
+			@vehicle_tracao =  FactoryBot.create(:vehicle_tracao)
+			@vehicle_reboque = FactoryBot.create(:vehicle_reboque)
+			@vehicle_tracao_bau = FactoryBot.create(:vehicle_tracao_bau)
+		end
+
+		it "should equal Vehicle TRACAO" do
+			expect(@vehicle_tracao.reload.tipo).to equal(Vehicle::Tipo::TRACAO)
+		end
+
+		it "should is valid qtde door to Vehicle TRACAO" do
+			@vehicle_tracao.update_attributes(door: 0)
+			expect(@vehicle_tracao.reload.door).to equal(0)
+		end
+
+		it "should valid qtde door to Vehicle REBOQUE" do
+			@vehicle_reboque.update_attributes(door: 1)
+			expect(@vehicle_reboque.reload.door).to equal(1)
+		end
+
+		it "should valid qtde door to Vehicle TRACAO BAU" do
+			@vehicle_tracao_bau.update_attributes(door: 1)
+			expect(@vehicle_tracao_bau.reload.door).to equal(1)
+		end
+	end
 end
 
 #require 'spec_helper'
