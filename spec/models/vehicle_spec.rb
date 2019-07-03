@@ -1,19 +1,7 @@
 require 'rails_helper'
 
-#describe OrdemService do
 RSpec.describe Vehicle, type: :model do
-	# let(:vehicle) { FactoryBot.create(:vehicle) }
-	# let(:vehicle_tracao) { FactoryBot.create(:vehicle_tracao) }
-	# let(:vehicle_reboque) { FactoryBot.create(:vehicle_reboque) }
-	# let(:vehicle_tracao_bau) { FactoryBot.create(:vehicle_tracao_bau) }
-
-	before(:each) do
-
-	end
-
-  # it 'is valid if all fields have value' do
-  #   expect { vehicle }.to change { Vehicle.count }.by(1)
-  # end
+	let(:vehicle) { FactoryBot.create(:vehicle) }
 
 	context "type vehicle" do
 		before(:each) do
@@ -41,6 +29,11 @@ RSpec.describe Vehicle, type: :model do
 			expect(@vehicle_tracao_bau.reload.door).to equal(1)
 		end
 	end
+
+	it 'is valid if all fields have value' do
+    expect { vehicle }.to change { Vehicle.count }.by(1)
+  end
+
 end
 
 #require 'spec_helper'
