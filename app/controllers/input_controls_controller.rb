@@ -538,8 +538,8 @@ class InputControlsController < ApplicationController
         data_input_control(report)
         task.nfe_xmls.nfe.order("nfe_xmls.numero").each do |nfe|
           report.page.item(:nfe_numero).value(nfe.numero)
-          report.page.item(:nfe_peso).value("#{number_to_currency(nfe.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}")
-          report.page.item(:nfe_volume).value("#{number_to_currency(nfe.volume, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+          # report.page.item(:nfe_peso).value("#{number_to_currency(nfe.peso, precision: 3, unit: "", separator: ",", delimiter: ".")}")
+          # report.page.item(:nfe_volume).value("#{number_to_currency(nfe.volume, precision: 3, unit: "", separator: ",", delimiter: ".")}")
           report.page.item(:client_name).value(nfe.target_client.nome)
           report.page.item(:client_cnpj).value(nfe.target_client.cpf_cnpj)
           report.page.item(:client_cidade).value(nfe.target_client.cidade)
