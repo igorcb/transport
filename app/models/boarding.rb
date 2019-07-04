@@ -786,6 +786,7 @@ class Boarding < ActiveRecord::Base
     self.boarding_items.each do |item|
       line.push("O.S. #{item.ordem_service_id}, Cliente: #{item.ordem_service.client.nome}, Valor: #{item.ordem_service.discharge_payments.sum(:price)};")
     end
+    line.push("NF-e: #{self.nfe_keys.pluck(:nfe)}")
     line
   end
 
