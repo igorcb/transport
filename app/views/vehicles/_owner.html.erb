@@ -1,7 +1,7 @@
 <fieldset class="item">
 
   <%#= f.label :driver_id, "Motorista" %>
-  <%= f.collection_select :owner_id, Owner.all, :id, :nome,  {:prompt => 'Select'}, class: "form-control" %>
+  <%= f.collection_select :owner_id, Owner.order(:nome), :id, :nome,  {:prompt => 'Select'}, class: "form-control" %>
 
   <a href="#" class="btn btn-danger btn-sm remove">[-]Apagar</a>
 
