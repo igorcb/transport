@@ -5,7 +5,7 @@ class LowerReceivablesController < ApplicationController
 	before_action :set_lower_receivable, only: [:destroy, :quitter]
 
   def destroy
-		@account_receivable = AccountReceivable.find(@lower.account_receivable)
+		@account_receivable = AccountReceivable.find(@lower.account_receivable.id)
 		@lower.destroy
 		@account_receivable.check_balance
     respond_to do |format|

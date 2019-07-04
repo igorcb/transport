@@ -90,18 +90,19 @@ class AccountReceivable < ActiveRecord::Base
 
       vr_total_pago = valor_total_pago + options[:valor_pago].to_f
 
-      if vr_total_pago >= self.valor
-        puts ">>>>>>>>>>>> status: PAGO"
-        self.status = TipoStatus::PAGO
-        # if self.ordem_service_type_service.present?
-        #   OrdemServiceTypeService.update(self.ordem_service_type_service, status: OrdemServiceTypeService::TipoStatus::PAGO)
-        # end
-      elsif vr_total_pago < self.valor
-        puts ">>>>>>>>>>>> status: PAGOPARCIAL"
-        self.status = TipoStatus::PAGOPARCIAL
-      end
-
-      self.save
+      # if vr_total_pago >= self.valor
+      #   puts ">>>>>>>>>>>> status: PAGO"
+      #   self.status = TipoStatus::PAGO
+      #   # if self.ordem_service_type_service.present?
+      #   #   OrdemServiceTypeService.update(self.ordem_service_type_service, status: OrdemServiceTypeService::TipoStatus::PAGO)
+      #   # end
+      # elsif vr_total_pago < self.valor
+      #   puts ">>>>>>>>>>>> status: PAGOPARCIAL"
+      #   self.status = TipoStatus::PAGOPARCIAL
+      # end
+      # self.check_balance
+      #
+      # self.save
 
       self.lower_account_receivables.create!(data_pagamento: options[:data_pagamento],
                                           valor_pago: options[:valor_pago],
@@ -134,8 +135,16 @@ class AccountReceivable < ActiveRecord::Base
   end
 
   def check_balance
-    self.status = self.lower_account_receivables.sum(:valor_pago).to_f > 0.0 ?
-                  TipoStatus::PAGOPARCIAL : self.status = TipoStatus::ABERTO
+    # self.status = self.lower_account_receivables.sum(:valor_pago).to_f > self.valor.to_f ?
+    #               TipoStatus::PAGOPARCIAL : self.status = TipoStatus::ABERTO
+    # self.save!
+    if self.lower_account_receivables.sum(:valor_pago).to_f == self.valor.to_f
+      self.status = TipoStatus::PAGO
+    elsif self.lower_account_receivables.sum(:valor_pago).to_f > 0.00
+      self.status = TipoStatus::PAGOPARCIAL
+    else
+      self.status = TipoStatus::ABERTO
+    end
     self.save!
   end
 
