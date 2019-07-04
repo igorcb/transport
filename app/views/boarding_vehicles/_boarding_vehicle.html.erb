@@ -25,18 +25,17 @@
         <tbody>
         <% @boarding.boarding_vehicles.order(:id).each do |item| %>
           <tr id="boarding_vehicle_id_<%= item.id %>" data-item-id=<%= "#{item.id}" %> class="item">
-            <tr>
-              <td><%= link_to item.vehicle.place_state, item.vehicle %></td>
-              <td><%= link_to item.vehicle.tipo_nome, item.vehicle if item.vehicle.tipo.present? %></td>
-              <td><%= link_to item.vehicle.tipo_veiculo_nome, item.vehicle if item.vehicle.tipo_veiculo.present? %></td>
-              <td align="center"><%= link_to item.vehicle.numero_eixos, item.vehicle if item.vehicle.numero_eixos.present? %></td>
-              <td><%= link_to "#{item.vehicle.qtde_paletes}", item.vehicle %></td>
-              <td><%= link_to "#{number_with_precision(item.vehicle.capacity, precision: 3, separator: ',', delimiter: '.')}", item.vehicle %></td>
-              <td><%= link_to item.vehicle.tipo_piso_assoalho_nome, item.vehicle if item.vehicle.tipo_piso_assoalho.present? %></td>
-              <td><%= link_to item.vehicle.drivers.first.nome, item.vehicle.drivers.first  if item.vehicle.drivers.present? %></td>
-              <td><%= link_to item.vehicle.owners.first.fantasia, item.vehicle.owners.first  if item.vehicle.owners.present? %></td>
-              <td><%#= link_to 'Destroy', [@boarding, item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs", :remote => true %></td>
-              </tr>
+            <td><%= link_to item.vehicle.place_state, item.vehicle %></td>
+            <td><%= link_to item.vehicle.tipo_nome, item.vehicle if item.vehicle.tipo.present? %></td>
+            <td><%= link_to item.vehicle.tipo_veiculo_nome, item.vehicle if item.vehicle.tipo_veiculo.present? %></td>
+            <td align="center"><%= link_to item.vehicle.numero_eixos, item.vehicle if item.vehicle.numero_eixos.present? %></td>
+            <td><%= link_to "#{item.vehicle.qtde_paletes}", item.vehicle %></td>
+            <td><%= link_to "#{number_with_precision(item.vehicle.capacity, precision: 3, separator: ',', delimiter: '.')}", item.vehicle %></td>
+            <td><%= link_to item.vehicle.tipo_piso_assoalho_nome, item.vehicle if item.vehicle.tipo_piso_assoalho.present? %></td>
+            <td><%= link_to item.vehicle.drivers.first.nome, item.vehicle.drivers.first  if item.vehicle.drivers.present? %></td>
+            <td><%= link_to item.vehicle.owners.first.fantasia, item.vehicle.owners.first  if item.vehicle.owners.present? %></td>
+            <td><%= link_to 'Destroy', [@boarding, item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs", :remote => true %></td>
+          </tr>
         <% end %>
         </tbody>
       </table>

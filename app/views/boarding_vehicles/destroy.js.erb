@@ -1,0 +1,12 @@
+<% if @result[:success] == false -%>
+  $("#messages_vehicles").hide(300);
+  $("#messages_vehicles").empty("");
+  $("#messages_vehicles").append("<div class='alert alert-danger'><%= @result[:message] %></div>");
+  $("#messages_vehicles").show(300);
+<% else -%>
+  $("#messages_vehicles").hide(300);
+  $("#messages_vehicles").empty("");
+  $("#messages_vehicles").append("<div class='alert alert-success'><%= @result[:message] %></div>");
+  $("#messages_vehicles").show(300);
+  $('#boarding_vehicle_id_<%= @boarding_vehicle.id %>').remove();
+<% end -%>

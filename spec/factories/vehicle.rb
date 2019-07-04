@@ -19,6 +19,7 @@ FactoryBot.define do
      numero_eixos { 5 }
      numero_loks { 2 }
      qtde_paletes { 30 }
+     door { 0 }
 
      grade { false }
      cordas { false }
@@ -72,6 +73,7 @@ FactoryBot.define do
      numero_eixos { 5 }
      numero_loks { 2 }
      qtde_paletes { 30 }
+     door {2}
 
      grade { false }
      cordas { false }
@@ -98,6 +100,7 @@ FactoryBot.define do
      numero_eixos { 5 }
      numero_loks { 2 }
      qtde_paletes { 30 }
+     door {1}
 
      grade { false }
      cordas { false }
