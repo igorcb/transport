@@ -12,17 +12,16 @@ class BoardingVehiclesController < ApplicationController
     @result[:success] ? flash.now[:notice] = @result[:message] : flash[:error] = @result[:message]
   end
 
-  # def destroy
-  #   @boarding = Boarding.find(params[:boarding_id])
-  #   @boarding_item = BoardingItem.find(params[:id])
-  #   @ordem_service = OrdemService.where(id: @boarding_item.ordem_service_id).first
-  #   @result = Boardings::DeleteBoardingItemService.new(@boarding, @ordem_service, current_user).call
-  #   if @result[:success] == true
-  #     flash.now[:notice] = @result[:message]
-  #   else
-  #     flash[:error] = @result[:message]
-  #   end
-  # end
+  def destroy
+    @boarding = Boarding.find(params[:boarding_id])
+    @boarding_vehicle = BoardingVehicle.find(params[:id])
+    @result = Boardings::DeleteBoardingVehicleService.new(@boarding_vehicle, current_user).call
+    if @result[:success]
+      flash.now[:notice] = @result[:message]
+    else
+      flash[:error] = @result[:message]
+    end
+  end
 
   private
 

@@ -42,15 +42,15 @@ class LowerPayablesController < ApplicationController
       #boarding.observation_discharge_payment.compact.join("<br>").html_safe
       #@account_payable.boarding.observation_discharge_payment.compact.join("<br>").html_safe
       report.list(:list_observation).add_row do |row|
-        row.values(description: "EMBARQUE Nº: #{lower.account_payable.id} ")
+        row.values(description: "EMBARQUE Nº: #{lower.account_payable.boarding.id} ") if lower.account_payable.boarding.present?
       end
-
+      if lower.account_payable.boarding.present?
       lower.account_payable.boarding.observation_discharge_payment.each do |item|
         report.list(:list_observation).add_row do |row|
           row.values(description: item)
         end
       end
-
+      end
       report.page.item(:issue_date).value(local_data)
       report.page.item(:data_and_hora).value(emitido)
       send_data report.generate, filename: "recibo_#{lower.id}_.pdf",

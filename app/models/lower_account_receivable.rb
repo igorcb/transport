@@ -3,7 +3,7 @@ class LowerAccountReceivable < ActiveRecord::Base
   belongs_to :cash_account, required: false
 
   before_destroy :back_balance
-  after_create :put_billing_payment
+  after_create :put_billing_payment, :check_balance
 
   def put_billing_payment
   	puts ">>>>>>>>> check_full: "
@@ -16,14 +16,25 @@ class LowerAccountReceivable < ActiveRecord::Base
   def check_full_receivable_billing?
   	positivo = true
   	accounts = AccountReceivable.where(billing_id: self.account_receivable.billing_id)
-    puts ">>>>>>>>>>>>>Account: #{self.account_receivable.valor.to_f}"
+    # puts ">>>>>>>>>>>>>Account: #{self.account_receivable.valor.to_f}"
   	accounts.order(:id).each do |account|
-  		puts ">>>>>>>>>>>>> Doc: #{account.documento} - Status: #{account.status}"
-      puts ">>>>>>>>>>>>> Lower: #{account.valor.to_f}"
+  		# puts ">>>>>>>>>>>>> Doc: #{account.documento} - Status: #{account.status}"
+      # puts ">>>>>>>>>>>>> Lower: #{account.valor.to_f}"
 			positivo = account.status == AccountReceivable::TipoStatus::PAGO
 			return false if positivo == false
   	end
   	positivo
+  end
+
+  def check_full_receivable?
+    #total_pago é igual ao valor_parcela + juros - desconto
+    #valor_parcela
+    account = AccountReceivable.find(self.account_receivable.id)
+    account.lower_receivables.sum(:total_pago)
+  end
+
+  def check_balance
+    self.account_receivable.check_balance
   end
 
   private
