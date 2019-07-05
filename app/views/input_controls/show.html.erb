@@ -71,7 +71,8 @@
     </div>
     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
         <div class="panel-body">
-          <%= render 'shared/document', object: @input_control %>
+          <%#= render 'shared/document', object: @input_control %>
+          <%= link_to "Visualizar  Documentos", documents_input_control_path(@input_control), class: "btn btn-info btn-xs" %>
         </div>
     </div>
   </div>
@@ -108,7 +109,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingEight" style="cursor:pointer" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
       <h4 class="panel-title">
-          Listagem de XML de NF-e Paletes 
+          Listagem de XML de NF-e Paletes
       </h4>
     </div>
     <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
