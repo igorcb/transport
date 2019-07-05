@@ -1,0 +1,41 @@
+<style>
+#documents .items .row{ display: none}
+#documents .items .row[data-new-record=true]{ display: block}
+#list-files span{margin-right:5px;}
+</style>
+
+<%= form_for(@input_control, url: documents_input_control_path(@input_control), html: { multipart: true }) do |form| %>
+<div id="list-files"></div>
+<div id="documents">
+  <div class="items">
+    <%= form.nested_fields_for :assets do |f| %>
+    <div class="row">
+      <div class="form-group col-md-5">
+        <% f.label :asset %>
+  	    <%= f.file_field :asset %>
+      </div>
+
+  	  <%= f.hidden_field :id %>
+  	  <%= f.hidden_field :_destroy %>
+  	</div>
+    <% end %>
+  </div>
+    <a href="#" class="btn btn-success btn-sm add" style="display:none">[+] Documento</a>
+</div>
+
+<%= form.submit "Salvar", class: "btn btn-blue" %>
+<% end %>
+
+<%= render 'shared/documents', object: @input_control %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".add").trigger("click");
+    $(document).on("change", "input[type=file]", function(){
+        $(this).hide();
+        $("#list-files").append("<span class='badge'>"+$(this).val()+"</span>");
+          $(".add").trigger("click");
+    });
+
+  });
+</script>

@@ -1,13 +1,7 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
 
-  #get '/addresses_houses', to: 'addresses_houses#index'
-  # match '/addresses_houses', :controller => 'addresses_houses', :action => 'index', via: [:get]
-  # match '/addresses_houses/houses', :controller => 'addresses_houses', :action => 'houses', via: [:get]
-  # match '/addresses_houses/do_occupe', :controller => 'addresses_houses', :action => 'do_occupe', via: [:get]
-  # match '/addresses_houses/do_vacate', :controller => 'addresses_houses', :action => 'do_vacate', via: [:get]
-  # match '/addresses_houses/generator', :controller => 'addresses_houses', :action => 'generator', via: [:get, :post]
-  # resources :addresses_houses
+
   resources :addresses_houses do
     collection do
       get :do_occupe
@@ -220,6 +214,9 @@ Rails.application.routes.draw do
       post :update_product, on: :collection
     end
     member do
+      get :documents
+      patch :documents, to: 'input_controls#documents_upload'
+      delete :documents, to: 'input_controls#documents_destroy'
       get 'select_nfe'
       get 'select_pallets'
       post 'create_ordem_service'

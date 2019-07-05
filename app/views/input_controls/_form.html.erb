@@ -3,55 +3,55 @@
 
 <!--   <div class="form-group">
     <%#= f.label :carrier_id, "Transportadora" %>
-    <%#= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.name_state, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%#= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.name_state, c.id]}, {include_blank: true}, {class: "#{input_class}"} ) %>
   </div>
  -->
-  <div class="form-group">
+  <%= row do form_group small: (@input_control.new_record?) ? 6 : 12 do %>
     <%= label_tag :carrier_id, "Transportadora" %><br>
     <% if @input_control.new_record? %>
-      <%= text_field_tag :carrier_cnpj, nil, class: "form-control cnpj" %>
+      <%= text_field_tag :carrier_cnpj, nil, class: "#{input_class} cnpj" %>
     <% else %>
-      <%= text_field_tag :carrier_cnpj, @input_control.carrier.cnpj, class: "form-control cnpj", disabled: true %>
+      <%= text_field_tag :carrier_cnpj, @input_control.carrier.cnpj, class: "#{input_class} cnpj", disabled: true %>
       <%= render partial: "carriers/result_carrier", locals: { carrier: @input_control.carrier } %>
+    </div>
     <% end %>
-  </div>
+  <% end end %>
+  <div id="carrier_cnpj_result"></div>
 
-  <div id="carrier_cnpj_result">
 
-  </div>
-
+<%= row do form_group small: 6 do %>
   <%= f.fields_for :action_inspectors do |f|
       render 'action_inspector_fields', f: f
   end -%>
+<% end end %>
 
 <!--   <div class="form-group">
     <%#= f.label :driver_id, "Motorista" %>
-    <%#= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%#= f.select(:driver_id, Driver.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "#{input_class}"} ) %>
   </div>
  -->
-  <div class="form-group">
+  <%= row do form_group small: (@input_control.new_record?) ? 6 : 12 do %>
     <%= label_tag :driver_id, "Motorista" %><br>
     <% if @input_control.new_record? %>
-      <%= text_field_tag :driver_cpf, nil, class: "form-control cpf" %>
+      <%= text_field_tag :driver_cpf, nil, class: "#{input_class} cpf" %>
     <% else %>
-      <%= text_field_tag :driver_cpf, @input_control.driver.cpf, class: "form-control cpf", disabled: true %>
+      <%= text_field_tag :driver_cpf, @input_control.driver.cpf, class: "#{input_class} cpf", disabled: true %>
       <%= render partial: "drivers/result_driver", locals: { driver: @input_control.driver } %>
+      </div>
     <% end %>
-  </div>
+  <% end end %>
+  <div id="driver_cpf_result"></div>
 
-  <div id="driver_cpf_result">
-
-  </div>
-
-  <div class="form-group">
+  <%= row do form_group small: (@input_control.new_record?) ? 6 : 12 do %>
     <%= label_tag :billing_client_cpf_cpnj, "CPF/CNPJ Tomador do Serviço" %><br>
     <% if @input_control.new_record? %>
-      <%= text_field_tag :billing_client_cpf_cpnj, nil, class: "form-control cnpj" %>
+      <%= text_field_tag :billing_client_cpf_cpnj, nil, class: "#{input_class} cnpj" %>
     <% else %>
-      <%= text_field_tag :billing_client_cpf_cpnj, @input_control.billing_client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
+      <%= text_field_tag :billing_client_cpf_cpnj, @input_control.billing_client.cpf_cnpj, class: "#{input_class} cnpj", disabled: true %>
       <%= render partial: "clients/result_client", locals: { client: @input_control.billing_client } %>
+      </div>
     <% end %>
-  </div>
+  <% end end %>
 
   <div id="billing_client_cnpj_result">
 
@@ -60,128 +60,146 @@
 <!--
   <div class="form-group">
     <%#= f.label :stretch_route_id, "Trecho" %>
-    <%#= f.select(:stretch_route_id, StretchRoute.all.collect {|c| [c.stretch_source_and_target_long, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%#= f.select(:stretch_route_id, StretchRoute.all.collect {|c| [c.stretch_source_and_target_long, c.id]}, {include_blank: true}, {class: "#{input_class}"} ) %>
   </div>
 -->
 
-  <div class="form-group">
+<%= row do %>
+
+  <%= form_group small: 4 do %>
     <%= f.label :stretch_route_id, "Trecho" %>
     <% if @input_control.stretch_route_id.present? %>
-      <%= f.collection_select :stretch_route_id, input_stretch_route(@input_control.billing_client_id), :id, :stretch_source_and_target_long, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "form-control input-sm"} %>
+      <%= f.collection_select :stretch_route_id, input_stretch_route(@input_control.billing_client_id), :id, :stretch_source_and_target_long, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "#{input_class} input-sm"} %>
     <% else %>
-      <%= f.collection_select :stretch_route_id, [], :name, :name, {prompt: "SELECIONE TRECHO"}, {class: "form-control input-sm"}  %>
+      <%= f.collection_select :stretch_route_id, [], :name, :name, {prompt: "SELECIONE TRECHO"}, {class: "#{input_class} input-sm"}  %>
     <% end %>
-  </div>
+  <% end %>
 
-  <div class="form-group">
+  <%= form_group small: 4 do %>
     <%= f.label :type_service_id, "Tipo de Servico" %>
     <% if @input_control.type_service_id.present? %>
-      <%= f.collection_select :type_service_id, input_type_service(@input_control.billing_client_id, @input_control.stretch_route_id ), :id, :descricao, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "form-control input-sm"} %>
+      <%= f.collection_select :type_service_id, input_type_service(@input_control.billing_client_id, @input_control.stretch_route_id ), :id, :descricao, {prompt: "SELECIONE TRECHO ORIGEM"}, {class: "#{input_class} input-sm"} %>
     <% else %>
-      <%= f.collection_select :type_service_id, [], :id, :name, {prompt: "SELECIONE O SERVICO"}, {class: "form-control input-sm"}  %>
+      <%= f.collection_select :type_service_id, [], :id, :name, {prompt: "SELECIONE O SERVICO"}, {class: "#{input_class} input-sm"}  %>
     <% end %>
-  </div>
+  <% end %>
 
-  <div class="form-group">
+<% end %>
+
+
+<%= row do %>
+  <%= form_group small: 3 do %>
     <%= f.label :place, "Placa NF-e" %>
-    <%= f.text_field :place, class: "form-control " %>
-  </div>
+    <%= f.text_field :place, class: "#{input_class} " %>
+  <% end %>
 
-  <div class="form-group">
+  <%= form_group small: 3 do %>
     <%= f.label :place_horse, "Placa Cavalo" %>
-    <%= f.text_field :place_horse, class: "form-control " %>
-  </div>
+    <%= f.text_field :place_horse, class: "#{input_class} " %>
+  <% end %>
 
-  <div class="form-group">
+  <%= form_group small: 3 do %>
     <%= f.label :place_cart, "Placa Carreta" %>
-    <%= f.text_field :place_cart, class: "form-control " %>
-  </div>
+    <%= f.text_field :place_cart, class: "#{input_class} " %>
+  <% end %>
 
-  <div class="form-group">
+  <%= form_group small: 3 do %>
     <%= f.label :place_cart_2, "Placa Carreta 2" %>
-    <%= f.text_field :place_cart_2, class: "form-control " %>
-  </div>
+    <%= f.text_field :place_cart_2, class: "#{input_class} " %>
+  <% end %>
 
-  <div class="form-group">
+<% end %>
+
+<%= row do %>
+  <%= form_group small: 4 do %>
     <%= f.label :shipment, "No Remessa do Cliente" %>
-    <%= f.text_field :shipment, class: "form-control" %>
-  </div>
+    <%= f.text_field :shipment, class: "#{input_class}" %>
+  <% end %>
 
-  <div class="form-group">
+  <%= form_group small: 4 do %>
     <%= f.label :container, "No Container" %>
-    <%= f.text_field :container, class: "form-control" %>
-  </div>
+    <%= f.text_field :container, class: "#{input_class}" %>
+  <% end %>
+<% end %>
 
-  <div class="form-group">
+<%= row do %>
+  <%= form_group small: 4 do %>
     <%= f.label :date_entry, "Data Entrada NF-e" %>
-    <%= f.text_field :date_entry, class: "form-control data", value: date_br(@input_control.date_entry) %>
-
-  </div>
-
-  <div class="form-group">
+    <%= f.text_field :date_entry, class: "#{input_class} data", value: date_br(@input_control.date_entry) %>
+  <% end %>
+  <%= form_group small: 4 do %>
     <%= f.label :time_entry, "Hora Entrada NF-e" %>
-    <%= f.text_field :time_entry, class: "form-control time", value: time_br(@input_control.time_entry) %>
-  </div>
-
-  <div class="form-group">
+    <%= f.text_field :time_entry, class: "#{input_class} time", value: time_br(@input_control.time_entry) %>
+  <% end %>
+  <%= form_group small: 4 do %>
     <%= f.label :date_receipt, "Data Recebimento" %>
-    <%= f.text_field :date_receipt, class: "form-control data", value: date_br(@input_control.date_receipt), disabled: true %>
-  </div>
+    <%= f.text_field :date_receipt, class: "#{input_class} data", value: date_br(@input_control.date_receipt), disabled: true %>
+  <% end %>
+<% end %>
 
-  <div class="form-group">
+<%= row do %>
+  <%= form_group small: 4 do %>
     <% if @input_control.new_record? %>
       <%= f.check_box :charge_discharge, checked: true %> Cobrar descarga?
     <% else %>
       <%= f.check_box :charge_discharge %> Cobrar descarga?
     <% end %>
-  </div>
-
-  <div class="form-group">
+  <% end %>
+  <%= form_group small: 4 do %>
     <%= f.check_box :palletized %> Carga Paletizada?
-  </div>
-
-  <div class="form-group">
+  <% end %>
+  <%= form_group small: 4 do %>
     <% if @input_control.new_record? %>
       <%= f.check_box :charge_type_delivery, checked: true %> Entrega é Paletizada?
     <% else %>
       <%= f.check_box :charge_type_delivery %> Entrega é Paletizada?
     <% end %>
-  </div>
+  <% end %>
+<% end %>
 
-  <div class="form-group">
+
+<%= row do %>
+  <%= form_group small: 3 do %>
     <%= f.label :quantity_pallets, "Qtde Paletes" %>
-    <%= f.text_field :quantity_pallets, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
+    <%= f.text_field :quantity_pallets, class: "#{input_class}" %>
+  <% end %>
+  <%= form_group small: 3 do %>
     <%= f.label :team, "Equipe" %>
-    <%= f.select( :team, select_team, {include_blank: "Selecione uma Equipe"}, {class: "form-control"} ) %>
-  </div>
-
-  <div class="form-group">
+    <%= f.select( :team, select_team, {include_blank: "Selecione uma Equipe"}, {class: "#{input_class}"} ) %>
+  <% end %>
+  <%= form_group small: 3 do %>
     <%= f.label :hangar, "Galpao" %>
-    <%= f.select( :hangar, select_hangar, {include_blank: "Selecione um Hangar"}, {class: "form-control"} ) %>
-  </div>
-
-  <div class="form-group">
+    <%= f.select( :hangar, select_hangar, {include_blank: "Selecione um Hangar"}, {class: "#{input_class}"} ) %>
+  <% end %>
+  <%= form_group small: 3 do %>
     <%= f.label :dock, "Doca" %>
-    <%= f.select( :dock, select_dock, {include_blank: "Selecione uma doca"}, {class: "form-control"} ) %>
-  </div>
+    <%= f.select( :dock, select_dock, {include_blank: "Selecione uma doca"}, {class: "#{input_class}"} ) %>
+  <% end %>
+<% end %>
 
-  <div class="form-group">
+<%= row do %>
+  <%= form_group small: 12 do %>
     <%= f.label :observation, "Observação" %>
-    <%= f.text_area :observation, class: "form-control" %>
-  </div>
+    <%= f.text_area :observation, class: "#{input_class}" %>
+  <% end %>
+<% end %>
 
+
+
+<%#= row do %>
+  <%#= form_group small: 4 do %>
+  <%# end %>
+<%# end %>
+<!--
   <h3>NF-e</h3>
   <div class="documents_itens">
     <%= f.nested_fields_for :nfe_xmls do |f|
       render 'nfe_xml_fields', f: f
     end -%> <br />
     <%= link_to_add_association 'Add NF-e', f, :nfe_xmls, class: "btn btn-success btn-sm" %> <br />
-  </div> <br />
+  </div> <br /> -->
 
-  <h3>Documentos</h3>
+  <!-- <h3>Documentos</h3>
   <div id="documents">
     <div class="items">
       <%= f.nested_fields_for :assets do |f|
@@ -189,7 +207,7 @@
       end  -%>
     </div>
       <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>
-  </div>
+  </div> -->
 
   <hr />
 

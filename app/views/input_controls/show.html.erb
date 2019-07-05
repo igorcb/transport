@@ -2,194 +2,113 @@
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    <div class="panel-heading" role="tab" id="headingOne" style="cursor:pointer" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+      <h3 class="panel-title">
           Dados da Remessa de Entrada No:
-          <%= @input_control.id %> -
-          <%= @input_control.status_name %>
-        </a>
-      </h4>
+          <%= @input_control.id %> - <%= @input_control.status_name %>
+      </h3>
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-        <div class="panel panel-default">
-
-          <div class="panel panel-default">
-
-            <div class="panel-body">
-              <%= render 'data_input' %>
-            </div>
-          </div>
-
-        </div>
+        <%= render 'data_input' %>
       </div>
     </div>
   </div>
 
+
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingNine">
+    <div class="panel-heading" role="tab" id="headingNine" style="cursor:pointer" data-toggle="collapse" style="cursor:pointer" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
           Dados da Confirmação de Recebimento
-        </a>
       </h4>
     </div>
     <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
       <div class="panel-body">
-
         <%= render 'data_received' %>
-
       </div>
     </div>
   </div>
 
+
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Dados da Transportadora
-        </a>
-      </h4>
+    <div class="panel-heading" role="tab" id="headingTwo" style="cursor:pointer" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+      <h4 class="panel-title"> Dados da Transportadora </h4>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
-        <%#= render 'clients/client_data', object: @ordem_service.client %>
-
-        <div class="panel-body">
-          <div class="panel panel-default">
-
-            <div class="panel panel-default">
-
-              <div class="panel-body">
-                <%= render 'carriers/carrier_data', object: @input_control.carrier if @input_control.carrier.present? %>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
+        <%= render 'carriers/carrier_data', object: @input_control.carrier if @input_control.carrier.present? %>
       </div>
     </div>
   </div>
 
+
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingThree">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Dados do motorista
-        </a>
-      </h4>
+    <div class="panel-heading" role="tab" id="headingThree" style="cursor:pointer"  data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+      <h4 class="panel-title"> Dados do motorista </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body">
-        <div class="panel panel-default">
-
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">Dados do Motorista</h2>
-            </div>
-
-            <div class="panel-body">
-              <%= render 'drivers/driver_data', object: @input_control.driver if @input_control.driver.present? %>
-            </div>
-          </div>
-
-        </div>
+        <%= render 'drivers/driver_data', object: @input_control.driver if @input_control.driver.present? %>
       </div>
     </div>
   </div>
 
+
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingFour">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          Dados do tomador do servico
-        </a>
-      </h4>
+    <div class="panel-heading" role="tab" id="headingFour" style="cursor:pointer"  data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+      <h4 class="panel-title"> Dados do tomador do servico </h4>
     </div>
     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
       <div class="panel-body">
-        <div class="panel panel-default">
-
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">Dados tomador do servico</h2>
-            </div>
-
-            <div class="panel-body">
-              <%= render 'clients/client_data', object: @input_control.billing_client if @input_control.billing_client.present? %>
-            </div>
-          </div>
-
-        </div>
+        <%= render 'clients/client_data', object: @input_control.billing_client if @input_control.billing_client.present? %>
       </div>
     </div>
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingFive">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-          Documentos
-        </a>
-      </h4>
+    <div class="panel-heading" role="tab" id="headingFive" style="cursor:pointer" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+      <h4 class="panel-title">  Documentos </h4>
     </div>
     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-
         <div class="panel-body">
           <%= render 'shared/document', object: @input_control %>
         </div>
-
     </div>
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingSix">
+    <div class="panel-heading" role="tab" id="headingSix" style="cursor:pointer" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
           Ocorrencias
-        </a>
       </h4>
     </div>
     <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
       <div class="panel-body">
-
-      <%= render 'comments/feed', comments: @input_control.feed %>
-
-      <%#= render 'comments/form_comment_ordem_service' %>
-
+        <%= render 'comments/feed', comments: @input_control.feed %>
       </div>
     </div>
   </div>
 
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingSeven">
+    <div class="panel-heading" role="tab" id="headingSeven" style="cursor:pointer" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
           Dados do Cancelamento
-        </a>
       </h4>
     </div>
     <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
       <div class="panel-body">
-
-      <%= render 'cancellations/feed', cancellations: @input_control.feed_cancellations %>
-
-      <%= render 'cancellations/form_cancellation_input_control' %>
-
+        <%= render 'cancellations/feed', cancellations: @input_control.feed_cancellations %>
+        <%= render 'cancellations/form_cancellation_input_control' %>
       </div>
     </div>
   </div>
 
 
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingEight">
+    <div class="panel-heading" role="tab" id="headingEight" style="cursor:pointer" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-          Listagem de XML de NF-e Paletes
-        </a>
+          Listagem de XML de NF-e Paletes 
       </h4>
     </div>
     <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">

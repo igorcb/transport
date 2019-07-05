@@ -96,6 +96,27 @@ class InputControlsController < ApplicationController
     respond_with(@input_control)
   end
 
+  def documents
+  end
+
+  def documents_upload
+
+    # render inline: input_control_params.inspect
+    # return
+    @input_control.update(input_control_params)
+    @input_control.save
+    # respond_with(@input_control)
+    redirect_to documents_input_control_path(@input_control), flash: { success: "Input Control was successfully created." }
+
+
+  end
+
+  def documents_destroy
+    Asset.find(params[:asset_id]).destroy
+    redirect_to documents_input_control_path(@input_control), flash: { success: "Input Control was successfully created." }
+
+  end
+
   def list_input_scheduling
     @input_controls = InputControl.where.not(container: nil)
   end
