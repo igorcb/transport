@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
-#redirect_to select_client_path, :flash => { :danger => "Informe o valor da parcela" } 
+#redirect_to select_client_path, :flash => { :danger => "Informe o valor da parcela" }
 #flash[:success] = "Parcela foi atualizada com sucesso."
-  
+
   before_action :authenticate_user!
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
@@ -25,7 +25,7 @@ class ClientsController < ApplicationController
     @client = Client.new
     @client.contacts.build
     @client.emails.build
-    @client.assets.build 
+    @client.assets.build
     @client.account_banks.build
   end
 
@@ -83,7 +83,7 @@ class ClientsController < ApplicationController
     @clients = @q.result
     respond_with(@clients) do |format|
      format.js
-    end  
+    end
   end
 
   def get_client_by_cnpj
@@ -109,10 +109,10 @@ class ClientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params.require(:client).permit(:cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento, 
+      params.require(:client).permit(:cpf_cnpj, :nome, :fantasia, :inscricao_estadual, :inscricao_municipal, :endereco, :numero, :complemento,
       :bairro, :cidade, :estado, :cep, :tipo_pessoa, :rg, :orgao_emissor, :data_emissao_rg, :obs, :hora_descarga, :condicao_recebimento, :group_client_id,
       :valor_volume, :valor_peso, :faturar, :capital, :faturar_cada, :vencimento_para, :qtde_parcela, :valor_peso_1500, :suframa,
-      :orgao_publico, :icms_contribuinte, :tipo_cliente, :accept_operational, :client_credential_sefaz,
+      :orgao_publico, :icms_contribuinte, :tipo_cliente, :accept_operational, :client_credential_sefaz, :payment_discharge,
       :default_height_maximum_pallet, :type_height_maximum_pallet,
       client_representatives_attributes: [:representative_id, :id, :_destroy],
       contacts_attributes: [:contact, :tipo, :nome, :fone, :complemento, :id, :_destroy],
@@ -120,7 +120,7 @@ class ClientsController < ApplicationController
       account_banks_attributes: [:banco, :nome_banco, :tipo_operacao, :agencia, :conta_corrente, :favorecido, :cpf_cnpj, :id, :_destroy],
       assets_attributes: [:asset, :id, :_destroy]
       )
-            
+
 
     end
 end

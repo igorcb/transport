@@ -121,22 +121,22 @@
 </p>
 
 <p>
-  <strong>Faturar a cada:</strong> 
+  <strong>Faturar a cada:</strong>
   <%= @client.faturar_cada %> dias.
 </p>
 
 <p>
-  <strong>Vencimento para:</strong> 
+  <strong>Vencimento para:</strong>
   <%= @client.vencimento_para %> dias.
 </p>
 
 <p>
-  <strong>Qtde Parcela:</strong> 
-  <%= @client.qtde_parcela %> 
+  <strong>Qtde Parcela:</strong>
+  <%= @client.qtde_parcela %>
 </p>
 
 <p>
-  <strong>Suframa:</strong> 
+  <strong>Suframa:</strong>
   <%= @client.suframa %>
 </p>
 
@@ -168,6 +168,11 @@
 </p>
 
 <p>
+  <strong>Cliente cobra pagamento de descarga?:</strong>
+  <%= extenso_boolean @client.payment_discharge %>
+</p>
+
+<p>
   <strong>Horário para descarregar:</strong>
   <%= @client.hora_descarga %>
 </p>
@@ -178,12 +183,12 @@
 </p>
 
 <p>
-  <strong>Criado em:</strong> <%= date_br @client.created_at %> as <%= time_br @client.created_at %> 
+  <strong>Criado em:</strong> <%= date_br @client.created_at %> as <%= time_br @client.created_at %>
   <strong>por</strong> <%= @client.user_created.email if @client.user_created.present? %>
 </p>
 
 <p>
-  <strong>Última atualização:</strong> <%= date_br @client.updated_at %> as <%= time_br @client.updated_at %> 
+  <strong>Última atualização:</strong> <%= date_br @client.updated_at %> as <%= time_br @client.updated_at %>
   <strong>por</strong> <%= @client.user_updated.email if @client.user_updated.present? %>
 </p>
 
@@ -206,10 +211,10 @@
         <tbody>
           <% @client.client_representatives.each do |rep| %>
             <%= render partial: 'representatives/representative', locals: {representative: rep.representative} %>
-          <% end %>  
+          <% end %>
        </tbody>
       </table>
-    </div>    
+    </div>
   </div>
 </div>
 

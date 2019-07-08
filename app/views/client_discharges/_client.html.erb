@@ -5,10 +5,15 @@
 	</p>
 	<p>
 		<strong>Client:</strong>
-	  <%= link_to @client.nome, @client %>	
+	  <%= link_to @client.nome, @client %>
 	</p>
 	<p>
 	  <strong>Aceita operacional de fora?:</strong>
 	  <%= extenso_boolean @client.accept_operational %>
-	</p>	
+	</p>
+
+	<p>
+	  <strong>Cliente cobra pagamento de descarga?:</strong>
+	  <%= extenso_boolean @client.payment_discharge %>
+	</p>
 </div>

@@ -22,7 +22,7 @@
   </div>
   <div class="form-group">
     <%= f.label :tipo_cliente %>
-    <%= f.select :tipo_cliente, select_tipo_cliente, {include_blank: true}, {class: "form-control"} %>      
+    <%= f.select :tipo_cliente, select_tipo_cliente, {include_blank: true}, {class: "form-control"} %>
   </div>
 
   <div class="form-group">
@@ -67,7 +67,7 @@
   </div>
   <div class="form-group">
     <%= f.label :estado  %>
-    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :rg %>
@@ -113,6 +113,11 @@
   </div>
   <div class="form-group">
     <%= f.label "", class: "checkbox-inline" do %>
+      <%= f.check_box :payment_discharge %> Cliente cobra pagamento de descarga
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label "", class: "checkbox-inline" do %>
       <%= f.check_box :capital %> Este cliente é da capital ou região metropolitana?
     <% end %>
   </div>
@@ -128,19 +133,19 @@
   </div>
   <div class="form-group">
     <%= f.label :faturar_cada, "Faturar a cada:" %>
-    <%= f.text_field :faturar_cada, class: "form-control" %> 
+    <%= f.text_field :faturar_cada, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :vencimento_para, "Vencimento para:" %>
-    <%= f.text_field :vencimento_para, class: "form-control" %> 
+    <%= f.text_field :vencimento_para, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :qtde_parcela %>
-    <%= f.text_field :qtde_parcela, class: "form-control" %> 
+    <%= f.text_field :qtde_parcela, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :suframa %>
-    <%= f.text_field :suframa, class: "form-control" %> 
+    <%= f.text_field :suframa, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label "", class: "checkbox-inline" do %>
@@ -155,19 +160,19 @@
 
   <div class="form-group">
     <%= f.label :type_height_maximum_pallet, "Calculo da Altura Máxima do Pallet"  %>
-    <%= f.select( :type_height_maximum_pallet, select_type_height_maximum_pallet, {include_blank: "Informe o Padrao"}, {class: "form-control"} ) %>      
+    <%= f.select( :type_height_maximum_pallet, select_type_height_maximum_pallet, {include_blank: "Informe o Padrao"}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
     <%= f.label :default_height_maximum_pallet, "Altura Máxima do Pallet" %>
-    <%= f.text_field :default_height_maximum_pallet, class: "form-control money2", placeholder: "Somente se estiver marcado a opção 'Padrão do Cliente'"%> 
+    <%= f.text_field :default_height_maximum_pallet, class: "form-control money2", placeholder: "Somente se estiver marcado a opção 'Padrão do Cliente'"%>
     <small> Somente se estiver marcado a opção "Padrão do Cliente" </small>
-  </div> 
+  </div>
 
-  <h2>Representantes</h2> 
+  <h2>Representantes</h2>
   <div id="representatives">
     <div class="items">
-      <%= f.nested_fields_for :client_representatives do |f| 
+      <%= f.nested_fields_for :client_representatives do |f|
         render 'client_representatives', f: f
       end  -%>
     </div>
@@ -178,14 +183,14 @@
     <fieldset>
       <legend>Contatos</legend>
         <div class="items">
-          <%= f.nested_fields_for :contacts do |f| 
+          <%= f.nested_fields_for :contacts do |f|
             render 'shared/contact', f: f
           end -%>
         </div>
         <div class="row">
           <div class="col-xs-2">
-            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>  
-          </div>  
+            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>
+          </div>
         </div>
     </fieldset>
 
@@ -196,14 +201,14 @@
       <legend>E-Mail</legend>
 
       <div class="items">
-        <%= f.nested_fields_for :emails do |f| 
+        <%= f.nested_fields_for :emails do |f|
           render 'shared/email', f: f
         end -%>
       </div>
       <div class="row">
         <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>  
-        </div>  
+          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>
+        </div>
       </div>
 
     </fieldset>
@@ -215,27 +220,27 @@
       <legend>Contas Bancarias</legend>
       <div class="items">
         <%= f.nested_fields_for :account_banks do |f| %>
-          <%= render "shared/form_account_bank", f: f %> 
+          <%= render "shared/form_account_bank", f: f %>
         <% end %>
       </div>
-      
+
       <div class="row">
         <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>  
-        </div>  
+          <br /> <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>
+        </div>
       </div>
-    
-    </fieldset>
-  </div>  
 
-  <h2>Documentos</h2> 
+    </fieldset>
+  </div>
+
+  <h2>Documentos</h2>
   <div id="documents">
     <div class="items">
-      <%= f.nested_fields_for :assets do |f| 
+      <%= f.nested_fields_for :assets do |f|
         render 'shared/asset', f: f
       end  -%>
     </div>
-      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>
   </div>
 
   <hr />
@@ -254,7 +259,7 @@
       $('input[name="client[tipo_pessoa]"]').change(function() {
         var tipo = $(this).val();
         var cpf_ou_cnpj = '<%= @client.cpf_cnpj %>'
-        $('#client_cpf_cpnj').empty(); 
+        $('#client_cpf_cpnj').empty();
         if (tipo === '0') {
           $('#client_cpf_cpnj').append("<div class='form-group'> <label for='client_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='client_cpf_cnpj' name='client[cpf_cnpj]' type='text'> </div>");
         } else {
@@ -280,7 +285,7 @@
         var tipo = $(this).val();
         var cpf_ou_cnpj = '<%= @client.cpf_cnpj %>'
         console.log(cpf_ou_cnpj);
-        $('#client_cpf_cpnj').empty(); 
+        $('#client_cpf_cpnj').empty();
         if (tipo === '0') {
           $('#client_cpf_cpnj').append("<div class='form-group'> <label for='client_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='client_cpf_cnpj' name='client[cpf_cnpj]' type='text'> </div>");
         } else {
@@ -297,7 +302,7 @@
 <script type="text/javascript">
 $(function(){
    $("#client_cep").change(function(){
-     var cep     = $(this).val().replace(/[^0-9]/, ''); 
+     var cep     = $(this).val().replace(/[^0-9]/, '');
      var boxes   = $("#boxCampos");
      var msgErro = $("#mensagemErro");
      console.log('CEP: ' + cep)
@@ -319,5 +324,5 @@ $(function(){
        });
        }
    });
-});  
+});
 </script>
