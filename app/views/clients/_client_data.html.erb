@@ -1,63 +1,16 @@
-      <p>
-          <strong>Nome:</strong>
-          <label class="fields"> 
-            <%= link_to "#{ object.nome }", object %> 
-          </label>
-          <strong>CPF/CNPJ:</strong>
-          <label class="fields"><%= object.cpf_cnpj %></label>
-        </p>
-        
-        <p>
-          <strong>Endereco:</strong>
-          <label class="fields"><%= object.endereco %>, <%= object.numero %></label>
-        </p>
-
-        <p>
-          <strong>Complemento:</strong>
-          <label class="fields"><%= object.complemento %></label>
-        </p>
-
-        <p>
-          <strong>Bairro:</strong>
-          <label class="fields"><%= object.bairro %></label> - 
-          <strong>Municipio:</strong>
-          <label class="fields"><%= object.cidade %></label>
-          <strong>Estado:</strong>
-          <label class="fields"><%= object.estado %></label>
-        </p>
-
-        <p>
-          <strong>Contatos:</strong>
-          <label class="fields"><%= object.contatos  %></label>
-        </p>
-
-        <p>
-          <strong>Responsavel recebimento:</strong>
-          <label class="fields"><%= object.telefone_completo  %></label>
-        </p>
-
-        <p>
-          <strong>Calculo da Altura Máxima do Pallet:</strong>
-          <label class="fields"><%= object.type_height_maximum_pallet_name  %></label>
-        </p>
-
-        <p>
-          <strong>Altura Máxima do Pallet:</strong>
-          <label class="fields"><%= object.default_height_maximum_pallet  %></label>
-          <span>somente se estiver marcado a opção "Padrão do Cliente" </span>
-        </p>
-
-        <p>
-          <strong>Responsavel palete:</strong>
-          <label class="fields"><%= object.telefone_completo_palete  %></label>
-        </p>
-
-        <p>
-          <strong>Horário para descarregar:</strong>
-          <label class="fields"><%= object.hora_descarga %></label>
-        </p>
-
-        <p>
-          <strong>Condições para descarregar:</strong>
-          <pre><%= object.condicao_recebimento %></pre>
-        </p>
+<div class="list">
+  <%= show_line_build link_to("#{ object.nome }", object), "Nome" %>
+  <%= show_line_build object.cpf_cnpj, "CPF/CNPJ" %>
+  <%= show_line_build "#{object.endereco}, #{object.numero}", "Endereco" %>
+  <%= show_line_build object.complemento, "Complemento" %>
+  <%= show_line_build object.bairro, "Bairro" %>
+  <%= show_line_build object.cidade, "Municipio" %>
+  <%= show_line_build object.estado, "Estado" %>
+  <%= show_line_build object.contatos, "Contatos" %>
+  <%= show_line_build object.telefone_completo, "Responsavel recebimento" %>
+  <%= show_line_build object.type_height_maximum_pallet_name, "Calculo da Altura Máxima do Pallet" %>
+  <%= show_line_build object.default_height_maximum_pallet, "Altura Máxima do Pallet" %>
+  <%= show_line_build object.telefone_completo_palete, "Responsavel palete" %>
+  <%= show_line_build object.hora_descarga, "Horário para descarregar" %>
+  <%= show_line_build object.condicao_recebimento, "Condições para descarregar" %>
+</div>

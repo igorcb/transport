@@ -1,137 +1,42 @@
-    <p>
-      <strong>Placa NF-e:</strong>
-      <%= @input_control.place %> |
-      <strong>Placa Cavalo:</strong>
-      <%= @input_control.place_horse %> |
-      <strong>Placa Carreta:</strong>
-      <%= @input_control.place_cart %> |
-      <strong>Placa Carreta 2:</strong>
-      <%= @input_control.place_cart_2 %>
-    </p>
 
-    <p>
-      <strong>No Ação Fiscal:</strong>
-      <%#=  object: @ordem_service.ordem_service_logistic.delivery_driver if @ordem_service.ordem_service_logistic.delivery_driver.present? %>
-      <%= @input_control.action_inspector.number if @input_control.action_inspector.present? %>
-    </p>
+  <%= show_line_build @input_control.place, "Placa" %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= show_line_build @input_control.place_horse, "Placa Cavalo", 6 %>
+    </div>
+    <div class="col-md-4">
+      <%= show_line_build @input_control.place_cart, "Placa Carreta", 6 %>
+    </div>
+    <div class="col-md-4">
+      <%= show_line_build @input_control.place_cart_2, "Placa Carreta 2", 6 %>
+    </div>
+  </div>
+  <%= show_line_build @input_control.action_inspector.number, "No Ação Fiscal" if @input_control.action_inspector.present? %>
+  <%= show_line_build @input_control.shipment, "No Remessa do Cliente" %>
+  <%= show_line_build @input_control.container, "No Container" %>
+  <%= show_line_build link_to(@input_control.scheduling_search.first.id, @input_control.scheduling_search.first), "Agenda Container" if @input_control.scheduling_search.present? %>
 
-    <p>
-      <strong>No Remessa do Cliente:</strong>
-      <%= @input_control.shipment %>
-    </p>
+  <%= show_line_build "#{date_br(@input_control.date_entry)} | #{time_br(@input_control.time_entry)}", "Date Entrada NF-e" %>
+  <%= show_line_build "#{date_br(@input_control.date_scheduled)} | #{time_br(@input_control.time_scheduled)}", "Date Programada Descarga" %>
+  <%= show_line_build date_br(@input_control.date_receipt), "Date Recebimento" %>
+  <%= show_line_build date_br(@input_control.strecht_route.stretch_source_and_target_long ), "Rota" if @input_control.strecht_route.present? %>
+  <%= show_line_build @input_control.type_service.descricao, "Tipo Servico" if @input_control.type_service.present? %>
+  <%= show_line_build @input_control.team_name, "Equipe" %>
+  <%= show_line_build @input_control.hangar, "Galpao" %>
+  <%= show_line_build @input_control.dock, "Doca" %>
+  <%= show_line_build @input_control.charge_discharge_status, "Cobrar Descarga" %>
+  <%= show_line_build @input_control.palletized_status, "Carga Peletizada" %>
+  <%= show_line_build  extenso_integer(@input_control.charge_type_delivery), "Entrega é Paletizada" %>
+  <%= show_line_build @input_control.quantity_pallets, "Qtde Paletes" %>
 
-    <p>
-      <strong>No Container:</strong>
-      <%= @input_control.container %>
-    </p>
+  <%= show_line_build number_to_currency(@input_control.weight, precision: 3, unit: "", separator: ",", delimiter: "."), "Peso" %>
+  <%= show_line_build number_to_currency(@input_control.volume, precision: 3, unit: "", separator: ",", delimiter: "."), "Volume" %>
+  <%= show_line_build number_to_currency(@input_control.value_ton, unit: "R$ ", separator: ",", delimiter: "."), "Valor Tonelada" %>
+  <%= show_line_build number_to_currency(@input_control.value_kg, precision: 3, unit: "R$ ", separator: ",", delimiter: "."), "Value p/ kg:" %>
+  <%= show_line_build number_to_currency(@input_control.value_total, unit: "R$ ", separator: ",", delimiter: "."), "Valor Descarga" %>
 
-    <p>
-      <strong>Agenda Container:</strong>
-      <%= link_to @input_control.scheduling_search.first.id, @input_control.scheduling_search.first if @input_control.scheduling_search.present? %>
-    </p>
 
-    <p>
-      <strong>Date Entrada NF-e:</strong>
-      <%= date_br @input_control.date_entry %> | <%= time_br @input_control.time_entry %>
-    </p>
-
-    <p>
-      <strong>Date Programada Descarga:</strong>
-      <%= date_br @input_control.date_scheduled %> | <%= time_br @input_control.time_scheduled %>
-    </p>
-
-    <p>
-      <strong>Date Recebimento:</strong>
-      <%= date_br @input_control.date_receipt %>
-    </p>
-
-    <p>
-      <strong>Rota:</strong>
-      <%= @input_control.strecht_route.stretch_source_and_target_long if @input_control.strecht_route.present? %>
-    </p>
-
-    <p>
-      <strong>Tipo Servico:</strong>
-      <%= @input_control.type_service.descricao if @input_control.type_service.present? %>
-    </p>
-
-    <p>
-      <strong>Equipe:</strong>
-      <%= @input_control.team_name %>
-    </p>
-
-    <p>
-      <strong>Galpao:</strong>
-      <%= @input_control.hangar %>
-    </p>
-
-    <p>
-      <strong>Doca:</strong>
-      <%= @input_control.dock %>
-    </p>
-
-    <p>
-      <strong>Cobrar Descarga:</strong>
-      <%= @input_control.charge_discharge_status %>
-    </p>
-
-    <p>
-      <strong>Carga Peletizada:</strong>
-      <%= @input_control.palletized_status %>
-    </p>
-
-    <p>
-      <strong>Entrega é Paletizada:</strong>
-      <%= extenso_integer @input_control.charge_type_delivery %>
-    </p>
-
-    <p>
-      <strong>Qtde Paletes:</strong>
-      <%= @input_control.quantity_pallets %>
-    </p>
-
-    <hr>
-
-    <p>
-      <strong>Peso:</strong>
-      <%= number_to_currency(@input_control.weight, precision: 3, unit: "", separator: ",", delimiter: ".") %>
-    </p>
-
-    <p>
-      <strong>Volume:</strong>
-      <%= number_to_currency(@input_control.volume, precision: 3, unit: "", separator: ",", delimiter: ".") %>
-    </p>
-
-    <p>
-      <strong>Valor Tonelada:</strong>
-      <%= number_to_currency(@input_control.value_ton, unit: "R$ ", separator: ",", delimiter: ".") %>
-    </p>
-
-    <p>
-      <strong>Value p/ kg:</strong>
-      <%= number_to_currency(@input_control.value_kg, precision: 3, unit: "R$ ", separator: ",", delimiter: ".") %>
-    </p>
-
-    <p>
-      <strong>Valor Descarga:</strong>
-      <%= number_to_currency(@input_control.value_total, unit: "R$ ", separator: ",", delimiter: ".") %>
-    </p>
-
-    <p>
-      <strong>Contas a Receber:</strong>
-      <%= link_to @input_control.account_receivable.id, @input_control.account_receivable if @input_control.account_receivable.present? %>
-      <strong>Status:</strong>
-      <%= @input_control.account_receivable.status_name if @input_control.account_receivable.present? %>
-    </p>
-
-    <hr>
-
-    <p>
-      <strong>Recebimento confirmado por:</strong>
-      <%= @input_control.user_received.email if @input_control.user_received.present? %>
-    </p>
-
-    <p>
-      <strong>Observation:</strong>
-      <pre><%= @input_control.observation %></pre>
-    </p>
+  <%= show_line_build link_to( @input_control.account_receivable.id, @input_control.account_receivable), "Contas a Receber" if @input_control.account_receivable.present? %>
+  <%= show_line_build @input_control.account_receivable.status_name, "Status" if @input_control.account_receivable.present? %>
+  <%= show_line_build @input_control.user_received.email, "Recebimento confirmado por"if @input_control.user_received.present? %>
+  <%= show_line_build @input_control.observation, "Observation" %>

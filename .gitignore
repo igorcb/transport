@@ -13,6 +13,7 @@
 /db/schema.rb
 /config/database.yml
 config/database.yml
+.c9
 
 # Ignore the default assets.
 /public/system/*

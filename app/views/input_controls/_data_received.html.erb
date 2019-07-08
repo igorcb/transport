@@ -1,38 +1,14 @@
-<p>
-  <strong>Placa:</strong>
-  <%= @input_control.place_confirmed %>
-</p>
+<div class="list">
 
-<p>
-  <strong>Qtde Paletes Informado:</strong>
-  <%= @input_control.quantity_pallets %>
-</p>
+  <%= show_line_build @input_control.place_confirmed, "Placa" %>
+  <%= show_line_build @input_control.quantity_pallets, "Qtde Paletes Informado" %>
+  <%= show_line_build @input_control.team_name, "Equipe" %>
 
-<p>
-  <strong>Equipe:</strong>
-  <%= @input_control.team_name %>
-</p>
-
-<p>
-  <strong>Galpão:</strong>
-  <%= @input_control.hangar %> /
-  <strong>Doca:</strong>
-  <%= @input_control.dock %>
-</p>
-
-<p>
-  <strong>Usuario </strong> <%= @input_control.started_user.email if @input_control.started_user.present? %> <strong>iniciou a remessa de entrada dia</strong> 
-  <%= date_br (@input_control.start_time_discharge) %> <strong>as</strong> 
-  <%= time_br (@input_control.start_time_discharge) %>
-</p>
-
-<p>
-  <strong>Usuario </strong> <%= @input_control.user_received.email if @input_control.user_received.present? %> <strong>terminou a remessa de entrada dia</strong> 
-  <%= date_br (@input_control.finish_time_discharge) %> <strong>as</strong> 
-  <%= time_br (@input_control.finish_time_discharge) %>
-</p>
-
-<p>
-  <strong>Tempo da descarga:</strong>
-  <%= raw_date = TimeDifference.between(@input_control.start_time_discharge, @input_control.finish_time_discharge).humanize if @input_control.start_time_discharge.present? && @input_control.finish_time_discharge.present? %>
-</p>
+  <%= show_line_build @input_control.hangar, "Galpão" %>
+  <%= show_line_build @input_control.dock, "Doca" %>
+  <%= show_line_build @input_control.started_user.email, "Usuario Iniciou" if @input_control.started_user.present? %>
+  <%= show_line_build "#{date_br(@input_control.start_time_discharge)} #{time_br(@input_control.start_time_discharge)}", "iniciou a remessa de entrada em (data e hora)" if @input_control.started_user.present? %>
+  <%= show_line_build @input_control.user_received.email, "Usuario Terminou" if @input_control.user_received.present? %>
+  <%= show_line_build "#{date_br(@input_control.finish_time_discharge)} #{time_br(@input_control.finish_time_discharge)}", "terminou a remessa de entrada em (data e hora)" if @input_control.user_received.present? %>
+  <%= show_line_build TimeDifference.between(@input_control.start_time_discharge, @input_control.finish_time_discharge).humanize, "Tempo da descarga" if @input_control.start_time_discharge.present? && @input_control.finish_time_discharge.present? %>
+</div>

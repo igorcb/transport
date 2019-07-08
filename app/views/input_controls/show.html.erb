@@ -8,7 +8,7 @@
           <%= @input_control.id %> - <%= @input_control.status_name %>
       </h3>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div id="collapseOne" class="panel-collapse collapse list" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <%= render 'data_input' %>
       </div>
@@ -71,8 +71,8 @@
     </div>
     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
         <div class="panel-body">
+          <%= link_to "Visualizar documentos", documents_input_control_path(@input_control), class: "btn btn-warning" %>
           <%#= render 'shared/document', object: @input_control %>
-          <%= link_to "Visualizar  Documentos", documents_input_control_path(@input_control), class: "btn btn-info btn-xs" %>
         </div>
     </div>
   </div>

@@ -13,91 +13,97 @@
 
         <div class="panel-body">
           <%= search_form_for @q, remote: true, url: search_input_controls_path, :method => :get do |f| %>
-
-            <div class="form-group">
+          <div class="row">
+            <div class="form-group col-md-6">
               <%= f.label :id_eq, "No Remessa " %>
-              <%= f.search_field :id_eq, class: "form-control", placeholder: "" %>
+              <%= f.search_field :id_eq, class: "form-control input-sm", placeholder: "" %>
             </div>
-            <div class="form-group">
+          </div>
+          <div class="row">
+            <div class="form-group col-md-3">
               <%= f.label :date_entry_eq, "Data entrada" %>
-              <%= f.search_field :date_entry_eq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>
+              <%= f.date_field :date_entry_eq, class: "form-control input-sm", placeholder: "Informe a Data ex: 05-12-2014" %>
             </div>
-
-            <div class="row form-group">
-              <div class="col-xs-6">
-                <%= f.label :date_entry_gteq, "Data entrada de" %>
-                <%= f.search_field :date_entry_gteq, class: "form-control data", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>
-              </div>
-
-              <div class="col-xs-6">
-                <%= f.label :date_entry_lteq, "até" %>
-                <%= f.search_field :date_entry_lteq, class: "form-control data", placeholder: "Informe a Data do Entrada ex: 05-12-2014" %>
-              </div>
+            <div class="col-xs-3"></div>
+            <div class="form-group col-sm-6 col-md-3">
+              <%= f.label :date_entry_gteq, "Data entrada de" %>
+              <%= f.date_field :date_entry_gteq, class: "form-control  input-sm", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>
             </div>
-
-            <div class="form-group">
+            <div class="form-group col-sm-6 col-md-3">
+              <%= f.label :date_entry_lteq, "até" %>
+              <%= f.date_field :date_entry_lteq, class: "form-control  input-sm", placeholder: "Informe a Data do Entrada ex: 05-12-2014" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-3">
               <%= f.label :date_scheduled_eq, "Data programada " %>
-              <%= f.search_field :date_scheduled_eq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>
+              <%= f.date_field :date_scheduled_eq, class: "form-control input-sm", placeholder: "Informe a Data ex: 05-12-2014" %>
+            </div>
+            <div class="form-group col-md-offset-3 col-sm-6 col-md-3">
+              <%= f.label :date_scheduled_gteq, "Data programada de" %>
+              <%= f.date_field :date_scheduled_gteq, class: "form-control input-sm", placeholder: "Informe a Data da Programacao ex: 05-12-2014" %>
+            </div>
+            <div class="form-group col-sm-6 col-md-3">
+              <%= f.label :date_scheduled_lteq, "até" %>
+              <%= f.date_field :date_scheduled_lteq, class: "form-control input-sm", placeholder: "Informe a Data da Programacao ex: 05-12-2014" %>
             </div>
 
-            <div class="row form-group">
-              <div class="col-xs-6">
-                <%= f.label :date_scheduled_gteq, "Data programada de" %>
-                <%= f.search_field :date_scheduled_gteq, class: "form-control data", placeholder: "Informe a Data da Programacao ex: 05-12-2014" %>
-              </div>
+          </div>
 
-              <div class="col-xs-6">
-                <%= f.label :date_scheduled_lteq, "até" %>
-                <%= f.search_field :date_scheduled_lteq, class: "form-control data", placeholder: "Informe a Data da Programacao ex: 05-12-2014" %>
-              </div>
-            </div>
-
-            <div class="form-group">
+          <div class="row">
+            <div class="form-group col-md-3">
               <%= f.label :date_receipt_eq, "Data recebimento " %>
-              <%= f.search_field :date_receipt_eq, class: "form-control data", placeholder: "Informe a Data ex: 05-12-2014" %>
+              <%= f.date_field :date_receipt_eq, class: "form-control input-sm", placeholder: "Informe a Data ex: 05-12-2014" %>
+            </div>
+            <div class="form-group col-md-offset-3 col-sm-6 col-md-3">
+              <%= f.label :date_receipt_gteq, "Data recebimento de" %>
+              <%= f.date_field :date_receipt_gteq, class: "form-control input-sm", placeholder: "Informe a Data do recebimento ex: 05-12-2014" %>
+            </div>
+            <div class="form-group col-sm-6 col-md-3">
+              <%= f.label :date_receipt_lteq, "até" %>
+              <%= f.date_field :date_receipt_lteq, class: "form-control input-sm", placeholder: "Informe a Data do recebimento ex: 05-12-2014" %>
             </div>
 
-            <div class="row form-group">
-              <div class="col-xs-6">
-                <%= f.label :date_receipt_gteq, "Data recebimento de" %>
-                <%= f.search_field :date_receipt_gteq, class: "form-control data", placeholder: "Informe a Data do recebimento ex: 05-12-2014" %>
-              </div>
+          </div>
 
-              <div class="col-xs-6">
-                <%= f.label :date_receipt_lteq, "até" %>
-                <%= f.search_field :date_receipt_lteq, class: "form-control data", placeholder: "Informe a Data do recebimento ex: 05-12-2014" %>
-              </div>
-            </div>
-
-            <div class="form-group">
+          <div class="row">
+            <div class="form-group col-md-5">
               <%= f.label :carrier_id_eq, "Transportadora" %>
-              <%= f.collection_select :carrier_id_eq, Carrier.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+              <%= f.collection_select :carrier_id_eq, Carrier.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control input-sm"} %>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
               <%= f.label :driver_id_eq, "Motorista" %>
-              <%= f.collection_select :driver_id_eq, Driver.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control"} %>
+              <%= f.collection_select :driver_id_eq, Driver.order('nome'), :id, :nome, {include_blank: true}, {class: "form-control input-sm"} %>
             </div>
-            <div class="form-group">
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-3">
               <%= f.label :place_eq, "Placa" %>
-              <%= f.search_field :place_eq, class: "form-control", placeholder: "Informe a placa" %>
+              <%= f.search_field :place_eq, class: "form-control input-sm", placeholder: "Informe a placa" %>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
               <%= f.label :nfe_xmls_numero_eq, "NF-e" %>
-              <%= f.search_field :nfe_xmls_numero_eq, class: "form-control numericOnly", placeholder: "Informe o No. da NF-e ex: 123456" %>
+              <%= f.search_field :nfe_xmls_numero_eq, class: "form-control numericOnly input-sm", placeholder: "Informe o No. da NF-e ex: 123456" %>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
               <%= f.label :shipment_eq, "Remessa Cliente" %>
-              <%= f.search_field :shipment_eq, class: "form-control" %>
+              <%= f.search_field :shipment_eq, class: "form-control input-sm" %>
             </div>
-            <div class="form-group">
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-5">
               <%= f.label :container_eq, "Container" %>
-              <%= f.search_field :container_eq, class: "form-control" %>
+              <%= f.search_field :container_eq, class: "form-control input-sm" %>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
               <%= f.label :status_eq, "Status" %>
-              <%= f.select( :status_eq, select_status_input_control, {include_blank: true}, {class: "form-control"} ) %>
+              <%= f.select( :status_eq, select_status_input_control, {include_blank: true}, {class: "form-control input-sm"} ) %>
             </div>
-            <div class="actions"><%= f.submit "Search" %></div>
+          </div>
+
+            <%= f.submit "Search", class:"btn btn-default" %>
           <% end %>
         </div>
 
