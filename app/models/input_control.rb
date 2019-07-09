@@ -74,7 +74,7 @@ class InputControl < ActiveRecord::Base
     item.time_scheduled = time_entry
   end
 
-  after_save :processa_nfe_xmls
+  #after_save :processa_nfe_xmls
 
   # dia 01/10/2018 ajustar para 28 reais descarga por tonelada,
   # Verificar a possibilidade de mudar essa contante em variável

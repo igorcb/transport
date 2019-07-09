@@ -13,8 +13,8 @@ module Boardings
       return {success: false, message: "Boarding, please inform the date boarding."} if @boarding.date_boarding.nil?
       return {success: false, message: "Boarding, not have O.S."} if !@boarding.boarding_items.present?
       #if !check_all_ordem_service_have_payment_discharge?
-        return {success: false, message: "Boarding, please inform discharge payment all O.S."} if !check_all_ordem_service_have_payment_discharge?
-      #end
+      #   return {success: false, message: "Boarding, please inform discharge payment all O.S."} if !check_all_ordem_service_have_payment_discharge?
+      # #end
 
       begin
         ActiveRecord::Base.transaction do
@@ -44,16 +44,16 @@ module Boardings
     end
 
     private
-      def check_all_ordem_service_have_payment_discharge?
-        positivo = true
-        @boarding.boarding_items.each do |item|
-          #byebug
-          positivo = item.ordem_service.discharge_payments.present?
-          if positivo == false
-            return false
-          end
-        end
-        positivo
-      end
+      # def check_all_ordem_service_have_payment_discharge?
+      #   positivo = true
+      #   @boarding.boarding_items.each do |item|
+      #     #byebug
+      #     positivo = item.ordem_service.discharge_payments.present?
+      #     if positivo == false
+      #       return false
+      #     end
+      #   end
+      #   positivo
+      # end
   end
 end
