@@ -1,19 +1,10 @@
-<strong>Embarque: </strong><%= boarding.id %><br />
-<strong>Data: </strong><%= date_br (boarding.date_boarding) %><br />
-<strong>Motorista: </strong><%= boarding.driver.nome %>
-<% if boarding.driver_checkin? %>
-   <i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i>
-<% else %>
-	 <i class="fa fa-times fa-2x" style="color: red" aria-hidden="true"></i>
-<% end %>
-<br />
-
-<strong>Lacres:</strong>
-<%= boarding.sealings.pluck(:number) %><br />
-
-<strong>Cidades: </strong> <%= boarding.get_cities %><br />
+<p style="margin-bottom: 20px;"><%= date_br(boarding.date_boarding) %></p>
+<p><strong>Embarque: </strong><span><%= boarding.id %></span></p>
+<p><strong>Motorista: </strong><span><%= boarding.driver.nome %> <small><%= !boarding.driver_checkin? ? "(Não verificado)" : "" %></small></span></p>
+<p><strong>Lacres:</strong><span><%= boarding.sealings.pluck(:number) %></span></p>
+<p><strong>Cidades: </strong> <span><%= boarding.get_cities %></span></p>
 <% if boarding.pending? %>
-	<strong>Observacao: </strong><label style="color: red">Embarque com restrição</label><br />
+<p><strong>Observacao: </strong><span><label style="color: #CCC">Embarque com restrição</label></span></p>
 <% end %>
 
 <% if boarding.driver_checkin %>

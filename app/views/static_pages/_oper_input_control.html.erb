@@ -1,7 +1,7 @@
 
-<strong>Rem. Entr.: </strong><%= input_control.id %><br />
-<strong>Data: </strong><%= date_br (input_control.date_scheduled) %> as <%= time_br (input_control.time_scheduled) %><br />
-<strong>Motorista: </strong><%= input_control.driver.nome %><br />
-<strong>Container: </strong><%= input_control.container %><br />
-<strong>Palletizada: </strong><%= input_control.palletized_status %><br />
-<strong>Pgto Descarga: </strong><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %><br />
+<p style="margin-bottom: 20px;"><i><%= date_br (input_control.date_scheduled) %> <%= time_br (input_control.time_scheduled) %> - <small><%= input_control.status_name %></small></i></p>
+<p><strong>Rem. Entr.: </strong><span><%= input_control.id %></span></p>
+<p><strong>Motorista: </strong><span><%= input_control.driver.nome %></span></p>
+<p><strong>Container: </strong><span><%= input_control.container %></span></p>
+<p><strong>Palletizada: </strong><span><%= input_control.palletized_status %></span></p>
+<p><strong>Pgto Descarga: </strong><span><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %></span></p>
