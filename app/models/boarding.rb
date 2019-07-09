@@ -320,7 +320,7 @@ class Boarding < ActiveRecord::Base
     check_annt_exipired_vehicle_second? ||
     check_vehicle_exist? ||
     check_type_vehicle_tracao_and_reboque?
-    #check_all_ordem_service_have_payment_discharge?
+    !check_all_ordem_service_have_payment_discharge?
   end
 
   def pending_services?
@@ -353,6 +353,7 @@ class Boarding < ActiveRecord::Base
     pendings.append('Validade ANTT exipirada para segundo veículo. ') if check_annt_exipired_vehicle_second?
     pendings.append('Embarque deve ter um veiculo') if check_vehicle_exist?
     pendings.append('Embarque deve ter um veiculo TRACAO e um REBOQUE') if check_type_vehicle_tracao_and_reboque?
+    pendings.append('Existe O.S sem pagamento de descarga.') if !check_all_ordem_service_have_payment_discharge?
     pendings
   end
 
@@ -793,6 +794,7 @@ class Boarding < ActiveRecord::Base
   def check_all_ordem_service_have_payment_discharge?
     positivo = true
     self.boarding_items.each do |item|
+      #byebug
       positivo = item.ordem_service.discharge_payments.present?
       if positivo == false
         return false
