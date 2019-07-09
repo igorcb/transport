@@ -1,3 +1,8 @@
+<style>
+.dashlist .open{background-color: #007bff; color: white}
+.dashlist .discharge{background-color: #28a745; color: white}
+.dashlist .received{background-color: #fd7e14; color: white}
+</style>
 <h2>Entradas</h2>
 <ul class="list-group dashlist">
   <% @input_controls.each do |input_control| %>
@@ -5,6 +10,8 @@
       <li class="discharge">
     <% elsif input_control.status == InputControl::TypeStatus::RECEIVED %>
       <li class="received">
+    <% elsif input_control.status == InputControl::TypeStatus::OPEN %>
+      <li class="open">
     <% else %>
       <li>
     <% end %>

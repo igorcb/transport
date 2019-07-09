@@ -27,7 +27,8 @@ body {
   flex-wrap: wrap;
   align-items: stretch;
   li{
-    width: 300px;
+    min-width: 300px;
+    width: 30%;
     padding: 15px;
     margin: 15px;
     background: #EEE;
@@ -35,12 +36,6 @@ body {
     height: auto;
     border: 2px white solid;
     box-shadow: 3px 3px 3px rgba(0,0,0, 0.2);
-    &.discharge{
-      border: 2px #FF6 solid;
-    }
-    &.received{
-      border: 2px #F77 solid;
-    }
     strong{
     display: block;
     font-size: 0.8em;

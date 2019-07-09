@@ -1,15 +1,21 @@
+<style>
+.dashlist .aberto{background-color: #007bff; color: white}
+.dashlist .iniciado{background-color: #28a745; color: white}
+.dashlist .embarcado{background-color: #fd7e14; color: white}
+</style>
 <h2>Embarques</h2>
 
-<ul class="list-group">
+<ul class="list-group dashlist">
   <% @boardings.each do |boarding| %>
   <% if boarding.status == Boarding::TipoStatus::INICIADO %>
-    <li class="list-group-item list-group-item-info">
+    <li class="iniciado">
   <% elsif boarding.status == Boarding::TipoStatus::EMBARCADO %>
-    <li class="list-group-item list-group-item-success">
+    <li class="embarcado">
+  <% elsif boarding.status == Boarding::TipoStatus::ABERTO %>
+    <li class="aberto">
   <% else %>
     <li class="list-group-item">
   <% end %>
-    <span class="badge"><%= boarding.qtde_palets %></span>
     <%= render 'static_pages/oper_boarding', boarding: boarding %>
     <%= link_to 'Iniciar Embarque', start_boarding_path(boarding), class: "btn btn-blue btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>
     <%= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding), class: "btn btn-blue btn-xs" if boarding.status == Boarding::TipoStatus::INICIADO %>
