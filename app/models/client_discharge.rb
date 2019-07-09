@@ -4,7 +4,7 @@ class ClientDischarge < ActiveRecord::Base
   validates :type_unit, presence: true
   validates :type_charge, presence: true
   validates :type_calc, presence: true
-  validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :price, presence: true, numericality: { greater_than: 0 },  if: :client_payment_discharge? #if :client_payment_discharge?
   validates :client_source_id, uniqueness: { scope: [:type_operation, :client_id, :type_unit, :type_charge, :type_calc],
                                            message: ": tabela de descagar com tipo de unidade, tipo de carga, tipo de calculo já estão em uso. "}
 
@@ -66,6 +66,11 @@ class ClientDischarge < ActiveRecord::Base
   	end
   end
 
+  def client_payment_discharge?
+    byebug
+    puts ">>>>>>>>>>>>>>>>>>>>> Validations: #{self.client.payment_discharge?}"
+    self.client.payment_discharge?
+  end
   # def self.type_box_palletized_weight(params = {})
   #   if params[:client_id].present? && params[:client_source_id].present?
   #     ClientDischarge.where(client_id: params[:client_id],

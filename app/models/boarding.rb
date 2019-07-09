@@ -320,7 +320,7 @@ class Boarding < ActiveRecord::Base
     check_annt_exipired_vehicle_second? ||
     check_vehicle_exist? ||
     check_type_vehicle_tracao_and_reboque?
-
+    check_all_ordem_service_have_payment_discharge?
   end
 
   def pending_services?

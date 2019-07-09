@@ -91,16 +91,16 @@ RSpec.describe Boardings::AddPaymentDischargeService, type: :service do
       expect(result[:message]).to match("Boarding, payment discharge created successfully.")
     end
 
-    # it "when O.S. not have payment discharge" do
-    #   @boarding.update_attributes(driver_id: @driver.id, carrier_id: @carrier.id, date_boarding: Date.current)
-    #   @boarding.boarding_items.destroy_all
-    #   @ordem_service = FactoryBot.create(:ordem_service)
-    #   @ordem_service = set_ordem_service_status(@ordem_service, OrdemService::TipoStatus::ABERTO)
-    #   Boardings::AddBoardingItemService.new(@boarding, @ordem_service).call
-    #   result = Boardings::AddPaymentDischargeService.new(@boarding, @user).call
-    #   expect(result[:success]).to be_falsey
-    #   expect(result[:message]).to match("Boarding, please inform discharge payment all O.S.")
-    # end
+      # it "when O.S. not have payment discharge" do
+      #   @boarding.update_attributes(driver_id: @driver.id, carrier_id: @carrier.id, date_boarding: Date.current)
+      #   @boarding.boarding_items.destroy_all
+      #   @ordem_service = FactoryBot.create(:ordem_service)
+      #   @ordem_service = set_ordem_service_status(@ordem_service, OrdemService::TipoStatus::ABERTO)
+      #   Boardings::AddBoardingItemService.new(@boarding, @ordem_service).call
+      #   result = Boardings::AddPaymentDischargeService.new(@boarding, @user).call
+      #   expect(result[:success]).to be_falsey
+      #   expect(result[:message]).to match("Boarding, please inform discharge payment all O.S.")
+      # end
     #
     # it "when all O.S. have payment discharge" do
     #   driver = FactoryBot.create(:driver)
