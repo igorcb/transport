@@ -67,8 +67,6 @@ class ClientDischarge < ActiveRecord::Base
   end
 
   def client_payment_discharge?
-    byebug
-    puts ">>>>>>>>>>>>>>>>>>>>> Validations: #{self.client.payment_discharge?}"
     self.client.payment_discharge?
   end
   # def self.type_box_palletized_weight(params = {})
