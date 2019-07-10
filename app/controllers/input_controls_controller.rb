@@ -209,7 +209,7 @@ class InputControlsController < ApplicationController
   end
 
   def sup
-    @input_controls = InputControl.the_day_scheduled
+    @input_controls = InputControl.the_day
   end
 
   def sup_qtde_pallets

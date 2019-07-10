@@ -23,6 +23,7 @@ a {
 
 .main-conteiner{
   display: flex;
+  min-height: 100%;
 }
 .yellow-icon {
   color: #FFC700;

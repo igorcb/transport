@@ -22,10 +22,16 @@ body {
   background-color: rgba(180,180,180,0.3);
 }
 
+.breadcrumb > li + li:before {
+  content: "≫ " !important;
+}
 .dashlist{
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
+  a {
+    color: #fff;
+  }
   li{
     min-width: 300px;
     width: 30%;
