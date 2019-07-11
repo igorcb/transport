@@ -60,6 +60,7 @@ $ ->
   $(document).on 'click', '.btn-see', ->
     param = $("#deposit-select").val()
     get_houses(param)
+    interval()
     $("body").css("overflow", "hidden").add("html").scrollTop(0)
     $("#content-house").show(800)
     false
@@ -77,14 +78,22 @@ $ ->
     toggle_occupied house_id, occupied
 
 
+  # setInterval ( =>
+  #   param = $("#deposit-select").val()
+  #   if param != null and param != ""
+  #     get_houses(param)
+  # ), 10000
+
+
+# functions
+
+interval = () ->
   setInterval ( =>
     param = $("#deposit-select").val()
     if param != null and param != ""
       get_houses(param)
   ), 10000
 
-
-# functions
 get_houses = (param) ->
   $.ajax
     url: "/addresses_houses/houses.json"
