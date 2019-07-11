@@ -1031,7 +1031,7 @@ select[multiple].input-lg {
   color: #373e4a;
   background-color: #f0f0f1;
   border-color: #ebebeb;
-  padding: 0;
+  /* padding: 0; */
 }
 .panel-default > .panel-heading + .panel-collapse .panel-body {
   border-top-color: #ebebeb;
@@ -2168,7 +2168,7 @@ select[multiple].input-lg {
   color: #373e4a;
   background-color: #f0f0f1;
   border-color: #ebebeb;
-  padding: 0;
+  /* padding: 0; */
 }
 .panel-default > .panel-heading + .panel-collapse .panel-body {
   border-top-color: #ebebeb;
