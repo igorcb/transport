@@ -96,6 +96,23 @@ class InputControlsController < ApplicationController
     respond_with(@input_control)
   end
 
+  def report_team
+
+    render layout: false if params[:ajax] == "true";
+  end
+  def update_report_team
+    respond_to do |format|
+      if @input_control.update(input_control_params)
+        format.html { redirect_to sup_input_controls_path, flash: { success: "Input Control client was successfully updated." } }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @input_control.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   def documents
   end
 

@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title" id="myModalLabel">Informar Equipe</h4>
+</div>
+<%= form_for @input_control, url: update_report_team_input_control_path, method: :put do |f| %>
+<div class="modal-body">
+  <%#= render 'shared/error_messages', object: f.object %>
+
+  <%= form_group do %>
+    <%= f.label :team, "Equipe" %>
+    <%= f.select( :team, select_team, {include_blank: "Selecione uma Equipe"}, {class: "#{input_class}"} ) %>
+  <% end %>
+
+  <%= form_group do %>
+    <%= f.label :hangar, "Galpao" %>
+    <%= f.select( :hangar, select_hangar, {include_blank: "Selecione um Hangar"}, {class: "#{input_class}"} ) %>
+  <% end %>
+
+  <%= form_group do %>
+    <%= f.label :dock, "Doca" %>
+    <%= f.select( :dock, select_dock, {include_blank: "Selecione uma doca"}, {class: "#{input_class}"} ) %>
+  <% end %>
+
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <%= f.submit "Informar equipe", class: "btn btn-primary" %>
+</div>
+<% end %>
