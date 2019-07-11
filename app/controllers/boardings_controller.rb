@@ -103,6 +103,9 @@ class BoardingsController < ApplicationController
 
   def confirmed
 
+    if params[:ajax] == "true"
+      render layout: false;
+    end
   end
 
   def update_confirmed

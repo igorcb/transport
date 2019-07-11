@@ -22,10 +22,21 @@ body {
   background-color: rgba(180,180,180,0.3);
 }
 
+.breadcrumb > li + li:before {
+  content: "≫ " !important;
+}
 .dashlist{
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
+  .aberto, .open{background-color: #007bff; color: white}
+  .iniciado, .discharge{background-color: #28a745; color: white}
+  .embarcado, .received{background-color: #fd7e14; color: white}
+  .content-list{
+    a {
+      color: #fff;
+    }
+  }
   li{
     min-width: 300px;
     width: 30%;

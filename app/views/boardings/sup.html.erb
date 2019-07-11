@@ -1,19 +1,10 @@
+<%= breadcrumbs({"Dashboard": dashboard_oper_path, "Embarques": ""}) %>
 <h2>Embarques</h2>
-
-<ul class="list-group">
+<ul class="list-group dashlist">
   <% @boardings.each do |boarding| %>
-  <% if boarding.status == Boarding::TipoStatus::INICIADO %>
-    <li class="list-group-item list-group-item-info">
-  <% elsif boarding.status == Boarding::TipoStatus::EMBARCADO %>
-    <li class="list-group-item list-group-item-success">
-  <% else %>
-    <li class="list-group-item">
-  <% end %>
-    <span class="badge"><%= boarding.qtde_palets %></span>
+    <li class="<%= boarding.status_name.downcase %>">
+    <!-- <span class="badge"><%= boarding.qtde_palets %></span> -->
     <%= render 'static_pages/sup_boarding', boarding: boarding %>
-    <%#= link_to 'Iniciar Embarque', start_boarding_path(boarding), class: "btn btn-blue btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>
-    <%#= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding), class: "btn btn-blue btn-xs" if boarding.status == Boarding::TipoStatus::INICIADO %>
-    <%#= link_to 'Detalhes do Embarque', detail_boarding_path(boarding), class: "btn btn-blue btn-xs" %>
   </li>
   <% end %>
 </ul>

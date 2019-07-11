@@ -1,39 +1,40 @@
+<%= breadcrumbs({"Dashboard": dashboard_oper_path, "Embarques": oper_boardings_path, "Detalhes": ""}) %>
+<div class="container-fluid list">
+  <h1>Detalhes de embarque</h1>
 
-<%= render 'static_pages/oper_boarding', boarding: @boarding %>
+  <h3 style="margin-bottom: 20px;"><%= date_br(@boarding.date_boarding) %></h3>
+  <%= show_line_build @boarding.id, "Embarque" %>
+  <%= show_line_build !@boarding.driver_checkin? ? @boarding.driver.nome + " (Não verificado)" : @boarding.driver.nome, "Motorista" %>
+  <%= show_line_build @boarding.sealings.pluck(:number), "Lacres" %>
+  <%= show_line_build @boarding.get_cities, "Cidades" %>
+  <%= show_line_build "<span style='color: #666'>Embarque com restrição</span>", "Observacao" if @boarding.pending? %>
 
-<ul class="list-group">
-<% @boarding.boarding_items.each do |item| %>
-  <br />
-  <p>
-    <strong>NF-e</strong>
-    <%= item.ordem_service.get_number_nfe %>
-  </p>
+  <% if @boarding.driver_checkin %>
+  	<% if !@boarding.places.include?(boarding.driver_checkin_palce_horse) || !@boarding.places.include?(@boarding.driver_checkin_palce_cart_1) %>
+  	  <%= show_line_build "<span class='text-danger'>não está presente no embarque</span>", "Placa Cavalo" if !@boarding.places.include?(boarding.driver_checkin_palce_horse) %>
+      <%= show_line_build "<span class='text-danger'>não está presente no embarque</span>", "Placa Carreta" if @boarding.places.include?(@boarding.driver_checkin_palce_cart_1) %>
+  	<% end %>
+  <% end %>
 
-  <p>
-    <strong>Cliente</strong>
-    <%= item.ordem_service.client.nome %>
-  </p>
-
-  <p>
-    <strong>Cidade:</strong>
-    <%= item.ordem_service.client.cidade %> - 
-    <%= item.ordem_service.client.estado %>
-  </p>
-
-  <p>
-    <strong>Peso:</strong>
-    <%= number_to_currency(item.ordem_service.peso, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %>
-    <strong>Volume:</strong> 
-    <%= number_to_currency(item.ordem_service.qtde_volume, precision: 3, unit: "", separator: ",", delimiter: ".") if !item.ordem_service.peso.blank? %>
-  </p>
-
-  <p>
-  </p>
-    
-    <%= link_to 'Iniciar Embarque', start_boarding_path(@boarding), class: "btn btn-blue btn-xs" if @boarding.status == Boarding::TipoStatus::ABERTO %>
-    <%= link_to 'Confirmar Embarque', confirmed_boarding_path(@boarding), class: "btn btn-blue btn-xs" if @boarding.status == Boarding::TipoStatus::INICIADO %>
-    <%= link_to 'Voltar', dashboard_oper_path, class: "btn btn-blue btn-xs" %>
-  </li>
+  <%#= show_line_build @boarding., "NF" %>
+  <h3>NF-E</h3>
+  <% @boarding.boarding_items.each do |item| %>
+    <%= show_line_build item.ordem_service.get_number_nfe, "NF-e" %>
+    <%= show_line_build item.ordem_service.client.nome, "Cliente" %>
+    <%= show_line_build item.ordem_service.client.cidade + " " + item.ordem_service.client.estado, "Cidade" %>
   <hr>
-<% end %>
-</ul>
+  <% end %>
+
+  <%= link_to 'Iniciar Embarque', start_boarding_path(@boarding), class: "btn btn-blue btn-xs" if @boarding.status == Boarding::TipoStatus::ABERTO %>
+  <%= link_to 'Confirmar Embarque', confirmed_boarding_path(@boarding)+"?ajax=true", {class: "btn btn-success btn-xs", "data-toggle": "modal", "data-target": "#myModal"} if @boarding.status == Boarding::TipoStatus::INICIADO %>
+  <%= link_to 'Voltar', oper_boardings_path, class: "btn btn-default btn-xs" %>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>

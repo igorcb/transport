@@ -1,14 +1,9 @@
-<%= link_to "Inicio", dashboard_sup_path, class: "btn btn-blue btn-block" %>
+<%= breadcrumbs({"Dashboard": dashboard_oper_path, "Entradas": ""}) %>
+
 <h2>Entradas - Chefe de Galpão</h2>
-<ul class="list-group">
+<ul class="list-group dashlist">
   <% @input_controls.each do |input_control| %>
-  <% if input_control.status == InputControl::TypeStatus::DISCHARGE   %>
-    <li class="list-group-item list-group-item-info">
-  <% elsif input_control.status == InputControl::TypeStatus::RECEIVED %>
-    <li class="list-group-item list-group-item-success">
-  <% else %>
-    <li class="list-group-item">
-  <% end %>
+    <li class="<%= input_control.status_name %>">
 
     <!-- <span class="badge"><%#= input_control.quantity_pallets %></span> -->
 

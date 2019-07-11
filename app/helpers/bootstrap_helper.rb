@@ -9,6 +9,26 @@ module BootstrapHelper
     html.html_safe;
   end
 
+  def breadcrumbs data = {}
+
+    vloop = "";
+    data.each{ |k, d|
+      if d == ""
+        vloop += "<li class=\"breadcrumb-item active\" aria-current=\"page\">#{k}</li>"
+      else
+        vloop += "<li class=\"breadcrumb-item\">#{link_to k, d}</li>"
+      end
+    }
+    html = <<-HTML
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        #{vloop}
+      </ol>
+    </nav>
+    HTML
+    html.html_safe;
+  end
+
   def form_group size={}, attr={}, &block
     clas = ""
     screen = {smaller: "xs", small: "sm", medium: "md", large: "lg", larger: "xg"}
