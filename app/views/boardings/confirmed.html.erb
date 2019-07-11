@@ -1,16 +1,25 @@
-<h1>Iniciar Embarque: <%= @boarding.id %></h1>
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title" id="myModalLabel">Iniciar Embarque: <%= @boarding.id %></h4>
+</div>
 <%= form_for @boarding, url: update_confirmed_boarding_path, method: :patch, :html => { :multipart => true } do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<div class="modal-body">
+  <%#= render 'shared/error_messages', object: f.object %>
 
   <div class="form-group">
     <%= f.label :qtde_pallets_shipped, "Qtde Palletes" %><br>
     <%= f.number_field :qtde_pallets_shipped, class: "form-control" %>
-  </div>    
+  </div>
 
   <div class="form-group">
     <%= f.label :oper_observation, "Observacao" %><br>
     <%= f.text_area :oper_observation, class: "form-control" %>
-  </div>    
+  </div>
 
-	<%= f.submit "Confirmar Embarque", class: "btn btn-blue" %>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <%= f.submit "Confirmar Embarque", class: "btn btn-primary" %>
+</div>
 <% end %>

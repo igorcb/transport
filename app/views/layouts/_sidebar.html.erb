@@ -46,6 +46,10 @@
         	  <%= render 'layouts/sidebar_sup' %>
         	<% end %>
 
+          <% if current_user.has_role? :oper %>
+        	  <%= render 'layouts/sidebar_oper' %>
+        	<% end %>
+
           <% if current_user.has_role? :boarding %>
         	  <%= render 'layouts/sidebar_admin' %>
         	<% end %>

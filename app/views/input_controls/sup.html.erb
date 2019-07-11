@@ -1,9 +1,5 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_sup_path %></li>
-    <li class="breadcrumb-item active" aria-current="page">Entradas</li>
-  </ol>
-</nav>
+<%= breadcrumbs({"Dashboard": dashboard_oper_path, "Entradas": ""}) %>
+
 <h2>Entradas - Chefe de Galpão</h2>
 <ul class="list-group dashlist">
   <% @input_controls.each do |input_control| %>

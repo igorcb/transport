@@ -1,28 +1,18 @@
 <div class="sidebar-menu">
-  <%= link_to dashboard_sup_path do %>
+  <%= link_to dashboard_oper_path do %>
     <i class="fas fa-chart-pie"></i>
     <p class="menu-text">Dashboard</p>
   <% end %>
 
-  <%= link_to sup_input_controls_path do %>
+  <%= link_to oper_input_controls_path do %>
     <i class="fas fa-file-signature menu-icon"></i>
     <p class="menu-text">Entradas</p>
   <% end %>
 
-  <%= link_to sup_boardings_path do %>
+  <%= link_to oper_boardings_path do %>
     <i class="fas fa-truck menu-icon"></i>
     <p class="menu-text">Embarques</p>
   <% end %>
-
-  <a href="/driver_restrictions">
-    <i class="fas fa-truck menu-icon"></i>
-    <p class="menu-text">Motoristas Bloqueados</p>
-  </a>
-
-  <a href="/vehicle_restrictions">
-    <i class="fas fa-truck menu-icon"></i>
-    <p class="menu-text">Veiculos Bloqueados</p>
-  </a>
 
   <%= link_to destroy_user_session_path, method: "delete" do %>
     <i class="fas fa-sign-out-alt"></i>

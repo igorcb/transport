@@ -1,14 +1,4 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_sup_path %></li>
-    <li class="breadcrumb-item active" aria-current="page">Embarques</li>
-  </ol>
-</nav>
-<style>
-.dashlist .aberto{background-color: #007bff; color: white}
-.dashlist .iniciado{background-color: #28a745; color: white}
-.dashlist .embarcado{background-color: #fd7e14; color: white}
-</style>
+<%= breadcrumbs({"Dashboard": dashboard_oper_path, "Embarques": ""}) %>
 <h2>Embarques</h2>
 <ul class="list-group dashlist">
   <% @boardings.each do |boarding| %>

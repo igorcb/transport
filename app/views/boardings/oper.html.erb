@@ -1,25 +1,25 @@
-<style>
-.dashlist .aberto{background-color: #007bff; color: white}
-.dashlist .iniciado{background-color: #28a745; color: white}
-.dashlist .embarcado{background-color: #fd7e14; color: white}
-</style>
+<%= breadcrumbs({"Dashboard": dashboard_oper_path, "Embarques": ""}) %>
+<%= link_to 'voltar', dashboard_oper_path, class: "btn btn-default" %>
 <h2>Embarques</h2>
-
 <ul class="list-group dashlist">
   <% @boardings.each do |boarding| %>
-  <% if boarding.status == Boarding::TipoStatus::INICIADO %>
-    <li class="iniciado">
-  <% elsif boarding.status == Boarding::TipoStatus::EMBARCADO %>
-    <li class="embarcado">
-  <% elsif boarding.status == Boarding::TipoStatus::ABERTO %>
-    <li class="aberto">
-  <% else %>
-    <li class="list-group-item">
-  <% end %>
-    <%= render 'static_pages/oper_boarding', boarding: boarding %>
-    <%= link_to 'Iniciar Embarque', start_boarding_path(boarding), class: "btn btn-blue btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>
-    <%= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding), class: "btn btn-blue btn-xs" if boarding.status == Boarding::TipoStatus::INICIADO %>
-    <%= link_to 'Detalhes do Embarque', detail_boarding_path(boarding), class: "btn btn-blue btn-xs" %>
+  <li class="<%= boarding.status_name.downcase %>">
+    <div class="content-list">
+      <%= render 'static_pages/oper_boarding', boarding: boarding %>
+    </div>
+    <%= link_to 'Iniciar', start_boarding_path(boarding), class: "btn btn-default btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>
+    <%= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding)+"?ajax=true", {class: "btn btn-success btn-xs", "data-toggle": "modal", "data-target": "#myModal"} if boarding.status == Boarding::TipoStatus::INICIADO %>
+    <%= link_to 'Detalhes', detail_boarding_path(boarding), class: "btn btn-info btn-xs" %>
   </li>
   <% end %>
 </ul>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
