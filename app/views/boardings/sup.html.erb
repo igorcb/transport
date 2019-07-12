@@ -1,11 +1,8 @@
 <%= breadcrumbs({"Dashboard": dashboard_oper_path, "Embarques": ""}) %>
+<div>
+  <%= render 'form_search_sup' %>
+</div>
 <h2>Embarques</h2>
-<ul class="list-group dashlist">
-  <% @boardings.each do |boarding| %>
-    <li class="<%= boarding.status_name.downcase %>">
-    <!-- <span class="badge"><%= boarding.qtde_palets %></span> -->
-    <%= render 'static_pages/sup_boarding', boarding: boarding %>
-    <%= link_to "Informar Equipe", report_team_boarding_path(boarding), {class: "btn btn-info btn-sm"} %>
-  </li>
-  <% end %>
+<ul id="result_input" class="list-group dashlist">
+  <%= render 'sup_list', boardings: @boardings %>
 </ul>

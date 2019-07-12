@@ -112,7 +112,16 @@ class BoardingsController < ApplicationController
     #@boardings = Boarding.status_open
   end
 
+  def sup_search
+    @q = Boarding.joins(:driver).order(date_boarding: :desc, id: :desc).search(params[:query])
+    @boardings = @q.result
+    respond_with(@boardings) do |format|
+      format.js
+    end
+  end
+
   def sup
+    @q = Boarding.where(status: -1).search(params[:q])
     @boardings = Boarding.the_day
     #@boardings = Boarding.status_open
   end

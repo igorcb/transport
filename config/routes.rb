@@ -287,6 +287,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :search
+      get :sup_search
       get :oper
       get :sup
     end

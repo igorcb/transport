@@ -1,0 +1,34 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+        <div class="panel-body">
+          <%= search_form_for @q, remote: true, url: sup_search_boardings_path, :method => :get do |f| %>
+            <div class="row form-group">
+              <div class="col-xs-6">
+                <%= f.label :date_boarding_gteq, "Data Embarque de" %>
+                <%= f.date_field :date_boarding_gteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>
+              </div>
+
+              <div class="col-xs-6">
+                <%= f.label :date_boarding_lteq, "até" %>
+                <%= f.date_field :date_boarding_lteq, class: "form-control data", placeholder: "Informe a Data do Agendamento ex: 05-12-2014" %>
+              </div>
+            </div>
+            <div class="actions"><%= f.submit "Search" %></div>
+          <% end %>
+        </div>
+
+    </div>
+  </div>
+
+</div>
