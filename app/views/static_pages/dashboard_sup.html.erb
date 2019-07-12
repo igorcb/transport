@@ -1,4 +1,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+<style>
+.number{
+  background: #383888;
+  width: 80px;
+  height: 80px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+  padding-top: 16px;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+  border-inline-end: inherit;
+}
+</style>
 <div class="row dashboards">
   <div class="col-md-5">
     <a href="<%= sup_input_controls_path %>">
@@ -24,6 +37,23 @@
         <small>Atualizado hoje <%= date_br(Date.today) %></small>
       </div>
     </a>
+  </div>
+</div>
+
+<div class="row dashboards" style="margin-top:15px;">
+  <div class="col-md-10">
+    <%= link_to sup_checkins_path do %>
+    <div class="card" style="background: blueviolet; color: white;">
+      <h2 class="text-center">Checkins</h2>
+      <div class="card-body">
+        <h1 class="text-center">
+          <big class="number"><%= Checkin.input_control.input.where("DATE(created_at) = ?", Date.current).count %></big>
+          <small style="color:#EEE">registros</small>
+        </h1>
+      </div>
+      <small>Atualizado hoje <%= date_br(Date.today) %></small>
+    </div>
+    <% end %>
   </div>
 </div>
 
