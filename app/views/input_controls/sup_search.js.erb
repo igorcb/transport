@@ -1,0 +1,2 @@
+$('#result_input').empty();
+$("#result_input").append("<%= j(render(:partial => 'sup_list', :locals => {input_controls: @input_controls} )) %>");

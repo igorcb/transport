@@ -248,6 +248,7 @@ Rails.application.routes.draw do
       put :attach_xml
     end
     collection do
+      get :sup_search
       get :search
       get :oper
       get :sup

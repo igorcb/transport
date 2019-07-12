@@ -24,6 +24,9 @@ class InputControlsController < ApplicationController
     end
   end
 
+
+
+
   def show
     @cancellation = @input_control.cancellations.build
     #respond_with(@input_control)
@@ -225,7 +228,16 @@ class InputControlsController < ApplicationController
     @input_controls = InputControl.the_day_scheduled
   end
 
+  def sup_search
+    @q = InputControl.includes(:carrier, :driver).order(date_entry: :desc, time_entry: :desc).search(params[:query])
+    @input_controls = @q.result
+    respond_with(@input_controls) do |format|
+      format.js
+    end
+  end
+
   def sup
+    @q = InputControl.where(status: -1).search(params[:q])
     @input_controls = InputControl.the_day_scheduled
   end
 

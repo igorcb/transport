@@ -1,0 +1,33 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+        <div class="panel-body">
+          <%= search_form_for @q, remote: true, url: sup_search_input_controls_path, :method => :get do |f| %>
+          <div class="row">
+            <div class="form-group col-sm-6 col-md-3">
+              <%= f.label :date_entry_gteq, "Data entrada de" %>
+              <%= f.date_field :date_entry_gteq, class: "form-control  input-sm", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>
+            </div>
+            <div class="form-group col-sm-6 col-md-3">
+              <%= f.label :date_entry_lteq, "até" %>
+              <%= f.date_field :date_entry_lteq, class: "form-control  input-sm", placeholder: "Informe a Data do Entrada ex: 05-12-2014" %>
+            </div>
+          </div>
+            <%= f.submit "Search", class:"btn btn-default" %>
+          <% end %>
+        </div>
+
+    </div>
+  </div>
+
+</div>
