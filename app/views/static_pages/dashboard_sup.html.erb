@@ -13,7 +13,7 @@
 }
 </style>
 <div class="row dashboards">
-  <div class="col-md-5">
+  <div class="col-md-5 col-md-offset-1">
     <a href="<%= sup_input_controls_path %>">
       <div class="card">
         <h2 class="text-center">ENTRADAS</h2>
@@ -41,13 +41,28 @@
 </div>
 
 <div class="row dashboards" style="margin-top:15px;">
-  <div class="col-md-10">
-    <%= link_to sup_checkins_path do %>
+  <div class="col-md-4 col-md-offset-1">
+    <%= link_to sup_input_checkins_path do %>
     <div class="card" style="background: blueviolet; color: white;">
-      <h2 class="text-center">Checkins</h2>
+      <h4 class="text-center">Checkins de entradas</h4>
       <div class="card-body">
         <h1 class="text-center">
-          <big class="number"><%= Checkin.input_control.input.where("DATE(created_at) = ?", Date.current).count %></big>
+          <big class="number"><%= Checkin.input_control.input.order(id: :asc).the_day.count %></big>
+          <small style="color:#EEE">registros</small>
+        </h1>
+      </div>
+      <small>Atualizado hoje <%= date_br(Date.today) %></small>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <%= link_to sup_input_checkins_path do %>
+    <div class="card" style="background: #60b122; color: white;">
+      <h4 class="text-center">Checkins de embarques</h4>
+      <div class="card-body">
+        <h1 class="text-center">
+          <big class="number" style="background: #2d4e1c;"><%= Checkin.boarding.checkout.order(id: :asc).the_day.count %></big>
           <small style="color:#EEE">registros</small>
         </h1>
       </div>

@@ -76,8 +76,12 @@ class CheckinsController < ApplicationController
     end
   end
 
-  def sup
-    @checkins = Checkin.input_control.input.where("DATE(created_at) = ?", Date.current).order(id: :asc)
+  def sup_input
+    @checkins = Checkin.input_control.input.order(id: :asc).the_day
+    #where("DATE(created_at) = ?", Date.current).order(id: :asc)
+  end
+  def sup_boarding
+    @checkins = Checkin.boarding.checkout.order(id: :asc).the_day
   end
 
   # # PATCH/PUT /checkins/1

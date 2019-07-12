@@ -1,7 +1,5 @@
-<%= breadcrumbs({"Dashboard": dashboard_sup_path, "Checkin": ""}) %>
-<h1>Checkins</h1>
 <ul class="list-group dashlist">
-  <% @checkins.each do |checkin| %>
+  <% checkins.each do |checkin| %>
     <li>
       <p style="margin-bottom:20px;"><%= date_br(checkin.created_at) %> <%= time_br(checkin.created_at) %></p>
       <p><strong>Motorista:</strong><span><small><%= checkin.driver_name %></small></span></p>

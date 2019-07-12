@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   resources :warehouses
   resources :checkins do
     collection do
-      get :sup
+      get :sup_input
+      get :sup_boarding
     end
     member do
       get :checkout
