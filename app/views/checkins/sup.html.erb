@@ -1,0 +1,16 @@
+<h1>Checkins</h1>
+<%#= @checkins.inspect %>
+<ul class="list-group dashlist">
+  <% @checkins.each do |checkin| %>
+    <li>
+      <p style="margin-bottom:20px;"><%= date_br(checkin.created_at) %> <%= time_br(checkin.created_at) %></p>
+      <p><strong>Motorista:</strong><span><small><%= checkin.driver_name %></small></span></p>
+      <p><strong>CPF:</strong><span><small><%= checkin.driver_cpf %></small></span></p>
+
+      <p><strong>Placa cavalo:</strong><span><small><%= checkin.place_horse %></small></span></p>
+      <p><strong>Placa 1:</strong><span><small><%= checkin.place_cart_1 %></small></span></p>
+
+      <%#= link_to "Informar Equipe", report_team_boarding_path(boarding), {class: "btn btn-info btn-sm"} %>
+    </li>
+  <% end %>
+</ul>

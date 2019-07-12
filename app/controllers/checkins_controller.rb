@@ -76,6 +76,10 @@ class CheckinsController < ApplicationController
     end
   end
 
+  def sup
+    @checkins = Checkin.input_control.input.where("DATE(created_at) = ?", Date.current).order(id: :asc)
+  end
+
   # # PATCH/PUT /checkins/1
   # # PATCH/PUT /checkins/1.json
   # def update

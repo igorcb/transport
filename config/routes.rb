@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   end
   resources :warehouses
   resources :checkins do
+    collection do
+      get :sup
+    end
     member do
       get :checkout
     end
