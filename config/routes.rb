@@ -265,6 +265,8 @@ Rails.application.routes.draw do
     #resources :sealingwaxes
     resources :breakdown_boardings
     member do
+      get :report_team
+      put :update_report_team
       get :print
       get :comments
       get :request_pallet

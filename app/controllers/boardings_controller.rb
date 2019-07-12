@@ -91,6 +91,22 @@ class BoardingsController < ApplicationController
     end
 	end
 
+
+  def report_team
+    render layout: false if params[:ajax] == "true";
+  end
+  def update_report_team
+    respond_to do |format|
+      if @boarding.update(boarding_params)
+        format.html { redirect_to sup_boardings_path, flash: { success: "Input Control client was successfully updated." } }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @input_control.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def oper
     @boardings = Boarding.the_day
     #@boardings = Boarding.status_open
