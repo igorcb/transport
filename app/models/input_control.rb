@@ -44,10 +44,14 @@ class InputControl < ActiveRecord::Base
 
   scope :the_day, -> { includes(:driver).where(date_entry: Date.current).order("id desc") }
   scope :the_day_scheduled, -> { includes(:driver).where(date_scheduled: Date.current).order(date_scheduled: :desc, time_scheduled: :asc) }
+  scope :opened, -> { includes(:driver).where(date_entry: Date.current, status: [TypeStatus::FINISH_TYPING ] ).order("id desc") }
   scope :received, -> { includes(:driver).where(date_entry: Date.current, status: TypeStatus::RECEIVED ).order("id desc") }
   scope :discharge, -> { includes(:driver).where(date_entry: Date.current, status: TypeStatus::DISCHARGE ).order("id desc") }
   scope :pending, -> { includes(:driver).where("date_entry > ? and date_entry < ? and status = ?", (Date.current - 3.day), Date.current, TypeStatus::RECEIVED).order("id desc") }
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
+  scope :available_discharge, -> { includes(:driver).where(date_entry: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::RECEIVED]).order("id desc") }
+  scope :available_supervisor, -> { includes(:driver).where(date_entry: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::RECEIVED]).order("id desc") }
+  scope :available_operator, -> { includes(:driver).where(date_entry: Date.current).where.not(team: nil).order("id desc") }
 
   #before_save { |item| item.email = email.downcase }
   # RECEBIMENTO_DESCARGA_HISTORIC = 100
@@ -597,6 +601,13 @@ class InputControl < ActiveRecord::Base
       return {success: false, message: e.message}
     end
 	end
+
+  def driver_checkin?
+    # Um motorista pode fazer vários checkins no dia
+    # Mas só pode fazer um novo checkin caso ele tenha feito checkout
+    # verificar se o motorista fez checkin na L7
+    Checkin.input_control.input.the_day.where(driver_cpf: self.driver.cpf).present?
+  end
 
 #  private
     def get_number_nfe_xmls

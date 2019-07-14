@@ -5,7 +5,7 @@
       <div class="card">
         <h2 class="text-center">ENTRADAS</h2>
         <div class="card-body">
-          <h1 class="total"><%= InputControl.the_day.count %><br><small>entradas</small></h1>
+          <h1 class="total"><%= InputControl.available_discharge.count %><br><small>entradas</small></h1>
           <canvas id="inputChart" width="400" height="400"></canvas>
         </div>
         <small>Atualizado hoje <%= date_br(Date.today) %></small>
@@ -39,10 +39,12 @@
     type: 'doughnut',
     data: {
         datasets: [{
-            data: [<%= InputControl.the_day.where({status: 0}).count %>, <%= InputControl.discharge.count %>, <%= InputControl.received.count %>],
-            backgroundColor: ['#007bff', '#28a745', '#fd7e14']
+            data: [<%= InputControl.opened.count %>,
+               <%= InputControl.discharge.count %>,
+               <%= InputControl.received.count %>],
+            backgroundColor: ['#007bff', '#fd7e14', '#28a745' ]
         }],
-        labels: ['Aberto', 'Descarregando', 'Recebido']
+        labels: ['Aberto', 'Descarregando',  'Recebido']
     }
   });
 

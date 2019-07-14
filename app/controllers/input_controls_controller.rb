@@ -24,9 +24,6 @@ class InputControlsController < ApplicationController
     end
   end
 
-
-
-
   def show
     @cancellation = @input_control.cancellations.build
     #respond_with(@input_control)
@@ -100,13 +97,18 @@ class InputControlsController < ApplicationController
   end
 
   def report_team
-
+    if !@input_control.driver_checkin?
+      flash[:danger] = "The driver did not checkin"
+      redirect_to (sup_input_controls_path)
+      return
+    end
     render layout: false if params[:ajax] == "true";
   end
+
   def update_report_team
     respond_to do |format|
       if @input_control.update(input_control_params)
-        format.html { redirect_to sup_input_controls_path, flash: { success: "Input Control client was successfully updated." } }
+        format.html { redirect_to sup_input_controls_path, flash: { success: "InputControl report team was successfully updated." } }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -225,7 +227,8 @@ class InputControlsController < ApplicationController
   end
 
   def oper
-    @input_controls = InputControl.the_day_scheduled
+    #@input_controls = InputControl.the_day_scheduled
+    @input_controls = InputControl.available_operator
   end
 
   def sup_search
@@ -251,18 +254,6 @@ class InputControlsController < ApplicationController
   def update_start
     if params[:input_control][:place_confirmed].blank?
       flash[:danger] = "Place is not present."
-      redirect_to oper_input_controls_path
-      return
-    elsif params[:input_control][:team].blank?
-      flash[:danger] = "Team is not present."
-      redirect_to oper_input_controls_path
-      return
-    elsif params[:input_control][:hangar].blank?
-      flash[:danger] = "Hangar is not present."
-      redirect_to oper_input_controls_path
-      return
-    elsif params[:input_control][:dock].blank?
-      flash[:danger] = "Dock is not present."
       redirect_to oper_input_controls_path
       return
     elsif params[:input_control][:place_confirmed].upcase != @input_control.place_cart.upcase
