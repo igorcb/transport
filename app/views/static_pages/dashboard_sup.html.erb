@@ -12,35 +12,8 @@
   border-inline-end: inherit;
 }
 </style>
-<div class="row dashboards">
-  <div class="col-md-5 col-md-offset-1">
-    <a href="<%= sup_input_controls_path %>">
-      <div class="card">
-        <h2 class="text-center">ENTRADAS</h2>
-        <div class="card-body">
-          <h1 class="total"><%= InputControl.available_supervisor.count %><br><small>entradas</small></h1>
-          <canvas id="inputChart" width="400" height="400"></canvas>
-        </div>
-        <small>Atualizado hoje <%= date_br(Date.today) %></small>
-      </div>
-    </a>
-  </div>
 
-  <div class="col-md-5">
-    <a href="<%= sup_boardings_path %>">
-      <div class="card">
-        <h2 class="text-center">EMBARQUES</h2>
-        <div class="card-body">
-          <h1 class="total"><%= Boarding.the_day.count %><br><small>embarques</small></h1>
-          <canvas id="boardingChart" width="400" height="400"></canvas>
-        </div>
-        <small>Atualizado hoje <%= date_br(Date.today) %></small>
-      </div>
-    </a>
-  </div>
-</div>
-
-<div class="row dashboards" style="margin-top:15px;">
+<div class="row dashboards" style="margin-bottom:15px;">
   <div class="col-md-4 col-md-offset-1">
     <%= link_to sup_input_checkins_path do %>
     <div class="card" style="background: blueviolet; color: white;">
@@ -71,6 +44,36 @@
     <% end %>
   </div>
 </div>
+
+<div class="row dashboards">
+  <div class="col-md-5 col-md-offset-1">
+    <a href="<%= sup_input_controls_path %>">
+      <div class="card">
+        <h2 class="text-center">ENTRADAS</h2>
+        <div class="card-body">
+          <h1 class="total"><%= InputControl.available_supervisor.count %><br><small>entradas</small></h1>
+          <canvas id="inputChart" width="400" height="400"></canvas>
+        </div>
+        <small>Atualizado hoje <%= date_br(Date.today) %></small>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-5">
+    <a href="<%= sup_boardings_path %>">
+      <div class="card">
+        <h2 class="text-center">EMBARQUES</h2>
+        <div class="card-body">
+          <h1 class="total"><%= Boarding.the_day.count %><br><small>embarques</small></h1>
+          <canvas id="boardingChart" width="400" height="400"></canvas>
+        </div>
+        <small>Atualizado hoje <%= date_br(Date.today) %></small>
+      </div>
+    </a>
+  </div>
+</div>
+
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>

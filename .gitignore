@@ -17,6 +17,7 @@ config/database.yml
 docker-compose.yml
 Dockerfile
 .gitignore
+bash.sh 
 
 # Ignore the default assets.
 /public/system/*

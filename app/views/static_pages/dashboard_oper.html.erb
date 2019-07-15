@@ -1,6 +1,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="alert alert-warning alert-dismissible show-notification" role="alert" style="display:none">
+      <button type="button" class="close" aria-label="Close" data-behavior='notifications-link'><span aria-hidden="true">&times;</span></button>
+      <strong>Você tem <span data-behavior="unread-count"></span> tarefas. Verifique!</strong> <br>
+      <div></div>
+    </div>
+  </div>
+</div>
 <div class="row dashboards">
-  <div class="col-md-5">
+  <div class="col-md-5 col-md-offset-1">
     <a href="<%= oper_input_controls_path %>">
       <div class="card">
         <h2 class="text-center">ENTRADAS</h2>

@@ -53,7 +53,7 @@ Rails.application.routes.draw do
 
   resources :notifications do
     post :mark_as_read, on: :collection
-    post :mark_as_read, on: :member
+    get :mark_as_read, on: :member
   end
 
   resources :brokers
