@@ -7,15 +7,27 @@ services:
     environment:
       POSTGRES_PASSWORD: mypassword
     ports:
-      - "5432:5432"
+      - "54321:5432"
     volumes:
       - 'postgres:/var/lib/postgresql/data'
+
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: "igor.batista@gmail.com"
+  #     PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+  #   ports:
+  #     - "5051:80"
+  #   depends_on:
+  #     - postgres
+    # networks:
+    #   - postgres-compose-network
 
   redis:
     image: 'redis:3.2-alpine'
     command: redis-server
     ports:
-      - '6379:6379'
+      - '63791:6379'
     volumes:
       - 'redis:/var/lib/redis/data'
 
@@ -24,18 +36,18 @@ services:
       - 'postgres'
     build: .
     command: bash start.sh
-    environment:
-      - RAILS_MAIL_HOST=${RAILS_MAIL_HOST}
-      - RAILS_MAIL_USERNAME=${RAILS_MAIL_USERNAME}
-      - RAILS_MAIL_PASSWORD=${RAILS_MAIL_PASSWORD}
-      - RAILS_MAIL_DOMAIN=${RAILS_MAIL_DOMAIN}
-      - RAILS_MAIL_DESTINATION=${RAILS_MAIL_DESTINATION}
+    # environment:
+    #   - RAILS_MAIL_HOST=${RAILS_MAIL_HOST}
+    #   - RAILS_MAIL_USERNAME=${RAILS_MAIL_USERNAME}
+    #   - RAILS_MAIL_PASSWORD=${RAILS_MAIL_PASSWORD}
+    #   - RAILS_MAIL_DOMAIN=${RAILS_MAIL_DOMAIN}
+    #   - RAILS_MAIL_DESTINATION=${RAILS_MAIL_DESTINATION}
     ports:
       - "3000:3000"
     stdin_open: true
     tty: true
     volumes:
-      - '/home/igor/workspace/rails_app/transport:/workspace/rails_app/transport'
+      - '/home/thiago/workspace/rails_app/transport:/workspace/rails_app/transport'
 
   # jobs:
   #   depends_on:
@@ -49,11 +61,11 @@ services:
   #   volumes_from:
   #     - box
 
-  mailcatcher:
-    image: yappabe/mailcatcher
-    ports:
-      - 1025:1025
-      - 1080:1080
+  # mailcatcher:
+  #   image: yappabe/mailcatcher
+  #   ports:
+  #     - 1025:1025
+  #     - 1080:1080
 
   box:
     image: busybox
