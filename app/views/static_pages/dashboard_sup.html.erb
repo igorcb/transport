@@ -47,7 +47,7 @@
       <h4 class="text-center">Checkins de entradas</h4>
       <div class="card-body">
         <h1 class="text-center">
-          <big class="number"><%= Checkin.available_supervisor.input.order(id: :asc).count %></big>
+          <big class="number"><%= Checkin.input_control.input.order(id: :asc).count %></big>
           <small style="color:#EEE">registros</small>
         </h1>
       </div>
