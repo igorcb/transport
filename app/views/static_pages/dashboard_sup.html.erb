@@ -109,15 +109,19 @@
 
 <script>
 
-  new CounterNumber("#checkins .input .counter_number")
-  new CounterNumber("#checkins .boarding .counter_number")
+$(document).ready(function() {
 
-  new CounterNumber("#input .aberto .counter_number")
-  new CounterNumber("#input .descarregando .counter_number")
-  new CounterNumber("#input .recebido .counter_number")
+  animateNumber($("#checkins .input .counter_number"))
+  animateNumber($("#checkins .boarding .counter_number"))
 
-  new CounterNumber("#boardings .aberto .counter_number")
-  new CounterNumber("#boardings .iniciado .counter_number")
-  new CounterNumber("#boardings .embarcado .counter_number")
+  animateNumber($("#input .aberto .counter_number"))
+  animateNumber($("#input .descarregando .counter_number"))
+  animateNumber($("#input .recebido .counter_number"))
+
+  animateNumber($("#boardings .aberto .counter_number"))
+  animateNumber($("#boardings .iniciado .counter_number"))
+  animateNumber($("#boardings .embarcado .counter_number"))
+
+});
 
 </script>
