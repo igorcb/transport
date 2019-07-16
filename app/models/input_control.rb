@@ -44,14 +44,14 @@ class InputControl < ActiveRecord::Base
 
   scope :the_day, -> { includes(:driver).where(date_entry: Date.current).order("id desc") }
   scope :the_day_scheduled, -> { includes(:driver).where(date_scheduled: Date.current).order(date_scheduled: :desc, time_scheduled: :asc) }
-  scope :opened, -> { includes(:driver).where(date_entry: Date.current, status: [TypeStatus::FINISH_TYPING ] ).order("id desc") }
-  scope :received, -> { includes(:driver).where(date_entry: Date.current, status: TypeStatus::RECEIVED ).order("id desc") }
-  scope :discharge, -> { includes(:driver).where(date_entry: Date.current, status: TypeStatus::DISCHARGE ).order("id desc") }
+  scope :opened, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::FINISH_TYPING ] ).order("id desc") }
+  scope :received, -> { includes(:driver).where(date_scheduled: Date.current, status: TypeStatus::RECEIVED ).order("id desc") }
+  scope :discharge, -> { includes(:driver).where(date_scheduled: Date.current, status: TypeStatus::DISCHARGE ).order("id desc") }
   scope :pending, -> { includes(:driver).where("date_entry > ? and date_entry < ? and status = ?", (Date.current - 3.day), Date.current, TypeStatus::RECEIVED).order("id desc") }
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
-  scope :available_discharge, -> { includes(:driver).where(date_entry: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::RECEIVED]).order("id desc") }
-  scope :available_supervisor, -> { includes(:driver).where(date_entry: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::RECEIVED]).order("id desc") }
-  scope :available_operator, -> { includes(:driver).where(date_entry: Date.current).where.not(team: nil).order("id desc") }
+  scope :available_discharge, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::RECEIVED]).order("id desc") }
+  scope :available_supervisor, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::RECEIVED]).order("id desc") }
+  scope :available_operator, -> { includes(:driver).where(date_scheduled: Date.current).where.not(team: nil).order("id desc") }
 
   #before_save { |item| item.email = email.downcase }
   # RECEBIMENTO_DESCARGA_HISTORIC = 100
@@ -81,9 +81,10 @@ class InputControl < ActiveRecord::Base
   #after_save :processa_nfe_xmls
 
   # dia 01/10/2018 ajustar para 28 reais descarga por tonelada,
+  # dia 15/07/2019 ajustar para 30 reais descarga por tonelada,
   # Verificar a possibilidade de mudar essa contante em variável
   # buscando da tabela de parametros do sistema
-  VALOR_DA_TONELADA = 28
+  VALOR_DA_TONELADA = 30
 
   module TipoCarga
     BATIDA = false
@@ -185,13 +186,14 @@ class InputControl < ActiveRecord::Base
   end
 
   def set_peso_and_volume
-    peso = self.nfe_xmls.sum(:peso)
-    volume = self.nfe_xmls.sum(:volume)
-    valor_total = peso * valor_kg
-    ActiveRecord::Base.transaction do
-      puts "peso: #{peso} and volume: #{volume}"
-      InputControl.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
-    end
+    # peso = self.nfe_xmls.sum("COALESCE(peso,0)")
+    # volume = self.nfe_xmls.sum("COALESCE(volume,0)")
+    # valor_total = peso * valor_kg
+    # ActiveRecord::Base.transaction do
+    #   puts "peso: #{peso} and volume: #{volume} and Ton: #{valor_tonelada} and TonKG: #{valor_kg} and ValorTotal: #{valor_total} "
+    #   InputControl.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
+    # end
+    InputControls::SetWeightAndVolumeService.new(self).call
   end
 
   def valor_tonelada
@@ -206,7 +208,7 @@ class InputControl < ActiveRecord::Base
 
   def valor_total
     valor = 0.00
-    valor = valor_kg * self.peso
+    valor = valor_kg * self.weight
     valor
   end
 
@@ -302,6 +304,7 @@ class InputControl < ActiveRecord::Base
       ActiveRecord::Base.transaction do
         #criar contas a receber
         if self.charge_discharge?
+          set_peso_and_volume
           AccountReceivable.create!(
                                  type_account: AccountReceivable::TypeAccount::MOTORISTA,
                                   client_type: AccountReceivable::TypeAccountName::MOTORISTA,
