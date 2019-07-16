@@ -41,7 +41,11 @@ class DirectCharge < ActiveRecord::Base
   RECEBIMENTO_DESCARGA_SUB_COST_CENTER_THREE = 160
 
   VALUE_DISCHARGE = 0.88 #POR TONELADA
-  VALOR_DA_TONELADA = 25
+  # dia 01/10/2018 ajustar para 28 reais descarga por tonelada,
+  # dia 15/07/2019 ajustar para 30 reais descarga por tonelada,
+  # Verificar a possibilidade de mudar essa contante em variável
+  # buscando da tabela de parametros do sistema
+  VALOR_DA_TONELADA = 30
 
   after_save :processa_nfe_xmls
 
