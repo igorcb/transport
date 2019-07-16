@@ -4,7 +4,7 @@
     <div class="card input" style="background: blueviolet; color: white;">
       <div class="card-body">
         <h1>
-          <big><span class="counter_number" data-init="0"  data-end="<%= Checkin.input_control.input.order(id: :asc).the_day.count %>"></span></big>
+          <big><span class="counter_number" data-init="0"  data-end="<%= Checkin.input_control.input.the_day.count %>"></span></big>
         </h1>
         <h4>Checkins de entradas</h4>
       </div>
@@ -18,7 +18,7 @@
     <div class="card boarding" style="background: #657a94; color: white;">
       <div class="card-body">
         <h1>
-          <big><span class="counter_number" data-init="0"  data-end="<%= Checkin.boarding.input.order(id: :asc).the_day.count %>"></span></big>
+          <big><span class="counter_number" data-init="0"  data-end="<%= Checkin.boarding.input.the_day.count %>"></span></big>
         </h1>
         <h4>Checkins de embarques</h4>
       </div>
@@ -73,7 +73,7 @@
     <%= link_to sup_boardings_path do %>
       <div class="card aberto" style="background-color: #0051a9; color: white;">
         <div class="card-body">
-          <h1><span class="counter_number" data-init="0"  data-end="<%= Boarding.the_day.where(status: 0).count %>"></span></h1>
+          <h1><span class="counter_number" data-init="0"  data-end="<%= Boarding.opened.count %>"></span></h1>
           <h4>Embarques <br> abertas</h4>
           <small>Atualizado hoje <%= date_br(Date.today) %></small>
         </div>
@@ -85,7 +85,7 @@
     <%= link_to sup_boardings_path do %>
       <div class="card iniciado" style="background-color: #dc6909; color: white;">
         <div class="card-body">
-          <h1><span class="counter_number" data-init="0"  data-end="<%= Boarding.the_day.where(status: 4).count %>"></span></h1>
+          <h1><span class="counter_number" data-init="0"  data-end="<%= Boarding.loading.count %>"></span></h1>
           <h4>Embarques <br> Iniciado</h4>
           <small>Atualizado hoje <%= date_br(Date.today) %></small>
         </div>
@@ -97,7 +97,7 @@
     <%= link_to sup_boardings_path do %>
       <div class="card embarcado" style="background-color: #1a772f; color: white;">
         <div class="card-body">
-          <h1><span class="counter_number" data-init="0"  data-end="<%= Boarding.the_day.where(status: 1).count %>"></span></h1>
+          <h1><span class="counter_number" data-init="0"  data-end="<%= Boarding.boarded.count %>"></span></h1>
           <h4>Embarques <br> Embarcado</h4>
           <small>Atualizado hoje <%= date_br(Date.today) %></small>
         </div>
