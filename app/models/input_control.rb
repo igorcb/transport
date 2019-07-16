@@ -186,13 +186,14 @@ class InputControl < ActiveRecord::Base
   end
 
   def set_peso_and_volume
-    peso = self.nfe_xmls.sum(:peso)
-    volume = self.nfe_xmls.sum(:volume)
-    valor_total = peso * valor_kg
-    ActiveRecord::Base.transaction do
-      puts "peso: #{peso} and volume: #{volume}"
-      InputControl.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
-    end
+    # peso = self.nfe_xmls.sum("COALESCE(peso,0)")
+    # volume = self.nfe_xmls.sum("COALESCE(volume,0)")
+    # valor_total = peso * valor_kg
+    # ActiveRecord::Base.transaction do
+    #   puts "peso: #{peso} and volume: #{volume} and Ton: #{valor_tonelada} and TonKG: #{valor_kg} and ValorTotal: #{valor_total} "
+    #   InputControl.where(id: self.id).update_all(weight: peso, volume: volume, value_total: valor_total)
+    # end
+    InputControls::SetWeightAndVolumeService.new(self).call
   end
 
   def valor_tonelada
@@ -207,7 +208,7 @@ class InputControl < ActiveRecord::Base
 
   def valor_total
     valor = 0.00
-    valor = valor_kg * self.peso
+    valor = valor_kg * self.weight
     valor
   end
 
@@ -303,6 +304,7 @@ class InputControl < ActiveRecord::Base
       ActiveRecord::Base.transaction do
         #criar contas a receber
         if self.charge_discharge?
+          set_peso_and_volume
           AccountReceivable.create!(
                                  type_account: AccountReceivable::TypeAccount::MOTORISTA,
                                   client_type: AccountReceivable::TypeAccountName::MOTORISTA,
