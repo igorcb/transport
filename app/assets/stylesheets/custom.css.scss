@@ -70,7 +70,13 @@ body {
     height: auto;
     border: 2px white solid;
     box-shadow: 3px 3px 3px rgba(0,0,0, 0.2);
-    padding: 5px 15px;
+    padding: 20px;
+    h1, h2, h3, h4{
+      margin: 0;
+    }
+    h1{
+      margin-bottom: 15px;
+    }
     &:active {
       box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.2);
       margin-top: 2px;

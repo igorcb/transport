@@ -1,113 +1,108 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
-<style>
-.number{
-  background: #383888;
-  width: 80px;
-  height: 80px;
-  display: block;
-  margin: 0 auto;
-  border-radius: 50%;
-  padding-top: 16px;
-  box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
-  border-inline-end: inherit;
-}
-</style>
-
 <div class="row dashboards" style="margin-bottom:15px;">
-  <div class="col-md-4 col-md-offset-1">
+  <div class="col-md-5">
     <%= link_to sup_input_checkins_path do %>
     <div class="card" style="background: blueviolet; color: white;">
-      <h4 class="text-center">Checkins de entradas</h4>
       <div class="card-body">
-        <h1 class="text-center">
-          <big class="number"><%= Checkin.input_control.input.order(id: :asc).the_day.count %></big>
-          <small style="color:#EEE">registros</small>
+        <h1>
+          <big><%= Checkin.input_control.input.order(id: :asc).the_day.count %></big>
         </h1>
+        <h4>Checkins de entradas</h4>
       </div>
       <small>Atualizado hoje <%= date_br(Date.today) %></small>
     </div>
     <% end %>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-7">
     <%= link_to sup_input_checkins_path do %>
-    <div class="card" style="background: #60b122; color: white;">
-      <h4 class="text-center">Checkins de embarques</h4>
+    <div class="card" style="background: #657a94; color: white;">
       <div class="card-body">
-        <h1 class="text-center">
-          <big class="number" style="background: #2d4e1c;"><%= Checkin.boarding.checkout.order(id: :asc).the_day.count %></big>
-          <small style="color:#EEE">registros</small>
+        <h1>
+          <big><%= Checkin.boarding.checkout.order(id: :asc).the_day.count %></big>
         </h1>
+        <h4>Checkins de embarques</h4>
       </div>
       <small>Atualizado hoje <%= date_br(Date.today) %></small>
     </div>
     <% end %>
   </div>
 </div>
+
 
 <div class="row dashboards">
-  <div class="col-md-5 col-md-offset-1">
-    <a href="<%= sup_input_controls_path %>">
-      <div class="card">
-        <h2 class="text-center">ENTRADAS</h2>
+  <div class="col-md-3">
+    <%= link_to sup_input_controls_path do %>
+      <div class="card" style="background-color: #007bff; color: white;">
         <div class="card-body">
-          <h1 class="total"><%= InputControl.available_supervisor.count %><br><small>entradas</small></h1>
-          <canvas id="inputChart" width="400" height="400"></canvas>
+          <h1><%= InputControl.opened.count %></h1>
+          <h4>Entradas <br> abertas</h4>
+          <small>Atualizado hoje <%= date_br(Date.today) %></small>
         </div>
-        <small>Atualizado hoje <%= date_br(Date.today) %></small>
       </div>
-    </a>
+    <% end %>
   </div>
 
-  <div class="col-md-5">
-    <a href="<%= sup_boardings_path %>">
-      <div class="card">
-        <h2 class="text-center">EMBARQUES</h2>
+  <div class="col-md-3">
+    <%= link_to sup_input_controls_path do %>
+      <div class="card" style="background-color: #fd7e14; color: white;">
         <div class="card-body">
-          <h1 class="total"><%= Boarding.the_day.count %><br><small>embarques</small></h1>
-          <canvas id="boardingChart" width="400" height="400"></canvas>
+          <h1><%= InputControl.discharge.count %></h1>
+          <h4>Entradas <br>descarregando</h4>
+          <small>Atualizado hoje <%= date_br(Date.today) %></small>
         </div>
-        <small>Atualizado hoje <%= date_br(Date.today) %></small>
       </div>
-    </a>
+    <% end %>
+  </div>
+
+  <div class="col-md-3">
+    <%= link_to sup_input_controls_path do %>
+      <div class="card" style="background-color: #28a745; color: white;">
+        <div class="card-body">
+          <h1><%= InputControl.received.count %></h1>
+          <h4>Entradas <br> Recebido</h4>
+          <small>Atualizado hoje <%= date_br(Date.today) %></small>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 
+<hr>
+<div class="row dashboards">
+  <div class="col-md-3">
+    <%= link_to sup_boardings_path do %>
+      <div class="card" style="background-color: #0051a9; color: white;">
+        <div class="card-body">
+          <h1><%= Boarding.the_day.where(status: 0).count %></h1>
+          <h4>Embarques <br> abertas</h4>
+          <small>Atualizado hoje <%= date_br(Date.today) %></small>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
+  <div class="col-md-3">
+    <%= link_to sup_boardings_path do %>
+      <div class="card" style="background-color: #dc6909; color: white;">
+        <div class="card-body">
+          <h1><%= Boarding.the_day.where(status: 4).count %></h1>
+          <h4>Embarques <br> Iniciado</h4>
+          <small>Atualizado hoje <%= date_br(Date.today) %></small>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
+  <div class="col-md-3">
+    <%= link_to sup_boardings_path do %>
+      <div class="card" style="background-color: #1a772f; color: white;">
+        <div class="card-body">
+          <h1><%= Boarding.the_day.where(status: 1).count %></h1>
+          <h4>Embarques <br> Embarcado</h4>
+          <small>Atualizado hoje <%= date_br(Date.today) %></small>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-<script>
-// For a pie chart
-
-
-  var ctx = $('#inputChart');
-  var inputChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        datasets: [{
-            data: [<%= InputControl.opened.count %>,
-                   <%= InputControl.discharge.count %>,
-                   <%= InputControl.received.count %>],
-            backgroundColor: ['#007bff', '#fd7e14', '#28a745']
-        }],
-        labels: ['Aberto', 'Descarregando', 'Recebido']
-    }
-  });
-
-    var ctx = $('#boardingChart');
-    var boardingChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-          datasets: [{
-              data: [<%= Boarding.the_day.where(status: 0).count %>,
-                     <%= Boarding.the_day.where(status: 4).count %>,
-                     <%= Boarding.the_day.where(status: 1).count %>],
-              backgroundColor: ['#007bff', '#fd7e14', '#28a745']
-          }],
-          labels: ['Aberto', 'Iniciado', 'Embarcado']
-      }
-    });
-
-</script>
+</div>
