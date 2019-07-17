@@ -36,6 +36,7 @@ services:
       - 'postgres'
     build: .
     command: bash start.sh
+    restart: always
     # environment:
     #   - RAILS_MAIL_HOST=${RAILS_MAIL_HOST}
     #   - RAILS_MAIL_USERNAME=${RAILS_MAIL_USERNAME}

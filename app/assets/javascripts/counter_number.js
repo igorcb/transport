@@ -1,10 +1,9 @@
-
 $(document).ready(function() {
   // elem = $(".counter_number")
   // animateNumber()
 });
 
-  function animateNumber(elem){
+  function counterNumber(elem){
     var init = elem.attr("data-init")
     var el = elem
     var end = elem.attr("data-end")
