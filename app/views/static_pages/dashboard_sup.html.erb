@@ -1,123 +1,96 @@
-<div id="checkins" class="row dashboards" style="margin-bottom:15px;">
-  <div class="col-md-5">
-    <%= link_to sup_input_checkins_path do %>
-    <div class="card input" style="background: blueviolet; color: white;">
-      <div class="card-body">
-        <h1>
-          <big><span class="counter_number" data-init="0"  data-end="<%= Checkin.input_control.input.order(id: :asc).the_day.count %>"></span></big>
-        </h1>
-        <h4>Checkins de entradas</h4>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+
+<div class="row dashboards">
+  <div class="col-md-6">
+    <div class="card">
+      <h3 class="text-center">Entradas</h3>
+      <div id="input" class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h1 class="total"><span class="counter_number" data-init="0" data-end="<%= InputControl.available_supervisor.count %>"></span></h1>
+            <canvas id="inputChart" width="400" height="400"></canvas>
+          </div>
+
+          <div class="col-md-6">
+            <div class="legend">
+              <p><%= image_tag "square.svg", size:"15x15" %><big><%= InputControl.opened.count %></big> abertos</p>
+              <p><%= image_tag "triangle.svg", size:"15x15" %><big><%= InputControl.discharge.count %></big> descarregandos</p>
+              <p><%= image_tag "circle.svg", size:"15x15" %><big><%= InputControl.received.count %></big> recebidos</p>
+            </div>
+            <%= link_to "Detalhes", sup_input_controls_path, class: "btn btn-info text-info" %>
+          </div>
+        </div>
+
       </div>
       <small>Atualizado hoje <%= date_br(Date.today) %></small>
     </div>
-    <% end %>
   </div>
 
-  <div class="col-md-7">
-    <%= link_to sup_boarding_checkins_path do %>
-    <div class="card boarding" style="background: #657a94; color: white;">
+  <div class="col-md-6">
+    <div id="boarding" class="card">
+      <h3 class="text-center">Embarques</h3>
       <div class="card-body">
-        <h1>
-          <big><span class="counter_number" data-init="0"  data-end="<%= Checkin.boarding.input.order(id: :asc).the_day.count %>"></span></big>
-        </h1>
-        <h4>Checkins de embarques</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <h1 class="total"><span class="counter_number" data-init="0" data-end="<%= Boarding.the_day.count %>"></span></h1>
+            <canvas id="boardingChart" width="400" height="400"></canvas>
+          </div>
+
+          <div class="col-md-6">
+            <div class="legend">
+              <p><%= image_tag "square.svg", size:"15x15" %><big><%= Boarding.the_day.where(status: 0).count %></big> abertos</p>
+              <p><%= image_tag "triangle.svg", size:"15x15" %><big><%= Boarding.the_day.where(status: 4).count %></big> iniciados</p>
+              <p><%= image_tag "circle.svg", size:"15x15" %><big><%= Boarding.the_day.where(status: 1).count %></big> embarcados</p>
+            </div>
+            <%= link_to "Detalhes", sup_boardings_path, class: "btn btn-info text-info" %>
+          </div>
+        </div>
       </div>
       <small>Atualizado hoje <%= date_br(Date.today) %></small>
     </div>
-    <% end %>
   </div>
 </div>
 
 
-<div id="input" class="row dashboards">
-  <div class="col-md-3">
-    <%= link_to sup_input_controls_path do %>
-      <div class="card aberto" style="background-color: #007bff; color: white;">
-        <div class="card-body">
-          <h1><span class="counter_number" data-init="0"  data-end="<%= InputControl.opened.count %>"></span></h1>
-          <h4>Entradas <br> abertas</h4>
-          <small>Atualizado hoje <%= date_br(Date.today) %></small>
-        </div>
-      </div>
-    <% end %>
-  </div>
 
-  <div class="col-md-3">
-    <%= link_to sup_input_controls_path do %>
-      <div class="card descarregando" style="background-color: #fd7e14; color: white;">
-        <div class="card-body">
-          <h1><span class="counter_number" data-init="0"  data-end="<%= InputControl.discharge.count %>"></span></h1>
-          <h4>Entradas <br>descarregando</h4>
-          <small>Atualizado hoje <%= date_br(Date.today) %></small>
-        </div>
-      </div>
-    <% end %>
-  </div>
 
-  <div class="col-md-3">
-    <%= link_to sup_input_controls_path do %>
-      <div class="card recebido" style="background-color: #28a745; color: white;">
-        <div class="card-body">
-          <h1><span class="counter_number" data-init="0"  data-end="<%= InputControl.received.count %>"></span></h1>
-          <h4>Entradas <br> Recebido</h4>
-          <small>Atualizado hoje <%= date_br(Date.today) %></small>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<hr>
-<div id="boardings" class="row dashboards">
-  <div class="col-md-3">
-    <%= link_to sup_boardings_path do %>
-      <div class="card aberto" style="background-color: #0051a9; color: white;">
-        <div class="card-body">
-          <h1><span class="counter_number" data-init="0"  data-end="<%= Boarding.the_day.where(status: 0).count %>"></span></h1>
-          <h4>Embarques <br> abertas</h4>
-          <small>Atualizado hoje <%= date_br(Date.today) %></small>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="col-md-3">
-    <%= link_to sup_boardings_path do %>
-      <div class="card iniciado" style="background-color: #dc6909; color: white;">
-        <div class="card-body">
-          <h1><span class="counter_number" data-init="0"  data-end="<%= Boarding.the_day.where(status: 4).count %>"></span></h1>
-          <h4>Embarques <br> Iniciado</h4>
-          <small>Atualizado hoje <%= date_br(Date.today) %></small>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="col-md-3">
-    <%= link_to sup_boardings_path do %>
-      <div class="card embarcado" style="background-color: #1a772f; color: white;">
-        <div class="card-body">
-          <h1><span class="counter_number" data-init="0"  data-end="<%= Boarding.the_day.where(status: 1).count %>"></span></h1>
-          <h4>Embarques <br> Embarcado</h4>
-          <small>Atualizado hoje <%= date_br(Date.today) %></small>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-</div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script>
+// For a pie chart
 
-  new CounterNumber("#checkins .input .counter_number")
-  new CounterNumber("#checkins .boarding .counter_number")
+  var inputChart = new Chart($('#inputChart'), {
+    type: 'doughnut',
+    legend: {
+      display: false
+    },
+    data: {
+        datasets: [{
+            data: [<%= InputControl.opened.count %>,
+                   <%= InputControl.discharge.count %>,
+                   <%= InputControl.received.count %>],
+            backgroundColor: ['#007bff', '#fd7e14', '#28a745']
+        }],
+    }
+  });
 
-  new CounterNumber("#input .aberto .counter_number")
-  new CounterNumber("#input .descarregando .counter_number")
-  new CounterNumber("#input .recebido .counter_number")
+  var boardingChart = new Chart($('#boardingChart'), {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+            data: [<%= Boarding.the_day.where(status: 0).count %>,
+                   <%= Boarding.the_day.where(status: 4).count %>,
+                   <%= Boarding.the_day.where(status: 1).count %>],
+            backgroundColor: ['#007bff', '#fd7e14', '#28a745']
+        }],
+        // labels: ['Aberto', 'Iniciado', 'Embarcado']
+    }
+  });
 
-  new CounterNumber("#boardings .aberto .counter_number")
-  new CounterNumber("#boardings .iniciado .counter_number")
-  new CounterNumber("#boardings .embarcado .counter_number")
+$(document).ready(function(){
+  counterNumber($("#boarding .counter_number"))
+  counterNumber($("#input .counter_number"))
+});
+  // new CounterNumber("#checkins .boarding .counter_number")
 
 </script>
