@@ -72,6 +72,32 @@ body {
     border: 2px white solid;
     box-shadow: 3px 3px 3px rgba(0,0,0, 0.2);
     padding: 20px;
+    .list-info{
+      border-bottom: 1px #CCC solid;
+      padding: 5px;
+      li{
+        display: flex;
+        align-items: center;
+        figure{
+          display: block;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+        >.informations{
+          margin-left:5px;
+          font-size: 0.8em;
+          .name{
+            font-size: 1.3em;
+          }
+          span{
+            margin-right: 15px;
+          }
+        }
+      }
+    }
     .legend{
       margin-top:50px;
       p{

@@ -1,14 +1,20 @@
-<ul class="list-group dashlist">
+<ul class="list-info">
   <% checkins.each do |checkin| %>
     <li>
-      <p style="margin-bottom:20px;"><%= date_br(checkin.created_at) %> <%= time_br(checkin.created_at) %></p>
-      <p><strong>Motorista:</strong><span><small><%= checkin.driver_name %></small></span></p>
-      <p><strong>CPF:</strong><span><small><%= checkin.driver_cpf %></small></span></p>
-
-      <p><strong>Placa cavalo:</strong><span><small><%= checkin.place_horse %></small></span></p>
-      <p><strong>Placa 1:</strong><span><small><%= checkin.place_cart_1 %></small></span></p>
-
-      <%#= link_to "Informar Equipe", report_team_boarding_path(boarding), {class: "btn btn-info btn-sm"} %>
+      <figure style="background-image:url('https://p2.trrsf.com/image/fget/cf/1200/1200/filters:quality(85)/images.terra.com/2019/07/14/3083873-luciano-huck-surge-mais-velho-em-foto-e-650x488-2.jpg')"></figure>
+      <div class="informations">
+        <p>
+        <strong class="name"><%= checkin.driver_name %></strong><br>
+        <span class="placa" title="placa"><%= checkin.place_horse %></span>
+        <span class="start" title="Iniciado às"><%= time_br(checkin.created_at) %></span>
+        </p>
+        <p>
+          <span class="remessa" title="Número de remessa">Rem. nº: <strong>98787</strong></span>
+          <span class="status" title="Status">Status: <strong>status</strong></span>
+        <br>
+          <span class="descarregando" title="Tempo que esta descarregando">descarregando à: <strong>1:32</strong></span>
+        </p>
+      </div>
     </li>
   <% end %>
 </ul>
