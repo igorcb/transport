@@ -42,4 +42,8 @@ class Checkin < ApplicationRecord
   def input_control
     InputControl.where(id: self.operation_id).first
   end
+
+  def boarding
+    Boarding.where(id: self.operation_id).first
+  end
 end
