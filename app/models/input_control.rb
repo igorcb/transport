@@ -295,12 +295,22 @@ class InputControl < ActiveRecord::Base
     # fazer checagem se necessario
     return_value = false
     begin
+      checkin = Checkin.the_day.input.where(driver_cpf: self.driver.cpf).first
       ActiveRecord::Base.transaction do
         return_value = true
         self.update_attributes(date_receipt: Date.current, finish_time_discharge: Time.current, status: InputControl::TypeStatus::RECEIVED)
         nfe_input_control = self.nfe_xmls.first
         nfe_scheduling = NfeXml.where(nfe_type: "Scheduling", numero: nfe_input_control.numero).first
         Scheduling.where(id: nfe_scheduling.nfe_id).update_all(date_receipt_at: Time.current, status: Scheduling::TypeStatus::RECEIVED) if nfe_scheduling.present?
+        Checkin.create!( driver_cpf: self.driver.cpf,
+                        driver_name: self.driver.nome.upcase,
+                     operation_type: :input_control,
+                       operation_id: self.id,
+                        place_horse: checkin.place_horse,
+                       place_cart_1: checkin.place_cart_1,
+                       place_cart_2: checkin.place_cart_2,
+                               door: checkin.door,
+                             status: :finish)
         return_value = true
       end
     rescue Exception => e
