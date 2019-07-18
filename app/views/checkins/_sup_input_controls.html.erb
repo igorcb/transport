@@ -15,7 +15,7 @@
           <br>
             <% if checkin.input_control.start_time_discharge.present?  %>
             <span class="descarregando" title="Tempo que esta descarregando">descarregando à:
-              <strong><%= difference_as_time(checkin.input_control.start_time_discharge, Time.now) %></strong>
+              <strong><%= difference_as_time(checkin.input_control.start_time_boarding, Time.now) %></strong>
             </span>
             <% end %>
           </p>
