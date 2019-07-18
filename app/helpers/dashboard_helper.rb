@@ -11,9 +11,9 @@ module DashboardHelper
 
   def icon_status_boarding(status)
     case status
-      when Boarding::TypeStatus::ABERTO then image_tag "square.svg", size:"15x15"
-      when Boarding::TypeStatus::INICIADO then image_tag "triangle.svg", size:"15x15"
-      when Boarding::TypeStatus::EMBARCADO then image_tag "circle.svg", size:"15x15"
+      when Boarding::TipoStatus::ABERTO then image_tag "square.svg", size:"15x15"
+      when Boarding::TipoStatus::INICIADO then image_tag "triangle.svg", size:"15x15"
+      when Boarding::TipoStatus::EMBARCADO then image_tag "circle.svg", size:"15x15"
       else ""
     end
   end
