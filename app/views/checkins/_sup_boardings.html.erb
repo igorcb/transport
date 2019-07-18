@@ -14,7 +14,7 @@
             <span class="status" title="Status"><strong>Status: </strong><%= icon_status_boarding(checkin.boarding.status) %></span>
           <br>
             <% if checkin.boarding.start_time_boarding.present?  %>
-              <% checkin.boarding.status == Boarding::TipoStatus::EMBARCADO %>
+              <% if checkin.boarding.status == Boarding::TipoStatus::EMBARCADO %>
                 <span class="descarregando" title="Tempo que esta descarregando">Tempo do carregamento:
                   <strong><%= difference_as_time(checkin.boarding.start_time_boarding, checkin.boarding.finish_time_boarding) %></strong>
                 </span>
