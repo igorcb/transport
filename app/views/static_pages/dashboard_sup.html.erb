@@ -38,15 +38,15 @@
 
           <div class="col-md-6">
             <div class="legend">
-              <p><%= image_tag "square.svg", size:"15x15" %><big><%= Boarding.the_day.where(status: 0).count %></big> abertos</p>
-              <p><%= image_tag "triangle.svg", size:"15x15" %><big><%= Boarding.the_day.where(status: 4).count %></big> iniciados</p>
-              <p><%= image_tag "circle.svg", size:"15x15" %><big><%= Boarding.the_day.where(status: 1).count %></big> embarcados</p>
+              <p><%= image_tag "square.svg", size:"15x15" %><big><%= Boarding.opened.count %></big> abertos</p>
+              <p><%= image_tag "triangle.svg", size:"15x15" %><big><%= Boarding.loading.count %></big> iniciados</p>
+              <p><%= image_tag "circle.svg", size:"15x15" %><big><%= Boarding.boarded.count %></big> embarcados</p>
             </div>
             <%= link_to "Detalhes", sup_boardings_path, class: "btn btn-info text-info" %>
           </div>
         </div>
       </div>
-      <small>Atualizado hoje <%= date_br(Date.today) %></small>
+      <small>Atualizado hoje <%= date_br(Date.today) %> as <%= time_br(Time.now) %></small>
     </div>
   </div>
 </div>

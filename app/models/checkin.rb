@@ -36,4 +36,10 @@ class Checkin < ApplicationRecord
     str_places += ", #{self.place_cart_2 }" if self.place_cart_2.present?
     str_places
   end
+
+  # belongs_to :checkin_input_control, class_name: "InputControl", foreign_key: "operation_id", polymorphic: true, required: false
+  # belongs_to :checkin_boarding, class_name: "Boarding", foreign_key: "operation_id", polymorphic: true, required: false
+  def input_control
+    InputControl.where(id: self.operation_id).first
+  end
 end
