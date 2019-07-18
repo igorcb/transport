@@ -13,9 +13,9 @@
             <span class="remessa" title="Número de remessa">Emb. Nº: <strong><%= checkin.operation_id %></strong></span>
             <span class="status" title="Status"><strong>Status:</strong><%= icon_status_boarding(checkin.boarding.status) %></span>
           <br>
-            <% if checkin.boarding.start_time_discharge.present?  %>
+            <% if checkin.boarding.start_time_boarding.present?  %>
             <span class="descarregando" title="Tempo que esta descarregando">descarregando à:
-              <strong><%= difference_as_time(checkin.boarding.start_time_discharge, Time.now) %></strong>
+              <strong><%= difference_as_time(checkin.boarding.start_time_boarding, Time.now) %></strong>
             </span>
             <% end %>
           </p>
