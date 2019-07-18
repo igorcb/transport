@@ -1,13 +1,14 @@
 class CheckinsController < ApplicationController
-  # before_action :authenticate_user!
+  #before_action :authenticate_user!
   # before_action :set_checkin, only: [:show, :edit, :update, :destroy, :get_driver_name_by_cpf]
   #
   # #get_driver_name_by_cpf
   # load_and_authorize_resource
-
+  respond_to :html, :js
   # GET /checkins
   # GET /checkins.json
   def index
+    @q = Checkin.where(id: -1).search(params[:query])
     @checkins = Checkin.order(created_at: :desc)
   end
 
@@ -108,11 +109,20 @@ class CheckinsController < ApplicationController
   #   end
   # end
 
+  def search
+    @q = Checkin.order(created_at: :desc).search(params[:query])
+    @checkins = @q.result
+    respond_with(@checkins) do |format|
+      format.js
+    end
+  end
+
   def get_driver_name_by_cpf
     @driver = Driver.find_by_cpf(params[:cpf])
     data = @driver.present? ? {name: @driver.nome} : {name: ""}
     render :json => @driver.to_json.force_encoding("UTF-8")
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -1,0 +1,57 @@
+<div class="panel-body">
+  <%= search_form_for @q, remote: true, url: search_checkins_path, :method => :get do |f| %>
+
+    <div class="form-group" id="group_cpf_cnpj">
+      <%= f.label :driver_cpf, "Motorista CPF" %>
+      <%= f.search_field :driver_cpf_eq, class: "form-control", placeholder: "" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :driver_name_cont, "Motorista Nome" %>
+      <%= f.search_field :driver_name_cont, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :operation_type_eq, "Tipo de Operação" %>
+      <%= f.select(:operation_type_eq, [["Entrada", "0"], ["Embarque", "1"]], { include_blank: true }, {class: "form-control"}) %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :driver_cpf, "Placa Carreta" %>
+      <%= f.search_field :driver_cpf, class: "form-control" %>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-sm-6 col-md-3">
+        <%= f.label :created_at_eq, "Data" %>
+        <%= f.date_field :created_at_gteq, class: "form-control  input-sm", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>
+      </div>
+      <div class="form-group col-sm-6 col-md-3">
+        <%= f.label :date_entry_lteq, "até" %>
+        <%= f.date_field :created_at_lteq, class: "form-control  input-sm", placeholder: "Informe a Data do Entrada ex: 05-12-2014" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :place_horse_eq, "Placa Cavalo" %>
+      <%= f.search_field :place_horse_eq, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :place_cart_1_eq, "Placa Carreta 1" %>
+      <%= f.search_field :place_cart_1_eq, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :place_cart_2_eq, "Placa Carreta 2" %>
+      <%= f.search_field :place_cart_2_eq, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :status_eq, "Status" %>
+      <%= f.select(:status_eq, [["Entrada", "0"], ["Inicio", "1"], ["Fim", "2"], ["Saida", "3"]], { include_blank: true }, {class: "form-control"}) %>
+    </div>
+
+    <%= f.submit "Search", class:"btn btn-default" %>
+  <% end %>
+</div>
