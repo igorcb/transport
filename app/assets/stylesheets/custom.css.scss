@@ -62,6 +62,9 @@ body {
       color: #000;
       text-decoration: none;
     }
+    &.btn{
+      color: white;
+    }
   }
   .card {
     background: #EEE;
@@ -72,6 +75,10 @@ body {
     border: 2px white solid;
     box-shadow: 3px 3px 3px rgba(0,0,0, 0.2);
     padding: 20px;
+    canvas{
+      position: relative;
+      z-index: 99;
+    }
     .list-info{
       border-bottom: 1px #CCC solid;
       padding: 5px;
@@ -123,6 +130,7 @@ body {
     text-align: center;
     line-height: 25px;
     width: 180px;
+    z-index: 9;
     small{
       font-size:16px;
       color:white;
