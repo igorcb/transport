@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <div class="card">
       <h3 class="text-center">Checkins</h3>
-      <div id="input" class="card-body">
+      <div id="checkin" class="card-body">
         <div class="row">
           <div class="col-md-4 col-md-offset-2">
             <h1 class="total"><span class="counter_number" data-init="0" data-end="<%= Checkin.input.the_day.count %>"></span></h1>
@@ -42,6 +42,28 @@
       <small>Atualizado hoje <%= date_br(Date.today) %></small>
     </div>
   </div>
+</div>
+
+
+  <div class="row dashboards">
+    <div class="col-md-6">
+      <div class="card" style="margin-top:15px">
+        <div class="card-body">
+          <h3 class="text-center">Checkins de entradas</h3>
+          <%= render 'checkins/sup_boardings', checkins: @checkins_input_controls %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card" style="margin-top:15px">
+        <div class="card-body">
+          <h3 class="text-center">Checkins de embarque</h3>
+          <%= render 'checkins/sup_boardings', checkins: @checkins_boardings %>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
@@ -68,8 +90,7 @@
 
 
   $(document).ready(function(){
-    counterNumber($("#boarding .counter_number"))
-    counterNumber($("#input .counter_number"))
+    counterNumber($("#checkin .counter_number"))
   });
     // new CounterNumber("#checkins .boarding .counter_number")
 
@@ -93,4 +114,4 @@
 
 
 
-<%= render "checkins/list_port.html.erb", checkins: @checkins %>
+<%#= render "checkins/list_port.html.erb", checkins: @checkins %>
