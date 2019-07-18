@@ -22,7 +22,7 @@
         </div>
 
       </div>
-      <small>Atualizado hoje <%= date_br(Date.today) %></small>
+      <small>Atualizado hoje <%= date_br(Date.today) %> as <%= time_br(Time.now) %></small>
     </div>
   </div>
 
@@ -57,11 +57,21 @@
     <div class="card">
       <div class="card-body">
         <h3 class="text-center">Checkins de entrada</h3>
-        <%= render 'checkins/sup', checkins: @checkins_input_controls %>
+        <%= render 'checkins/sup_input_controls', checkins: @checkins_input_controls %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="text-center">Checkins de embarque</h3>
+        <%= render 'checkins/sup_boardings', checkins: @checkins_boardings %>
       </div>
     </div>
   </div>
 </div>
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>

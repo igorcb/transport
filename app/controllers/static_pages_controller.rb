@@ -22,7 +22,8 @@ class StaticPagesController < ApplicationController
 	end
 
 	def dashboard_sup
-		@checkins_input_controls =  Checkin.input_control.input.order(id: :asc).the_day
+		@checkins_boardings = Checkin.boarding.input.order(id: :asc).the_day
+		@checkins_input_controls = Checkin.input_control.input.order(id: :asc).the_day
 	end
 
 	def dashboard_port
