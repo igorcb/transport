@@ -57,7 +57,7 @@ RSpec.describe InputControls::StartService, type: :service do
       expect(result[:message]).to match("Input Control started successfully.")
     end
 
-    it "when the input_control has already been started DISCHARGE" do
+    it "when input_control has already been finalized" do
       Checkin.input_control.the_day.where(driver_cpf: @input_control.driver.cpf).destroy_all
       @input_control.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
       checkin_input = create_checkin_input(@input_control)
