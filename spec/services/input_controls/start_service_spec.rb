@@ -57,6 +57,17 @@ RSpec.describe InputControls::StartService, type: :service do
       expect(result[:message]).to match("Input Control started successfully.")
     end
 
+    it "when the input_control has already been started DISCHARGE" do
+      Checkin.input_control.the_day.where(driver_cpf: @input_control.driver.cpf).destroy_all
+      @input_control.update_attributes(status: InputControl::TypeStatus::FINISH_TYPING)
+      checkin_input = create_checkin_input(@input_control)
+      checkin_start = create_checkin_start(@input_control)
+      result = InputControls::StartService.new(@input_control, @user).call
+      expect(result[:success]).to be_falsey
+      expect(result[:message]).to match("Input Control already been started DISCHARGE.")
+    end
+
+
   end
 
   private
@@ -70,5 +81,17 @@ RSpec.describe InputControls::StartService, type: :service do
                      place_cart_2: 'LWK2981',
                              door: 1,
                            status: :input)
+    end
+
+    def create_checkin_start(input_control)
+      Checkin.create!( driver_cpf: input_control.driver.cpf,
+                      driver_name: input_control.driver.nome.upcase,
+                   operation_type: :input_control,
+                     operation_id: input_control.id,
+                      place_horse: 'HPX9087',
+                     place_cart_1: 'PWM8765',
+                     place_cart_2: 'LWK2981',
+                             door: 1,
+                           status: :start)
     end
 end
