@@ -1,0 +1,21 @@
+<tr>
+  <td><%= checkin.driver_cpf %></td>
+  <td><%= checkin.driver_name %></td>
+  <td><%= checkin.place_horse %></td>
+  <td><%= translate "activerecord.attributes.enums.checkin.operation_type.#{checkin.operation_type}"  %></td>
+  <td><%= checkin.operation_id %></td>
+  <td><%= translate "activerecord.attributes.enums.checkin.status.#{checkin.status}"  %></td>
+  <td><%= date_br checkin.created_at %></td>
+  <td><%= time_br checkin.created_at %></td>
+  <td> <%#= checkout_checkin_path(checkin.id, driver_cpf: checkin.driver_cpf, operation: checkin.operation_type %>
+    <%= link_to '#' do %>
+      <i class="fas fa-truck notification"></i>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to checkin_path(checkin) do %>
+      <i class="fas fa-eye notification"></i>
+    <% end %>
+  </td>
+
+</tr>

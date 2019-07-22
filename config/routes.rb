@@ -31,12 +31,13 @@ Rails.application.routes.draw do
   end
   resources :warehouses
   resources :checkins do
-    collection do
-      get :sup_input
-      get :sup_boarding
-    end
     member do
       get :checkout
+    end
+    collection do
+      get :search
+      get :sup_input
+      get :sup_boarding
     end
   end
   resources :driver_restrictions do

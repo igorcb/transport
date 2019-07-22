@@ -1,49 +1,51 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+      <%= render "form_search" %>
+
+    </div>
+  </div>
+
+</div>
+
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Checkin</div>
   <div class="panel-body">
+
     <%= link_to 'New Checkins', new_checkin_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>CPF</th>
-            <th>Motorista</th>
-            <th>Placa Cav.</th>
-            <th>Operacao</th>
-            <th>ID</th>
-            <th>Status</th>
-            <th>Data</th>
-            <th>Hora</th>
-            <th colspan="3">Opções</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% @checkins.each do |checkin| %>
-            <tr>
-              <td><%= checkin.driver_cpf %></td>
-              <td><%= checkin.driver_name %></td>
-              <td><%= checkin.place_horse %></td>
-              <td><%= translate "activerecord.attributes.enums.checkin.operation_type.#{checkin.operation_type}"  %></td>
-              <td><%= checkin.operation_id %></td>
-              <td><%= translate "activerecord.attributes.enums.checkin.status.#{checkin.status}"  %></td>
-              <td><%= date_br checkin.created_at %></td>
-              <td><%= time_br checkin.created_at %></td>
-              <td> <%#= checkout_checkin_path(checkin.id, driver_cpf: checkin.driver_cpf, operation: checkin.operation_type %>
-                <%= link_to '#' do %>
-                  <i class="fas fa-truck notification"></i>
-                <% end %>
-              </td>
-              <td>
-                <%= link_to checkin_path(checkin) do %>
-                  <i class="fas fa-eye notification"></i>
-                <% end %>
-              </td>
+        <div id="result_checkin">
 
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+        <table class="table table-striped">
+          <thead>
+            <%= render 'header' %>
+
+          </thead>
+
+          <tbody>
+            <%= render @checkins %>
+          </tbody>
+
+        </table>
+      </div>
+
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.has_tooltip').tooltip();
+  });
+</script>

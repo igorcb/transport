@@ -1,0 +1,2 @@
+$('#result_checkin').empty();
+$("#result_checkin").append("<table class='table table-striped'><thead><%= j(render(:partial => 'header')) %></thead><tbody><%= j(render @checkins) %></tbody></table>");

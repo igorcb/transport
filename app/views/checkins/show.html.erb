@@ -32,7 +32,7 @@
     </thead>
 
     <tbody>
-      <% Checkin.where(driver_cpf: @checkin.driver_cpf).where("DATE(created_at) = ?", @checkin.created_at.to_date).each do |checkin| %>
+      <% Checkin.where(driver_cpf: @checkin.driver_cpf).where("DATE(created_at) = ?", @checkin.created_at.to_date).order(status: :asc).each do |checkin| %>
         <tr>
           <td><%= translate "activerecord.attributes.enums.checkin.status.#{checkin.status}" %></td>
           <td><%= time_br checkin.created_at %></td>
