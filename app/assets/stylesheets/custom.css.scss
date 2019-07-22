@@ -80,18 +80,24 @@ body {
       z-index: 99;
     }
     .list-info{
-      border-bottom: 1px #CCC solid;
-      padding: 5px;
       li{
         display: flex;
         align-items: center;
+        border-bottom: 1px #CCC solid;
+        padding: 5px;
         figure{
-          display: block;
+          display: flex;
           width: 60px;
           height: 60px;
           border-radius: 50%;
+          color: white;
+          font-weight: bold;
+          font-size: 22px;
+          align-items: center;
+          justify-content: center;
           background-size: cover;
           background-repeat: no-repeat;
+          box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         >.informations{
           margin-left:5px;
