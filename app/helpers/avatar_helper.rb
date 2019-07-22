@@ -10,9 +10,9 @@ module AvatarHelper
 
     # return File.exist?(url.url)
     if(url.present?)
-      html = "<figure style=\"background-image:url('#{url}')\"></figure>"
+      html = "<figure style=\"background-image:url('#{url}')\" class=\"avatar\"></figure>"
     else
-      html = "<figure style=\"background-color: #{color.sample};\">#{initials.upcase}</figure>"
+      html = "<figure style=\"background-color: #{color.sample};\" class=\"avatar\">#{initials.upcase}</figure>"
     end
 
     html.html_safe;
