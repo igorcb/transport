@@ -9,6 +9,11 @@ class StaticPagesController < ApplicationController
 
 	end
 
+	def dashboard_admin
+		@inactive_properties = Checkin.group_by_week(:created_at).input.count
+		@active_properties = Checkin.group_by_week(:created_at).boarding.count
+	end
+
 	def dashboard_visit
 
 	end
