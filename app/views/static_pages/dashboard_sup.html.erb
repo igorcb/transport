@@ -71,8 +71,10 @@
 
   var inputChart = new Chart($('#inputChart'), {
     type: 'doughnut',
-    legend: {
-      display: false
+    options:{
+      legend: {
+        display: false
+      }
     },
     data: {
         datasets: [{
@@ -81,11 +83,17 @@
                    <%= InputControl.received.count %>],
             backgroundColor: ['#007bff', '#fd7e14', '#28a745']
         }],
+        labels: ['Abertos', 'Iniciados', 'Recebidos'],
     }
   });
 
   var boardingChart = new Chart($('#boardingChart'), {
     type: 'doughnut',
+    options:{
+      legend: {
+        display: false
+      }
+    },
     data: {
         datasets: [{
             data: [<%= Boarding.the_day.where(status: 0).count %>,
@@ -93,7 +101,7 @@
                    <%= Boarding.the_day.where(status: 1).count %>],
             backgroundColor: ['#007bff', '#fd7e14', '#28a745']
         }],
-        // labels: ['Aberto', 'Iniciado', 'Embarcado']
+        labels: ['Aberto', 'Iniciado', 'Embarcado'],
     }
   });
 
