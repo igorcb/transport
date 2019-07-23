@@ -24,5 +24,5 @@
 //= require bootstrap/image-gallery.min
 
 //= require cocoon
-
+//= require apexcharts
 //= require_tree .
