@@ -1,7 +1,13 @@
 <ul class="list-info">
   <% checkins.each do |checkin| %>
     <li>
-      <figure style="background-image:url('https://p2.trrsf.com/image/fget/cf/1200/1200/filters:quality(85)/images.terra.com/2019/07/14/3083873-luciano-huck-surge-mais-velho-em-foto-e-650x488-2.jpg')"></figure>
+      <% driver = Driver.where(cpf: checkin[:driver_cpf]).first %>
+      <% if driver.present? %>
+        <% image_avatar = driver.avatar.present? ? driver.avatar.url(:mini) : "image_not_found.jpg"  %>
+        <%= avatar checkin.driver_name, image_avatar %>
+      <% else %>
+        <%= avatar checkin.driver_name, "" %>
+      <% end %>
       <div class="informations">
         <p>
         <strong class="name"><%= checkin.driver_name %></strong><br>

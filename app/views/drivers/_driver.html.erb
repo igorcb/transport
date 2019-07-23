@@ -1,10 +1,8 @@
 <tr>
-  <% image_avatar = driver.avatar.present? ? driver.avatar.url(:mini) : "image_not_found.jpg"  %>
-  <td><%= image_tag image_avatar, size: "144x90"    %> </td>
+  <% image_avatar = driver.avatar.present? ? driver.avatar.url(:mini) : ""  %>
+  <td><%= avatar driver.nome, image_avatar %> </td>
   <td><%= driver.cpf %></td>
   <td><%= driver.nome %></td>
-  <td><%= driver.fantasia %></td>
-  <td><%= driver.rg %></td>
   <td><%= driver.cnh %></td>
   <td><%= driver.categoria_nome %></td>
   <td><%= date_br driver.validade_cnh %></td>
