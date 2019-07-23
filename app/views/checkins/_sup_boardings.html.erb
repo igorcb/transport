@@ -3,7 +3,7 @@
     <li>
       <% driver = Driver.where(cpf: checkin[:driver_cpf]).first %>
       <% if driver.present? %>
-        <% image_avatar = driver.avatar.present? ? driver.avatar.url(:mini) : "image_not_found.jpg"  %>
+        <% image_avatar = driver.avatar.present? ? driver.avatar.url(:mini) : ""  %>
         <%= avatar checkin.driver_name, image_avatar %>
       <% else %>
         <%= avatar checkin.driver_name, "" %>
