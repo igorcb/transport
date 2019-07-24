@@ -10,8 +10,13 @@ class StaticPagesController < ApplicationController
 	end
 
 	def dashboard_admin
-		@inactive_properties = Checkin.group_by_week(:created_at).input.count
-		@active_properties = Checkin.group_by_week(:created_at).boarding.count
+		last_day = 30
+		@inputs_daily = InputControl.where("input_controls.date_scheduled > ?", Time.now-last_day.days).group_by_day(:date_scheduled).count
+		@carriers = InputControl.joins(:carrier).where("input_controls.created_at > ?", Time.now-last_day.days).select("carriers.nome").group("carriers.nome").count(:id)
+		@input_weight = InputControl.where("input_controls.date_scheduled > ?", Time.now-last_day.days).sum(:weight)
+		@input_volume = InputControl.where("input_controls.date_scheduled > ?", Time.now-last_day.days).sum(:volume)
+		@inputs_num = InputControl.where("input_controls.date_scheduled > ?", Time.now-last_day.days).count
+		@boardings_num = Boarding.where("date_boarding > ?", Time.now-last_day.days).count
 	end
 
 	def dashboard_visit

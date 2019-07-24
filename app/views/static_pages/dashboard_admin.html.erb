@@ -1,52 +1,36 @@
-<%
-first = {
-  series: [
-    {name: "Entradas", data: @inactive_properties},
-    {name: "Embarques", data: @active_properties}
-  ],
-   options: {
-    title: 'Checkings',
-    subtitle: 'Agrupados por status',
-    xtitle: 'Semanal',
-    ytitle: 'Quantidade',
-    stacked: true
-  }
-}
-%>
-
 <div class="row dashboards" style="margin-bottom:15px">
   <div class="col-md-3">
-    <div class="card" style="background-color: #e7c0ff">
-      <h3>450.89</h3> <br>
+    <div class="card" style="background-color: #783f9a; color: white;">
+      <h3><%= number_to_currency(@input_weight, precision: 3, unit: "", separator: ",", delimiter: ".") %></h3> <br>
       <div id="input" class="card-body">
-        Boarding
+        Pesos de entrada
       </div>
     </div>
   </div>
 
   <div class="col-md-3">
-    <div class="card" style="background-color: #c0eeff">
-      <h3>1250.89</h3> <br>
+    <div class="card" style="background-color: #0792c5; color: white;">
+      <h3><%= number_to_currency(@input_volume, precision: 3, unit: "", separator: ",", delimiter: ".") %></h3> <br>
       <div id="input" class="card-body">
-        Input
+        Volume de entradas
       </div>
     </div>
   </div>
 
   <div class="col-md-3">
-    <div class="card" style="background-color: #c1ffc0">
-      <h3>8080.89</h3> <br>
+    <div class="card" style="background-color: #179e14; color: white;">
+      <h3><%= number_to_currency(@inputs_num, precision: 0, unit: "", separator: ",", delimiter: ".") %></h3> <br>
       <div id="input" class="card-body">
-        Boarding
+        Todas as entradas
       </div>
     </div>
   </div>
 
   <div class="col-md-3">
-    <div class="card" style="background-color: #fff7c0">
-      <h3>9850.89</h3> <br>
+    <div class="card" style="background-color: #a2a099;color: white;">
+      <h3><%= number_to_currency(@boardings_num, precision: 0, unit: "", separator: ",", delimiter: ".") %></h3> <br>
       <div id="input" class="card-body">
-        Input
+        Embarques
       </div>
     </div>
   </div>
@@ -54,33 +38,9 @@ first = {
 <!--  Entradas -->
 <div class="row dashboards">
   <div class="col-md-6">
-    <div class="card">
-      <h3 class="text-center">Chekings</h3>
-      <div id="input" class="card-body">
-        <div class="row">
-          <div class="col-md-12">
-            <h1 class="total"><span class="counter_number" data-init="0" data-end="<%= InputControl.available_supervisor.count %>"></span></h1>
-            <%= line_chart(first[:series], first[:options]) %>
-          </div>
-      </div>
-      <small>Atualizado hoje <%= date_br(Date.today) %> as <%= time_br(Time.now) %></small>
-      </div>
-    </div>
+    <%= render partial: 'static_pages/dashboard_admin/input_daily' %>
   </div>
-
   <div class="col-md-6">
-    <div class="card">
-      <h3 class="text-center">Entradas</h3>
-      <div id="input" class="card-body">
-        <div class="row">
-          <div class="col-md-12">
-            <h1 class="total"><span class="counter_number" data-init="0" data-end="<%= InputControl.available_supervisor.count %>"></span></h1>
-            <%#= scatter_chart(first[:series], {**first[:options], theme: 'palette3'}) %>
-            <%= bar_chart(first[:series], {**first[:options], xtitle: 'Properties', ytitle: 'Week', height: 800, theme: 'palette7'}) %>
-          </div>
-      </div>
-      <small>Atualizado hoje <%= date_br(Date.today) %> as <%= time_br(Time.now) %></small>
-      </div>
-    </div>
+    <%= render partial: 'static_pages/dashboard_admin/carrier' %>
   </div>
 </div>
