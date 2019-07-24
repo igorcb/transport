@@ -1,6 +1,12 @@
 <%
+string = {}
+@inputs_daily.each do |key, value|
+  string[key.strftime('%a, %d %b %Y')] = value
+end
+
+
 series = [
-    {name: "Entradas", data: @inputs_daily}
+    {name: "Entradas", data: string  }
   ]
 options = {
   subtitle: 'Agrupados por status',
@@ -9,8 +15,6 @@ options = {
   stacked: true
 }
  %>
-
-
 
  <div class="card">
    <h3 class="text-center">Entradas diárias</h3>
