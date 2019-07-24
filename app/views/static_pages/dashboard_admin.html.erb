@@ -44,3 +44,11 @@
     <%= render partial: 'static_pages/dashboard_admin/carrier' %>
   </div>
 </div>
+
+<div class="row dashboards">
+  <ul>
+  <% @inputs_daily.each do |input|%>
+    <li> Data: <%= input[0] %> Qtde: <%= input[1] %> </li>
+  <% end %>
+</ul>
+</div>
