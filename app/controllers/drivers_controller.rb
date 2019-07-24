@@ -25,6 +25,11 @@ class DriversController < ApplicationController
     @q = Driver.where(id: -1).search(params[:query])
   end
 
+  def index2
+    @drivers = Driver.limit(50)
+    @q = Driver.where(id: -1).search(params[:query])
+  end
+
   # GET /drivers/1
   # GET /drivers/1.json
   def show

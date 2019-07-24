@@ -596,6 +596,7 @@ Rails.application.routes.draw do
   resources :drivers do
     resources :driver_restrictions
     collection do
+      get :index2
       get :search
     end
   end

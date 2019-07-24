@@ -1,0 +1,19 @@
+<% @drivers.each do |driver| %>
+  <tr>
+    <% image_avatar = driver.avatar.present? ? driver.avatar.url(:mini) : ""  %>
+    <td><%= avatar driver.nome, image_avatar %> </td>
+    <td><label>Nome:</label><%= driver.nome %></td>
+    <td><label>CPF:</label><%= driver.cpf %></td>
+    <td><label>CNH:</label><%= driver.cnh %></td>
+    <td><label>Cat:</label><%= driver.categoria_nome %></td>
+    <td><label>CNH Vecto:</label><%= date_br driver.validade_cnh %></td>
+    <td>
+      <%= link_to driver, class: "btn btn-info btn-sm", title: "Detalhes" do %>
+        <i class="far fa-list-alt"></i>
+      <% end %>
+      <%= link_to edit_driver_path(driver), class: "btn btn-blue btn-sm", title: 'Edit' do %>
+        <i class="fas fa-pencil-alt"></i>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

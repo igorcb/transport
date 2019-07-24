@@ -1,0 +1,104 @@
+<style>
+.table-card{
+
+}
+.table-card tr{
+
+}
+.table-card td{
+
+}
+.table-card td label{
+  display: none;
+}
+
+@media (max-width: 900px)
+{
+  .table-card{
+
+  }
+  .table-card thead{
+    display: none;
+  }
+  .table-card tbody{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .table-card tbody tr{
+    display: block;
+    width: calc(50% - 15px);
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    background-color: white !important;
+    margin-right: 15px;
+    margin-top: 15px;
+  }
+  .table-card tbody td{
+    display: block;
+  }
+  .table-card tbody td label{
+    display: inline;
+    margin-right: 5px;
+  }
+}
+</style>
+<div class="row" style="margin-bottom:15px;">
+  <div class="col-md-12">
+    <%= link_to new_driver_path, class: "btn btn-primary" do %>
+      <i class="fas fa-plus"></i> Novo Motoristas
+    <% end %>
+  </div>
+</div>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEleven">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          Pesquisar
+        </a>
+      </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+      <div class="panel-body">
+
+      <%= render "form_search" %>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Todos os motoristas</h3>
+  </div>
+  <div class="panel-body">
+
+    <div class="table-responsive">
+
+      <div id="result_driver">
+
+      <table class="table table-striped table-card">
+        <thead>
+          <th></th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Cnh</th>
+          <th>Categoria</th>
+          <th>Validade CNH</th>
+          <th colspan="3"></th>
+        </thead>
+
+        <tbody>
+          <%= render partial: "driver2" %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.has_tooltip').tooltip();
+  });
+</script>
