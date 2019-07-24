@@ -11,7 +11,7 @@ class StaticPagesController < ApplicationController
 
 	def dashboard_admin
 		last_day = 3
-		@inputs_daily = InputControl.where("date_scheduled > ?", Date.current - last_day.days).group_by_day(:date_scheduled, time_zone: false).count
+		@inputs_daily = InputControl.where("date_scheduled > ?", Date.current - last_day.days).group_by_day(:date_scheduled).count
 		@carriers = InputControl.joins(:carrier).where("input_controls.created_at > ?", Date.current - last_day.days).select("carriers.nome").group("carriers.nome").count(:id)
 		@input_weight = InputControl.where("input_controls.date_scheduled > ?", Date.current - last_day.days).sum(:weight)
 		@input_volume = InputControl.where("input_controls.date_scheduled > ?", Date.current - last_day.days).sum(:volume)
