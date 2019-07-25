@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div class="col-md-3">
+  <div class="col-md-6">
     <div class="card" style="background-color: #179e14; color: white;">
       <h3><%= number_to_currency(@inputs_num, precision: 0, unit: "", separator: ",", delimiter: ".") %></h3> <br>
       <div id="input" class="card-body">
@@ -25,12 +25,32 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="row dashboards" style="margin-bottom:15px">
+  <div class="col-md-3">
+    <div class="card" style="background-color: #542a6d; color: white;">
+      <h3><%= number_to_currency(@input_weight, precision: 3, unit: "", separator: ",", delimiter: ".") %></h3> <br>
+      <div id="input" class="card-body">
+        Pesos de embarques
+      </div>
+    </div>
+  </div>
 
   <div class="col-md-3">
+    <div class="card" style="background-color: #037fad; color: white;">
+      <h3><%= number_to_currency(@input_volume, precision: 3, unit: "", separator: ",", delimiter: ".") %></h3> <br>
+      <div id="input" class="card-body">
+        Volume de embarques
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
     <div class="card" style="background-color: #a2a099;color: white;">
       <h3><%= number_to_currency(@boardings_num, precision: 0, unit: "", separator: ",", delimiter: ".") %></h3> <br>
       <div id="input" class="card-body">
-        Embarques
+        Todos os embarques
       </div>
     </div>
   </div>
@@ -48,5 +68,8 @@
 <div class="row dashboards" style="margin-top:15px">
   <div class="col-md-6">
     <%= render partial: 'static_pages/dashboard_admin/input_status' %>
+  </div>
+  <div class="col-md-6">
+    <%= render partial: 'static_pages/dashboard_admin/boarding_status' %>
   </div>
 </div>

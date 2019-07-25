@@ -11,7 +11,14 @@ class StaticPagesController < ApplicationController
 
 	def dashboard_admin
 		last_day = 30
-		@inputs_daily = dashboard_date InputControl.where("date_scheduled > ?", Date.current - last_day.days).group_by_day(:date_scheduled, time_zone: false).count
+		@inputs_daily = dashboard_date(InputControl.where("date_scheduled > ?", Date.current - last_day.days)
+												.group_by_day(:date_scheduled, time_zone: false)
+												.count,
+												"%d %b")
+		@boardings_daily = dashboard_date(Boarding.where("created_at > ?", Date.current - last_day.days)
+												.group_by_day(:created_at, time_zone: false)
+												.count,
+												"%d %b")
 		@carriers = InputControl.joins(:carrier).where("input_controls.created_at > ?", Date.current - last_day.days)
 														.select("carriers.fantasia")
 														.group("carriers.fantasia")
@@ -19,12 +26,16 @@ class StaticPagesController < ApplicationController
 														.count(:id)
 
 		# parte do input status
-		@input_status = InputControl.where("created_at > ?", Date.current - last_day.days).group("created_at")
+		@input_status = InputControl.where("date_scheduled > ?", Date.current - last_day.days).group("date_scheduled")
+		@boarding_status = Boarding.where("created_at > ?", Date.current - last_day.days).group("created_at")
 
 		@input_weight = InputControl.where("date_scheduled > ?", Date.current - last_day.days).sum(:weight)
 		@input_volume = InputControl.where("date_scheduled > ?", Date.current - last_day.days).sum(:volume)
 		@inputs_num = InputControl.where("date_scheduled > ?", Date.current - last_day.days).count
+
 		@boardings_num = Boarding.where("date_boarding > ?",Date.current - last_day.days).count
+		# @boardings_weight = Boarding.where("created_at > ?", Date.current - last_day.days).peso_bruto.sum()
+		# @boardings_volume = Boarding.where("created_at > ?", Date.current - last_day.days).volume_total.sum()
 
 	end
 

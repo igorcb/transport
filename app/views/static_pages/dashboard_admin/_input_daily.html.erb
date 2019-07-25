@@ -1,12 +1,11 @@
 <%
 
-
-
 series = [
-    {name: "Entradas", data: @inputs_daily  }
+    {name: "Entradas", data: @inputs_daily  },
+    {name: "Embarques", data: @boardings_daily  }
   ]
 options = {
-  subtitle: 'Agrupados por status',
+  subtitle: 'Agrupados por dia',
   xtitle: 'dias',
   ytitle: 'Nº de entradas',
   stacked: true
