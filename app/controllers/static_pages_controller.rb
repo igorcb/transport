@@ -17,6 +17,11 @@ class StaticPagesController < ApplicationController
 														.group("carriers.fantasia")
 														.order("carriers.fantasia")
 														.count(:id)
+<<<<<<< HEAD
+=======
+		@input_status = InputControl.where("created_at > ?", Date.current - last_day.days).group("created_at")
+
+>>>>>>> layout
 		@input_weight = InputControl.where("date_scheduled > ?", Date.current - last_day.days).sum(:weight)
 		@input_volume = InputControl.where("date_scheduled > ?", Date.current - last_day.days).sum(:volume)
 		@inputs_num = InputControl.where("date_scheduled > ?", Date.current - last_day.days).count
