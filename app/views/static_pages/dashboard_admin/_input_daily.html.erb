@@ -1,12 +1,6 @@
 <%
-string = {}
-@inputs_daily.each do |key, value|
-  string[key.strftime('%a, %d %b %Y')] = value
-end
-
-
 series = [
-    {name: "Entradas", data: string  }
+    {name: "Entradas", data: @inputs_daily  }
   ]
 options = {
   subtitle: 'Agrupados por status',
