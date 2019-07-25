@@ -17,6 +17,9 @@
   .table-card{
 
   }
+  .table-responsive{
+    border: none;
+  }
   .table-card thead{
     display: none;
   }
@@ -29,16 +32,24 @@
     width: calc(50% - 15px);
     border: 1px solid #CCC;
     border-radius: 5px;
-    background-color: white !important;
-    margin-right: 15px;
+    background-color: #f9f9f9 !important;
+    margin-left: 7.5px;
+    margin-right: 7.5px;
     margin-top: 15px;
   }
   .table-card tbody td{
     display: block;
+    border-top: none !important;
   }
   .table-card tbody td label{
     display: inline;
     margin-right: 5px;
+  }
+}
+@media (max-width: 530px)
+{
+  .table-card tbody tr{
+    width: calc(100% - 15px);
   }
 }
 </style>
