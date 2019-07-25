@@ -1,13 +1,20 @@
 <%
-series = [
-    {name: "Entradas", data: @inputs_daily  }
-  ]
 options = {
   subtitle: 'Agrupados por status',
   xtitle: 'dias',
-  ytitle: 'Nº de entradas',
-  stacked: true
+  ytitle: 'Status',
+  theme: 'palette4',
+  height: 300,
+  stacked: false
 }
+
+series = [
+  {name: "Aberto", data: @input_status.where("status = ?", 0).count.count},
+  {name: "Recebido", data: @input_status.where("status = ?", 1).count.count},
+  {name: "Dig.Finalizada", data: @input_status.where("status = ?", 4).count.count},
+  {name: "Descarregando", data: @input_status.where("status = ?", 5).count.count}
+]
+
  %>
 
  <div class="card">
@@ -16,9 +23,9 @@ options = {
      <div class="row">
        <div class="col-md-12">
          <h1 class="total"><span class="counter_number" data-init="0" data-end="<%= InputControl.available_supervisor.count %>"></span></h1>
-         <%= line_chart(series, options) %>
+        <%= donut_chart(series, options) %>
        </div>
-     </div>
+   </div>
    <small>Atualizado hoje <%= date_br(Date.today) %> as <%= time_br(Time.now) %></small>
    </div>
  </div>

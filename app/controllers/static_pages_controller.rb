@@ -11,12 +11,19 @@ class StaticPagesController < ApplicationController
 
 	def dashboard_admin
 		last_day = 30
-		@inputs_daily = InputControl.where("input_controls.date_scheduled > ?", Time.now-last_day.days).group_by_day(:date_scheduled).count
-		@carriers = InputControl.joins(:carrier).where("input_controls.created_at > ?", Time.now-last_day.days).select("carriers.nome").group("carriers.nome").count(:id)
-		@input_weight = InputControl.where("input_controls.date_scheduled > ?", Time.now-last_day.days).sum(:weight)
-		@input_volume = InputControl.where("input_controls.date_scheduled > ?", Time.now-last_day.days).sum(:volume)
-		@inputs_num = InputControl.where("input_controls.date_scheduled > ?", Time.now-last_day.days).count
-		@boardings_num = Boarding.where("date_boarding > ?", Time.now-last_day.days).count
+		@inputs_daily = dashboard_date InputControl.where("date_scheduled > ?", Date.current - last_day.days).group_by_day(:date_scheduled, time_zone: false).count
+		@carriers = InputControl.joins(:carrier).where("input_controls.created_at > ?", Date.current - last_day.days)
+														.select("carriers.fantasia")
+														.group("carriers.fantasia")
+														.order("carriers.fantasia")
+														.count(:id)
+		@input_status = InputControl.where("created_at > ?", Date.current - last_day.days).group("created_at")
+
+		@input_weight = InputControl.where("date_scheduled > ?", Date.current - last_day.days).sum(:weight)
+		@input_volume = InputControl.where("date_scheduled > ?", Date.current - last_day.days).sum(:volume)
+		@inputs_num = InputControl.where("date_scheduled > ?", Date.current - last_day.days).count
+		@boardings_num = Boarding.where("date_boarding > ?",Date.current - last_day.days).count
+
 	end
 
 	def dashboard_visit
@@ -65,4 +72,16 @@ class StaticPagesController < ApplicationController
 	def phones
 	  #code
 	end
+
+
+	private
+	def dashboard_date object, string_format='%a, %d %b %Y'
+		string = {}
+		object.each do |key, value|
+		  string[key.strftime(string_format)] = value
+		end
+
+		string
+	end
+
 end
