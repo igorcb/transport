@@ -20,11 +20,17 @@
             <span class="remessa" title="Número de remessa">Rem. Nº: <strong><%= checkin.operation_id %></strong></span>
             <span class="status" title="Status"><strong>Status:</strong><%= icon_status_input_control(checkin.input_control.status) %></span>
           <br>
-            <% if checkin.input_control.start_time_discharge.present?  %>
-            <span class="descarregando" title="Tempo que esta descarregando">descarregando à:
-              <strong><%= difference_as_time(checkin.input_control.start_time_discharge, Time.now) %></strong>
-            </span>
+          <% if checkin.input_control.start_time_boarding.present?  %>
+            <% if checkin.input_control.status == InputControl::TypeStatus::RECEIVED %>
+              <span class="descarregando" title="Tempo que esta descarregando">Tempo do carregamento:
+                <strong><%= difference_as_time(checkin.input_control.start_time_discharge, checkin.input_control.finish_time_discharge) %></strong>
+              </span>
+            <% else %>
+              <span class="descarregando" title="Tempo de descarga">descarregando à
+                <strong><%= difference_as_time(checkin.input_control.start_time_discharge, Time.now) %></strong>
+              </span>
             <% end %>
+          <% end %>
           </p>
         <% end %>
       </div>
