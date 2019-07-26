@@ -2,7 +2,8 @@
 series = [
     {name: "Aberto", data: @boarding_status.where("status = ?", 0).count.count  },
     {name: "Carregando", data: @boarding_status.where("status = ?", 4).count.count  },
-    {name: "Embarcado", data: @boarding_status.where("status = ?", 1).count.count  }
+    {name: "Embarcado", data: @boarding_status.where("status = ?", 1).count.count  },
+    {name: "Entregue", data: @boarding_status.where("status = ?", 2).count.count  }
   ]
 options = {
   subtitle: 'Agrupados por status',
