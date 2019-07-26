@@ -37,6 +37,8 @@ class StaticPagesController < ApplicationController
 		# @boardings_weight = Boarding.where("created_at > ?", Date.current - last_day.days).peso_bruto.sum()
 		# @boardings_volume = Boarding.where("created_at > ?", Date.current - last_day.days).volume_total.sum()
 
+    @boarding_weight = Boarding.joins(:nfe_keys).where("date_boarding > ?", Date.current - 30.days).sum("nfe_keys.peso")
+		@boarding_volume = Boarding.joins(:nfe_keys).where("date_boarding > ?", Date.current - 30.days).sum("nfe_keys.volume")
 	end
 
 	def dashboard_visit
