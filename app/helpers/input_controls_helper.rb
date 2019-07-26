@@ -1,7 +1,7 @@
 module InputControlsHelper
 
   def select_status_input_control
-    ([["Aberto", 0],["Recebido", 1], ["Fechado", 2], ["Faturado", 3], ["Dig.Finalizada",4]])
+    ([["Aberto", 0],["Recebido", 1], ["Fechado", 2], ["Faturado", 3], ["Dig.Finalizada",4], ["Descarregando",5]])
   end
 
   def select_equipamento
