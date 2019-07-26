@@ -57,6 +57,8 @@ class StaticPagesController < ApplicationController
 	def dashboard_sup
 		@checkins_boardings = Checkin.boarding.input.order(id: :asc).the_day
 		@checkins_input_controls = Checkin.input_control.input.order(id: :asc).the_day
+
+		@next_ordem_service_peso = OrdemService.where("data > ? and data <= ?", Date.current, Date.current + 60.day).group(:data).sum(:peso)
 	end
 
 	def dashboard_port

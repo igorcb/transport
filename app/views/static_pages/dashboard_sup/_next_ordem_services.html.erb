@@ -1,0 +1,28 @@
+<%
+series = [
+    {name: "Entradas", data: @next_ordem_service_peso}
+  ]
+options = {
+  subtitle: 'Agrupados por Transportadoras',
+  xtitle: 'Nº de entradas',
+  ytitle: 'Transportadoras',
+  height: (@next_ordem_service_peso.count*30)+120,
+  theme: 'palette6',
+  stacked: false
+}
+ %>
+
+
+
+ <div class="card">
+   <h3 class="text-center">Ordem de Serviços</h3>
+   <div id="input" class="card-body">
+     <div class="row">
+       <div class="col-md-12">
+         <%#= scatter_chart(first[:series], {**first[:options], theme: 'palette3'}) %>
+         <%= bar_chart(series, options) %>
+       </div>
+   </div>
+   <small>Atualizado hoje <%= date_br(Date.today) %> as <%= time_br(Time.now) %></small>
+   </div>
+ </div>
