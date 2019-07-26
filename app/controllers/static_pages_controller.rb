@@ -39,7 +39,7 @@ class StaticPagesController < ApplicationController
 
     @boarding_weight = Boarding.joins(:nfe_keys).where("date_boarding > ?", Date.current - 30.days).sum("nfe_keys.peso")
 		@boarding_volume = Boarding.joins(:nfe_keys).where("date_boarding > ?", Date.current - 30.days).sum("nfe_keys.volume")
-		# @boarding_volume = Boarding.joins(boarding_items: [:ordem_service]).where("date_boarding > ?", Date.current - 30.days).sum("ordem_services.volume")
+		# @next_ordem_service_peso = OrdemService.where("data > ? and data <= ?", Date.current, Date.current + 3.day).group(:data).sum(:peso)
 	end
 
 	def dashboard_visit
@@ -58,7 +58,7 @@ class StaticPagesController < ApplicationController
 		@checkins_boardings = Checkin.boarding.input.order(id: :asc).the_day
 		@checkins_input_controls = Checkin.input_control.input.order(id: :asc).the_day
 
-		@next_ordem_service_peso = OrdemService.where("data > ? and data <= ?", Date.current, Date.current + 60.day).group(:data).sum(:peso)
+		@next_ordem_service_peso = OrdemService.where("data > ? and data <= ?", Date.current, Date.current + 3.day).group(:data).sum(:peso)
 	end
 
 	def dashboard_port
