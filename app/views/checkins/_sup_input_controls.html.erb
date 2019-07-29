@@ -15,24 +15,24 @@
         <span class="placa" title="placa"><%= checkin.place_horse %></span>
         <span class="start" title="Iniciado às"><%= time_br(checkin.created_at) %></span>
         </p>
-        <% if checkin.operation_id.present? %>
+        <!-- <%# if checkin.operation_id.present? %>
           <p>
-            <span class="remessa" title="Número de remessa">Rem. Nº: <strong><%= checkin.operation_id %></strong></span>
-            <span class="status" title="Status"><strong>Status:</strong><%= icon_status_input_control(checkin.input_control.status) %></span>
+            <span class="remessa" title="Número de remessa">Rem. Nº: <strong><%#= checkin.operation_id %></strong></span>
+            <span class="status" title="Status"><strong>Status:</strong><%#= icon_status_input_control(checkin.input_control.status) %></span>
           <br>
-          <% if checkin.input_control.start_time_discharge.present?  %>
-            <% if checkin.input_control.status == InputControl::TypeStatus::RECEIVED %>
+          <%# if checkin.input_control.start_time_discharge.present?  %>
+            <%# if checkin.input_control.status == InputControl::TypeStatus::RECEIVED %>
               <span class="descarregando" title="Tempo que esta descarregando">Tempo do carregamento:
-                <strong><%= difference_as_time(checkin.input_control.start_time_discharge, checkin.input_control.finish_time_discharge) %></strong>
+                <strong><%#= difference_as_time(checkin.input_control.start_time_discharge, checkin.input_control.finish_time_discharge) %></strong>
               </span>
-            <% else %>
+            <%# else %>
               <span class="descarregando" title="Tempo de descarga">descarregando à
-                <strong><%= difference_as_time(checkin.input_control.start_time_discharge, Time.now) %></strong>
+                <strong><%#= difference_as_time(checkin.input_control.start_time_discharge, Time.now) %></strong>
               </span>
-            <% end %>
-          <% end %>
+            <%# end %>
+          <%# end %>
           </p>
-        <% end %>
+        <%# end %> -->
       </div>
     </li>
   <% end %>
