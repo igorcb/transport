@@ -1,0 +1,20 @@
+<ul class="list-info">
+  <% checkins.each do |checkin| %>
+    <li>
+      <% driver = Driver.where(cpf: checkin[:driver_cpf]).first %>
+      <% if driver.present? %>
+        <% image_avatar = driver.avatar.present? ? driver.avatar.url(:mini) : ""  %>
+        <%= avatar checkin.driver_name, image_avatar %>
+      <% else %>
+        <%= avatar checkin.driver_name, "" %>
+      <% end %>
+      <div class="informations">
+        <p>
+        <strong class="name"><%= checkin.driver_name %></strong><br>
+        <span class="placa" title="placa"><%= checkin.place_horse %></span>
+        <span class="start" title="Iniciado às"><%= time_br(checkin.created_at) %></span>
+        </p>
+      </div>
+    </li>
+  <% end %>
+</ul>
