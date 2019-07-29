@@ -1,6 +1,6 @@
 <%
 series = [
-    {name: "Entradas", data: @next_ordem_service_peso}
+    {name: "Entradas", data: @next_ordem_service_peso.present? ? @next_ordem_service_peso : {'nenhum peso encontrado': 0}}
   ]
 options = {
   subtitle: 'Agrupados por Transportadoras',
@@ -11,8 +11,6 @@ options = {
   stacked: false
 }
  %>
-
-
 
  <div class="card">
    <h3 class="text-center">Ordem de Serviços</h3>
