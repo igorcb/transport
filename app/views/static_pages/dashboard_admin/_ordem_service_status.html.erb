@@ -1,9 +1,10 @@
 <%
 series = [
-    {name: "Abertas", data: @input_status.where("status = ?", 0).count.count  },
-    {name: "Recebido", data: @input_status.where("status = ?", 1).count.count  },
-    {name: "Dig.Finalizada", data: @input_status.where("status = ?", 4).count.count  },
-    {name: "Descarregando", data: @input_status.where("status = ?", 5).count.count  }
+    {name: "Aberto", data: OrdemService.where("status = ?", 0).count  },
+    {name: "Ag. Emb", data: OrdemService.where("status = ?", 8).count  },
+    {name: "Embarcado", data: OrdemService.where("status = ?", 9).count  },
+    {name: "Entregua Efetuada", data: OrdemService.where("status = ?", 1).count  },
+    {name: "Fechado", data: OrdemService.where("status = ?", 2).count  }
   ]
 options = {
   subtitle: 'Agrupados por status',
@@ -15,7 +16,7 @@ options = {
  %>
 
  <div class="card">
-   <h3 class="text-center">Entradas por status</h3>
+   <h3 class="text-center">Ordem de serviços por status</h3>
    <div id="input" class="card-body">
      <div class="row">
        <div class="col-md-12">

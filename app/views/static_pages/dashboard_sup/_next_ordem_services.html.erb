@@ -4,7 +4,7 @@ series = [
     {name: "Entradas", data: @next_ordem_service_peso.present? ? @next_ordem_service_peso : {'nenhum peso encontrado': 0}}
   ]
 options = {
-  subtitle: 'Agrupados por Transportadoras',
+  subtitle: 'Agrupados por dia',
   xtitle: 'Nº de entradas',
   ytitle: 'Transportadoras',
   height: (@next_ordem_service_peso.count*30)+120,

@@ -28,6 +28,7 @@ class StaticPagesController < ApplicationController
 		# parte do input status
 		@input_status = InputControl.where("date_scheduled > ?", Date.current - last_day.days).group("date_scheduled")
 		@boarding_status = Boarding.where("created_at > ?", Date.current - last_day.days).group("created_at")
+		# @ordem_services_status = OrdemService.where("data > ?", Date.current - 30.days).group(:status).count
 
 		@input_weight = InputControl.where("date_scheduled > ?", Date.current - last_day.days).sum(:weight)
 		@input_volume = InputControl.where("date_scheduled > ?", Date.current - last_day.days).sum(:volume)
