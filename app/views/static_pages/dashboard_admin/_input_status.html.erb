@@ -1,28 +1,25 @@
 <%
 series = [
-    {name: "Abertas", data: @input_status.where("status = ?", 0).count.count  },
-    {name: "Recebido", data: @input_status.where("status = ?", 1).count.count  },
-    {name: "Dig.Finalizada", data: @input_status.where("status = ?", 4).count.count  },
-    {name: "Descarregando", data: @input_status.where("status = ?", 5).count.count  }
-  ]
+  {name: "Abertas", data: @input_status.where("status = ?", 0).count.count  },
+  {name: "Recebido", data: @input_status.where("status = ?", 1).count.count  },
+  {name: "Dig.Finalizada", data: @input_status.where("status = ?", 4).count.count  },
+  {name: "Descarregando", data: @input_status.where("status = ?", 5).count.count  }
+]
 options = {
   subtitle: 'Agrupados por status',
   xtitle: 'dias',
   ytitle: 'Nº de entradas',
-  height: 200,
-  stacked: true
+  stacked: true,
+  height: 250,
+  style: "min-height: 100px"
 }
  %>
 
  <div class="card">
    <h3 class="text-center">Entradas por status</h3>
    <div id="input" class="card-body">
-     <div class="row">
-       <div class="col-md-12">
-         <h1 class="total"><span class="counter_number" data-init="0" data-end="<%= InputControl.available_supervisor.count %>"></span></h1>
-         <%= donut_chart(series, options) %>
-       </div>
-   </div>
+     <h1 class="total"><span class="counter_number" data-init="0" data-end="<%= InputControl.available_supervisor.count %>"></span></h1>
+     <%= donut_chart(series, options) %>
    <small>Atualizado hoje <%= date_br(Date.today) %> as <%= time_br(Time.now) %></small>
    </div>
  </div>
