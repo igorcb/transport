@@ -19,6 +19,16 @@ class StaticPagesController < ApplicationController
 												.group_by_month(:created_at, time_zone: false)
 												.count,
 												"%b %Y")
+
+		@inputs_daily = dashboard_date(InputControl.where("date_scheduled > ?", Date.current - last_day.day)
+												.group_by_day(:date_scheduled, time_zone: false)
+												.count,
+												"%d %b")
+		@boardings_daily = dashboard_date(Boarding.where("created_at > ?", Date.current - last_day.day)
+												.group_by_day(:created_at, time_zone: false)
+												.count,
+												"%d %b")
+
 		@carriers = InputControl.joins(:carrier).where("input_controls.created_at > ?", Date.current - last_day.days)
 														.select("carriers.fantasia")
 														.group("carriers.fantasia")
