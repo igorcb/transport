@@ -132,7 +132,9 @@ a {
 }
 
 .profile-name {
-  transition: all 0.2s ease; }
+  transition: all 0.2s ease;
+  margin-left:15px;
+}
   @media screen and (max-width: 768px) {
     .profile-name {
       display: none; } }

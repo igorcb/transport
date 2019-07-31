@@ -33,6 +33,7 @@ class UsersController < ApplicationController
 
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.required(:user).permit(:name, :employee_id, :active, :password, :password_confirmation)
+    params.required(:user).permit(:name, :employee_id, :active, :password, :password_confirmation, :avatar,
+				assets_attributes: [:asset, :id, :_destroy])
   end
 end

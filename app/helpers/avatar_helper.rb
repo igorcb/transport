@@ -1,5 +1,5 @@
 module AvatarHelper
-  def avatar name, url
+  def avatar name, url, size="md"
     words = name.split
     initials = words[0][0]
     if(words[1].present?)
@@ -10,9 +10,9 @@ module AvatarHelper
 
     # return File.exist?(url.url)
     if(url.present?)
-      html = "<figure style=\"background-image:url('#{url}')\" class=\"avatar\"></figure>"
+      html = "<figure style=\"background-image:url('#{url}')\" class=\"avatar avatar-#{size}\"></figure>"
     else
-      html = "<figure style=\"background-color: #{color.sample};\" class=\"avatar\">#{initials.upcase}</figure>"
+      html = "<figure style=\"background-color: #{color.sample};\" class=\"avatar avatar-#{size}\">#{initials.upcase}</figure>"
     end
 
     html.html_safe;

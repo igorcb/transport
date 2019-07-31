@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
 	has_many :notifications, foreign_key: :recipient_id
   has_many :links
 
+  has_attached_file :avatar, styles: lambda { |a| a.instance.avatar_content_type =~ %r(image) ? { mini: "144x90>"} : {} }
+  do_not_validate_attachment_file_type :avatar
+
 	def active_name
 		case self.active
 			when 0 then "Não"
