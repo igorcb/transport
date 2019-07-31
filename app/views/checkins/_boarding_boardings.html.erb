@@ -10,11 +10,12 @@
       <div class="informations">
         <p>
         <strong class="name"><%= boarding.driver.nome %></strong><br>
-        <span class="num_embarque" title="Nº emb"><%= boarding.id %></span>
-        <span class="valor" title="valor"><%= number_to_currency(boarding.value_boarding, unit: "R$ ", separator: ",", delimiter: ".") %></span>
-        <span class="start" title="Iniciado às"><%= time_br(boarding.created_at) %></span>
-        <span class="peso" title="Peso"><%= number_with_precision(boarding.peso_bruto, precision: 3, separator: ',', delimiter: '.') %></span>
-        <span class="status" title="status"><%= boarding.status_name %></span>
+        <span class="num_embarque" title="Nº emb"><strong>Embarque:</strong> <%= boarding.id %></span>
+        <span class="start" title="Iniciado às"><strong>Dt. Emb:</strong> <%= date_br (boarding.date_boarding) %></span>
+        <!-- <span class="valor" title="valor"><strong>Valor:</strong> <%= number_to_currency(boarding.value_boarding, unit: "R$ ", separator: ",", delimiter: ".") %></span> -->
+        <span class="peso" title="Peso"><strong>Peso:</strong> <%= number_with_precision(boarding.peso_bruto, precision: 3, separator: ',', delimiter: '.') %></span>
+        <br>
+        <span class="status" title="status"><strong>Status: </strong> <%= boarding.status_name %></span>
         <!-- </p>
         <%# if boarding.operation_id.present? %>
           <p>
