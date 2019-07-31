@@ -10,6 +10,7 @@
       <div class="informations">
         <p>
         <strong class="name"><%= boarding.driver.nome %></strong><br>
+        <span class="num_embarque" title="Nº emb"><%= boarding.id %></span>
         <span class="valor" title="valor"><%= number_to_currency(boarding.value_boarding, unit: "R$ ", separator: ",", delimiter: ".") %></span>
         <span class="start" title="Iniciado às"><%= time_br(boarding.created_at) %></span>
         <span class="peso" title="Peso"><%= number_with_precision(boarding.peso_bruto, precision: 3, separator: ',', delimiter: '.') %></span>

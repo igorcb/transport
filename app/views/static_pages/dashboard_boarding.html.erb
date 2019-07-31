@@ -1,17 +1,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
 
 <div class="row dashboards" style="margin-top:15px;">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div id="boarding" class="card">
       <h3 class="text-center">Embarques</h3>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <h1 class="total"><span class="counter_number" data-init="0" data-end="<%= Boarding.the_day.count %>"></span></h1>
             <canvas id="boardingChart" width="400" height="400"></canvas>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="legend">
               <p><%= image_tag "square.svg", size:"15x15" %><big><%= Boarding.opened.count %></big> abertos</p>
               <p><%= image_tag "triangle.svg", size:"15x15" %><big><%= Boarding.loading.count %></big> iniciados</p>
