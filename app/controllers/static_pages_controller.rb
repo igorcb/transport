@@ -40,7 +40,7 @@ class StaticPagesController < ApplicationController
 
     @boarding_weight = Boarding.joins(:nfe_keys).where("date_boarding > ?", Date.current - last_day.days).sum("nfe_keys.peso")
 		@boarding_volume = Boarding.joins(:nfe_keys).where("date_boarding > ?", Date.current - last_day.days).sum("nfe_keys.volume")
-		@pallets_of_nfe_xml = NfeXml.where(qtde_pallet: nil).where("created_at < ? and created_at >= ?", Date.current, Date.current - last_day.day)
+		@pallets_of_nfe_xml = NfeXml.where(qtde_pallet: nil).where("created_at >= ? and created_at < ? ", Date.current - last_day.day, Date.current)
 		# @next_ordem_service_peso = OrdemService.where("data > ? and data <= ?", Date.current, Date.current + 3.day).group(:data).sum(:peso)
 	end
 

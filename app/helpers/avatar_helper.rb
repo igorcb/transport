@@ -1,6 +1,7 @@
 module AvatarHelper
   def avatar name, url, size="md"
-    words = name.split
+
+    words = name.nil? ? "YOHAN WMS".split : name.split
     initials = words[0][0]
     if(words[1].present?)
       initials += words[1][0]
