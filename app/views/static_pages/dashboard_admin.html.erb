@@ -56,6 +56,19 @@
   </div>
 </div>
 
+<div class="row dashboards" style="margin-bottom:15px">
+  <div class="col-md-4">
+    <div class="card" style="background-color: #42124C; color: white;">
+      <h3><%= @pallets_of_nfe_xml.count %></h3> <br>
+      <div id="input" class="card-body">
+        Qtde Nfe sem pallet
+      </div>
+    </div>
+  </div>
+
+  <!-- div proximo item -->
+</div>
+
 <div class="row dashboards" style="margin-top:15px">
   <div class="col-md-12">
     <%= render partial: 'static_pages/dashboard_admin/input_daily' %>
@@ -72,7 +85,7 @@
   </div>
 </div>
 
-<!-- 
+<!--
 <div class="row dashboards" style="margin-top:15px">
   <div class="col-md-12">
     <%#= render partial: 'static_pages/dashboard_admin/pallets_of_nfe_xml' %>
