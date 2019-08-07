@@ -42,6 +42,11 @@ class StaticPagesController < ApplicationController
 		@boarding_volume = Boarding.joins(:nfe_keys).where("date_boarding > ?", Date.current - last_day.days).sum("nfe_keys.volume")
 		@pallets_of_nfe_xml = NfeXml.where(qtde_pallet: nil).where("created_at >= ? and created_at < ? ", Date.current - last_day.day, Date.current)
 		# @next_ordem_service_peso = OrdemService.where("data > ? and data <= ?", Date.current, Date.current + 3.day).group(:data).sum(:peso)
+		@ordem_service_open = OrdemService.where("created_at > ?", Date.current - last_day.days).where("status = ?", OrdemService::TipoStatus::ABERTO)
+		@ordem_service_waiting_boarding = OrdemService.where("created_at > ?", Date.current - last_day.days).where("status = ?", OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
+		@ordem_service_boarding = OrdemService.where("created_at > ?", Date.current - last_day.days).where("status = ?", OrdemService::TipoStatus::EMBARCADO)
+		@ordem_service_delivery = OrdemService.where("created_at > ?", Date.current - last_day.days).where("status = ?", OrdemService::TipoStatus::ENTREGA_EFETUADA)
+		@ordem_service_close = OrdemService.where("created_at > ?", Date.current - last_day.days).where("status = ?", OrdemService::TipoStatus::FECHADO)
 	end
 
 	def dashboard_visit

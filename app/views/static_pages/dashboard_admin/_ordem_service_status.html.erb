@@ -1,10 +1,10 @@
 <%
 series = [
-    {name: "Aberto", data: OrdemService.where("status = ?", 0).count  },
-    {name: "Ag. Emb", data: OrdemService.where("status = ?", 8).count  },
-    {name: "Embarcado", data: OrdemService.where("status = ?", 9).count  },
-    {name: "Entregua Efetuada", data: OrdemService.where("status = ?", 1).count  },
-    {name: "Fechado", data: OrdemService.where("status = ?", 2).count  }
+    {name: "Aberto", data: @ordem_service_open.count  },
+    {name: "Ag. Emb", data: @ordem_service_waiting_boarding.count  },
+    {name: "Embarcado", data: @ordem_service_boarding.count },
+    {name: "Entrega Efetuada", data: @ordem_service_delivery.count  },
+    {name: "Fechado", data: @ordem_service_close.count  }
   ]
 options = {
   subtitle: 'Agrupados por status',
@@ -20,7 +20,7 @@ options = {
    <div id="input" class="card-body">
      <div class="row">
        <div class="col-md-12">
-         <h1 class="total"><span class="counter_number" data-init="0" data-end="<%= InputControl.available_supervisor.count %>"></span></h1>
+         <h1 class="total"><span class="counter_number" data-init="0" data-end="<%=  %>"></span></h1>
          <%= donut_chart(series, options) %>
        </div>
    </div>
