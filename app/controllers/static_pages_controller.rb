@@ -88,7 +88,8 @@ class StaticPagesController < ApplicationController
 	end
 
 	def dashboard_boarding
-		@boarding_boardings = Boarding.where("date_boarding = ?", Date.current)
+		@boarding_boardings = Boarding.where(date_boarding: Date.current)
+		@checkins_boardings = Checkin.boarding.input.order(id: :asc).the_day
     # @opened = Boarding.where(status: [Boarding::TipoStatus::ABERTO]).count
     # @opened_the_day = Boarding.the_day.where(status: [Boarding::TipoStatus::ABERTO]).count
     # @boarded = Boarding.where(status: [Boarding::TipoStatus::EMBARCADO]).count

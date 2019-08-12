@@ -37,6 +37,16 @@
   </div>
 </div>
 
+<div class="row dashboards" style="margin-top:15px;">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="text-center">Checkins</h3>
+        <%= render 'checkins/checkin_boardings', checkins: @checkins_boardings %>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
