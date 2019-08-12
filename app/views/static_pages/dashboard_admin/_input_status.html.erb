@@ -1,6 +1,6 @@
 <%
 series = [
-  {name: "Abertas", data: @input_status_open.count  },
+  {name: "Abertas", data: @input_status_open.count },
   {name: "Recebido", data: @input_status_received.count  },
   {name: "Dig.Finalizada", data: @input_status_finish_typing.count },
   {name: "Descarregando", data: @input_status_discharge.count  }
@@ -8,7 +8,7 @@ series = [
 options = {
   subtitle: 'Agrupados por status',
   xtitle: 'dias',
-  ytitle: 'No Embarques',
+  ytitle: 'No Entradas',
   stacked: true,
   height: 200,
   style: "min-height: 100px"
