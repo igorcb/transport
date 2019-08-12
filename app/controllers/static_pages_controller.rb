@@ -27,6 +27,11 @@ class StaticPagesController < ApplicationController
 
 		# parte do input status
 		@input_status = InputControl.where("date_scheduled > ?", Date.current - last_day.days).group("date_scheduled")
+		@input_status_open = InputControl.where(status: InputControl::TypeStatus::OPEN).where("date_scheduled > ?", Date.current - last_day.days)
+		@input_status_received = InputControl.where(status: InputControl::TypeStatus::RECEIVED).where("date_scheduled > ?", Date.current - last_day.days).group("date_scheduled")
+		@input_status_finish_typing = InputControl.where(status: InputControl::TypeStatus::FINISH_TYPING).where("date_scheduled > ?", Date.current - last_day.days).group("date_scheduled")
+		@input_status_discharge = InputControl.where(status: InputControl::TypeStatus::DISCHARGE).where("date_scheduled > ?", Date.current - last_day.days).group("date_scheduled")
+
 		@boarding_status = Boarding.where("created_at > ?", Date.current - last_day.days).group("created_at")
 		# @ordem_services_status = OrdemService.where("data > ?", Date.current - 30.days).group(:status).count
 
@@ -65,7 +70,8 @@ class StaticPagesController < ApplicationController
 		@checkins_boardings = Checkin.boarding.input.order(id: :asc).the_day
 		@checkins_input_controls = Checkin.input_control.input.order(id: :asc).the_day
 
-		@next_ordem_service_peso = OrdemService.where("data > ? and data <= ?", Date.current, Date.current + 3.day).group(:data).sum(:peso)
+		#@next_ordem_service_peso = OrdemService.where("data > ? and data <= ?", Date.current, Date.current + 3.day).group(:data).sum(:peso)
+		@next_ordem_service_peso = Boarding.where("date_boarding > ? and date_boarding <= ?", Date.current, Date.current + 3.day).group(:date_boarding).count(:id)
 	end
 
 	def dashboard_port

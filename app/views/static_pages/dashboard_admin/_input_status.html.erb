@@ -1,9 +1,9 @@
 <%
 series = [
-  {name: "Abertas", data: @input_status.where("status = ?", 0).count.count  },
-  {name: "Recebido", data: @input_status.where("status = ?", 1).count.count  },
-  {name: "Dig.Finalizada", data: @input_status.where("status = ?", 4).count.count  },
-  {name: "Descarregando", data: @input_status.where("status = ?", 5).count.count  }
+  {name: "Abertas", data: @input_status_open.count  },
+  {name: "Recebido", data: @input_status_received.count  },
+  {name: "Dig.Finalizada", data: @input_status_finish_typing.count },
+  {name: "Descarregando", data: @input_status_discharge.count  }
 ]
 options = {
   subtitle: 'Agrupados por status',
