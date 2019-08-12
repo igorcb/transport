@@ -15,7 +15,6 @@
           <!-- <span class="valor" title="valor"><strong>Valor:</strong> <%= number_to_currency(boarding.value_boarding, unit: "R$ ", separator: ",", delimiter: ".") %></span> -->
           <span class="peso" title="Peso"><strong>Peso:</strong> <%= number_with_precision(boarding.peso_bruto, precision: 3, separator: ',', delimiter: '.') %></span>
           <br>
-          <!-- <span class="status" title="status"><strong>Status: </strong> <%#= boarding.status_name %></span> -->
           <span class="status" title="Status"><strong>Status: </strong><%= icon_status_boarding(boarding.status) %></span>
         </p>
       </div>

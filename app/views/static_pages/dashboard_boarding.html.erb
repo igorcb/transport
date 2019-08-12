@@ -17,7 +17,7 @@
               <p><%= image_tag "triangle.svg", size:"15x15" %><big><%= Boarding.loading.count %></big> iniciados</p>
               <p><%= image_tag "circle.svg", size:"15x15" %><big><%= Boarding.boarded.count %></big> embarcados</p>
             </div>
-            <%= link_to "Detalhes", sup_boardings_path, class: "btn btn-info text-info" %>
+            <%= link_to "Todos os embarques", boardings_path, class: "btn btn-info text-info" %>
           </div>
         </div>
       </div>
