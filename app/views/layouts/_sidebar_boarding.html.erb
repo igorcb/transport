@@ -14,11 +14,15 @@
     <p class="menu-text">Embarques</p>
   <% end %>
 
+  <%= link_to selection_shipment_path do %>
+    <i class="fas fa-truck menu-icon"></i>
+    <p class="menu-text">Gerar Embarque</p>
+  <% end %>
+
   <%= link_to ordem_services_path do %>
     <i class="fas fa-file-signature menu-icon"></i>
     <p class="menu-text">Ordem de Serviço</p>
   <% end %>
-
 
   <%= link_to drivers_path do %>
     <i class="fas fa-user-friends menu-icon"></i>
