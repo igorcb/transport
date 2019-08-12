@@ -22,17 +22,17 @@
             <span class="remessa" title="Número de remessa">Emb. Nº: <strong><%#= boarding.operation_id %></strong></span>
             <span class="status" title="Status"><strong>Status: </strong><%#= icon_status_boarding(boarding.boarding.status) %></span>
           <br>
-            <% if boarding.boarding.start_time_boarding.present?  %>
-              <% if boarding.boarding.status == Boarding::TipoStatus::EMBARCADO %>
+            <% if# boarding.boarding.start_time_boarding.present?  %>
+              <% #if boarding.boarding.status == Boarding::TipoStatus::EMBARCADO %>
                 <span class="descarregando" title="Tempo que esta descarregando">Tempo do carregamento:
                   <strong><%#= difference_as_time(boarding.boarding.start_time_boarding, boarding.boarding.finish_time_boarding) %></strong>
                 </span>
-              <% else %>
+              <% #else %>
                 <span class="descarregando" title="Tempo de descarga">carregando à
                   <strong><%#= difference_as_time(boarding.boarding.start_time_boarding, Time.now) %></strong>
                 </span>
-              <% end %>
-            <% end %>
+              <%# end %>
+            <%# end %>
           </p>
         <%# end %>
       </div>
