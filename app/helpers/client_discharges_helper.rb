@@ -134,7 +134,7 @@ module ClientDischargesHelper
   	if discharge.type_unit == ClientDischarge::TypeUnit::BURDEN &&
   		 discharge.type_charge == ClientDischarge::TypeCharge::SLAM &&
   		 discharge.type_calc == ClientDischarge::TypeCalc::UNIT
-  		value_calc = discharge.calc_unit(params[:unit])
+  		value_calc = discharge.calc_unit(params[:volume])
   		return value_calc
   	end
 
