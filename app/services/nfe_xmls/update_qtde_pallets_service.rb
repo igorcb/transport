@@ -15,7 +15,7 @@ module NfeXmls
         ActiveRecord::Base.transaction do
           NfeXml.where(id: @nfe_xml.id).update_all(qtde_pallet: @qtde_pallet)
           ordem_service = @nfe_xml.ordem_service('input_controls')
-          NfeKey.where(nfe: @nfe_xml.numero, nfe_type: 'OrdemService', nfe_id: ordem_service.id).update_all(qtde_pallet: @nfe_xml.qtde_pallet) if ordem_service.present?
+          NfeKey.where(nfe: @nfe_xml.numero, nfe_type: 'OrdemService', nfe_id: ordem_service.id).update_all(qtde_pallet: @qtde_pallet) if ordem_service.present?
 
           return {success: true, message: "Qtde de Pallet information successfully."}
         end
