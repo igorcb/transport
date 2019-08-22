@@ -6,7 +6,7 @@ module NfeXmls
     end
 
     def call
-      byebug
+      #byebug
       return {success: false, message: "NF-e XML not blank."} if @nfe_xml.blank?
 
       path_xml = "#{Rails.root.join('public')}" + @nfe_xml.asset.url(:original, timestamp: false)
