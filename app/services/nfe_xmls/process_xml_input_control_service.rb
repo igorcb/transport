@@ -6,9 +6,7 @@ module NfeXmls
     end
 
     def call
-
       return {success: false, message: "NF-e XML not blank."} if @nfe_xml.blank?
-
       path_xml = "#{Rails.root.join('public')}" + @nfe_xml.asset.url(:original, timestamp: false)
       return {success: false, message: "File XML not exist"} if File.open(path_xml).nil?
       return {success: false, message: "NFe Xml já processado."} if @nfe_xml.processado?
@@ -43,7 +41,10 @@ module NfeXmls
                                           status: NfeXml::TipoStatus::PROCESSADO)
 
 
-  					NfeXml.product_create_or_update_xml(nfe_xml.input_control, nfe_xml, nfe)
+  					#NfeXml.product_create_or_update_xml(nfe_xml.input_control, nfe_xml, nfe)
+            NfeXml.product_create_or_update_xml('input_controls', nfe_xml.input_control, nfe_xml, nfe)
+            nfe_xml.reload
+            NfeXml.where(id: nfe_xml.id).update_all(qtde_pallet: nfe_xml.item_input_controls.sum(:qtde_pallet))
   					return {success: true, message: "NF-e Xml processado com sucesso."}
 
           end

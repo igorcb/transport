@@ -11,7 +11,7 @@ RSpec.describe NfeXmls::ProcessXmlInputControlService, type: :service do
 
     context "process xml" do
       before(:each) do
-        path = "/home/igor#{Rails.root.join('public/system')}" + '/nfe_xmls/assets/000/000/001/original/29170343461789000514550020001747381419179629.xml'
+        #path = "/home/igor#{Rails.root.join('public/system')}" + '/nfe_xmls/assets/000/000/001/original/29170343461789000514550020001747381419179629.xml'
         puts ">>>>>>>>>>>>>>>>>>>>>>>> PATH: #{path}"
         @nfe_xml = NfeXml.create(status: :processado, asset: File.open(path))
       end

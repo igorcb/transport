@@ -3,6 +3,7 @@ module ProductCreateOrUpdate
 
   class_methods do
     #type_create_ordem_service: directcharge or inputcontrol
+    #NfeXml.product_create_or_update_xml(nfe_xml.input_control, nfe_xml, nfe)
     def product_create_or_update_xml(type_create_ordem_service, nfe_type, nfe_xml, nfe)
       nfe.prod.each do |product|
         #byebug
@@ -29,6 +30,8 @@ module ProductCreateOrUpdate
 
     private
       def add_item_input_controls(input_control, nfe_xml, product, prod)
+        result = NfeXmls::CalcItemNfeQtdePalletService.new(product, prod.qCom.to_f).call
+        qtde_pallets = result[:success] ? result[:qtde_pallet] : 0.00
         item = nfe_xml.item_input_controls.create!(
                                         input_control_id: input_control.id,
                                               number_nfe: nfe_xml.numero,
@@ -38,7 +41,8 @@ module ProductCreateOrUpdate
                                                    valor: prod.vProd,
                                           valor_unitario: prod.vUnTrib,
                                     valor_unitario_comer: prod.vUnCom,
-                                             unid_medida: prod.uCom
+                                             unid_medida: prod.uCom,
+                                             qtde_pallet: qtde_pallets
                                       )
 
       end

@@ -20,6 +20,7 @@ class InputControl < ActiveRecord::Base
 
   has_many :ordem_services
   has_many :item_input_controls
+  has_many :item_nfes, class_name: "ItemInputControl", foreign_key: "nfe_id"
 
   has_one :account_receivable
 

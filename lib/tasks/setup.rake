@@ -89,7 +89,10 @@ namespace :test do
 
 			puts "  - Create InputControl"
 			input_control = FactoryBot.create(:input_control)
-			nfe_xml = FactoryBot.create(:nfe_xml, nfe_type: "InputControl", nfe_id: input_control.id)
+			file_one = File.open('/workspace/rails_app/transport/public/system/nfe_xmls/assets/000/000/003/original/29170343461789000514550020001747381419179629.xml')
+			file_two = File.open('/workspace/rails_app/transport/public/system/nfe_xmls/assets/000/000/004/original/29171143461789000514550020001920081405303752.xml')
+			nfe_xml = FactoryBot.create(:nfe_xml, nfe_type: "InputControl", nfe_id: input_control.id, asset: file_one, chave: '29170343461789000514550020001747381419179629')
+			nfe_xml = FactoryBot.create(:nfe_xml, nfe_type: "InputControl", nfe_id: input_control.id, asset: file_two, chave: '29171143461789000514550020001920081405303752')
 			puts "   - Count: #{InputControl.count}"
 			puts "   - NfeXml Count: #{NfeXml.count}"
 
