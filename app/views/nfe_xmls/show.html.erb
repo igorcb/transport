@@ -101,6 +101,11 @@
 					  <%= @nfe_xml.target_client.estado_cidade if @nfe_xml.target_client.present? %>
 					</p>
 
+          <p>
+					  <strong>File:</strong>
+					   <%= link_to "#{@nfe_xml.asset_file_name}", @nfe_xml.asset(:original, false), download: "#{@nfe_xml.asset_file_name}"  %>
+					</p>
+
         </div>
         <% if !@nfe_xml.processado? %>
           <div class="form-group">
