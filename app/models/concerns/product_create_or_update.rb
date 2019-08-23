@@ -42,7 +42,7 @@ module ProductCreateOrUpdate
                                           valor_unitario: prod.vUnTrib,
                                     valor_unitario_comer: prod.vUnCom,
                                              unid_medida: prod.uCom,
-                                             qtde_pallet: qtde_pallets
+                                        qtde_pallet_calc: qtde_pallets
                                       )
 
       end
