@@ -67,7 +67,7 @@ class DirectChargesController < ApplicationController
       @warnings.push("Capacity of the first cart does not support the weight of the load.") if @direct_charge.vehicle_cart_first.capacity.to_f < @direct_charge.weight
     end
     if @direct_charge.vehicle_cart_second.present?
-      warning << "Capacity of the first cart does not support the weight of the load" if @direct_charge.vehicle_cart_second.capacity.to_f < @direct_charge.weight
+      @warnings.push("Capacity of the second cart does not support the weight of the load") if @direct_charge.vehicle_cart_second.capacity.to_f < @direct_charge.weight
     end
     respond_with(@direct_charge)
   end
