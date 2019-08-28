@@ -9,6 +9,13 @@ module ProductCreateOrUpdate
         #byebug
         prod = Produto.new
         prod.attributes=(product)
+        # if cod_produto.existir?
+        #   produto = Produto.busca_produto_no_banco
+        # else
+        #   produto = Produto.cadastra_no_banco
+        #
+        # end
+
         produto = Product.create_with(category_id: 6,
                                   cubagem: 0,
                                  cod_prod: prod.cProd,
@@ -19,7 +26,9 @@ module ProductCreateOrUpdate
                                      cfop: prod.CFOP,
                               unid_medida: prod.uCom,
                            valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
+
         produto.save!
+
         if type_create_ordem_service == 'direct_charges'
           add_item_direct_charges(nfe_type, nfe_xml, produto, prod)
         else
@@ -42,7 +51,7 @@ module ProductCreateOrUpdate
                                           valor_unitario: prod.vUnTrib,
                                     valor_unitario_comer: prod.vUnCom,
                                              unid_medida: prod.uCom,
-                                        qtde_pallet_calc: qtde_pallets
+                                             qtde_pallet: qtde_pallets
                                       )
 
       end
