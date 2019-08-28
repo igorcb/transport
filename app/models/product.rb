@@ -11,7 +11,7 @@ class Product < ActiveRecord::Base
     item.cubagem = 0.00 #calculation_cubing
   end
 
-	after_create :send_notficiation_email
+	#after_create :send_notficiation_email
 
   def calculation_cubing
 		value = BigDecimal.new(0)
@@ -45,6 +45,18 @@ class Product < ActiveRecord::Base
 	  obj = first || new
 	  obj.assign_attributes(attributes)
 	  obj
+	end
+
+	def send_notficiation_email
+		config_system = ConfigSystem.where(config_key: 'EMAIL_USER_PRODUCT_NOTIFICATION')
+		if config_system.present?
+			#ProductMailer.notification_product(self).deliver_now
+			self.errors.add(:base, "Envio successfully")
+			puts "Envio successfully"
+		else
+			self.errors.add(:base, "EMAIL_USER_PRODUCT_NOTIFICATION not configuration")
+		end
+
 	end
 
 end
