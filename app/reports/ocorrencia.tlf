@@ -129,7 +129,7 @@
       "description": "",
       "x": 20,
       "y": 91,
-      "width": 110.3,
+      "width": 110.8,
       "height": 17,
       "style": {
         "font-family": [
@@ -1879,9 +1879,9 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 520,
+      "x": 510,
       "y": 189,
-      "width": 45,
+      "width": 56.3,
       "height": 17,
       "style": {
         "font-family": [
@@ -1897,7 +1897,7 @@
         "font-style": []
       },
       "texts": [
-        "TOTAL"
+        "Qtde Pallet"
       ]
     },
     {
