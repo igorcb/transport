@@ -48,15 +48,7 @@ class Product < ActiveRecord::Base
 	end
 
 	def send_notficiation_email
-		config_system = ConfigSystem.where(config_key: 'EMAIL_USER_PRODUCT_NOTIFICATION')
-		if config_system.present?
-			#ProductMailer.notification_product(self).deliver_now
-			self.errors.add(:base, "Envio successfully")
-			puts "Envio successfully"
-		else
-			self.errors.add(:base, "EMAIL_USER_PRODUCT_NOTIFICATION not configuration")
-		end
-
-	end
+		result = Products::NotificationCreateProductService.new(self).call
+  end
 
 end
