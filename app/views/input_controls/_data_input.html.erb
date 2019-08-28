@@ -27,7 +27,8 @@
   <%= show_line_build @input_control.charge_discharge_status, "Cobrar Descarga" %>
   <%= show_line_build @input_control.palletized_status, "Carga Peletizada" %>
   <%= show_line_build  extenso_integer(@input_control.charge_type_delivery), "Entrega é Paletizada" %>
-  <%= show_line_build @input_control.quantity_pallets, "Qtde Paletes" %>
+  <%= show_line_build @input_control.quantity_pallets, "Qtde paletes informado" %>
+  <%= show_line_build @input_control.nfe_xmls.sum(:qtde_pallet_calc), "Qtde paletes calculada" %>
 
   <%= show_line_build number_to_currency(@input_control.weight, precision: 3, unit: "", separator: ",", delimiter: "."), "Peso" %>
   <%= show_line_build number_to_currency(@input_control.volume, precision: 3, unit: "", separator: ",", delimiter: "."), "Volume" %>

@@ -644,7 +644,7 @@ class InputControlsController < ApplicationController
               und_med = breakdown.nil? ? item.unid_medida : breakdown.unid_medida
               row.values prod_id: item.product.cod_prod,
                      prod_name: item.product.descricao,
-                     prod_total: item.qtde_trib,
+                     prod_total: item.qtde_pallet,
                      qtde: item.qtde,
                      sobras: sobras,
                      faltas: faltas,
