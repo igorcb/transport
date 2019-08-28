@@ -11,7 +11,7 @@ class Product < ActiveRecord::Base
     item.cubagem = 0.00 #calculation_cubing
   end
 
-	#after_create :send_notficiation_email
+	after_create :send_notficiation_email
 
   def calculation_cubing
 		value = BigDecimal.new(0)
@@ -48,7 +48,7 @@ class Product < ActiveRecord::Base
 	end
 
 	def send_notficiation_email
-		result = Products::NotificationCreateProductService.new(self).call
+		Products::NotificationCreateProductService.new(self).call
   end
 
 end
