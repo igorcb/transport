@@ -598,12 +598,14 @@ class InputControl < ActiveRecord::Base
   end
 
   def pending_all?
-    self.create_ordem_service_pending?
+    self.create_ordem_service_pending? ||
+    self.products_pending?
   end
 
   def pending_all
     pendings = []
     pendings.append('Existe O.S a ser criada.') if self.create_ordem_service_pending?
+    pendings.append('Existe produtos para ser configurar os pallets.') if self.products_pending?
     pendings
   end
 
@@ -619,7 +621,17 @@ class InputControl < ActiveRecord::Base
     positivo
   end
 
+  def products_pending?
+    positivo = false
+    self.item_input_controls.each do |item|
+      positivo = item.product.box_by_pallet == 0 ? true : false
+      return true if positivo == true
+    end
+    positivo
+  end
+
   def self.add_nfe_xml_input_control(input_control, array_nfe_xml)
+    if self.products_pending?
     begin
       #byebug
       ActiveRecord::Base.transaction do
@@ -639,6 +651,9 @@ class InputControl < ActiveRecord::Base
     rescue => e
       puts e.message
       return {success: false, message: e.message}
+    end
+    else
+      return {success: false, message: "Existe produtos para ser configurar os pallets."}
     end
 	end
 
