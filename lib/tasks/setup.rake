@@ -32,6 +32,8 @@ namespace :test do
 			ConfigSystem.create_with(config_key: "PAYMENT_DISCHARGE_COST_CENTER", config_value: "1", config_description: "Centro de custo padrão para quando solicita pagamento de descarga no embarque, gerar o contas a pagar.").find_or_create_by(config_key: "PAYMENT_DISCHARGE_COST_CENTER")
 			ConfigSystem.create_with(config_key: "PAYMENT_DISCHARGE_SUB_COST_CENTER", config_value: "1", config_description: "Sub Centro de custo padrão para quando solicita pagamento de descarga no embarque, gerar o contas a pagar").find_or_create_by(config_key: "PAYMENT_DISCHARGE_SUB_COST_CENTER")
 			ConfigSystem.create_with(config_key: "PAYMENT_DISCHARGE_SUB_COST_CENTER_THREE", config_value: "1", config_description: "Terceiro Nível Sub Centro de custo padrão para quando solicita pagamento de descargano embarque, gerar o contas a pagar.").find_or_create_by(config_key: "PAYMENT_DISCHARGE_SUB_COST_CENTER_THREE")
+			ConfigSystem.create_with(config_key: "EMAIL_USER_PRODUCT_NOTIFICATION", config_value: "admin@admin.com.br", config_description: "E-mail responsável para informar a qtde pallet, calculado automaticamente pelo sistema, na leitura do XML. Enviar notificação quando um registro de produto for novo no banco de dados..").find_or_create_by(config_key: "EMAIL_USER_PRODUCT_NOTIFICATION")
+			ConfigSystem.create_with(config_key: "VALUE_DISCHARGE_OPERATION", config_value: "0.93", config_description: "Configuração para calculo de pagamento de descarga do operacional.").find_or_create_by(config_key: "VALUE_DISCHARGE_OPERATION")
 
 			puts "   - Count: #{ConfigSystem.count}"
 

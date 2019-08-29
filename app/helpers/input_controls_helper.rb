@@ -40,7 +40,8 @@ module InputControlsHelper
 
   def calculation_discharge(value)
     value = 0.00 if value.nil?
-    calc = value * (InputControl::VALUE_DISCHARGE / 1000)
+    value_discharge = ConfigSystem.where(config_key: 'VALUE_DISCHARGE_OPERATION').first
+    calc = value * (value_discharge.config_value.to_f / 1000)
     number_to_currency(calc, precision: 2, unit: "R$ ", separator: ",", delimiter: ".")
   end
 
