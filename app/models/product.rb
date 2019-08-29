@@ -11,6 +11,10 @@ class Product < ActiveRecord::Base
     item.cubagem = 0.00 #calculation_cubing
   end
 
+	before_save do |item|
+		item.box_by_pallet = total_box_pallet
+	end
+
 	after_create :send_notficiation_email
 
   def calculation_cubing
