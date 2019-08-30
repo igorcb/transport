@@ -631,7 +631,7 @@ class InputControl < ActiveRecord::Base
   end
 
   def self.add_nfe_xml_input_control(input_control, array_nfe_xml)
-    if input_control.products_pending?
+    #if self.products_pending?
     begin
       #byebug
       ActiveRecord::Base.transaction do
@@ -652,9 +652,9 @@ class InputControl < ActiveRecord::Base
       puts e.message
       return {success: false, message: e.message}
     end
-    else
-      return {success: false, message: "Existe produtos para ser configurar os pallets."}
-    end
+    #else
+    #  return {success: false, message: "Existe produtos para ser configurar os pallets."}
+    #end
 	end
 
   def driver_checkin?
