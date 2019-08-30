@@ -454,7 +454,7 @@ class InputControlsController < ApplicationController
     if result[:success] == true
       flash[:success] = "Attach NF-e to input control was successfully"
     else
-      flash[:danger] = "NF-e is not Attach."
+      flash[:danger] = result[:message]
     end
     redirect_to (@input_control)
   end

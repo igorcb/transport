@@ -631,7 +631,7 @@ class InputControl < ActiveRecord::Base
   end
 
   def self.add_nfe_xml_input_control(input_control, array_nfe_xml)
-    if self.products_pending?
+    if input_control.products_pending?
     begin
       #byebug
       ActiveRecord::Base.transaction do
