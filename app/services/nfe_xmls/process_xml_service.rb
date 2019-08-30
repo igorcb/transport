@@ -12,6 +12,7 @@ module NfeXmls
       path_xml = "#{Rails.root.join('public')}" + @nfe_xml.asset.url(:original, timestamp: false)
       return {success: false, message: "File XML not exist"} if File.open(path_xml).nil?
       return {success: false, message: "NFe Xml já processado."} if @nfe_xml.processado?
+      #return {success: false, message: "NF-e Xml não processado"}
 
       if @nfe_xml.nao_processado?
         nfe_xml = @nfe_xml
@@ -29,6 +30,8 @@ module NfeXmls
 
             peso = nfe.vol.pesoB.nil? ? nfe.vol.pesoL : nfe.vol.pesoB
             place = nfe.veiculo.placa.blank? ? '' : nfe.veiculo.placa.insert(3,'-')
+
+            product_create_or_update(nfe)
 
             nfe_xml.update_attributes(issue_date: nfe.ide.dhEmi[0..9],
                                             peso: peso,
@@ -55,5 +58,27 @@ module NfeXmls
         return {success: false, message: "NFe Xml já processado."}
       end
     end
+
+    private
+      def product_create_or_update(nfe)
+        nfe.prod.each do |product|
+          #byebug
+          prod = Produto.new
+          prod.attributes=(product)
+
+          produto = Product.create_with(category_id: 6,
+                                    cubagem: 0,
+                                   cod_prod: prod.cProd,
+                                  descricao: prod.xProd,
+                                        ean: prod.cEAN,
+                                   ean_trib: prod.cEANTrib,
+                                        ncm: prod.NCM,
+                                       cfop: prod.CFOP,
+                                unid_medida: prod.uCom,
+                             valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
+
+          produto.save!
+        end
+      end
   end
 end
