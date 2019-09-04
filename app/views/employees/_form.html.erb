@@ -79,15 +79,15 @@
           <div class="row">
             <div class="form-group col-md-4">
               <%= f.label :cep %><br>
-              <%= f.text_field :cep, class: "form-control" %>
+              <%= f.text_field :cep, class: "form-control cep auto_cep" %>
             </div>
             <div class="form-group col-md-6">
               <%= f.label :endereco %><br>
-              <%= f.text_field :endereco, class: "form-control" %>
+              <%= f.text_field :endereco, class: "form-control auto_endereco" %>
             </div>
             <div class="form-group col-md-2">
               <%= f.label :numero %><br>
-              <%= f.text_field :numero, class: "form-control" %>
+              <%= f.text_field :numero, class: "form-control auto_numero" %>
             </div>
           </div>
           <div class="row">
@@ -99,15 +99,15 @@
           <div class="row">
             <div class="form-group col-md-5">
               <%= f.label :bairro %><br>
-              <%= f.text_field :bairro, class: "form-control" %>
+              <%= f.text_field :bairro, class: "form-control auto_bairro" %>
             </div>
             <div class="form-group col-md-5">
               <%= f.label :cidade %><br>
-              <%= f.text_field :cidade, class: "form-control" %>
+              <%= f.text_field :cidade, class: "form-control auto_cidade" %>
             </div>
             <div class="form-group col-md-2">
               <%= f.label :estado  %>
-              <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>
+              <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control auto_estado"} ) %>
             </div>
           </div>
         </fieldset>
@@ -319,33 +319,7 @@
 
 
 
-<script type="text/javascript">
-$(function(){
-   $("#employee_cep").change(function(){
-     var cep     = $(this).val().replace(/[^0-9]/, '');
-     var boxes   = $("#boxCampos");
-     var msgErro = $("#mensagemErro");
-     console.log('CEP: ' + cep)
-     boxes.addClass('ocultar');
-     msgErro.addClass('ocultar');
 
-    if(cep !== ""){
-        $.getJSON('/get_address_by_cep', 'cep=' + cep, function(data){
-           console.log(data)
-           $("#employee_endereco").val(data.logradouro);
-           $("#employee_bairro").val(data.bairro);
-           $("#employee_cidade").val(data.localidade);
-           $("#employee_estado").val(data.uf);
-           $("#employee_numero").focus();
-           boxes.removeClass('ocultar');
-          }).fail(function(){
-            //Não retornando um valor válido, ele mostra a mensagem
-          msgErro.removeClass('ocultar').html('CEP inexistente')
-       });
-       }
-   });
-});
-</script>
 
 <script>
 $(document).ready(function(){

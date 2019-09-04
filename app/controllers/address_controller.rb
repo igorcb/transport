@@ -16,7 +16,7 @@ class AddressController < ApplicationController
 			#@stretch_routes = stretchs.map {|c| [c.stretch_source_and_target_long, c.id] }.insert(0, 'SELECIONE O TRECHO')
 			puts ">>>>>>>>>>>>>>>> Return: #{@data}"
 			@data = data.nil? ? nil : data.to_json.force_encoding("UTF-8")
-      #render :text => data
+      render :json => @data
     end
   end
 
