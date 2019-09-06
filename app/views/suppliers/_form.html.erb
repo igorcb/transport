@@ -11,7 +11,7 @@
       <%= f.radio_button :tipo_pessoa, "1"%>CNPJ
     </div>
   </div>
-  
+
   <div id="client_cpf_cpnj" class="form-group">
 
   </div>
@@ -34,15 +34,15 @@
   </div>
   <div class="form-group">
     <%= f.label :cep %><br>
-    <%= f.text_field :cep, class: "form-control" %>
+    <%= f.text_field :cep, class: "form-control auto_cep" %>
   </div>
   <div class="form-group">
     <%= f.label :endereco %><br>
-    <%= f.text_field :endereco, class: "form-control" %>
+    <%= f.text_field :endereco, class: "form-control auto_endereco" %>
   </div>
   <div class="form-group">
     <%= f.label :numero %><br>
-    <%= f.text_field :numero, class: "form-control" %>
+    <%= f.text_field :numero, class: "form-control auto_numero" %>
   </div>
   <div class="form-group">
     <%= f.label :complemento %><br>
@@ -50,15 +50,15 @@
   </div>
   <div class="form-group">
     <%= f.label :bairro %><br>
-    <%= f.text_field :bairro, class: "form-control" %>
+    <%= f.text_field :bairro, class: "form-control auto_bairro" %>
   </div>
   <div class="form-group">
     <%= f.label :cidade %><br>
-    <%= f.text_field :cidade, class: "form-control" %>
+    <%= f.text_field :cidade, class: "form-control auto_cidade" %>
   </div>
   <div class="form-group">
     <%= f.label :estado  %>
-    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>      
+    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control auto_estado"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :obs, "Observação" %>
@@ -69,14 +69,14 @@
     <fieldset>
       <legend>Contatos</legend>
         <div class="items">
-          <%= f.nested_fields_for :contacts do |f| 
+          <%= f.nested_fields_for :contacts do |f|
             render 'shared/contact', f: f
           end -%>
         </div>
         <div class="row">
           <div class="col-xs-2">
-            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>  
-          </div>  
+            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>
+          </div>
         </div>
     </fieldset>
   </div>
@@ -86,14 +86,14 @@
       <legend>E-Mail</legend>
 
       <div class="items">
-        <%= f.nested_fields_for :emails do |f| 
+        <%= f.nested_fields_for :emails do |f|
           render 'shared/email', f: f
         end -%>
       </div>
       <div class="row">
         <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>  
-        </div>  
+          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>
+        </div>
       </div>
     </fieldset>
   </div>
@@ -102,44 +102,44 @@
     <fieldset>
       <legend>Atividades</legend>
       <div class="items">
-        <%= f.nested_fields_for :movement_activities do |f| 
+        <%= f.nested_fields_for :movement_activities do |f|
           render 'activity', f: f
         end  -%>
       </div>
       <div class="row">
         <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] Atividade</a>  
-        </div>  
+          <br /> <a href="#" class="btn btn-success btn-sm add">[+] Atividade</a>
+        </div>
       </div>
     </fieldset>
-  </div>  
+  </div>
 
   <div id="accounts">
     <fieldset>
       <legend>Contas Bancarias</legend>
       <div class="items">
         <%= f.nested_fields_for :account_banks do |f| %>
-          <%= render "shared/form_account_bank", f: f %> 
+          <%= render "shared/form_account_bank", f: f %>
         <% end %>
       </div>
-      
+
       <div class="row">
         <div class="col-xs-2">
-          <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>  
-        </div>  
+          <a href="#" class="btn btn-success btn-sm add">[+] Conta</a>
+        </div>
       </div>
-    
-    </fieldset>
-  </div>  
 
-  <h2>Documentos</h2> 
+    </fieldset>
+  </div>
+
+  <h2>Documentos</h2>
   <div id="documents">
     <div class="items">
-      <%= f.nested_fields_for :assets do |f| 
+      <%= f.nested_fields_for :assets do |f|
         render 'shared/asset', f: f
       end  -%>
     </div>
-      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>
   </div>
 
   <hr />
@@ -158,7 +158,7 @@
       $('input[name="supplier[tipo_pessoa]"]').change(function() {
         var tipo = $(this).val();
         var cpf_ou_cnpj = '<%= @supplier.cpf_cnpj %>'
-        $('#client_cpf_cpnj').empty(); 
+        $('#client_cpf_cpnj').empty();
         if (tipo === '0') {
           $('#client_cpf_cpnj').append("<div class='form-group'> <label for='client_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='client_cpf_cnpj' name='supplier[cpf_cnpj]' type='text'> </div>");
         } else {
@@ -184,7 +184,7 @@
         var tipo = $(this).val();
         var cpf_ou_cnpj = '<%= @supplier.cpf_cnpj %>'
         console.log(cpf_ou_cnpj);
-        $('#client_cpf_cpnj').empty(); 
+        $('#client_cpf_cpnj').empty();
         if (tipo === '0') {
           $('#client_cpf_cpnj').append("<div class='form-group'> <label for='client_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='client_cpf_cnpj' name='supplier[cpf_cnpj]' type='text'> </div>");
         } else {
@@ -196,32 +196,4 @@
     });
 
   <% end %>
-</script>
-
-<script type="text/javascript">
-$(function(){
-   $("#supplier_cep").change(function(){
-     var cep     = $(this).val().replace(/[^0-9]/, ''); 
-     var boxes   = $("#boxCampos");
-     var msgErro = $("#mensagemErro");
-     console.log('CEP: ' + cep)
-     boxes.addClass('ocultar');
-     msgErro.addClass('ocultar');
-
-    if(cep !== ""){
-        $.getJSON('/get_address_by_cep', 'cep=' + cep, function(data){
-           console.log(data)
-           $("#supplier_endereco").val(data.logradouro);
-           $("#supplier_bairro").val(data.bairro);
-           $("#supplier_cidade").val(data.localidade);
-           $("#supplier_estado").val(data.uf);
-           $("#supplier_numero").focus();
-           boxes.removeClass('ocultar');
-          }).fail(function(){
-            //Não retornando um valor válido, ele mostra a mensagem
-          msgErro.removeClass('ocultar').html('CEP inexistente')
-       });
-       }
-   });
-});  
 </script>

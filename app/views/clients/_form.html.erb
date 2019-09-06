@@ -43,15 +43,15 @@
   </div>
   <div class="form-group">
     <%= f.label :cep %>
-    <%= f.text_field :cep, class: "form-control" %>
+    <%= f.text_field :cep, class: "form-control cep auto_cep" %>
   </div>
   <div class="form-group">
     <%= f.label :endereco %>
-    <%= f.text_field :endereco, class: "form-control" %>
+    <%= f.text_field :endereco, class: "form-control auto_endereco" %>
   </div>
   <div class="form-group">
     <%= f.label :numero %>
-    <%= f.text_field :numero, class: "form-control" %>
+    <%= f.text_field :numero, class: "form-control auto_numero" %>
   </div>
   <div class="form-group">
     <%= f.label :complemento %>
@@ -59,15 +59,15 @@
   </div>
   <div class="form-group">
     <%= f.label :bairro %>
-    <%= f.text_field :bairro, class: "form-control" %>
+    <%= f.text_field :bairro, class: "form-control auto_bairro" %>
   </div>
   <div class="form-group">
     <%= f.label :cidade %>
-    <%= f.text_field :cidade, class: "form-control" %>
+    <%= f.text_field :cidade, class: "form-control auto_cidade" %>
   </div>
   <div class="form-group">
     <%= f.label :estado  %>
-    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control"} ) %>
+    <%= f.select( :estado, select_uf, {include_blank: "Selecione o Estado"}, {class: "form-control auto_estado"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :rg %>
@@ -297,32 +297,4 @@
     });
 
   <% end %>
-</script>
-
-<script type="text/javascript">
-$(function(){
-   $("#client_cep").change(function(){
-     var cep     = $(this).val().replace(/[^0-9]/, '');
-     var boxes   = $("#boxCampos");
-     var msgErro = $("#mensagemErro");
-     console.log('CEP: ' + cep)
-     boxes.addClass('ocultar');
-     msgErro.addClass('ocultar');
-
-    if(cep !== ""){
-        $.getJSON('/get_address_by_cep', 'cep=' + cep, function(data){
-           console.log(data)
-           $("#client_endereco").val(data.logradouro);
-           $("#client_bairro").val(data.bairro);
-           $("#client_cidade").val(data.localidade);
-           $("#client_estado").val(data.uf);
-           $("#client_numero").focus();
-           boxes.removeClass('ocultar');
-          }).fail(function(){
-            //Não retornando um valor válido, ele mostra a mensagem
-          msgErro.removeClass('ocultar').html('CEP inexistente')
-       });
-       }
-   });
-});
 </script>

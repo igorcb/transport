@@ -33,12 +33,16 @@
     <%= f.text_field :inscricao_municipal, class: "form-control" %>
   </div>
   <div class="form-group">
+    <%= f.label :cep %><br>
+    <%= f.text_field :cep, class: "form-control cep auto_cep" %>
+  </div>
+  <div class="form-group">
     <%= f.label :endereco %><br>
-    <%= f.text_field :endereco, class: "form-control" %>
+    <%= f.text_field :endereco, class: "form-control auto_endereco" %>
   </div>
   <div class="form-group">
     <%= f.label :numero %><br>
-    <%= f.text_field :numero, class: "form-control" %>
+    <%= f.text_field :numero, class: "form-control auto_numero" %>
   </div>
   <div class="form-group">
     <%= f.label :complemento %><br>
@@ -46,23 +50,19 @@
   </div>
   <div class="form-group">
     <%= f.label :bairro %><br>
-    <%= f.text_field :bairro, class: "form-control" %>
+    <%= f.text_field :bairro, class: "form-control auto_bairro" %>
   </div>
   <div class="form-group">
     <%= f.label :estado, "Estado" %>
-    <%= f.select(:estado, State.order(:name).collect {|c| [c.name, c.uf]}, {prompt: "SELECT STATE"}, {class: "form-control"} ) %>
+    <%= f.select(:estado, State.order(:name).collect {|c| [c.name, c.uf]}, {prompt: "SELECT STATE"}, {class: "form-control  auto_estado"} ) %>
   </div>
   <div class="form-group">
     <%= f.label :cidade, "Cidade" %>
     <% if @representative.estado.present? %>
       <%= f.collection_select :cidade, city_of_state(@representative.estado), :name, :name, {prompt: "SELECIONE CIDADE"}, {class: "form-control"} %>
     <% else %>
-      <%= f.collection_select :cidade, [], :name, :name, {prompt: "SELECIONE CIDADE"}, {class: "form-control"}  %>
+      <%= f.collection_select :cidade, [], :name, :name, {prompt: "SELECIONE CIDADE"}, {class: "form-control auto_cidade"}  %>
     <% end %>
-  </div>
-  <div class="form-group">
-    <%= f.label :cep %><br>
-    <%= f.text_field :cep, class: "form-control cep" %>
   </div>
   <div class="form-group">
     <%= f.label :rg %><br>
@@ -81,19 +81,19 @@
     <%= f.label :observacao %><br>
     <%= f.text_area :observacao, class: "form-control" %>
   </div>
-  
+
   <div id="phones">
     <fieldset>
       <legend>Contatos</legend>
         <div class="items">
-          <%= f.nested_fields_for :contacts do |f| 
+          <%= f.nested_fields_for :contacts do |f|
             render 'shared/contact', f: f
           end -%>
         </div>
         <div class="row">
           <div class="col-xs-2">
-            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>  
-          </div>  
+            <br /> <a href="#" class="btn btn-success btn-sm add">[+] Contato</a>
+          </div>
         </div>
     </fieldset>
   </div>
@@ -103,14 +103,14 @@
       <legend>E-Mail</legend>
 
       <div class="items">
-        <%= f.nested_fields_for :emails do |f| 
+        <%= f.nested_fields_for :emails do |f|
           render 'shared/email', f: f
         end -%>
       </div>
       <div class="row">
         <div class="col-xs-2">
-          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>  
-        </div>  
+          <br /> <a href="#" class="btn btn-success btn-sm add">[+] E-Mail</a>
+        </div>
       </div>
 
     </fieldset>
@@ -132,7 +132,7 @@
       var uf = "uf="+$(this).val();
       console.log(uf);
       $.getJSON('/get_city_by_uf', uf, function(data){
-        var options = '<option value="">Selecione a cidade de origem</option>'; 
+        var options = '<option value="">Selecione a cidade de origem</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });
@@ -148,7 +148,7 @@
       $('input[name="representative[tipo_pessoa]"]').change(function() {
         var tipo = $(this).val();
         var cpf_ou_cnpj = "cpf_cnpj="+$(this).val();
-        $('#representative_cpf_cpnj').empty(); 
+        $('#representative_cpf_cpnj').empty();
         if (tipo === '0') {
           $('#representative_cpf_cpnj').append("<div class='form-group'> <label for='representative_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='representative_cpf_cnpj' name='representative[cpf_cnpj]' type='text'> </div>");
         } else {
@@ -175,7 +175,7 @@
         var tipo = $(this).val();
         var cpf_ou_cnpj = '<%= @representative.cpf_cnpj %>'
         console.log(cpf_ou_cnpj);
-        $('#representative_cpf_cpnj').empty(); 
+        $('#representative_cpf_cpnj').empty();
         if (tipo === '0') {
           $('#representative_cpf_cpnj').append("<div class='form-group'> <label for='representative_cpf_cnpj'>CPF</label> <input class='form-control cpf' id='representative_cpf_cnpj' name='representative[cpf_cnpj]' type='text'> </div>");
         } else {
@@ -187,32 +187,4 @@
     });
 
   <% end %>
-</script>
-
-<script type="text/javascript">
-$(function(){
-   $("#representative_cep").change(function(){
-     var cep     = $(this).val().replace(/[^0-9]/, ''); 
-     var boxes   = $("#boxCampos");
-     var msgErro = $("#mensagemErro");
-     console.log('CEP: ' + cep)
-     boxes.addClass('ocultar');
-     msgErro.addClass('ocultar');
-
-    if(cep !== ""){
-        $.getJSON('/get_address_by_cep', 'cep=' + cep, function(data){
-           console.log(data)
-           $("#representative_endereco").val(data.logradouro);
-           $("#representative_bairro").val(data.bairro);
-           $("#representative_cidade").val(data.localidade);
-           $("#representative_estado").val(data.uf);
-           $("#representative_numero").focus();
-           boxes.removeClass('ocultar');
-          }).fail(function(){
-            //Não retornando um valor válido, ele mostra a mensagem
-          msgErro.removeClass('ocultar').html('CEP inexistente')
-       });
-       }
-   });
-});  
 </script>
