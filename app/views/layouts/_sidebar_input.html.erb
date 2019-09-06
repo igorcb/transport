@@ -1,0 +1,57 @@
+<div class="sidebar-menu">
+  <%= link_to dashboard_input_path do %>
+    <i class="fas fa-chart-pie"></i>
+    <p class="menu-text">Dashboard</p>
+  <% end %>
+
+  <%= link_to input_controls_path do %>
+    <i class="fas fa-file-signature menu-icon"></i>
+    <p class="menu-text">Entradas</p>
+  <% end %>
+
+  <%= link_to boardings_path do %>
+    <i class="fas fa-truck menu-icon"></i>
+    <p class="menu-text">Embarques</p>
+  <% end %>
+
+  <%= link_to carriers_path do %>
+    <i class="fas fa-truck menu-icon"></i>
+    <p class="menu-text">Transportadora</p>
+  <% end %>
+
+  <%= link_to ordem_services_path do %>
+    <i class="fas fa-file-signature menu-icon"></i>
+    <p class="menu-text">Ordem de Serviço</p>
+  <% end %>
+
+  <%= link_to nfe_keys_path do %>
+    <i class="fas fas fa-search menu-icon"></i>
+    <p class="menu-text">Consulta NF-e</p>
+  <% end %>
+
+  <%= link_to nfe_xmls_path do %>
+    <i class="fas fa-file-signature menu-icon"></i>
+    <p class="menu-text">Upload XML</p>
+  <% end %>
+
+  <%= link_to drivers_path do %>
+    <i class="fas fa-user-friends menu-icon"></i>
+    <p class="menu-text">Motoristas</p>
+  <% end %>
+
+  <%= link_to tasks_path do %>
+    <i class="fas fa-tasks menu-icon"></i>
+    <p class="menu-text">Tarefas</p>
+  <% end %>
+
+  <%= link_to vehicles_path do %>
+    <i class="fas fa-shuttle-van menu-icon"></i>
+    <p class="menu-text">Veículos</p>
+  <% end %>
+
+
+  <%= link_to destroy_user_session_path, method: "delete" do %>
+    <i class="fas fa-sign-out-alt"></i>
+    <p class="menu-text">Sair</p>
+  <% end %>
+</div>

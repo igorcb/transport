@@ -32,6 +32,8 @@ class ApplicationController < ActionController::Base
       redirect_to dashboard_sup_path, flash: { danger: exception.message }
     elsif current_user.has_role? :boarding
       redirect_to dashboard_boarding_path, flash: { danger: exception.message }
+    elsif current_user.has_role? :input
+      redirect_to dashboard_input_path, flash: { danger: exception.message }
     else
       root_path
     end
@@ -54,6 +56,8 @@ class ApplicationController < ActionController::Base
       dashboard_sup_path
     elsif current_user.has_role? :boarding
       dashboard_boarding_path #, flash: { success: "Login efetuado com sucesso!" }
+    elsif current_user.has_role? :input
+      dashboard_input_path #, flash: { success: "Login efetuado com sucesso!" }
     else
       #root_path
     end

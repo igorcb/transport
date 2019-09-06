@@ -1,0 +1,24 @@
+<ul class="list-info">
+  <% input_controls.each do |input_control| %>
+    <li>
+      <% driver = Driver.where(cpf: input_control[:driver_cpf]).first %>
+      <% if driver.present? %>
+        <%= avatar input_control.driver.nome, driver.avatar.url(:mini) %>
+      <% else %>
+        <%= avatar input_control.driver.nome, "" %>
+      <% end %>
+      <div class="informations">
+        <p>
+          <strong class="name"><%= input_control.driver.nome %></strong> <br>
+          <span class="carrier" title="Carrier"><strong>Transportadora:</strong> <%= input_control.carrier.nome %></span> <br>
+          <span class="num_embarque" title="Nº Entr"><strong>Entrada:</strong> <%= input_control.id %></span>
+          <span class="start" title="Iniciado às"><strong>Dt. Pro:</strong> <%= date_br (input_control.date_scheduled) %></span>
+          <span class="start" title="Iniciado às"><strong>Dt. Rec:</strong> <%= date_br (input_control.date_receipt) %></span> <br>
+          <span class="status" title="Status"><strong>Paletizada: </strong><%= input_control.palletized_status %></span>
+          <span class="status" title="Status"><strong>Qtd Pallet: </strong><%= input_control.quantity_pallets %></span>
+          <span class="status" title="Status"><strong>Status: </strong><%= icon_status_boarding(input_control.status) %></span>
+        </p>
+      </div>
+    </li>
+  <% end %>
+</ul>

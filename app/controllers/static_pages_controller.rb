@@ -30,7 +30,7 @@ class StaticPagesController < ApplicationController
 		@input_status_open = InputControl.where(status: InputControl::TypeStatus::OPEN).where("date_scheduled > ?", Date.current - last_day.days)
 		@input_status_received = InputControl.where(status: InputControl::TypeStatus::RECEIVED).where("date_scheduled > ?", Date.current - last_day.days)
 		@input_status_finish_typing = InputControl.where(status: InputControl::TypeStatus::FINISH_TYPING).where("date_scheduled > ?", Date.current - last_day.days)
-		@input_status_discharge = InputControl.where(status: InputControl::TypeStatus::DISCHARGE).where("date_scheduled > ?", Date.current - last_day.days) 
+		@input_status_discharge = InputControl.where(status: InputControl::TypeStatus::DISCHARGE).where("date_scheduled > ?", Date.current - last_day.days)
 
 		@boarding_status = Boarding.where("created_at > ?", Date.current - last_day.days).group("created_at")
 		# @ordem_services_status = OrdemService.where("data > ?", Date.current - 30.days).group(:status).count
@@ -97,6 +97,11 @@ class StaticPagesController < ApplicationController
     # @delivered = Boarding.where(status: [Boarding::TipoStatus::ENTREGUE]).count
     # @delivered_the_day = Boarding.the_day.where(status: [Boarding::TipoStatus::ENTREGUE]).count
   end
+
+	def dashboard_input
+		@input_controls = InputControl.the_day
+		@checkins_input_controls = Checkin.input.input.order(id: :asc).the_day
+	end
 
 	def calculate_liquidity
 

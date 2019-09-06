@@ -7,7 +7,6 @@ class Ability
     # elsif  user.has_role? :client
       #can :manage, Pallet
 
-
     if user.has_role? :admin
       can :manage, :all
     elsif  user.has_role? :oper
@@ -33,6 +32,14 @@ class Ability
       can :manage, [Boarding, OrdemService, Driver, Task, InternalComment]
       can [:read, :search], [Client, InputControl, NfeXml, NfeKey, Vehicle]
       can [:create, :read, :type_account_select, :sub_centro_custo_by_custo, :sub_centro_custo_three_by_custo], AccountPayable
+    elsif user.has_role? :input
+      can :manage, [InputControl, NfeXml, NfeKey, OrdemService]
+      can :create, [AccountReceivable]
+      can [:read, :search, :get_driver_by_id, :get_driver_by_cpf], Driver
+      can [:read, :search, :get_carrier_by_id, :get_carrier_by_cnpj], Carrier
+      can [:read, :search, :get_client_by_cnpj], Client
+      #can [:read, :search],
+      #, Vehicle, Carrier]
     end
     #if user.has_role?(:agent, OrdemSerice.where(carrier_id: ?, user.carrier_id))
     #can :manage, OrdemService

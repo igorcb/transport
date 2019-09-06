@@ -26,14 +26,6 @@
         	  <%= render 'layouts/sidebar_admin' %>
         	<% end %>
 
-        	<%# if current_user.has_role? :visit %>
-        	  <%#= render 'layouts/sidebar_visit' %>
-        	<%# end %>
-
-        	<%# if current_user.has_role? :agent %>
-        	  <%#= render 'layouts/sidebar_agent' %>
-        	<%# end %>
-
         	<%# if current_user.has_role? :oper %>
         	  <%#= render 'layouts/sidebar_oper' %>
         	<%# end %>
@@ -52,6 +44,10 @@
 
           <% if current_user.has_role? :boarding %>
         	  <%= render 'layouts/sidebar_boarding' %>
+        	<% end %>
+
+          <% if current_user.has_role? :input %>
+        	  <%= render 'layouts/sidebar_input' %>
         	<% end %>
 
     </div>
