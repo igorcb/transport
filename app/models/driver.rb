@@ -52,6 +52,7 @@ class Driver < ActiveRecord::Base
 
   has_attached_file :avatar, styles: lambda { |a| a.instance.avatar_content_type =~ %r(image) ? { mini: "144x>90"} : {} }
   #validates_attachment_presence :avatar
+  do_not_validate_attachment_file_type :avatar
 
   has_many :drivings
   has_many :vehicles, :through => :drivings
