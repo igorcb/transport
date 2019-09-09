@@ -274,7 +274,7 @@ class InputControlsController < ApplicationController
       return
     end
     if @input_control.received
-      @input_control.update_attributes(received_user_id: current_user.id)
+      @input_control.update_attributes(quantity_pallets: params[:input_control][:quantity_pallets], received_user_id: current_user.id)
       flash[:success] = "Input Control was successfully received"
     else
       flash[:danger] = "Error receiving input control."
