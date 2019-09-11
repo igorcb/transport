@@ -12,7 +12,7 @@
   <%= render 'static_pages/sup_input_control', input_control: input_control %>
 
   <%# if input_control.charge_type_delivery?  %>
-    <% if input_control.check_nfe_xmls_have_qtde_pallets_total? %>
+    <% if !input_control.check_nfe_xmls_have_qtde_pallets_total? %>
       <%= link_to 'Informar Qtde Palletes', list_nfe_xmls_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::RECEIVED %>
     <% end %>
   <%# end %>
