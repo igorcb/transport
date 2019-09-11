@@ -43,6 +43,10 @@ class LowerReceivablesController < ApplicationController
       report.page.item(:emp_cidade).value(@company.cidade_estado)
 
       report.page.item(:valor_numerico).value("R$ #{number_to_currency(quitter.total_pago, precision: 2, unit: "", separator: ",", delimiter: ".")}")
+
+      report.page.item(:transp_nome).value(quitter.account_receivable.input_control.carrier.nome) if quitter.account_receivable.input_control.present?
+      report.page.item(:transp_cnpj).value(quitter.account_receivable.input_control.carrier.cnpj) if quitter.account_receivable.input_control.present?
+
       report.page.item(:nome).value(quitter.account_receivable.client.nome)
       report.page.item(:cpf_cnpj).value(quitter.account_receivable.client.cpf)
       report.page.item(:valor_extenso).value(Extenso.moeda(valor))

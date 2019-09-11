@@ -240,7 +240,7 @@
       "description": "",
       "x": 30,
       "y": 245,
-      "width": 75.4,
+      "width": 75.5,
       "height": 14,
       "style": {
         "font-family": [
@@ -295,7 +295,7 @@
       "x": 200,
       "y": 340,
       "width": 260.5,
-      "height": 24,
+      "height": 24.1,
       "style": {
         "font-family": [
           "Helvetica"
@@ -377,8 +377,8 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 313,
-      "y": 110,
+      "x": 311,
+      "y": 139,
       "width": 245,
       "height": 11,
       "style": {
@@ -409,8 +409,8 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 365,
-      "y": 125,
+      "x": 366,
+      "y": 155,
       "width": 192,
       "height": 11,
       "style": {
@@ -523,7 +523,7 @@
       "display": true,
       "description": "",
       "x": 311,
-      "y": 125,
+      "y": 155,
       "width": 52.8,
       "height": 17,
       "style": {
@@ -729,6 +729,70 @@
       "style": {
         "position-x": "left",
         "position-y": "top"
+      }
+    },
+    {
+      "id": "transp_nome",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 311,
+      "y": 110,
+      "width": 245,
+      "height": 11,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 10,
+        "color": "#7f7f7f",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [],
+        "overflow": "truncate",
+        "word-wrap": "break-word"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": false,
+      "format": {
+        "base": "",
+        "type": ""
+      }
+    },
+    {
+      "id": "transp_cnpj",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 311,
+      "y": 124,
+      "width": 243.6,
+      "height": 11,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 10,
+        "color": "#7f7f7f",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [],
+        "overflow": "truncate",
+        "word-wrap": "break-word"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": false,
+      "format": {
+        "base": "",
+        "type": ""
       }
     }
   ],
