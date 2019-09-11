@@ -144,6 +144,9 @@ class NfeXml < ActiveRecord::Base
   # def ordem_services_status
   #   ordem_service.status_name
   # end
+	def self.already_exists?(chave)
+	  NfeXml.where(nfe_type: "InputControl", chave: chave).present?
+	end
 
 	def xml_process(id)
 		nfe_xml = NfeXml.find(id)
@@ -151,7 +154,7 @@ class NfeXml < ActiveRecord::Base
 	end
 
   def self.processa_xml_input_control(params)
-		NfeXmls::ProcessXmlInputControlService.new(params).call
+  	NfeXmls::ProcessXmlInputControlService.new(params).call
   end
 
   def self.create_ordem_service(params)
