@@ -98,6 +98,11 @@ class NfeXmlsController < ApplicationController
     respond_with(@nfe_xml)
   end
 
+  def tag
+    @barcode = Barby::Code128.new(@nfe_xml.numero)
+    # render "nfe_xmls/tag", :layout => false
+  end
+
   private
     def set_nfe_xml
       @nfe_xml = NfeXml.find(params[:id])
