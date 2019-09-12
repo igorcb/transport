@@ -1,0 +1,73 @@
+<style>
+.printable {
+  background: white;
+}
+.printable table{
+  margin: 0 auto;
+  border: 1px solid #000;
+  width: 9cm;
+  height: 4.5cm;
+}
+
+.printable table td:first-child,
+.printable table th:first-child{
+  border-right: 1px solid #000;
+}
+.printable table thead tr{
+  border-bottom: 1px solid #000;
+}
+
+@media print {
+  * {
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+  }
+  .printable * {
+    visibility: visible;
+  }
+  .printable{
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 0.5cm;
+  }
+  .printable table{
+    margin: 0;
+    border: none;
+  }
+}
+</style>
+<div class="printable">
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align:center">
+          L7
+        </th>
+        <th style="text-align:right">
+          <%= @nfe_xml.source_client.nome if @nfe_xml.source_client.present? %> <br>
+          <%= @nfe_xml.source_client.estado_cidade if @nfe_xml.source_client.present? %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td align="center">No da nota</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td width="150" align="center" bgcolor="black">
+          <div style="color:white;" >
+            <%= @barcode %>
+          </div>
+          <br>
+          <img src="<%= @barcode.to_image(height: 50, margin: 0).to_data_url %>" alt="" <br>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>

@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   include ActionView::Helpers::NumberHelper
+  require 'barby'
+  require 'barby/barcode/code_128'
+  require 'barby/outputter/png_outputter'
+  require 'barby/outputter/html_outputter'
   before_action :authenticate_user!
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

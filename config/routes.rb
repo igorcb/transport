@@ -380,6 +380,7 @@ Rails.application.routes.draw do
       get :edit_qtde_pallet
       patch :update_qtde_pallet
       post :xml_process
+      get :tag
     end
     collection do
       get :search
