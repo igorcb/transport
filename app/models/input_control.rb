@@ -99,7 +99,8 @@ class InputControl < ActiveRecord::Base
     BILLED = 3
     FINISH_TYPING = 4
     DISCHARGE = 5
-  end #ordem do processo OPEN, FINISH TYPING, DISCHARGE, RECEIVED, CLOSE, BILLIED
+    CONFERENCE = 6
+  end #ordem do processo OPEN, FINISH TYPING, DISCHARGE, CONFERENCE, RECEIVED, CLOSE, BILLIED
 
   module TypeTeam
     IMBATIVEIS = 1
@@ -165,6 +166,7 @@ class InputControl < ActiveRecord::Base
       when 3 then "Faturado"
       when 4 then "Dig.Finalizada"
       when 5 then "Descarregando"
+      when 6 then "Conferencia"
       else "Nao Informado"
     end
   end

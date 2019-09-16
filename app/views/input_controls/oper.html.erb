@@ -9,6 +9,7 @@
 
     <%= render 'static_pages/oper_input_control', input_control: input_control %>
 
+    <%= link_to 'Conferir', items_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
     <%= link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
     <%= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::DISCHARGE %>
   </li>

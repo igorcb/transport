@@ -117,6 +117,27 @@ class InputControlsController < ApplicationController
     end
   end
 
+  def items
+    @request_items = request.base_url + "/input_controls/#{params[:id]}/items/"
+
+    # @items = InputControl.joins(:item_input_controls).where(id: params['id'])
+    @items = ItemInputControl.where(input_control_id: params["id"]).joins(:product)
+    if params["ean"].present?
+      @product = Product.where("ean = ?", params["ean"]).first
+    end
+
+    if params["ean"].present? and @product.nil?
+      @feedback = "has-error"
+    elsif params["ean"].present? and @product.present?
+      @feedback = "has-success"
+    else
+      @feedback = ""
+    end
+    
+    params = nil
+    request = nil
+  end
+
 
   def documents
   end
