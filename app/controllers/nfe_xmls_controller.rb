@@ -72,6 +72,20 @@ class NfeXmlsController < ApplicationController
     redirect_to list_nfe_xmls_input_control_path(@nfe_xml.input_control)
   end
 
+  def edit_update_qtde_pallet_service
+
+  end
+
+  def update_qtde_pallet_service
+    result = NfeXmls::UpdateQtdePalletsService.new(@nfe_xml, params[:nfe_xml][:qtde_pallet].to_i).call
+    if result[:success]
+      flash[:success] = result[:message]
+    else
+      flash[:danger] = result[:message]
+    end
+    redirect_to @nfe_xml
+  end
+
   def xml_process
     if @nfe_xml.xml_process(@nfe_xml.id)
       flash[:success] = "NF-e process was successfully "

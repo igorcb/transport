@@ -382,7 +382,10 @@ Rails.application.routes.draw do
       patch :update_qtde_pallet
       post :xml_process
       get :tag
+      get :edit_update_qtde_pallet_service
+      patch :update_qtde_pallet_service
     end
+
     collection do
       get :search
     end
