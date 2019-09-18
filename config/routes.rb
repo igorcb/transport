@@ -2,6 +2,12 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :conferences do
+    member do
+      post :add_item
+    end
+  end
+
   resources :addresses_houses do
     collection do
       get :do_occupe
