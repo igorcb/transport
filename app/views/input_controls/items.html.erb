@@ -3,6 +3,8 @@
     $("#barcode").focus();
   })
 </script>
+
+
 <form id="search" action="" method="get">
   <div class="form-group col-md-5 has-feedback <%= @feedback %>">
     <label for="qtde">Ler codigo de barras</label>
@@ -13,8 +15,10 @@
       <input type="number" id="barcode" name="ean" class="form-control" value="<%= params["ean"] %>">
       <a href="#" onClick="document.getElementById('search').submit();"botton class="btn btn-primary input-group-addon"><i class="fas fa-search"></i></a>
     </div>
+    <% if @error.present? %>
+    <small class="text-danger"><%= @error %></small>
+    <% end %>
   </div>
-
 </form>
 
 
@@ -24,6 +28,7 @@
     $('#myModal').modal();
   });
 </script>
+<%= form_tag("/conferences/#{@input_control.id}/add_item") do %>
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -32,19 +37,24 @@
         <h4 class="modal-title"><%= @product.descricao %></h4>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label for="qtde">Quantidade</label>
-          <input id="qtde" type="number" class="form-control" placeholder="Quantidade">
-        </div>
+          <input type="hidden" name="product_id" value="<%= @product.id %>">
+          <input type="hidden" name="conference_id" value="<%= @conference.id %>">
+          <div class="form-group">
+            <label for="qtde">Quantidade</label>
+            <input id="qtde" name="qtde_oper" type="number" class="form-control" placeholder="Quantidade" value="0">
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Salvar</button>
+        <input type="submit" class="btn btn-primary" value="Salvar">
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<% end %>
+<% end %>
 
+<% if(@conference_items.present?) %>
 <table class="table table-responsive">
   <thead>
     <tr>
@@ -54,32 +64,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><%= @product.ean %></td>
-      <td><%= @product.descricao %></td>
-      <td>xx</td>
-    </tr>
+    <% @conference_items.each do |conference_item| %>
+      <tr>
+        <td><%= conference_item.product.ean %></td>
+        <td><%= conference_item.product.descricao %></td>
+        <td><%= conference_item.qtde_oper %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
 <% end %>
-
-<table class="table table-responsive">
-  <thead>
-    <tr>
-      <th>Cod Produto</th>
-      <th colspan="2">Cod Ean</th>
-      <th>Descrição</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each do |row| %>
-    <tr>
-      <td><%= row.product.id %></td>
-      <td><%= row.product.ean %></td>
-      <td><img src="<%= code128(row.product.ean, height: 100) %>" alt=""></td>
-      <td><%= row.product.descricao %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
