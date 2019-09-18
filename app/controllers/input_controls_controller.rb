@@ -118,30 +118,17 @@ class InputControlsController < ApplicationController
   end
 
   def items
-    @input_control = InputControl.where(id: params["id"]).first;
-    @conference = @input_control.conferences.last
-    if @conference.nil?
-      Conference.create
-      @conference = @input_control.conferences.create!({:date_conference => Date.today, :start_time => Time.now, user: current_user})
-    end
-
+    input_control = InputControl.where(id: params["id"]).first
+    @conference = input_control.conferences.last
     @conference_items = @conference.conference_items
 
     @request_items = request.base_url + "/input_controls/#{params[:id]}/items/"
+    @ean = params["ean"]
 
-    # @items = ItemInputControl.joins(:product).where(input_control_id: params["id"])
-    if params["ean"].present?
+    if @ean.present?
       @product = Product.where("ean = ?", params["ean"]).first
     end
 
-    if params["ean"].present? && @product.nil?
-      @feedback = "has-error"
-      @error = "Este produto não está cadastrado."
-    elsif params["ean"].present? && @product.present?
-      @feedback = "has-success"
-    else
-      @feedback = ""
-    end
 
     params = nil
     request = nil
@@ -298,17 +285,19 @@ class InputControlsController < ApplicationController
   end
 
   def confirm_received
-    if params[:input_control][:quantity_pallets].blank?
-      flash[:danger] = "Qtde Pallets is not present."
-      redirect_to oper_input_controls_path
-      return
-    end
-    if @input_control.received
-      @input_control.update_attributes(quantity_pallets: params[:input_control][:quantity_pallets], received_user_id: current_user.id, status: InputControl::TypeStatus::CONFERENCE)
-      flash[:success] = "Input Control was successfully received"
-    else
-      flash[:danger] = "Error receiving input control."
-    end
+    input_control = InputControl.where(id: params["id"]).first;
+    InputControls::ConferenceService.new(input_control, current_user).call
+    # if params[:input_control][:quantity_pallets].blank?
+    #   flash[:danger] = "Qtde Pallets is not present."
+    #   redirect_to oper_input_controls_path
+    #   return
+    # end
+    # if @input_control.received
+    #   @input_control.update_attributes(quantity_pallets: params[:input_control][:quantity_pallets])
+    #   flash[:success] = "Input Control was successfully received"
+    # else
+    #   flash[:danger] = "Error receiving input control."
+    # end
     redirect_to oper_input_controls_path
   end
 
