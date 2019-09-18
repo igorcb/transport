@@ -65,7 +65,7 @@ class BoardingsController < ApplicationController
 	end
 
 	def create
-    @boarding = Boarding.generate_shipping(params[:os][:ids]) #deve retornar o id
+    #@boarding = Boarding.generate_shipping(params[:os][:ids]) #deve retornar o id
     if @boarding.errors.present?
       @boarding.errors.full_messages.each do |msg|
         flash[:danger] = msg
