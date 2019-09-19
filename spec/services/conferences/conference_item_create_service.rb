@@ -6,8 +6,8 @@ RSpec.describe Conferences::ConferenceItemCreateService, type: :service do
       #byebug
       @user = FactoryBot.create(:user)
       @input_control = FactoryBot.create(:input_control)
-      @product = FactoryBot.create(:product)
       @item_input_control = FactoryBot.create(:item_input_control)
+      @product = FactoryBot.create(:product)
       @conference = FactoryBot.create(:conference)
     end
 
