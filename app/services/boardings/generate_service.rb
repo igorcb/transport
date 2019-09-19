@@ -1,13 +1,14 @@
 module Boardings
   class GenerateService
 
-    def initialize(ordem_service_ids)
-      # @boarding = boarding
-       @ordem_service_ids = ordem_service_ids
+    def initialize(ordem_service_ids, user)
+      @user = user
+      @ordem_service_ids = ordem_service_ids
     end
 
     def call
       #byebug
+      return {success: false, message: "User not information."} if @user.blank?
       return {success: false, message: "Ordem Service not selected."} if @ordem_service_ids.blank?
       return {success: false, message: "Default driver key, not set."} if !driver_not_information?
       return {success: false, message: "Default carrier key, not set."} if !carrier_not_information?
@@ -21,6 +22,7 @@ module Boardings
           boarding = Boarding.create!(driver: driver, carrier: carrier, status: Boarding::TipoStatus::ABERTO)
           @ordem_service_ids.each do |ordem_service|
           	boarding.boarding_items.create!(ordem_service_id: ordem_service, delivery_number: 1)
+            Event.create(user_id: @user.id, controller_name: "BoardingItem", action_name: 'create' , what: "Adicionou a O.S. No: #{ordem_service} do embarque No: #{boarding.id}")
           end
           OrdemService.where(id: @ordem_service_ids).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
           return {success: true, message: "Boarding created successfully."}

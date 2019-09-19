@@ -757,7 +757,7 @@ class Boarding < ActiveRecord::Base
     end
   end
 
-  def self.driver_not_information?
+  def self.driver_not_information
     conf = ConfigSystem.where(config_key: 'DRIVER_DEFAULT').first
     conf.config_value.to_i
   end
