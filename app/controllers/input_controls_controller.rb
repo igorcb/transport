@@ -123,7 +123,7 @@ class InputControlsController < ApplicationController
 
     input_control = InputControl.where(id: params["id"]).first
     @conference = input_control.conferences.last
-    @conference_items = @conference.conference_items
+    @conference_items = @conference.conference_items if  @conference.present?
 
     if @ean.present?
       @product = Product.where("ean = ?", params["ean"]).first
