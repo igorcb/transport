@@ -7,7 +7,9 @@ class ConferencesController < ApplicationController
   end
 
   def add_item
-    Conferences::ConferenceItemCreateService.new({conference_id: params[:conference_id], product_id: params[:product_id], qtde_oper: params[:qtde_oper]}).call
+    @input_control = InputControl.where(id: params[:id])
+    Conferences::ConferenceItemCreateService.new(
+      {input_control_id: params[:id], product_id: params[:product_id], qtde_oper: params[:qtde_oper]}).call
     # conference_item = ConferenceItem.new
     # conference_item.conference_id = params[:conference_id];
     # conference_item.product_id = params[:product_id];
@@ -18,7 +20,9 @@ class ConferencesController < ApplicationController
     # conference.finish_time = Time.now
     # conference.save
 
-    redirect_to "/input_controls/#{params[:id]}/items"
+    #redirect_to "/input_controls/#{params[:id]}/items"
+
+    redirect_to item_input_controls(@input_control)
   end
 
 end

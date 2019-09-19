@@ -28,7 +28,7 @@
     $('#myModal').modal();
   });
 </script>
-<%= form_tag("/conferences/#{@input_control.id}/add_item") do %>
+<%= form_tag add_item_conference_path do %>
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -38,7 +38,6 @@
       </div>
       <div class="modal-body">
           <input type="hidden" name="product_id" value="<%= @product.id %>">
-          <input type="hidden" name="conference_id" value="<%= @conference.id %>">
           <div class="form-group">
             <label for="qtde">Quantidade</label>
             <input id="qtde" name="qtde_oper" type="number" class="form-control" placeholder="Quantidade" value="0">
