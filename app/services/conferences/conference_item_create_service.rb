@@ -29,7 +29,7 @@ module Conferences
         # byebug
 
         ActiveRecord::Base.transaction do
-          conference_item = ConferenceItem.create!(conference_id: @conference.id, product_id: integer, qtde_oper: integer)
+          conference_item = ConferenceItem.create!(conference_id: @conference.id, product_id: @product.id, qtde_oper: @qtde_oper)
         end
         return {success: true, message: "Conference on input_control created successfully."}
       rescue => e

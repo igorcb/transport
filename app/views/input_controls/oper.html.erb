@@ -6,12 +6,21 @@
 
 
     <span class="badge"><%= input_control.quantity_pallets %></span>
-
     <%= render 'static_pages/oper_input_control', input_control: input_control %>
 
     <%= link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
     <%= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::DISCHARGE %>
-    <%= link_to 'Conferir', items_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::CONFERENCE %>
+
+    <% if input_control.conferences.start.last %>
+      <%= link_to 'Iniciar Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::CONFERENCE %>
+    <% elsif input_control.conferences.finish.last  %>
+      <% if input_control.conferences.last.approved %>
+        <span class="text-success">Conferido</span>
+        <%= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
+      <% else %>
+        <span class="text-danger">Aguardando conferencia</span>
+      <% end %>
+    <% end %>
   </li>
   <% end %>
 </ul>

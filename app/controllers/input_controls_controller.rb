@@ -121,8 +121,8 @@ class InputControlsController < ApplicationController
     @request_items = request.base_url + "/input_controls/#{params[:id]}/items/"
     @ean = params["ean"]
 
-    input_control = InputControl.where(id: params["id"]).first
-    @conference = input_control.conferences.last
+    @input_control = InputControl.where(id: params["id"]).first
+    @conference = @input_control.conferences.last
     @conference_items = @conference.conference_items if  @conference.present?
 
     if @ean.present?
@@ -130,7 +130,7 @@ class InputControlsController < ApplicationController
     end
   end
 
-  
+
 
 
   def documents

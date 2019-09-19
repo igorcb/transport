@@ -4,8 +4,8 @@ class Conference < ApplicationRecord
   has_many :conference_items
 
   enum type_operation: [:input_control, :boarding]
-  enum status: [:start, :finish]
-
+  enum status: {start: "0", finish: "1"}
+  #enum status: ["start", "finish"]
 end
 
 #input_control.conferences.create()
