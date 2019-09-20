@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     member do
       get :finish_conference
       post :add_item
+      delete :destroy_item
     end
   end
 

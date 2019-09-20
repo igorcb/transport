@@ -20,4 +20,12 @@ class ConferencesController < ApplicationController
     redirect_to oper_input_controls_path
   end
 
+  def destroy_item
+    conference_item = ConferenceItem.where(id: params[:id]).first
+    input_control = InputControl.find(conference_item.conference.conference_id)
+
+    conference_item.destroy
+    redirect_to items_input_control_path(input_control)
+  end
+
 end
