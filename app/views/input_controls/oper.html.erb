@@ -1,5 +1,6 @@
 <%= breadcrumbs({"Dashboard": dashboard_oper_path, "Entradas": ""}) %>
 <h2>Entradas</h2>
+
 <ul class="list-group dashlist">
   <% @input_controls.each do |input_control| %>
     <li class="<%= input_control.status_name %>">
@@ -16,13 +17,11 @@
       <% if input_control.conferences.last.status == "start" %>
         <%= link_to 'Items da Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs"  %>
       <% else %>
-        <% if input_control.conferences.last.approved == "waiting" %>
-          <span class="text-danger">Aguardando conferencia</span>
-        <% elsif input_control.conferences.last.approved = "yes" %>
+        <% if input_control.conferences.last.approved %>
           <%= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
-        <% else %>
-          <%= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
         <% end %>
+          <%#= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
+           <span class="text-danger">Aguardando conferencia</span>
       <% end %>
     <% end %>
   </li>
