@@ -4,7 +4,7 @@
   })
 </script>
 
-<!-- comment --> 
+<!-- comment -->
 
 <form id="search" action="" method="get">
   <div class="form-group col-md-5 has-feedback <%= feedback_conference(@ean, 'css') %>">
@@ -76,4 +76,4 @@
 
 <% end %>
 
-<%= link_to("Finalizar conferência", finish_conference_conference_path(@conference.id), {class: "btn btn-primary"}) %>
+<%= link_to("Finalizar conferência", finish_conference_conference_path(@conference.id), {class: "btn btn-primary"}) if @conference.present? %>
