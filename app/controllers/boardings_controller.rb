@@ -65,18 +65,27 @@ class BoardingsController < ApplicationController
 	end
 
 	def create
-    @boarding = Boarding.generate_shipping(params[:os][:ids]) #deve retornar o id
-    if @boarding.errors.present?
-      @boarding.errors.full_messages.each do |msg|
-        flash[:danger] = msg
-      end
+    hash_ids = params[:os][:ids]
+    result = Boardings::GenerateService.new(hash_ids.keys, current_user).call
+    if result[:success]
+      flash[:danger] = result[:message]
       redirect_to boardings_path
     else
-      respond_to do |format|
-        format.html { redirect_to @boarding, flash: { success: "Boarding was successfully created." } }
-        format.json { render action: 'show', status: :created, location: @boarding }
-      end
+      flash[:danger] = result[:message]
+      redirect_to selection_shipment_path
     end
+    #@boarding = Boarding.generate_shipping(params[:os][:ids]) #deve retornar o id
+    # if @boarding.errors.present?
+    #   @boarding.errors.full_messages.each do |msg|
+    #     flash[:danger] = msg
+    #   end
+    #   redirect_to boardings_path
+    # else
+    #   respond_to do |format|
+    #     format.html { redirect_to @boarding, flash: { success: "Boarding was successfully created." } }
+    #     format.json { render action: 'show', status: :created, location: @boarding }
+    #   end
+    # end
 	end
 
 	def update
