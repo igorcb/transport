@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :conferences do
     member do
+      get :finish_conference
       post :add_item
     end
   end
