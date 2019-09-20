@@ -64,9 +64,9 @@ module InputControlsHelper
     elsif ean.present? && product.nil? && response == "msg"
       return "Este produto não está cadastrado."
     elsif ean.present? && product.present?
-      return false
-    elsif ean.nil?
       return true
+    elsif ean.nil?
+      return false
     end
   end
 

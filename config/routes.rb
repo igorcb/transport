@@ -226,6 +226,7 @@ Rails.application.routes.draw do
       post :update_product, on: :collection
     end
     member do
+      get :start_conference
       get :items
       get :report_team
       put :update_report_team
@@ -389,7 +390,10 @@ Rails.application.routes.draw do
       patch :update_qtde_pallet
       post :xml_process
       get :tag
+      get :edit_update_qtde_pallet_service
+      patch :update_qtde_pallet_service
     end
+
     collection do
       get :search
     end

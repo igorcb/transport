@@ -266,6 +266,12 @@ class InputControlsController < ApplicationController
   def received
   end
 
+  def start_conference
+    input_control = InputControl.where(id: params[:id]).first
+    InputControls::ConferenceService.new(input_control, current_user).call
+    redirect_to oper_input_controls_path
+  end
+
   def update_start
     if params[:input_control][:place_confirmed].blank?
       flash[:danger] = "Place is not present."
@@ -276,15 +282,17 @@ class InputControlsController < ApplicationController
       redirect_to oper_input_controls_path
       return
     end
+
     @input_control.started_user_id = current_user.id
     @input_control.update(input_control_params)
     InputControl.start(params[:id])
+
     redirect_to oper_input_controls_path, flash: { success: "Input Control was successfully started" }
   end
 
   def confirm_received
     input_control = InputControl.where(id: params["id"]).first;
-    InputControls::ConferenceService.new(input_control, current_user).call
+    # InputControls::ConferenceService.new(input_control, current_user).call
     # if params[:input_control][:quantity_pallets].blank?
     #   flash[:danger] = "Qtde Pallets is not present."
     #   redirect_to oper_input_controls_path
