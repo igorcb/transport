@@ -226,6 +226,7 @@ Rails.application.routes.draw do
       post :update_product, on: :collection
     end
     member do
+      get :analize
       get :start_conference
       get :items
       get :report_team

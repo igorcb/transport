@@ -130,8 +130,11 @@ class InputControlsController < ApplicationController
     end
   end
 
-
-
+  def analize
+    conference = @input_control.conferences.finish.last
+    Conference.where(id: conference.id).update_all(approved: "yes")
+    redirect_to sup_input_controls_path
+  end
 
   def documents
   end
