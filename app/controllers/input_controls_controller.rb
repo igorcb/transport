@@ -292,18 +292,17 @@ class InputControlsController < ApplicationController
 
   def confirm_received
     input_control = InputControl.where(id: params["id"]).first;
-    # InputControls::ConferenceService.new(input_control, current_user).call
-    # if params[:input_control][:quantity_pallets].blank?
-    #   flash[:danger] = "Qtde Pallets is not present."
-    #   redirect_to oper_input_controls_path
-    #   return
-    # end
-    # if @input_control.received
-    #   @input_control.update_attributes(quantity_pallets: params[:input_control][:quantity_pallets])
-    #   flash[:success] = "Input Control was successfully received"
-    # else
-    #   flash[:danger] = "Error receiving input control."
-    # end
+    if params[:input_control][:quantity_pallets].blank?
+      flash[:danger] = "Qtde Pallets is not present."
+      redirect_to oper_input_controls_path
+      return
+    end
+    if @input_control.received
+      @input_control.update_attributes(quantity_pallets: params[:input_control][:quantity_pallets])
+      flash[:success] = "Input Control was successfully received"
+    else
+      flash[:danger] = "Error receiving input control."
+    end
     redirect_to oper_input_controls_path
   end
 

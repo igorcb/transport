@@ -17,11 +17,13 @@
       <% if input_control.conferences.last.status == "start" %>
         <%= link_to 'Items da Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs"  %>
       <% else %>
-        <% if input_control.conferences.last.approved %>
+        <% if input_control.conferences.last.approved == "waiting" %>
+          <span class="text-danger">Aguardando conferencia</span>
+        <% elsif input_control.conferences.last.approved == "yes" %>
           <%= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
+        <% else  %>
+          <%= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
         <% end %>
-          <%#= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
-           <span class="text-danger">Aguardando conferencia</span>
       <% end %>
     <% end %>
   </li>
