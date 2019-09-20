@@ -13,7 +13,7 @@ module Conferences
         # byebug
 
         ActiveRecord::Base.transaction do
-          @conference.update(finish_time: Time.current, status: :finish)
+          @conference.update(finish_time: Time.current, status: :finish, approved: :waiting)
         end
         return {success: true, message: "Conference on input_control created successfully."}
       rescue => e

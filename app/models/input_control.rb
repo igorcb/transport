@@ -309,6 +309,7 @@ class InputControl < ActiveRecord::Base
   def received
     # so pode informar recebimento se a remessa estiver no status FINISH_TYPING
     # fazer checagem se necessario
+    
     return_value = false
     begin
       checkin = Checkin.the_day.input.where(driver_cpf: self.driver.cpf).first
