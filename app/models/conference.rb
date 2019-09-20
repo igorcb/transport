@@ -5,6 +5,7 @@ class Conference < ApplicationRecord
 
   enum type_operation: [:input_control, :boarding]
   enum status: {start: "0", finish: "1"}
+  enum approved: {waiting: "0", yes: "1", not: "2"}
   #enum status: ["start", "finish"]
 end
 
