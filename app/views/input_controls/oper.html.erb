@@ -19,8 +19,8 @@
         <% if input_control.conferences.last.approved %>
           <%= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
         <% end %>
-          <%= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
-          <!-- <span class="text-danger">Aguardando conferencia</span> -->
+          <%#= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
+           <span class="text-danger">Aguardando conferencia</span>
       <% end %>
     <% end %>
   </li>
