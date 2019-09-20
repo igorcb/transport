@@ -126,7 +126,7 @@ class InputControlsController < ApplicationController
     @conference_items = @conference.conference_items if  @conference.present?
 
     if @ean.present?
-      @product = Product.where("ean = ?", params["ean"]).first
+      @product = Product.where("cod_prod = ? or ean_box = ?", params["ean"], params["ean"]).first
     end
   end
 
