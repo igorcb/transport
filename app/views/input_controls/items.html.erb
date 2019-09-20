@@ -40,6 +40,8 @@
         <h4 class="modal-title"><%= @product.descricao %></h4>
       </div>
       <div class="modal-body">
+        <strong>ID</strong>: <%= @product.id %> <br>
+        <strong>Ean box</strong>: <%= @product.ean_box %> <br>
           <input type="hidden" name="product_id" value="<%= @product.id %>">
           <div class="form-group">
             <label for="qtde">Quantidade</label>
@@ -62,7 +64,7 @@
     <table class="table table-responsive">
       <thead>
         <tr>
-          <th>Ean</th>
+          <th>Ean box</th>
           <th>Descrição</th>
           <th>Qtde</th>
           <th></th>
@@ -71,7 +73,7 @@
       <tbody>
         <% @conference_items.each do |conference_item| %>
         <tr>
-          <td><%= conference_item.product.ean %></td>
+          <td><%= conference_item.product.ean_box %></td>
           <td><%= conference_item.product.descricao %></td>
           <td><%= conference_item.qtde_oper %></td>
           <td><%= link_to("x", destroy_item_conference_path(conference_item), {class: "btn btn-danger", 'data-confirm': "Deseja deletar o item #{conference_item.product.descricao} ?", 'data-method': "delete"}) %></td>
