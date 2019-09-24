@@ -37,11 +37,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><%= @product.descricao %></h4>
+        <h4 class="modal-title"><%= @product.cod_prod %> - <%= @product.descricao %></h4>
       </div>
       <div class="modal-body">
-        <strong>ID</strong>: <%= @product.id %> <br>
-        <strong>Ean box</strong>: <%= @product.ean_box %> <br>
+        <strong>Cod.Prod</strong>: <%= @product.cod_prod %> <br>
+        <strong>Descricao</strong>: <%= @product.descricao %> <br>
+        <strong>EAN</strong>: <%= @product.ean_box %> <br>
           <input type="hidden" name="product_id" value="<%= @product.id %>">
           <div class="form-group">
             <label for="qtde">Quantidade</label>
@@ -64,7 +65,8 @@
     <table class="table table-responsive">
       <thead>
         <tr>
-          <th>Ean box</th>
+          <th>CodProd</th>
+          <th>EAN</th>
           <th>Descrição</th>
           <th>Qtde</th>
           <th></th>
@@ -73,6 +75,7 @@
       <tbody>
         <% @conference_items.each do |conference_item| %>
         <tr>
+          <td><%= conference_item.product.cod_prod %></td>
           <td><%= conference_item.product.ean_box %></td>
           <td><%= conference_item.product.descricao %></td>
           <td><%= conference_item.qtde_oper %></td>

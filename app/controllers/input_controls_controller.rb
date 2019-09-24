@@ -123,7 +123,7 @@ class InputControlsController < ApplicationController
 
     @input_control = InputControl.where(id: params["id"]).first
     @conference = @input_control.conferences.last
-    @conference_items = @conference.conference_items if  @conference.present?
+    @conference_items = @conference.conference_items.order(id: :desc) if  @conference.present?
 
     if @ean.present?
       @product = Product.where("cod_prod = ? or ean_box = ?", params["ean"], params["ean"]).first
@@ -131,8 +131,12 @@ class InputControlsController < ApplicationController
   end
 
   def analize
-    conference = @input_control.conferences.finish.last
-    Conference.where(id: conference.id).update_all(approved: "yes")
+    result = InputControls::CheckConferenceService.new(@input_control).call
+    if result[:success]
+      flash[:success] = result[:message]
+    else
+      flash[:danger] = result[:message]
+    end
     redirect_to sup_input_controls_path
   end
 
