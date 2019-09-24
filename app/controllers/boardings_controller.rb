@@ -68,7 +68,7 @@ class BoardingsController < ApplicationController
     hash_ids = params[:os][:ids]
     result = Boardings::GenerateService.new(hash_ids.keys, current_user).call
     if result[:success]
-      flash[:danger] = result[:message]
+      flash[:success] = result[:message]
       redirect_to boardings_path
     else
       flash[:danger] = result[:message]

@@ -13,13 +13,13 @@ module Boardings
       return {success: false, message: "Default driver key, not set."} if !driver_not_information?
       return {success: false, message: "Default carrier key, not set."} if !carrier_not_information?
       return {success: false, message: "Selected work ordem_service must be in status OPEN."} if !status_open?(@ordem_service_ids)
-      
+
       driver = Driver.where(id: ConfigSystem.where(config_key: 'DRIVER_DEFAULT').first.config_value).first
       carrier = Carrier.where(id: ConfigSystem.where(config_key: 'CARRIER_DEFAULT').first.config_value).first
 
       begin
         ActiveRecord::Base.transaction do
-          boarding = Boarding.create!(driver: driver, carrier: carrier, status: Boarding::TipoStatus::ABERTO)
+          boarding = Boarding.create!(date_boarding: Date.current, driver: driver, carrier: carrier, status: Boarding::TipoStatus::ABERTO)
           @ordem_service_ids.each do |ordem_service|
           	boarding.boarding_items.create!(ordem_service_id: ordem_service, delivery_number: 1)
             Event.create(user_id: @user.id, controller_name: "BoardingItem", action_name: 'create' , what: "Adicionou a O.S. No: #{ordem_service} do embarque No: #{boarding.id}")
