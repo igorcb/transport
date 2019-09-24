@@ -7,10 +7,10 @@ module InputControls
 
     def call
       #byebug
-      return {success: false, message: "ERROR: input control is not present."} if !@input_control.present?
+      return {success: false, message: "Input control is not present."} if !@input_control.present?
       @item_input_control = ItemInputControl.select(:product_id).where(input_control_id: @input_control.id).group(:product_id).sum(:qtde)
       @conference = Conference.where(conference_id: @input_control.id, conference_type: "InputControl").last
-      return {success: false, message: "ERROR: @conference is not found."} if !@conference.present?
+      return {success: false, message: "Conference is not found."} if !@conference.present?
       @conference_items = @conference.conference_items.select(:product_id).group(:product_id).sum(:qtde_oper)
 
       begin
@@ -18,18 +18,21 @@ module InputControls
 
         ActiveRecord::Base.transaction do
           # puts @item_input_control[219]
-          if @conference_items.count != @item_input_control.count
-            return {success: false, message: "Products number is not aggre"}
-          end
           @conference_items.each do |conference_item|
             product_id = conference_item[0]
-            if @item_input_control[product_id] != conference_item[0]
-              return {success: false, message: "The product #{product_id} has different quantity"}
+            if @item_input_control[product_id].to_f != conference_item[1].to_f
+              Conference.where(id: @conference.id).update_all(approved: "no")
+              return {success: false, message: "Conference was not approved."}
               break
             end
           end
+          if @conference_items.values.sum.to_f != @item_input_control.values.sum.to_f
+            Conference.where(id: @conference.id).update_all(approved: "no")
+            return {success: false, message: "Products number is not aggre"}
+          end
         end
-        return {success: true, message: "Conference was success"}
+        Conference.where(id: @conference.id).update_all(approved: "yes")
+        return {success: true, message: "conference successfully approved."}
       rescue => e
         return {success: false, message: e.message}
       end
