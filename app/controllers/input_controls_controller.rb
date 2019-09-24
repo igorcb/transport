@@ -119,7 +119,11 @@ class InputControlsController < ApplicationController
 
   def items
     @request_items = request.base_url + "/input_controls/#{params[:id]}/items/"
-    @ean = params["ean"]
+    @ean = params["ean"] == """" ? nil : params["ean"]
+
+    # if @ean
+    #   redirect_to @request_items
+    # end
 
     @input_control = InputControl.where(id: params["id"]).first
     @conference = @input_control.conferences.last

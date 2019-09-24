@@ -21,14 +21,14 @@ module InputControls
           @conference_items.each do |conference_item|
             product_id = conference_item[0]
             if @item_input_control[product_id].to_f != conference_item[1].to_f
-              Conference.where(id: @conference.id).update_all(approved: "no")
+              Conference.where(id: @conference.id).update_all(approved: "not")
               InputControl.where(id: @input_control.id).update_all(status: InputControl::TypeStatus::DISCHARGE)
               return {success: false, message: "Conference was not approved."}
               break
             end
           end
           if @conference_items.values.sum.to_f != @item_input_control.values.sum.to_f
-            Conference.where(id: @conference.id).update_all(approved: "no")
+            Conference.where(id: @conference.id).update_all(approved: "not")
             InputControl.where(id: @input_control.id).update_all(status: InputControl::TypeStatus::DISCHARGE)
             return {success: false, message: "Products number is not aggre"}
           end

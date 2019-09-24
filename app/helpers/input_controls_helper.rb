@@ -57,18 +57,7 @@ module InputControlsHelper
     TypeService.where(id: type_service_ids)
   end
 
-  def feedback_conference(ean, response=nil)
-    product = Product.where("ean_box = ?", ean).first
-    if ean.present? && product.nil? && response == "css"
-      return "has-error"
-    elsif ean.present? && product.nil? && response == "msg"
-      return "Este produto não está cadastrado."
-    elsif ean.present? && product.present?
-      return true
-    elsif ean.nil?
-      return false
-    end
-  end
+
 
 end
 

@@ -52,8 +52,8 @@ class InputControl < ActiveRecord::Base
   scope :discharge, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::DISCHARGE, TypeStatus::CONFERENCE] ).order("id desc") }
   scope :pending, -> { includes(:driver).where("date_entry > ? and date_entry < ? and status = ?", (Date.current - 3.day), Date.current, TypeStatus::RECEIVED).order("id desc") }
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
-  scope :available_discharge, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::RECEIVED]).order("id desc") }
-  scope :available_supervisor, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::RECEIVED]).order("id desc") }
+  scope :available_discharge, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::CONFERENCE, TypeStatus::RECEIVED]).order("id desc") }
+  scope :available_supervisor, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::CONFERENCE, TypeStatus::RECEIVED]).order("id desc") }
   scope :available_operator, -> { includes(:driver).where(date_scheduled: Date.current).where.not(team: nil).order("id desc") }
 
   #before_save { |item| item.email = email.downcase }
