@@ -49,7 +49,7 @@ class InputControl < ActiveRecord::Base
   scope :the_day_scheduled, -> { includes(:driver).where(date_scheduled: Date.current).order(date_scheduled: :desc, time_scheduled: :asc) }
   scope :opened, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::OPEN, TypeStatus::FINISH_TYPING ] ).order("id desc") }
   scope :received, -> { includes(:driver).where(date_scheduled: Date.current, status: TypeStatus::RECEIVED ).order("id desc") }
-  scope :discharge, -> { includes(:driver).where(date_scheduled: Date.current, status: TypeStatus::DISCHARGE ).order("id desc") }
+  scope :discharge, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::DISCHARGE, TypeStatus::CONFERENCE] ).order("id desc") }
   scope :pending, -> { includes(:driver).where("date_entry > ? and date_entry < ? and status = ?", (Date.current - 3.day), Date.current, TypeStatus::RECEIVED).order("id desc") }
   scope :not_discharge_weight, -> { where(charge_discharge: true) }
   scope :available_discharge, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::RECEIVED]).order("id desc") }
@@ -309,7 +309,7 @@ class InputControl < ActiveRecord::Base
   def received
     # so pode informar recebimento se a remessa estiver no status FINISH_TYPING
     # fazer checagem se necessario
-    
+
     return_value = false
     begin
       checkin = Checkin.the_day.input.where(driver_cpf: self.driver.cpf).first
