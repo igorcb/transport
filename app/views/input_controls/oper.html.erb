@@ -7,7 +7,13 @@
 
 
     <span class="badge"><%= input_control.quantity_pallets %></span>
+
+    <p style="margin-bottom: 20px;"><i><%= date_br (input_control.date_scheduled) %> <%= time_br (input_control.time_scheduled) %> - <small><%= input_control.status_name %></small></i></p>
     <%= render 'static_pages/oper_input_control', input_control: input_control %>
+    <p><strong>Container: </strong><span><%= input_control.container %></span></p>
+    <p><strong>Palletizada: </strong><span><%= input_control.palletized_status %></span></p>
+    <p><strong>Pgto Descarga: </strong><span><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %></span></p>
+
 
     <%= link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
     <%= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::DISCHARGE %>
