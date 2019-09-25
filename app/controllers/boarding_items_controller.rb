@@ -84,7 +84,7 @@ class BoardingItemsController < ApplicationController
     #@boarding_item = BoardingItem.new
     @boarding = Boarding.find(params[:boarding_id])
     @ordem_service = OrdemService.where(id: params[:boarding_item][:ordem_service_id]).first
-    @result = Boardings::AddBoardingItemService.new(@boarding, @ordem_service).call
+    @result = Boardings::AddBoardingItemService.new(@boarding, @ordem_service, current_user).call
     if @result[:success] == true
       flash.now[:notice] = @result[:message]
     else
