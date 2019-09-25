@@ -4,7 +4,14 @@
     $("#barcode").focus();
   })
 </script>
-
+<div class="row">
+  <div class="col-md-12">
+    <p><strong>Rem. Entr.: </strong><span><%= @input_control.id %></span></p>
+    <p><strong>Motorista: </strong><span><%= @input_control.driver.nome %></span></p>
+    <p><strong>Trasp.: </strong><span><%= @input_control.carrier.nome %></span></p>
+    <br>  
+  </div>
+</div>
 <!-- comment -->
 <div class="row">
   <form id="search" action="" method="get">
