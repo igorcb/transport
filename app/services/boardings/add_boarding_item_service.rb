@@ -17,8 +17,9 @@ module Boardings
 
       begin
         ActiveRecord::Base.transaction do
+          count = @ordem_service.count_boarding + 1
           @boarding.boarding_items.create(ordem_service_id: @ordem_service.id, delivery_number: 1)
-          OrdemService.where(id: @ordem_service.id).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE)
+          OrdemService.where(id: @ordem_service.id).update_all(status: OrdemService::TipoStatus::AGUARDANDO_EMBARQUE, count_boarding: count )
           Event.create(user_id: @user.id, controller_name: "BoardingItem", action_name: 'create' , what: "Adicionou a O.S. No: #{@ordem_service.id} do embarque No: #{@boarding.id}")
           return {success: true, message: "Boarding Items created successfully."}
         end
