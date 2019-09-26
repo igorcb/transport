@@ -349,10 +349,10 @@ class OrdemServicesController < ApplicationController
       #OrdemService.information_delivery(current_user, params[:id])
       result = OrdemServices::UpdateDeliveryService.new(@ordem_service, current_user).call
       respond_to do |format|
-        format.html { redirect_to @ordem_service, flash: { success: "Ordem Service delivery was successful. \n #{result}" } }
+        format.html { redirect_to @ordem_service, flash: { success: result[:message] } }
       end
     else
-       redirect_to @ordem_service, flash: { danger: "Erro ao entregar a ordem de servico. \n #{result}" }
+       redirect_to @ordem_service, flash: { danger: result[:message] }
     end
     # respond_to do |format|
     #   if @ordem_service.update(ordem_service_params)
