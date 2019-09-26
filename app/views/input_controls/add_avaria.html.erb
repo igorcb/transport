@@ -1,0 +1,42 @@
+<h1>Adicionar avaria</h1>
+
+<div class="row">
+  <div class="col-md-12">
+        <%= render 'static_pages/oper_input_control', input_control: @input_control %>
+    <br>
+  </div>
+</div>
+
+<%= render 'barcode_field', action: add_avaria_conference_path %>
+
+
+
+<% if @breakdown.present? %>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th>CodProd</th>
+          <th>EAN</th>
+          <th>Descrição</th>
+          <th>Avarias</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @breakdown.each do |breakdown| %>
+        <tr>
+          <td><%= breakdown.product.cod_prod %></td>
+          <td><%= breakdown.product.ean_box %></td>
+          <td><%= breakdown.product.descricao %></td>
+          <td><%= breakdown.avarias %></td>
+          <td><%= link_to("x", destroy_avaria_conference_path(breakdown), {class: "btn btn-danger", 'data-confirm': "Deseja deletar o item #{breakdown.product.descricao} ?", 'data-method': "delete"}) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<% end %>

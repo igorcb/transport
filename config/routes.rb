@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     member do
       get :finish_conference
       post :add_item
+      post :add_avaria
       delete :destroy_item
+      delete :destroy_avaria
     end
   end
 
@@ -230,6 +232,9 @@ Rails.application.routes.draw do
       get :analize
       get :start_conference
       get :items
+      get :has_avaria
+      put :update_has_avaria
+      get :add_avaria
       get :report_team
       put :update_report_team
       get :documents

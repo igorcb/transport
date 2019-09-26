@@ -1,0 +1,10 @@
+<h1>Tem avaria?</h1>
+
+<h3>Informe se existe ou não avarias nesta remessa de entrada</h3>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to 'SIM, existe avaria', update_has_avaria_input_control_path(@input_control, has_avaria: true), method: :put, class: "btn btn-primary" %>
+    <%= link_to 'NÃO, nenhuma avaria encontrada', update_has_avaria_input_control_path(@input_control, has_avaria: false), method: :put, class: "btn btn-danger" %>
+  </div>
+</div>
