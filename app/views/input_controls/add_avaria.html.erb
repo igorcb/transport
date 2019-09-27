@@ -38,5 +38,10 @@
     </table>
   </div>
 </div>
-
 <% end %>
+
+<div class="row">
+  <div class="col-md-5">
+    <%= link_to("Finalizar avaria", finish_avaria_conference_path(@input_control), {class: "btn btn-primary", 'data-confirm': "Deseja Finalizar esta avaria?"}) %>
+  </div>
+</div>

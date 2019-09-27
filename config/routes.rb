@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :conferences do
     member do
       get :finish_conference
+      get :finish_avaria
       post :add_item
       post :add_avaria
       delete :destroy_item
