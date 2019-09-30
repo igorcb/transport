@@ -29,11 +29,11 @@ class Ability
       can :manage, OrdemService, :carrier_id => user.carrier_id
     elsif user.has_role? :boarding
       #can :manage, Client
-      can :manage, [Boarding, OrdemService, Driver, Task, InternalComment]
+      can :manage, [Boarding, OrdemService, Driver, Task, InternalComment, Link]
       can [:read, :search], [Client, InputControl, NfeXml, NfeKey, Vehicle]
       can [:create, :read, :type_account_select, :sub_centro_custo_by_custo, :sub_centro_custo_three_by_custo], AccountPayable
     elsif user.has_role? :input
-      can :manage, [InputControl, NfeXml, NfeKey, OrdemService, Driver, Product]
+      can :manage, [InputControl, NfeXml, NfeKey, OrdemService, Driver, Product, Link]
       can :create, [AccountReceivable]
       can [:read, :search, :get_driver_by_id, :get_driver_by_cpf], Driver
       can [:read, :search, :get_carrier_by_id, :get_carrier_by_cnpj], Carrier
