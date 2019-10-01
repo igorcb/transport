@@ -14,24 +14,8 @@
     <p><strong>Palletizada: </strong><span><%= input_control.palletized_status %></span></p>
     <p><strong>Pgto Descarga: </strong><span><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %></span></p>
 
+    <%= input_items_button(input_control) %>
 
-    <%= link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::FINISH_TYPING %>
-    <%= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::DISCHARGE %>
-
-    <%#= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::DISCHARGE %>
-    <% if input_control.status == InputControl::TypeStatus::CONFERENCE %>
-      <% if input_control.conferences.last.status == "start" %>
-        <%= link_to 'Items da Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs"  %>
-      <% else %>
-        <% if input_control.conferences.last.approved == "waiting" %>
-          <span class="text-danger">Aguardando conferencia</span>
-        <% elsif input_control.conferences.last.approved == "yes" %>
-          <%= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
-        <% else  %>
-          <%= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
-        <% end %>
-      <% end %>
-    <% end %>
   </li>
   <% end %>
 </ul>
