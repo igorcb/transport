@@ -175,6 +175,16 @@ class InputControlsController < ApplicationController
     redirect_to sup_input_controls_path
   end
 
+  def review_conference
+    @input_control = InputControl.where(id: params["id"]).first
+    @item_input_controls = @input_control.item_input_controls.select(:product_id).group(:product_id).sum(:qtde)
+    @conference_item_1 = @input_control.conferences.first.conference_items.select(:product_id).group(:product_id).sum(:qtde_oper)
+    @conference_item_2 = @input_control.conferences.third.conference_items.select(:product_id).group(:product_id).sum(:qtde_oper)
+    @total_qtde = @input_control.item_input_controls.sum(:qtde)
+    @total_qtde_1 = @input_control.conferences.first.conference_items.sum(:qtde_oper)
+    @total_qtde_2 = @input_control.conferences.second.conference_items.sum(:qtde_oper)
+  end
+
   def documents
   end
 

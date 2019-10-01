@@ -232,6 +232,7 @@ Rails.application.routes.draw do
     member do
       get :analize
       get :start_conference
+      get :review_conference
       get :items
       get :has_avaria
       put :update_has_avaria
