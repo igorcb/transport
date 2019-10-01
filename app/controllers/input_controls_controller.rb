@@ -183,6 +183,7 @@ class InputControlsController < ApplicationController
     @total_qtde = @input_control.item_input_controls.sum(:qtde)
     @total_qtde_1 = @input_control.conferences.first.conference_items.sum(:qtde_oper)
     @total_qtde_2 = @input_control.conferences.second.conference_items.sum(:qtde_oper)
+    @avaria = @input_control.breakdowns.select(:product_id).group(:product_id).sum(:avarias)
   end
 
   def documents

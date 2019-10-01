@@ -4,7 +4,7 @@
 <table class="table">
   <thead>
     <tr style="background:#666; color:white">
-      <td colspan="2" class="text-center">Itens: </td>
+      <td colspan="3" class="text-center">Itens: </td>
       <td><%= @item_input_controls.count %></td>
       <td><%= @conference_item_1.count %></td>
       <% if @conference_item_2.present? %>
@@ -12,7 +12,7 @@
       <% end %>
     </tr>
     <tr style="background:#888; color:white">
-      <td colspan="2" class="text-center">Total: </td>
+      <td colspan="3" class="text-center">Total: </td>
       <td><%= @total_qtde %></td>
       <td><%= @total_qtde_1 %></td>
       <% if @conference_item_2.present? %>
@@ -23,6 +23,7 @@
     <tr>
       <th>Cod Produto</th>
       <th>Produto</th>
+      <th>Avaria</th>
       <th>QTDE NFE</th>
       <th>QTDE oper</th>
       <% if @conference_item_2.present? %>
@@ -38,6 +39,7 @@
       <tr>
         <td><%= product.cod_prod %></td>
         <td><%= product.descricao %></td>
+        <td class="text-danger"><%= @avaria[cod] %></td>
         <td><%= qtde.to_f %></td>
         <td class="<%= qtde.to_f != @conference_item_1[cod].to_f ? "text-danger" : "text-primary" %>"><%= @conference_item_1[cod].to_f %></td>
         <% if @conference_item_2.present? %>
