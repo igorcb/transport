@@ -1,3 +1,8 @@
+<style>
+.bg-red{
+  background-color: #990000;
+}
+</style>
 <h1>Revisão conferencias</h1>
 <%= render 'static_pages/oper_input_control', input_control: @input_control %>
 
@@ -5,18 +10,40 @@
   <thead>
     <tr style="background:#666; color:white">
       <td colspan="3" class="text-center">Itens: </td>
-      <td><%= @item_input_controls.count %></td>
-      <td><%= @conference_item_1.count %></td>
+      <td><%= @count_items %></td>
+      <td class="<%= @count_items_1 != @count_items ? "bg-red" : "" %>">
+        <%= @count_items_1 %>
+      </td>
       <% if @conference_item_2.present? %>
-        <td><%= @conference_item_2.count %></td>
+        <td class="<%= @count_items_2 != @count_items ? "bg-red" : "" %>">
+          <%= @count_items_2 %>
+        </td>
       <% end %>
+
+      <% if @conference_item_3.present? %>
+        <td class="<%= @count_items_3 != @count_items ? "bg-red" : "" %>">
+          <%= @count_items_3 %>
+        </td>
+      <% end %>
+      <td></td>
     </tr>
     <tr style="background:#888; color:white">
       <td colspan="3" class="text-center">Total: </td>
       <td><%= @total_qtde %></td>
-      <td><%= @total_qtde_1 %></td>
+      <td class="<%= @total_qtde_1 != @total_qtde ? "bg-red" : "" %>">
+        <%= @total_qtde_1 %>
+      </td>
       <% if @conference_item_2.present? %>
-        <td><%= @total_qtde_2 %></td>
+        <td class="<%= @total_qtde_2 != @total_qtde ? "bg-red" : "" %>">
+          <%= @total_qtde_2 %>
+        </td>
+      <% end %>
+
+      <% if @conference_item_2.present? %>
+        <td class="<%= @total_qtde_3 != @total_qtde ? "bg-red" : "" %>">
+          <%= @total_qtde_3 %>
+        </td>
+        <td></td>
       <% end %>
     </tr>
 
@@ -28,6 +55,10 @@
       <th>QTDE oper</th>
       <% if @conference_item_2.present? %>
         <td>QTDE oper</td>
+      <% end %>
+      <% if @conference_item_3.present? %>
+        <td>QTDE sup</td>
+        <td></td>
       <% end %>
     </tr>
 
@@ -44,6 +75,13 @@
         <td class="<%= qtde.to_f != @conference_item_1[cod].to_f ? "text-danger" : "text-primary" %>"><%= @conference_item_1[cod].to_f %></td>
         <% if @conference_item_2.present? %>
           <td class="<%= qtde.to_f != @conference_item_2[cod].to_f ? "text-danger" : "text-primary" %>"><%= @conference_item_2[cod].to_f %></td>
+        <% end %>
+
+        <% if @conference_item_3.present? %>
+          <td class="<%= qtde.to_f != @conference_item_3[cod].to_f ? "text-danger" : "text-primary" %>"><%= @conference_item_3[cod].to_f %></td>
+          <td>
+            <%= link_to "corrigir", correction_conference_path(cod),  class: "btn btn-warning btn-xs" if qtde.to_f != @conference_item_2[cod].to_f %>
+          </td>
         <% end %>
       </tr>
     <% end %>

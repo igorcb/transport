@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :conferences do
     member do
+      get :correction
       get :finish_conference
       get :finish_avaria
       post :add_item
@@ -228,6 +229,9 @@ Rails.application.routes.draw do
     resources :breakdown_input_controls do
       get :product
       post :update_product, on: :collection
+    end
+    resources :conferences do
+      resources :conference_items
     end
     member do
       get :analize

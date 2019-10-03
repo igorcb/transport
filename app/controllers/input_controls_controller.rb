@@ -180,9 +180,16 @@ class InputControlsController < ApplicationController
     @item_input_controls = @input_control.item_input_controls.select(:product_id).group(:product_id).sum(:qtde)
     @conference_item_1 = @input_control.conferences.first.conference_items.select(:product_id).group(:product_id).sum(:qtde_oper)
     @conference_item_2 = @input_control.conferences.second.conference_items.select(:product_id).group(:product_id).sum(:qtde_oper)
+    @conference_item_3 = @input_control.conferences.third.conference_items.select(:product_id).group(:product_id).sum(:qtde_oper)
     @total_qtde = @input_control.item_input_controls.sum(:qtde)
     @total_qtde_1 = @input_control.conferences.first.conference_items.sum(:qtde_oper)
     @total_qtde_2 = @input_control.conferences.second.conference_items.sum(:qtde_oper)
+    @total_qtde_3 = @input_control.conferences.third.conference_items.sum(:qtde_oper)
+    @count_items = @item_input_controls.count
+    @count_items_1 =  @conference_item_1.count
+    @count_items_2 =  @conference_item_2.count
+    @count_items_3 =  @conference_item_3.count
+
     @avaria = @input_control.breakdowns.select(:product_id).group(:product_id).sum(:avarias)
   end
 
