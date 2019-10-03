@@ -3,7 +3,8 @@ class ConferencesController < ApplicationController
   def index
   end
 
-  def create
+  def correction
+
   end
 
   def add_item
