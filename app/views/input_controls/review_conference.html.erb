@@ -5,8 +5,11 @@
 </style>
 <h1>Revisão conferencias</h1>
 <%= render 'static_pages/oper_input_control', input_control: @input_control %>
+<%= link_to "Voltar", sup_input_controls_path, class: "btn btn-default " %>
 <%= link_to "Fazer correção", duplicate_conference_input_control_path, class: "btn btn-primary " if @input_control.conferences.count == 2 %>
-<%= link_to "Aprovar conferência", analize_input_control_path, class: "btn btn-primary " if @total_qtde_3 == @total_qtde %>
+<% if @input_control.conferences.last.approved == "waiting" %>
+  <%= link_to "Aprovar conferência", analize_input_control_path, class: "btn btn-primary " if @total_qtde_3 == @total_qtde %>
+<% end %>
 
 <br><br>
 <table class="table">
