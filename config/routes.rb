@@ -2,6 +2,13 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :conference_items do
+    member do
+      patch :update
+    end
+  end
+
+
   resources :conferences do
     member do
       get :correction
@@ -234,6 +241,7 @@ Rails.application.routes.draw do
       resources :conference_items
     end
     member do
+      get :duplicate_conference
       get :analize
       get :start_conference
       get :review_conference

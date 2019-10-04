@@ -5,7 +5,10 @@
 </style>
 <h1>Revisão conferencias</h1>
 <%= render 'static_pages/oper_input_control', input_control: @input_control %>
+<%= link_to "Fazer correção", duplicate_conference_input_control_path, class: "btn btn-primary " if @input_control.conferences.count == 2 %>
+<%= link_to "Aprovar conferência", analize_input_control_path, class: "btn btn-primary " if @total_qtde_3 == @total_qtde %>
 
+<br><br>
 <table class="table">
   <thead>
     <tr style="background:#666; color:white">
@@ -24,8 +27,8 @@
         <td class="<%= @count_items_3 != @count_items ? "bg-red" : "" %>">
           <%= @count_items_3 %>
         </td>
+        <td></td>
       <% end %>
-      <td></td>
     </tr>
     <tr style="background:#888; color:white">
       <td colspan="3" class="text-center">Total: </td>
@@ -39,7 +42,7 @@
         </td>
       <% end %>
 
-      <% if @conference_item_2.present? %>
+      <% if @conference_item_3.present? %>
         <td class="<%= @total_qtde_3 != @total_qtde ? "bg-red" : "" %>">
           <%= @total_qtde_3 %>
         </td>
@@ -80,7 +83,8 @@
         <% if @conference_item_3.present? %>
           <td class="<%= qtde.to_f != @conference_item_3[cod].to_f ? "text-danger" : "text-primary" %>"><%= @conference_item_3[cod].to_f %></td>
           <td>
-            <%= link_to "corrigir", correction_conference_path(cod),  class: "btn btn-warning btn-xs" if qtde.to_f != @conference_item_2[cod].to_f %>
+            <%= link_to "corrigir", edit_input_control_conference_conference_item_path(@input_control.id, @conference_3.id, ConferenceItem.where(conference_id: @conference_3.id, product_id: cod).first.id),  class: "btn btn-warning btn-xs" if qtde.to_f != @conference_item_3[cod].to_f %>
+
           </td>
         <% end %>
       </tr>
