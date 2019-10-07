@@ -93,17 +93,20 @@
       </tr>
     <% end %>
     <% if @count_items_1 > @count_items %>
-
-      <!-- <tr>
-        <td>2222</td>
-        <td>teste</td>
-        <td></td>
-        <td>0.0</td>
-        <td>2</td>
-      </tr> -->
+      <% @sobras[:data].each do |sobra| %>
+        <% product = Product.where(id: sobra[:product_id]).first %>
+        <tr>
+          <td><%= product.cod_prod %></td>
+          <td><%= product.descricao %></td>
+          <td class="text-danger"><%= @avaria[sobra[:product_id]] %></td>
+          <td>0.0</td>
+          <td class="<%= sobra[:qtde_oper_1].nil? ? "" : "text-danger" %>"><%= sobra[:qtde_oper_1].nil? ? "0.0" : sobra[:qtde_oper_1].to_f %></td>
+          <td class="<%= sobra[:qtde_oper_2].nil? ? "" : "text-danger" %>"><%= sobra[:qtde_oper_2].nil? ? "0.0" : sobra[:qtde_oper_2].to_f %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
-<%#= @sobra_1.inspect %>
+<%#= @sobras.inspect %>
 <%#= @item_input_controls.inspect %>
 <%#= @conference_item_1.inspect %>
