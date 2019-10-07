@@ -175,6 +175,33 @@ class InputControlsController < ApplicationController
     redirect_to sup_input_controls_path
   end
 
+  def review_conference
+    @input_control = InputControl.where(id: params["id"]).first
+    @item_input_controls = @input_control.item_input_controls.select(:product_id).group(:product_id).sum(:qtde)
+    @conference_1 = @input_control.conferences.first
+    @conference_2 = @input_control.conferences.second
+    @conference_3 = @input_control.conferences.third
+    @conference_item_1 = @conference_1.conference_items.select(:product_id).group(:product_id).sum(:qtde_oper) if @conference_1.present?
+    @conference_item_2 = @conference_2.conference_items.select(:product_id).group(:product_id).sum(:qtde_oper) if @conference_2.present?
+    @conference_item_3 = @conference_3.conference_items.select(:product_id).group(:product_id).sum(:qtde_oper) if @conference_3.present?
+    @total_qtde = @input_control.item_input_controls.sum(:qtde)
+    @total_qtde_1 = @input_control.conferences.first.conference_items.sum(:qtde_oper) if @conference_1.present?
+    @total_qtde_2 = @input_control.conferences.second.conference_items.sum(:qtde_oper) if @conference_2.present?
+    @total_qtde_3 = @input_control.conferences.third.conference_items.sum(:qtde_oper) if @conference_3.present?
+    @count_items = @item_input_controls.count
+    @count_items_1 =  @conference_item_1.count if @conference_1.present?
+    @count_items_2 =  @conference_item_2.count if @conference_2.present?
+    @count_items_3 =  @conference_item_3.count if @conference_3.present?
+
+    @avaria = @input_control.breakdowns.select(:product_id).group(:product_id).sum(:avarias)
+  end
+
+  def duplicate_conference
+    input_control = InputControl.where(id: params["id"]).first
+    conference = Conferences::DuplicateConferenceService.new(input_control).call
+    redirect_to review_conference_input_control_path
+  end
+
   def documents
   end
 

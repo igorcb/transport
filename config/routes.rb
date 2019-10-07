@@ -2,8 +2,16 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :conference_items do
+    member do
+      patch :update
+    end
+  end
+
+
   resources :conferences do
     member do
+      get :correction
       get :finish_conference
       get :finish_avaria
       post :add_item
@@ -229,9 +237,17 @@ Rails.application.routes.draw do
       get :product
       post :update_product, on: :collection
     end
+    resources :conferences do
+      resources :conference_items
+      collection do
+        get :approved_last
+      end
+    end
     member do
+      get :duplicate_conference
       get :analize
       get :start_conference
+      get :review_conference
       get :items
       get :has_avaria
       put :update_has_avaria

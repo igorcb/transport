@@ -11,8 +11,10 @@
 
     <% if input_control.conferences.present?  %>
       <% if input_control.conferences.last.approved == "waiting" %>
-        <%= link_to "Aprovar conferencia", analize_input_control_path(input_control), {class: "btn btn-info btn-xs"} %>
+      <%= link_to "verificar conferencia", review_conference_input_control_path(input_control), {class: "btn btn-primary btn-xs"} %>
+      <%= link_to "Aprovar conferência", analize_input_control_path(input_control), {class: "btn btn-info btn-xs"} if input_control.conferences.count == 1 %>
       <% end %>
+      <%= link_to "historico da conferência", review_conference_input_control_path(input_control), {class: "btn btn-default btn-xs"} if input_control.conferences.last.approved == "yes" %>
 
       <% if input_control.conferences.last.approved == "yes" %>
         <% if !input_control.check_nfe_xmls_have_qtde_pallets_total? %>

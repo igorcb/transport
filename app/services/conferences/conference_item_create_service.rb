@@ -29,13 +29,23 @@ module Conferences
         # byebug
 
         ActiveRecord::Base.transaction do
-          conference_item = ConferenceItem.create!(conference_id: @conference.id, product_id: @product.id, qtde_oper: @qtde_oper)
+          if verify_has_product.present?
+            puts ">>>>>>>>>Atualizar"
+            conference_item = verify_has_product.update!(qtde_oper: @qtde_oper+verify_has_product.qtde_oper)
+          else
+            puts ">>>>>>>>>Criar novo"
+            conference_item = ConferenceItem.create!(conference_id: @conference.id, product_id: @product.id, qtde_oper: @qtde_oper)
+          end
         end
         return {success: true, message: "Conference on input_control created successfully."}
       rescue => e
         return {success: false, message: e.message}
       end
     end
-  end
 
+    private
+    def verify_has_product
+      return @conference.conference_items.where(product_id: @product_id).last
+    end
+  end
 end
