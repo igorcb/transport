@@ -239,6 +239,9 @@ Rails.application.routes.draw do
     end
     resources :conferences do
       resources :conference_items
+      collection do
+        get :approved_last
+      end
     end
     member do
       get :duplicate_conference
