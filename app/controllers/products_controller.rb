@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   def index
     #@products = Product.all
     @q = Product.where(id: -1).search(params[:query])
-    @products = Product.includes(:category).load
+    @products = Product.includes(:category).load.order(id: :desc).limit(40)
     #respond_with(@products)
   end
 
