@@ -3,7 +3,15 @@ class ConferencesController < ApplicationController
   def index
   end
 
-  def create
+  def correction
+
+  end
+
+  def approved_last
+    input_control = InputControl.find(params[:input_control_id])
+    conference = input_control.conferences.last
+    conference.update(approved: :yes)
+    redirect_to review_conference_input_control_path(input_control.id)
   end
 
   def add_item

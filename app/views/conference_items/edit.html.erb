@@ -1,0 +1,21 @@
+<h1>Editar item de conferência</h1>
+<h3>Remessa de entrada</h3>
+<%= render 'static_pages/oper_input_control', input_control: @input_control %>
+<h3>Ítem de conferência</h3>
+<p><strong>Cod. Prod:</strong> <%= @product.cod_prod %></p>
+<p><strong>Descrição:</strong> <%= @product.descricao %></p>
+<p><strong>Qtde:</strong> <%= @conference_item.qtde_oper %></p>
+<%= form_tag conference_item_path, method: :patch do %>
+<input type="hidden" name="input_control_id" value="<%= @input_control.id %>">
+<div class="row">
+  <div class="form-group col-md-5">
+    <label for="">Corrigir quantidade</label>
+    <input type="number" name="qtde_oper" class="form-control" value="">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <input type="submit" class="btn btn-primary" value="Corrigir">
+  </div>
+</div>
+<% end %>
