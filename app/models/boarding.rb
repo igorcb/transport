@@ -76,6 +76,7 @@ class Boarding < ActiveRecord::Base
   	ENTREGUE = 2
     CANCELADO = 3
     INICIADO = 4
+    REENTREGA = 5
     #FLOWUP - [Aberto, Iniciado, Embarcado, Entregue]
   end
 
