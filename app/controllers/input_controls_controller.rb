@@ -314,7 +314,7 @@ class InputControlsController < ApplicationController
   end
 
   def admin
-    @input_controls = InputControl.available_operator
+    @input_controls = InputControl.available_admin
   end
 
   def oper
