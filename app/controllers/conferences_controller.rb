@@ -9,8 +9,9 @@ class ConferencesController < ApplicationController
 
   def approved_last
     input_control = InputControl.find(params[:input_control_id])
-    conference = input_control.conferences.last
-    conference.update(approved: :yes)
+    # conference = input_control.conferences.last
+    # conference.update(approved: :yes)
+    Conferences::ApproveConferenceWithDivergenceService.new(input_control).call
     redirect_to review_conference_input_control_path(input_control.id)
   end
 
