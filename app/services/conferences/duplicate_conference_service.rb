@@ -20,6 +20,7 @@ module Conferences
           # Create conference
           copy_conference = @conference.as_json
           copy_conference["id"]=nil
+          copy_conference["approved"]=:waiting
           copy_conference["created_at"]=nil
           copy_conference["updated_at"]=nil
           # return copy_conference.compact!
