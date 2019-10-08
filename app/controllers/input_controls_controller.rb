@@ -313,6 +313,10 @@ class InputControlsController < ApplicationController
     redirect_to input_control_path(@input_control)
   end
 
+  def admin
+    @input_controls = InputControl.available_operator
+  end
+
   def oper
     #@input_controls = InputControl.the_day_scheduled
     @input_controls = InputControl.available_operator
