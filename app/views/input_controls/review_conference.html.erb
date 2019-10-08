@@ -86,7 +86,12 @@
         <% if @conference_item_3.present? %>
           <td class="<%= qtde.to_f != @conference_item_3[cod].to_f ? "text-danger" : "text-primary" %>"><%= @conference_item_3[cod].to_f %></td>
           <td>
-            <%= link_to "corrigir", edit_input_control_conference_conference_item_path(@input_control.id, @conference_3.id, ConferenceItem.where(conference_id: @conference_3.id, product_id: cod).first.id),  class: "btn btn-warning btn-xs" if qtde.to_f != @conference_item_3[cod].to_f %>
+            <% item = location_item_conference( @conference_3.id, cod) %>
+            <% if item.present? %>
+              <%= link_to "corrigir", edit_input_control_conference_conference_item_path(@input_control.id, @conference_3.id,  ), class: "btn btn-warning btn-xs" if qtde.to_f != @conference_item_3[cod].to_f %>
+            <% else %>
+              <%= link_to "add item", items_input_control_path(@input_control), class: "btn btn-success btn-xs" %>
+            <% end %>
 
           </td>
         <% end %>
