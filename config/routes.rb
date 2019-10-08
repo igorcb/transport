@@ -286,6 +286,7 @@ Rails.application.routes.draw do
       get :search
       get :oper
       get :sup
+      get :admin
     end
 
     get :received_weight, on: :collection
