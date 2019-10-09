@@ -40,7 +40,7 @@ class ConferencesController < ApplicationController
 
   def finish_avaria
     @input_control = InputControl.where(id: params[:id]).first
-    @input_control.update(date_finish_avaria: Date.today, time_finish_avaria: Time.now)
+    @input_control.update(date_finish_avaria: Date.today, date_finish_avaria: Time.now)
     redirect_to oper_input_controls_path
   end
 

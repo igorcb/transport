@@ -49,9 +49,11 @@ module Conferences
             end
           end
           @divergencias.each do |divergencia|
-            @input_control.breakdowns.create!(divergencia)
+            #@input_control.breakdowns.create!(divergencia)
+            Breakdown.where(breakdown_type: "InputControl", breakdown_id: @input_control, product_id: divergencia[:product_id] ).update_or_create(divergencia)
           end
-          @conference.update(approved: :yes, status: :finish)
+          @conference.update_attributes(approved: :yes, status: :finish)
+          #@input_control.update_attributes(status: InputControl::TipoStatus::)
         end
         return {success: true, message: "Breakdown on input_control created successfully."}
       rescue => e

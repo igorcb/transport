@@ -43,7 +43,7 @@ jQuery ->
   new Notifications
 
 
-
-  setInterval ( =>
-    new Notifications
-  ), 10000
+  # 
+  # setInterval ( =>
+  #   new Notifications
+  # ), 10000
