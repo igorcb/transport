@@ -13,8 +13,11 @@
     <p><strong>Container: </strong><span><%= input_control.container %></span></p>
     <p><strong>Palletizada: </strong><span><%= input_control.palletized_status %></span></p>
     <p><strong>Pgto Descarga: </strong><span><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %></span></p>
+    <p><strong>numero de conferencias: </strong><span><%= input_control.conferences.count %></span></p>
+
 
     <%#= input_items_button(input_control) %>
+    <%= link_to 'Ver mais', admin_show_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
     <p>
       <%= link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-blue btn-xs" %> <br>
       <%= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" %>

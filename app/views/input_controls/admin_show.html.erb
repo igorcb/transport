@@ -1,0 +1,14 @@
+<h1>Detalhes de input control</h1>
+
+<span class="badge"><%= @input_control.quantity_pallets %></span>
+
+<p style="margin-bottom: 20px;"><i><%= date_br (@input_control.date_scheduled) %> <%= time_br (@input_control.time_scheduled) %> - <small><%= @input_control.status_name %></small></i></p>
+<%= render 'static_pages/oper_input_control', input_control: @input_control %>
+<p><strong>Container: </strong><span><%= @input_control.container %></span></p>
+<p><strong>Palletizada: </strong><span><%= @input_control.palletized_status %></span></p>
+<p><strong>Pgto Descarga: </strong><span><%= @input_control.account_receivable.status_name if @input_control.account_receivable.present? %></span></p>
+<p><strong>número de conferencias: </strong><span><%= @input_control.conferences.count %></span></p>
+
+<% @input_control.conferences.each do |conference| %>
+
+<% end %>
