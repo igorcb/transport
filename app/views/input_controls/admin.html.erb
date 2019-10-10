@@ -15,6 +15,10 @@
     <p><strong>Pgto Descarga: </strong><span><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %></span></p>
     <p><strong>numero de conferencias: </strong><span><%= input_control.conferences.count %></span></p>
 
+
+    <%= link_to 'Ver mais', admin_show_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
+
+
   </li>
   <% end %>
 </ul>

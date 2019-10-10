@@ -16,14 +16,16 @@
 
 
 <%= input_items_button(@input_control) %>
-
+<br>
+<hr>
+<h4>outros botões</h4>
 <p>
   <%= link_to 'Iniciar Recebimento', start_input_control_path(@input_control), class: "btn btn-blue btn-xs" %> <br>
   <%= link_to 'Iniciar Conferencia', start_conference_input_control_path(@input_control), class: "btn btn-blue btn-xs" %>
 </p>
 <p>
   <% if @input_control.conferences.present? %>
-    <%= link_to 'Iniciar nova conferencia', start_conference_input_control_path(@input_control), class: "btn btn-warning btn-xs" if @@input_control.conferences.last.status == "finish" %> <br>
+    <%= link_to 'Iniciar nova conferencia', start_conference_input_control_path(@input_control), class: "btn btn-warning btn-xs" if @input_control.conferences.last.status == "finish" %> <br>
     <%= link_to 'Items da última Conferencia', items_input_control_path(@input_control), class: "btn btn-blue btn-xs" %>
   <% end %>
 </p>
