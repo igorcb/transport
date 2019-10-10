@@ -317,6 +317,10 @@ class InputControlsController < ApplicationController
     @input_controls = InputControl.available_admin
   end
 
+  def admin_show
+    @input_controls = InputControl.find params[:id]
+  end
+
   def oper
     #@input_controls = InputControl.the_day_scheduled
     @input_controls = InputControl.available_operator
