@@ -15,33 +15,6 @@
     <p><strong>Pgto Descarga: </strong><span><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %></span></p>
     <p><strong>numero de conferencias: </strong><span><%= input_control.conferences.count %></span></p>
 
-
-    <%#= input_items_button(input_control) %>
-    <%= link_to 'Ver mais', admin_show_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
-    <p>
-      <%= link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-blue btn-xs" %> <br>
-      <%= link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
-    </p>
-    <p>
-      <% if input_control.conferences.present? %>
-        <%= link_to 'Iniciar nova conferencia', start_conference_input_control_path(input_control), class: "btn btn-warning btn-xs" if input_control.conferences.last.status == "finish" %> <br>
-        <%= link_to 'Items da última Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs" %>
-      <% end %>
-    </p>
-    <p>
-      <% if input_control.conferences.present? %>
-      <%= link_to "verificar conferencias", review_conference_input_control_path(input_control), {class: "btn btn-primary btn-xs"} %> <br>
-      <%= link_to "Analizar e aprovar conferência", analize_input_control_path(input_control), {class: "btn btn-info btn-xs"}  %>
-      <% end %>
-    </p>
-    <p>
-      <%= link_to 'Tem avaria?', has_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.avaria.nil? %> <br>
-      <%= link_to 'Informar Avaria', add_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.avaria %>
-    </p>
-    <p>
-      <%= link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs"  %>
-    </p>
-
   </li>
   <% end %>
 </ul>
