@@ -14,7 +14,7 @@
         <%= link_to "verificar conferencia", review_conference_input_control_path(input_control), {class: "btn btn-primary btn-xs"} if input_control.conferences.where(status: :finish, approved: :not).count > 1 %>
       <%# end %>
       <% if input_control.conferences.last.approved == "waiting" && input_control.conferences.last.status == "finish" %>
-        <%= link_to "Analizar conferência e aprovar", analize_input_control_path(input_control), {class: "btn btn-info btn-xs"} if input_control.conferences.count < 2 %>
+        <%= link_to "Analizar conferência e aprovar", analize_input_control_path(input_control), {class: "btn btn-info btn-xs"} if input_control.conferences.count <= 2 %>
       <% end %>
       <%= link_to "historico da conferência", review_conference_input_control_path(input_control), {class: "btn btn-default btn-xs"} if input_control.conferences.last.approved == "yes" %>
 

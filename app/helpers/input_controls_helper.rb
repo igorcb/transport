@@ -60,7 +60,10 @@ module InputControlsHelper
   def input_items_button(input_control)
 
     return link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::FINISH_TYPING
-    return link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::DISCHARGE
+
+    if input_control.status == InputControl::TypeStatus::DISCHARGE
+      return link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.conferences.count < 2
+    end
 
     #when status was conference
     if input_control.status == InputControl::TypeStatus::CONFERENCE
@@ -83,7 +86,7 @@ module InputControlsHelper
             return link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs"
           end
         else
-          return link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs"
+          return link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.conferences.count < 2
         end
       end
     end
