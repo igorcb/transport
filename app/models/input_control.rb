@@ -672,6 +672,11 @@ class InputControl < ActiveRecord::Base
     Checkin.input_control.input.the_day.where(driver_cpf: self.driver.cpf).present?
   end
 
+  def items_only_equipament_nfe
+    nfe_xmls = self.nfe_xmls.where(nfe_xmls: {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL})
+    item_input_controls = ItemInputControl.where(nfe_xml_id: nfe_xmls.pluck(:id)).select(:product_id).group(:product_id).sum(:qtde)
+  end
+
 #  private
     def get_number_nfe_xmls
       nfes = []
