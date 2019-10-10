@@ -11,15 +11,17 @@ class ConferencesController < ApplicationController
     input_control = InputControl.find(params[:input_control_id])
     # conference = input_control.conferences.last
     # conference.update(approved: :yes)
-    Conferences::ApproveConferenceWithDivergenceService.new(input_control).call
+
+    @result = Conferences::ApproveConferenceWithDivergenceService.new(input_control).call
+    flash_message @result
     redirect_to review_conference_input_control_path(input_control.id)
   end
 
   def add_item
     @input_control = InputControl.where(id: params[:id]).first
-    Conferences::ConferenceItemCreateService.new(
+    @result = Conferences::ConferenceItemCreateService.new(
       {input_control_id: params[:id], product_id: params[:product_id], qtde_oper: params[:qtde_oper]}).call
-
+    flash_message @result
     redirect_to items_input_control_path(@input_control)
   end
 
@@ -34,13 +36,14 @@ class ConferencesController < ApplicationController
 
   def finish_conference
     @conference = Conference.where(id: params[:id])
-    Conferences::ConferenceFinishService.new(@conference).call
+    @result = Conferences::ConferenceFinishService.new(@conference).call
+    flash_message @result
     redirect_to oper_input_controls_path
   end
 
   def finish_avaria
     @input_control = InputControl.where(id: params[:id]).first
-    @input_control.update(date_finish_avaria: Date.today, date_finish_avaria: Time.now)
+    @input_control.update(date_finish_avaria: Date.today, time_finish_avaria: Time.now)
     redirect_to oper_input_controls_path
   end
 
