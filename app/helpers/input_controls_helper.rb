@@ -72,7 +72,7 @@ module InputControlsHelper
       else
         # test when approved
         if input_control.conferences.last.approved == "waiting"
-          return  "<span class=\"text-danger\">Aguardando conferencia</span>".html_safe
+          return  "<span class=\"text-danger\">Aguardando supervisor</span>".html_safe
         elsif input_control.conferences.last.approved == "yes"
           if input_control.avaria.nil?
             return link_to 'Tem avaria?', has_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs"
@@ -87,11 +87,11 @@ module InputControlsHelper
           end
         else
           return link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.conferences.count < 2
+          return "<span class=\"text-danger\">Aguardando supervisor</span>".html_safe if input_control.conferences.count >= 2
         end
       end
     end
   end
-
 
 
 end

@@ -10,9 +10,9 @@
     <%= render 'static_pages/sup_input_control', input_control: input_control %>
 
     <% if input_control.conferences.present?  %>
-      <%# if input_control.conferences.last.approved == "waiting" %>
+      <% if input_control.conferences.last.approved != "yes" %>
         <%= link_to "verificar conferencia", review_conference_input_control_path(input_control), {class: "btn btn-primary btn-xs"} if input_control.conferences.where(status: :finish, approved: :not).count > 1 %>
-      <%# end %>
+      <% end %>
       <% if input_control.conferences.last.approved == "waiting" && input_control.conferences.last.status == "finish" %>
         <%= link_to "Analizar conferência e aprovar", analize_input_control_path(input_control), {class: "btn btn-info btn-xs"} if input_control.conferences.count <= 2 %>
       <% end %>
@@ -29,5 +29,7 @@
       <%= link_to "Informar Equipe", report_team_input_control_path(input_control), {class: "btn btn-info btn-xs"} %>
     <% end %>
 
+
+<%#= input_control.conferences.last.inspect %>
   </li>
 <% end %>
