@@ -92,7 +92,7 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:descricao, :category_id,
-        :cod_prod, :ncm, :cest, :cfop, :ean, :unid_medida, :ean_trib, :unid_medida_trib, :valor_unitario,
+        :cod_prod, :ncm, :cest, :cfop, :ean, :ean_box, :unid_medida, :ean_trib, :unid_medida_trib, :valor_unitario,
         :cubagem, :width, :length, :height, :volume, :weight_liquid, :weight_gross, :ballast, :layer_pallet, :box_by_pallet, :factor)
     end
 end
