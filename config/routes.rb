@@ -2,6 +2,13 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+
+  resources :conference_breakdowns do
+    member do
+      get :finish
+    end
+  end
+
   resources :conference_items do
     member do
       patch :update
@@ -13,11 +20,8 @@ Rails.application.routes.draw do
     member do
       get :correction
       get :finish_conference
-      get :finish_avaria
       post :add_item
-      post :add_avaria
       delete :destroy_item
-      delete :destroy_avaria
     end
   end
 
