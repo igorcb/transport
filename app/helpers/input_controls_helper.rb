@@ -66,7 +66,7 @@ module InputControlsHelper
     end
 
     #when status was conference
-    if current_user.has_role? :sup
+    if current_user.has_role? :oper
       if input_control.status == InputControl::TypeStatus::CONFERENCE
         if input_control.conferences.last.status == "start"
           return link_to 'Items da Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs"
