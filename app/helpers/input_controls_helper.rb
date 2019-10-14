@@ -66,28 +66,30 @@ module InputControlsHelper
     end
 
     #when status was conference
-    if input_control.status == InputControl::TypeStatus::CONFERENCE
-      if input_control.conferences.last.status == "start"
-        return link_to 'Items da Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs"
-      else
-        # test when approved
-        if input_control.conferences.last.approved == "waiting"
-          return  "<span class=\"text-danger\">Aguardando supervisor</span>".html_safe
-        elsif input_control.conferences.last.approved == "yes"
-          if input_control.avaria.nil?
-            return link_to 'Tem avaria?', has_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs"
-          elsif input_control.avaria
-            if input_control.date_finish_avaria.nil?
-              return link_to 'Informar Avaria', add_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs"
+    if current_user.has_role? :sup
+      if input_control.status == InputControl::TypeStatus::CONFERENCE
+        if input_control.conferences.last.status == "start"
+          return link_to 'Items da Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs"
+        else
+          # test when approved
+          if input_control.conferences.last.approved == "waiting"
+            return  "<span class=\"text-danger\">Aguardando supervisor</span>".html_safe
+          elsif input_control.conferences.last.approved == "yes"
+            if input_control.avaria.nil?
+              return link_to 'Tem avaria?', has_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs"
+            elsif input_control.avaria
+              if input_control.date_finish_avaria.nil?
+                return link_to 'Informar Avaria', add_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs"
+              else
+                return link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs"
+              end
             else
               return link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs"
             end
           else
-            return link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs"
+            return link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.conferences.count < 2
+            return "<span class=\"text-danger\">Aguardando supervisor</span>".html_safe if input_control.conferences.count >= 2
           end
-        else
-          return link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.conferences.count < 2
-          return "<span class=\"text-danger\">Aguardando supervisor</span>".html_safe if input_control.conferences.count >= 2
         end
       end
     end
