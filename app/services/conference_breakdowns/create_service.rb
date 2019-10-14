@@ -1,5 +1,5 @@
-module Conferences
-  class ConferenceBreakdownCreateService
+module ConferenceBreakdowns
+  class CreateService
 
     def initialize(input_control, product, qtde)
       @input_control = input_control

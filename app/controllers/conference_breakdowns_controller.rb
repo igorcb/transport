@@ -3,7 +3,7 @@ class ConferenceBreakdownsController < ApplicationController
     input_control = InputControl.where(id: params[:input_control_id]).first
     product = Product.find(params[:product_id])
 
-    result = Conferences::ConferenceBreakdownCreateService.new(input_control, product, params[:qtde_oper]).call
+    result = ConferenceBreakdowns::CreateService.new(input_control, product, params[:qtde_oper]).call
 
     flash_message result
 
@@ -18,6 +18,13 @@ class ConferenceBreakdownsController < ApplicationController
     conference_breakdown.destroy
     redirect_to add_avaria_input_control_path(input_control)
 
+  end
+
+  def finish
+    @input_control = InputControl.where(id: params[:id]).first
+    ConferenceBreakdowns::FinishService.new(@input_control).call
+    
+    redirect_to oper_input_controls_path
   end
 
 

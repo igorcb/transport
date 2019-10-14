@@ -41,11 +41,11 @@ class ConferencesController < ApplicationController
     redirect_to oper_input_controls_path
   end
 
-  def finish_avaria
-    @input_control = InputControl.where(id: params[:id]).first
-    @input_control.update(date_finish_avaria: Date.today, time_finish_avaria: Time.now)
-    redirect_to oper_input_controls_path
-  end
+  # def finish_avaria
+  #   @input_control = InputControl.where(id: params[:id]).first
+  #   @input_control.update(date_finish_avaria: Date.today, time_finish_avaria: Time.now)
+  #   redirect_to oper_input_controls_path
+  # end
 
   def destroy_item
     conference_item = ConferenceItem.where(id: params[:id]).first
