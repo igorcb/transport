@@ -25,14 +25,14 @@ class ConferencesController < ApplicationController
     redirect_to items_input_control_path(@input_control)
   end
 
-  def add_avaria
-    input_control = InputControl.where(id: params[:id]).first
-    product = Product.find(params[:product_id])
-
-    Conferences::ConferenceItemBreakdownCreateService.new(input_control, product, params[:qtde_oper]).call
-
-    redirect_to add_avaria_input_control_path(input_control)
-  end
+  # def add_avaria
+  #   input_control = InputControl.where(id: params[:id]).first
+  #   product = Product.find(params[:product_id])
+  #
+  #   Conferences::ConferenceItemBreakdownCreateService.new(input_control, product, params[:qtde_oper]).call
+  #
+  #   redirect_to add_avaria_input_control_path(input_control)
+  # end
 
   def finish_conference
     @conference = Conference.where(id: params[:id])

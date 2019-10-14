@@ -154,7 +154,7 @@ class InputControlsController < ApplicationController
 
     @request_items = request.base_url + "/input_controls/#{params[:id]}/add_avaria/"
     @ean = params["ean"] == """" ? nil : params["ean"]
-    @breakdown = @input_control.breakdowns
+    @breakdown = @input_control.conferences.last.conference_breakdowns
 
     # @input_control = InputControl.where(id: params["id"]).first
 

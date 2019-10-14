@@ -36,6 +36,7 @@
         <strong>Cod.Prod</strong>: <%= @product.cod_prod %> <br>
         <strong>Descricao</strong>: <%= @product.descricao %> <br>
         <strong>EAN</strong>: <%= @product.ean_box %> <br>
+          <input type="hidden" name="input_control_id" value="<%= @input_control.id %>">
           <input type="hidden" name="product_id" value="<%= @product.id %>">
           <div class="form-group">
             <label for="qtde">Quantidade</label>

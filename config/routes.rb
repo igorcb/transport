@@ -2,6 +2,10 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+
+  resources :conference_breakdowns do
+  end
+
   resources :conference_items do
     member do
       patch :update

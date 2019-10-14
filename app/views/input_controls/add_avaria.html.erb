@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<%= render 'barcode_field', action: add_avaria_conference_path %>
+<%= render 'barcode_field', action: conference_breakdowns_path %>
 
 
 
@@ -30,8 +30,8 @@
           <td><%= breakdown.product.cod_prod %></td>
           <td><%= breakdown.product.ean_box %></td>
           <td><%= breakdown.product.descricao %></td>
-          <td><%= breakdown.avarias %></td>
-          <td><%= link_to("x", destroy_avaria_conference_path(breakdown), {class: "btn btn-danger", 'data-confirm': "Deseja deletar o item #{breakdown.product.descricao} ?", 'data-method': "delete"}) %></td>
+          <td><%= breakdown.qtde %></td>
+          <td><%= link_to("x", conference_breakdown_path(breakdown), {class: "btn btn-danger", 'data-confirm': "Deseja deletar o item #{breakdown.product.descricao} ?", 'data-method': "delete"}) %></td>
         </tr>
         <% end %>
       </tbody>
