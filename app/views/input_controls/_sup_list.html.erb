@@ -25,7 +25,7 @@
       <% end %>
     <% end %>
 
-    <% if input_control.conferences.count >= 3 %>
+    <% if input_control.conferences.count >= 3 && input_control.conferences.where(status: :start).present? %>
       <%= link_to 'Items da Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs" if current_user.has_role? :sup %>
     <% end %>
 
