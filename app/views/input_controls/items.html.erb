@@ -43,6 +43,8 @@
 <% end %>
 <div class="row">
   <div class="col-md-5">
-    <%= link_to("Finalizar conferência", finish_conference_conference_path(@conference.id), {class: "btn btn-primary", 'data-confirm': "Deseja Finalizar esta conferência?"}) %>
+    <%= link_to("Finalizar conferência", finish_conference_conference_path(@conference.id), {class: "btn btn-primary", 'data-confirm': "Deseja Finalizar esta conferência?"}) if @input_control.conferences.count < 3 %>
+    <%= link_to("Voltar", review_conference_input_control_path(@input_control.id), {class: "btn btn-default"}) if @input_control.conferences.count >= 3 %>
+
   </div>
 </div>
