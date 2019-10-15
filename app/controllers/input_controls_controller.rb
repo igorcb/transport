@@ -145,6 +145,7 @@ class InputControlsController < ApplicationController
     @input_control.date_start_avaria = Date.today
     @input_control.time_start_avaria = Time.now
     @input_control.avaria = params["has_avaria"]
+    @input_control.breakdown_user_id = current_user.id
     @input_control.save!
 
     redirect_to oper_input_controls_path
