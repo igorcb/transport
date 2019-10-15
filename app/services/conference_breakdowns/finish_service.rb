@@ -22,7 +22,7 @@ module ConferenceBreakdowns
             item_input_control = @input_control.item_input_controls.where(product_id: cb.product_id).first
 
             breakdown_array.push({
-                                nfe_xml_id: item_input_control.nfe_xml_id,
+                                # nfe_xml_id: item_input_control.nfe_xml_id,
                                 product_id: cb.id,
                                 unid_medida: cb.product.unid_medida,
                                 type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP,
