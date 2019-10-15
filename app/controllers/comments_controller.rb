@@ -4,10 +4,11 @@ class CommentsController < ApplicationController
 
   def create
     @model = find_model
+    #byebug
     case params[:comment][:comment_type]
       when "OrdemService" then result = false
       when "Occurrence" then result = false
-      when "Boarding" then 
+      when "Boarding" then
         if params[:nfe].blank?
           flash[:danger] = "Select at least one nfe to generate ocurrence."
           redirect_to comments_boarding_path(@model)
@@ -17,7 +18,7 @@ class CommentsController < ApplicationController
           redirect_to comments_boarding_path(@model)
           return
         end
-      when "InputControl" then 
+      when "InputControl" then
         if params[:nfe].blank?
           flash[:danger] = "Select at least one nfe to generate ocurrence."
           redirect_to comments_input_control_path(@model)
@@ -70,7 +71,7 @@ class CommentsController < ApplicationController
     end
 
     def redirect_to_model
-      case params[:comment][:comment_type] 
+      case params[:comment][:comment_type]
         when "OrdemService" then redirect_to ordem_service_path (@model)
         when "Occurrence" then redirect_to occurrence_path (@model)
         when "Boarding" then redirect_to boarding_path (@model)
@@ -97,11 +98,11 @@ class CommentsController < ApplicationController
     end
 
     def validation_ordem_service
-      
+
     end
 
     def validation_ocurrences
-      
+
     end
 
 end
