@@ -23,7 +23,7 @@ module ConferenceBreakdowns
 
             breakdown_array.push({
                                 # nfe_xml_id: item_input_control.nfe_xml_id,
-                                product_id: cb.id,
+                                product_id: cb.product_id,
                                 unid_medida: cb.product.unid_medida,
                                 type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP,
                                 avarias: cb.qtde
