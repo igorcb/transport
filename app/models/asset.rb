@@ -1,5 +1,6 @@
 class Asset < ActiveRecord::Base
 	belongs_to :task, class_name: "Task", foreign_key: "asset_id", polymorphic: true, dependent: :destroy, required: false
+	belongs_to :conference_breakdown, class_name: "ConferenceBreakdown", foreign_key: "asset_id", polymorphic: true, dependent: :destroy, required: false
 	belongs_to :client, class_name: "Client", foreign_key: "asset_id", polymorphic: true, dependent: :destroy, required: false
 	belongs_to :driver, class_name: "Driver", foreign_key: "asset_id", polymorphic: true, dependent: :destroy, required: false
 	belongs_to :carrier, class_name: "Carrier", foreign_key: "asset_id", polymorphic: true, dependent: :destroy, required: false

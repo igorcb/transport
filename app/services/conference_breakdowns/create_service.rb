@@ -1,10 +1,11 @@
 module ConferenceBreakdowns
   class CreateService
 
-    def initialize(input_control, product, qtde)
+    def initialize(input_control, product, qtde, images)
       @input_control = input_control
       @product = product
       @qtde = qtde
+      @images = images
     end
 
     def call
@@ -23,7 +24,8 @@ module ConferenceBreakdowns
 
           breakdown = ConferenceBreakdown.where(conference_id: @conference.id, product_id: @product.id).update_or_create(
                             product_id: @product.id,
-                            qtde: @qtde
+                            qtde: @qtde,
+                            assets_attributes: {assets: @images}
                           )
         end
         return {success: true, message: "Conference breakdown created successfully."}

@@ -3,11 +3,12 @@ class ConferenceBreakdownsController < ApplicationController
     input_control = InputControl.where(id: params[:input_control_id]).first
     product = Product.find(params[:product_id])
 
-    result = ConferenceBreakdowns::CreateService.new(input_control, product, params[:qtde_oper]).call
+    # result = ConferenceBreakdowns::CreateService.new(input_control, product, driver_params[:qtde_oper], driver_params[:image]).call
 
-    flash_message result
+    render html: helpers.tag.strong(driver_params.inspect)
+    # flash_message result
 
-    redirect_to add_avaria_input_control_path(input_control)
+    # redirect_to add_avaria_input_control_path(input_control)
   end
 
 
@@ -23,8 +24,13 @@ class ConferenceBreakdownsController < ApplicationController
   def finish
     @input_control = InputControl.where(id: params[:id]).first
     ConferenceBreakdowns::FinishService.new(@input_control).call
-    
+
     redirect_to oper_input_controls_path
+  end
+
+
+  def driver_params
+    params.permit(:qtde_oper, asset: [:asset, :id, :_destroy])
   end
 
 
