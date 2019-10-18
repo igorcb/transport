@@ -1,0 +1,115 @@
+<h1>Adicionar avaria</h1>
+
+<div class="row">
+  <div class="col-md-12">
+        <%= render 'static_pages/oper_input_control', input_control: @input_control %>
+    <br>
+  </div>
+</div>
+<%= render 'input_controls/input_barcode' %>
+<%#= render 'barcode_field', action: conference_breakdowns_path %>
+
+
+<% if @product.present? %>
+<script type="text/javascript">
+  $(function(){
+    $('#myModal').modal();
+  });
+</script>
+<%= form_for @conference_breakdown, html: { multipart: true } do |f| %>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%= @product.cod_prod %> - <%= @product.descricao %></h4>
+      </div>
+      <div class="modal-body">
+        <strong>Cod.Prod</strong>: <%= @product.cod_prod %> <br>
+        <strong>Descricao</strong>: <%= @product.descricao %> <br>
+        <strong>EAN</strong>: <%= @product.ean_box %> <br>
+          <input type="hidden" name="input_control_id" value="<%= @input_control.id %>">
+          <input type="hidden" name="conference_id" value="<%= @conference.id %>">
+          <input type="hidden" name="conference_breakdown[product_id]" value="<%= @product.id %>">
+          <a href="#" class="btn btn-primary add_foto">Add foto</a>
+          <div class="row">
+            <div class="col-md-12 images_space">
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!-- <label for="qtde">Quantidade</label>
+            <input id="qtde" name="conference_breakdown[qtde_oper]" type="number" class="form-control" placeholder="Quantidade" value="0"> -->
+            <%= f.label :qtde, "Quantidade" %><br>
+            <%= f.text_field :qtde, class: "form-control", placeholder: "Quantidade" %>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <!-- <input type="submit" class="btn btn-primary" value="Salvar"> -->
+        <%= f.submit %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<% end %>
+<% end %>
+
+
+
+
+
+<div class="copy" style="display: none">
+  <div class="images_group">
+    <a href="#" class="btn btn-danger remove_foto"><i class="fas fa-times"></i></a>
+    <label for="">
+      <%= image_tag "upload-image.png", {class: "img-default"} %>
+    </label>
+    <%= file_field_tag :"image", class: "images", style: "display:none" %>
+    <input type="hidden" class="id">
+    <input type="hidden" value="false" class="destroy">
+  </div>
+</div>
+
+<style>
+.thumb-image{
+  height:100px;
+}
+.images_group {
+    display: inline-block;
+    margin: 5px;
+    position: relative;
+}
+.remove_foto{
+  position: absolute;
+  right: 0;
+}
+</style>
+<script>
+$(document).ready(function(){
+  i = 0
+  $(document).on("click", ".add_foto", function(){
+    $(".copy .images_group").attr("data-group", i)
+    $(".copy .images_group label").attr("for", "image_"+i)
+    $(".copy .images_group .images").attr("name", "conference_breakdown[assets_attributes]["+i+"][asset]").attr("id", "image_"+i)
+    $(".copy .images_group .id").attr("name", "conference_breakdown[assets_attributes]["+i+"][id]")
+    $(".copy .images_group .destroy").attr("name", "conference_breakdown[assets_attributes]["+i+"][_destroy]")
+    $(".copy .images_group").clone().prependTo(".images_space")
+
+    $(".images_space #image_"+i).imagePreview(".images_space label[for=image_"+i+"]")
+
+    $(".images_space #image_"+i).trigger("click")
+
+    i++
+    return false
+  });
+
+  $(document).on("click", ".remove_foto", function(){
+    $(this).parent().remove()
+    return false
+  });
+
+
+});
+</script>

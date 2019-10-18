@@ -1,8 +1,6 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
 
-
-
   resources :conference_breakdowns do
     member do
       get :finish
@@ -236,6 +234,9 @@ Rails.application.routes.draw do
   end
 
   resources :input_controls do
+    resources :conferences do
+      resources :conference_breakdowns
+    end
     resources :breakdowns
     resources :breakdown_input_controls do
       get :product

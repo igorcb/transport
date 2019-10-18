@@ -2,6 +2,9 @@ class ConferenceBreakdown < ApplicationRecord
   belongs_to :conference
   belongs_to :product
 
+  has_many :assets, as: :asset, dependent: :destroy
+  accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
+
   def self.update_or_create(attributes)
     assign_or_new(attributes).save
   end
@@ -11,5 +14,5 @@ class ConferenceBreakdown < ApplicationRecord
     obj.assign_attributes(attributes)
     obj
   end
-  
+
 end
