@@ -13,7 +13,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   resources :conferences do
     member do
       get :correction
@@ -234,15 +233,13 @@ Rails.application.routes.draw do
   end
 
   resources :input_controls do
-    resources :conferences do
-      resources :conference_breakdowns
-    end
     resources :breakdowns
     resources :breakdown_input_controls do
       get :product
       post :update_product, on: :collection
     end
     resources :conferences do
+      resources :conference_breakdowns
       resources :conference_items
       collection do
         get :approved_last

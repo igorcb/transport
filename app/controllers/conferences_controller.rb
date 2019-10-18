@@ -3,6 +3,9 @@ class ConferencesController < ApplicationController
   def index
   end
 
+  def show
+  end
+
   def correction
 
   end
@@ -14,7 +17,7 @@ class ConferencesController < ApplicationController
 
     @result = Conferences::ApproveConferenceWithDivergenceService.new(input_control).call
     flash_message @result
-    redirect_to review_conference_input_control_path(input_control.id)
+    redirect_to review_conference_input_control_path(input_control)
   end
 
   def add_item

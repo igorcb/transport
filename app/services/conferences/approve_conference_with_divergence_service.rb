@@ -10,7 +10,7 @@ module Conferences
       return {success: false, message: "InputControl is not found."} if !@input_control.present?
       #@item_input_controls = @input_control.item_input_controls.select(:product_id).group(:product_id).sum(:qtde)
       @item_input_controls = @input_control.items_only_equipament_nfe
-      @conference = @input_control.conferences.last
+      @conference = @input_control.conferences.order(id: :asc).last
       @conference_items = @conference.conference_items
 
       begin
