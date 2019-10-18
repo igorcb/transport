@@ -1,21 +1,5 @@
-<div class="row">
-  <form id="search" action="" method="get">
-    <div class="form-group col-md-5 has-feedback <%= feedback_conference(@ean)[:css] if @ean.present? %>">
-      <label for="qtde">Ler codigo de barras</label>
-      <div class="input-group">
-        <a href="http://zxing.appspot.com/scan?ret=<%= @request_items %>?ean={CODE}" class="input-group-addon">
-          <i class="fas fa-barcode"></i>
-        </a>
-        <input type="text" id="barcode" name="ean" class="form-control" value="<%= params["ean"] %>">
-        <a href="#" onClick="document.getElementById('search').submit();"botton class="btn btn-primary input-group-addon"><i class="fas fa-search"></i></a>
-      </div>
-      <% if !feedback_conference(@ean)[:success] %>
-      <small class="text-danger"><%= feedback_conference(@ean)[:message] %></small>
-      <% end %>
-    </div>
-  </form>
-</div>
 
+<%= render 'input_barcode' %>
 
 
 <% if @product.present? %>
@@ -52,9 +36,3 @@
 </div><!-- /.modal -->
 <% end %>
 <% end %>
-
-<script type="text/javascript">
-  $(function(){
-    $("#barcode").focus();
-  })
-</script>

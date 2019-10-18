@@ -79,7 +79,8 @@ module InputControlsHelper
               return link_to 'Tem avaria?', has_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs"
             elsif input_control.avaria
               if input_control.date_finish_avaria.nil?
-                return link_to 'Informar Avaria', add_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs"
+                conference = input_control.conferences.order(id: :asc).last
+                return link_to 'Informar Avaria', input_control_conference_conference_breakdowns_path(input_control, conference), class: "btn btn-blue btn-xs"
               else
                 return link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs"
               end
