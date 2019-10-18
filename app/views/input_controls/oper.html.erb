@@ -19,3 +19,13 @@
   </li>
   <% end %>
 </ul>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".btn").click(function(){
+      href = $(this).attr("href")
+      $(this).attr("href", "#")
+      window.location.href = href
+    })
+  })
+</script>
