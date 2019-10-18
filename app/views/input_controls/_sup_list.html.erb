@@ -10,7 +10,7 @@
     <%= render 'static_pages/sup_input_control', input_control: input_control %>
 
     <% if input_control.conferences.present?  %>
-      <% if input_control.conferences.order(id: :asc).last.approved != "yes" %>
+      <% if input_control.conferences.order(id: :asc).last.approved == "not" %>
         <%= link_to "verificar conferencia", review_conference_input_control_path(input_control), {class: "btn btn-primary btn-xs"} if input_control.conferences.where(approved: [:not, :waiting], status: :finish).order(id: :asc).count >= 2 %>
       <% end %>
       <% if input_control.conferences.order(id: :asc).last.approved == "waiting" && input_control.conferences.order(id: :asc).last.status == "finish" %>
