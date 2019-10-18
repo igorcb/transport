@@ -148,7 +148,8 @@ class InputControlsController < ApplicationController
     @input_control.breakdown_user_id = current_user.id
     @input_control.save!
 
-    redirect_to oper_input_controls_path
+    # redirect_to oper_input_controls_path
+    redirect_to input_control_conference_conference_breakdowns_path(@input_control, @input_control.conferences.last)
   end
 
 
@@ -336,7 +337,8 @@ class InputControlsController < ApplicationController
   def start_conference
     input_control = InputControl.where(id: params[:id]).first
     InputControls::ConferenceService.new(input_control, current_user).call
-    redirect_to oper_input_controls_path
+    # redirect_to oper_input_controls_path
+    redirect_to items_input_control_path(input_control)
   end
 
   def update_start
