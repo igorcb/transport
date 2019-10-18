@@ -73,9 +73,12 @@ class ConferenceBreakdownsController < ApplicationController
   # DELETE /conference_breakdowns/1
   # DELETE /conference_breakdowns/1.json
   def destroy
+    conference = @conference_breakdown.conference
+    input_control = conference.input_control
+
     @conference_breakdown.destroy
     respond_to do |format|
-      format.html { redirect_to conference_breakdowns_url, notice: 'Conference breakdown was successfully destroyed.' }
+      format.html { redirect_to input_control_conference_conference_breakdowns_path(input_control, conference), notice: 'Conference breakdown was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
