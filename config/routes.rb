@@ -254,7 +254,6 @@ Rails.application.routes.draw do
       get :items
       get :has_avaria
       put :update_has_avaria
-      get :add_avaria
       get :report_team
       put :update_report_team
       get :documents
