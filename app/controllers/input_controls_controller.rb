@@ -151,20 +151,6 @@ class InputControlsController < ApplicationController
     redirect_to oper_input_controls_path
   end
 
-  def add_avaria
-
-    @request_items = request.base_url + "/input_controls/#{params[:id]}/add_avaria/"
-    @ean = params["ean"] == """" ? nil : params["ean"]
-    @breakdown = @input_control.conferences.last.conference_breakdowns
-
-    # @input_control = InputControl.where(id: params["id"]).first
-
-    if @ean.present?
-      @product = Product.where("cod_prod = ? or ean_box = ?", params["ean"], params["ean"]).first
-    end
-  end
-
-
 
   def analize
     result = InputControls::CheckConferenceService.new(@input_control).call
