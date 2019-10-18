@@ -83,6 +83,14 @@ class ConferenceBreakdownsController < ApplicationController
     end
   end
 
+
+  def finish
+    @input_control = InputControl.where(id: params[:id]).first
+    ConferenceBreakdowns::FinishService.new(@input_control).call
+
+    redirect_to oper_input_controls_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_conference_breakdown
