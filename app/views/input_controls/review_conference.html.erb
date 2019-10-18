@@ -72,10 +72,7 @@
 
   <tbody>
     <% @item_input_controls.each do |cod, qtde| %>
-      <%
-      product = Product.where(id: cod).first
-      conference_item_3 = @conference_3.conference_items.where(product_id: cod).first
-      %>
+      <% product = Product.where(id: cod).first %>
       <tr>
         <td><%= product.cod_prod %></td>
         <td><%= product.descricao %></td>
@@ -92,6 +89,7 @@
               <% if @conference_3.approved != "yes" %>
                 <% item = location_item_conference( @conference_3.id, cod) %>
                 <% if item.present? %>
+                  <% conference_item_3 = @conference_3.conference_items.where(product_id: cod).first %>
                   <%= link_to raw(conference_item_3[:qtde_sup].nil? ? "corrigir" : "corrigir <i class=\"fas fa-check\"></i>"), edit_input_control_conference_conference_item_path(@input_control.id, @conference_3.id,  cod ), class: "btn btn-warning btn-xs" if qtde.to_f != @conference_item_3[cod].to_f %>
                 <% else %>
                   <%= link_to "add item", items_input_control_path(@input_control), class: "btn btn-success btn-xs" %>
