@@ -18,6 +18,7 @@
         </thead>
 
         <tbody>
+          <% i = 0 %>
           <% @breakdowns.each do |breakdown| %>
             <tr id="id_breakdown_<%= breakdown.id %>">
               <td><%= breakdown.type_breakdown_name %></td>
@@ -27,11 +28,42 @@
               <td><%= breakdown.sobras %></td>
               <td><%= breakdown.faltas %></td>
               <td><%= breakdown.avarias %></td>
-              <td><%#= link_to 'Delete', [@input_control, breakdown], method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: "btn btn-danger btn-xs" %></td>
+              <td><%= link_to image_tag( breakdown.assets.first.asset.url(:mini)), "#" ,  data: {:toggle=>"modal", :target=> "#assets#{i}"} %></td>
+              <%# image_avatar = breakdown.assets.present? ? breakdown.assets.first.url(:mini) : ""  %>
+              <td><%#= image_tag(image_avatar) %></td>
             </tr>
+
+            <div id="assets<%= i %>" class="modal fade" tabindex="9" role="dialog" aria-labelledby="assets">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <% breakdown.assets.each do |asset| %>
+                          <%= link_to image_tag( asset.asset.url(:thumb)), asset.asset.url, {"data-lightbox" => "image-#{i}"} %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <% i += 1 %>
           <% end %>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<style>
+.modal-open .modal {
+    z-index: 9000;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js" type="text/javascript"></script>

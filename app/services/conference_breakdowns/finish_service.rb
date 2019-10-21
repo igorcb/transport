@@ -26,7 +26,8 @@ module ConferenceBreakdowns
                                 product_id: cb.product_id,
                                 unid_medida: cb.product.unid_medida,
                                 type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP,
-                                avarias: cb.qtde
+                                avarias: cb.qtde,
+                                assets: cb.assets
                               })
           end
 
