@@ -324,6 +324,7 @@ Rails.application.routes.draw do
       patch :update_checkin
       get :detail
       post :request_payment
+      get :declined
     end
     collection do
       get :search

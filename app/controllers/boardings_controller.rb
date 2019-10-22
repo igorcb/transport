@@ -361,6 +361,12 @@ class BoardingsController < ApplicationController
     redirect_to boarding_path(@boarding)
   end
 
+  def declined
+    @result = Boardings::DeclinedService.new(@boarding, current_user).call
+    flash_message(@result)
+    redirect_to boarding_path(@boarding)
+  end
+
 	private
 
 		def set_boarding

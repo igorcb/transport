@@ -18,10 +18,11 @@ module Boardings
           os_count_declined = 0
           os_ids = @boarding.boarding_items.pluck(:ordem_service_id)
           @boarding.boarding_items.each do |item|
-            os_count_declined = item.ordem_service.declined
-            item.ordem_service.status = OrdemService::TipoStatus::ABERTO
-            item.ordem_servie.declined += os_count_declined
-            item.save!
+            ordem_service = OrdemService.where(id: item).first
+            os_count_declined = ordem_service.declined
+            ordem_service.status = OrdemService::TipoStatus::ABERTO
+            ordem_service.declined += os_count_declined
+            ordem_service.save!
             os_count_declined = 0
           end
           @boarding.boarding_items.destroy_all

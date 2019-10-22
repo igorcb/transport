@@ -93,6 +93,7 @@ class Boarding < ActiveRecord::Base
       when 1 then "Embarcado"
       when 2 then "Entregue"
       when 3 then "Cancelado"
+      when 5 then "REENTREGA"
       else "Não Informado"
     end
   end
