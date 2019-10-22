@@ -1,4 +1,4 @@
-<p style="margin-bottom: 20px;"><i><%= date_br (input_control.date_scheduled) %> <%= time_br (input_control.time_scheduled) %> - <small><%= input_control.status_name %></small></i></p>
+<p style="margin-bottom: 20px;"><%= icon_status_boarding(input_control.status) %> <i><%= date_br (input_control.date_scheduled) %> <%= time_br (input_control.time_scheduled) %> - <small><%= input_control.status_name %></small></i></p>
 
 <%= render 'static_pages/oper_input_control', input_control: input_control %>
 
