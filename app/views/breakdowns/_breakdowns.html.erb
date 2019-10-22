@@ -28,9 +28,7 @@
               <td><%= breakdown.sobras %></td>
               <td><%= breakdown.faltas %></td>
               <td><%= breakdown.avarias %></td>
-              <td><%= link_to image_tag( breakdown.assets.first.asset.url(:mini)), "#" ,  data: {:toggle=>"modal", :target=> "#assets#{i}"} %></td>
-              <%# image_avatar = breakdown.assets.present? ? breakdown.assets.first.url(:mini) : ""  %>
-              <td><%#= image_tag(image_avatar) %></td>
+              <td><%= link_to image_tag( breakdown.assets.first.asset.url(:mini)), "#" ,  data: {:toggle=>"modal", :target=> "#assets#{i}"} if breakdown.assets.present? %></td>
             </tr>
 
             <div id="assets<%= i %>" class="modal fade" tabindex="9" role="dialog" aria-labelledby="assets">
