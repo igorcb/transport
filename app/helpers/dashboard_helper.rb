@@ -4,6 +4,7 @@ module DashboardHelper
       when InputControl::TypeStatus::OPEN then image_tag "square.svg", size:"15x15"
       when InputControl::TypeStatus::FINISH_TYPING then image_tag "square.svg", size:"15x15"
       when InputControl::TypeStatus::DISCHARGE then image_tag "triangle.svg", size:"15x15"
+      when InputControl::TypeStatus::CONFERENCE then image_tag "triangle.svg", size:"15x15"
       when InputControl::TypeStatus::RECEIVED then image_tag "circle.svg", size:"15x15"
       else ""
     end
