@@ -8,6 +8,7 @@
     <% end %>
 
     <%= render 'static_pages/sup_input_control', input_control: input_control %>
+    
 
     <% if input_control.conferences.present?  %>
       <% if input_control.conferences.order(id: :asc).last.approved == "not" %>

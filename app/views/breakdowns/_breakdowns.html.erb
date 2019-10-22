@@ -28,10 +28,18 @@
               <td><%= breakdown.sobras %></td>
               <td><%= breakdown.faltas %></td>
               <td><%= breakdown.avarias %></td>
-              <td><%= link_to image_tag( breakdown.assets.first.asset.url(:mini)), "#" ,  data: {:toggle=>"modal", :target=> "#assets#{i}"} if breakdown.assets.present? %></td>
+              <td>
+                <%= link_to image_tag( breakdown.assets.first.asset.url(:mini)), breakdown.assets.first.asset.url, data: {:lightbox => "image-#{i}"} if breakdown.assets.present? %>
+                <span id="assets<%= i %>" style="display:none">
+                  <% breakdown.assets.each do |asset| %>
+                  <%= link_to image_tag( asset.asset.url(:medium)), asset.asset.url, data: {:lightbox => "image-#{i}"} %>
+                  <% end %>
+                </span>
+              </td>
             </tr>
 
-            <div id="assets<%= i %>" class="modal fade" tabindex="9" role="dialog" aria-labelledby="assets">
+
+            <div  class="modal fade" tabindex="9" role="dialog" aria-labelledby="assets">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -41,15 +49,14 @@
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-md-12">
-                        <% breakdown.assets.each do |asset| %>
-                          <%= link_to image_tag( asset.asset.url(:thumb)), asset.asset.url, {"data-lightbox" => "image-#{i}"} %>
-                        <% end %>
+
                       </div>
                     </div>
                   </div>
                 </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
+
             <% i += 1 %>
           <% end %>
         </tbody>
@@ -58,10 +65,5 @@
   </div>
 </div>
 
-<style>
-.modal-open .modal {
-    z-index: 9000;
-}
-</style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js" type="text/javascript"></script>

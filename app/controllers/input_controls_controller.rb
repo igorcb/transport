@@ -178,6 +178,7 @@ class InputControlsController < ApplicationController
     @total_qtde_2 = @input_control.conferences.second.conference_items.sum(:qtde_oper) if @conference_2.present?
     @total_qtde_3 = @input_control.conferences.third.conference_items.sum(:qtde_oper) if @conference_3.present?
     @count_items = @item_input_controls.count
+
     @count_items_1 =  @conference_item_1.count if @conference_1.present?
     @count_items_2 =  @conference_item_2.count if @conference_2.present?
     @count_items_3 =  @conference_item_3.count if @conference_3.present?

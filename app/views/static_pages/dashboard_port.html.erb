@@ -26,12 +26,12 @@
               </p>
             </div>
             <div style="margin-top: 35px;">
-              <%= link_to new_checkin_path(operation: Checkin.operation_types.keys.first), class: "btn btn-primary btn-block btn-lg" do %>
+              <%= link_to new_checkin_path(operation: Checkin.operation_types.keys.first), class: "btn btn-primary btn-block btn-lg btn-one-click" do %>
                 <i class='fas fa-plus-circle'></i> nova entrada
               <% end %>
             </div>
             <div style="margin-top: 15px;">
-              <%= link_to new_checkin_path(operation: Checkin.operation_types.keys.second), class: "btn btn-warning btn-block btn-lg" do %>
+              <%= link_to new_checkin_path(operation: Checkin.operation_types.keys.second), class: "btn btn-warning btn-block btn-lg btn-one-click" do %>
                 <i class='fas fa-plus-circle'></i> novo embarque
               <% end %>
             </div>
