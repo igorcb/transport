@@ -182,6 +182,10 @@ class InputControlsController < ApplicationController
     @count_items_2 =  @conference_item_2.count if @conference_2.present?
     @count_items_3 =  @conference_item_3.count if @conference_3.present?
 
+    @count_items_1 = @count_items_1.present? @count_items_1 : 0
+    @count_items_2 = @count_items_2.present? @count_items_2 : 0
+    @count_items_3 = @count_items_3.present? @count_items_3 : 0
+
     @avaria = @input_control.conferences.last.conference_breakdowns.select(:product_id).group(:product_id).sum(:qtde)
 
     @sobras = InputControls::DiferenceArrayService.new(@input_control).call
