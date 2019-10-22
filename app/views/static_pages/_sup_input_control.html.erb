@@ -1,16 +1,9 @@
-<strong>Rem. Entr.: </strong><%= input_control.id %><br />
-<strong>Data: </strong><%= date_br (input_control.date_scheduled) %> as <%= time_br (input_control.time_scheduled) %><br />
-<% if input_control.driver_checkin? %>
-  <div style="color: LimeGreen;">
-      <strong>Motorista: </strong><%= input_control.driver.nome %>
-  </div>
-<% else  %>
-  <div style="color: red;">
-    <strong>Motorista: </strong><%= input_control.driver.nome %>
-  </div>
-<% end %>
-<strong>Container: </strong><%= input_control.container %><br />
-<strong>Carga Palletizada: </strong><%= input_control.palletized_status %><br />
-<strong>Entraga Palletizada: </strong><%= extenso_integer input_control.charge_type_delivery %><br />
-<strong>Pgto Descarga: </strong><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %><br />
-<strong>Status: </strong><%= input_control.status_name %><br />
+<p style="margin-bottom: 20px;"><i><%= date_br (input_control.date_scheduled) %> <%= time_br (input_control.time_scheduled) %> - <small><%= input_control.status_name %></small></i></p>
+
+<%= render 'static_pages/oper_input_control', input_control: input_control %>
+
+
+<p><strong>Container: </strong><%= input_control.container %></p>
+<p><strong>Carga Palletizada: </strong><%= input_control.palletized_status %></p>
+<p><strong>Entraga Palletizada: </strong><%= extenso_integer input_control.charge_type_delivery %></p>
+<p><strong>Pgto Descarga: </strong><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %></p>
