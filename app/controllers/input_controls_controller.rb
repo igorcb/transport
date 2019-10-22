@@ -165,7 +165,7 @@ class InputControlsController < ApplicationController
 
   def review_conference
     @input_control = InputControl.where(id: params["id"]).first
-    
+
     @item_input_controls = @input_control.item_input_controls.select(:product_id).group(:product_id).sum(:qtde)
     @conference_1 = @input_control.conferences.first
     @conference_2 = @input_control.conferences.second
@@ -332,6 +332,7 @@ class InputControlsController < ApplicationController
   def sup
     @q = InputControl.where(status: -1).search(params[:q])
     @input_controls = InputControl.the_day_scheduled
+
   end
 
   def sup_qtde_pallets

@@ -2,6 +2,6 @@
   <li class="<%= boarding.status_name.downcase %>">
   <!-- <span class="badge"><%= boarding.qtde_palets %></span> -->
   <%= render 'static_pages/sup_boarding', boarding: boarding %>
-  <%= link_to "Informar Equipe", report_team_boarding_path(boarding), {class: "btn btn-info btn-sm"} %>
+  <%= link_to "Informar Equipe", report_team_boarding_path(boarding), {class: "btn btn-info btn-sm"} if boarding.status == Boarding::TipoStatus::ABERTO %>
 </li>
 <% end %>
