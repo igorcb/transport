@@ -99,7 +99,7 @@
         <% end %>
       </tr>
     <% end %>
-    <% if @count_items_1 > @count_items %>
+    <% if @count_items_1 > @count_items || @count_items_2 > @count_items || @count_items_3 > @count_items %>
       <% @sobras[:data].each do |sobra| %>
         <% product = Product.where(id: sobra[:product_id]).first %>
         <tr>
