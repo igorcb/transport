@@ -9,6 +9,8 @@ class Conference < ApplicationRecord
   enum approved: {waiting: "0", yes: "1", not: "2"}
   #enum status: ["start", "finish"]
 
+  default_scope { order(id: 'asc') }
+
   def input_control
     InputControl.where(id: self.conference_id).first if self.conference_type == "InputControl"
   end

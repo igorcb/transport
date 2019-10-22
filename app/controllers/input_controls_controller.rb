@@ -165,6 +165,7 @@ class InputControlsController < ApplicationController
 
   def review_conference
     @input_control = InputControl.where(id: params["id"]).first
+    #order(id: :asc).
     @item_input_controls = @input_control.item_input_controls.select(:product_id).group(:product_id).sum(:qtde)
     @conference_1 = @input_control.conferences.first
     @conference_2 = @input_control.conferences.second
@@ -183,7 +184,8 @@ class InputControlsController < ApplicationController
 
     @avaria = @input_control.conferences.last.conference_breakdowns.select(:product_id).group(:product_id).sum(:qtde)
 
-    @sobras = InputControls::DiferenceArrayService.new(@input_control).call if @count_items_1 > @count_items
+    @sobras = InputControls::DiferenceArrayService.new(@input_control).call
+    #if @count_items_1 > @count_items
 
   end
 

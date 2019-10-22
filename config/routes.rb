@@ -239,7 +239,9 @@ Rails.application.routes.draw do
       post :update_product, on: :collection
     end
     resources :conferences do
-      resources :conference_breakdowns
+      resources :conference_breakdowns do
+        get :finish
+      end
       resources :conference_items
       collection do
         get :approved_last

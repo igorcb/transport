@@ -28,10 +28,10 @@ module Conferences
 
               if qtde_nfe < qtde_oper
                 sobra = qtde_oper - qtde_nfe
-                @divergencias.push({nfe_xml_id: nfe_id, product_id: conference_item.product_id, sobras: sobra, unid_medida: product.unid_medida, type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP})
+                @divergencias.push({product_id: conference_item.product_id, sobras: sobra, unid_medida: product.unid_medida, type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP})
               elsif qtde_nfe > qtde_oper
                 falta = qtde_nfe - qtde_oper
-                @divergencias.push({nfe_xml_id: nfe_id, product_id: conference_item.product_id, faltas: falta, unid_medida: product.unid_medida, type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP})
+                @divergencias.push({product_id: conference_item.product_id, faltas: falta, unid_medida: product.unid_medida, type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP})
               end
             end
           else
@@ -44,10 +44,10 @@ module Conferences
 
               if qtde_nfe < item.qtde_oper
                 sobra = item.qtde_oper - qtde_nfe
-                @divergencias.push({nfe_xml_id: nfe_id, product_id: item.product_id, sobras: sobra, unid_medida: item_input.unid_medida, type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP})
+                @divergencias.push({product_id: item.product_id, sobras: sobra, unid_medida: item_input.unid_medida, type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP})
               elsif qtde_nfe > item.qtde_oper
                 falta = qtde_nfe - item.qtde_oper
-                @divergencias.push({nfe_xml_id: nfe_id, product_id: item.product_id, faltas: falta, unid_medida: item_input.unid_medida, type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP})
+                @divergencias.push({product_id: item.product_id, faltas: falta, unid_medida: item_input.unid_medida, type_breakdown: Breakdown::TypeBreakdown::PRIMEIRA_PERNA_TRANSP})
               end
             end
           end
