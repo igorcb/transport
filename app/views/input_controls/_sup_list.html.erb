@@ -1,4 +1,5 @@
 <% input_controls.each do |input_control| %>
+<% conferences = input_control.conferences %>
   <li class="<%= input_control.status_name %>">
 
     <% if input_control.check_nfe_xmls_have_qtde_pallets_total? %>
@@ -8,7 +9,20 @@
     <% end %>
 
     <%= render 'static_pages/sup_input_control', input_control: input_control %>
-    
+
+    <% if conferences.present? %>
+    <p><strong>Conferencias</strong></p>
+    <% i = 1 %>
+      <% conferences.each do |conference| %>
+        <p><b><%= i %></b> -
+        <b>Status:</b> <%= conference.status %>;
+        <b>Aprovado:</b> <%= conference.approved %>
+        </p>
+
+        <% i += 1 %>
+      <% end %>
+    <% end %>
+
 
     <% if input_control.conferences.present?  %>
       <% if input_control.conferences.order(id: :asc).last.approved == "not" %>
