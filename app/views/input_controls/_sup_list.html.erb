@@ -15,8 +15,10 @@
     <% i = 1 %>
       <% conferences.each do |conference| %>
         <p><b><%= i %></b> -
-        <b>Status:</b> <%= conference.status %>;
-        <b>Aprovado:</b> <%= conference.approved %>
+        <b>Status:</b> <%= conference.status %>
+        <% if conference.status == "finish" %>
+          ; <b>Aprovado:</b> <%= conference.approved %>
+        <% end %>
         </p>
 
         <% i += 1 %>
