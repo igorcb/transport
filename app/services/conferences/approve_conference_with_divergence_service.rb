@@ -13,6 +13,8 @@ module Conferences
       @conference = @input_control.conferences.order(id: :asc).last
       @conference_items = @conference.conference_items
 
+      return {success: false, message: "Está faltando um ítem a ser adicionado. Vá em \"add ítem\""} if @item_input_controls.count > @conference_items.count
+
       begin
         #byebug
         ActiveRecord::Base.transaction do
