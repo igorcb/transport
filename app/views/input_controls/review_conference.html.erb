@@ -6,7 +6,11 @@
 <h1>Revisão conferencias</h1>
 <%= render 'static_pages/oper_input_control', input_control: @input_control %>
 <%= link_to "Voltar", sup_input_controls_path, class: "btn btn-default " %>
-<%= link_to "Fazer correção", duplicate_conference_input_control_path, class: "btn btn-primary " if @input_control.conferences.count == 2 %>
+<% if @input_control.conferences.second.present? %>
+  <% if @input_control.conferences.second.approved == "not" %>
+    <%= link_to "Fazer correção", duplicate_conference_input_control_path, class: "btn btn-primary " if @input_control.conferences.count == 2 %>
+  <% end %>
+<% end %>
 <% if @input_control.conferences.last.approved == "waiting" %>
   <%= link_to "Aprovar conferência", approved_last_input_control_conferences_path(@input_control.id), class: "btn btn-primary" %>
 <% end %>
