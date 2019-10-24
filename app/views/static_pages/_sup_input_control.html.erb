@@ -7,7 +7,7 @@
 <p><strong>Carga Palletizada: </strong><%= input_control.palletized_status %></p>
 <p><strong>Entraga Palletizada: </strong><%= extenso_integer input_control.charge_type_delivery %></p>
 <% if input_control.account_receivable.present? %>
-  <p><b>Pgto Descarga: </b><%= input_control.account_receivable.status_name %> <big style="font-size:2em"><%= icon_account_receivable(input_control.account_receivable) %></big></p>
+  <p><strong>Pgto Descarga: <big style="font-size:2em"><%= icon_account_receivable(input_control.account_receivable) %></big></strong><%= input_control.account_receivable.status_name %> </p>
 <% else %>
-  <p><b>Pgto Descarga: </b>Não pago <big style="font-size:2em"><i class="fas fa-times text-danger"></i></big></p>
+  <p><strong>Pgto Descarga: <big style="font-size:2em"><i class="fas fa-times text-danger"></i></big> </strong>Não pago </p>
 <% end %>
