@@ -1,4 +1,4 @@
 
 <p><strong>Rem. Entr.: </strong><span><%= input_control.id %></span></p>
-<p><strong>Motorista: </strong><span><%= input_control.driver.nome %></span></p>
+<p><strong>Motorista: <big style="font-size:2em"><%= input_control.checkin.present? ? raw('<i class="fas fa-check text-success"></i>') : raw('<i class="fas fa-times text-danger"></i>') %></big></strong><span><%= input_control.driver.nome %></span></p>
 <p><strong>Trasportadora.: </strong><span><%= input_control.carrier.nome %></span></p>

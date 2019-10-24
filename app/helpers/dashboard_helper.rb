@@ -19,6 +19,15 @@ module DashboardHelper
     end
   end
 
+  def icon_account_receivable(account_receivable)
+    case account_receivable.status
+      when 2 then "<i class=\"fas fa-check text-success\"></i>".html_safe
+      when 1 then ""
+      when 0 then "<i class=\"fas fa-exclamation text-danger\"></i>".html_safe
+      else ""
+    end
+  end
+
   def difference_as_time(start_time, end_time)
     time = TimeDifference.between(start_time,end_time)
     days = time.in_general[:days]

@@ -24,6 +24,7 @@ class InputControl < ActiveRecord::Base
   has_many :item_nfes, class_name: "ItemInputControl", foreign_key: "nfe_id"
 
   has_one :account_receivable
+  #has_one :checkin, class_name: "Checkin", foreign_key: "operation_id", :as => :operation
 
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
@@ -57,6 +58,12 @@ class InputControl < ActiveRecord::Base
   scope :available_discharge, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::CONFERENCE, TypeStatus::RECEIVED]).order("id desc") }
   scope :available_supervisor, -> { includes(:driver).where(date_scheduled: Date.current, status: [TypeStatus::FINISH_TYPING, TypeStatus::DISCHARGE, TypeStatus::CONFERENCE, TypeStatus::RECEIVED]).order("id desc") }
   scope :available_operator, -> { includes(:driver).where(date_scheduled: Date.current).where.not(team: nil).order("id desc") }
+  # scope :checkin, -> { includes(:driver).where(date_scheduled: Date.current).where.not(team: nil).order("id desc") }
+
+  def checkin
+    Checkin.where(operation_id: self.id, operation_type: "input_control").first
+  end
+
 
   #before_save { |item| item.email = email.downcase }
   # RECEBIMENTO_DESCARGA_HISTORIC = 100
