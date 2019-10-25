@@ -9,7 +9,7 @@ module InputControls
     def call
       #byebug
       return {success: false, message: "Input Control and user is not exist."} if @input_control.nil? && @user.nil?
-      # return {success: false, message: "Input Control is not status DISCHARGE."} if @input_control.status != InputControl::TypeStatus::DISCHARGE
+      return {success: false, message: "There is already a conference started."} if Conference.check_status_in_start?("InputControl", @input_control.id)
 
       begin
         # byebug
