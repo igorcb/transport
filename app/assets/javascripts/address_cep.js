@@ -1,9 +1,7 @@
 $(function(){
-
-  if ($(".auto_cep").hasClass()) {
-
+  
+    if ($(".auto_cep").hasClass("auto_cep")) {
     if($(".auto_cep").val().length == 9 ){
-
       $(".auto_endereco, .auto_bairro, .auto_cidade, .auto_estado").prop("disabled", true)
     }
     $(".auto_cep").keyup(function(){
