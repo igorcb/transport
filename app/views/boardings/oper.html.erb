@@ -5,7 +5,8 @@
   <% @boardings.each do |boarding| %>
   <li class="<%= boarding.status_name.downcase %>">
     <div class="content-list">
-      <%= render 'static_pages/oper_boarding', boarding: boarding %>
+      <%= render 'info_default', boarding: boarding %>
+      <%#= render 'static_pages/oper_boarding', boarding: boarding %>
     </div>
     <%= link_to 'Iniciar', start_boarding_path(boarding), class: "btn btn-default btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>
     <%= link_to 'Confirmar Embarque', confirmed_boarding_path(boarding)+"?ajax=true", {class: "btn btn-success btn-xs", "data-toggle": "modal", "data-target": "#myModal"} if boarding.status == Boarding::TipoStatus::INICIADO %>

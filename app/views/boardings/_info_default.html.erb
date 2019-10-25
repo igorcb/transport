@@ -3,6 +3,12 @@
 <p><strong>Motorista: </strong><span><%= boarding.driver.nome %> <small><%= !boarding.driver_checkin? ? "(Não verificado)" : "" %></small></span></p>
 <p><strong>Lacres:</strong><span><%= boarding.sealings.pluck(:number) %></span></p>
 <p><strong>Cidades: </strong> <span><%= boarding.get_cities %></span></p>
+<% if boarding.team.present? %>
+  <p><strong>Equipe: </strong> <span><%= boarding.team_name %></span></p>
+<% end %>
+<% if boarding.dock.present? %>
+  <p><strong>Doca: </strong> <span><%= boarding.dock %></span></p>
+<% end %>
 <% if boarding.pending? %>
 <p><strong>Observacao: </strong><span><label style="color: #CCC">Embarque com restrição</label></span></p>
 <% end %>
@@ -25,3 +31,18 @@
 	<% end %>
 
 <% end %>
+
+
+
+<!-- <p><strong>Motorista: </strong>
+<span>
+  <% if DriverRestriction.driver_loking?(boarding.driver.id) %>
+    <%= boarding.driver.nome %>
+  <% else %>
+    <%= link_to boarding.driver.nome, new_driver_driver_restriction_path(boarding.driver.id) %>
+  <% end %>
+  <small>
+  <%= boarding.driver_checkin? ? "" : "(Não verificado)" %>
+  </small>
+</span>
+</p> -->
