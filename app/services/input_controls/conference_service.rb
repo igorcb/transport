@@ -13,7 +13,6 @@ module InputControls
 
       begin
         # byebug
-
         ActiveRecord::Base.transaction do
           @conference = @input_control.conferences.create!(date_conference: Date.current, start_time: Time.now, user: @user, status: :start, approved: :not)
           InputControl.where(id: @input_control.id).update_all(status: InputControl::TypeStatus::CONFERENCE)

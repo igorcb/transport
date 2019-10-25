@@ -16,7 +16,7 @@ class Conference < ApplicationRecord
   default_scope { order(id: 'asc') }
 
   def self.check_status_in_start?(type, conference)
-    Conference.where(conference_type: type, conference_id: conference, status: :start)
+    Conference.where(conference_type: type, conference_id: conference, status: :start).present?
   end
 
   def input_control

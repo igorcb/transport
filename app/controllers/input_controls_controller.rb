@@ -344,9 +344,14 @@ class InputControlsController < ApplicationController
 
   def start_conference
     input_control = InputControl.where(id: params[:id]).first
-    InputControls::ConferenceService.new(input_control, current_user).call
-    # redirect_to oper_input_controls_path
-    redirect_to items_input_control_path(input_control)
+    @result = InputControls::ConferenceService.new(input_control, current_user).call
+    if @result[:success] == true
+      flash[:success] = @result[:message]
+      redirect_to items_input_control_path(input_control)
+    else
+      flash[:error] = @result[:message]
+      redirect_to oper_input_controls_path
+    end
   end
 
   def update_start
