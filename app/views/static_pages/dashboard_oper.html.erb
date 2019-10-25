@@ -62,8 +62,10 @@
       type: 'doughnut',
       data: {
           datasets: [{
-              data: [<%= Boarding.the_day.where(status: 0).count %>, <%= Boarding.the_day.where(status: 4).count %>, <%= Boarding.the_day.where(status: 1).count %>],
-              backgroundColor: ['#007bff', '#28a745', '#fd7e14']
+              data: [<%= Boarding.the_day.where(status: Boarding::TipoStatus::ABERTO).count %>,
+                     <%= Boarding.the_day.where(status: Boarding::TipoStatus::INICIADO).count %>,
+                     <%= Boarding.the_day.where(status: Boarding::TipoStatus::EMBARCADO).count %>],
+              backgroundColor: ['#007bff', '#fd7e14', '#28a745']
           }],
           labels: ['Aberto', 'Iniciado', 'Embarcado']
       }
