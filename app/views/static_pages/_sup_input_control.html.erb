@@ -2,12 +2,16 @@
 
 <%= render 'static_pages/oper_input_control', input_control: input_control %>
 
-
 <p><strong>Container: </strong><%= input_control.container %></p>
 <p><strong>Carga Palletizada: </strong><%= input_control.palletized_status %></p>
 <p><strong>Entraga Palletizada: </strong><%= extenso_integer input_control.charge_type_delivery %></p>
-<% if input_control.account_receivable.present? %>
-  <p><strong>Pgto Descarga: <big style="font-size:2em"><%= icon_account_receivable(input_control.account_receivable) %></big></strong><%= input_control.account_receivable.status_name %> </p>
+
+<% if input_control.charge_discharge? %>
+  <% if input_control.account_receivable.present? %>
+    <p><strong>Pgto Descarga: <%= input_control.account_receivable.status_name %> <big style="font-size:2em"><%= icon_account_receivable(input_control.account_receivable) %></big></strong> </p>
+  <% else %>
+    <p><strong>Pgto Descarga: Não pago  <big style="font-size:2em"><i class="fas fa-times text-danger"></i></big> </strong></p>
+  <% end %>
 <% else %>
-  <p><strong>Pgto Descarga: <big style="font-size:2em"><i class="fas fa-times text-danger"></i></big> </strong>Não pago </p>
+  <p><strong>Pgto Descarga: Não Cobrar </strong></p>
 <% end %>

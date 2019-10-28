@@ -11,8 +11,15 @@
     <%= render 'static_pages/oper_input_control', input_control: input_control %>
     <p><strong>Container: </strong><span><%= input_control.container %></span></p>
     <p><strong>Palletizada: </strong><span><%= input_control.palletized_status %></span></p>
-    <p><strong>Pgto Descarga: </strong><span><%= input_control.account_receivable.status_name if input_control.account_receivable.present? %></span></p>
-
+    <% if input_control.charge_discharge? %>
+      <% if input_control.account_receivable.present? %>
+        <p><strong>Pgto Descarga: <%= input_control.account_receivable.status_name %> <big style="font-size:2em"><%= icon_account_receivable(input_control.account_receivable) %></big></strong> </p>
+      <% else %>
+        <p><strong>Pgto Descarga: Não pago  <big style="font-size:2em"><i class="fas fa-times text-danger"></i></big> </strong></p>
+      <% end %>
+    <% else %>
+      <p><strong>Pgto Descarga: Não Cobrar </strong></p>
+    <% end %>
     <%= input_items_button(input_control) %>
 
   </li>

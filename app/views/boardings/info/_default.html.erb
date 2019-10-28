@@ -3,7 +3,7 @@
 <p><strong>Observacao: </strong><span><label style="color: #CCC">Embarque com restrição</label></span></p>
 <% end %>
 
-<% if boarding.driver_checkin %>
+<% if boarding.driver_checkin? %>
 
 	<% if !boarding.places.include?(boarding.driver_checkin_palce_horse) || !boarding.places.include?(boarding.driver_checkin_palce_cart_1) %>
 	    <div class="alert alert-danger">

@@ -60,11 +60,6 @@ class InputControl < ActiveRecord::Base
   scope :available_operator, -> { includes(:driver).where(date_scheduled: Date.current).where.not(team: nil).order("id desc") }
   # scope :checkin, -> { includes(:driver).where(date_scheduled: Date.current).where.not(team: nil).order("id desc") }
 
-  def checkin
-    Checkin.where(operation_id: self.id, operation_type: "input_control").first
-  end
-
-
   #before_save { |item| item.email = email.downcase }
   # RECEBIMENTO_DESCARGA_HISTORIC = 100
   # RECEBIMENTO_DESCARGA_PAYMENT_METHOD = 2
