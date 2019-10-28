@@ -6,7 +6,11 @@
     <div class="panel-heading">Dados do Embarque - No: <%= @boarding.id %></div>
     <div class="panel-body">
 
+<<<<<<< HEAD
     <%= render "single_info", boarding: @boarding %>
+=======
+    <%= render "boardings/info/single", boarding: @boarding %>
+>>>>>>> operator
 
     </div>
   </div>
@@ -17,20 +21,20 @@
     <%= f.text_field :place, class: "form-control", style: 'text-transform:uppercase' %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :team, "Equipe" %>
-    <%= f.select( :team, select_team, {include_blank: "Selecione uma Equipe"}, {class: "form-control"} ) %>
+  <!-- <div class="form-group">
+    <%#= f.label :team, "Equipe" %>
+    <%#= f.select( :team, select_team, {include_blank: "Selecione uma Equipe"}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
-    <%= f.label :hangar, "Galpao" %>
-    <%= f.select( :hangar, select_hangar, {include_blank: "Selecione um Hangar"}, {class: "form-control"} ) %>
+    <%#= f.label :hangar, "Galpao" %>
+    <%#= f.select( :hangar, select_hangar, {include_blank: "Selecione um Hangar"}, {class: "form-control"} ) %>
   </div>
 
   <div class="form-group">
-    <%= f.label :dock, "Doca" %>
-    <%= f.select( :dock, select_dock, {include_blank: "Selecione uma doca"}, {class: "form-control"} ) %>
-  </div>
+    <%#= f.label :dock, "Doca" %>
+    <%#= f.select( :dock, select_dock, {include_blank: "Selecione uma doca"}, {class: "form-control"} ) %>
+  </div> -->
 
 
 	<%= f.submit "Iniciar Embarque", class: "btn btn-blue" %>
