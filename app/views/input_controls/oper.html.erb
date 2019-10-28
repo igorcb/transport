@@ -5,7 +5,6 @@
   <% @input_controls.each do |input_control| %>
     <li class="<%= input_control.status_name %>">
 
-
     <span class="badge"><%= input_control.quantity_pallets %></span>
 
     <p style="margin-bottom: 20px;"><%= icon_status_input_control(input_control.status) %> <i><%= date_br (input_control.date_scheduled) %> <%= time_br (input_control.time_scheduled) %> - <small><%= input_control.status_name %></small></i></p>
