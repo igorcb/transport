@@ -5,7 +5,7 @@
   <% @boardings.each do |boarding| %>
   <li class="<%= boarding.status_name.downcase %>">
     <div class="content-list">
-      <%= render 'info_default', boarding: boarding %>
+      <%= render 'boardings/info/default', boarding: boarding %>
       <%#= render 'static_pages/oper_boarding', boarding: boarding %>
     </div>
     <%= link_to 'Iniciar', start_boarding_path(boarding), class: "btn btn-default btn-xs" if boarding.status == Boarding::TipoStatus::ABERTO %>

@@ -1,7 +1,7 @@
 <% boardings.each do |boarding| %>
   <li class="<%= boarding.status_name.downcase %>">
   <!-- <span class="badge"><%= boarding.qtde_palets %></span> -->
-  <%= render 'info_default', boarding: boarding %>
+  <%= render 'boardings/info/default', boarding: boarding %>
   <%#= render 'static_pages/sup_boarding', boarding: boarding %>
 
 
