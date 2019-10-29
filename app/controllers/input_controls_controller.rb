@@ -149,7 +149,11 @@ class InputControlsController < ApplicationController
     @input_control.save!
 
     # redirect_to oper_input_controls_path
-    redirect_to input_control_conference_conference_breakdowns_path(@input_control, @input_control.conferences.last)
+    if params["has_avaria"] == "false"
+      redirect_to oper_input_controls_path
+    else
+      redirect_to input_control_conference_conference_breakdowns_path(@input_control, @input_control.conferences.last)
+    end
   end
 
 

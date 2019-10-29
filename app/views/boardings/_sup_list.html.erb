@@ -22,7 +22,7 @@
   <% end %>
 
 
-  <%= link_to "Informar Equipe", report_team_boarding_path(boarding), {class: "btn btn-info btn-sm"} if boarding.status == Boarding::TipoStatus::ABERTO %>
+  <%= link_to "Informar Equipe", report_team_boarding_path(boarding), {class: "btn btn-info btn-sm"} if boarding.team.nil? %>
 
 </li>
 <% end %>
