@@ -88,6 +88,8 @@ class ConferenceBreakdownsController < ApplicationController
     @input_control = InputControl.where(id: params[:id]).first
     ConferenceBreakdowns::FinishService.new(@input_control).call
 
+    ConferenceBreakdowns::NfeAssocService.new(@input_control).call
+
     redirect_to oper_input_controls_path
   end
 
