@@ -14,6 +14,7 @@
         <span class="" title="placa"><%= checkin.place_horse %></span>
         <span class="start" title="Iniciado às"><%= time_br(checkin.created_at) %></span>
         </p>
+        <%= render 'checkins/detail_boarding', checkin: checkin %>
       </div>
     </li>
   <% end %>

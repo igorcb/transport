@@ -180,15 +180,15 @@ class BoardingsController < ApplicationController
       flash[:danger] = "Place is not present."
       redirect_to dashboard_oper_path
       return
-    elsif params[:boarding][:team].blank?
+    elsif @boarding.team.blank?
       flash[:danger] = "Team is not present."
       redirect_to dashboard_oper_path
       return
-    elsif params[:boarding][:hangar].blank?
+    elsif @boarding.hangar.blank?
       flash[:danger] = "Hangar is not present."
       redirect_to dashboard_oper_path
       return
-    elsif params[:boarding][:dock].blank?
+    elsif @boarding.dock.blank?
       flash[:danger] = "Dock is not present."
       redirect_to dashboard_oper_path
       return
