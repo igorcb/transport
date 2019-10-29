@@ -1,0 +1,25 @@
+<!-- <div class="informations"> -->
+  <% if checkin.operation_id.present? %>
+    <p>
+      <span class="remessa" title="Embarque">Emb. Nº: <strong><%= checkin.operation_id %></strong></span>
+      <span class="status" title="Status"><strong>Status: </strong><%= icon_status_boarding(checkin.boarding.status) %></span>
+    <br>
+    <% if checkin.boarding.start_time_boarding.present?  %>
+        <% if checkin.boarding.status == Boarding::TipoStatus::EMBARCADO %>
+          <span class="descarregando" title="Tempo que esta descarregando">Tempo do carregamento:
+            <strong><%= difference_as_time(checkin.boarding.start_time_boarding, checkin.boarding.finish_time_boarding) %></strong>
+          </span>
+        <% else %>
+          <span class="descarregando" title="Tempo de descarga">carregando à
+            <strong><%= difference_as_time(checkin.boarding.start_time_boarding, Time.now) %></strong>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if checkin.boarding.team.present? %>
+        <strong>Equipe:</strong> <%= checkin.boarding.team_name %>
+        <strong>Doca:</strong> <%= checkin.boarding.dock %>
+      <% end %>
+    </p>
+  <% end %>
+<!-- </div> -->
