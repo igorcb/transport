@@ -86,10 +86,10 @@ class ConferenceBreakdownsController < ApplicationController
 
   def finish
     @input_control = InputControl.where(id: params[:id]).first
-    ConferenceBreakdowns::FinishService.new(@input_control).call
-
-    ConferenceBreakdowns::NfeAssocService.new(@input_control).call
-
+    @result = ConferenceBreakdowns::FinishService.new(@input_control).call
+    flash_message(@result)
+    #@result_2 = ConferenceBreakdowns::NfeAssocService.new(@input_control).call
+    #flash_message(@result_2)
     redirect_to oper_input_controls_path
   end
 
