@@ -15,6 +15,11 @@ module ConferenceBreakdowns
       return {success: false, message: "Product is not found."} if !@product.present?
       @conference = @input_control.conferences.last
       return {success: false, message: "Conference is not found."} if !@conference.present?
+
+      # has_product = @conference.conference_items.where(product_id: product.id).first
+      # return {success: false, message: "Product don't exists this conference."} if !has_product.present?
+
+      return {success: true, message: "resposta: #{has_product}"}
       begin
         # byebug
 
