@@ -17,4 +17,3 @@
 <td><%= link_to nfe_xml.ordem_service(controller.controller_name).id, nfe_xml.ordem_service(controller.controller_name) if nfe_xml.ordem_service(controller.controller_name).present? %></td>
 <td><%= nfe_xml.ordem_service(controller.controller_name).status_name if nfe_xml.ordem_service(controller.controller_name).present? %></td>
 <td><%= get_chave(nfe_xml.id) %></td>
-<td><%= link_to "Process", xml_process_nfe_xml_path(nfe_xml), method: :post %></td>
