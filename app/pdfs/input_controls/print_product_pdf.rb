@@ -56,9 +56,8 @@ module InputControls
       y_position = cursor - 05
 
       # The bounding_box takes the x and y coordinates for positioning its content and some options to style it
-      result = @input_control.nfe_xmls.count.divmod(9)
-
-      height = (result[0]) * 20
+      result = (@input_control.nfe_xmls.count/9).round
+      height = (result == 0) ? 20 : result * 20
       bounding_box([0, y_position], :width => 540, :height => height) do #20
         text "NF-e: #{@input_control.nfe_xmls.pluck(:numero)}", size: 12
       end
