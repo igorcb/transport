@@ -56,13 +56,8 @@ module InputControls
       y_position = cursor - 05
 
       # The bounding_box takes the x and y coordinates for positioning its content and some options to style it
-      #count = @input_control.nfe_xmls
-      bounding_box([0, y_position], :width => 540, :height => 90) do #20
-        #text(budget.additional_info, {size: 20})
-        text "Count: #{@input_control.nfe_xmls.count}", size: 12
-        text "NF-e: #{@input_control.nfe_xmls.limit(5).pluck(:numero)}", size: 12
-        #stroke_color "000000"
-        #stroke_bounds
+      bounding_box([0, y_position], :width => 540, :height => 20) do
+        text "NF-e: #{@input_control.nfe_xmls.pluck(:numero)}", size: 12
       end
     end
 
