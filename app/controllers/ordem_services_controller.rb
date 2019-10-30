@@ -49,6 +49,7 @@ class OrdemServicesController < ApplicationController
   end
 
   def new
+    redirect_to ordem_services_path flash: { danger:  "Funcionalidade nao disponivel no momento." }
   end
 
   def edit
