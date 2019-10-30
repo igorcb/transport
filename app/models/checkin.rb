@@ -1,7 +1,7 @@
 class Checkin < ApplicationRecord
   validates :driver_cpf, :driver_name, :operation_type, :status,  presence: true
   validates :door, presence: true, numericality: { greater_than: 0 }, if: :boarding?
-  validates :driver_cpf, uniqueness: { scope: [:operation_type, :status], message: "Driver already checked in today." }
+  validates :driver_cpf, uniqueness: { scope: [:operation_type, :operation_id, :status], message: "Driver already checked in today." }
 
   enum operation_type: { input_control: 0, boarding: 1}
   enum status: { input: 0, start: 1, finish: 2, checkout: 3}
