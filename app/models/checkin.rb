@@ -1,7 +1,7 @@
 class Checkin < ApplicationRecord
   validates :driver_cpf, :driver_name, :operation_type, :status,  presence: true
   validates :door, presence: true, numericality: { greater_than: 0 }, if: :boarding?
-  validates :driver_cpf, uniqueness: { scope: [:operation_type, :operation_id, :status], message: "Driver already checked in today." }
+  #validates :driver_cpf, uniqueness: { scope: [:operation_type, :operation_id, :status], message: "Driver already checked in today." }
 
   enum operation_type: { input_control: 0, boarding: 1}
   enum status: { input: 0, start: 1, finish: 2, checkout: 3}
@@ -12,11 +12,16 @@ class Checkin < ApplicationRecord
   scope :driver_status, ->(cpf) {where(driver_cpf: cpf).order(id: :asc).last}
 
   #before_create :check_driver_checkin?
+  before_create :validation_checkin, :if => :check_driver_already_checkin?
 
   before_create do |item|
     item.place_horse  = item.place_horse.upcase if item.place_horse.present?
     item.place_cart_1 = item.place_cart_1.upcase if item.place_cart_1.present?
     item.place_cart_2 = item.place_cart_2.upcase if item.place_cart_2.present?
+  end
+
+  def validation_checkin
+    Checkin.the_day.where(driver_cpf: self.driver_cpf, operation_type: self.operation_type, operation_id: self.operation_id, status: self.status).present?
   end
 
   def self.service_checkout(driver_cpf, operation)
@@ -50,7 +55,8 @@ class Checkin < ApplicationRecord
     Boarding.where(id: self.operation_id).first
   end
 
-  def check_driver_checkin?
-    #code
+  #private
+  def check_driver_already_checkin?
+    true
   end
 end

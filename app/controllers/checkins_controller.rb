@@ -45,7 +45,11 @@ class CheckinsController < ApplicationController
       return
     end
     @checkin = Checkin.new(checkin_params)
-
+    if @checkin.check_driver_already_checkin?
+      flash[:danger] = "Motorista já fez checkin hoje."
+      redirect_to dashboard_port_path
+      return
+    end
     respond_to do |format|
       if @checkin.save
         if current_user.has_role?(:port)
