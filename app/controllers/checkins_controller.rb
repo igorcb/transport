@@ -47,11 +47,11 @@ class CheckinsController < ApplicationController
     @checkin = Checkin.new(checkin_params)
 
     respond_to do |format|
-      if @checkin.save!
+      if @checkin.save
         if current_user.has_role?(:port)
-          format.html { redirect_to dashboard_port_path, notice: 'Checkin was successfully created.' }
+          format.html { redirect_to dashboard_port_path,  flash: { success: 'Checkin was successfully created.' } }
         else
-          format.html { redirect_to @checkin, notice: 'Checkin was successfully created.' }
+          format.html { redirect_to @checkin,  flash: { success: 'Checkin was successfully created.' } }
           format.json { render :show, status: :created, location: @checkin }
         end
       else
