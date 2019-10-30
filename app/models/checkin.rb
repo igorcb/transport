@@ -11,7 +11,9 @@ class Checkin < ApplicationRecord
   scope :inside_all, -> {where(status: [:input, :start, :finish])}
   scope :driver_status, ->(cpf) {where(driver_cpf: cpf).order(id: :asc).last}
 
-  #before_create :check_driver_checkin?
+  #Testar esse metodo
+  #validate :check_driver_already_checkin?
+
   before_create :validation_checkin, :if => :check_driver_already_checkin?
 
   before_create do |item|
@@ -57,6 +59,6 @@ class Checkin < ApplicationRecord
 
   #private
   def check_driver_already_checkin?
-    true
+    validation_checkin
   end
 end
