@@ -18,7 +18,9 @@
  <% if checkin.input_control.team.present? %>
    <strong>Equipe:</strong> <%= checkin.input_control.team_name %>
    <strong>Doca:</strong> <%= checkin.input_control.dock %>
-
+   <br>
  <% end %>
+
+ <%= render 'checkins/detail_nfe_input_control', input_control: checkin.input_control %>
  </p>
 <% end %>

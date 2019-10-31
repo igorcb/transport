@@ -3,6 +3,7 @@
 <%= render 'static_pages/oper_input_control', input_control: input_control %>
 
 <p><strong>Container: </strong><%= input_control.container %></p>
+<%= render 'checkins/detail_nfe_input_control', input_control: input_control %>
 <p><strong>Carga Palletizada: </strong><%= input_control.palletized_status %></p>
 <p><strong>Entraga Palletizada: </strong><%= extenso_integer input_control.charge_type_delivery %></p>
 
