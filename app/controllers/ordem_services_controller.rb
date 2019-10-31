@@ -49,7 +49,7 @@ class OrdemServicesController < ApplicationController
   end
 
   def new
-    redirect_to ordem_services_path flash: { danger:  "Funcionalidade nao disponivel no momento." }
+    Event.create(user_id: current_user.id, controller_name: controller_name, action_name: action_name, what: "Entrou na tela de nova O.S.")
   end
 
   def edit

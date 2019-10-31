@@ -13,10 +13,10 @@
       <%= render partial: "clients/result_client", locals: { client: @ordem_service.source_client } %>
     <% end %>
   </div>
-  
+
   <div id="source_client_cnpj_result">
 
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= label_tag :target_client_cpf_cpnj, "CPF/CNPJ Destinatário" %><br>
@@ -27,16 +27,16 @@
       <%= render partial: "clients/result_client", locals: { client: @ordem_service.client } %>
     <% end %>
   </div>
-  
+
   <div id="target_client_cnpj_result">
 
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :billing_client_id, "Tomador do serviço" %><br>
     <%= f.select(:billing_client_id, Client.billing.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
   </div>
-<!-- 
+<!--
   <div class="form-group">
     <%#= f.label :client_table_price_id, "Trecho" %>
     <%# if @ordem_service.billing_client_id.present? %>
@@ -45,7 +45,7 @@
       <%#= f.collection_select :client_table_price_id, [], :name, :name, {prompt: "SELECIONE CIDADE ORIGEM"}, {class: "form-control"}  %>
     <%# end %>
   </div>
- -->  
+ -->
   <div class="form-group">
     <%= f.label :carrier_id, "Agente" %><br>
     <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
@@ -54,7 +54,7 @@
   <div class="form-group">
     <%= f.label :date_entry, "Data da Entrada" %><br>
     <%= f.text_field :date_entry, class: "form-control data", value: date_br(@ordem_service.date_entry), disabled: true %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :data, "Data da Agendamento" %><br>
@@ -68,24 +68,24 @@
   <div class="form-group">
     <%= f.label :date_shipping, "Data da Expedição" %><br>
     <%= f.text_field :date_shipping, class: "form-control data", value: date_br(@ordem_service.date_shipping), disabled: true %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :data_entrega_servico, "Data da Entrega do Serviço" %><br>
     <%= f.text_field :data_entrega_servico, class: "form-control data", value: date_br(@ordem_service.data_entrega_servico), disabled: true %>
-  </div>  
- 
+  </div>
+
   <div class="form-group">
     <%= f.label :date_otif, "Data Limite da Entrega" %><br>
     <%= f.text_field :date_otif, class: "form-control data", value: date_br(@ordem_service.date_otif) %>
-  </div>  
+  </div>
 
   <div class="form-group">
     <%= f.label :lead_time, "Lead Time" %><br>
     <%= f.text_field :lead_time, class: "form-control data", value: date_br(@ordem_service.lead_time) %>
-  </div>  
+  </div>
 
-  <%= f.fields_for :ordem_service_logistics do |f| 
+  <%= f.fields_for :ordem_service_logistics do |f|
       render 'ordem_service_logistic_fields', f: f
   end -%>
 
@@ -96,7 +96,7 @@
 
   <h3>Dados NFS-e</h3>
   <div class="cte_items">
-    <%= f.fields_for :nfs_keys do |f| 
+    <%= f.fields_for :nfs_keys do |f|
         render 'nfs_key_fields', f: f
     end -%> <br />
     <%= link_to_add_association 'Add NFS-e', f, :nfs_keys, class: "btn btn-success btn-sm" %> <br />
@@ -104,7 +104,7 @@
 
   <h3>Dados CT-e</h3>
   <div class="cte_items">
-    <%= f.fields_for :cte_keys do |f| 
+    <%= f.fields_for :cte_keys do |f|
         render 'cte_key_fields', f: f
     end -%> <br />
     <%= link_to_add_association 'Add CT-e', f, :cte_keys, class: "btn btn-success btn-sm" %> <br />
@@ -112,34 +112,34 @@
 
   <h3>Dados NF-e</h3>
   <div class="nfe_items">
-    <%= f.fields_for :nfe_keys do |f| 
+    <%= f.fields_for :nfe_keys do |f|
       render 'nfe_key_fields', f: f
     end  -%> <br />
-    <%= link_to_add_association 'Add NF-e', f, :nfe_keys, class: "btn btn-success btn-sm" %> <br />
+    <%#= link_to_add_association 'Add NF-e', f, :nfe_keys, class: "btn btn-success btn-sm" %> <br />
   </div>
-   
+
   <h3>Account Banks</h3>
   <div class="account_banks_items">
-    <%= f.fields_for :account_banks do |f| 
-       render "account_bank_fields", f: f 
+    <%= f.fields_for :account_banks do |f|
+       render "account_bank_fields", f: f
      end -%> <br />
     <%= link_to_add_association 'Add Account', f, :account_banks, class: "btn btn-success btn-sm" %> <br />
   </div>
-          
-  <h3>Documentos</h3> 
+
+  <h3>Documentos</h3>
   <div class="documents_itens">
-    <%= f.nested_fields_for :assets do |f| 
+    <%= f.nested_fields_for :assets do |f|
       render 'asset_fields', f: f
     end -%> <br />
     <%= link_to_add_association 'Add Document', f, :assets, class: "btn btn-success btn-sm" %> <br />
   </div>
-  
+
   <hr />
-  
+
   <div class="form-actions">
     <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  ordem_service_path(@ordem_service), class: "btn btn-info" if !@ordem_service.new_record? %>
-  </div>  
+  </div>
 
 <% end %>
 
@@ -202,7 +202,7 @@
       var client_id = "client_id="+$(this).val();
       console.log(client_id);
       $.getJSON('/get_client_table_price_of_client', client_id, function(data){
-        var options = '<option value="">SELECIONE A TABELA DE PRECO</option>'; 
+        var options = '<option value="">SELECIONE A TABELA DE PRECO</option>';
         $.each(data, function(i, item) {
           options += '<option value="' + item.id + '">' + item.n + '</option>';
         });

@@ -1,33 +1,33 @@
 <div class='nested-fields'>
-  
+
   <div class="row">
     <div class="col-xs-2">
-      <%= f.text_field :qtde, size: 5, class: "form-control input-sm numericOnly", placeholder: "Qtde" %>
+      <%= f.text_field :qtde, size: 5, class: "form-control input-sm numericOnly", disabled: true, placeholder: "Qtde" %>
     </div>
 
     <div class="col-xs-2">
-      <%= f.text_field :nfe, class: "form-control input-sm numericOnly", placeholder: "Nfe"  %>
+      <%= f.text_field :nfe, class: "form-control input-sm numericOnly", disabled: true, placeholder: "Nfe"  %>
     </div>
 
     <div class="col-xs-4">
-      <%= f.text_field :chave, maxlength: 44, class: "form-control input-sm numericOnly", placeholder: "Chave"  %>
+      <%= f.text_field :chave, maxlength: 44, class: "form-control input-sm numericOnly", disabled: true, placeholder: "Chave"  %>
     </div>
-    
-    <%= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+
+    <%#= link_to_remove_association "[-] Apagar", f, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
 
   </div>
 
   <div class="row">
     <div class="col-xs-2">
-      <%= f.text_field :remessa_ype, size: 5, class: "form-control input-sm", placeholder: "Remessa Ype" %>
+      <%= f.text_field :remessa_ype, size: 5, class: "form-control input-sm", disabled: true, placeholder: "Remessa Ype" %>
     </div>
 
     <div class="col-xs-2">
-      <%= f.text_field :peso, size: 5, class: "form-control input-sm money3", value: to_decimal(f.object.peso), placeholder: "Peso" %>
+      <%= f.text_field :peso, size: 5, class: "form-control input-sm money3", value: to_decimal(f.object.peso), disabled: true, placeholder: "Peso" %>
     </div>
 
     <div class="col-xs-2">
-      <%= f.text_field :volume, size: 5, class: "form-control input-sm", value: f.object.volume, placeholder: "Volume" %>
+      <%= f.text_field :volume, size: 5, class: "form-control input-sm", value: f.object.volume, disabled: true, placeholder: "Volume" %>
     </div>
 
   </div>
@@ -41,7 +41,7 @@
     var notNumber=new RegExp("[^0-9]","g");
     var val=jThis.val();
 
-    //Math before replacing to prevent losing keyboard selection 
+    //Math before replacing to prevent losing keyboard selection
     if(val.match(notNumber))
     { jThis.val(val.replace(notNumber,"")); }
   }).keyup();
