@@ -1,0 +1,5 @@
+<p>
+   <strong style="display:inline">Qtde NF:  </strong><%= input_control.nfe_xmls.count %>
+
+   <strong style="display:inline; margin-left: 5px">Qtde Item:  </strong><%= input_control.item_input_controls.select(:product_id).group(:product_id).sum(:qtde).count %>
+</p>
