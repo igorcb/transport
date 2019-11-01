@@ -1,6 +1,6 @@
 module CommentsService
 
-  def
+  #def
 
   # class CommentsService
   #
