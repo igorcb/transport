@@ -1,7 +1,8 @@
 module Conferences
   class DuplicateConferenceService
 
-    def initialize(input_control)
+    def initialize(input_control, user)
+      @user = user
       @input_control = input_control
     end
 
@@ -18,13 +19,15 @@ module Conferences
 
         ActiveRecord::Base.transaction do
           # Create conference
-          copy_conference = @conference.as_json
-          copy_conference["id"]=nil
-          copy_conference["approved"]=:waiting
-          copy_conference["created_at"]=nil
-          copy_conference["updated_at"]=nil
+          # copy_conference = @conference.as_json
+          # copy_conference["id"]=nil
+          # copy_conference["approved"]=:waiting
+          # copy_conference["created_at"] = nil
+          # copy_conference["updated_at"] = nil
+          # copy_conference["start_time"] = Date.current
+          # copy_conference["finish_time"]= nil
           # return copy_conference.compact!
-          conference_new = Conference.create!(copy_conference.compact!)
+          conference_new = @input_control.conferences.create!(date_conference: Date.current, start_time: Time.zone.now, status: :start, approved: :waiting, user_id: @user.id)
 
           # Create conference items
           @conference_items.each { |conference_item|

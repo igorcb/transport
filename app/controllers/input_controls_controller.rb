@@ -200,7 +200,8 @@ class InputControlsController < ApplicationController
 
   def duplicate_conference
     input_control = InputControl.where(id: params["id"]).first
-    conference = Conferences::DuplicateConferenceService.new(input_control).call
+    @result = Conferences::DuplicateConferenceService.new(input_control, current_user).call
+    flash_message @result
     redirect_to review_conference_input_control_path
   end
 

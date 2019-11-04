@@ -38,6 +38,9 @@
 
 
   <%= show_line_build link_to( @input_control.account_receivable.id, @input_control.account_receivable), "Contas a Receber" if @input_control.account_receivable.present? %>
+  <%= show_line_build @input_control.user.email, "Criado por" if @input_control.user.present? %>
+  <%= show_line_build "#{date_br(@input_control.created_at)} #{time_br(@input_control.created_at)}", "Criado em (data e hora)" if @input_control.user.present? %>
+
+  <%= show_line_build @input_control.user_received.email, "Recebimento confirmado por" if @input_control.user_received.present? %>
   <%= show_line_build @input_control.account_receivable.status_name, "Status" if @input_control.account_receivable.present? %>
-  <%= show_line_build @input_control.user_received.email, "Recebimento confirmado por"if @input_control.user_received.present? %>
   <%= show_line_build @input_control.observation, "Observation" %>
