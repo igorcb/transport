@@ -15,9 +15,9 @@
     <% i = 1 %>
       <% conferences.each do |conference| %>
         <p><b><%= i %></b> -
-        <b>Status:</b> <%= conference.status %>
+        <b>Status:</b> <%= translate "activerecord.attributes.enums.conference.status.#{conference.status}"  %>
         <% if conference.status == "finish" %>
-          ; <b>Aprovado:</b> <%= conference.approved %>
+          ; <b>Aprovado:</b> <%= translate "activerecord.attributes.enums.conference.approved.#{conference.approved}"  %>
         <% end %>
         </p>
 

@@ -21,7 +21,10 @@ pt-BR:
           status:
             start: "Iniciado"
             finish: "Finalizado"
-
+          approved:
+            waiting: "Aguardando"
+            yes: "Sim"
+            not: "Não"
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
