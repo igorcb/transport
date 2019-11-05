@@ -20,6 +20,7 @@ class InputControl < ActiveRecord::Base
   accepts_nested_attributes_for :nfe_xmls, allow_destroy: true, :reject_if => :all_blank
 
   has_many :ordem_services
+  has_many :breakdown_nfe_xmls
   has_many :item_input_controls
   has_many :item_nfes, class_name: "ItemInputControl", foreign_key: "nfe_id"
 

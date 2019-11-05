@@ -33,8 +33,8 @@ module ConferenceBreakdowns
               end
             end
           end
-          
-          BreakdownNfeXml.create!(data)
+
+          # BreakdownNfeXml.create!(data)
 
         end
         return {success: true, message: "Breakdown on input_control created successfully."}
