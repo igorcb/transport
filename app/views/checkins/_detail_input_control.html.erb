@@ -1,9 +1,9 @@
 <% if checkin.operation_id.present? %>
- <p>
-   <span class="remessa" title="No de Remessa">Rem. Nº: <strong><%= checkin.operation_id %></strong></span>
-   <span class="status" title="Status"><strong>Status:</strong><%= icon_status_input_control(checkin.input_control.status) %></span>
- <br>
- <% if checkin.input_control.start_time_discharge.present?  %>
+  <p>
+    <span class="remessa" title="No de Remessa">Rem. Nº: <strong><%= checkin.operation_id %></strong></span>
+    <span class="status" title="Status"><strong>Status:</strong><%= icon_status_input_control(checkin.input_control.status) %></span>
+  <br>
+  <% if checkin.input_control.start_time_discharge.present?  %>
    <% if checkin.input_control.status == InputControl::TypeStatus::RECEIVED %>
      <span class="descarregando" title="Tempo que esta descarregando">Tempo descarregando:
        <strong><%= difference_as_time(checkin.input_control.start_time_discharge, checkin.input_control.finish_time_discharge) %></strong>
@@ -14,12 +14,11 @@
      </span>
    <% end %>
 
- <% end %>
- <% if checkin.input_control.team.present? %>
-   <strong>Equipe:</strong> <%= checkin.input_control.team_name %>
-   <strong>Doca:</strong> <%= checkin.input_control.dock %>
-   <br>
- <% end %>
+<% end %>
+<% if checkin.input_control.team.present? %>
+  <strong>Equipe:</strong> <%= checkin.input_control.team_name %>
+  <strong>Doca:</strong> <%= checkin.input_control.dock %>
+<% end %>
 
  <%= render 'checkins/detail_nfe_input_control', input_control: checkin.input_control %>
  </p>

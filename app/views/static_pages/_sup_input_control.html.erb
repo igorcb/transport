@@ -6,7 +6,9 @@
 <%= render 'checkins/detail_nfe_input_control', input_control: input_control %>
 <p><strong>Carga Palletizada: </strong><%= input_control.palletized_status %></p>
 <p><strong>Entraga Palletizada: </strong><%= extenso_integer input_control.charge_type_delivery %></p>
-
+<% if input_control.team.present? %>
+  <p> <strong>Equipe:</strong> <%= input_control.team_name %> Doca:  <%= input_control.dock %></p>
+<% end %>
 <% if input_control.charge_discharge? %>
   <% if input_control.account_receivable.present? %>
     <p><strong>Pgto Descarga: <%= input_control.account_receivable.status_name %> <big style="font-size:2em"><%= icon_account_receivable(input_control.account_receivable) %></big></strong> </p>
