@@ -17,6 +17,10 @@ pt-BR:
             client: "Cliente"
             security: "Seguradora"
             carrier: "Transportadora"
+        conference:
+          status:
+            start: "Iniciado"
+            finish: "Finalizado"
 
     errors:
       messages:
