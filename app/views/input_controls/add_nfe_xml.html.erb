@@ -1,5 +1,5 @@
 <style>
-  * { font-family:Arial; }
+  /* * { font-family:Arial; }
   h2 { padding:0 0 5px 5px; }
   h2 a { color: #224f99; }
   a { color:#999; text-decoration: none; }
@@ -11,19 +11,26 @@
            border-radius:4px;
           -moz-border-radius:4px;
           -web-kit-border-radius:4px;
-          -khtml-border-radius:4px; }
+          -khtml-border-radius:4px; } */
 </style>
 
 <%= form_for @input_control, url: attach_xml_input_control_path, method: :put, :html => { :multipart => true } do |f| %>
-  <div class="container1">
-    <div class="form-group">
+  <div class="row">
+    <div class="col-md-12">
       <button class="add_form_field btn btn-success">Adicionar Chave &nbsp;
         <span style="font-size:16px; font-weight:bold;"> + </span>
       </button>
     </div>
-    <div class="form-group">
-      <input type="text" name="nfe_xmls[]" size="50%" maxlength="44">
-      <a href="#" class="delete btn btn-danger btn-xs"> Delete </a>
+  </div>
+  <br>
+  <div class="container1">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <input type="text" name="nfe_xmls[]" class="form-control input-sm input_0 code"  maxlength="44">
+      </div>
+      <div class="col-md-2">
+        <a href="#" class="delete btn btn-danger btn-sm"> <i class="fas fa-times"></i> </a>
+      </div>
     </div>
   </div>
   <%= f.submit "Salvar", class: "btn btn-blue" %>
@@ -32,32 +39,37 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-    var max_fields      = 30;
-    var wrapper         = $(".container1");
-    var add_button      = $(".add_form_field");
+  x = 1;
+  $(".add_form_field").click(function(e){
+    e.preventDefault()
+    add_button(e)
+    return false;
+  });
 
-    var x = 1;
-    $(add_button).click(function(e){
-        e.preventDefault();
-        if(x < max_fields){
-            x++;
-            $(wrapper).append('<div class="form-group"><input type="text" name="nfe_xmls[]" size="50%" maxlength="44"/><a href="#" class="delete btn btn-danger btn-xs"> Delete </a></div>'); //add input box
-        }
-  else
-  {
-  alert('You Reached the limits')
+  $(document).on("keyup", ".code", function(){
+    var valor = $(this).val()
+    if(valor.length > 43) {
+
+      add_button($(".add_form_field"))
+    }
+  });
+
+  $(".container1").on("click",".delete", function(e){
+      e.preventDefault()
+      $(this).parent('div').parent('div').remove()
+      x--;
+  })
+
+
+});
+
+function add_button(e) {
+  if(x < 30){
+    x++;
+    $(".container1").append('<div class="row"><div class="form-group col-md-6"><input type="text" name="nfe_xmls[]" class="form-control input-sm code input_'+x+'" maxlength="44"/></div><div class="col-md-2"><a href="#" class="delete btn btn-danger btn-sm"> <i class="fas fa-times"></i> </a></div></div>'); //add input box
+    $(".input_"+x).focus()
+  } else {
+    alert('You Reached the limits')
   }
-    });
-
-    $(wrapper).on("click",".delete", function(e){
-        e.preventDefault(); $(this).parent('div').remove(); x--;
-    })
-});
-</script>
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-
-});
+}
 </script>
