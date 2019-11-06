@@ -23,8 +23,9 @@ pt-BR:
             finish: "Finalizado"
           approved:
             waiting: "Aguardando"
-            yes: "Sim"
+            "yes": "Sim"
             not: "Não"
+            okay: "Sim"
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
