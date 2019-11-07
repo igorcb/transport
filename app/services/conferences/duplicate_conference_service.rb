@@ -34,6 +34,7 @@ module Conferences
             copy_conference_item = conference_item.as_json
             copy_conference_item["id"]=nil
             copy_conference_item["conference_id"]=conference_new.id
+            copy_conference_item["qtde_sup"]=nil
             copy_conference_item["created_at"]=nil
             copy_conference_item["updated_at"]=nil
             ConferenceItem.create!(copy_conference_item.compact!)
