@@ -62,12 +62,18 @@
         <td class="<%= qtde.to_f != @conference_item_1[cod].to_f ? "text-danger" : "text-primary" %>"><%= @conference_item_1[cod].to_f %></td>
         <% if @conference_item_2.present? %>
           <%
-          if qtde.to_f != @conference_item_2[cod].to_f && item_2.qtde_sup.nil?
-            class_css = {text: "text-danger", btn: "btn-warning"}
-          elsif item_2.qtde_sup.present?
-            class_css = {text: "text-default", btn: "btn-default"}
+          if @conference_item_2[cod].present?
+            if item_2.qtde_sup.present?
+              class_css = {text: "text-default", btn: "btn-default"}
+            else
+              if qtde.to_f != @conference_item_2[cod].to_f
+                class_css = {text: "text-danger", btn: "btn-warning"}
+              else
+                class_css = {text: "text-primary", btn: ""}
+              end
+            end
           else
-            class_css = {text: "text-primary"}
+            class_css = {text: "text-danger", btn: "btn-warning"}
           end
            %>
           <td class="<%= class_css[:text] %>"><%= @conference_item_2[cod].to_f %></td>
