@@ -1,0 +1,122 @@
+<%= link_to "Voltar", sup_input_controls_path, class: "btn btn-default " %>
+<% if @input_control.conferences.second.present? %>
+  <% if @input_control.conferences.second.approved == "not" %>
+    <%= link_to "Fazer correção", duplicate_conference_input_control_path, class: "btn btn-primary " if @input_control.conferences.count == 2 %>
+  <% end %>
+<% end %>
+<% if @input_control.conferences.last.approved == "waiting" %>
+  <%= link_to "Aprovar conferência", approved_last_input_control_conferences_path(@input_control.id), class: "btn btn-primary" %>
+<% end %>
+
+<br><br>
+
+<table class="table table-responsive">
+  <thead>
+    <tr style="background:#666; color:white">
+      <td colspan="3" class="text-center">Itens: </td>
+      <td><%= @count_items %></td>
+      <td class="<%= @count_items_1 != @count_items ? "bg-red" : "" %>">
+        <%= @count_items_1 %>
+      </td>
+      <% if @conference_item_2.present? %>
+        <td class="<%= @count_items_2 != @count_items ? "bg-red" : "" %>">
+          <%= @count_items_2 %>
+        </td>
+      <% end %>
+
+      <% if @conference_item_3.present? %>
+        <td class="<%= @count_items_3 != @count_items ? "bg-red" : "" %>">
+          <%= @count_items_3 %>
+        </td>
+        <td></td>
+      <% end %>
+    </tr>
+    <tr style="background:#888; color:white">
+      <td colspan="3" class="text-center">Total: </td>
+      <td><%= @total_qtde %></td>
+      <td class="<%= @total_qtde_1 != @total_qtde ? "bg-red" : "" %>">
+        <%= @total_qtde_1 %>
+      </td>
+      <% if @conference_item_2.present? %>
+        <td class="<%= @total_qtde_2 != @total_qtde ? "bg-red" : "" %>">
+          <%= @total_qtde_2 %>
+        </td>
+      <% end %>
+
+      <% if @conference_item_3.present? %>
+        <td class="<%= @total_qtde_3 != @total_qtde ? "bg-red" : "" %>">
+          <%= @total_qtde_3 %>
+        </td>
+        <td></td>
+      <% end %>
+    </tr>
+
+    <tr>
+      <th>Cod Produto</th>
+      <th>Produto</th>
+      <th>Avaria</th>
+      <th>QTDE NFE</th>
+      <th>QTDE oper</th>
+      <% if @conference_item_2.present? %>
+        <td>QTDE oper</td>
+      <% end %>
+      <% if @conference_item_3.present? %>
+        <td>QTDE sup</td>
+        <td></td>
+      <% end %>
+    </tr>
+
+  </thead>
+
+  <tbody>
+    <% @item_input_controls.each do |cod, qtde| %>
+      <% product = Product.where(id: cod).first %>
+      <tr>
+        <td><%= product.cod_prod %></td>
+        <td><%= product.descricao %></td>
+        <td class="text-danger"><%= @avaria[cod] %></td>
+        <td><%= qtde.to_f %></td>
+        <td class="<%= qtde.to_f != @conference_item_1[cod].to_f ? "text-danger" : "text-primary" %>"><%= @conference_item_1[cod].to_f %></td>
+        <% if @conference_item_2.present? %>
+          <td class="<%= qtde.to_f != @conference_item_2[cod].to_f ? "text-danger" : "text-primary" %>"><%= @conference_item_2[cod].to_f %></td>
+        <% end %>
+
+        <% if @conference_item_3.present? %>
+          <td class="<%= qtde.to_f != @conference_item_3[cod].to_f ? "text-danger" : "text-primary" %>"><%= @conference_item_3[cod].to_f %></td>
+            <td>
+              <% if @conference_3.approved != "yes" %>
+                <% item = location_item_conference( @conference_3.id, cod) %>
+                <% if item.present? %>
+                  <% conference_item_3 = @conference_3.conference_items.where(product_id: cod).first %>
+                  <%= link_to raw(conference_item_3[:qtde_sup].nil? ? "corrigir" : "corrigir <i class=\"fas fa-check\"></i>"), edit_input_control_conference_conference_item_path(@input_control.id, @conference_3.id,  cod ), class: "btn btn-warning btn-xs" if qtde.to_f != @conference_item_3[cod].to_f %>
+                <% else %>
+                  <%= link_to "add item", items_input_control_path(@input_control), class: "btn btn-success btn-xs" %>
+                <% end %>
+              <% end %>
+            </td>
+        <% end %>
+      </tr>
+    <% end %>
+    <% if @count_items_1 > @count_items || @count_items_2 > @count_items || @count_items_3 > @count_items %>
+      <% if @sobras.present? %>
+        <% @sobras[:data].each do |sobra| %>
+          <% product = Product.where(id: sobra[:product_id]).first %>
+          <tr>
+            <td><%= product.cod_prod %></td>
+            <td><%= product.descricao %></td>
+            <td class="text-danger"><%= @avaria[sobra[:product_id]] %></td>
+            <td>0.0</td>
+            <td class="<%= sobra[:qtde_oper_1].nil? ? "" : "text-danger" %>"><%= sobra[:qtde_oper_1].nil? ? "0.0" : sobra[:qtde_oper_1].to_f %></td>
+            <% if @conference_item_2.present? %>
+              <td class="<%= sobra[:qtde_oper_2].nil? ? "" : "text-danger" %>"><%= sobra[:qtde_oper_2].nil? ? "0.0" : sobra[:qtde_oper_2].to_f %></td>
+            <% end %>
+            <% if @conference_item_3.present? %>
+              <td class="<%= sobra[:qtde_oper_3].nil? ? "" : "text-danger" %>"><%= sobra[:qtde_oper_2].nil? ? "0.0" : sobra[:qtde_oper_3].to_f %></td>
+              <td><%#= link_to "x", edit_input_control_conference_conference_item_path(@input_control.id, @conference_3.id, ConferenceItem.where(conference_id: @conference_3.id, product_id: cod).first.id),  class: "btn btn-danger btn-xs" if !sobra[:qtde_oper_3].nil? %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

@@ -126,7 +126,8 @@ class InputControlsController < ApplicationController
     # end
 
     @input_control = InputControl.where(id: params["id"]).first
-    @conference = @input_control.conferences.last
+    @conferences = @input_control.conferences
+    @conference = @conferences.last
     @conference_items = @conference.conference_items.order(updated_at: :desc) if  @conference.present?
     #
     if @ean.present?
@@ -158,7 +159,7 @@ class InputControlsController < ApplicationController
 
 
   def analize
-    result = InputControls::CheckConferenceService.new(@input_control).call
+    result = InputControls::AnalizeConferenceService.new(@input_control).call
     if result[:success]
       flash[:success] = result[:message]
     else

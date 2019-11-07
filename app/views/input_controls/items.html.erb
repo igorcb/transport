@@ -45,7 +45,9 @@
 <div class="row">
   <div class="col-md-5">
     <% if (current_user.has_role? :oper) && @conference_items.count > 0  %>
-      <%= link_to("Finalizar conferência", finish_conference_conference_path(@conference.id), {class: "btn btn-primary", 'data-confirm': "Deseja Finalizar esta conferência?"}) if @input_control.conferences.where(conferences: {status: :start}).present?  %>
+    <%= link_to("Finalizar conferência", finish_conference_conference_path(@conference.id), {class: "btn btn-primary", 'data-confirm': "Deseja Finalizar esta conferência?"}) if @conferences.count == 1 %>
+    <%= link_to("Revisar conferências", review_conference_input_control_path(@input_control), {class: "btn btn-primary"}) if @conferences.count == 2 %>
+      <%#= link_to("Finalizar conferência", finish_conference_conference_path(@conference.id), {class: "btn btn-primary", 'data-confirm': "Deseja Finalizar esta conferência?"}) if @input_control.conferences.where(conferences: {status: :start}).present?  %>
     <% end %>
     <% if current_user.has_role? :sup %>
       <%= link_to("Voltar", review_conference_input_control_path(@input_control.id), {class: "btn btn-default"}) if @input_control.conferences.count >= 3 %>

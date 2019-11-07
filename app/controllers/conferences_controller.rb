@@ -29,9 +29,10 @@ class ConferencesController < ApplicationController
   end
 
   def finish_conference
-    @conference = Conference.where(id: params[:id])
-    @result = Conferences::ConferenceFinishService.new(@conference).call
-    flash_message @result
+    @conference = Conference.where(id: params[:id]).first
+    @result_analize = InputControls::AnalizeConferenceService.new(@conference.input_control, current_user).call
+    flash_message @result_analize
+
     redirect_to oper_input_controls_path
   end
 
