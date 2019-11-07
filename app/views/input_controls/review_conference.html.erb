@@ -2,8 +2,15 @@
 .bg-red{
   background-color: #990000;
 }
+
+/* @media (max-width: 600px)
+{
+  .table {
+  font-size:0.9em;
+   }
+} */
 </style>
-<h1>Revisão conferencias</h1>
+<h1>Revisão</h1>
 <%= render 'static_pages/oper_input_control', input_control: @input_control %>
 
 <%= render "input_controls/sup/review_conference" if current_user.has_role? :sup %>

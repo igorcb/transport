@@ -1,9 +1,8 @@
-<h1>Iniciar Recebimento: <%= @input_control.id %></h1>
 <%= form_for @input_control, url: update_start_input_control_path, method: :patch, :html => { :multipart => true } do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="panel panel-default">
-    <div class="panel-heading">Dados da Entrada - No: <%= @input_control.id %></div>
+    <div class="panel-heading">Dados da Entrada</div>
     <div class="panel-body">
 
     <%= render 'static_pages/oper_input_control', input_control: @input_control %>

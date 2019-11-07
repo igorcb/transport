@@ -19,7 +19,7 @@
       <thead>
         <tr>
           <th>CodProd</th>
-          <th>EAN</th>
+          <th class="hidden-xs">EAN</th>
           <th>Descrição</th>
           <th>Qtde</th>
           <th></th>
@@ -29,7 +29,7 @@
         <% @conference_items.each do |conference_item| %>
         <tr>
           <td><%= conference_item.product.cod_prod %></td>
-          <td><%= conference_item.product.ean_box %></td>
+          <td class="hidden-xs"><%= conference_item.product.ean_box %></td>
           <td><%= conference_item.product.descricao %></td>
           <td><%= conference_item.qtde_oper %></td>
           <td><%= link_to("x", destroy_item_conference_path(conference_item), {class: "btn btn-danger", 'data-confirm': "Deseja deletar o item #{conference_item.product.descricao} ?", 'data-method': "delete"}) %></td>
