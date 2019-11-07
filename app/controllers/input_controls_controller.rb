@@ -158,14 +158,11 @@ class InputControlsController < ApplicationController
   end
 
 
-  def analize
-    result = InputControls::AnalizeConferenceService.new(@input_control).call
-    if result[:success]
-      flash[:success] = result[:message]
-    else
-      flash[:danger] = result[:message]
-    end
-    redirect_to sup_input_controls_path
+  def analize_and_finish
+    result = InputControls::AnalizeConferenceService.new(@input_control, current_user).call
+    flash_message result
+
+    redirect_to oper_input_controls_path
   end
 
   def review_conference
@@ -199,12 +196,12 @@ class InputControlsController < ApplicationController
 
   end
 
-  def duplicate_conference
-    input_control = InputControl.where(id: params["id"]).first
-    @result = Conferences::DuplicateConferenceService.new(input_control, current_user).call
-    flash_message @result
-    redirect_to review_conference_input_control_path
-  end
+  # def duplicate_conference
+  #   input_control = InputControl.where(id: params["id"]).first
+  #   @result = Conferences::DuplicateConferenceService.new(input_control, current_user).call
+  #   flash_message @result
+  #   redirect_to review_conference_input_control_path
+  # end
 
   def documents
   end
