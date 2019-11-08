@@ -1,5 +1,7 @@
 module Conferences
   class CreateConferenceItemsNfeXmlService
+    #Service usado apenas para automatizar os items a ser inclusos na conferencia
+    #Usar apenas para testes
     def initialize(input_control, user)
       @user = user
       @input_control = input_control

@@ -1,6 +1,7 @@
 module Conferences
   class DeleteConferenceAllService
-
+    #Service usado apenas para apagar os items na conferencia automatico
+    #Usar apenas para testes
     def initialize(input_control)
       @input_control = input_control
     end
