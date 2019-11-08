@@ -253,8 +253,8 @@ Rails.application.routes.draw do
       get :start_conference
       get :review_conference
       get :items
-      get :has_avaria
-      put :update_has_avaria
+      # get :has_avaria
+      get :update_has_avaria
       get :report_team
       put :update_report_team
       get :documents

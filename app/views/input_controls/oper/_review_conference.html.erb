@@ -82,7 +82,7 @@
                 <% item = location_item_conference( @conference_2.id, cod) %>
                 <% if item.present? %>
                   <% conference_item_2 = @conference_2.conference_items.where(product_id: cod).first %>
-                  <%= link_to raw(conference_item_2[:qtde_sup].nil? ? "<i class=\"fas fa-pencil-alt\"></i> <span class='hidden-xs'>corrigir</span>" : "corrigir <i class=\"fas fa-check\"></i>"), edit_input_control_conference_conference_item_path(@input_control.id, @conference_2.id,  cod ), class: "btn #{class_css[:btn]} btn-xs" if qtde.to_f != @conference_item_2[cod].to_f || item_2.qtde_sup.present? %>
+                  <%= link_to raw(conference_item_2[:qtde_sup].nil? ? "<i class=\"fas fa-pencil-alt\"></i> <span class='hidden-xs'>corrigir</span>" : "<span class='hidden-xs'>corrigir</span> <i class=\"fas fa-check\"></i>"), edit_input_control_conference_conference_item_path(@input_control.id, @conference_2.id,  cod ), class: "btn #{class_css[:btn]} btn-xs" if qtde.to_f != @conference_item_2[cod].to_f || item_2.qtde_sup.present? %>
                 <% else %>
                   <%= link_to raw("<i class='fas fa-plus'></i> <span class='hidden-xs'>ítem</span>"), "#{items_input_control_path(@input_control)}?ean=#{product.cod_prod}", class: "btn btn-success btn-xs" %>
                 <% end %>
