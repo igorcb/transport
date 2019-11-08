@@ -6,7 +6,7 @@
       <thead>
         <tr>
           <th>CodProd</th>
-          <th>EAN</th>
+          <th class="hidden-xs">EAN</th>
           <th>Descrição</th>
           <th>Avarias</th>
           <th></th>
@@ -16,7 +16,7 @@
         <% @conference_breakdowns.each do |breakdown| %>
         <tr>
           <td><%= breakdown.product.cod_prod %></td>
-          <td><%= breakdown.product.ean_box %></td>
+          <td class="hidden-xs"><%= breakdown.product.ean_box %></td>
           <td><%= breakdown.product.descricao %></td>
           <td><%= breakdown.qtde %></td>
           <td><%= link_to("x", conference_breakdown_path(breakdown), {class: "btn btn-danger", 'data-confirm': "Deseja deletar o item #{breakdown.product.descricao} ?", 'data-method': "delete"}) %></td>

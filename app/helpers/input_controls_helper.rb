@@ -76,7 +76,10 @@ module InputControlsHelper
           # test when approved
           if input_control.conferences.last.approved == "yes"
             if input_control.avaria.nil?
-              return link_to 'Tem avaria?', has_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs"
+              has_avaria = link_to 'Existe avaria, quero informar', update_has_avaria_input_control_path(input_control, has_avaria: true), class: "btn btn-primary btn-xs"
+              has_avaria += link_to 'Não tem avaria', update_has_avaria_input_control_path(input_control, has_avaria: false), class: "btn btn-danger btn-xs", style: "margin-left:5px"
+              return has_avaria
+              # return link_to 'Tem avaria?', has_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs"
             elsif input_control.avaria
               if input_control.date_finish_avaria.nil?
                 conference = input_control.conferences.order(id: :asc).last

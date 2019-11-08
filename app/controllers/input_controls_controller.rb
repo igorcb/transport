@@ -135,15 +135,15 @@ class InputControlsController < ApplicationController
     end
   end
 
-  def has_avaria
-  end
+  # def has_avaria
+  # end
 
   def update_has_avaria
     if params["has_avaria"] == "false"
-      @input_control.date_finish_avaria = Date.today
+      @input_control.date_finish_avaria = Date.current
       @input_control.time_finish_avaria = Time.now
     end
-    @input_control.date_start_avaria = Date.today
+    @input_control.date_start_avaria = Date.current
     @input_control.time_start_avaria = Time.now
     @input_control.avaria = params["has_avaria"]
     @input_control.breakdown_user_id = current_user.id
