@@ -1,8 +1,9 @@
 module InputControls
-  class CheckConferenceService
+  class AnalizeConferenceService
 
-    def initialize(input_control)
+    def initialize(input_control, current_user)
       @input_control = input_control
+      @current_user = current_user
     end
 
     def call
@@ -21,19 +22,19 @@ module InputControls
           @conference_items.each do |conference_item|
             product_id = conference_item[0]
             if @item_input_control[product_id].to_f != conference_item[1].to_f
-              Conference.where(id: @conference.id).update_all(approved: "not")
-              # InputControl.where(id: @input_control.id).update_all(status: InputControl::TypeStatus::DISCHARGE)
+              Conference.where(id: @conference.id).update_all(approved: "not", finish_time: Time.current, status: :finish)
+              Conferences::DuplicateConferenceService.new(@input_control, @current_user).call
               return {success: false, message: "Conference was not approved."}
               break
             end
           end
           if @conference_items.values.sum.to_f != @item_input_control.values.sum.to_f
-            Conference.where(id: @conference.id).update_all(approved: "not")
-            # InputControl.where(id: @input_control.id).update_all(status: InputControl::TypeStatus::DISCHARGE)
+            Conference.where(id: @conference.id).update_all(approved: "not", finish_time: Time.current, status: :finish)
+            Conferences::DuplicateConferenceService.new(@input_control, @current_user).call
             return {success: false, message: "Products number is not aggre"}
           end
         end
-        Conference.where(id: @conference.id).update_all(approved: "yes")
+        Conference.where(id: @conference.id).update_all(approved: "yes", finish_time: Time.current, status: :finish)
         return {success: true, message: "conference successfully approved."}
       rescue => e
         return {success: false, message: e.message}

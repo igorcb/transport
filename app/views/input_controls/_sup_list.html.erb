@@ -27,19 +27,10 @@
 
 
     <% if input_control.conferences.present?  %>
-      <% if input_control.conferences.second.present? %>
-        <% if input_control.conferences.second.status == "finish" %>
-          <%= link_to "verificar conferencia", review_conference_input_control_path(input_control), {class: "btn btn-primary btn-xs"} if input_control.conferences.second.approved == "not" && input_control.conferences.count < 3  %>
-        <% end %>
-      <% end %>
       <% if input_control.conferences.third.present? %>
-        <% if input_control.conferences.third.status == "finish" %>
-          <%= link_to "verificar conferencia", review_conference_input_control_path(input_control), {class: "btn btn-primary btn-xs"} if input_control.conferences.third.approved == "waiting" %>
+        <% if input_control.conferences.third.status == "start" && input_control.conferences.third.approved == "waiting" %>
+          <%= link_to "verificar conferencia", review_conference_input_control_path(input_control), {class: "btn btn-primary btn-xs"} %>
         <% end %>
-      <% end %>
-
-      <% if input_control.conferences.last.approved == "waiting" && input_control.conferences.last.status == "finish" %>
-        <%= link_to "Analizar conferência e aprovar", analize_input_control_path(input_control), {class: "btn btn-info btn-xs"} if input_control.conferences.count < 3 %>
       <% end %>
 
       <% if input_control.conferences.last.approved == "yes" %>

@@ -249,8 +249,7 @@ Rails.application.routes.draw do
     end
     member do
       get :admin_show
-      get :duplicate_conference
-      get :analize
+      get :analize_and_finish
       get :start_conference
       get :review_conference
       get :items
