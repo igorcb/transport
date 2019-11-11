@@ -1,0 +1,114 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Formulário para avarias da remessa de entrada</div>
+  <div class="panel-body">
+    <%= form_for([@input_control, @breakdown_nfe_xml], :url => input_control_breakdown_nfe_xmls_path(@input_control), method: :post, :remote => true) do |f| %>
+      <div id="inventories_errors">
+         <%= render 'shared/error_messages', object: f.object %>
+      </div>
+
+      <div id="inventories_success"> </div>
+
+      <div class="row">
+        <div class="col-xs-3">
+          <%= f.select(:type_breakdown, select_type_breakdown, {include_blank: "Informe o Tipo"}, {class: "form-control"} ) %>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="row">
+        <div class="col-xs-2">
+          <%= f.text_field :nfe_xml_id, class: "form-control input-sm", placeholder: "NF-e" %>
+        </div>
+
+        <div class="col-xs-2">
+          <%= f.text_field :product_id, class: "form-control input-sm", placeholder: "Cod.Prod." %>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-xs-8">
+          <div id="result_product" class="form-group">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-xs-2">
+          <%= f.label :unid_medida, "UN Med." %>
+          <%= f.select(:unid_medida, select_unidade_medida, {include_blank: ""}, {class: "form-control"} ) %>
+        </div>
+
+        <div class="col-xs-2">
+          <%= f.label :sobras %>
+          <%= f.text_field :sobras, value: 0, class: "form-control input-sm", placeholder: "Sobras" %>
+        </div>
+
+        <div class="col-xs-2">
+          <%= f.label :faltas %>
+          <%= f.text_field :faltas, value: 0, class: "form-control input-sm", placeholder: "Faltas" %>
+        </div>
+
+        <div class="col-xs-2">
+          <%= f.label :avarias %>
+          <%= f.text_field :avarias, value: 0, class: "form-control input-sm", placeholder: "Avarias" %>
+        </div>
+
+          <div class="form-actions">
+            <br />
+            <%= f.submit "[+] Add Item", class: "btn btn-success btn-sm" %>
+          </div>
+        </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#breakdown_nfe_xml_nfe_xml_id").focusout(function() {
+      var nfe_xml = $('#breakdown_nfe_xml_nfe_xml_id').val();
+      var input_control = <%= @input_control.id %>
+      $.ajax({
+        type: "GET",
+        data: {input_control_id: input_control, nfe_xml_id: nfe_xml},
+        dataType : 'html',
+        url: '/get_nfe_xmls',
+        error: function(data){
+          $('#result_product').html("<div class='alert alert-error'>Error location NF-e.</div>");
+        },
+        success: function(data){
+          $('#result_product').html(data);
+        },
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#breakdown_nfe_xml_product_id").focusout(function() {
+      var nfe_xml = $('#breakdown_nfe_xml_nfe_xml_id').val();
+      var product = $('#breakdown_nfe_xml_product_id').val();
+      var nfe_xml_and_product = {'nfe_xml_id': nfe_xml, 'product_id': product}
+      var input_control = <%= @input_control.id %>
+      console.log(nfe_xml_and_product);
+      console.log(input_control);
+      $.ajax({
+        type: "GET",
+        data: {input_control_id: input_control, nfe_xml_id: nfe_xml, product_id: product},
+        dataType : 'html',
+        url: '/get_product_by_nfe_xmls_and_product',
+        error: function(data){
+            $('#result_product').html("<div class='alert alert-error'>Error location product.</div>");
+        },
+        success: function(data){
+            $('#result_product').html(data);
+        },
+      });
+    });
+  });
+</script>

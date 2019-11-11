@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
 
+  # resources :breakdown_nfe_xmls
+
   resources :conference_breakdowns do
     member do
       get :finish
@@ -238,6 +240,13 @@ Rails.application.routes.draw do
       get :product
       post :update_product, on: :collection
     end
+
+    resources :breakdown_nfe_xmls
+
+    # resources :nfe_xmls do
+    #   resources :breakdown_nfe_xmls
+    # end
+
     resources :conferences do
       resources :conference_breakdowns do
         get :finish

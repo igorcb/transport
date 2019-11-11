@@ -1,0 +1,40 @@
+<div id="breakdowns_form"><%= render "form" %></div>
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Produtos com Sobras/Faltas/Avarias</div>
+  <div class="panel-body">
+    <%#= link_to 'Novo Link', new_link_path, class: "btn btn-blue btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Type Breakdown</th>
+            <th>NF-e</th>
+            <th>Cod.Prod</th>
+            <th>Descrição</th>
+            <th>UnMed</th>
+            <th>Sobras</th>
+            <th>Faltas</th>
+            <th>Avarias</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @breakdown_nfe_xmls.each do |breakdown| %>
+            <tr id="id_breakdown_<%= breakdown.id %>">
+              <td><%= breakdown.type_breakdown %></td>
+              <td><%= breakdown.nfe_xml.numero if breakdown.nfe_xml.present? %></td>
+              <td><%= breakdown.product.cod_prod %></td>
+              <td><%= breakdown.product.descricao %></td>
+              <td><%= breakdown.unid_medida if breakdown.unid_medida.present? %></td>
+              <td><%= breakdown.sobras %></td>
+              <td><%= breakdown.faltas %></td>
+              <td><%= breakdown.avarias %></td>
+              <td><%#= link_to 'Delete', [@input_control, breakdown], method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: "btn btn-danger btn-xs" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
