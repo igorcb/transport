@@ -19,6 +19,7 @@ class Ability
     elsif  user.has_role? :sup
       can :manage, Boarding
       can :manage, InputControl
+      can :manage, ItemInputControl
       can :manage, DriverRestriction
       can :manage, VehicleRestriction
       can :manage, Task
