@@ -19,17 +19,26 @@ class BreakdownNfeXmlsController < ApplicationController
 
     breakdown_nfe_xml = BreakdownNfeXml.where(nfe_xml_id: nfe_xml.id, input_control_id: input_control.id, product_id: product.id)
 
-    if breakdown_nfe_xml.nil?
-      BreakdownNfeXml.create!(nfe_xml_id: nfe_xml.id, input_control_id: input_control.id, product_id: product.id, type_breakdown: breakdown_nfe_xml_params[:type_breakdown].to_i, unid_medida: breakdown_nfe_xml_params[:unid_medida], avarias: breakdown_nfe_xml_params[:avarias], sobras: breakdown_nfe_xml_params[:sobras], faltas: breakdown_nfe_xml_params[:faltas])
-    else
-      breakdown_nfe_xml.update(type_breakdown: breakdown_nfe_xml_params[:type_breakdown].to_i, unid_medida: breakdown_nfe_xml_params[:unid_medida], avarias: breakdown_nfe_xml_params[:avarias], sobras: breakdown_nfe_xml_params[:sobras], faltas: breakdown_nfe_xml_params[:faltas])
-    end
+    BreakdownNfeXml.create!(nfe_xml_id: nfe_xml.id, input_control_id: input_control.id, product_id: product.id, type_breakdown: breakdown_nfe_xml_params[:type_breakdown].to_i, unid_medida: breakdown_nfe_xml_params[:unid_medida], avarias: breakdown_nfe_xml_params[:avarias], sobras: breakdown_nfe_xml_params[:sobras], faltas: breakdown_nfe_xml_params[:faltas])
+    # if breakdown_nfe_xml.nil?
+    #   BreakdownNfeXml.create!(nfe_xml_id: nfe_xml.id, input_control_id: input_control.id, product_id: product.id, type_breakdown: breakdown_nfe_xml_params[:type_breakdown].to_i, unid_medida: breakdown_nfe_xml_params[:unid_medida], avarias: breakdown_nfe_xml_params[:avarias], sobras: breakdown_nfe_xml_params[:sobras], faltas: breakdown_nfe_xml_params[:faltas])
+    # else
+    #   breakdown_nfe_xml.update(type_breakdown: breakdown_nfe_xml_params[:type_breakdown].to_i, unid_medida: breakdown_nfe_xml_params[:unid_medida], avarias: breakdown_nfe_xml_params[:avarias], sobras: breakdown_nfe_xml_params[:sobras], faltas: breakdown_nfe_xml_params[:faltas])
+    # end
     # puts breakdown_nfe_xml_params.inspect
     redirect_to new_input_control_breakdown_nfe_xml_path(input_control.id)
   end
 
   def update
 
+  end
+
+  def destroy
+    breakdown_nfe_xml = BreakdownNfeXml.where(id: params[:id]).first
+    input_control = InputControl.where(id: params[:input_control_id]).first
+
+    breakdown_nfe_xml.destroy
+    redirect_to new_input_control_breakdown_nfe_xml_path(input_control.id)
   end
 
   def nfe_assoc_to_breakdown

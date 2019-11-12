@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Formulário para avarias da remessa de entrada</div>
   <div class="panel-body">
-    <%= form_for([@input_control, @breakdown_nfe_xml], :url => input_control_breakdown_nfe_xmls_path(@input_control), method: :post, :remote => true) do |f| %>
+    <%= form_for([@input_control, @breakdown_nfe_xml], :url => input_control_breakdown_nfe_xmls_path(@input_control), method: :post) do |f| %>
       <div id="inventories_errors">
          <%= render 'shared/error_messages', object: f.object %>
       </div>
@@ -58,7 +58,6 @@
         </div>
 
           <div class="form-actions">
-            <br />
             <%= f.submit "[+] Add Item", class: "btn btn-success btn-sm" %>
           </div>
         </div>
@@ -89,26 +88,26 @@
 </script>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-   $("#breakdown_nfe_xml_product_id").focusout(function() {
-      var nfe_xml = $('#breakdown_nfe_xml_nfe_xml_id').val();
-      var product = $('#breakdown_nfe_xml_product_id').val();
-      var nfe_xml_and_product = {'nfe_xml_id': nfe_xml, 'product_id': product}
-      var input_control = <%= @input_control.id %>
-      console.log(nfe_xml_and_product);
-      console.log(input_control);
-      $.ajax({
-        type: "GET",
-        data: {input_control_id: input_control, nfe_xml_id: nfe_xml, product_id: product},
-        dataType : 'html',
-        url: '/get_product_by_nfe_xmls_and_product',
-        error: function(data){
-            $('#result_product').html("<div class='alert alert-error'>Error location product.</div>");
-        },
-        success: function(data){
-            $('#result_product').html(data);
-        },
-      });
-    });
-  });
+  // $(document).ready(function() {
+  //  $("#breakdown_nfe_xml_product_id").focusout(function() {
+  //     var nfe_xml = $('#breakdown_nfe_xml_nfe_xml_id').val();
+  //     var product = $('#breakdown_nfe_xml_product_id').val();
+  //     var nfe_xml_and_product = {'nfe_xml_id': nfe_xml, 'product_id': product}
+  //     var input_control = <%= @input_control.id %>
+  //     console.log(nfe_xml_and_product);
+  //     console.log(input_control);
+  //     $.ajax({
+  //       type: "GET",
+  //       data: {input_control_id: input_control, nfe_xml_id: nfe_xml, product_id: product},
+  //       dataType : 'html',
+  //       url: '/get_product_by_nfe_xmls_and_product',
+  //       error: function(data){
+  //           $('#result_product').html("<div class='alert alert-error'>Error location product.</div>");
+  //       },
+  //       success: function(data){
+  //           $('#result_product').html(data);
+  //       },
+  //     });
+  //   });
+  // });
 </script>
