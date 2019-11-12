@@ -10,6 +10,7 @@
 
       <div class="row">
         <div class="col-xs-3">
+          <%= f.label :type_breakdown, "Tipo" %>
           <%= f.select(:type_breakdown, select_type_breakdown, {include_blank: "Informe o Tipo"}, {class: "form-control"} ) %>
         </div>
       </div>
@@ -18,10 +19,13 @@
 
       <div class="row">
         <div class="col-xs-2">
-          <%= f.text_field :nfe_xml_id, class: "form-control input-sm", placeholder: "NF-e" %>
+          <%= f.label :nfe_xml_numero, "Nfe xml" %>
+          <%= f.hidden_field :nfe_xml_numero, class: "form-control input-sm", placeholder: "NF-e", value: @nfe_xml.numero %>
+          <%= f.text_field :nfe_xml_numero, class: "form-control input-sm", disabled: true, placeholder: "NF-e", value: @nfe_xml.numero %>
         </div>
 
-        <div class="col-xs-2">
+        <div class="col-xs-6">
+          <%= f.label :product_id, "Produto" %>
           <%= f.text_field :product_id, class: "form-control input-sm", placeholder: "Cod.Prod." %>
         </div>
       </div>
@@ -58,7 +62,7 @@
         </div>
 
           <div class="form-actions">
-            <%= f.submit "[+] Add Item", class: "btn btn-success btn-sm" %>
+            <%= f.submit "[+] Add Item", class: "btn btn-success btn-sm", style: "margin-top: 25px" %>
           </div>
         </div>
 
@@ -67,47 +71,48 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-   $("#breakdown_nfe_xml_nfe_xml_id").focusout(function() {
-      var nfe_xml = $('#breakdown_nfe_xml_nfe_xml_id').val();
-      var input_control = <%= @input_control.id %>
-      $.ajax({
-        type: "GET",
-        data: {input_control_id: input_control, nfe_xml_id: nfe_xml},
-        dataType : 'html',
-        url: '/get_nfe_xmls',
-        error: function(data){
-          $('#result_product').html("<div class='alert alert-error'>Error location NF-e.</div>");
-        },
-        success: function(data){
-          $('#result_product').html(data);
-        },
-      });
-    });
-  });
-</script>
-
-<script type="text/javascript">
   // $(document).ready(function() {
-  //  $("#breakdown_nfe_xml_product_id").focusout(function() {
+  //  $("#breakdown_nfe_xml_nfe_xml_id").focusout(function() {
   //     var nfe_xml = $('#breakdown_nfe_xml_nfe_xml_id').val();
-  //     var product = $('#breakdown_nfe_xml_product_id').val();
-  //     var nfe_xml_and_product = {'nfe_xml_id': nfe_xml, 'product_id': product}
   //     var input_control = <%= @input_control.id %>
-  //     console.log(nfe_xml_and_product);
-  //     console.log(input_control);
   //     $.ajax({
   //       type: "GET",
-  //       data: {input_control_id: input_control, nfe_xml_id: nfe_xml, product_id: product},
+  //       data: {input_control_id: input_control, nfe_xml_id: nfe_xml},
   //       dataType : 'html',
-  //       url: '/get_product_by_nfe_xmls_and_product',
+  //       url: '/get_nfe_xmls',
   //       error: function(data){
-  //           $('#result_product').html("<div class='alert alert-error'>Error location product.</div>");
+  //         $('#result_product').html("<div class='alert alert-error'>Error location NF-e.</div>");
   //       },
   //       success: function(data){
-  //           $('#result_product').html(data);
+  //         $('#result_product').html(data);
   //       },
   //     });
   //   });
   // });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#breakdown_nfe_xml_product_id").focusout(function() {
+      var nfe_xml = $('#breakdown_nfe_xml_nfe_xml_numero').val();
+      var product = $(this).val();
+      var nfe_xml_and_product = {'nfe_xml_id': nfe_xml, 'product_id': product}
+      var input_control = <%= @input_control.id %>
+      console.log(nfe_xml_and_product);
+      console.log(input_control);
+      $.ajax({
+        type: "GET",
+        data: {input_control_id: input_control, nfe_xml_id: nfe_xml, product_id: product},
+        dataType : 'html',
+        url: '/get_product_by_nfe_xmls_and_product',
+        error: function(data){
+            $('#result_product').html("<div class='alert alert-error'>Error location product.</div>");
+            $("#breakdown_nfe_xml_product_id").val("")
+        },
+        success: function(data){
+            $('#result_product').html(data);
+        },
+      });
+    });
+  });
 </script>

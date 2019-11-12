@@ -1,3 +1,5 @@
+<%= link_to "Finalizar", list_nfe_xmls_input_control_path(@input_control), class: "btn btn-primary" %>
+<br>
 <div id="breakdowns_form"><%= render "form" %></div>
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Produtos com Sobras/Faltas/Avarias</div>
@@ -30,7 +32,7 @@
               <td><%= breakdown.sobras %></td>
               <td><%= breakdown.faltas %></td>
               <td><%= breakdown.avarias %></td>
-              <td><%= link_to raw("<i class=\"fas fa-times\"></i>"), [@input_control, breakdown], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+              <td><%= link_to raw("<i class=\"fas fa-times\"></i>"), [@input_control, breakdown, nfe_xml_numero: breakdown.nfe_xml.numero], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>

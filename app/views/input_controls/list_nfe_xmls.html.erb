@@ -25,8 +25,8 @@
         <tbody>
           <% @input_control.nfe_xmls.each do |nfe_xml| %>
             <tr>
-              <td><%#= link_to nfe_xml.numero, input_control_breakdown_nfe_xmls_path(@input_control.id, nfe_xml.id) %>
-								<%= nfe_xml.numero %>
+              <td><%= link_to nfe_xml.numero, new_input_control_breakdown_nfe_xml_path(@input_control.id, nfe_xml_numero: nfe_xml.numero) %>
+								<%#= nfe_xml.numero %>
 							</td>
               <td><%= nfe_xml.qtde_pallet %></td>
               <td><%= link_to "Qtde paletes", edit_qtde_pallet_nfe_xml_path(nfe_xml), class: "btn btn-info btn-xs" if nfe_xml.qtde_pallet.blank? %></td>
