@@ -17,6 +17,8 @@ class Task < ActiveRecord::Base
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 
+  has_and_belongs_to_many :users, :join_table => :users_tasks, required: false
+
   scope :the_day, -> {where('DATE(created_at) = ?', Date.current) }
 
   before_create { |t| t.status = TypeStatus::NAO_INICIADO }
@@ -27,6 +29,10 @@ class Task < ActiveRecord::Base
     CONCLUIDA_NO_PRAZO = 2
     CONCLUIDA_FORA_PRAZO = 3
     ATRASADA = 4
+  end
+
+  def add_user(user)
+
   end
 
   def finish_date_less_start_date
