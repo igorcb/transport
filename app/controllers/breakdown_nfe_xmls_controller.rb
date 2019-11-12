@@ -8,7 +8,8 @@ class BreakdownNfeXmlsController < ApplicationController
   def new
     @input_control = InputControl.where(id: params[:input_control_id]).first
     @nfe_xml = NfeXml.where(numero: params["nfe_xml_numero"]).first
-    @breakdown_nfe_xmls = @input_control.breakdown_nfe_xmls
+    @breakdown_nfe_xmls = @input_control.breakdown_nfe_xmls.where(nfe_xml_id: @nfe_xml.id)
+
     @breakdown_nfe_xml = BreakdownNfeXml.new
   end
 

@@ -18,23 +18,26 @@
           <tr>
             <th>NF-e</th>
             <th>Qtde paletes</th>
-            <th colspan="3">Options</th>
+            <th></th>
+						<th></th>
          </tr>
         </thead>
 
         <tbody>
           <% @input_control.nfe_xmls.each do |nfe_xml| %>
             <tr>
-              <td><%= link_to nfe_xml.numero, new_input_control_breakdown_nfe_xml_path(@input_control.id, nfe_xml_numero: nfe_xml.numero) %>
-								<%#= nfe_xml.numero %>
+              <td><%#= link_to nfe_xml.numero, new_input_control_breakdown_nfe_xml_path(@input_control.id, nfe_xml_numero: nfe_xml.numero) %>
+								<%= nfe_xml.numero %>
 							</td>
               <td><%= nfe_xml.qtde_pallet %></td>
-              <td><%= link_to "Qtde paletes", edit_qtde_pallet_nfe_xml_path(nfe_xml), class: "btn btn-info btn-xs" if nfe_xml.qtde_pallet.blank? %></td>
-              <% if nfe_xml.qtde_pallet.blank? %>
-                <td><i class="fa fa-times fa-2x" style="color: red" aria-hidden="true"></i></td>
-              <% else %>
-                <td><i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i></td>
-              <% end %>
+							<td>
+	              <% if nfe_xml.qtde_pallet.blank? %>
+									<%= link_to "Qtde paletes", edit_qtde_pallet_nfe_xml_path(nfe_xml), class: "btn btn-info btn-xs" %>
+	              <% else %>
+	                <i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i>
+	              <% end %>
+							</td>
+							<td><%= link_to "Adicionar à esta nota", new_input_control_breakdown_nfe_xml_path(@input_control.id, nfe_xml_numero: nfe_xml.numero), class: "btn btn-primary btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>
