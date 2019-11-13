@@ -20,4 +20,18 @@ class User < ActiveRecord::Base
 			else ""
 	  end
 	end
+
+  def active_for_authentication?
+    case self.active
+      when 0 then result = false
+      when 1 then result = true
+			else ""
+	  end
+    #super && result
+    result
+  end
+
+  def inactive_message
+    "Sorry, this account has been deactivated."
+  end
 end
