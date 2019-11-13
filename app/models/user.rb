@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
       when 1 then result = true
 			else ""
 	  end
-    #super && result
     result
   end
 
