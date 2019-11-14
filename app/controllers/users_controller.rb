@@ -36,11 +36,9 @@ class UsersController < ApplicationController
   end
 
 	def toggle_active
-		puts "teste------------------------------->"
 		user = User.where(id: params[:id]).first
-		user.toggle(:active)
+		user.toggle!(:active)
 		redirect_to user_path
-		return;
 	end
 
   private
