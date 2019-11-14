@@ -1,14 +1,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Usuários</div>
   <div class="panel-body">
-    <%#= link_to 'New Task', new_task_path, class: "btn btn-blue btn-sm btn-block" %>
     <div class="table-responsive">
 
         <div id="result_tasks">
 
         <table class="table table-striped">
           <thead>
-            <%#= render 'header' %>
               <th>ID</th>
               <th>E-mail</th>
               <th>Nome</th>
@@ -18,7 +16,6 @@
           </thead>
 
           <tbody>
-            <%#= render @tasks %>
             <% @users.each do |user| %>
             <tr>
               <td><%= user.id %></td>
@@ -26,17 +23,14 @@
               <td><%= user.name %></td>
               <td><%= user.employee.id_name if user.employee.present? %></td>
               <td><%= user.roles.first.name if user.roles.present? %></td>
-<<<<<<< HEAD
-              <td><%= link_to raw("<i class=\"far fa-check-square\"></i>"), toggle_active_path(user) %> <%= user.active %></td> 
-=======
+              <td><%= link_to raw("<i class=\"far fa-check-square\"></i>"), toggle_active_path(user) %> <%= user.active %></td>
               <td>
                 <big>
                   <%= link_to raw("<i class=\"far fa-check-square\"></i>"), toggle_active_path(user), class: "text-success" if user.active %>
                   <%= link_to raw("<i class=\"far fa-square\"></i>"), toggle_active_path(user), class: "text-muted" if !user.active %>
                 </big>
               </td>
-              <td><%#= link_to raw("<i class=\"far fa-check-square\"></i>"), toggle_active_users_path(user) %> <%#= user.active %></td>
->>>>>>> a437bacfc73a7ece1d34b3d274fdf071e80a8932
+
             </tr>
             <% end %>
           </tbody>
