@@ -687,7 +687,16 @@ Rails.application.routes.draw do
   devise_for :users
 
   #resource :user, only: [:edit] do
+
+  # resource :users do
+  #   # member do
+  #   #   get :toggle_active
+  #   # end
+  # end
+  match 'toggle_active/:id', :controller=>'users', :action => 'toggle_active', via: [:get], as: :toggle_active
+
   resource :user do
+    #match 'search' => 'people#search', via: [:get, :post], as: :search
     collection do
       patch 'update_password'
       get :index
