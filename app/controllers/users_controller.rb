@@ -20,6 +20,12 @@ class UsersController < ApplicationController
       	redirect_to dashboard_visit_path, flash: { success: "You updated your account successfully" }
 			elsif @user.has_role? :boarding
       	redirect_to boardings_path, flash: { success: "You updated your account successfully" }
+			elsif @user.has_role? :input
+      	redirect_to dasboard_input_path, flash: { success: "You updated your account successfully" }
+			elsif @user.has_role? :oper
+      	redirect_to dashboard_oper_path, flash: { success: "You updated your account successfully" }
+			elsif @user.has_role? :port
+      	redirect_to dashboard_port_path, flash: { success: "You updated your account successfully" }
       else
         redirect_to dashboard_agent_path, flash: { success: "You updated your account successfully" }
       end
@@ -28,6 +34,14 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
+
+	def toggle_active
+		puts "teste------------------------------->"
+		user = User.where(id: params[:id]).first
+		user.toggle!(:active)
+		redirect_to user_path
+		return;
+	end
 
   private
 

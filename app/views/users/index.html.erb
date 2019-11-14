@@ -1,7 +1,8 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Usuários</div>
   <div class="panel-body">
-
+    <%= toggle_active_path(current_user) %><br />
+    <%#= toggle_active_users_path(current_user) %><br />
     <%#= link_to 'New Task', new_task_path, class: "btn btn-blue btn-sm btn-block" %>
     <div class="table-responsive">
 
@@ -27,7 +28,7 @@
               <td><%= user.name %></td>
               <td><%= user.employee.id_name if user.employee.present? %></td>
               <td><%= user.roles.first.name if user.roles.present? %></td>
-              <td><%= user.active_name %></td>
+              <td><%= link_to raw("<i class=\"far fa-check-square\"></i>"), toggle_active_path(user) %> <%= user.active %></td> 
             </tr>
             <% end %>
           </tbody>
