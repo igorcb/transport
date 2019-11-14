@@ -1,3 +1,7 @@
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+  <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"> </script>
+
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
@@ -20,7 +24,7 @@
     <div class="panel-heading" role="tab" id="headingTen">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-          Feedback 
+          Feedback
         </a>
       </h4>
     </div>
@@ -30,16 +34,37 @@
       <%= render 'internal_comments/feed', comments: @task.feed_internal_comments %>
 
       <%= render 'internal_comments/form_task' %>
-      
+
       </div>
     </div>
   </div>
 
   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Usuários envolvidos
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+
+        <div class="col-md-5">
+          <input id="involved" name="users" type="text" data-role="tagsinput">
+
+        </div>
+
+      
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Documentos 
+          Documentos
         </a>
       </h4>
     </div>
@@ -57,6 +82,6 @@
 
 
 <%= link_to 'Editar', edit_task_path(@task), class: "btn btn-blue" %>
-<%= link_to 'Listar Todos', tasks_path, class: "btn btn-default" %>  
+<%= link_to 'Listar Todos', tasks_path, class: "btn btn-default" %>
 <%= link_to 'Iniciar Tarefa', start_task_path(@task), class: "btn btn-success" if @task.started? %>
 <%= link_to 'Finalizar Tarefa', finish_task_path(@task), class: "btn btn-warning" if @task.finished? %>
