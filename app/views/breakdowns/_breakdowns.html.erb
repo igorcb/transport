@@ -7,7 +7,6 @@
         <thead>
           <tr>
             <th>Type Breakdown</th>
-            <th>NF-e</th>
             <th>Cod.Prod</th>
             <th>Descrição</th>
             <th>Sobras</th>
@@ -22,7 +21,6 @@
           <% @breakdowns.each do |breakdown| %>
             <tr id="id_breakdown_<%= breakdown.id %>">
               <td><%= breakdown.type_breakdown_name %></td>
-              <td><%= breakdown.nfe_xml.numero if breakdown.nfe_xml.present? %></td>
               <td><%= breakdown.product.cod_prod %></td>
               <td><%= breakdown.product.descricao %></td>
               <td><%= breakdown.sobras %></td>
@@ -64,6 +62,78 @@
     </div>
   </div>
 </div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Listagem de Sobras/Faltas/Avarias por NF-e</div>
+  <div class="panel-body">
+    <%#= link_to 'Novo Link', new_link_path, class: "btn btn-blue btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>NF-e</th>
+            <th>Cod.Prod</th>
+            <th>Descrição</th>
+            <th>Valor Unit</th>
+            <th>Sobras</th>
+            <th>Faltas</th>
+            <th>Avarias</th>
+            <th>Valor</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% i = 0 %>
+          <% @breakdowns_nfe_xmls.each do |breakdown| %>
+            <tr id="id_breakdown_<%= breakdown.id %>">
+              <td><%= breakdown.nfe_xml.numero if breakdown.nfe_xml.present? %></td>
+              <td><%= breakdown.product.cod_prod %></td>
+              <td><%= breakdown.product.descricao %></td>
+              <td><%= number_with_precision(breakdown.price_unit, precision: 2, separator: ',', delimiter: '.') %></td>
+              <td><%= breakdown.sobras %></td>
+              <td><%= breakdown.faltas %></td>
+              <td><%= breakdown.avarias %></td>
+              <td><%= number_with_precision(breakdown.price_total, precision: 2, separator: ',', delimiter: '.') %></td>
+              <td>
+              </td>
+            </tr>
+
+
+            <div  class="modal fade" tabindex="9" role="dialog" aria-labelledby="assets">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-12">
+
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <% i += 1 %>
+          <% end %>
+          <tr>
+            <td><b>Total</b></td>
+            <td colspan="6"></td>
+            <td><b><%= number_with_precision(BreakdownNfeXml.total(@input_control), precision: 2, separator: ',', delimiter: '.') %></b></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js" type="text/javascript"></script>

@@ -27,7 +27,7 @@ class BreakdownInputControlsController < ApplicationController
       @breakdown.errors.add(:product_id, "not found or does not belong to this input control and NF-e.")
       return
     end
-    
+
     @breakdown = @input_control.breakdowns.build(breakdown_params)
     @breakdown.nfe_xml_id = @nfe_xml.id if @nfe_xml.present?
     @breakdown.product_id = @product.id if @product.present?
@@ -35,7 +35,7 @@ class BreakdownInputControlsController < ApplicationController
 	  	#flash[:success] = "Successfully created breakdown."
     else
 	    @breakdown.errors.full_messages.each do |msg|
-  	    flash[:danger] = msg  
+  	    flash[:danger] = msg
       end
     end
 
@@ -64,7 +64,7 @@ class BreakdownInputControlsController < ApplicationController
     @breakdown = @input_control.breakdowns.find(params[:id])
 
     Event.create(user: current_user, controller_name: "BreakdownInputControls", action_name: 'destroy' , what: "Deletou a Avaria N.F. No: #{@breakdown.nfe_xml.numero} da Remessa de Entrada No: #{@breakdown.breakdown_id}")
-    
+
     @breakdown.destroy
     respond_to :js
   end
@@ -72,7 +72,7 @@ class BreakdownInputControlsController < ApplicationController
   private
 
     def breakdown_params
-      params.require(:breakdown).permit(:nfe_xml_id, :product_id, :type_breakdown, :unid_medida, 
+      params.require(:breakdown).permit(:nfe_xml_id, :product_id, :type_breakdown, :unid_medida,
         :sobras, :faltas, :avarias, :price, :ipi_tax, :ipi_value, :icms_tax, :icms_value,
         assets_attributes: [:asset, :id, :_destroy]
         )
