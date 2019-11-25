@@ -8,7 +8,8 @@ class BreakdownNfeXml < ApplicationRecord
   enum type_breakdown: {primeira_perna_l7: 0, primeira_perna_transp: 1, segunda_perna_l7: 2}
 
   def price_unit
-    ItemInputControl.where(input_control_id: input_control_id, nfe_xml_id: nfe_xml_id, product_id: product_id).first.valor_unitario
+    #ItemInputControl.where(input_control_id: input_control_id, nfe_xml_id: nfe_xml_id, product_id: product_id).first.valor_unitario
+    ItemInputControl.where(input_control_id: input_control_id, nfe_xml_id: nfe_xml_id, product_id: product_id).first.valor_unitario_comer
   end
 
   def price_total
@@ -24,7 +25,8 @@ class BreakdownNfeXml < ApplicationRecord
     BreakdownNfeXml.where(input_control_id: input_control.id).each do |item|
       value_faltas = (item.faltas || 0.00)
       value_avarias = (item.avarias || 0.00)
-      value = ItemInputControl.where(input_control_id: item.input_control_id, nfe_xml_id: item.nfe_xml_id, product_id: item.product_id).first.valor_unitario
+      #value = ItemInputControl.where(input_control_id: item.input_control_id, nfe_xml_id: item.nfe_xml_id, product_id: item.product_id).first.valor_unitario
+      value = ItemInputControl.where(input_control_id: item.input_control_id, nfe_xml_id: item.nfe_xml_id, product_id: item.product_id).first.valor_unitario_comer
       value_total = (value_faltas + value_avarias) * value
       total += value_total
       value_faltas = 0.00
