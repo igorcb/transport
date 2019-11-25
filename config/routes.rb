@@ -688,11 +688,6 @@ Rails.application.routes.draw do
 
   #resource :user, only: [:edit] do
 
-  # resource :users do
-  #   # member do
-  #   #   get :toggle_active
-  #   # end
-  # end
   match 'toggle_active/:id', :controller=>'users', :action => 'toggle_active', via: [:get], as: :toggle_active
 
   resource :user do

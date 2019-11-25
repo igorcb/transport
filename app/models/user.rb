@@ -12,5 +12,20 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar, styles: lambda { |a| a.instance.avatar_content_type =~ %r(image) ? { mini: "144x90>"} : {} }
   do_not_validate_attachment_file_type :avatar
-  #enum active: [true, disabled: false}
+
+	def active_name
+		case self.active
+			when 0 then "Não"
+			when 1 then "Sim"
+			else ""
+	  end
+	end
+
+  def active_for_authentication?
+    active
+  end
+
+  def inactive_message
+    "Sorry, this account has been deactivated."
+  end
 end

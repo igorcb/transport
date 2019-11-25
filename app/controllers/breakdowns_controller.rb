@@ -6,6 +6,7 @@ class BreakdownsController < ApplicationController
 
   def index
 		@breakdown = Breakdown.new
+    @breakdowns_nfe_xmls = @input_control.breakdown_nfe_xmls
   end
 
   def create
@@ -14,14 +15,14 @@ class BreakdownsController < ApplicationController
       @breakdown.errors.add(:product_id, "Product not found.")
       return
     end
-    
+
     @breakdown = @input_control.breakdowns.build(breakdown_params)
     @breakdown.product_id = @product.id if @product.present?
     if @breakdown.save
 	  	#flash[:success] = "Successfully created breakdown."
     else
 	    @breakdown.errors.full_messages.each do |msg|
-  	    flash[:danger] = msg  
+  	    flash[:danger] = msg
       end
     end
 
@@ -39,7 +40,7 @@ class BreakdownsController < ApplicationController
   private
 
     def breakdown_params
-      params.require(:breakdown).permit(:input_control_id, :nfe_xml_id, :product_id, :type_breakdown, :unid_medida, 
+      params.require(:breakdown).permit(:input_control_id, :nfe_xml_id, :product_id, :type_breakdown, :unid_medida,
         :sobras, :faltas, :avarias, :price, :ipi_tax, :ipi_value, :icms_tax, :icms_value)
     end
 
@@ -47,4 +48,4 @@ class BreakdownsController < ApplicationController
 	  	@input_control = InputControl.find(params[:input_control_id])
       @breakdowns = @input_control.breakdowns.order('id desc')
     end
-end    
+end
