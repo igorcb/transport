@@ -21,9 +21,14 @@
       <%= f.search_field :driver_cpf, class: "form-control" %>
     </div>
 
+    <div class="form-group">
+      <%= f.label :created_at_date_equals, "Data" %>
+      <%= f.search_field :created_at_date_equals, placeholder: t(:date_format), class: "form-control  input-sm" %>
+    </div>
+
     <div class="row">
       <div class="form-group col-sm-6 col-md-3">
-        <%= f.label :created_at_eq, "Data" %>
+        <%= f.label :created_at_eq, "Periodo de" %>
         <%= f.date_field :created_at_gteq, class: "form-control  input-sm", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>
       </div>
       <div class="form-group col-sm-6 col-md-3">
