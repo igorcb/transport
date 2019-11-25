@@ -59,36 +59,36 @@ module InputControlsHelper
 
   def input_items_button(input_control)
 
-    return link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::FINISH_TYPING
+    return link_to 'Iniciar Recebimento', start_input_control_path(input_control), class: "btn btn-blue btn-xs btn-one-click" if input_control.status == InputControl::TypeStatus::FINISH_TYPING
 
     if input_control.status == InputControl::TypeStatus::DISCHARGE
-      return link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.conferences.count < 2
+      return link_to 'Iniciar Conferencia', start_conference_input_control_path(input_control), class: "btn btn-blue btn-xs btn-one-click" if input_control.conferences.count < 2
     end
 
     #when status was conference
     if current_user.has_role? :oper
       if input_control.status == InputControl::TypeStatus::CONFERENCE
         if input_control.conferences.last.status == "start"
-          return link_to 'Items da Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.conferences.count == 1
-          return link_to 'Revisar', review_conference_input_control_path(input_control), class: "btn btn-warning btn-xs" if input_control.conferences.count == 2
+          return link_to 'Items da Conferencia', items_input_control_path(input_control), class: "btn btn-blue btn-xs btn-one-click" if input_control.conferences.count == 1
+          return link_to 'Revisar', review_conference_input_control_path(input_control), class: "btn btn-warning btn-xs btn-one-click" if input_control.conferences.count == 2
           return  "<span class=\"text-danger\">Aguardando supervisor</span>".html_safe  if input_control.conferences.last.approved == "waiting"
         else
           # test when approved
           if input_control.conferences.last.approved == "yes"
             if input_control.avaria.nil?
-              has_avaria = link_to 'Existe avaria, quero informar', update_has_avaria_input_control_path(input_control, has_avaria: true), class: "btn btn-primary btn-xs"
-              has_avaria += link_to 'Não tem avaria', update_has_avaria_input_control_path(input_control, has_avaria: false), class: "btn btn-danger btn-xs", style: "margin-left:5px"
+              has_avaria = link_to 'Existe avaria, quero informar', update_has_avaria_input_control_path(input_control, has_avaria: true), class: "btn btn-primary btn-xs btn-one-click"
+              has_avaria += link_to 'Não tem avaria', update_has_avaria_input_control_path(input_control, has_avaria: false), class: "btn btn-danger btn-xs btn-one-click", style: "margin-left:5px"
               return has_avaria
               # return link_to 'Tem avaria?', has_avaria_input_control_path(input_control), class: "btn btn-blue btn-xs"
             elsif input_control.avaria
               if input_control.date_finish_avaria.nil?
                 conference = input_control.conferences.order(id: :asc).last
-                return link_to 'Informar Avaria', input_control_conference_conference_breakdowns_path(input_control, conference), class: "btn btn-blue btn-xs"
+                return link_to 'Informar Avaria', input_control_conference_conference_breakdowns_path(input_control, conference), class: "btn btn-blue btn-xs btn-one-click"
               else
-                return link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs"
+                return link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs btn-one-click"
               end
             else
-              return link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs"
+              return link_to 'Confirmar Recebimento', received_input_control_path(input_control), class: "btn btn-blue btn-xs btn-one-click"
             end
           end
         end
