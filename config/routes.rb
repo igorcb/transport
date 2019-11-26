@@ -687,6 +687,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   #resource :user, only: [:edit] do
+  match "/users_email", :controller => "users", :action => "users_email", via: [:get]
+
   resource :user do
     collection do
       patch 'update_password'

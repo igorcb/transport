@@ -51,11 +51,14 @@
       <div class="panel-body">
 
         <div class="col-md-5">
-          <input id="involved" name="users" type="text" data-role="tagsinput">
+          <!-- <input id="involved" name="users" type="text" data-role="tagsinput"> -->
+          <!-- <input type="text" value="<%#= User.all.pluck(:email) %>" data-role="tagsinput"/> -->
+          <!-- <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput"/> -->
+
+          <input type="text" value="Amsterdam,Washington" data-role="tagsinput" />
 
         </div>
 
-      
 
       </div>
     </div>
@@ -78,10 +81,32 @@
   </div>
 </div>
 
-
-
-
 <%= link_to 'Editar', edit_task_path(@task), class: "btn btn-blue" %>
 <%= link_to 'Listar Todos', tasks_path, class: "btn btn-default" %>
 <%= link_to 'Iniciar Tarefa', start_task_path(@task), class: "btn btn-success" if @task.started? %>
 <%= link_to 'Finalizar Tarefa', finish_task_path(@task), class: "btn btn-warning" if @task.finished? %>
+
+
+<script>
+var users = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: {
+    url: '/users_email.json',
+    filter: function(list) {
+      return $.map(list, function(user) {
+        return { name: user }; });
+    }
+  }
+});
+users.initialize();
+
+$('input').tagsinput({
+  typeaheadjs: {
+    name: 'users',
+    displayKey: 'name',
+    valueKey: 'name',
+    source: users.ttAdapter()
+  }
+});
+</script>

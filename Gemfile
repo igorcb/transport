@@ -31,6 +31,8 @@ gem "paperclip"
 gem 'bootstrap-sass'
 gem 'bootstrap-addons-rails'
 gem 'will_paginate-bootstrap'
+gem 'bootstrap-tagsinput-rails'
+
 gem 'devise'
 gem 'ransack'
 gem "watir-rails"

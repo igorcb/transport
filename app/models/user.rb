@@ -23,12 +23,7 @@ class User < ActiveRecord::Base
 	end
 
   def active_for_authentication?
-    case self.active
-      when 0 then result = false
-      when 1 then result = true
-			else ""
-	  end
-    result
+    active
   end
 
   def inactive_message
