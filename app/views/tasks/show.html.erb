@@ -1,6 +1,6 @@
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
-  <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"> </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css">
+<script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"> </script>
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
+  <div class="panel panel-default"  style="overflow: initial">
     <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -55,7 +55,7 @@
           <!-- <input type="text" value="<%#= User.all.pluck(:email) %>" data-role="tagsinput"/> -->
           <!-- <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput"/> -->
 
-          <input type="text" value="Amsterdam,Washington" data-role="tagsinput" />
+          <input type="text" id="users" value="" data-role="tagsinput" />
 
         </div>
 
@@ -101,7 +101,7 @@ var users = new Bloodhound({
 });
 users.initialize();
 
-$('input').tagsinput({
+$('#users').tagsinput({
   typeaheadjs: {
     name: 'users',
     displayKey: 'name',
