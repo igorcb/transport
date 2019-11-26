@@ -687,8 +687,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   #resource :user, only: [:edit] do
-
   match 'toggle_active/:id', :controller=>'users', :action => 'toggle_active', via: [:get], as: :toggle_active
+  match "/users_email", :controller => "users", :action => "users_email", via: [:get]
 
   resource :user do
     #match 'search' => 'people#search', via: [:get, :post], as: :search

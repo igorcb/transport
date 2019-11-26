@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
 	before_action :authenticate_user!
 
+	respond_to :html, :js, :json
+
   def index
     @users = User.order(:id)
+		respond_with(@users)
   end
 
 	def edit
@@ -40,6 +43,12 @@ class UsersController < ApplicationController
 		user.toggle!(:active)
 		redirect_to user_path
 	end
+
+	def users_email
+    @users = User.order(:email).pluck(:email)
+		render inline: @users.inspect
+	end
+
 
   private
 
