@@ -5,20 +5,30 @@ class TaskMailer < ActionMailer::Base
 
     @task = task
 
-    if Rails.env.development?
-      email = ENV['RAILS_MAIL_DESTINATION']
+    # if Rails.env.development?
+    #   email = ENV['RAILS_MAIL_DESTINATION']
+    # end
+    # if Rails.env.production?
+    #   #primary_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+    #   primary_employee = @task.employee.email
+    #   email = primary_employee
+    #   if @task.second_employee.present?
+    #     #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+    #     second_employee  = @task.second_employee.email
+    #     email = primary_employee + ', ' + second_employee
+    #   end
+    #   email
+    # end
+    #   #primary_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+    primary_employee = @task.employee.email
+    email = primary_employee
+    if @task.second_employee.present?
+      #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+      second_employee  = @task.second_employee.email
+      email = primary_employee + ', ' + second_employee
     end
-    if Rails.env.production?
-      #primary_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
-      primary_employee = @task.employee.email
-      email = primary_employee
-      if @task.second_employee.present?
-        #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
-        second_employee  = @task.second_employee.email
-        email = primary_employee + ', ' + second_employee
-      end
-      email
-    end
+    email
+
     text_subject = "NEW TASK: #{@task.id} - Funcionário: #{@task.employee.name.upcase} "
 
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")

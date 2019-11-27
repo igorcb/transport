@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :task_owner, only: [:edit, :update]
+  before_action :user_task_owner, only: [:show]
   load_and_authorize_resource
   respond_to :html
 
@@ -33,8 +34,8 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         Notification.create(recipient: @task.employee, actor: current_user, action: 'taskd', notifiable: @task)
+        UsersTasks.create!(task_id: @task.id, user_id: current_user.id)
         @task.send_email_employee
-        #@task.send_notification_email
         format.html { redirect_to @task, flash: { success: "TASK was successfully created." } }
         format.json { render action: 'show', status: :created, location: @task }
       else
@@ -129,6 +130,14 @@ class TasksController < ApplicationController
     def task_owner
       @task = Task.find(params[:id])
       if @task.requester != current_user
+        flash[:danger] = "You not permission to edit task."
+        redirect_to task_path(@task)
+      end
+    end
+
+    def user_task_owner
+      @users_tasks = UsersTasks.where(task_id: params[:id], user_id: current_user.id).first
+      if !@users_tasks.present?
         flash[:danger] = "You not permission to edit task."
         redirect_to task_path(@task)
       end
