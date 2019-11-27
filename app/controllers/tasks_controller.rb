@@ -32,7 +32,6 @@ class TasksController < ApplicationController
     @task.requester = current_user
     respond_to do |format|
       if @task.save
-
         Notification.create(recipient: @task.employee, actor: current_user, action: 'taskd', notifiable: @task)
         @task.send_email_employee
         #@task.send_notification_email
