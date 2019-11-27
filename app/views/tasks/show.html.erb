@@ -1,6 +1,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css">
 <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"> </script>
+<style media="screen">
+  .bootstrap-tagsinput .tag [data-role="remove"]:after {
+      content: "x";
+      padding: 0px 2px;
+   }
+</style>
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
@@ -55,7 +61,7 @@
           <!-- <input type="text" value="<%#= User.all.pluck(:email) %>" data-role="tagsinput"/> -->
           <!-- <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput"/> -->
 
-          <input type="text" id="users" value="" data-role="tagsinput" />
+          <input type="text" id="users" data-role="tagsinput" />
 
         </div>
 
@@ -88,25 +94,45 @@
 
 
 <script>
-var users = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: {
-    url: '/users_email.json',
-    filter: function(list) {
-      return $.map(list, function(user) {
-        return { name: user }; });
-    }
-  }
-});
-users.initialize();
+// var users = new Bloodhound({
+//   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+//   queryTokenizer: Bloodhound.tokenizers.whitespace,
+//   prefetch: {
+//     url: '/users_email.json',
+//     filter: function(list) {
+//       return $.map(list, function(user) {
+//         return { name: user }; });
+//     }
+//   }
+// });
+// users.initialize();
+//
+// $('#users').tagsinput({
+//   typeaheadjs: {
+//     name: 'users',
+//     displayKey: 'name',
+//     valueKey: 'name',
+//     source: users.ttAdapter()
+//   }
+// });
+</script>
+
+
+<script>
+  var users = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: 'teste_user.json'
+  });
+  users.initialize();
 
 $('#users').tagsinput({
+  itemValue: 'value',
+  itemText: 'text',
   typeaheadjs: {
     name: 'users',
-    displayKey: 'name',
-    valueKey: 'name',
+    displayKey: 'text',
     source: users.ttAdapter()
-  }
+  },
 });
 </script>
