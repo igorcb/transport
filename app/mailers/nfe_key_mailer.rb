@@ -1,5 +1,5 @@
 class NfeKeyMailer < ActionMailer::Base
-  default from: "sistema@l7logistica.com.br"
+  default from: "sistema@yohanmws.com.br"
 
   def request_receipt(nfe_key)
     @company = Company.first
@@ -9,7 +9,7 @@ class NfeKeyMailer < ActionMailer::Base
     end
     if Rails.env.production?
       email = @nfe_key.ordem_service.client.emails.type_sector(Sector::TypeSector::FINANCEIRO).pluck(:email)
-    end 
+    end
     text_subject = "Declaração de Recebimento de Mercadoria NFe: #{@nfe_key.nfe} "
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
 
@@ -24,7 +24,7 @@ class NfeKeyMailer < ActionMailer::Base
     end
     if Rails.env.production?
       email = @nfe_key.ordem_service.client.emails.type_sector(Sector::TypeSector::FINANCEIRO).pluck(:email)
-    end 
+    end
     text_subject = "Pagamento do DAE: #{@nfe_key.nfe} "
     attachments.inline['assinatura_paulo.png'] = File.read("#{Rails.root}/app/assets/images/assinatura_paulo.png")
 

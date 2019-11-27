@@ -1,5 +1,5 @@
 class TaskMailer < ActionMailer::Base
-  default from: "sistema@l7logistica.com.br"
+  default from: "sistema@yohanmws.com.br"
 
   def notification_employee(task)
 

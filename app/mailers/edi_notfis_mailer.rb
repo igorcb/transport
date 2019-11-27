@@ -1,5 +1,5 @@
 class EdiNotfisMailer < ApplicationMailer
-  default from: "sistema@l7logistica.com.br"
+  default from: "sistema@yohanmws.com.br"
 
   def notification(file_name, file, cnpj)
     @date = Date.current.strftime('%d/%m/%Y')
