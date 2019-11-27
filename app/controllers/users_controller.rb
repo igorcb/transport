@@ -45,8 +45,8 @@ class UsersController < ApplicationController
 	end
 
 	def users_email
-    @users = User.order(:email).pluck(:email)
-		render inline: @users.inspect
+    @users = User.select(:id, "id as value", "email as text").order(:email)
+		render json: @users.to_json
 	end
 
 
