@@ -120,13 +120,14 @@
 
 
 <script>
-  $.ajaxSetup({
-  cache: false
-});
+
   var users = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: '/users_email.json'
+    prefetch: {
+      url:'/users_email.json',
+      cache: false
+    }
   });
   users.initialize();
 
