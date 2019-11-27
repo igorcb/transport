@@ -170,6 +170,7 @@ Rails.application.routes.draw do
     member do
       get :start
       get :finish
+      post :add_tasks_users
     end
   end
 
