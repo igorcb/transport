@@ -22,6 +22,10 @@ class Checkin < ApplicationRecord
     item.place_cart_2 = item.place_cart_2.upcase if item.place_cart_2.present?
   end
 
+  ransacker :created_at , type: :date do
+    Arel.sql('date(checkins.created_at)')
+  end
+
   def validation_checkin
     Checkin.the_day.where(driver_cpf: self.driver_cpf, operation_type: self.operation_type, operation_id: self.operation_id, status: self.status).present?
   end
