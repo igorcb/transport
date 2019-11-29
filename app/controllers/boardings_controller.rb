@@ -169,7 +169,7 @@ class BoardingsController < ApplicationController
   def update_start
     @boarding = Boarding.find(params[:id])
     if !Checkin.the_day.input.where(driver_cpf: @boarding.driver.cpf).present?
-      flash[:danger] = "Checkin was not done."
+      flash[:danger] = "Check in was not done. Please check driver's cpf."
       redirect_to dashboard_oper_path
       return
     elsif !@boarding.boarding_vehicles.present?

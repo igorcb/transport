@@ -2,19 +2,21 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :task_owner, only: [:edit, :update]
+  before_action :user_task_owner, only: [:show]
   load_and_authorize_resource
-  respond_to :html  
+  respond_to :html
 
   def index
     #@tasks = Task.all
     #respond_with(@tasks)
     @q = Task.where(status: -1).search(params[:query])
     @tasks = Task.the_day
-    respond_with(@tasks)    
+    respond_with(@tasks)
   end
 
   def show
     @internal_comment = @task.internal_comments.build
+    @users_tasks = @task.users
     respond_with(@task)
   end
 
@@ -31,17 +33,18 @@ class TasksController < ApplicationController
     @task.requester = current_user
     respond_to do |format|
       if @task.save
-        
         Notification.create(recipient: @task.employee, actor: current_user, action: 'taskd', notifiable: @task)
+        UsersTasks.create!(task_id: @task.id, user_id: current_user.id)
+        @user = User.where(employee_id: @task.employee.id).first
+        UsersTasks.create!(task_id: @task.id, user_id: @user.employee.id)
         @task.send_email_employee
-        #@task.send_notification_email
         format.html { redirect_to @task, flash: { success: "TASK was successfully created." } }
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
-    end    
+    end
   end
 
   def update
@@ -60,19 +63,19 @@ class TasksController < ApplicationController
     respond_with(@tasks) do |format|
      format.js
     end
-  end    
+  end
 
   def start
     if @task.status == Task::TypeStatus::INICIADO
       flash[:danger] = "Task already started."
       redirect_to task_path(@task)
       return
-    end    
+    end
     if @task.finished?
       flash[:danger] = "Task already finished."
       redirect_to task_path(@task)
       return
-    end    
+    end
     if @task.start
       @task.reload
       @task.send_email_requester
@@ -80,20 +83,20 @@ class TasksController < ApplicationController
     else
       @task.errors.full_messages.each { |msg| flash[:danger] = msg }
     end
-    redirect_to task_path(@task)    
+    redirect_to task_path(@task)
   end
 
   def finish
     if @task.status == Task::TypeStatus::NAO_INICIADO
       flash[:danger] = "Can not end task that was not started."
-      redirect_to task_path(@task)  
+      redirect_to task_path(@task)
       return
-    end    
+    end
     if @task.date_finalization.present?
       flash[:danger] = "Task already finished."
-      redirect_to task_path(@task)  
+      redirect_to task_path(@task)
       return
-    end    
+    end
     if @task.finish
       @task.reload
       @task.send_email_requester
@@ -101,7 +104,17 @@ class TasksController < ApplicationController
     else
       @task.errors.full_messages.each { |msg| flash[:danger] = msg }
     end
-    redirect_to task_path(@task)    
+    redirect_to task_path(@task)
+  end
+
+  def add_tasks_users
+    UsersTasks.where(task_id: params[:id]).destroy_all
+    if params[:users].present?
+      params[:users].split(",").each do |id|
+        UsersTasks.create!(task_id: params[:id], user_id: id)
+      end
+    end
+    redirect_to task_path(@task)
   end
 
   private
@@ -110,7 +123,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:employee_id, :name, :body, :start_date, :finish_date, :time_first, :allocated, 
+      params.require(:task).permit(:employee_id, :name, :body, :start_date, :finish_date, :time_first, :allocated,
         :allocated_observation, :second_time, :status, :observation, :second_employee_id,
         assets_attributes: [:asset, :id, :_destroy]
         )
@@ -121,6 +134,14 @@ class TasksController < ApplicationController
       if @task.requester != current_user
         flash[:danger] = "You not permission to edit task."
         redirect_to task_path(@task)
+      end
+    end
+
+    def user_task_owner
+      @users_tasks = UsersTasks.where(task_id: params[:id], user_id: current_user.id).first
+      if !@users_tasks.present?
+        flash[:danger] = "You not permission to edit or view task."
+        redirect_to tasks_path
       end
     end
 end

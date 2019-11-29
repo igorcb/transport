@@ -1,15 +1,17 @@
 <%= form_for(@task) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+  <%#= f.input :tag_list, input_html: {value: f.object.tag_list.join(",")} %>
+
   <div class="form-group">
     <%= f.label :employee_id, "Funcionário" %><br>
-    <%= f.select(:employee_id, User.where(active: true).order(:name).collect {|g| [g.name, g.id]}, {include_blank: "Selecione o Funcionário"}, {class: "form-control"} ) %>
-  </div>  
+    <%= f.select(:employee_id, User.joins(:employee).where(active: true).order(:name).collect {|g| [g.name, g.id]}, {include_blank: "Selecione o Funcionário"}, {class: "form-control"} ) %>
+  </div>
 
   <div class="form-group">
     <%= f.label :second_employee_id, "Segundo Funcionário" %><br>
-    <%= f.select(:second_employee_id, User.where(active: true).order(:name).collect {|g| [g.name, g.id]}, {include_blank: "Selecione o Funcionário"}, {class: "form-control"} ) %>
-  </div>  
+    <%= f.select(:second_employee_id, User.joins(:employee).where(active: true).order(:name).collect {|g| [g.name, g.id]}, {include_blank: "Selecione o Funcionário"}, {class: "form-control"} ) %>
+  </div>
   <div class="form-group">
     <%= f.label :name, "Nome da Tarefa" %>
     <%= f.text_field :name,class: "form-control" %>
@@ -24,7 +26,7 @@
       <%= f.text_field :start_date, class: "form-control data" %>
     <% else %>
       <%= f.text_field :start_date, class: "form-control data", value: date_br(@task.start_date) %>
-    <% end %>    
+    <% end %>
   </div>
   <div class="form-group">
     <%= f.label :finish_date, "Data Final" %>
@@ -32,15 +34,15 @@
       <%= f.text_field :finish_date, class: "form-control data" %>
     <% else %>
       <%= f.text_field :finish_date, class: "form-control data", value: date_br(@task.finish_date) %>
-    <% end %>    
-  </div>    
+    <% end %>
+  </div>
   <div class="form-group">
     <%= f.label :time_first,"Horas alocadas no primeiro mês" %>
     <%= f.number_field :time_first,class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label "", class: "checkbox-inline" do %>
-      <%= f.check_box :allocated, checked: false %> Está alocado em um só mês?  
+      <%= f.check_box :allocated, checked: false %> Está alocado em um só mês?
     <% end %>
   </div>
   <div class="form-group">
@@ -56,18 +58,18 @@
     <%= f.text_area :observation,class: "form-control" %>
   </div>
 
-  <h2>Documentos</h2> 
+  <h2>Documentos</h2>
   <div id="documents">
     <div class="items">
-      <%= f.nested_fields_for :assets do |f| 
+      <%= f.nested_fields_for :assets do |f|
         render 'shared/asset', f: f
       end  -%>
     </div>
-      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>  
+      <br /> <a href="#" class="btn btn-success btn-sm add">[+] Documento</a>
   </div>
 
   <hr />
-  
+
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-blue" %>
     <%= link_to "Exibir",  task_path(@task), class: "btn btn-info" if !@task.new_record? %>
