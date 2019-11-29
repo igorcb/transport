@@ -1,5 +1,5 @@
-module ConferenceBreakdowns
-  class NfeAssocService
+module BreakdownNfeXmls
+  class BreakdownIntoNfeService
 
     def initialize(input_control)
       @input_control = input_control

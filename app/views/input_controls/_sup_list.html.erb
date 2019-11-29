@@ -37,6 +37,7 @@
         <%= link_to raw('<i class="fas fa-print"></i> Imprimir'), printing_input_control_path(input_control), class: "btn btn-warning btn-xs" %>
         <%= link_to raw("<i class=\"fas fa-history\"></i> historico da conferência"), review_conference_input_control_path(input_control), {class: "btn btn-default btn-xs"}  %>
       <% end %>
+      
       <% if input_control.conferences.order(id: :asc).last.approved == "yes" %>
         <% if !input_control.check_nfe_xmls_have_qtde_pallets_total? %>
           <%= link_to 'Informar Qtde Palletes', list_nfe_xmls_input_control_path(input_control), class: "btn btn-blue btn-xs" if input_control.status == InputControl::TypeStatus::RECEIVED %>

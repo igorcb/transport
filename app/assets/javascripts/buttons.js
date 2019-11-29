@@ -5,10 +5,11 @@ $(document).ready(function(){
 
 
 function btn_one_click() {
-  $(".btn-one-click").click(function(){
+  $("a.btn-one-click, a[data-one-click=true]").click(function(){
     href = $(this).attr("href")
-    $(this).attr("href", "#")
+    $(this).attr("href", "#").prop("disabled", true)
     window.location.href = href
+    return false
   })
 }
 

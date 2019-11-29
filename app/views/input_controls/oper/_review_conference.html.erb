@@ -78,7 +78,7 @@
            %>
           <td class="<%= class_css[:text] %>"><%= @conference_item_2[cod].to_f %></td>
             <td>
-              <% if @conference_2.approved != "yes" %>
+              <% if @conference_2.approved != "yes" && @conference_2.status == "start" %>
                 <% item = location_item_conference( @conference_2.id, cod) %>
                 <% if item.present? %>
                   <% conference_item_2 = @conference_2.conference_items.where(product_id: cod).first %>
