@@ -35,6 +35,8 @@ class TasksController < ApplicationController
       if @task.save
         Notification.create(recipient: @task.employee, actor: current_user, action: 'taskd', notifiable: @task)
         UsersTasks.create!(task_id: @task.id, user_id: current_user.id)
+        @user = User.where(employee_id: @task.employee.id).first
+        UsersTasks.create!(task_id: @task.id, user_id: @user.employee.id)
         @task.send_email_employee
         format.html { redirect_to @task, flash: { success: "TASK was successfully created." } }
         format.json { render action: 'show', status: :created, location: @task }
@@ -138,8 +140,8 @@ class TasksController < ApplicationController
     def user_task_owner
       @users_tasks = UsersTasks.where(task_id: params[:id], user_id: current_user.id).first
       if !@users_tasks.present?
-        flash[:danger] = "You not permission to edit task."
-        redirect_to task_path(@task)
+        flash[:danger] = "You not permission to edit or view task."
+        redirect_to tasks_path
       end
     end
 end

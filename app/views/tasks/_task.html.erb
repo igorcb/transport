@@ -1,7 +1,6 @@
 <tr>
   <td><%= task.id %></td>
   <td><%= task.name %></td>
-  <td><%= truncate(task.body, length: 20)  %></td>
   <td><%= task.requester.name if task.requester.present? %></td>
   <td><%= task.employee.name if task.employee.present? %></td>
   <td><%= date_br task.start_date %></td>
@@ -9,7 +8,6 @@
   <td><%= task.time_first %></td>
   <td><%= task.second_time %></td>
   <td><%= task.status_name %></td>
-  <td><%= truncate(task.observation, length: 20) %></td>
   <td><%= link_to 'Show', task, class: "btn btn-info btn-xs" %></td>
   <td><%= link_to 'Edit', edit_task_path(task), class: "btn btn-blue btn-xs" %></td>
   <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>

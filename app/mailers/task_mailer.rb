@@ -20,14 +20,17 @@ class TaskMailer < ActionMailer::Base
     #   email
     # end
     #   #primary_employee = @task.employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
-    primary_employee = @task.employee.email
-    email = primary_employee
-    if @task.second_employee.present?
-      #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
-      second_employee  = @task.second_employee.email
-      email = primary_employee + ', ' + second_employee
-    end
-    email
+
+
+    # primary_employee = @task.employee.email
+    # email = primary_employee
+    # if @task.second_employee.present?
+    #   #second_employee  = @task.second_employee.emails.type_sector(Sector::TypeSector::TAREFAS).pluck(:email)
+    #   second_employee  = @task.second_employee.email
+    #   email = primary_employee + ', ' + second_employee
+    # end
+
+    email = @task.users.pluck(:email)
 
     text_subject = "NEW TASK: #{@task.id} - Funcionário: #{@task.employee.name.upcase} "
 
