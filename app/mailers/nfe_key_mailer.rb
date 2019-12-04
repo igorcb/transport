@@ -1,5 +1,5 @@
 class NfeKeyMailer < ActionMailer::Base
-  default from: "sistema@yohanmws.com.br"
+  default from: "sistema@yohanwms.com.br"
 
   def request_receipt(nfe_key)
     @company = Company.first

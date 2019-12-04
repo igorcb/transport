@@ -1,5 +1,5 @@
 class AccountPayableMailer < ActionMailer::Base
-  default from: "sistema@yohanmws.com.br"
+  default from: "sistema@yohanwms.com.br"
 
   def notification(account)
     time = Time.zone.now

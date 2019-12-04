@@ -3,7 +3,7 @@ class ControlPalletMailer < ActionMailer::Base
   include ApplicationHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: "sistema@yohanmws.com.br"
+  default from: "sistema@yohanwms.com.br""
 
   def notification_pallets(control_pallet)
     puts ">>>>>>>>>>>>>>>>>> Enviar Notificacao pallets"

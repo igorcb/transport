@@ -1,6 +1,5 @@
 class ProductMailer < ApplicationMailer
-
-  default from: "sistema@yohanmws.com.br"
+  default from: "sistema@yohanwms.com.br"
 
   def notification_product(product)
     @product = product

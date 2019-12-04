@@ -1,5 +1,5 @@
 class CancellationMailer < ActionMailer::Base
-  default from: "sistema@yohanmws.com.br"
+  default from: "sistema@yohanwms.com.br"
 
   def notification_solicitation_cancellation(ordem_service)
   	@ordem_service = ordem_service

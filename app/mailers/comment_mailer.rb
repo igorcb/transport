@@ -3,7 +3,7 @@ class CommentMailer < ActionMailer::Base
   include ApplicationHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: "sistema@yohanmws.com.br"
+  default from: "sistema@yohanwms.com.br"
 
   def notification(ordem_service)
   	time = Time.zone.now
