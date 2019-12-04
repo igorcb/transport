@@ -35,8 +35,8 @@ class TasksController < ApplicationController
       if @task.save
         Notification.create(recipient: @task.employee, actor: current_user, action: 'taskd', notifiable: @task)
         UsersTasks.create!(task_id: @task.id, user_id: current_user.id)
-        @user = User.where(employee_id: @task.employee.id).first
-        UsersTasks.create!(task_id: @task.id, user_id: @user.employee.id)
+        @user = User.where(id: @task.employee.id).first
+        UsersTasks.create!(task_id: @task.id, user_id: @user.id)
         @task.send_email_employee
         format.html { redirect_to @task, flash: { success: "TASK was successfully created." } }
         format.json { render action: 'show', status: :created, location: @task }
