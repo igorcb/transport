@@ -46,6 +46,7 @@ class InputControl < ActiveRecord::Base
 
   has_many :conferences, class_name: "Conference", foreign_key: "conference_id", :as => :conference, dependent: :destroy
 
+  enum palletizing: [:started, :finished]
   #enum charge_type_delivery: { nao: 0, sim: 1 }
 
   scope :the_day, -> { includes(:driver).where(date_entry: Date.current).order("id desc") }
