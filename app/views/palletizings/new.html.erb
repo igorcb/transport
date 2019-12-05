@@ -1,0 +1,28 @@
+<h1>Iniciando a paletização</h1>
+<p>agora escolha qual modo de visualização de ítens você deseja</p>
+
+<style media="screen">
+  .btn{
+    width:150px;
+    color: white;
+  }
+  .btn:hover, .btn:active{
+    color: #EEE !important;
+  }
+</style>
+<p>
+  <%= link_to "Ítens por clientes", input_control_palletizings_path(@input_control, mode: "by_customer"), class: "btn btn-default", style: "background:#49499e", data: {method: :post} %>
+  <small>Os ítens serão apresentados separados por cliente</small>
+</p>
+
+
+<p>
+  <%= link_to "Ítens por nota", input_control_palletizings_path(@input_control, mode: "by_nfe"), class: "btn btn-default", style: "background:#9d56a7", data: {method: :post} %>
+  <small>Os ítens serão apresentados separados por nota</small>
+</p>
+
+
+<p>
+  <%= link_to "Ítens avulsos", input_control_palletizings_path(@input_control, mode: "single"), class: "btn btn-default", style: "background:#7494aa", data: {method: :post} %>
+  <small>Os ítens serão apresentados sem sepação</small>
+</p>

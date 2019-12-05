@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
 
+  resources :palletizings do
+      resources :palletizing_pallets
+  end
+
   # resources :breakdown_nfe_xmls
 
   resources :conference_breakdowns do
@@ -304,6 +308,9 @@ Rails.application.routes.draw do
 
     get :received_weight, on: :collection
     get :received_weight_search, on: :collection
+
+    resources :palletizings
+
   end
 
   #match '/select_xml_nfe_new_ordem_services', :controller => 'new_ordem_services', :action => 'select_xml_nfe', via: [:get, :post]

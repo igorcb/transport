@@ -1,0 +1,2 @@
+module PalletizingsHelper
+end

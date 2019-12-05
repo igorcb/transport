@@ -25,6 +25,8 @@ class InputControl < ActiveRecord::Base
   has_many :item_nfes, class_name: "ItemInputControl", foreign_key: "nfe_id"
 
   has_one :account_receivable
+  has_one :palletizing
+  has_many :paletizing_pallet, through: :palletizing
   #has_one :checkin, class_name: "Checkin", foreign_key: "operation_id", :as => :operation
 
   has_many :assets, as: :asset, dependent: :destroy
@@ -46,7 +48,6 @@ class InputControl < ActiveRecord::Base
 
   has_many :conferences, class_name: "Conference", foreign_key: "conference_id", :as => :conference, dependent: :destroy
 
-  enum palletizing: [:started, :finished]
   #enum charge_type_delivery: { nao: 0, sim: 1 }
 
   scope :the_day, -> { includes(:driver).where(date_entry: Date.current).order("id desc") }

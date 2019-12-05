@@ -53,7 +53,7 @@
     <% end %>
 
     <% if input_control.status == InputControl::TypeStatus::RECEIVED %>
-      <%= link_to "Iniciar paletização", report_team_input_control_path(input_control), {class: "btn btn-info btn-xs"} %>
+      <%= link_to "Iniciar paletização", new_input_control_palletizing_path(input_control), {class: "btn btn-info btn-xs"} %>
     <% end %>
 
 
