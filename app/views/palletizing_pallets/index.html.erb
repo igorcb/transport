@@ -2,7 +2,7 @@
 <%= render 'static_pages/oper_input_control', input_control: @input_control %>
 
 
-<a href="#" class="btn btn-primary">Novo palete</a>
+<%= link_to "Novo palete", new_palletizing_palletizing_pallet_path(@palletizing), class: "btn btn-primary" %>
 <br><br>
 
 <div class="panel panel-default">

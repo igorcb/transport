@@ -1,0 +1,2 @@
+module PalletizingPalletProductHelper
+end

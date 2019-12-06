@@ -1,2 +1,102 @@
-<h1>PalletizingPallets#new</h1>
-<p>Find me in app/views/palletizing_pallets/new.html.erb</p>
+<h1>Novo palete</h1>
+<%= render 'static_pages/oper_input_control', input_control: @input_control %>
+
+<div id="app">
+  <div class="panel panel-default">
+    <div class="panel-header">
+       {{ qtde_products(products) }} produtos neste palete
+    </div>
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Produtos</th>
+            <th>Qtde SKU</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Produtos</th>
+            <th>Qtde SKU</th>
+            <th></th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr v-for="product in products">
+            <td>{{ product.name }}</td>
+            <td>{{ product.qtde_sku }}</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td align="right">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+
+          <li v-for="list in lists">
+            {{ list.group_name }}
+            <p v-for="item in list.items">
+              {{ item.produto }}
+            </p>
+          </li>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script type="text/javascript">
+var app = new Vue({
+  el: "#app",
+  data:{
+    message: "Nenhum produto inserido",
+    products: [
+      {name: "32.0988 IHU Alto da compadecida", qtde_sku: 50},
+      {name: "32.0987 Lisbela e o prisioneiro", qtde_sku: 50},
+      {name: "32.9834 Shaolim do sertão", qtde_sku: 50},
+    ],
+    lists: [
+      {group_name: "Cliente 1", items: [
+        {produto: "32.0988 IHU Alto da compadecida", qtde: 400, num_palete:4},
+        {produto: "32.0988 IHU Alto da compadecida", qtde: 250, num_palete:3},
+        {produto: "32.0988 IHU Alto da compadecida", qtde: 200, num_palete:3},
+        {produto: "32.0988 IHU Alto da compadecida", qtde: 150, num_palete:2}
+        ]
+      },
+    ]
+  },
+  methods: {
+    qtde_products(products) {
+      var value = 0
+      products.forEach(function(product){
+        value += product.qtde_sku
+      })
+      return value
+    }
+  }
+})
+</script>

@@ -5,6 +5,7 @@ class PalletizingPalletsController < ApplicationController
   end
 
   def new
+    @pallet = Pallet.new
   end
 
   def create
