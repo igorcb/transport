@@ -1,2 +1,50 @@
-<h1>PalletizingPallets#index</h1>
-<p>Find me in app/views/palletizing_pallets/index.html.erb</p>
+<h1>Paletes</h1>
+<%= render 'static_pages/oper_input_control', input_control: @input_control %>
+
+
+<a href="#" class="btn btn-primary">Novo palete</a>
+<br><br>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    Lista de paletes
+  </div
+  <div class="panel-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Palete</th>
+          <th>Qtde SKU</th>
+          <th>Qtde ítens</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>Palete</th>
+          <th>Qtde SKU</th>
+          <th>Qtde ítens</th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% if @pallets.present? %>
+          <% @pallets.each do |pallet| %>
+            <tr>
+              <td><%= pallet.number %></td>
+              <td><%= pallet.qtde_sku %></td>
+              <td><%= pallet.qtde_items %></td>
+              <td></td>
+            </tr>
+          <% end %>
+        <% else %>
+        <tr>
+          <td colspan="4">
+            Nenhum palete registrado
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
