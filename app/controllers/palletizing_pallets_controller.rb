@@ -6,6 +6,7 @@ class PalletizingPalletsController < ApplicationController
 
   def new
     @pallet = Pallet.new
+    @items = @input_control.item_input_controls
   end
 
   def create
