@@ -97,7 +97,6 @@
         <% end %>
       </tr>
     <% end %>
-    <%= @sobras.inspect %>
     <% if @count_items_1 > @count_items || @count_items_2 > @count_items || @count_items_3 > @count_items %>
       <% if @sobras.present? %>
         <% @sobras[:data].each do |sobra| %>
