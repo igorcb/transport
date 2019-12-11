@@ -1,9 +1,10 @@
 <h1>Novo palete</h1>
 <%= render 'static_pages/oper_input_control', input_control: @input_control %>
 
+
 <div id="app">
   <div class="panel panel-default">
-    <div class="panel-header">
+    <div class="panel-heading">
        {{ qtde_products(products) }} produtos neste palete
     </div>
     <div class="panel-body">
@@ -23,10 +24,10 @@
           </tr>
         </tfoot>
         <tbody>
-          <tr v-for="product in products">
-            <td>{{ product.name }}</td>
-            <td>{{ product.qtde_sku }}</td>
-            <td></td>
+          <tr v-for="(product, keyProduct in products">
+            <td>{{ product.product }}</td>
+            <td>{{ product.qtde }}</td>
+            <td align="right"><button type="button" class="btn btn-danger btn-sm" v-on:click="delete_item(keyProduct)">x</button></td>
           </tr>
 
           <tr>
@@ -50,16 +51,41 @@
         </div>
         <div class="modal-body">
 
-          <li v-for="list in lists">
-            {{ list.group_name }}
-            <p v-for="item in list.items">
-              {{ item.produto }}
-            </p>
-          </li>
+          <table class="table table-bordered">
+            <thead>
+              <th>Produtos</th>
+              <th>Qtde</th>
+              <th>Paletes sugeridos</th>
+              <th></th>
+              <th></th>
+            </thead>
+
+            <tfoot>
+              <th>Produtos</th>
+              <th>Qtde</th>
+              <th>Paletes sugeridos</th>
+              <th></th>
+              <th></th>
+            </tfoot>
+
+            <tbody v-for="(list, keyGroup) in lists">
+                <tr style="background:#DDD">
+                  <td colspan="5">
+                    {{ list.group_name }}
+                  </td>
+                </tr>
+                <tr v-for="(item, keyItem) in list.items" v-if="item.qtde != 0">
+                  <td>{{ item.product }}</td>
+                  <td>{{ item.qtde }}</td>
+                  <td>{{ item.num_palete }}</td>
+                  <td><input type="number" v-bind:ref="item.item_id" placeholder="Qtde de produtos"></td>
+                  <td><button v-on:click="add_product(item.item_id, keyGroup, keyItem)" class="btn btn-primary">+</button></td>
+                </tr>
+            </tbody>
+          </table>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Finalizar</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -74,29 +100,58 @@ var app = new Vue({
   el: "#app",
   data:{
     message: "Nenhum produto inserido",
-    products: [
-      {name: "32.0988 IHU Alto da compadecida", qtde_sku: 50},
-      {name: "32.0987 Lisbela e o prisioneiro", qtde_sku: 50},
-      {name: "32.9834 Shaolim do sertão", qtde_sku: 50},
-    ],
-    lists: [
-      {group_name: "Cliente 1", items: [
-        {produto: "32.0988 IHU Alto da compadecida", qtde: 400, num_palete:4},
-        {produto: "32.0988 IHU Alto da compadecida", qtde: 250, num_palete:3},
-        {produto: "32.0988 IHU Alto da compadecida", qtde: 200, num_palete:3},
-        {produto: "32.0988 IHU Alto da compadecida", qtde: 150, num_palete:2}
-        ]
-      },
-    ]
+    products: [],
+    lists: <%= @items %>,
   },
   methods: {
     qtde_products(products) {
       var value = 0
       products.forEach(function(product){
-        value += product.qtde_sku
+        value += parseInt(product.qtde)
       })
       return value
+    },
+    add_product(item_id, keyGroup, keyItem) {
+      uniqueName = item_id
+      qtde = this.$refs[uniqueName][0].value
+      if (qtde == 0) {
+        alert("Informe qtde de itens")
+        return false;
+      }
+      group = this.lists[keyGroup]
+      item = group.items[keyItem]
+      qtde_total = item.qtde
+
+      this.products.push({item_id: item.item_id, product: item.product, qtde: qtde, key_group: keyGroup});
+      this.$refs[uniqueName][0].value = ""
+
+      if (qtde <= qtde_total) {
+        this.lists[keyGroup].items[keyItem].qtde -= qtde
+      } else {
+        alert("Este valor ultrapassa a quantidade total de produtos.")
+      }
+
+    },
+    delete_item(keyProduct) {
+      product = this.products[keyProduct]
+      items = this.lists[product.key_group].items
+      items.forEach(function(item, index){
+        if (item.item_id == product.item_id) {
+          items[index].qtde += parseInt(product.qtde)
+          stop
+        }
+      })
+      this.$delete(this.products, keyProduct)
+
     }
   }
 })
+
+window.onbeforeunload = function () {
+  if (app.products.length > 0) {
+    return true
+  } else {
+    return null
+  }
+}
 </script>
