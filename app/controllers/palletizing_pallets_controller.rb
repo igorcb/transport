@@ -2,7 +2,7 @@
 class PalletizingPalletsController < ApplicationController
   before_action :set_palletizing
   def index
-    @pallets = @palletizing.palletizing_pallet
+    @pallets = @palletizing.palletizing_pallets
   end
 
   def new
@@ -15,7 +15,12 @@ class PalletizingPalletsController < ApplicationController
         data[index] = {group_name: nfe.numero.to_i, items: []}
         nfe.item_input_controls.each do |item|
           product = item.product
-          data[index][:items].push({item_id: item.id, product: "#{product.cod_prod} #{product.descricao}", qtde: item.qtde.to_i})
+          breakdown = @input_control.breakdown_nfe_xmls.where(nfe_xml_id: nfe, product_id: product.id).first
+          avarias = breakdown.avarias.to_i if breakdown.present?
+          faltas = breakdown.faltas.to_i if breakdown.present?
+          qtde = item.qtde.to_i - avarias.to_i - faltas.to_i
+          suggested_pallet = NfeXmls::CalcItemNfeQtdePalletService.new(product, qtde).call
+          data[index][:items].push({item_id: item.id, cod_prod: product.cod_prod, product_description: product.descricao, qtde: qtde, suggested_pallet: suggested_pallet[:qtde_pallet]})
         end
       end
     end
