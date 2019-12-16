@@ -114,22 +114,25 @@ var app = new Vue({
     add_product(item_id, keyGroup, keyItem) {
       uniqueName = item_id
       qtde = this.$refs[uniqueName][0].value
-      if (qtde == 0) {
-        alert("Informe qtde de itens")
-        return false;
-      }
       group = this.lists[keyGroup]
       item = group.items[keyItem]
       qtde_total = item.qtde
 
-      this.products.push({item_id: item.item_id, cod_prod: item.cod_prod, product_description: item.product_description, qtde: qtde, key_group: keyGroup});
-      this.$refs[uniqueName][0].value = ""
+      if (qtde == 0) {
+        alert("Informe qtde de itens")
+        return false
+      }
 
       if (qtde <= qtde_total) {
         this.lists[keyGroup].items[keyItem].qtde -= qtde
       } else {
         alert("Este valor ultrapassa a quantidade total de produtos.")
+        return false
       }
+
+      this.products.push({item_id: item.item_id, cod_prod: item.cod_prod, product_description: item.product_description, qtde: qtde, key_group: keyGroup});
+      this.$refs[uniqueName][0].value = ""
+
 
     },
     delete_item(keyProduct) {
