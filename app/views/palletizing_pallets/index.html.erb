@@ -13,7 +13,9 @@
     <table class="table table-bordered">
       <thead>
         <tr>
+          <th>#</th>
           <th>Palete</th>
+          <th>Tipo</th>
           <th>Qtde SKU</th>
           <th>Qtde ítens</th>
           <th></th>
@@ -21,7 +23,9 @@
       </thead>
       <tfoot>
         <tr>
+          <th>#</th>
           <th>Palete</th>
+          <th>Tipo</th>
           <th>Qtde SKU</th>
           <th>Qtde ítens</th>
           <th></th>
@@ -29,13 +33,17 @@
       </tfoot>
       <tbody>
         <% if @pallets.present? %>
+        <% i = 1 %>
           <% @pallets.each do |pallet| %>
             <tr>
+              <td><%= i %></td>
               <td><%= pallet.number %></td>
+              <td><%= pallet.type_pallet %></td>
               <td><%= pallet.qtde_sku %></td>
               <td><%= pallet.qtde_items %></td>
-              <td></td>
+              <td><%= link_to raw("<i class=\"fas fa-times\"></i>"), palletizing_palletizing_pallet_path(@palletizing, pallet), class: "btn btn-sm btn-danger delete", data: { method: "delete", confirm: 'Deseja apagar este registro?'} %></td>
             </tr>
+            <% i += 1 %>
           <% end %>
         <% else %>
         <tr>

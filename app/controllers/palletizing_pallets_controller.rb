@@ -6,15 +6,20 @@ class PalletizingPalletsController < ApplicationController
   end
 
   def new
-    @pallet = Pallet.new
+    @pallet = PalletizingPallet.new
     data = PalletizingPallets::GetItemsService.new(@input_control).call
     @items = data[:data].to_json.html_safe
   end
 
   def create
+    data = PalletizingPalletProducts::OrganizerDataService.new(params).call
+    create = PalletizingPallets::CreateService.new(@palletizing, data).call
+    redirect_to palletizing_palletizing_pallets_path(@palletizing)
   end
 
-  def delete
+  def destroy
+    @palletizing.palletizing_pallets.where(id: params[:id]).destroy_all
+    redirect_to palletizing_palletizing_pallets_path(@palletizing)
   end
 
   private

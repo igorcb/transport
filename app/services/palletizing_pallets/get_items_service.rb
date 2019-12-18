@@ -17,6 +17,8 @@ module PalletizingPallets
           view_mode = @palletizing.view_mode
           if view_mode == "by_nfe"
             PalletizingPallets::GetItemsByNfeService.new(@input_control).call
+          elsif view_mode == "by_customer"
+            PalletizingPallets::GetItemsByCustomerService.new(@input_control).call
           end
 
         end

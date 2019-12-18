@@ -1,5 +1,5 @@
 module PalletizingPallets
-  class GetItemsByNfeService
+  class GetItemsByCustomerService
 
     def initialize(input_control)
       @input_control = input_control
@@ -13,10 +13,11 @@ module PalletizingPallets
 
 	    begin
         ActiveRecord::Base.transaction do
+          nfe_xml_clientes = NfeXml.joins(:target_client).where(nfe_type: "InputControl", nfe_id: @input_control.id)
           data = []
           index = 0
-          @input_control.nfe_xmls.each do |nfe|
-            data[index] = {group_name: "Nº nfe: #{nfe.numero.to_i}", items: []}
+          nfe_xml_clientes.each do |nfe|
+            data[index] = {group_name: "Cliente: #{nfe.target_client.nome}", items: []}
             nfe.item_input_controls.each do |item|
               product = item.product
               qtde_palletizing = @palletizing.palletizing_pallets.joins(:palletizing_pallet_products).where(:palletizing_pallet_products => {product_id: product.id, nfe_xml_id: nfe.id}).sum(:qtde)

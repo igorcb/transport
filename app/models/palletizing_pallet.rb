@@ -1,4 +1,13 @@
 class PalletizingPallet < ApplicationRecord
   belongs_to :palletizing
-  has_many :palletizing_pallet_products
+  has_many :palletizing_pallet_products, dependent: :destroy
+  enum type_pallet: [:exclusive, :mixed, :leftover]
+
+  def qtde_sku
+    palletizing_pallet_products.count
+  end
+
+  def qtde_items
+    palletizing_pallet_products.sum(:qtde)
+  end
 end

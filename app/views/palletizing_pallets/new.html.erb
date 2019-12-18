@@ -24,7 +24,7 @@
           </tr>
         </tfoot>
         <tbody>
-          <tr v-for="(product, keyProduct in products">
+          <tr v-for="product, keyProduct in products">
             <td>{{ product.cod_prod }} {{ product.product_description }}</td>
             <td>{{ product.qtde }}</td>
             <td align="right"><button type="button" class="btn btn-danger btn-sm" v-on:click="delete_item(keyProduct)">x</button></td>
@@ -39,6 +39,15 @@
           </tr>
         </tbody>
       </table>
+
+      <%= form_tag palletizing_palletizing_pallets_path(@palletizing.id) do %>
+        <div v-for="product, keyProduct in products" >
+          <input type="hidden" name="item_ids[]" :value="product.item_id">
+          <input type="hidden" name="qtdes[]" :value="product.qtde">
+        </div>
+        <div><%= submit_tag 'Salvar', class: "btn btn-primary", "@click": "submit" %></div>
+      <% end %>
+
     </div>
   </div>
 
@@ -96,6 +105,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <script type="text/javascript">
+submit = 0
 var app = new Vue({
   el: "#app",
   data:{
@@ -129,11 +139,28 @@ var app = new Vue({
         alert("Este valor ultrapassa a quantidade total de produtos.")
         return false
       }
-
-      this.products.push({item_id: item.item_id, cod_prod: item.cod_prod, product_description: item.product_description, qtde: qtde, key_group: keyGroup});
+      has_product = this.has_product(item_id)
+      if (has_product === false) {
+        this.products.push({item_id: item.item_id, cod_prod: item.cod_prod, product_description: item.product_description, qtde: qtde, key_group: keyGroup});
+      } else {
+        old_qtde = this.products[has_product].qtde
+        this.products[has_product].qtde = parseInt(qtde) + parseInt(old_qtde)
+      }
       this.$refs[uniqueName][0].value = ""
 
 
+    },
+    has_product(item_id) {
+
+      response = false
+      this.products.forEach(function(product, index){
+        if(product.item_id == item_id){
+          response = index
+          stop
+        }
+
+      })
+      return response
     },
     delete_item(keyProduct) {
       product = this.products[keyProduct]
@@ -146,12 +173,15 @@ var app = new Vue({
       })
       this.$delete(this.products, keyProduct)
 
+    },
+    submit() {
+      submit = 1
     }
   }
 })
 
 window.onbeforeunload = function () {
-  if (app.products.length > 0) {
+  if (app.products.length > 0 && submit == 0 ) {
     return true
   } else {
     return null
