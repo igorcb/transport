@@ -19,7 +19,10 @@ module PalletizingPallets
             PalletizingPallets::GetItemsByNfeService.new(@input_control).call
           elsif view_mode == "by_customer"
             PalletizingPallets::GetItemsByCustomerService.new(@input_control).call
+          elsif view_mode == "single"
+            PalletizingPallets::GetItemsSingleService.new(@input_control).call
           end
+
 
         end
       rescue => e
