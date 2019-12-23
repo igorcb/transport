@@ -4,6 +4,7 @@ module PalletizingPalletProducts
     def initialize(hash)
       @item_ids = hash[:item_ids]
       @qtdes = hash[:qtdes]
+      @type = hash[:types][0]
     end
 
     def call
@@ -15,12 +16,20 @@ module PalletizingPalletProducts
 
           i = 0
           data = []
-          @item_ids.each do |item_id|
-            item = ItemInputControl.where(id: item_id).first
-            data.push({product_id: item.product_id, nfe_xml_id: item.nfe_xml_id, qtde: @qtdes[i]})
-            i += 1
+          if @type == "item"
+            @item_ids.each do |item_id|
+              item = ItemInputControl.where(id: item_id).first
+              data.push({product_id: item.product_id, nfe_xml_id: item.nfe_xml_id, qtde: @qtdes[i]})
+              i += 1
+            end
+          elsif @type == "sobra"
+            @item_ids.each do |breakdown_id|
+              breakdown = Breakdown.where(id: breakdown_id).first
+              data.push({product_id: breakdown.product_id, qtde: @qtdes[i]})
+              i += 1
+            end
           end
-          return  data
+          return  {type: @type, data: data}
 
         end
       rescue => e

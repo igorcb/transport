@@ -44,6 +44,7 @@
         <div v-for="product, keyProduct in products" >
           <input type="hidden" name="item_ids[]" :value="product.item_id">
           <input type="hidden" name="qtdes[]" :value="product.qtde">
+          <input type="hidden" name="types[]" :value="product.type">
         </div>
         <div><%= submit_tag 'Salvar', class: "btn btn-primary", "@click": "submit" %></div>
       <% end %>
@@ -133,21 +134,28 @@ var app = new Vue({
         return false
       }
 
+
+      if (this.is_mixed_item_with_sobra(item.type)) {
+        alert("Você não pode misturar items e sobra")
+        return false
+      }
+
       if (qtde <= qtde_total) {
         this.lists[keyGroup].items[keyItem].qtde -= qtde
       } else {
         alert("Este valor ultrapassa a quantidade total de produtos.")
         return false
       }
+
+
       has_product = this.has_product(item_id)
       if (has_product === false) {
-        this.products.push({item_id: item.item_id, cod_prod: item.cod_prod, product_description: item.product_description, qtde: qtde, key_group: keyGroup});
+        this.products.push({item_id: item.item_id, cod_prod: item.cod_prod, product_description: item.product_description, qtde: qtde, key_group: keyGroup, type: item.type});
       } else {
         old_qtde = this.products[has_product].qtde
         this.products[has_product].qtde = parseInt(qtde) + parseInt(old_qtde)
       }
       this.$refs[uniqueName][0].value = ""
-
 
     },
     has_product(item_id) {
@@ -161,6 +169,26 @@ var app = new Vue({
 
       })
       return response
+    },
+    is_mixed_item_with_sobra(type) {
+      has_item = false
+      if (type == "sobra") {
+        this.products.forEach(function(product, index){
+          if(product.type == "item"){
+            has_item = true
+            stop
+          }
+        })
+      }
+      if (type == "item") {
+        this.products.forEach(function(product, index){
+          if(product.type == "sobra"){
+            has_item = true
+            stop
+          }
+        })
+      }
+      return has_item
     },
     delete_item(keyProduct) {
       product = this.products[keyProduct]

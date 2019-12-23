@@ -28,10 +28,25 @@ module PalletizingPallets
               faltas = breakdown.faltas.to_i if breakdown.present?
               qtde = item.qtde.to_i - avarias.to_i - faltas.to_i - qtde_palletizing.to_i
               suggested_pallet = NfeXmls::CalcItemNfeQtdePalletService.new(product, qtde).call
-              data[index][:items].push({item_id: item.id, cod_prod: product.cod_prod, product_description: product.descricao, qtde: qtde, suggested_pallet: suggested_pallet[:qtde_pallet]})
+              data[index][:items].push({item_id: item.id, cod_prod: product.cod_prod, product_description: product.descricao, qtde: qtde, suggested_pallet: suggested_pallet[:qtde_pallet], type: "item"})
             end
 
             index += 1
+          end
+
+          # sobras
+          breakdowns = @input_control.breakdowns.where("sobras IS NOT ?", nil)
+          if breakdowns.present?
+            data[index] = {group_name: "Sobras", items: []}
+
+            breakdowns.each do |breakdown|
+              product = breakdown.product
+              qtde_palletizing = @palletizing.palletizing_pallets.joins(:palletizing_pallet_products).where(:type_pallet => :leftover, :palletizing_pallet_products => {product_id: product.id}).sum(:qtde)
+              qtde = breakdown.sobras.to_i - qtde_palletizing.to_i
+              suggested_pallet = NfeXmls::CalcItemNfeQtdePalletService.new(product, qtde).call
+              data[index][:items].push({item_id: breakdown.id, cod_prod: product.cod_prod, product_description: product.descricao, qtde: qtde, suggested_pallet: suggested_pallet[:qtde_pallet], type: "sobra"})
+            end
+
           end
 
 					return {success: true, message: "Calculation successful.", data: data}
