@@ -18,6 +18,15 @@ class PalletizingPalletsController < ApplicationController
     redirect_to palletizing_palletizing_pallets_path(@palletizing)
   end
 
+  def show
+    @pallet = @palletizing.palletizing_pallets.where(id: params[:id]).first
+    @pallet_product = @pallet.palletizing_pallet_products
+    @products = @pallet_product.map{|p| "#{p.product.cod_prod} #{p.product.descricao}" }
+    if @pallet.type_pallet != "leftover" and @palletizing.view_mode != "single"
+      @nfes = @pallet_product.select("DISTINCT nfe_xml_id").map{|p| p.nfe_xml.numero }
+    end
+  end
+
   def destroy
     @palletizing.palletizing_pallets.where(id: params[:id]).destroy_all
     redirect_to palletizing_palletizing_pallets_path(@palletizing)

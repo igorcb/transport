@@ -41,7 +41,10 @@
               <td><%= pallet.type_pallet %></td>
               <td><%= pallet.qtde_sku %></td>
               <td><%= pallet.qtde_items %></td>
-              <td><%= link_to raw("<i class=\"fas fa-times\"></i>"), palletizing_palletizing_pallet_path(@palletizing, pallet), class: "btn btn-sm btn-danger delete", data: { method: "delete", confirm: 'Deseja apagar este registro?'} %></td>
+              <td>
+                <%= link_to raw("<i class=\"fas fa-eye\"></i>"), palletizing_palletizing_pallet_path(@palletizing, pallet), class: "btn btn-sm btn-info" %>
+                <%= link_to raw("<i class=\"fas fa-times\"></i>"), palletizing_palletizing_pallet_path(@palletizing, pallet), class: "btn btn-sm btn-danger delete", data: { method: "delete", confirm: 'Deseja apagar este registro?'} %>
+              </td>
             </tr>
             <% i += 1 %>
           <% end %>

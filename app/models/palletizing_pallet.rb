@@ -10,4 +10,8 @@ class PalletizingPallet < ApplicationRecord
   def qtde_items
     palletizing_pallet_products.sum(:qtde)
   end
+
+  def weight
+    palletizing_pallet_products.joins(:product).sum(:weight_liquid)
+  end
 end
