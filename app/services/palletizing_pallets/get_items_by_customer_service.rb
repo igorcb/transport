@@ -21,7 +21,7 @@ module PalletizingPallets
             nfe.item_input_controls.each do |item|
               product = item.product
               qtde_palletizing = @palletizing.palletizing_pallets.joins(:palletizing_pallet_products).where(:palletizing_pallet_products => {product_id: product.id, nfe_xml_id: nfe.id}).sum(:qtde)
-              puts ">>>>>>>>>>>>>>>>>>>>>>>>>#{qtde_palletizing}"
+              # puts ">>>>>>>>>>>>>>>>>>>>>>>>>#{qtde_palletizing}"
 
               breakdown = @input_control.breakdown_nfe_xmls.where(nfe_xml_id: nfe, product_id: product.id).first
               avarias = breakdown.avarias.to_i if breakdown.present?

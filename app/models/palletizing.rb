@@ -5,6 +5,6 @@ class Palletizing < ApplicationRecord
   has_many :palletizing_pallets, dependent: :destroy
 
   enum view_mode: [:by_customer, :by_nfe, :single]
-  enum palletizing: [:started, :finished]
+  enum status: [:started, :finished]
 
 end

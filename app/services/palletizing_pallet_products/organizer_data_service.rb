@@ -8,7 +8,6 @@ module PalletizingPalletProducts
     end
 
     def call
-
       return {success: false, message: "Items ids can't be blank."} if @item_ids.blank?
 
 	    begin

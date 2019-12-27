@@ -18,14 +18,14 @@ module PalletizingPallets
             @input_control.item_input_controls.each do |item|
               product = item.product
               qtde_palletizing = @palletizing.palletizing_pallets.joins(:palletizing_pallet_products).where(:palletizing_pallet_products => {product_id: product.id}).sum(:qtde)
-              puts ">>>>>>>>>>>>>>>>>>>>>>>>>#{qtde_palletizing}"
+              # puts ">>>>>>>>>>>>>>>>>>>>>>>>>#{qtde_palletizing}"
 
               breakdown = @input_control.breakdowns.where(product_id: product.id).first
               avarias = breakdown.avarias.to_i if breakdown.present?
               faltas = breakdown.faltas.to_i if breakdown.present?
               qtde = item.qtde.to_i - avarias.to_i - faltas.to_i - qtde_palletizing.to_i
               suggested_pallet = NfeXmls::CalcItemNfeQtdePalletService.new(product, qtde).call
-              data[0][:items].push({item_id: item.id, cod_prod: product.cod_prod, product_description: product.descricao, qtde: qtde, suggested_pallet: suggested_pallet[:qtde_pallet]})
+              data[0][:items].push({item_id: item.id, cod_prod: product.cod_prod, product_description: product.descricao, qtde: qtde, suggested_pallet: suggested_pallet[:qtde_pallet], type: "item"})
             end
 
 
