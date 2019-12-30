@@ -15,6 +15,12 @@
           <%= search_form_for @q, remote: true, url: sup_search_input_controls_path, :method => :get do |f| %>
           <div class="row">
             <div class="form-group col-sm-6 col-md-3">
+              <%= f.label :id_eq, "Entrada" %>
+              <%= f.text_field :id_eq, class: "form-control  input-sm", placeholder: "Ex: 3150" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6 col-md-3">
               <%= f.label :date_scheduled_gteq, "Data entrada de" %>
               <%= f.date_field :date_scheduled_gteq, class: "form-control  input-sm", placeholder: "Informe a Data da Entrada ex: 05-12-2014" %>
             </div>
