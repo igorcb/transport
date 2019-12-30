@@ -2,13 +2,13 @@
 <%= render 'static_pages/oper_input_control', input_control: @input_control %>
 
 
-<%= link_to "Novo palete", new_palletizing_palletizing_pallet_path(@palletizing), class: "btn btn-primary" %>
+<%= link_to "Novo palete", new_palletizing_palletizing_pallet_path(@palletizing), class: "btn btn-primary" if @palletizing.status == "started" %>
 <br><br>
 
 <div class="panel panel-default">
-  <div class="panel-body">
+  <div class="panel-heading">
     Lista de paletes
-  </div
+  </div>
   <div class="panel-body">
     <table class="table table-bordered">
       <thead>
@@ -43,7 +43,7 @@
               <td><%= pallet.qtde_items %></td>
               <td>
                 <%= link_to raw("<i class=\"fas fa-eye\"></i>"), palletizing_palletizing_pallet_path(@palletizing, pallet), class: "btn btn-sm btn-info" %>
-                <%= link_to raw("<i class=\"fas fa-times\"></i>"), palletizing_palletizing_pallet_path(@palletizing, pallet), class: "btn btn-sm btn-danger delete", data: { method: "delete", confirm: 'Deseja apagar este registro?'} %>
+                <%= link_to raw("<i class=\"fas fa-times\"></i>"), palletizing_palletizing_pallet_path(@palletizing, pallet), class: "btn btn-sm btn-danger delete", data: { method: "delete", confirm: 'Deseja apagar este registro?'} if @palletizing.status == "started" %>
               </td>
             </tr>
             <% i += 1 %>
@@ -58,4 +58,9 @@
       </tbody>
     </table>
   </div>
+  <% if @palletizing.status == "started" %>
+    <div class="panel-footer">
+      <%= link_to "Finalizar", palletizing_path(@palletizing), class: "btn btn-primary", data: {method: :patch} %>
+    </div>
+  <% end %>
 </div>

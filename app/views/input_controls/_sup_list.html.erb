@@ -53,7 +53,8 @@
     <% end %>
 
     <% if input_control.status == InputControl::TypeStatus::RECEIVED %>
-      <%= link_to "Iniciar paletização", new_input_control_palletizing_path(input_control), {class: "btn btn-info btn-xs"} %>
+      <%= link_to "Iniciar paletização", new_input_control_palletizing_path(input_control), {class: "btn btn-info btn-xs"} if input_control.palletizing.status != "finished" %>
+      <%= link_to "Visualizar paletização", new_input_control_palletizing_path(input_control), {class: "btn btn-info btn-xs"} if input_control.palletizing.status == "finished" %>
     <% end %>
 
 

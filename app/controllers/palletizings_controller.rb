@@ -8,6 +8,12 @@ class PalletizingsController < ApplicationController
     redirect_to palletizing_palletizing_pallets_path(palletizing)
   end
 
+  def update
+    palletizing = Palletizing.where(id: params[:id]).update(status: :finished)
+    # render inline: palletizing.inspect.html_safe
+    redirect_to palletizing_palletizing_pallets_path(palletizing)
+  end
+
   private
   def set_palletizing
     @input_control = InputControl.where(id: params[:input_control_id]).first
