@@ -25,6 +25,8 @@ class InputControl < ActiveRecord::Base
   has_many :item_nfes, class_name: "ItemInputControl", foreign_key: "nfe_id"
 
   has_one :account_receivable
+  has_one :palletizing
+  has_many :paletizing_pallet, through: :palletizing
   #has_one :checkin, class_name: "Checkin", foreign_key: "operation_id", :as => :operation
 
   has_many :assets, as: :asset, dependent: :destroy

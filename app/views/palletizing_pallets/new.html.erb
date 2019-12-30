@@ -1,0 +1,218 @@
+<h1>Novo palete</h1>
+<%= render 'static_pages/oper_input_control', input_control: @input_control %>
+
+
+<div id="app">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+       {{ qtde_products(products) }} produtos neste palete
+    </div>
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Produtos</th>
+            <th>Qtde SKU</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Produtos</th>
+            <th>Qtde SKU</th>
+            <th></th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr v-for="product, keyProduct in products">
+            <td>{{ product.cod_prod }} {{ product.product_description }}</td>
+            <td>{{ product.qtde }}</td>
+            <td align="right"><button type="button" class="btn btn-danger btn-sm" v-on:click="delete_item(keyProduct)">x</button></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td align="right">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <%= form_tag palletizing_palletizing_pallets_path(@palletizing.id) do %>
+        <div v-for="product, keyProduct in products" >
+          <input type="hidden" name="item_ids[]" :value="product.item_id">
+          <input type="hidden" name="qtdes[]" :value="product.qtde">
+          <input type="hidden" name="types[]" :value="product.type">
+        </div>
+        <div><%= submit_tag 'Salvar', class: "btn btn-primary", "@click": "submit" %></div>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-bordered">
+            <thead>
+              <th>Produtos</th>
+              <th>Qtde</th>
+              <th>Paletes sugeridos</th>
+              <th></th>
+              <th></th>
+            </thead>
+
+            <tfoot>
+              <th>Produtos</th>
+              <th>Qtde</th>
+              <th>Paletes sugeridos</th>
+              <th></th>
+              <th></th>
+            </tfoot>
+
+            <tbody v-for="(list, keyGroup) in lists">
+                <tr style="background:#DDD">
+                  <td colspan="5">
+                    {{ list.group_name }}
+                  </td>
+                </tr>
+                <tr v-for="(item, keyItem) in list.items" v-if="item.qtde != 0">
+                  <td>{{ item.cod_prod }} {{ item.product_description }}</td>
+                  <td>{{ item.qtde }}</td>
+                  <td>{{ item.suggested_pallet }}</td>
+                  <td><input type="number" v-bind:ref="item.item_id" placeholder="Qtde de produtos"></td>
+                  <td><button v-on:click="add_product(item.item_id, keyGroup, keyItem)" class="btn btn-primary">+</button></td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Finalizar</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script type="text/javascript">
+submit = 0
+var app = new Vue({
+  el: "#app",
+  data:{
+    message: "Nenhum produto inserido",
+    products: [],
+    lists: <%= @items %>,
+  },
+  methods: {
+    qtde_products(products) {
+      var value = 0
+      products.forEach(function(product){
+        value += parseInt(product.qtde)
+      })
+      return value
+    },
+    add_product(item_id, keyGroup, keyItem) {
+      uniqueName = item_id
+      qtde = this.$refs[uniqueName][0].value
+      group = this.lists[keyGroup]
+      item = group.items[keyItem]
+      qtde_total = item.qtde
+
+      if (qtde == 0) {
+        alert("Informe qtde de itens")
+        return false
+      }
+
+
+      if (this.is_mixed_item_with_sobra(item.type)) {
+        alert("Você não pode misturar items e sobra")
+        return false
+      }
+
+      if (qtde <= qtde_total) {
+        this.lists[keyGroup].items[keyItem].qtde -= qtde
+      } else {
+        alert("Este valor ultrapassa a quantidade total de produtos.")
+        return false
+      }
+
+
+      has_product = this.has_product(item_id)
+      if (has_product === false) {
+        this.products.push({item_id: item.item_id, cod_prod: item.cod_prod, product_description: item.product_description, qtde: qtde, key_group: keyGroup, type: item.type});
+      } else {
+        old_qtde = this.products[has_product].qtde
+        this.products[has_product].qtde = parseInt(qtde) + parseInt(old_qtde)
+      }
+      this.$refs[uniqueName][0].value = ""
+
+    },
+    has_product(item_id) {
+
+      response = false
+      this.products.forEach(function(product, index){
+        if(product.item_id == item_id){
+          response = index
+          stop
+        }
+
+      })
+      return response
+    },
+    is_mixed_item_with_sobra(type) {
+      has_item = false
+      if (type == "sobra") {
+        this.products.forEach(function(product, index){
+          if(product.type == "item"){
+            has_item = true
+            stop
+          }
+        })
+      }
+      if (type == "item") {
+        this.products.forEach(function(product, index){
+          if(product.type == "sobra"){
+            has_item = true
+            stop
+          }
+        })
+      }
+      return has_item
+    },
+    delete_item(keyProduct) {
+      product = this.products[keyProduct]
+      items = this.lists[product.key_group].items
+      items.forEach(function(item, index){
+        if (item.item_id == product.item_id) {
+          items[index].qtde += parseInt(product.qtde)
+          stop
+        }
+      })
+      this.$delete(this.products, keyProduct)
+
+    },
+    submit() {
+      submit = 1
+    }
+  }
+})
+
+window.onbeforeunload = function () {
+  if (app.products.length > 0 && submit == 0 ) {
+    return true
+  } else {
+    return null
+  }
+}
+</script>
