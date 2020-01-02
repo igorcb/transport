@@ -11,7 +11,11 @@ class PalletizingPallet < ApplicationRecord
     palletizing_pallet_products.sum(:qtde)
   end
 
-  def weight
-    palletizing_pallet_products.joins(:product).sum(:weight_liquid)
+  def weight_liquid
+    palletizing_pallet_products.joins(:product).sum("products.weight_liquid * palletizing_pallet_products.qtde")
+  end
+
+  def weight_gross
+    palletizing_pallet_products.joins(:product).sum("products.weight_gross * palletizing_pallet_products.qtde")
   end
 end
