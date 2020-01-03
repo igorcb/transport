@@ -16,7 +16,7 @@ module PalletizingPallets
           data = []
           index = 0
           @input_control.nfe_xmls.each do |nfe|
-            data[index] = {group_name: "Nº nfe: #{nfe.numero.to_i}", items: []}
+            data[index] = {group_name: "Nº nfe: #{nfe.numero.to_i} #{nfe.target_client.fantasia}" , items: []}
             nfe.item_input_controls.each do |item|
               product = item.product
               qtde_palletizing = @palletizing.palletizing_pallets.joins(:palletizing_pallet_products).where(:palletizing_pallet_products => {product_id: product.id, nfe_xml_id: nfe.id}).sum(:qtde)

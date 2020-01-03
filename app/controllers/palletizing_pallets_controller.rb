@@ -21,7 +21,6 @@ class PalletizingPalletsController < ApplicationController
   def show
     @pallet = @palletizing.palletizing_pallets.where(id: params[:id]).first
     @pallet_product = @pallet.palletizing_pallet_products
-    # @products = @pallet_product.map{|p| "#{p.product.cod_prod} #{p.product.descricao}  (#{p.qtde})" }
     @products = @pallet_product.map{|p| {cod_prod: p.product.cod_prod, descricao: p.product.descricao, qtde: p.qtde} }
     if @pallet.type_pallet != "leftover" and @palletizing.view_mode != "single"
       @nfes = @pallet_product.select("DISTINCT nfe_xml_id").map{|p| p.nfe_xml.numero }
