@@ -3,6 +3,7 @@
 <td><%= link_to input_control.driver.nome, input_control.driver if input_control.driver.present? %></td>
 <td><%= date_br input_control.date_scheduled %>&nbsp<%= time_br input_control.time_scheduled %></td>
 <td><%= date_br input_control.date_receipt %></td>
+<td><%= input_control.palletizing.status if input_control.palletizing.present? %></td>
 <td><%= input_control.palletized_status %></td>
 <td><%= input_control.quantity_pallets %></td>
 <td><%= truncate(input_control.status_name, length: 12) %></td>
