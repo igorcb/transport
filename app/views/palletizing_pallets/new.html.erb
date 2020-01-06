@@ -46,7 +46,10 @@
           <input type="hidden" name="qtdes[]" :value="product.qtde">
           <input type="hidden" name="types[]" :value="product.type">
         </div>
-        <div><%= submit_tag 'Salvar', class: "btn btn-primary", "@click": "submit" %></div>
+        <div>
+          <%= link_to 'Voltar', palletizing_palletizing_pallets_path(@palletizing) , class: "btn btn-default" %>
+          <%= submit_tag 'Salvar', class: "btn btn-primary", "@click": "submit" %>
+        </div>
       <% end %>
 
     </div>
@@ -57,7 +60,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Modal title</h4>
+          <h4 class="modal-title"></h4>
         </div>
         <div class="modal-body">
 
