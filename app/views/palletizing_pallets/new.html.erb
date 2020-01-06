@@ -46,7 +46,10 @@
           <input type="hidden" name="qtdes[]" :value="product.qtde">
           <input type="hidden" name="types[]" :value="product.type">
         </div>
-        <div><%= submit_tag 'Salvar', class: "btn btn-primary", "@click": "submit" %></div>
+        <div>
+          <%= link_to 'Voltar', palletizing_palletizing_pallets_path(@palletizing) , class: "btn btn-default" %>
+          <%= submit_tag 'Salvar', class: "btn btn-primary", "@click": "submit" %>
+        </div>
       <% end %>
 
     </div>
