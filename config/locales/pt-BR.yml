@@ -2,6 +2,11 @@ pt-BR:
   activerecord:
     attributes:
       enums:
+        palletizing_pallet:
+          type_pallet:
+            exclusive: "Exclusivo"
+            mixed: "Mix"
+            leftover: "Sobra"
         checkin:
           status:
             input: "Entrada"

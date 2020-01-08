@@ -27,6 +27,17 @@ class PalletizingPalletsController < ApplicationController
     end
   end
 
+  def print
+    @pallets  = @palletizing.palletizing_pallets
+    @pallets  = @palletizing.palletizing_pallets.where(id: params[:pallet]) if params[:pallet].present?
+    render layout: false
+  end
+
+  def read_pallet
+    
+  end
+
+
   def destroy
     @palletizing.palletizing_pallets.where(id: params[:id]).destroy_all
     redirect_to palletizing_palletizing_pallets_path(@palletizing)

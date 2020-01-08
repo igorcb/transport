@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   get 'palletizing_pallet_product/index'
 
   resources :palletizings do
-      resources :palletizing_pallets
+      resources :palletizing_pallets do
+        collection do
+          get :print
+        end
+      end
   end
 
   # resources :breakdown_nfe_xmls

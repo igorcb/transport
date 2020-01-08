@@ -1,0 +1,38 @@
+
+<div class="tags">
+  <% @pallets.each do |pallet| %>
+  <div class="tag">
+    <span>
+      <%= image_tag code128(pallet.number, margin: 0) %> <br>
+      <small><%= pallet.number %></small><br>
+      <p>
+        <big>
+          <strong><%= translate "activerecord.attributes.enums.palletizing_pallet.type_pallet.#{pallet.type_pallet}"  %></strong>
+        </big>
+        <br>
+        Rem. <%= @input_control.id %> <br>
+        <%= @input_control.driver.nome %> <br>
+      </p>
+    </span>
+  </div>
+  <% end %>
+</div>
+
+<style>
+.tags{
+  width:10cm;
+}
+.tag{
+  height: 10cm;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tag span{
+  text-align:center;
+}
+
+@media print {
+
+}
+</style>
