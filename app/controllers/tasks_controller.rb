@@ -112,6 +112,7 @@ class TasksController < ApplicationController
     if params[:users].present?
       params[:users].split(",").each do |id|
         UsersTasks.create!(task_id: params[:id], user_id: id)
+        Notification.create(recipient_id: id, actor: current_user, action: 'taskd', notifiable: @task)
         @task.send_email_employee
       end
     end
