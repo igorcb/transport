@@ -30,11 +30,13 @@ class PalletizingPalletsController < ApplicationController
   def print
     @pallets  = @palletizing.palletizing_pallets
     @pallets  = @palletizing.palletizing_pallets.where(id: params[:pallet]) if params[:pallet].present?
+
+    @company = Company.first
     render layout: false
   end
 
-  def read_pallet
-    
+  def query_pallet
+
   end
 
 

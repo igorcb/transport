@@ -3,16 +3,38 @@
   <% @pallets.each do |pallet| %>
   <div class="tag">
     <span>
-      <%= image_tag code128(pallet.number, margin: 0) %> <br>
-      <small><%= pallet.number %></small><br>
-      <p>
-        <big>
-          <strong><%= translate "activerecord.attributes.enums.palletizing_pallet.type_pallet.#{pallet.type_pallet}"  %></strong>
-        </big>
-        <br>
-        Rem. <%= @input_control.id %> <br>
-        <%= @input_control.driver.nome %> <br>
-      </p>
+      <table>
+        <tr>
+          <td>
+            <small>Rem. entr.:</small> <br>
+            <big style="font-size:24pt"><strong><%= @input_control.id %></strong></big>
+          </td>
+          <td>
+            <small style="text-align: right; display:block"><%= date_br(@input_control.date_receipt) %></small>
+            <small>tipo:</small> <br><big><strong><%= translate "activerecord.attributes.enums.palletizing_pallet.type_pallet.#{pallet.type_pallet}"  %></strong></big>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <big><strong><%= @company.fantasia %> - <%= @company.estado %></strong></big>  <br>
+            <%= @company.phone_first %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <small>Nfes:</small> <br>
+            <%= pallet.nfes %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <small>Cliente:</small> <br>
+            <%= pallet.target_client.first.titleize %>
+          </td>
+        </tr>
+      </table>
+      <%= image_tag code128(pallet.number, margin: 0, height: 30), style: "width: 9cm" %> <br>
+      <%= pallet.number %>
     </span>
   </div>
   <% end %>
@@ -30,6 +52,17 @@
 }
 .tag span{
   text-align:center;
+}
+.tag table{
+  width:100%;
+}
+.tag table{
+  border: 2px solid #000;
+  border-collapse: collapse;
+}
+
+.tag table td{
+  border: 2px solid #000;
 }
 
 @media print {

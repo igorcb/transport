@@ -1,7 +1,7 @@
 module BarcodeGeneratorHelper
   require 'barby'
   require 'barby/barcode/code_128'
-  require 'barby/barcode/ean_13'
+  require 'barby/barcode/code_39'
   require 'barby/outputter/png_outputter'
   require 'barby/outputter/html_outputter'
 
@@ -14,8 +14,8 @@ module BarcodeGeneratorHelper
     end
   end
 
-  def ean13 number, variable=nil
-    barcode = Barby::EAN13.new('1234')
+  def code39 number, variable=nil
+    barcode = Barby::Code39.new(number)
     if (variable.nil?)
       return barcode.to_image.to_data_url
     else
