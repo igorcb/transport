@@ -20,11 +20,7 @@ class PalletizingPalletsController < ApplicationController
 
   def show
     @pallet = @palletizing.palletizing_pallets.where(id: params[:id]).first
-    @pallet_product = @pallet.palletizing_pallet_products
-    @products = @pallet_product.map{|p| {cod_prod: p.product.cod_prod, descricao: p.product.descricao, qtde: p.qtde} }
-    if @pallet.type_pallet != "leftover" and @palletizing.view_mode != "single"
-      @nfes = @pallet_product.select("DISTINCT nfe_xml_id").map{|p| p.nfe_xml.numero }
-    end
+    @products = @pallet.palletizing_pallet_products.map{|p| {cod_prod: p.product.cod_prod, descricao: p.product.descricao, qtde: p.qtde} } if @pallet.present?
   end
 
   def print
@@ -36,6 +32,10 @@ class PalletizingPalletsController < ApplicationController
   end
 
   def query_pallet
+    @ean = params[:ean]
+    @request_items = request.base_url + "/palletizing_pallets/query_pallet/"
+    @pallet = PalletizingPallet.where(number: @ean).first
+    @products = @pallet.palletizing_pallet_products.map{|p| {cod_prod: p.product.cod_prod, descricao: p.product.descricao, qtde: p.qtde} } if @pallet.present?
 
   end
 
@@ -48,6 +48,6 @@ class PalletizingPalletsController < ApplicationController
   private
   def set_palletizing
     @palletizing = Palletizing.where(id: params[:palletizing_id]).first
-    @input_control = @palletizing.input_control
+    @input_control = @palletizing.input_control if @palletizing.present?
   end
 end

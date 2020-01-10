@@ -1,0 +1,9 @@
+<h1>Consultar palete</h1>
+
+<%= render 'input_barcode' %>
+
+<% if @pallet.present? %>
+  <div class="list">
+    <%= render "show" %>
+  </div>
+<% end %>

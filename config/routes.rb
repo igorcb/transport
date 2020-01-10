@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         end
       end
   end
+  match "/palletizing_pallets/query_pallet", :controller => "palletizing_pallets", :action => "query_pallet", via: [:get]
 
   # resources :breakdown_nfe_xmls
 
