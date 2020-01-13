@@ -1,0 +1,17 @@
+<h1>Paletização</h1>
+<ul id="result_input" class="list-group dashlist">
+  <% @palletizings.each do |palletizing| %>
+    <li>
+      <%= render 'static_pages/oper_input_control', input_control: palletizing.input_control %>
+      <p>Data de recebimento.: <strong><big><%= date_br(palletizing.input_control.date_entry) %></big></strong></p>
+      <p>Status: <b> <%= translate "activerecord.attributes.enums.palletizing.status.#{palletizing.status}"  %></b></p>
+      <p>Modo de visualização: <b> <%= translate "activerecord.attributes.enums.palletizing.view_mode.#{palletizing.view_mode}"  %></b></p>
+      <p>Nº paletes: <b> <%= palletizing.palletizing_pallets.count  %></b></p>
+
+      <p>
+        <%= link_to "Paletes", palletizing_palletizing_pallets_path(palletizing), class: "btn btn-primary" %>
+        <%= link_to "Imprimir", print_palletizing_palletizing_pallets_path(palletizing), class: "btn btn-info", target: "_blank" %>
+      </p>
+    </li>
+  <% end %>
+</ul>

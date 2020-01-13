@@ -2,6 +2,14 @@ pt-BR:
   activerecord:
     attributes:
       enums:
+        palletizing:
+          status:
+            started: "Iniciado"
+            finished: "Finalizado"
+          view_mode:
+            by_customer: "Por Cliente"
+            by_nfe: "Por NFE"
+            singles: "Avulso"
         palletizing_pallet:
           type_pallet:
             exclusive: "Exclusivo"

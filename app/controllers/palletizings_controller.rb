@@ -1,5 +1,10 @@
 class PalletizingsController < ApplicationController
   before_action :set_palletizing, only: [:new, :create]
+
+  def index
+    @palletizings = Palletizing.where(created_at: Date.today).or(Palletizing.where(status: :started))
+  end
+
   def new
   end
 
