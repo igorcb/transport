@@ -5,6 +5,20 @@ class PalletizingsController < ApplicationController
     @palletizings = Palletizing.where(created_at: Date.today).or(Palletizing.where(status: :started))
   end
 
+  def select_input_control
+    @input_controls = InputControl.includes(:driver).where(status: InputControl::TypeStatus::RECEIVED ).where("date_scheduled <= ? and date_scheduled > ?", Date.current, Date.current-30.day).order("id desc")
+  end
+
+  def view_mode_change
+    @palletizing = Palletizing.where(id: params[:id]).first
+    @input_control = @palletizing.input_control
+  end
+
+  def update_view_mode
+    palletizing = Palletizing.where(id: params[:id]).update(view_mode: params[:mode])
+    redirect_to palletizing_palletizing_pallets_path(palletizing)
+  end
+
   def new
   end
 
@@ -17,6 +31,11 @@ class PalletizingsController < ApplicationController
     palletizing = Palletizing.where(id: params[:id]).update(status: :finished)
     # render inline: palletizing.inspect.html_safe
     redirect_to palletizing_palletizing_pallets_path(palletizing)
+  end
+
+  def destroy
+    Palletizing.where(id: params[:id]).destroy_all
+    redirect_to palletizings_path
   end
 
   private

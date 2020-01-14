@@ -4,6 +4,13 @@ Rails.application.routes.draw do
   get 'palletizing_pallet_product/index'
 
   resources :palletizings do
+    collection do
+      get :select_input_control
+    end
+    member do
+      get :view_mode_change
+      patch :update_view_mode
+    end
       resources :palletizing_pallets do
         collection do
           get :print

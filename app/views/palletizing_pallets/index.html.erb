@@ -4,6 +4,7 @@
 
 <%= link_to "Novo palete", new_palletizing_palletizing_pallet_path(@palletizing), class: "btn btn-primary" if @palletizing.status == "started" %>
 <%= link_to "Imprimir", print_palletizing_palletizing_pallets_path(@palletizing), class: "btn btn-info", target: "_blank" %>
+<%= link_to "Todas as paletizações", palletizings_path, class: "btn btn-default"%>
 <br><br>
 
 <div class="panel panel-default">

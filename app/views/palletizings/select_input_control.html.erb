@@ -1,0 +1,14 @@
+<h1>Nova paletização</h1>
+<p>Escolha uma rem. de entrada</p>
+
+<ul id="result_input" class="list-group dashlist">
+  <% @input_controls.each do |input_control| %>
+  <li>
+    <%= date_br(input_control.date_scheduled) %> <br>
+    <%= render 'static_pages/oper_input_control', input_control: input_control %>
+    <p>Paletizado? <b><%= input_control.palletizing.present? ? "Sim": "Não" %></b></p>
+
+    <%= link_to "Paletizar", new_input_control_palletizing_path(input_control), class: "btn btn-primary", disabled: input_control.palletizing.present?, onclick: "return #{!input_control.palletizing.present?}" %>
+  </li>
+  <% end %>
+</ul>
