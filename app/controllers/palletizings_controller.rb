@@ -2,7 +2,8 @@ class PalletizingsController < ApplicationController
   before_action :set_palletizing, only: [:new, :create]
 
   def index
-    @palletizings = Palletizing.where(created_at: Date.today).or(Palletizing.where(status: :started))
+    @palletizings = Palletizing.where(created_at: Date.today).or(Palletizing.where(status: :started)) if current_user.has_role? :sup
+    @palletizings = Palletizing.where("created_at < ? and created_at > ?", Date.today, Date.today - 30.day).or(Palletizing.where(status: :started)) if current_user.has_role? :admin
   end
 
   def select_input_control

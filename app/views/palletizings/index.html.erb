@@ -1,48 +1,12 @@
 <h1>Paletização</h1>
 <%= link_to "Nova paletização", select_input_control_palletizings_path,  class: "btn btn-primary" %>
+
 <ul id="result_input" class="list-group dashlist">
   <% @palletizings.each do |palletizing| %>
-    <li>
-      <%= render 'static_pages/oper_input_control', input_control: palletizing.input_control %>
-      <div class="more">
-        <a href="#" class="show-more">Mais...</a>
-        <div class="content-more">
-          <p>Data de recebimento.: <strong><big><%= date_br(palletizing.input_control.date_entry) %></big></strong></p>
-          <p>Status: <b> <%= translate "activerecord.attributes.enums.palletizing.status.#{palletizing.status}"  %></b></p>
-          <p>Modo de visualização: <b> <%= translate "activerecord.attributes.enums.palletizing.view_mode.#{palletizing.view_mode}"  %></b></p>
-          <p>Nº paletes: <b> <%= palletizing.palletizing_pallets.count  %></b></p>
-          <a href="#" class="hide-more">Menos...</a>
-        </div>
-      </div>
-      <br>
-
-      <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Ações
-          <i class="fas fa-caret-down"></i>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><%= link_to "Ver paletes", palletizing_palletizing_pallets_path(palletizing) %></li>
-          <li><%= link_to "Imprimir todos os paletes", print_palletizing_palletizing_pallets_path(palletizing), target: "_blank" %></li>
-          <% if current_user.has_role? :admin %>
-          <li role="separator" class="divider"></li>
-          <li><%= link_to "Alterar modo de visual.", view_mode_change_palletizing_path(palletizing) %></li>
-          <li role="separator" class="divider"></li>
-          <li><%= link_to raw("<i class=\"fas fa-times\"></i> Apagar"), palletizing_path(palletizing), data: { method: "delete", confirm: 'Deseja apagar este registro?'} %></li>
-          <% end %>
-        </ul>
-      </div>
-
-      <p>
-
-
-
-
-
-      </p>
-    </li>
+    <%= render 'list', palletizing: palletizing %>
   <% end %>
 </ul>
+
 
 <script>
   $(".more .content-more").hide()
