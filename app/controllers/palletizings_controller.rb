@@ -2,7 +2,7 @@ class PalletizingsController < ApplicationController
   before_action :set_palletizing, only: [:new, :create]
 
   def index
-    @palletizings = Palletizing.where(created_at: Date.today).or(Palletizing.where(status: :started)) if current_user.has_role? :sup
+    @palletizings = Palletizing.where(created_at: Date.today).or(Palletizing.where(status: :started))
     @palletizings = Palletizing.where("created_at < ? and created_at > ?", Date.today, Date.today - 30.day).or(Palletizing.where(status: :started)) if current_user.has_role? :admin
   end
 
@@ -24,7 +24,7 @@ class PalletizingsController < ApplicationController
   end
 
   def create
-    palletizing = Palletizing.create!(view_mode: params[:mode], status: :started, input_control_id: params[:input_control_id])
+    palletizing = Palletizing.create!(view_mode: params[:mode], status: :started, input_control_id: params[:input_control_id], user_created_id: current_user.id)
     redirect_to palletizing_palletizing_pallets_path(palletizing)
   end
 
