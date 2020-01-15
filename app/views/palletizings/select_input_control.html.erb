@@ -1,6 +1,7 @@
 <h1>Nova paletização</h1>
 <p>Escolha uma rem. de entrada</p>
-
+<%= link_to "Voltar", palletizings_path,  class: "btn btn-default" %>
+<br><br>
 <ul id="result_input" class="list-group dashlist">
   <% @input_controls.each do |input_control| %>
   <li>

@@ -1,5 +1,7 @@
 <h1>Consultar palete</h1>
 
+<%= link_to "Voltar", palletizings_path,  class: "btn btn-default" %>
+<br><br>
 <%= render 'input_barcode' %>
 
 <% if @pallet.present? %>
