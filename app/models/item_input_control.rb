@@ -2,6 +2,7 @@ class ItemInputControl < ActiveRecord::Base
   belongs_to :input_control, required: true
   belongs_to :product, required: true
   validates :number_nfe, presence: true
+  #validates :input_control_id, uniqueness: { scope: [:nfe_xml_id, :product_id ]  }
 
   def qtde_pallets
     result = qtde.divmod(product.box_by_pallet)
