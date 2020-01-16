@@ -13,7 +13,7 @@ module PalletizingPallets
 
 	    begin
         ActiveRecord::Base.transaction do
-          nfe_xml_clientes = NfeXml.joins(:target_client).where(nfe_type: "InputControl", nfe_id: @input_control.id)
+          nfe_xml_clientes = NfeXml.joins(:target_client).where(nfe_type: "InputControl", nfe_id: @input_control.id).order(:target_client_id)
           data = []
           index = 0
           nfe_xml_clientes.each do |nfe|
