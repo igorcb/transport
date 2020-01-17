@@ -21,12 +21,12 @@ class EmployeesController < ApplicationController
   # GET /employees/new
   def new
     @employee = Employee.new
-    @employee.contacts.build
-    @employee.emails.build
-    @employee.assets.build
-    @employee.table_prices.build
-    @employee.specialty_employees.build
-    @employee.account_banks.build
+    # @employee.contacts.build
+    # @employee.emails.build
+    # @employee.assets.build
+    # @employee.table_prices.build
+    # @employee.specialty_employees.build
+    # @employee.account_banks.build
   end
 
   # GET /employees/1/edit
