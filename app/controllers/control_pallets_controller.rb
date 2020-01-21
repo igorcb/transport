@@ -3,6 +3,19 @@ class ControlPalletsController < ApplicationController
 
   respond_to :html
 
+  def type_responsible_select
+    type_id = params[:type_id]
+    case type_id
+      when "Supplier" then suppliers = Supplier.order('nome')
+      when "Driver" then suppliers = Driver.order('nome')
+      when "Client" then suppliers = Client.order('nome')
+      when "Employee" then suppliers = Employee.order('nome')
+      when "Carrier" then suppliers = Carrier.order('nome')
+    end
+
+    @suppliers = suppliers.map { |c| [c.nome, c.id] }.insert(0, 'Selecione o Fornecedor')
+  end
+
   def selection_pallet
     @control_pallets = ControlPallet.not_generate_ordem_service.open_entry
   end
@@ -35,8 +48,6 @@ class ControlPalletsController < ApplicationController
 
   def create
     @control_pallet = ControlPallet.new(control_pallet_params)
-    source_client  = Client.find_by_cpf_cnpj(params[:source_client_cpf_cpnj])
-    @control_pallet.client_id = source_client.id if source_client.present?
     respond_to do |format|
       if @control_pallet.save
         format.html { redirect_to @control_pallet, flash: { success: "Pallet was successfully created." } }
@@ -72,7 +83,8 @@ class ControlPalletsController < ApplicationController
     end
 
     def control_pallet_params
-      params.require(:control_pallet).permit(:data, :qte, :tipo, :historico, :nfe, :nfd, :nfe_original, :nfd_original, :client_id, :carrier_id, :ids)
+      params.require(:control_pallet).permit(:data, :qte, :tipo, :historico, :responsible_type, :responsible_id)
+      #, :type_select_responsible
     end
 
     def render_print_pallet(control_pallet)

@@ -1,13 +1,16 @@
 
 <p>
-  <strong>Client:</strong>
-  <%= @control_pallet.client.nome %>
+  <strong>Tipo:</strong>
+  <%= @control_pallet.responsible_type %>
+  <br>
+  <strong>Responsável:</strong>
+  <%= @control_pallet.responsible_id %>: <%= @control_pallet.responsible.nome %>
 </p>
 
-<p>
+<!-- <p>
   <strong>Saldo de Palletes para este client:</strong>
-  <%= ControlPallet.saldo(@control_pallet.client.id) %>
-</p>
+  <%#= ControlPallet.saldo(@control_pallet.client.id) %>
+</p> -->
 
 <p>
   <strong>Data:</strong>
@@ -15,8 +18,8 @@
 </p>
 
 <p>
-  <strong>Transportador:</strong>
-  <%= @control_pallet.carrier.nome if @control_pallet.carrier.present? %>
+  <strong>Tipo de Produto:</strong>
+  <%= @control_pallet.type_product %>
 </p>
 
 <p>
@@ -26,7 +29,7 @@
 
 <p>
   <strong>Tipo:</strong>
-  <%= @control_pallet.credito_debito %>
+  <%= @control_pallet.tipo %>
 </p>
 
 <p>
@@ -34,29 +37,9 @@
   <%= @control_pallet.historico %>
 </p>
 
-<p>
-  <strong>Nfe:</strong>
-  <%= @control_pallet.nfe %>
-</p>
-
-<p>
-  <strong>Nfe Original:</strong>
-  <%= @control_pallet.nfe_original %>
-</p>
-
-<p>
-  <strong>Nfd:</strong>
-  <%= @control_pallet.nfd %>
-</p>
-
-
-<p>
-  <strong>NFD Original:</strong>
-  <%= @control_pallet.nfd_original %>
-</p>
 
 
 <div class="form-group">
-  <%= link_to 'Editar', edit_control_pallet_path(@control_pallet), class: "btn btn-blue" %> 
+  <%= link_to 'Editar', edit_control_pallet_path(@control_pallet), class: "btn btn-blue" %>
   <%= link_to 'Voltar', control_pallets_path, class: "btn btn-default" %>
 </div>

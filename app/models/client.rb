@@ -30,6 +30,8 @@ class Client < ActiveRecord::Base
   has_many :pallets
   has_many :account_payables, class_name: "AccountPayable", foreign_key: "supplier_id"
 
+  has_many :control_pallets, class_name: "ControlPallet", foreign_key: "responsible_id"
+
   has_many :assets, as: :asset, dependent: :destroy
   accepts_nested_attributes_for :assets, allow_destroy: true, reject_if: :all_blank
 

@@ -1,43 +1,38 @@
 <div class="panel panel-default">
   <div class="panel-heading">Listagem de Controle de Pallets</div>
   <div class="panel-body">
-    <strong> Saldo: <%= ControlPallet.saldo %> </strong>
-    <%#= link_to 'Novo Pallets', new_control_pallet_path, class: "btn btn-blue btn-lg btn-block" %>
+    <%= link_to 'Novo Pallets', new_control_pallet_path, class: "btn btn-blue btn-lg btn-block" %>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Client</th>
+            <th>Tipo</th>
+            <th>Responsavel</th>
             <th>Data</th>
             <th>Qte</th>
             <th>Tipo</th>
-            <th>Transp.</th>
             <th>Historico</th>
-            <th>NF-e</th>
-            <th>NF-d</th>
             <th>Status</th>
             <th colspan="3">Opções</th>
           </tr>
         </thead>
- 
+
         <tbody>
-          <% @control_pallets.each do |pallet| %>
+          <% @control_pallets.each do |control_pallet| %>
             <tr>
-              <td><%= pallet.client.nome %></td>
-              <td><%= date_br pallet.data %></td>
-              <td><%= pallet.qte %></td>
-              <td><%= pallet.credito_debito %></td>
-              <td><%= pallet.carrier.nome if pallet.carrier.present? %></td>
-              <td><%= pallet.historico %></td>
-              <td><%= pallet.nfe %></td>
-              <td><%= pallet.nfd %></td>
-              <td><%= link_to 'Show', pallet, class: "btn btn-info btn-xs" %></td>
-              <td><%= link_to 'Edit', edit_control_pallet_path(pallet), class: "btn btn-blue btn-xs" %></td>
-              <td><%= link_to 'Print', print_control_pallet_path(pallet, format: 'pdf'), class: "btn btn-default btn-xs" %></td>
+              <td><%= control_pallet.responsible_type %></td>
+              <td><%= control_pallet.responsible.nome %></td>
+              <td><%= date_br control_pallet.data %></td>
+              <td><%= control_pallet.qte %></td>
+              <td><%= control_pallet.tipo %></td>
+              <td><%= control_pallet.historico %></td>
+              <td><%= link_to 'Show', control_pallet, class: "btn btn-info btn-xs" %></td>
+              <td><%= link_to 'Edit', edit_control_pallet_path(control_pallet), class: "btn btn-blue btn-xs" %></td>
+              <td><%#= link_to 'Print', print_control_pallet_path(pallet, format: 'pdf'), class: "btn btn-default btn-xs" %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
-    </div>    
+    </div>
   </div>
 </div>

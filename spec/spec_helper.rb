@@ -1,4 +1,5 @@
 require 'place_helper'
+require 'rspec/active_model/mocks'
 
 RSpec.configure do |config|
   config.include PlaceHelper

@@ -89,7 +89,7 @@ group :test do
   # gem "factory_bot_rails"
   # gem "ffaker"
   gem 'rspec-sidekiq'
-
+  gem 'rails-controller-testing'
 end
 
 group :development, :test do
@@ -105,6 +105,8 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'rspec-collection_matchers'
+  gem 'rspec-mocks'
+  gem 'rspec-activemodel-mocks'
 end
 
 group :development do

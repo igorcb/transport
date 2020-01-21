@@ -6,5 +6,6 @@ class Palletizing < ApplicationRecord
 
   enum view_mode: [:by_customer, :by_nfe, :single]
   enum status: [:started, :finished]
+  enum type_product: [:pallet, :chapatex, :big_bag]
 
 end
