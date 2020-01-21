@@ -2,45 +2,44 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="form-group">
-    <%#= f.label :client_id %><br>
-    <%#= f.select(:client_id, Client.order(:nome).collect {|g| [g.nome, g.id]}, {include_blank: "Informe o Cliente"}, {class: "form-control"} ) %>
+    <%= f.label :responsible_type, "Tipo" %><br>
+    <%#= f.select( :type_select_responsible, select_select_responsible, {include_blank: true}, {class: "form-control", id: "controlPalletTypeResponsible"} )%>
+    <%= f.select :responsible_type, ControlPallet.responsible_types, {prompt: 'SELECIONE UM TIPO DE RESPONSAVEL'}, {class: "form-control", id: "controlPalletTypeResponsible"} %>
   </div>
 
   <div class="form-group">
-    <%= label_tag :source_client_cpf_cpnj, "CNPJ Remetente" %><br>
-    <% if @control_pallet.new_record? %>
-      <%= text_field_tag :source_client_cpf_cpnj, nil, class: "form-control cnpj" %>
+    <%= f.label :supplier_id, "Responsável" %>
+    <% if @control_pallet.type_select_responsible.present? %>
+      <%= f.collection_select :responsible_id, type_account_select(@control_pallet.responsible_type  ), :id, :nome, {prompt: "SELECIONE SUB CENTRO DE CUSTO"}, {class: "form-control"} %>
     <% else %>
-      <%= text_field_tag :source_client_cpf_cpnj, @control_pallet.client.cpf_cnpj, class: "form-control cnpj", disabled: true %>
-      <%= render partial: "clients/result_client", locals: { client: @control_pallet.client } %>
+      <%= f.collection_select :responsible_id, [], :id, :nome,  {prompt: "SELECT O FORNECEDOR"}, {class: "form-control"}  %>
     <% end %>
   </div>
-  
-  
-  <div id="source_client_cnpj_result">
 
-  </div>    
-  
+  <div id="div_result_person">
+
+  </div>
+
   <div class="form-group">
     <%= f.label :data  %><br />
     <%= f.text_field :data, class: "form-control data", value: date_br(@control_pallet.data)  %>
   </div>
-  
+
   <div class="form-group">
-    <%= f.label :carrier_id, "Transportador" %><br>
-    <%= f.select(:carrier_id, Carrier.order(:nome).collect {|c| [c.nome, c.id]}, {include_blank: true}, {class: "form-control"} ) %>
+    <%= f.label :type_product, "Tipo de Produto" %><br>
+    <%= f.select( :tipo, ControlPallet.type_products.keys.to_a, {include_blank: false}, {class: "form-control"} )%>
   </div>
 
   <div class="form-group">
     <%= f.label :qte %><br>
     <%= f.number_field :qte, class: "form-control" %>
   </div>
-  
+
   <div class="form-group">
     <%= f.label :tipo %><br>
-    <%= f.select( :tipo, select_credito_debito_pallets, {include_blank: false}, {class: "form-control"} )%>
+    <%= f.select( :tipo, ControlPallet.tipos.keys.to_a, {include_blank: false}, {class: "form-control"} )%>
   </div>
-  
+
   <div class="form-group">
     <%= f.label :historico %><br>
     <%= f.text_field :historico, class: "form-control" %>
@@ -58,25 +57,25 @@
 -->
   <div class="row">
     <div class="col-xs-2">
-      <%= f.label :nfe %><br>
-      <%= f.text_field :nfe, class: "form-control input-sm numericOnly", placeholder: "Nfe"  %>
+      <%#= f.label :nfe %><br>
+      <%#= f.text_field :nfe, class: "form-control input-sm numericOnly", placeholder: "Nfe"  %>
     </div>
 
     <div class="col-xs-4">
-      <%= f.label :nfe, "Chave NF-e" %><br>
-      <%= f.text_field :nfe_original, maxlength: 44, class: "form-control input-sm", placeholder: "Chave NF-e"  %>
+      <%#= f.label :nfe, "Chave NF-e" %><br>
+      <%#= f.text_field :nfe_original, maxlength: 44, class: "form-control input-sm", placeholder: "Chave NF-e"  %>
     </div>
   </div>
 
   <div class="row">
     <div class="col-xs-2">
-      <%= f.label :nfd %><br>
-      <%= f.text_field :nfd, class: "form-control input-sm numericOnly", placeholder: "Nfe"  %>
+      <%#= f.label :nfd %><br>
+      <%#= f.text_field :nfd, class: "form-control input-sm numericOnly", placeholder: "Nfe"  %>
     </div>
 
     <div class="col-xs-4">
-      <%= f.label :nfd_original, "Chave NFd" %><br>
-      <%= f.text_field :nfd_original, class: "form-control input-sm", placeholder: "Chave NFd"   %>
+      <%#= f.label :nfd_original, "Chave NFd" %><br>
+      <%#= f.text_field :nfd_original, class: "form-control input-sm", placeholder: "Chave NFd"   %>
     </div>
   </div>
 
