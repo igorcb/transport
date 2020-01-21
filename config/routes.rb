@@ -4,8 +4,20 @@ Rails.application.routes.draw do
   get 'palletizing_pallet_product/index'
 
   resources :palletizings do
-      resources :palletizing_pallets
+    collection do
+      get :select_input_control
+    end
+    member do
+      get :view_mode_change
+      patch :update_view_mode
+    end
+      resources :palletizing_pallets do
+        collection do
+          get :print
+        end
+      end
   end
+  match "/palletizing_pallets/query_pallet", :controller => "palletizing_pallets", :action => "query_pallet", via: [:get]
 
   # resources :breakdown_nfe_xmls
 

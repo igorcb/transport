@@ -1,6 +1,7 @@
 <h1>Iniciando a paletização</h1>
 <p>agora escolha qual modo de visualização de ítens você deseja</p>
 
+
 <style media="screen">
   .btn{
     width:150px;
@@ -27,4 +28,8 @@
 <p>
   <%= link_to "Ítens avulsos", input_control_palletizings_path(@input_control, mode: "single"), class: "btn btn-default", style: "background:#7494aa", data: {method: :post} %>
   <small>Os ítens serão apresentados sem sepação</small>
+</p>
+
+<p>
+  <%= link_to "cancelar", palletizings_path, class: "btn btn-default", style: "color:#000" %>
 </p>

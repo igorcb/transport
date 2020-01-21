@@ -1,4 +1,4 @@
 
-<p><strong>Rem. Entr.: </strong><span><%= input_control.id %></span></p>
-<p><strong>Motorista: <%= input_control.driver.nome %> <big style="font-size:2em"><%= input_control.driver_checkin?.present? ? raw('<i class="fas fa-check text-success"></i>') : raw('<i class="fas fa-times text-danger"></i>') %></big></strong><span></span></p>
-<p><strong>Trasportadora.: </strong><span><%= input_control.carrier.nome %></span></p>
+<p>Rem. Entr.: <b><%= input_control.id %></b><br>
+Motor.: <b><%= input_control.driver.nome.titleize.truncate(30) %> <%= input_control.driver_checkin?.present? ? raw('<i class="fas fa-check text-success"></i>') : raw('<i class="fas fa-times text-danger"></i>') %></b><span></span><br>
+Trasp.: <b><%= input_control.carrier.nome.titleize.truncate(30) %></b><br>
