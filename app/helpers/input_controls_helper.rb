@@ -94,6 +94,11 @@ module InputControlsHelper
         end
       end
     end
+
+    if input_control.status == InputControl::TypeStatus::RECEIVED
+      return link_to "Iniciar paletização", new_input_control_palletizing_path(input_control), {class: "btn btn-info btn-xs"} if input_control.palletizing.nil? || input_control.palletizing.status == "started"
+    end
+
   end
 
 

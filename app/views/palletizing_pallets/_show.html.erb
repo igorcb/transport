@@ -1,0 +1,19 @@
+<%= show_line_build @pallet.number, "Number" %>
+<%= show_line_build @pallet.qtde_sku, "Qtde SKU" %>
+<%= show_line_build @pallet.qtde_items, "Qtde Produtos" %>
+<%= show_line_build number_with_precision(@pallet.weight_liquid, precision: 3, separator: ',', delimiter: '.'), "Peso liquido" %>
+<%= show_line_build number_with_precision(@pallet.weight_gross, precision: 3, separator: ',', delimiter: '.'), "Peso bruto" %>
+<%= show_line_build translate("activerecord.attributes.enums.palletizing_pallet.type_pallet.#{@pallet.type_pallet}"), "Type" %>
+<%= show_line_build @pallet.target_client.first, "Cliente" %>
+<% if @pallet.type_pallet != "leftover" and @pallet.palletizing.view_mode != "single" %>
+  <%= show_line_build @pallet.nfes.join("<br>").html_safe, "NFEs" %>
+<% end %>
+
+<div class='row'>
+  <div class='col-md-3'><strong> Produtos :</strong></div>
+  <div class='col-md-8'>
+    <% @products.each do |p| %>
+    <%= p[:cod_prod] %> <%= p[:descricao] %> (<%= p[:qtde] %>) <br>
+    <% end %>
+  </div>
+</div>

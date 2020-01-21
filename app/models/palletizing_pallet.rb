@@ -18,4 +18,12 @@ class PalletizingPallet < ApplicationRecord
   def weight_gross
     palletizing_pallet_products.joins(:product).sum("products.weight_gross * palletizing_pallet_products.qtde")
   end
+
+  def nfes
+    palletizing_pallet_products.select("DISTINCT nfe_xml_id").map{|p| p.nfe_xml.numero }
+  end
+
+  def target_client
+    palletizing_pallet_products.select("DISTINCT nfe_xml_id").map{|p| p.nfe_xml.target_client.fantasia }
+  end
 end

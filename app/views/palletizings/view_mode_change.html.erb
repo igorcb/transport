@@ -1,0 +1,35 @@
+<h1>Alterar modo de visualização</h1>
+<p>Agora escolha qual modo de visualização de ítens você deseja</p>
+
+<style media="screen">
+  .btn{
+    width:150px;
+    color: white;
+  }
+  .btn:hover, .btn:active{
+    color: #EEE !important;
+  }
+</style>
+
+
+<%= render 'static_pages/oper_input_control', input_control: @input_control %>
+<p>
+  <%= link_to "Ítens por clientes", update_view_mode_palletizing_path(@palletizing, mode: "by_customer"), class: "btn btn-default", style: "background:#49499e", data: {method: :patch} %>
+  <small>Os ítens serão apresentados separados por cliente</small>
+</p>
+
+
+<p>
+  <%= link_to "Ítens por nota", update_view_mode_palletizing_path(@palletizing, mode: "by_nfe"), class: "btn btn-default", style: "background:#9d56a7", data: {method: :patch} %>
+  <small>Os ítens serão apresentados separados por nota</small>
+</p>
+
+
+<p>
+  <%= link_to "Ítens avulsos", update_view_mode_palletizing_path(@palletizing, mode: "single"), class: "btn btn-default", style: "background:#7494aa", data: {method: :patch} %>
+  <small>Os ítens serão apresentados sem sepação</small>
+</p>
+
+<p>
+  <%= link_to "cancelar", palletizings_path, class: "btn btn-default", style: "color:#000" %>
+</p>

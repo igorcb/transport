@@ -3,6 +3,8 @@
 
 
 <%= link_to "Novo palete", new_palletizing_palletizing_pallet_path(@palletizing), class: "btn btn-primary" if @palletizing.status == "started" %>
+<%= link_to "Imprimir", print_palletizing_palletizing_pallets_path(@palletizing), class: "btn btn-info", target: "_blank" %>
+<%= link_to "Todas as paletizações", palletizings_path, class: "btn btn-default"%>
 <br><br>
 
 <div class="panel panel-default">
@@ -38,11 +40,12 @@
             <tr>
               <td><%= i %></td>
               <td><%= pallet.number %></td>
-              <td><%= pallet.type_pallet %></td>
+              <td> <%= translate "activerecord.attributes.enums.palletizing_pallet.type_pallet.#{pallet.type_pallet}"  %></td>
               <td><%= pallet.qtde_sku %></td>
               <td><%= pallet.qtde_items %></td>
               <td>
                 <%= link_to raw("<i class=\"fas fa-eye\"></i>"), palletizing_palletizing_pallet_path(@palletizing, pallet), class: "btn btn-sm btn-info" %>
+                <%= link_to raw("<i class=\"fas fa-print\"></i>"), print_palletizing_palletizing_pallets_path(@palletizing, pallet: pallet.id), class: "btn btn-sm btn-warning", target: "_blank" %>
                 <%= link_to raw("<i class=\"fas fa-times\"></i>"), palletizing_palletizing_pallet_path(@palletizing, pallet), class: "btn btn-sm btn-danger delete", data: { method: "delete", confirm: 'Deseja apagar este registro?'} if @palletizing.status == "started" %>
               </td>
             </tr>

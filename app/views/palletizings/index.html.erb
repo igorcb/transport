@@ -1,0 +1,25 @@
+<h1>Paletização</h1>
+<%= link_to "Nova paletização", select_input_control_palletizings_path,  class: "btn btn-primary" %>
+<%= link_to raw("<i class=\"fas fa-search\"></i> Consultar"), palletizing_pallets_query_pallet_path,  class: "btn btn-info" %>
+
+<ul id="result_input" class="list-group dashlist">
+  <% @palletizings.each do |palletizing| %>
+    <%= render 'list', palletizing: palletizing %>
+  <% end %>
+</ul>
+
+
+<script>
+  $(".more .content-more").hide()
+  $(document).on("click", ".more .show-more", function(){
+    $(this).parents(".more").find(".content-more").show(400)
+    $(this).hide()
+    return false
+  })
+
+  $(document).on("click", ".more .hide-more", function(){
+    $(this).parents(".more").find(".content-more").hide(400)
+    $(this).parents(".more").find(".show-more").show()
+    return false
+  })
+</script>
