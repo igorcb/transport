@@ -28,7 +28,7 @@ module BreakdownNfeXmls
                 data.push({nfe_xml_id: item_input_control.nfe_xml_id, avarias:  avarias_qtde, input_control_id: @input_control.id, product_id: product.id, type_breakdown: :primeira_perna_l7, unid_medida: item_input_control.unid_medida})
                 break
               else
-                data.push({nfe_xml_id: conference_breakdown.nfe_xml_id, avarias:  item_input_control.qtde.to_i, input_control_id: @input_control.id, product_id: product.id, type_breakdown: :primeira_perna_l7, unid_medida: item_input_control.unid_medida})
+                data.push({nfe_xml_id: item_input_control.nfe_xml_id, avarias:  item_input_control.qtde.to_i, input_control_id: @input_control.id, product_id: product.id, type_breakdown: :primeira_perna_l7, unid_medida: item_input_control.unid_medida})
                 avarias_qtde = (item_input_control.qtde.to_i - avarias_qtde) * -1
               end
             end
