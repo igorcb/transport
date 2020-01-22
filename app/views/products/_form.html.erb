@@ -11,7 +11,7 @@
   </div>
   <div class="form-group">
     <%= f.label :cubagem %><br>
-    <%= f.text_field :cubagem, class: "form-control"  %>
+    <%= f.text_field :cubagem, value: number_to_currency(@product.cubagem, unit: "", separator: ".", delimiter: "", precision: 3),  class: "form-control size"  %>
   </div>
 
   <div class="form-group">
@@ -54,23 +54,23 @@
 
   <div class="form-group">
     <%= f.label :valor_unitario %><br>
-    <%= f.text_field :valor_unitario, class: "form-control" %>
+    <%= f.text_field :valor_unitario, value: number_to_currency(@product.width, unit: "", separator: ".", delimiter: "", precision: 3),  class: "form-control size" %>
     <%#= f.text_field :valor_unitario, value: number_to_currency(@product.width, unit: "", separator: ",", delimiter: "."),  class: "form-control "  %>
   </div>
 
   <div class="form-group">
     <%= f.label :width, "Largura" %><br>
-    <%= f.text_field :width, value: number_to_human(@product.width, unit: "", separator: ",", delimiter: "."), class: "form-control money3"  %>
+    <%= f.text_field :width, value: number_to_currency(@product.width, unit: "", separator: ".", delimiter: "", precision: 3), class: "form-control size"  %>
   </div>
 
   <div class="form-group">
     <%= f.label :length, "Comprimento" %><br>
-    <%= f.text_field :length, value: number_to_human(@product.length, unit: "", separator: ",", delimiter: "."), class: "form-control money3"  %>
+    <%= f.text_field :length,  value: number_to_currency(@product.length, unit: "", separator: ".", delimiter: "", precision: 3), class: "form-control size"  %>
   </div>
 
   <div class="form-group">
     <%= f.label :height, "Altura" %><br>
-    <%= f.text_field :height, value: number_to_human(@product.height, unit: "", separator: ",", delimiter: "."), class: "form-control money3"  %>
+    <%= f.text_field :height,  value: number_to_currency(@product.height, unit: "", separator: ".", delimiter: "", precision: 3),  class: "form-control size"  %>
   </div>
 
   <div class="form-group">
@@ -80,12 +80,12 @@
 
   <div class="form-group">
     <%= f.label :weight_liquid, "Peso Liquido" %><br>
-    <%= f.text_field :weight_liquid, value: number_to_human(@product.weight_liquid, unit: "", separator: ",", delimiter: "."), class: "form-control"  %>
+    <%= f.text_field :weight_liquid,  value: number_to_currency(@product.weight_liquid, unit: "", separator: ".", delimiter: "", precision: 3), class: "form-control size"  %>
   </div>
 
   <div class="form-group">
     <%= f.label :weight_gross, "Peso Bruto" %><br>
-    <%= f.text_field :weight_gross, value: number_to_human(@product.height, unit: "", separator: ",", delimiter: "."), class: "form-control"  %>
+    <%= f.text_field :weight_gross,  value: number_to_currency(@product.weight_gross, unit: "", separator: ".", delimiter: "", precision: 3), class: "form-control size"  %>
   </div>
 
   <div class="form-group">
@@ -105,3 +105,9 @@
   </div>
 
 <% end %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+  $(function() {
+    $('.size').maskMoney({precision:3, thousands: ''});
+  })
+</script>
