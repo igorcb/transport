@@ -31,6 +31,14 @@ class PalletizingPalletsController < ApplicationController
     render layout: false
   end
 
+  # def print
+  #   @pallets  = @palletizing.palletizing_pallets
+  #   @pallets  = @palletizing.palletizing_pallets.where(id: params[:pallet]) if params[:pallet].present?
+  #
+  #   @company = Company.first
+  #   render layout: false
+  # end
+
   def query_pallet
     @ean = params[:ean]
     @request_items = request.base_url + "/palletizing_pallets/query_pallet/"

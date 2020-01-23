@@ -26,16 +26,6 @@
             <%= pallet.nfes %>
           </td>
         </tr>
-
-        <tr>
-          <td colspan="2">
-            <small>Produtos:</small> <br>
-            <% pallet.products.each do |product| %>
-              <%= product.cod_prod %> <%= product.descricao.truncate(30) %> <br>
-            <% end %>
-          </td>
-        </tr>
-
         <tr>
           <td colspan="2">
             <small>Cliente:</small> <br>
