@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
 
+  resources :devolutions
   get 'palletizing_pallet_product/index'
 
   resources :palletizings do

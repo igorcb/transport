@@ -1,0 +1,412 @@
+<%= form_with(model: devolution, local: true) do |form| %>
+  <% if devolution.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(devolution.errors.count, "error") %> prohibited this devolution from being saved:</h2>
+
+      <ul>
+      <% devolution.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :carrier_id %>
+    <%= form.text_field :carrier_id, id: :devolution_carrier_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :references, %>
+    <%= form.text_field :references,, id: :devolution_references, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :driver_id %>
+    <%= form.text_field :driver_id, id: :devolution_driver_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :references, %>
+    <%= form.text_field :references,, id: :devolution_references, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :billing_client_id %>
+    <%= form.text_field :billing_client_id, id: :devolution_billing_client_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :references, %>
+    <%= form.text_field :references,, id: :devolution_references, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :place %>
+    <%= form.text_field :place, id: :devolution_place %>
+  </div>
+
+  <div class="field">
+    <%= form.label :string, %>
+    <%= form.text_field :string,, id: :devolution_string, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :place_horse %>
+    <%= form.text_field :place_horse, id: :devolution_place_horse %>
+  </div>
+
+  <div class="field">
+    <%= form.label :string, %>
+    <%= form.text_field :string,, id: :devolution_string, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :place_cart_1 %>
+    <%= form.text_field :place_cart_1, id: :devolution_place_cart_1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :string, %>
+    <%= form.text_field :string,, id: :devolution_string, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_entry %>
+    <%= form.text_field :date_entry, id: :devolution_date_entry %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date, %>
+    <%= form.text_field :date,, id: :devolution_date, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time_entry %>
+    <%= form.text_field :time_entry, id: :devolution_time_entry %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time, %>
+    <%= form.text_field :time,, id: :devolution_time, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_receipt %>
+    <%= form.text_field :date_receipt, id: :devolution_date_receipt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date, %>
+    <%= form.text_field :date,, id: :devolution_date, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_closing %>
+    <%= form.text_field :date_closing, id: :devolution_date_closing %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date, %>
+    <%= form.text_field :date,, id: :devolution_date, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_scheduled %>
+    <%= form.text_field :date_scheduled, id: :devolution_date_scheduled %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date, %>
+    <%= form.text_field :date,, id: :devolution_date, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time_scheduled %>
+    <%= form.text_field :time_scheduled, id: :devolution_time_scheduled %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time, %>
+    <%= form.text_field :time,, id: :devolution_time, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :motive_scheduled %>
+    <%= form.text_field :motive_scheduled, id: :devolution_motive_scheduled %>
+  </div>
+
+  <div class="field">
+    <%= form.label :text, %>
+    <%= form.text_field :text,, id: :devolution_text, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :palletized %>
+    <%= form.text_field :palletized, id: :devolution_palletized %>
+  </div>
+
+  <div class="field">
+    <%= form.label :boolean, %>
+    <%= form.text_field :boolean,, id: :devolution_boolean, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity_pallets %>
+    <%= form.text_field :quantity_pallets, id: :devolution_quantity_pallets %>
+  </div>
+
+  <div class="field">
+    <%= form.label :integer, %>
+    <%= form.text_field :integer,, id: :devolution_integer, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :weight %>
+    <%= form.text_field :weight, id: :devolution_weight %>
+  </div>
+
+  <div class="field">
+    <%= form.label :decimal, %>
+    <%= form.text_field :decimal,, id: :devolution_decimal, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :volume %>
+    <%= form.text_field :volume, id: :devolution_volume %>
+  </div>
+
+  <div class="field">
+    <%= form.label :decimal, %>
+    <%= form.text_field :decimal,, id: :devolution_decimal, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value_ton %>
+    <%= form.text_field :value_ton, id: :devolution_value_ton %>
+  </div>
+
+  <div class="field">
+    <%= form.label :decimal, %>
+    <%= form.text_field :decimal,, id: :devolution_decimal, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value_kg %>
+    <%= form.text_field :value_kg, id: :devolution_value_kg %>
+  </div>
+
+  <div class="field">
+    <%= form.label :decimal, %>
+    <%= form.text_field :decimal,, id: :devolution_decimal, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value_total %>
+    <%= form.text_field :value_total, id: :devolution_value_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :decimal, %>
+    <%= form.text_field :decimal,, id: :devolution_decimal, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :charge_discharge %>
+    <%= form.text_field :charge_discharge, id: :devolution_charge_discharge %>
+  </div>
+
+  <div class="field">
+    <%= form.label :boolean, %>
+    <%= form.text_field :boolean,, id: :devolution_boolean, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :shipment %>
+    <%= form.text_field :shipment, id: :devolution_shipment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :string, %>
+    <%= form.text_field :string,, id: :devolution_string, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team %>
+    <%= form.text_field :team, id: :devolution_team %>
+  </div>
+
+  <div class="field">
+    <%= form.label :integer, %>
+    <%= form.text_field :integer,, id: :devolution_integer, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dock %>
+    <%= form.text_field :dock, id: :devolution_dock %>
+  </div>
+
+  <div class="field">
+    <%= form.label :integer, %>
+    <%= form.text_field :integer,, id: :devolution_integer, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :hangar %>
+    <%= form.text_field :hangar, id: :devolution_hangar %>
+  </div>
+
+  <div class="field">
+    <%= form.label :container %>
+    <%= form.text_field :container, id: :devolution_container %>
+  </div>
+
+  <div class="field">
+    <%= form.label :string, %>
+    <%= form.text_field :string,, id: :devolution_string, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :place_confirmed %>
+    <%= form.text_field :place_confirmed, id: :devolution_place_confirmed %>
+  </div>
+
+  <div class="field">
+    <%= form.label :string, %>
+    <%= form.text_field :string,, id: :devolution_string, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_time_discharge %>
+    <%= form.text_field :start_time_discharge, id: :devolution_start_time_discharge %>
+  </div>
+
+  <div class="field">
+    <%= form.label :datetime, %>
+    <%= form.text_field :datetime,, id: :devolution_datetime, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :finish_time_discharge %>
+    <%= form.text_field :finish_time_discharge, id: :devolution_finish_time_discharge %>
+  </div>
+
+  <div class="field">
+    <%= form.label :datetime, %>
+    <%= form.text_field :datetime,, id: :devolution_datetime, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :started_user_id %>
+    <%= form.text_field :started_user_id, id: :devolution_started_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :integer, %>
+    <%= form.text_field :integer,, id: :devolution_integer, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :charge_type_delivery %>
+    <%= form.text_field :charge_type_delivery, id: :devolution_charge_type_delivery %>
+  </div>
+
+  <div class="field">
+    <%= form.label :integer, %>
+    <%= form.text_field :integer,, id: :devolution_integer, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_start_avaria %>
+    <%= form.text_field :date_start_avaria, id: :devolution_date_start_avaria %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date, %>
+    <%= form.text_field :date,, id: :devolution_date, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_finish_avaria %>
+    <%= form.text_field :date_finish_avaria, id: :devolution_date_finish_avaria %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date, %>
+    <%= form.text_field :date,, id: :devolution_date, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time_start_avaria %>
+    <%= form.text_field :time_start_avaria, id: :devolution_time_start_avaria %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time, %>
+    <%= form.text_field :time,, id: :devolution_time, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time_finish_avaria %>
+    <%= form.text_field :time_finish_avaria, id: :devolution_time_finish_avaria %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time, %>
+    <%= form.text_field :time,, id: :devolution_time, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :devolution_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :integer, %>
+    <%= form.text_field :integer,, id: :devolution_integer, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :devolution_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :references, %>
+    <%= form.text_field :references,, id: :devolution_references, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :received_user_id %>
+    <%= form.text_field :received_user_id, id: :devolution_received_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :references, %>
+    <%= form.text_field :references,, id: :devolution_references, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :breakdown_user_id %>
+    <%= form.text_field :breakdown_user_id, id: :devolution_breakdown_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :references, %>
+    <%= form.text_field :references,, id: :devolution_references, %>
+  </div>
+
+  <div class="field">
+    <%= form.label :observation %>
+    <%= form.text_field :observation, id: :devolution_observation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :text %>
+    <%= form.text_field :text, id: :devolution_text %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
