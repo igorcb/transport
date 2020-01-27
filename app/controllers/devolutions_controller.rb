@@ -25,6 +25,14 @@ class DevolutionsController < ApplicationController
   # POST /devolutions.json
   def create
     @devolution = Devolution.new(devolution_params)
+    driver  = Driver.find_by_cpf(params[:driver_cpf])
+    carrier = Carrier.find_by_cnpj(params[:carrier_cnpj])
+    billing_client  = Client.find_by_cpf_cnpj(params[:billing_client_cpf_cpnj])
+
+    @devolution.user_id = current_user.id
+    @devolution.driver_id = driver.id
+    @devolution.carrier_id = carrier.id
+    @devolution.billing_client_id = billing_client.id #if billing_client.present?
 
     respond_to do |format|
       if @devolution.save
