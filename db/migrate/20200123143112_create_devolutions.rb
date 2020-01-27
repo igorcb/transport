@@ -32,14 +32,14 @@ class CreateDevolutions < ActiveRecord::Migration[5.1]
       t.references :started_user, foreign_key:  {to_table: :users }
       t.datetime :start_time_discharge
       t.datetime :finish_time_discharge
-      t.string :breakdown_user, foreign_key:  {to_table: :users }
+      t.references :breakdown_user, foreign_key:  {to_table: :users }
       t.datetime :date_start_avaria
       t.datetime :date_finish_avaria
       t.time :time_start_avaria
       t.time :time_finish_avaria
       t.integer :status
-      t.string :user, foreign_key:  {to_table: :users }
-      t.string :received_user, foreign_key:  {to_table: :users }
+      t.references :user, foreign_key:  {to_table: :users }
+      t.references :received_user, foreign_key:  {to_table: :users }
       t.text :observation
 
       t.timestamps
