@@ -23,6 +23,10 @@ class PalletizingPallet < ApplicationRecord
     palletizing_pallet_products.select("DISTINCT nfe_xml_id").map{|p| p.nfe_xml.numero }
   end
 
+  def products
+    palletizing_pallet_products.select("DISTINCT product_id").map{|p| p.product }
+  end
+
   def target_client
     palletizing_pallet_products.select("DISTINCT nfe_xml_id").map{|p| p.nfe_xml.target_client.fantasia }
   end
