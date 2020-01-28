@@ -514,10 +514,16 @@ class InputControlsController < ApplicationController
   def received_weight_search
     start_date = params[:start_date].blank? ? Date.current.beginning_of_month - 1.month : params[:start_date].to_date
     end_date = params[:end_date].blank? ? Date.current : params[:end_date].to_date
-    @input_controls = InputControl.joins(nfe_xmls: [source_client: [:group_client]])
+    # @input_controls = InputControl.joins(nfe_xmls: [source_client: [:group_client]])
+    #                               .where("group_clients.id = ? and date_receipt >= ? and date_receipt <= ?", params[:group_client_id], start_date.to_date, end_date.to_date)
+    #                               .select_date_receipt
+    # @input_control_total = InputControl.joins(nfe_xmls: [source_client: [:group_client]])
+    #                               .where("group_clients.id = ? and date_receipt >= ? and date_receipt <= ?", params[:group_client_id], start_date.to_date, end_date.to_date)
+    #                               .select_date_receipt_total
+    @input_controls = InputControl.joins(billing_client: [:group_client])
                                   .where("group_clients.id = ? and date_receipt >= ? and date_receipt <= ?", params[:group_client_id], start_date.to_date, end_date.to_date)
                                   .select_date_receipt
-    @input_control_total = InputControl.joins(nfe_xmls: [source_client: [:group_client]])
+    @input_control_total = InputControl.joins(billing_client: [:group_client])
                                   .where("group_clients.id = ? and date_receipt >= ? and date_receipt <= ?", params[:group_client_id], start_date.to_date, end_date.to_date)
                                   .select_date_receipt_total
 
