@@ -1,4 +1,4 @@
-<%= form_for(@devolution) do |f| %>
+  <%= form_for(@devolution) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
 <!--   <div class="form-group">
@@ -139,8 +139,8 @@
 
   <div class="form-group">
     <%= f.submit "Salvar", class: "btn btn-blue" %>
-    <%= link_to "Exibir",  input_control_path(@devolution), class: "btn btn-info" if !@devolution.new_record? %>
-    <%= link_to "Listar Todos", input_controls_path, class: "btn btn-default" %>
+    <%= link_to "Exibir",  devolution_path(@devolution), class: "btn btn-info" if !@devolution.new_record? %>
+    <%= link_to "Listar Todos", devolutions_path, class: "btn btn-default" %>
   </div>
 
 <% end %>
