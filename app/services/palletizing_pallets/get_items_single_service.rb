@@ -14,7 +14,7 @@ module PalletizingPallets
 	    begin
         ActiveRecord::Base.transaction do
             data = [];
-            data[0] = {group_name: "Todos os ítems", items: []}
+            data[0] = {title: "todos os ítems", nfes: [group_name: "", items: []]}
             @input_control.item_input_controls.each do |item|
               product = item.product
               qtde_palletizing = @palletizing.palletizing_pallets.joins(:palletizing_pallet_products).where(:palletizing_pallet_products => {product_id: product.id}).sum(:qtde)
@@ -25,7 +25,7 @@ module PalletizingPallets
               faltas = breakdown.faltas.to_i if breakdown.present?
               qtde = item.qtde.to_i - avarias.to_i - faltas.to_i - qtde_palletizing.to_i
               suggested_pallet = NfeXmls::CalcItemNfeQtdePalletService.new(product, qtde).call
-              data[0][:items].push({item_id: item.id, cod_prod: product.cod_prod, product_description: product.descricao, qtde: qtde, suggested_pallet: suggested_pallet[:qtde_pallet], type: "item"})
+              data[0][:nfes][0][:items].push({item_id: item.id, cod_prod: product.cod_prod, product_description: product.descricao, qtde: qtde, suggested_pallet: suggested_pallet[:qtde_pallet], type: "item"})
             end
 
 
