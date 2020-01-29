@@ -1,0 +1,95 @@
+
+<div class="tags">
+  <% @pallets.each do |pallet| %>
+  <div class="tag">
+    <span>
+      <table>
+        <tr>
+          <td>
+            <small>Rem. entr.:</small> <br>
+            <big style="font-size:24pt"><strong><%= @input_control.id %></strong></big>
+          </td>
+          <td>
+            <small style="text-align: right; display:block"><%= date_br(@input_control.date_receipt) %></small>
+            <small>tipo:</small> <br><big><strong><%= translate "activerecord.attributes.enums.palletizing_pallet.type_pallet.#{pallet.type_pallet}"  %> - <%= pallet.qtde_items %></strong></big>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <big><strong><%= @company.fantasia %> - <%= @company.estado %></strong></big>  <br>
+            <%= @company.phone_first %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <small>Nfes:</small> <br>
+            <%= pallet.nfes if pallet.type_pallet != "leftover" %>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <% if pallet.type_pallet == "exclusive" %>
+              <small>Produtos:</small> <br>
+              <% pallet.products.each do |product| %>
+                <%= product.cod_prod %> <%= product.descricao.truncate(30) %> <br>
+              <% end %>
+            <% else %>
+              <small>Qtde sku:</small> <br>
+              <strong><%= pallet.qtde_sku %></strong>
+            <% end %>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <small>Cliente:</small> <br>
+            <%= pallet.target_client.first.titleize if pallet.type_pallet != "leftover" %>
+          </td>
+        </tr>
+      </table>
+      <%= image_tag code128(pallet.number, margin: 0, height: 30), style: "width: 9cm" %> <br>
+      <%= pallet.number %>
+    </span>
+  </div>
+  <% end %>
+</div>
+
+<style>
+  body{
+    margin: 0;
+  }
+.tags{
+  width:10.16cm;
+}
+.tag{
+  height: 10.16cm;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tag span{
+  text-align:center;
+}
+.tag table{
+  width:100%;
+}
+.tag table{
+  border: 2px solid #000;
+  border-collapse: collapse;
+}
+
+.tag table td{
+  border: 2px solid #000;
+}
+
+@media print {
+
+}
+</style>
+
+<script>
+  
+  window.print()
+  window.close()
+</script>
