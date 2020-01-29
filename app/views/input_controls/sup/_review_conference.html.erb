@@ -111,7 +111,7 @@
               <td class="<%= sobra[:qtde_oper_2].nil? ? "" : "text-danger" %>"><%= sobra[:qtde_oper_2].nil? ? "0.0" : sobra[:qtde_oper_2].to_f %></td>
             <% end %>
             <% if @conference_item_3.present? %>
-              <td class="<%= sobra[:qtde_oper_3].nil? ? "" : "text-danger" %>"><%= sobra[:qtde_oper_2].nil? ? "0.0" : sobra[:qtde_oper_3].to_f %></td>
+              <td class="<%= sobra[:qtde_oper_3].nil? ? "" : "text-danger" %>"><%= sobra[:qtde_oper_3].nil? ? "0.0" : sobra[:qtde_oper_3].to_f %></td>
               <td><%#= link_to "x", edit_input_control_conference_conference_item_path(@input_control.id, @conference_3.id, ConferenceItem.where(conference_id: @conference_3.id, product_id: cod).first.id),  class: "btn btn-danger btn-xs" if !sobra[:qtde_oper_3].nil? %></td>
             <% end %>
           </tr>

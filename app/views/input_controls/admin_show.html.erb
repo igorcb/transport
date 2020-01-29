@@ -32,11 +32,11 @@
 <p>
   <% if @input_control.conferences.present? %>
   <%= link_to "verificar conferencias", review_conference_input_control_path(@input_control), {class: "btn btn-primary btn-xs"} %> <br>
-  <%= link_to "Analizar e aprovar conferência", analize_input_control_path(@input_control), {class: "btn btn-info btn-xs"}  %>
+  <%= link_to "Analizar e aprovar conferência", analize_and_finish_input_control_path(@input_control), {class: "btn btn-info btn-xs"}  %>
   <% end %>
 </p>
 <p>
-  <%= link_to 'Tem avaria?', has_avaria_input_control_path(@input_control), class: "btn btn-blue btn-xs" if @input_control.avaria.nil? %> <br>
+  <%#= link_to 'Tem avaria?', has_avaria_input_control_path(@input_control), class: "btn btn-blue btn-xs" if @input_control.avaria.nil? %> <br>
   <%= link_to 'Informar Avaria', add_avaria_input_control_path(@input_control), class: "btn btn-blue btn-xs" if @input_control.avaria %>
 </p>
 <p>

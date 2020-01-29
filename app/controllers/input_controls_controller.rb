@@ -747,9 +747,12 @@ class InputControlsController < ApplicationController
           nfe.item_input_controls.joins(:product).order("products.cod_prod").each do |item|
             report.list.add_row do |row|
               breakdown = Breakdown.where(breakdown_type: 'InputControl', breakdown_id: item.input_control_id, product_id: item.product_id).first
-              sobras = breakdown.nil? ? nil : breakdown.sobras
-              faltas = breakdown.nil? ? nil : breakdown.faltas
-              avarias = breakdown.nil? ? nil : breakdown.avarias
+
+              nfe_xml = BreakdownNfeXml.where(input_control_id: task.id, nfe_xml_id: nfe.id, product_id: item.product_id).first
+
+              sobras = nfe_xml.nil? ? nil : nfe_xml.sobras   #breakdown.nil? ? nil : breakdown.sobras
+              faltas = nfe_xml.nil? ? nil : nfe_xml.faltas   #breakdown.nil? ? nil : breakdown.faltas
+              avarias = nfe_xml.nil? ? nil : nfe_xml.avarias  #breakdown.nil? ? nil : breakdown.avarias
               und_med = breakdown.nil? ? item.unid_medida : breakdown.unid_medida
               row.values prod_id: item.product.cod_prod,
                      prod_name: item.product.descricao,
