@@ -11,7 +11,7 @@
           </td>
           <td>
             <small style="text-align: right; display:block"><%= date_br(@input_control.date_receipt) %></small>
-            <small>tipo:</small> <br><big><strong><%= translate "activerecord.attributes.enums.palletizing_pallet.type_pallet.#{pallet.type_pallet}"  %></strong></big>
+            <small>tipo:</small> <br><big><strong><%= translate "activerecord.attributes.enums.palletizing_pallet.type_pallet.#{pallet.type_pallet}"  %> - <%= pallet.qtde_items %></strong></big>
           </td>
         </tr>
         <tr>
@@ -23,13 +23,28 @@
         <tr>
           <td colspan="2">
             <small>Nfes:</small> <br>
-            <%= pallet.nfes %>
+            <%= pallet.nfes if pallet.type_pallet != "leftover" %>
           </td>
         </tr>
+
+        <tr>
+          <td colspan="2">
+            <% if pallet.type_pallet == "exclusive" %>
+              <small>Produtos:</small> <br>
+              <% pallet.products.each do |product| %>
+                <%= product.cod_prod %> <%= product.descricao.truncate(30) %> <br>
+              <% end %>
+            <% else %>
+              <small>Qtde sku:</small> <br>
+              <strong><%= pallet.qtde_sku %></strong>
+            <% end %>
+          </td>
+        </tr>
+
         <tr>
           <td colspan="2">
             <small>Cliente:</small> <br>
-            <%= pallet.target_client.first.titleize %>
+            <%= pallet.target_client.first.titleize if pallet.type_pallet != "leftover" %>
           </td>
         </tr>
       </table>
@@ -74,6 +89,7 @@
 </style>
 
 <script>
-  // window.print()
-  // window.close()
+  
+  window.print()
+  window.close()
 </script>
