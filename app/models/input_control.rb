@@ -197,6 +197,15 @@ class InputControl < ActiveRecord::Base
     self.value_ton  = VALOR_DA_TONELADA
   end
 
+  def weight_gross
+    self.weight
+  end
+
+  def weight_liquid
+    self.nfe_xmls.where(:nfe_xmls => {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL}).sum(:peso_liquido)
+    #joins(:nfe_xmls).where(:nfe_xmls => {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL,
+  end
+
   def set_peso_and_volume
     # peso = self.nfe_xmls.sum("COALESCE(peso,0)")
     # volume = self.nfe_xmls.sum("COALESCE(volume,0)")

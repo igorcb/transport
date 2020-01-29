@@ -30,7 +30,8 @@
   <%= show_line_build @input_control.quantity_pallets, "Qtde paletes informado" %>
   <%= show_line_build @input_control.nfe_xmls.sum(:qtde_pallet_calc), "Qtde paletes calculada" %>
 
-  <%= show_line_build number_to_currency(@input_control.weight, precision: 3, unit: "", separator: ",", delimiter: "."), "Peso" %>
+  <%= show_line_build number_to_currency(@input_control.weight_gross, precision: 3, unit: "", separator: ",", delimiter: "."), "Peso" %>
+  <%= show_line_build number_to_currency(@input_control.weight_liquid, precision: 3, unit: "", separator: ",", delimiter: "."), "Peso" %>
   <%= show_line_build number_to_currency(@input_control.volume, precision: 3, unit: "", separator: ",", delimiter: "."), "Volume" %>
   <%= show_line_build number_to_currency(@input_control.value_ton, unit: "R$ ", separator: ",", delimiter: "."), "Valor Tonelada" %>
   <%= show_line_build number_to_currency(@input_control.value_kg, precision: 3, unit: "R$ ", separator: ",", delimiter: "."), "Value p/ kg:" %>
