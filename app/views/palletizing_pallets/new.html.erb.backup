@@ -1,10 +1,6 @@
 <h1>Novo palete</h1>
 <%= render 'static_pages/oper_input_control', input_control: @input_control %>
-<style>
-  .qtde-product{
-    width:60px;
-  }
-</style>
+
 
 <div id="app">
   <div class="panel panel-default">
@@ -72,7 +68,7 @@
             <thead>
               <th>Produtos</th>
               <th>Qtde</th>
-              <th class="hidden-xs"><small>Palete Sug.</small></th>
+              <th>Paletes sugeridos</th>
               <th></th>
               <th></th>
             </thead>
@@ -80,32 +76,24 @@
             <tfoot>
               <th>Produtos</th>
               <th>Qtde</th>
-              <th class="hidden-xs"><small>Palete Sug.</small></th>
+              <th>Paletes sugeridos</th>
               <th></th>
               <th></th>
             </tfoot>
-            <tbody v-for="(list, keyGroup) in lists" v-if="qtde_group(keyGroup) != 0">
+
+            <tbody v-for="(list, keyGroup) in lists">
                 <tr style="background:#DDD">
                   <td colspan="5">
-                    {{ list.title }}
+                    {{ list.group_name }}
                   </td>
                 </tr>
-                <template v-for="(nfe, keyNfe) in list.nfes" v-if="qtde_nfe(keyGroup, keyNfe) != 0">
-                  <tr style="background:#EEE" v-if="nfe.group_name != ''">
-                    <td colspan="5">
-                      {{ nfe.group_name }}
-                    </td>
-                  </tr>
-                  <tr v-for="(item, keyItem) in nfe.items" v-if="item.qtde != 0">
-                    <td><span title="product" data-toggle="tooltip" data-placement="top">{{ item.cod_prod }} <small>{{ item.product_description }}</small></span></td>
-                    <td>
-                      <span title="Qtde" data-toggle="tooltip" data-placement="top">{{ item.qtde }} </span>
-                    </td>
-                    <td class="hidden-xs">{{ item.suggested_pallet }}</td>
-                    <td><input type="number" v-bind:ref="item.item_id" placeholder="Qtde de produtos" class="qtde-product"></td>
-                    <td><button v-on:click="add_product(item.item_id, keyGroup, keyNfe, keyItem)" class="btn btn-primary">+</button></td>
-                  </tr>
-                </template>
+                <tr v-for="(item, keyItem) in list.items" v-if="item.qtde != 0">
+                  <td>{{ item.cod_prod }} {{ item.product_description }}</td>
+                  <td>{{ item.qtde }}</td>
+                  <td>{{ item.suggested_pallet }}</td>
+                  <td><input type="number" v-bind:ref="item.item_id" placeholder="Qtde de produtos"></td>
+                  <td><button v-on:click="add_product(item.item_id, keyGroup, keyItem)" class="btn btn-primary">+</button></td>
+                </tr>
             </tbody>
           </table>
         </div>
@@ -130,24 +118,6 @@ var app = new Vue({
     lists: <%= @items %>,
   },
   methods: {
-    qtde_group(keyGroup) {
-      nfes = this.lists[keyGroup].nfes
-      var qtde = 0
-      nfes.forEach(function(nfe){
-        nfe.items.forEach(function(item){
-          qtde += parseInt(item.qtde)
-        })
-      })
-      return qtde
-    },
-    qtde_nfe(keyGroup, keyNfe) {
-      items = this.lists[keyGroup].nfes[keyNfe].items
-      var qtde = 0
-      items.forEach(function(item){
-        qtde += parseInt(item.qtde)
-      })
-      return qtde
-    },
     qtde_products(products) {
       var value = 0
       products.forEach(function(product){
@@ -155,15 +125,14 @@ var app = new Vue({
       })
       return value
     },
-    add_product(item_id, keyGroup, keyNfe, keyItem) {
+    add_product(item_id, keyGroup, keyItem) {
       uniqueName = item_id
       qtde = this.$refs[uniqueName][0].value
       group = this.lists[keyGroup]
-      nfe = group.nfes[keyNfe]
-      item = nfe.items[keyItem]
+      item = group.items[keyItem]
       qtde_total = item.qtde
 
-      if (qtde <= 0) {
+      if (qtde == 0) {
         alert("Informe qtde de itens")
         return false
       }
@@ -175,7 +144,7 @@ var app = new Vue({
       }
 
       if (qtde <= qtde_total) {
-        this.lists[keyGroup].nfes[keyNfe].items[keyItem].qtde -= qtde
+        this.lists[keyGroup].items[keyItem].qtde -= qtde
       } else {
         alert("Este valor ultrapassa a quantidade total de produtos.")
         return false
@@ -184,7 +153,7 @@ var app = new Vue({
 
       has_product = this.has_product(item_id)
       if (has_product === false) {
-        this.products.push({item_id: item.item_id, cod_prod: item.cod_prod, product_description: item.product_description, qtde: qtde, key_group: keyGroup, key_nfe: keyNfe, type: item.type});
+        this.products.push({item_id: item.item_id, cod_prod: item.cod_prod, product_description: item.product_description, qtde: qtde, key_group: keyGroup, type: item.type});
       } else {
         old_qtde = this.products[has_product].qtde
         this.products[has_product].qtde = parseInt(qtde) + parseInt(old_qtde)
@@ -226,7 +195,7 @@ var app = new Vue({
     },
     delete_item(keyProduct) {
       product = this.products[keyProduct]
-      items = this.lists[product.key_group].nfes[product.key_nfe].items
+      items = this.lists[product.key_group].items
       items.forEach(function(item, index){
         if (item.item_id == product.item_id) {
           items[index].qtde += parseInt(product.qtde)
@@ -249,8 +218,4 @@ window.onbeforeunload = function () {
     return null
   }
 }
-
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
 </script>
