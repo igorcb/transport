@@ -23,7 +23,7 @@
         <tr>
           <td colspan="2">
             <small>Nfes:</small> <br>
-            <%= pallet.nfes %>
+            <%= pallet.nfes if pallet.type_pallet != "leftover" %>
           </td>
         </tr>
 
@@ -39,7 +39,7 @@
         <tr>
           <td colspan="2">
             <small>Cliente:</small> <br>
-            <%= pallet.target_client.first.titleize %>
+            <%= pallet.target_client.first.titleize if pallet.type_pallet != "leftover" %>
           </td>
         </tr>
       </table>
