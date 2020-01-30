@@ -1,3 +1,7 @@
+<%= show_line_build @input_control.id, "Remessa de entrada" %>
+<%= show_line_build date_br(@input_control.date_receipt), "Recebimento" %>
+<%= show_line_build "#{date_br(@palletizing.created_at)} #{time_br(@palletizing.created_at)}", "Criado em" %>
+<%= show_line_build @palletizing.user.email, "Usuário" %>
 <%= show_line_build @pallet.number, "Number" %>
 <%= show_line_build @pallet.qtde_sku, "Qtde SKU" %>
 <%= show_line_build @pallet.qtde_items, "Qtde Produtos" %>
