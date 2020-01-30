@@ -47,6 +47,12 @@ namespace :test do
       user_oper.add_role(:oper)
 			puts "   - Count: #{User.count}"
 
+			puts "  - Create Pallet"
+			qtde_first =  rand (1..10)
+			qtde_second = rand (1..10)
+			ControlPallet.create(data: Date.current, qte: qtde_first, tipo: :credito, type_product: :pallet, status: :open, historico: "HISTORICO PARA TESTE I")
+			ControlPallet.create(data: Date.current, qte: qtde_second, tipo: :credito, type_product: :pallet, status: :open, historico: "HISTORICO PARA TESTE II")
+
 			#FactoryBot.create_list(:carrier, 2)
 			puts "  - Create Carrier"
 	    Carrier.create_with(cnpj: "00.000.000/0000-00", nome: "TRANSPORTADORA NÃO IDENTIFICADO", fantasia: "TRANSPORTADORA NÃO IDENTIFICADO", cep: "60.000-000", endereco: "Rua da cidade", numero: "s/n", bairro: "Centro", cidade: "Fortaleza", estado: "CE").find_or_create_by(cnpj: "00.000.000/0000-00")
@@ -127,6 +133,9 @@ namespace :test do
 			boarding.boarding_items.create(ordem_service_id: ordem_service_first.id, delivery_number: 1)
 			puts "   - Count: #{Boarding.count}"
 			puts "   - Count Boarding Items: #{BoardingItem.count}"
+	    # responsible_type
+	    # responsible_id
+
 		end
 	end
 end

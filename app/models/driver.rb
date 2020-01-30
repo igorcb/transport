@@ -61,6 +61,8 @@ class Driver < ActiveRecord::Base
   has_many :account_payables, class_name: "AccountPayable", foreign_key: "supplier_id"
   has_many :ordem_services
   has_many :ocurrences
+  has_many :control_pallets, class_name: "ControlPallet", foreign_key: "responsible_id"
+
 
   before_save do |item|
     item.sync = false

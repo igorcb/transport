@@ -126,7 +126,7 @@ class InputControl < ActiveRecord::Base
   end
 
   def self.select_date_receipt
-    InputControl.joins(:nfe_xmls).where(charge_discharge: true, :nfe_xmls => {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL, create_os: NfeXml::TipoOsCriada::SIM})
+    InputControl.joins(:nfe_xmls).where(:nfe_xmls => {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL, create_os: NfeXml::TipoOsCriada::SIM})
                 .where.not(date_receipt: nil)
                 .select(:date_receipt, "SUM(nfe_xmls.peso) as peso", "coalesce(SUM(nfe_xmls.peso_liquido),0) AS peso_liquido, AVG(nfe_xmls.peso) as media")
                 .group(:date_receipt)
@@ -136,7 +136,7 @@ class InputControl < ActiveRecord::Base
   end
 
   def self.select_date_receipt_total
-      InputControl.joins(:nfe_xmls).where(charge_discharge: true, :nfe_xmls => {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL, create_os: NfeXml::TipoOsCriada::SIM})
+      InputControl.joins(:nfe_xmls).where(:nfe_xmls => {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL, create_os: NfeXml::TipoOsCriada::SIM})
                 .where.not(date_receipt: nil)
                 .select("SUM(nfe_xmls.peso) as peso", "coalesce(SUM(nfe_xmls.peso_liquido),0) AS peso_liquido, AVG(nfe_xmls.peso) as media")
                 .collect {|input| [input.peso, input.peso_liquido, input.media]}
@@ -195,6 +195,15 @@ class InputControl < ActiveRecord::Base
     self.value_kg = valor_kg
     self.value_total = 0.00
     self.value_ton  = VALOR_DA_TONELADA
+  end
+
+  def weight_gross
+    self.weight
+  end
+
+  def weight_liquid
+    self.nfe_xmls.where(:nfe_xmls => {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL}).sum(:peso_liquido)
+    #joins(:nfe_xmls).where(:nfe_xmls => {equipamento: NfeXml::TipoEquipamento::NOTA_FISCAL,
   end
 
   def set_peso_and_volume

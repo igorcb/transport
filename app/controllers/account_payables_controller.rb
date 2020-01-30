@@ -66,6 +66,7 @@ class AccountPayablesController < ApplicationController
   end
 
  def create
+    puts ">>>>>>>>>>>>>>>>>>>> Params Type Responsible: #{params[:responsible_type]}"
     @account_payable = AccountPayable.new(account_payable_params)
 
     respond_to do |format|

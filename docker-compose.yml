@@ -35,7 +35,9 @@ services:
     depends_on:
       - 'postgres'
     build: .
-    command: bundle exec rails s -b 0.0.0.0 #bash start.sh
+    command: bundle exec rails s -b 0.0.0.0
+    #command: /bin/sh -c "rm -f /workspace/rails_app/transport/tmp/pids/server.pid" #bundle exec rails s -b 0.0.0.0 #bash start.sh
+    #command: "rm /workspace/rails_app/transport/tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     #restart: always
     # environment:
     #   - RAILS_MAIL_HOST=${RAILS_MAIL_HOST}

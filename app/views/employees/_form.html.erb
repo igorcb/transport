@@ -261,7 +261,7 @@
       </div>
       <div class="items col-xs-11">
         <%= f.nested_fields_for :specialty_employees do |f| %>
-        <%= render "specialty_employees", f: f %>
+          <%= render "specialty_employees", f: f %>
         <% end %>
       </div>
       <div class="row">
@@ -279,7 +279,7 @@
       <div class="col-xs-1"></div>
       <div class="items col-xs-11">
         <%= f.nested_fields_for :account_banks do |f| %>
-        <%= render "shared/form_account_bank", f: f %>
+          <%= render "shared/form_account_bank", f: f %>
         <% end %>
       </div>
 

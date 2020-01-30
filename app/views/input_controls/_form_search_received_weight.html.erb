@@ -2,7 +2,7 @@
   <%#= form_tag remote: true, url: received_weight_search_input_controls_path, :method => :get do |f| %>
   <%= form_tag(received_weight_search_input_controls_url, :method => :get, remote: true) do %>
     <div class="form-group">
-      <%= label_tag :source_client_group_client_id_eq, "Grupo de Cliente" %>
+      <%= label_tag :billing_client_client_id_eq, "Grupo de Cliente" %>
       <%#= f.collection_select :source_client_group_client_id_eq, GroupClient.order(:descricao), :id, :descricao, {prompt: "SELECIONE O GRUPO DE CLIENTE"}, {class: "form-control"} %>
       <%= select_tag :group_client_id, options_from_collection_for_select(GroupClient.order(:descricao), :id, :descricao, '10'),  class: "form-control" %>
     </div>

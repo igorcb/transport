@@ -1,0 +1,204 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Carrier:</strong>
+  <%= @devolution.carrier_id %>
+</p>
+
+<p>
+  <strong>Driver:</strong>
+  <%= @devolution.driver_id %>
+</p>
+
+<p>
+  <strong>Billing client:</strong>
+  <%= @devolution.billing_client_id %>
+</p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @devolution.place %>
+</p>
+
+<p>
+  <strong>Place horse:</strong>
+  <%= @devolution.place_horse %>
+</p>
+
+<p>
+  <strong>Place cart 1:</strong>
+  <%= @devolution.place_cart_1 %>
+</p>
+
+<p>
+  <strong>Date entry:</strong>
+  <%= @devolution.date_entry %>
+</p>
+
+<p>
+  <strong>Time entry:</strong>
+  <%= @devolution.time_entry %>
+</p>
+
+<p>
+  <strong>Date receipt:</strong>
+  <%= @devolution.date_receipt %>
+</p>
+
+<p>
+  <strong>Date closing:</strong>
+  <%= @devolution.date_closing %>
+</p>
+
+<p>
+  <strong>Date scheduled:</strong>
+  <%= @devolution.date_scheduled %>
+</p>
+
+<p>
+  <strong>Time scheduled:</strong>
+  <%= @devolution.time_scheduled %>
+</p>
+
+<p>
+  <strong>Motive scheduled:</strong>
+  <%= @devolution.motive_scheduled %>
+</p>
+
+<p>
+  <strong>Palletized:</strong>
+  <%= @devolution.palletized %>
+</p>
+
+<p>
+  <strong>Quantity pallets:</strong>
+  <%= @devolution.quantity_pallets %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @devolution.weight %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @devolution.volume %>
+</p>
+
+<p>
+  <strong>Value ton:</strong>
+  <%= @devolution.value_ton %>
+</p>
+
+<p>
+  <strong>Value kg:</strong>
+  <%= @devolution.value_kg %>
+</p>
+
+<p>
+  <strong>Value total:</strong>
+  <%= @devolution.value_total %>
+</p>
+
+<p>
+  <strong>Charge discharge:</strong>
+  <%= @devolution.charge_discharge %>
+</p>
+
+<p>
+  <strong>Shipment:</strong>
+  <%= @devolution.shipment %>
+</p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @devolution.team %>
+</p>
+
+<p>
+  <strong>Dock:</strong>
+  <%= @devolution.dock %>
+</p>
+
+<p>
+  <strong>Hangar:</strong>
+  <%= @devolution.hangar %>
+</p>
+
+<p>
+  <strong>Container:</strong>
+  <%= @devolution.container %>
+</p>
+
+<p>
+  <strong>Place confirmed:</strong>
+  <%= @devolution.place_confirmed %>
+</p>
+
+<p>
+  <strong>Start time discharge:</strong>
+  <%= @devolution.start_time_discharge %>
+</p>
+
+<p>
+  <strong>Finish time discharge:</strong>
+  <%= @devolution.finish_time_discharge %>
+</p>
+
+<p>
+  <strong>Started user:</strong>
+  <%= @devolution.started_user_id %>
+</p>
+
+<p>
+  <strong>Charge type delivery:</strong>
+  <%= @devolution.charge_type_delivery %>
+</p>
+
+<p>
+  <strong>Date start avaria:</strong>
+  <%= @devolution.date_start_avaria %>
+</p>
+
+<p>
+  <strong>Date finish avaria:</strong>
+  <%= @devolution.date_finish_avaria %>
+</p>
+
+<p>
+  <strong>Time start avaria:</strong>
+  <%= @devolution.time_start_avaria %>
+</p>
+
+<p>
+  <strong>Time finish avaria:</strong>
+  <%= @devolution.time_finish_avaria %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @devolution.status %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @devolution.user_id %>
+</p>
+
+<p>
+  <strong>Received user:</strong>
+  <%= @devolution.received_user_id %>
+</p>
+
+<p>
+  <strong>Breakdown user:</strong>
+  <%= @devolution.breakdown_user_id %>
+</p>
+
+<p>
+  <strong>Observation:</strong>
+  <%= @devolution.observation %>
+</p>
+
+<%= link_to 'Editar', edit_input_control_path(@devolution), class: "btn btn-blue" %>
+<%= link_to 'Listar Todos', devolutions_path, class: "btn btn-default" %>

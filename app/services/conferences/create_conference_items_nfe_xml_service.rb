@@ -8,6 +8,7 @@ module Conferences
     end
 
     def call
+      # byebug
       @conference = @input_control.conferences.last
       @conference = @input_control.conferences.create(user_id: @user.id) if !@input_control.conferences.present?
       item_input_controls = @input_control.item_input_controls

@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
 
+  resources :devolutions
   get 'palletizing_pallet_product/index'
 
   resources :palletizings do
@@ -510,6 +511,7 @@ Rails.application.routes.draw do
   match '/client_ordem_service/:id', to: 'ordem_services#ordem_service_comments', as: 'client_ordem_service', via: [:get]
   #match "/type_account_select" => "account_payables#type_account_select", via: [:get]
   match "/type_account_select", :controller => "account_payables", :action => 'type_account_select', via: [:get]
+  match "/type_responsible_select", :controller => "control_pallets", :action => 'type_responsible_select', via: [:get]
   #match "/sub_centro_custo_by_custo" => "account_payables#sub_centro_custo_by_custo", via: [:get]
   match "/sub_centro_custo_by_custo", :controller => "account_payables", :action => "sub_centro_custo_by_custo", via: [:get]
   match "/sub_centro_custo_three_by_custo", :controller => "account_payables", :action => "sub_centro_custo_three_by_custo", via: [:get]
