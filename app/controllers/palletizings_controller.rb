@@ -20,16 +20,21 @@ class PalletizingsController < ApplicationController
     redirect_to palletizing_palletizing_pallets_path(palletizing)
   end
 
+  def show
+    @palletizing = Palletizing.where(id: params[:id]).first
+  end
+
+
   def new
   end
 
   def create
-    palletizing = Palletizing.create!(view_mode: params[:mode], status: :started, input_control_id: params[:input_control_id], user_created_id: current_user.id)
+    palletizing = Palletizing.create!(view_mode: params[:mode], status: :started, input_control_id: params[:input_control_id], user_created_id: current_user.id, start: DateTime.now)
     redirect_to palletizing_palletizing_pallets_path(palletizing)
   end
 
   def update
-    palletizing = Palletizing.where(id: params[:id]).update(status: :finished)
+    palletizing = Palletizing.where(id: params[:id]).update(status: :finished, finish: DateTime.now)
     # render inline: palletizing.inspect.html_safe
     redirect_to palletizing_palletizing_pallets_path(palletizing)
   end

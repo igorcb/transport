@@ -19,6 +19,7 @@
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
       <li><%= link_to "Ver paletes", palletizing_palletizing_pallets_path(palletizing) %></li>
+      <li><%= link_to "Detalhes", palletizing_path(palletizing) %></li>
       <li><%= link_to "Imprimir todos os paletes", print_palletizing_palletizing_pallets_path(palletizing), target: "_blank" %></li>
       <% if current_user.has_role? :admin %>
       <li role="separator" class="divider"></li>

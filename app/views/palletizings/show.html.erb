@@ -1,0 +1,12 @@
+<%= render 'static_pages/oper_input_control', input_control: @palletizing.input_control %>
+<%= show_line_build @palletizing.view_mode, "Modo de visualização" %>
+<%= show_line_build @palletizing.user.email, "Criado por" %>
+<%= show_line_build "#{date_br(@palletizing.created_at)} às #{time_br(@palletizing.created_at)}", "Criado em" %>
+<%= show_line_build @palletizing.status, "Status" %>
+<%= show_line_build "#{date_br(@palletizing.start)} às #{time_br(@palletizing.start)}", "Iniciado às" %>
+<% time_string = @palletizing.finish.nil? ? nil : @palletizing.finish %>
+<%= show_line_build time_string, "Finalizado"  %>
+
+<% time_finish = @palletizing.finish.nil? ? Time.now : @palletizing.finish %>
+<%= show_line_build @palletizing.start.present? ? TimeDifference.between(@palletizing.start, time_finish).humanize : "", "Tempo de paletização" %>
+<%= link_to "Voltar", palletizings_path, class: "btn btn-default"%>
