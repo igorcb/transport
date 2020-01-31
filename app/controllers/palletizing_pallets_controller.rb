@@ -21,6 +21,8 @@ class PalletizingPalletsController < ApplicationController
   def show
     @pallet = @palletizing.palletizing_pallets.where(id: params[:id]).first
     @products = @pallet.palletizing_pallet_products.map{|p| {cod_prod: p.product.cod_prod, descricao: p.product.descricao, qtde: p.qtde} } if @pallet.present?
+    @palletizing = @pallet.palletizing
+    @input_control = @palletizing.input_control
   end
 
   def print
@@ -43,6 +45,8 @@ class PalletizingPalletsController < ApplicationController
     @ean = params[:ean]
     @request_items = request.base_url + "/palletizing_pallets/query_pallet/"
     @pallet = PalletizingPallet.where(number: @ean).first
+    @palletizing = @pallet.palletizing
+    @input_control = @palletizing.input_control
     @products = @pallet.palletizing_pallet_products.map{|p| {cod_prod: p.product.cod_prod, descricao: p.product.descricao, qtde: p.qtde} } if @pallet.present?
 
   end
