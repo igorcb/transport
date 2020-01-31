@@ -4,6 +4,8 @@ class ControlPallet < ActiveRecord::Base
 
   #belongs_to :responsible, class_name: "Supplier", foreign_key: "supplier_id", polymorphic: true, required: false
 
+  belongs_to :user
+
   enum tipo: {credito: 1, debito: -1}
   enum responsible_type: {supplier: "Supplier", driver: "Driver", client: "Client", employee: "Employee", carrier: "Carrier"}
   enum type_product: {pallet: 1, chapatex: 2, bigbag: 3}

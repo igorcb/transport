@@ -48,6 +48,7 @@ class ControlPalletsController < ApplicationController
 
   def create
     @control_pallet = ControlPallet.new(control_pallet_params)
+    @control_pallet.user_id = current_user.id
     respond_to do |format|
       if @control_pallet.save
         format.html { redirect_to @control_pallet, flash: { success: "Pallet was successfully created." } }
