@@ -34,7 +34,7 @@ class PalletizingsController < ApplicationController
   end
 
   def update
-    palletizing = Palletizing.where(id: params[:id]).update(status: :finished, finish: DateTime.now)
+    palletizing = Palletizing.where(id: params[:id]).update(status: :finished, finish: DateTime.now, user_finished_id: current_user.id)
     # render inline: palletizing.inspect.html_safe
     redirect_to palletizing_palletizing_pallets_path(palletizing)
   end
