@@ -1,0 +1,19 @@
+<h1>Confirmar Pagamento DAE</h1>
+
+<%#= form_for @nfe_xml, :url => nfe_xmls_path, method: :put,  :html => { :multipart => true } do |f| %>
+<%= form_for @nfe_xml, :html => { :multipart => true } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+  <%= f.label :action_inspector, "File input" %>
+    <%= f.file_field :action_inspector %>
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :place, "Placa" %>
+    <%= f.text_field :place, value: @nfe_xml.place, class: "form-control", style: 'text-transform:uppercase' %>
+  </div>
+  <%= f.submit "Salvar", class: "btn btn-blue" %>
+
+<% end %>

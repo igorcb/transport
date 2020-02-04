@@ -1,0 +1,2 @@
+$('#result_nfe_xmls').empty();
+$("#result_nfe_xmls").append("<table class='table table-striped'><thead><%= j(render(:partial => 'header_search')) %></thead><tbody><%= j(render 'list', @nfe_xml) %></tbody></table>");

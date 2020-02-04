@@ -1,0 +1,69 @@
+<div class="panel-body">
+  <%#= search_form_for @q, remote: true, url: search_nfe_xmls_path, :method => :get do |f| %>
+    <div class="form-group">
+      <%#= f.label :source_client_cpf_cnpj_eq, "CNPJ Embarcador" %><br>
+      <%#= f.search_field :source_client_cpf_cnpj_eq, class: "form-control cnpj" %>
+      <%#= render partial: "clients/result_client", locals: { client: nil } %>
+    </div>
+
+    <div class="form-group">
+      <%#= f.label :target_client_cpf_cnpj_eq, "CNPJ Destinatario" %><br>
+      <%#= f.search_field :target_client_cpf_cnpj_eq, class: "form-control cnpj" %>
+      <%#= render partial: "clients/result_client", locals: { client: nil } %>
+    </div>
+
+    <div class="form-group">
+      <%#= f.label :target_client_fantasia_eq, "Fantasia Destinatario" %><br>
+      <%#= f.search_field :target_client_fantasia_eq, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%#= f.label :carrier_cnpj_eq, "Transportadora" %><br>
+      <%#= f.search_field :carrier_cnpj_eq, class: "form-control cnpj" %>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-xs-6">
+        <%#= f.label :issue_date_gteq, "Data emissao" %>
+        <%#= f.search_field :issue_date_gteq, class: "form-control data", placeholder: "Informe a data emissao ex: 05-12-2014" %>
+      </div>
+
+      <div class="col-xs-6">
+        <%#= f.label :issue_date_lteq, "até" %>
+        <%#= f.search_field :issue_date_lteq, class: "form-control data", placeholder: "Informe a data emissao ex: 05-12-2014" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%#= f.label :numero_eq, "NF-e" %>
+      <%#= f.search_field :numero_eq, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%#= f.label :chave_cont, "Chave" %>
+      <%#= f.search_field :chave_cont, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%#= f.label :asset_file_name_cont, "Nome do arquivo" %>
+      <%#= f.search_field :asset_file_name_cont, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%#= label_tag :estado, "Estado" %>
+      <%#= select_tag :estado, options_from_collection_for_select(State.order(:name), :uf, :name, 'CE'), :prompt => "Selecione um estado", class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%#= f.label :target_client_cidade_cont_all, "Cidade" %>
+      <%#= f.text_field :target_client_cidade_cont_all, class: "form-control"  %>
+    </div>
+
+    <div class="form-group">
+      <%#= label_tag :has_input_control, "Remessa de Entrada" %>
+      <%#= select_tag :has_input_control, options_for_select([["NAO","0"],["SIM","1"]]), class: "form-control"  %>
+    </div>
+
+    <div class="actions"><%#= f.submit "Search" %></div>
+  <%# end %>
+</div>
