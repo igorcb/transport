@@ -29,6 +29,7 @@ class NfeXml < ActiveRecord::Base
 	scope :is_not_input, -> { where(nfe_type: nil ) }
   scope :nfe, -> { joins(:target_client).where(equipamento: TipoEquipamento::NOTA_FISCAL).order("clients.cpf_cnpj") }
   scope :pallets, -> { where(equipamento: TipoEquipamento::PALETE) }
+	scope :devolutions, -> { where(devolution: true)}
 
 	enum status: { nao_processado: 0, processando: 1, processado: 2 }
 

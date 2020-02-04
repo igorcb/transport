@@ -1,0 +1,33 @@
+<h1>Upload XML NF-e - DEVOLUÇÃO</h1>
+
+<%= form_for @nfe_xml, :url => nfe_xml_devolutions_path, :html => { :multipart => true } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div>
+  <%= f.label :asset, "File input" %>
+    <%= f.file_field :asset %>
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :equipamento, "Equipamento" %>
+    <%= f.select( :equipamento, select_equipamento, {include_blank: "Selecione o Equipamento"}, {class: "form-control"} ) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :number_nfo, "NFe-Original" %>
+    <%= f.text_field :number_nfo, class: "form-control input-sm numericOnly" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :chave_nfo, "Chave NF Original" %>
+    <%= f.text_field :chave_nfo, maxlength: 44, class: "form-control input-sm numericOnly" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.hidden_field :devolution, value: true %>
+  </div>
+
+  <%= f.submit "Salvar", class: "btn btn-blue" %>
+
+<% end %>
