@@ -1,5 +1,6 @@
 class PalletizingPallet < ApplicationRecord
   belongs_to :palletizing
+  belongs_to :user
   has_many :palletizing_pallet_products, dependent: :destroy
   enum type_pallet: [:exclusive, :mixed, :leftover]
 

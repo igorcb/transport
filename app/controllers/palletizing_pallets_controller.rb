@@ -13,7 +13,7 @@ class PalletizingPalletsController < ApplicationController
 
   def create
     data = PalletizingPalletProducts::OrganizerDataService.new(params).call
-    create = PalletizingPallets::CreateService.new(@palletizing, data).call
+    create = PalletizingPallets::CreateService.new(@palletizing, data, current_user).call
     # render inline: data.inspect.html_safe
     redirect_to palletizing_palletizing_pallets_path(@palletizing)
   end

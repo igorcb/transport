@@ -1,10 +1,11 @@
 module PalletizingPallets
   class CreateService
 
-    def initialize(palletizing, data_products)
+    def initialize(palletizing, data_products, current_user)
       @palletizing = palletizing
       @data_products = data_products[:data]
       @type = data_products[:type]
+      @current_user = current_user
     end
 
     def call
@@ -17,7 +18,7 @@ module PalletizingPallets
           type = qtde_sku > 1 ? "mixed" : "exclusive"
           type = "leftover" if @type == "sobra"
 
-          @palletizing_pallet =  PalletizingPallet.create!({number: Time.zone.now.to_formatted_s(:number), type_pallet: type, palletizing_id: @palletizing.id})
+          @palletizing_pallet =  PalletizingPallet.create!({number: Time.zone.now.to_formatted_s(:number), type_pallet: type, palletizing_id: @palletizing.id, user_id: @current_user.id})
           @palletizing_pallet_product = @palletizing_pallet.palletizing_pallet_products.create!(@data_products)
 					return {success: true, message: "created successful."}
 
