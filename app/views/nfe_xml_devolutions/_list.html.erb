@@ -1,0 +1,29 @@
+<% @nfe_xmls.each do |nfe_xml| %>
+<tr>
+  <td><%= date_br nfe_xml.issue_date %></td>
+  <td><%= nfe_xml.place %></td>
+  <td><%= nfe_xml.numero %></td>
+  <td><%= nfe_xml.carrier.fantasia if nfe_xml.carrier.present? %></td>
+  <td><%= nfe_xml.source_client.fantasia if nfe_xml.source_client.present? %></td>
+  <td><%= nfe_xml.target_client.fantasia if nfe_xml.target_client.present? %></td>
+  <td><%= nfe_xml.target_client.cpf_cnpj if nfe_xml.target_client.present? %></td>
+  <td><%= nfe_xml.target_client.estado_cidade if nfe_xml.target_client.present? %></td>
+  <td><%= nfe_xml.peso %></td>
+  <td><%= nfe_xml.volume %></td>
+  <% if nfe_xml.processado? %>
+		<td><i class="fa fa-check fa-2x" style="color: LimeGreen" aria-hidden="true"></i></td>
+	<% else %>
+		<td><i class="fa fa-times fa-2x" style="color: red" aria-hidden="true"></i></td>
+	<% end %>
+  <td><%= nfe_xml.has_input_control %></td>
+  <td><%#= link_to "Process", xml_process_nfe_xml_path(nfe_xml), method: :post %>
+    <%= link_to xml_process_nfe_xml_devolution_path(nfe_xml), method: :post do %>
+      <i class="fas fa-sync-alt fa-2x"></i></i>
+    <% end %>
+  </td>
+  <td><%= link_to "Edit", edit_nfe_xml_path(nfe_xml), class: "btn btn-primary btn-sm" %></td>
+  <td><%= link_to "Show", nfe_xml_path(nfe_xml), class: "btn btn-info btn-sm" %></td>
+
+</tr>
+
+<% end %>

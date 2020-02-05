@@ -6,8 +6,8 @@ class NfeXmlsController < ApplicationController
   respond_to :html, :js
 
   def index
-    @q = NfeXml.where(id: -1).search(params[:q])
-    @nfe_xmls = NfeXml.is_not_input.order('id desc')
+    @q = NfeXml.not_devolution.where(id: -1).search(params[:q])
+    @nfe_xmls = NfeXml.not_devolution.is_not_input.order('id desc')
     respond_with(@nfe_xmls)
   end
 
@@ -97,9 +97,9 @@ class NfeXmlsController < ApplicationController
 
   def search
     if params[:query][:has_input_control] == 0 #NAO
-      @q = NfeXml.is_not_input.order('id desc').search(params[:query])
+      @q = NfeXml.not_devolution.is_not_input.order('id desc').search(params[:query])
     else
-      @q = NfeXml.order('id desc').search(params[:query])
+      @q = NfeXml.not_devolution.order('id desc').search(params[:query])
     end
     @nfe_xmls = @q.result
     respond_with(@nfe_xmls) do |format|

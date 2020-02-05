@@ -1,0 +1,19 @@
+<style type="text/css">
+	td.red {color:red;}
+</style>
+
+<td><%= nfe_xml.status %></td>
+<td><%= nfe_xml.equipamento_name %></td>
+<td><%= link_to_ordem_service(nfe_xml.numero, nfe_xml.chave)  %></td>
+<td><%= nfe_xml.target_client.cidade if nfe_xml.target_client_id.present? %></td>
+<td><%= nfe_xml.target_client.estado if nfe_xml.target_client_id.present? %></td>
+<% if controller_name == 'direct_charges' %>
+	<% if nfe_xml.place == nfe_xml.direct_charge.place %>
+		<td><%= nfe_xml.place %> </td>
+	<% else %>
+	  <td class="red"><%= nfe_xml.place %> </td>
+	<% end %>
+<% end %>
+<td><%= link_to nfe_xml.ordem_service(controller.controller_name).id, nfe_xml.ordem_service(controller.controller_name) if nfe_xml.ordem_service(controller.controller_name).present? %></td>
+<td><%= nfe_xml.ordem_service(controller.controller_name).status_name if nfe_xml.ordem_service(controller.controller_name).present? %></td>
+<td><%= get_chave(nfe_xml.id) %></td>

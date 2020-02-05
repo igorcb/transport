@@ -103,7 +103,7 @@
                     </td>
                     <td class="hidden-xs">{{ item.suggested_pallet }}</td>
                     <td><input type="number" v-bind:ref="item.item_id" placeholder="Qtde de produtos" class="qtde-product"></td>
-                    <td><button v-on:click="add_product(item.item_id, keyGroup, keyNfe, keyItem)" class="btn btn-primary">+</button></td>
+                    <td><button v-on:click="add_product(item.item_id, keyGroup, keyNfe, keyItem, item.client_id)" class="btn btn-primary">+</button></td>
                   </tr>
                 </template>
             </tbody>
@@ -155,7 +155,7 @@ var app = new Vue({
       })
       return value
     },
-    add_product(item_id, keyGroup, keyNfe, keyItem) {
+    add_product(item_id, keyGroup, keyNfe, keyItem, clientId) {
       uniqueName = item_id
       qtde = this.$refs[uniqueName][0].value
       group = this.lists[keyGroup]
@@ -171,6 +171,11 @@ var app = new Vue({
 
       if (this.is_mixed_item_with_sobra(item.type)) {
         alert("Você não pode misturar items e sobra")
+        return false
+      }
+
+      if (this.is_mixed_client(keyGroup)) {
+        alert("Você não pode misturar clientes")
         return false
       }
 
@@ -223,6 +228,22 @@ var app = new Vue({
         })
       }
       return has_item
+    },
+    is_mixed_client(keyGroup) {
+      has_client = false
+      if(this.products.length > 0){
+        if(this.products[0].key_group != keyGroup) {
+          has_client = true
+        }
+
+      }
+      /*this.products.forEach(function(item, index){
+        if(item.key_group == keyGroup){
+          has_client = true
+          stop
+        }
+      })*/
+      return has_client
     },
     delete_item(keyProduct) {
       product = this.products[keyProduct]

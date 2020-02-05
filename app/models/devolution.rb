@@ -12,5 +12,6 @@ class Devolution < ApplicationRecord
   belongs_to :started_user, class_name: "User", foreign_key: "started_user_id", required: false
   belongs_to :billing_client, class_name: "Client", foreign_key: "billing_client_id", required: false
 
+  has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
 
 end

@@ -9,6 +9,8 @@ class NotificationsController < ApplicationController
     @notifications.each do |notification|
       if notification.notifiable_type == "Product"
         notifications_array.push({id: notification.id, recipient: notification.recipient.email, action: notification.action, actor: notification.actor.email, name: notification.notifiable.descricao, url: product_path(notification.notifiable, anchor: dom_id(notification.notifiable))})
+      elsif notification.notifiable_type == "Palletizing"
+        notifications_array.push({id: notification.id, recipient: notification.recipient.email, action: notification.action, actor: notification.actor.email, name: "Initialization #{notification.notifiable.id}", url: palletizing_path(notification.notifiable, anchor: dom_id(notification.notifiable))})
       else
         notifications_array.push({id: notification.id, recipient: notification.recipient.email, action: notification.action, actor: notification.actor.email, name: notification.notifiable.name, url: task_path(notification.notifiable, anchor: dom_id(notification.notifiable))})
       end

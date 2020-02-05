@@ -17,6 +17,7 @@ class NfeXml < ActiveRecord::Base
   belongs_to :scheduling, class_name: "Scheduling", foreign_key: "nfe_id", required: false
   belongs_to :input_control, class_name: "InputControl", foreign_key: "nfe_id", required: false
   belongs_to :direct_charge, class_name: "DirectCharge", foreign_key: "nfe_id", required: false
+	belongs_to :devolutions, class_name: "Devolution", foreign_key: "nfe_id", required: false
   belongs_to :notfis, class_name: "NotFis", foreign_key: "nfe_id", required: false
   belongs_to :source_client, class_name: "Client", foreign_key: "source_client_id", required: false
   belongs_to :target_client, class_name: "Client", foreign_key: "target_client_id", required: false
@@ -29,6 +30,9 @@ class NfeXml < ActiveRecord::Base
 	scope :is_not_input, -> { where(nfe_type: nil ) }
   scope :nfe, -> { joins(:target_client).where(equipamento: TipoEquipamento::NOTA_FISCAL).order("clients.cpf_cnpj") }
   scope :pallets, -> { where(equipamento: TipoEquipamento::PALETE) }
+	scope :devolutions, -> { where(devolution: true)}
+	scope :not_devolution, -> { where(devolution: false).or(NfeXml.where(devolution: nil)) }
+	#Post.where(id: 1).limit(1).or(Post.where(:id => [2, 3]))
 
 	enum status: { nao_processado: 0, processando: 1, processado: 2 }
 
