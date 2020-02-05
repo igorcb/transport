@@ -3,7 +3,7 @@
   <% @pallets.each do |pallet| %>
   <div class="tag">
     <span>
-      <table>
+      <table style="width: 340px">
         <tr>
           <td>
             <small>Rem. entr.:</small> <br>
@@ -23,7 +23,9 @@
         <tr>
           <td colspan="2">
             <small>Nfes:</small> <br>
-            <%= pallet.nfes if pallet.type_pallet != "leftover" %>
+            <strong>
+              <%= pallet.nfes if pallet.type_pallet != "leftover" %>
+            </strong>
           </td>
         </tr>
 
@@ -31,9 +33,11 @@
           <td colspan="2">
             <% if pallet.type_pallet == "exclusive" %>
               <small>Produtos:</small> <br>
-              <% pallet.products.each do |product| %>
-                <%= product.cod_prod %> <%= product.descricao.truncate(30) %> <br>
-              <% end %>
+              <strong>
+                <% pallet.products.each do |product| %>
+                  <%= product.cod_prod %> <%= product.descricao.truncate(30) %> <br>
+                <% end %>
+              </strong>
             <% else %>
               <small>Qtde sku:</small> <br>
               <strong><%= pallet.qtde_sku %></strong>
@@ -43,8 +47,8 @@
 
         <tr>
           <td colspan="2">
-            <small>Cliente:</small> <br>
-            <%= pallet.target_client.first.titleize if pallet.type_pallet != "leftover" %>
+            <small>Cliente:</small> 
+            <strong><%= pallet.target_client.first.titleize if pallet.type_pallet != "leftover" %> </strong>            
           </td>
         </tr>
       </table>

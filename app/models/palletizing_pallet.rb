@@ -29,6 +29,8 @@ class PalletizingPallet < ApplicationRecord
   end
 
   def target_client
-    palletizing_pallet_products.select("DISTINCT nfe_xml_id").map{|p| p.nfe_xml.target_client.fantasia }
+    result = palletizing_pallet_products.select("DISTINCT nfe_xml_id").map{|p| "#{p.nfe_xml.target_client.fantasia} / #{p.nfe_xml.target_client.cidade}"}
+    #nfe_ids = 
+    #Client.where(id: [NfeXml.Where(id: [result]).pluck(:target_client_id)])
   end
 end
