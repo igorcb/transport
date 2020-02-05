@@ -24,6 +24,16 @@ class NfeXmlDevolutionsController < ApplicationController
     end
   end
 
+  def xml_process
+    @nfe_xml = NfeXml.find(params[:id])
+    if @nfe_xml.xml_process(@nfe_xml.id)
+      flash[:success] = "NF-e process was successfully "
+    else
+      flash[:danger] = "Error NF-e information."
+    end
+    redirect_to nfe_xml_devolutions_path
+  end
+
   private
     def set_nfe_xml
       @nfe_xml = NfeXml.find(params[:id])
