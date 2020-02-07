@@ -16,4 +16,5 @@
 
   <%= show_line_build @palletizing.palletizing_pallets.count, "Nº de palete" %>
   <%= link_to "Voltar", palletizings_path, class: "btn btn-default"%>
+  <%= link_to "Ver paletes", palletizing_palletizing_pallets_path(@palletizing), class: "btn btn-primary" %>
 </div>

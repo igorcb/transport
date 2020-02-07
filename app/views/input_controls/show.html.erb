@@ -155,5 +155,10 @@
   <%= link_to 'Ver Avarias', question_input_control_path(@input_control), class: "btn btn-blue" %>
   <%#= link_to 'Etiqueta', tag_input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %>
   <%#= link_to 'Print', input_control_path(@input_control, format: 'pdf'), class: "btn btn-default" %>
+  <% if @input_control.palletizing.present? %>
+  <%= link_to "Paletização", palletizing_path(@input_control.palletizing), class: "btn btn-primary" %>
+  <% else %>
+  <%= link_to "Carga não paletizada", "#", class: "btn btn-primary", disabled: true %>
+  <% end %>
   <%= link_to 'Imprimir', printing_input_control_path(@input_control), class: "btn btn-default" %>
 </div>
