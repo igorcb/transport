@@ -156,4 +156,8 @@ class NfeKey < ActiveRecord::Base
     end
   end
 
+  def calc_qtde_pallet
+    qtde_pallet = PalletizingPallets::PalletsByNfeService.new(self.nfe).call
+  end
+
 end
