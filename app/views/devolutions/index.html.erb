@@ -23,15 +23,15 @@
           <% @devolutions.each do |devolution| %>
             <tr>
               <tr>
-                <td><%= input_control.id %></td>
+                <td><%= devolution.id %></td>
                 <td><%= link_to devolution.carrier.nome, devolution.carrier if devolution.carrier.present? %></td>
                 <td><%= link_to devolution.driver.nome, devolution.driver if devolution.driver.present? %></td>
                 <td><%= date_br devolution.date_scheduled %>&nbsp<%= time_br devolution.time_scheduled %></td>
                 <td><%= date_br devolution.date_receipt %></td>
-                <td><%= devolution.palletizing.status if devolution.palletizing.present? %></td>
-                <td><%= devolution.palletized_status %></td>
+                <td><%#= devolution.palletizing.status if devolution.palletizing.present? %></td>
+                <td><%#= devolution.palletized_status %></td>
                 <td><%= devolution.quantity_pallets %></td>
-                <td><%= truncate(devolution.status_name, length: 12) %></td>
+                <td><%= truncate(devolution.status, length: 12) %></td>
                 <td><%= link_to 'Show', devolution, class: "btn btn-info btn-xs" %></td>
                 <td><%= link_to 'Edit', edit_devolution_path(devolution), class: "btn btn-blue btn-xs"  %></td>
               </tr>

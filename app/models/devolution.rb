@@ -14,4 +14,6 @@ class Devolution < ApplicationRecord
 
   has_many :nfe_xmls, class_name: "NfeXml", foreign_key: "nfe_id", :as => :nfe, dependent: :destroy
 
+  enum status: [:opened, :received, :closed, :billed, :finish_typing, :discharge, :conference]
+
 end
