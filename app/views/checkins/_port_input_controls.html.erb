@@ -17,6 +17,9 @@
         </p>
         <%= render 'checkins/detail_input_control', checkin: checkin %>
       </div>
+      <div>
+        <%= link_to 'X', checkin_path(checkin), class: "btn btn-danger", data: { method: :delete, confirm: 'Tem certeza que quer excluir?' } if checkin.operation_id.nil? %>
+      </div>
     </li>
   <% end %>
 </ul>

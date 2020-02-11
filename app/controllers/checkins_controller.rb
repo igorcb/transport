@@ -121,6 +121,12 @@ class CheckinsController < ApplicationController
     end
   end
 
+  def destroy
+    @checkin = Checkin.where(id: params[:id]).first
+    Checkins::DestroyService.new(@checkin).call
+    redirect_to dashboard_port_path
+  end
+
   def get_driver_name_by_cpf
     @driver = Driver.find_by_cpf(params[:cpf])
     data = @driver.present? ? {name: @driver.nome} : {name: ""}
