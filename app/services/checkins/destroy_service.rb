@@ -4,10 +4,12 @@ module Checkins
       @checkin = checkin
     end
     def call
-      return {success: false, message: "when checkin is not present."} if @checkin.nil?
+      return {success: false, message: "checkin is not present."} if @checkin.nil?
+      return {success: false, message: "checkin is not associated."} if @checkin.operation_id.nil?
       begin
         ActiveRecord::Base.transaction do
-          @checkin.destroy          
+          Event.create!(controller_name: "Checkin", action_name: "destroy", what: "Excluiu o checkin, No: #{@checkin.id}, do motorista: #{@checkin.driver_name} que foi criado em: #{@checkin.created_at}")
+          @checkin.destroy
         end
         return {success: true, message: "success!"}
       rescue => e

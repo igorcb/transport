@@ -7,14 +7,32 @@ RSpec.describe Checkins::DestroyService, type: :service do
     end
 
     it "when checkin is not present" do
-      checkin = Checkins::DestroyService.new(nil).call
-      expect(checkin[:success]).to be_falsey
+      result = Checkins::DestroyService.new(nil).call
+      expect(result[:success]).to be_falsey
     end
 
-    it "when checkin was deleted success" do
-      checkin = Checkins::DestroyService.new(@checkin).call
-      expect(checkin[:success]).to be_truthy
+    it "when checkin is not associated" do
+      @checkin.update_attributes(operation_id: nil)
+      result = Checkins::DestroyService.new(@checkin).call
+      expect(result[:success]).to be_falsey
     end
+
+    context "actions" do
+      it "create Event" do
+        # event_count = Event.count
+        @checkin.update_attributes(operation_id: 1)
+        #result = Checkins::DestroyService.new(@checkin).call
+        # expect(Event.count > event_count).to be_truthy
+        expect { Checkins::DestroyService.new(@checkin).call }.to change { Event.count }.by(1)
+      end
+
+      it "deleted success" do
+        @checkin.update_attributes(operation_id: 1)
+        result = Checkins::DestroyService.new(@checkin).call
+        expect(result[:success]).to be_truthy
+      end      
+    end
+
 
   end
 

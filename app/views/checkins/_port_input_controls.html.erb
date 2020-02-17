@@ -19,6 +19,9 @@
       </div>
       <div>
         <%= link_to 'X', checkin_path(checkin), class: "btn btn-danger", data: { method: :delete, confirm: 'Tem certeza que quer excluir?' } if checkin.operation_id.nil? %>
+        <% if checkin.input_control.present? && checkin.input_control.status == InputControl::TypeStatus.RECEIVED %>
+          <%= link_to raw('<i class="fas fa-truck notification"></i>'),  checkout_checkin_path(checkin.id, driver_cpf: checkin.driver_cpf, operation: checkin.operation_type)  %>
+        <% end %>
       </div>
     </li>
   <% end %>
