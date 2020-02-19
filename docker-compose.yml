@@ -9,7 +9,7 @@ services:
     ports:
       - "54321:5432"
     volumes:
-      - 'postgres:/var/lib/postgresql/data'
+        - 'postgres:/var/lib/postgresql/data'
 
   pgadmin:
     image: dpage/pgadmin4
@@ -46,7 +46,7 @@ services:
     #   - RAILS_MAIL_DOMAIN=${RAILS_MAIL_DOMAIN}
     #   - RAILS_MAIL_DESTINATION=${RAILS_MAIL_DESTINATION}
     ports:
-      - "3000:3000"
+      - "3001:3000"
     stdin_open: true
     tty: true
     volumes:
