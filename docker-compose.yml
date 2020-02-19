@@ -9,13 +9,13 @@ services:
     ports:
       - "54321:5432"
     volumes:
-        - 'postgres:/var/lib/postgresql/data'
+      - 'postgres:/var/lib/postgresql/data'
 
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: "igor.batista@gmail.com"
-      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+      PGADMIN_DEFAULT_EMAIL: "thiagolima86@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "root"
     ports:
       - "5051:80"
     depends_on:
@@ -35,10 +35,8 @@ services:
     depends_on:
       - 'postgres'
     build: .
-    command: bundle exec rails s -b 0.0.0.0
-    #command: /bin/sh -c "rm -f /workspace/rails_app/transport/tmp/pids/server.pid" #bundle exec rails s -b 0.0.0.0 #bash start.sh
-    #command: "rm /workspace/rails_app/transport/tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
-    #restart: always
+    command: bash start.sh
+    # restart: always
     # environment:
     #   - RAILS_MAIL_HOST=${RAILS_MAIL_HOST}
     #   - RAILS_MAIL_USERNAME=${RAILS_MAIL_USERNAME}
@@ -46,11 +44,11 @@ services:
     #   - RAILS_MAIL_DOMAIN=${RAILS_MAIL_DOMAIN}
     #   - RAILS_MAIL_DESTINATION=${RAILS_MAIL_DESTINATION}
     ports:
-      - "3001:3000"
+      - "3000:3000"
     stdin_open: true
     tty: true
     volumes:
-      - '/home/igor/workspace/rails_app/transport:/workspace/rails_app/transport'
+      - '/home/thiago/workspace/rails_app/transport:/workspace/rails_app/transport'
 
   # jobs:
   #   depends_on:
