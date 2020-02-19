@@ -1,108 +1,44 @@
-<p id="notice"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-heading">Listing Devolutions</div>
+  <div class="panel-body">
+    <%= link_to 'New Devolution', new_devolution_path, class: "btn btn-blue btn-lg btn-block" %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Dev</th>
+            <th>Transportadora</th>
+            <th>Motorista</th>
+            <th>Data Program</th>
+            <th>Data Rec.</th>
+            <th>Palletizing</th>
+            <th>Palletized</th>
+            <th>Qtde </th>
+            <th>Status</th>
+            <th colspan="4">Options</th>
+         </tr>
+        </thead>
 
-<h1>Devolutions</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Carrier</th>
-      <th>Driver</th>
-      <th>Billing client</th>
-      <th>Place</th>
-      <th>Place horse</th>
-      <th>Place cart 1</th>
-      <th>Date entry</th>
-      <th>Time entry</th>
-      <th>Date receipt</th>
-      <th>Date closing</th>
-      <th>Date scheduled</th>
-      <th>Time scheduled</th>
-      <th>Motive scheduled</th>
-      <th>Palletized</th>
-      <th>Quantity pallets</th>
-      <th>Weight</th>
-      <th>Volume</th>
-      <th>Value ton</th>
-      <th>Value kg</th>
-      <th>Value total</th>
-      <th>Charge discharge</th>
-      <th>Shipment</th>
-      <th>Team</th>
-      <th>Dock</th>
-      <th>Hangar</th>
-      <th>Container</th>
-      <th>Place confirmed</th>
-      <th>Start time discharge</th>
-      <th>Datetime,</th>
-      <th>Finish time discharge</th>
-      <th>Datetime,</th>
-      <th>Started user</th>
-      <th>Charge type delivery</th>
-      <th>Date start avaria</th>
-      <th>Date finish avaria</th>
-      <th>Time start avaria</th>
-      <th>Time finish avaria</th>
-      <th>Status</th>
-      <th>User</th>
-      <th>Received user</th>
-      <th>Breakdown user</th>
-      <th>Observation</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @devolutions.each do |devolution| %>
-      <tr>
-        <td><%= devolution.carrier_id %></td>
-        <td><%= devolution.driver_id %></td>
-        <td><%= devolution.billing_client_id %></td>
-        <td><%= devolution.place %></td>
-        <td><%= devolution.place_horse %></td>
-        <td><%= devolution.place_cart_1 %></td>
-        <td><%= devolution.date_entry %></td>
-        <td><%= devolution.time_entry %></td>
-        <td><%= devolution.date_receipt %></td>
-        <td><%= devolution.date_closing %></td>
-        <td><%= devolution.date_scheduled %></td>
-        <td><%= devolution.time_scheduled %></td>
-        <td><%= devolution.motive_scheduled %></td>
-        <td><%= devolution.palletized %></td>
-        <td><%= devolution.quantity_pallets %></td>
-        <td><%= devolution.weight %></td>
-        <td><%= devolution.volume %></td>
-        <td><%= devolution.value_ton %></td>
-        <td><%= devolution.value_kg %></td>
-        <td><%= devolution.value_total %></td>
-        <td><%= devolution.charge_discharge %></td>
-        <td><%= devolution.shipment %></td>
-        <td><%= devolution.team %></td>
-        <td><%= devolution.dock %></td>
-        <td><%= devolution.hangar %></td>
-        <td><%= devolution.container %></td>
-        <td><%= devolution.place_confirmed %></td>
-        <td><%= devolution.start_time_discharge %></td>
-        <td><%= devolution.finish_time_discharge %></td>
-        <td><%= devolution.started_user_id %></td>
-        <td><%= devolution.charge_type_delivery %></td>
-        <td><%= devolution.date_start_avaria %></td>
-        <td><%= devolution.date_finish_avaria %></td>
-        <td><%= devolution.time_start_avaria %></td>
-        <td><%= devolution.time_finish_avaria %></td>
-        <td><%= devolution.status %></td>
-        <td><%= devolution.user_id %></td>
-        <td><%= devolution.received_user_id %></td>
-        <td><%= devolution.breakdown_user_id %></td>
-        <td><%= devolution.observation %></td>
-
-        <td><%= link_to 'Show', devolution %></td>
-        <td><%= link_to 'Edit', edit_devolution_path(devolution) %></td>
-        <td><%= link_to 'Destroy', devolution, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Devolution', new_devolution_path %>
+        <tbody>
+          <% @devolutions.each do |devolution| %>
+            <tr>
+              <tr>
+                <td><%= devolution.id %></td>
+                <td><%= link_to devolution.carrier.nome, devolution.carrier if devolution.carrier.present? %></td>
+                <td><%= link_to devolution.driver.nome, devolution.driver if devolution.driver.present? %></td>
+                <td><%= date_br devolution.date_scheduled %>&nbsp<%= time_br devolution.time_scheduled %></td>
+                <td><%= date_br devolution.date_receipt %></td>
+                <td><%#= devolution.palletizing.status if devolution.palletizing.present? %></td>
+                <td><%#= devolution.palletized_status %></td>
+                <td><%= devolution.quantity_pallets %></td>
+                <td><%= truncate(devolution.status, length: 12) %></td>
+                <td><%= link_to 'Show', devolution, class: "btn btn-info btn-xs" %></td>
+                <td><%= link_to 'Edit', edit_devolution_path(devolution), class: "btn btn-blue btn-xs"  %></td>
+              </tr>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

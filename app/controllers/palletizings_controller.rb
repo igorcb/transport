@@ -29,14 +29,30 @@ class PalletizingsController < ApplicationController
   end
 
   def create
-    palletizing = Palletizing.create!(view_mode: params[:mode], status: :started, input_control_id: params[:input_control_id], user_created_id: current_user.id, start: DateTime.now)
+    @input_control = InputControl.where(id: params[:input_control_id]).first
+    # @breakdown.errors.full_messages.each do |msg|
+    #   flash[:danger] = msg
+    # end
+    if @input_control.pending_all?
+      flash[:danger] = @input_control.pending_all
+      redirect_to (sup_input_controls_path)
+      return
+    end
+    palletizing = Palletizing.create!(view_mode: params[:mode], status: :started, input_control_id: @input_control.id, user_created_id: current_user.id, start: DateTime.now)
     redirect_to palletizing_palletizing_pallets_path(palletizing)
   end
 
   def update
-    palletizing = Palletizing.where(id: params[:id]).update(status: :finished, finish: DateTime.now, user_finished_id: current_user.id)
-    # render inline: palletizing.inspect.html_safe
-    redirect_to palletizing_palletizing_pallets_path(palletizing)
+    @palletizing = Palletizing.where(id: params[:id]).first
+    @input_control = @palletizing.input_control
+    result = PalletizingPallets::FinalizedService.new(@input_control, current_user).call
+    if result[:success]
+      flash[:success] = result[:message]
+      redirect_to palletizing_palletizing_pallets_path(@palletizing)
+    else
+      flash[:danger] = result[:message]
+      redirect_to palletizing_palletizing_pallets_path(@palletizing)
+    end
   end
 
   def destroy

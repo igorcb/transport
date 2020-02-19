@@ -52,7 +52,7 @@ class DirectChargesController < ApplicationController
 
 
   def index
-    @direct_charges = DirectCharge.all
+    @direct_charges = DirectCharge.order(id: :desc)
     respond_with(@direct_charges)
   end
 
