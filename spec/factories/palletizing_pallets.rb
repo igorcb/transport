@@ -1,9 +1,8 @@
 FactoryBot.define do
   factory :palletizing_pallet do
-    number { 1 }
-    type { 1 }
-    palletizing { nil }
-    qtde_sku { 1 }
-    qtde_items { 1 }
+    number { "20190101010000" }
+    type_pallet { :exclusive }
+    palletizing
+    user
   end
 end

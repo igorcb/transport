@@ -13,7 +13,7 @@ FactoryBot.define do
     rg { '000000' }
     orgao_expeditor { '000000' }
     data_emissao_rg { Faker::Date.backward }
-    data_nascimento { Faker::Date.between('1970-01-01','1980-12-31') }
+    data_nascimento { Faker::Date.between(from: '1970-01-01', to: '1980-12-31') }
     municipio_nascimento { Faker::Address.city }
     estado_nascimento { Faker::Address.state_abbr }
     estado_civil { Driver::EstadoCivil::SOLTEIRO }
@@ -26,7 +26,7 @@ FactoryBot.define do
     categoria { Driver::Categoria::E }
     nome_do_pai { Faker::Name.name }
     nome_da_mae { Faker::Name.name }
-    user_created_id  { User.first.id }
+    user_created factory: :user
     user_updated_id  { User.first.id }
   end
 end
