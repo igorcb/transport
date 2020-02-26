@@ -1,5 +1,7 @@
 class House < ApplicationRecord
   belongs_to :floor
+  has_one :palletizing_pallet, required: false
+  
   delegate :warehouse, to: :deposit
   delegate :deposit, to: :street
   delegate :street, to: :floor
