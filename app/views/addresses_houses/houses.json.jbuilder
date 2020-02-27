@@ -18,6 +18,7 @@ if params[:deposit].present?
         json.name h.name
         json.occupied h.occupied
         json.address "#{s.name} - #{f.name} - #{h.name}"        
+        json.pallet_number h.palletizing_pallet.present? ? h.palletizing_pallet.number : "" 
       end
     end
   end

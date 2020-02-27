@@ -113,7 +113,9 @@ get_houses = (param) ->
         $.each s.floors, (key, f) ->
           html += "<div class='floors'><div class='houses'>#{f.name} stage</div>"
           $.each f.houses, (key, h) ->
-            html += "<div class='houses #{if h.occupied == "occuped" then " occupied" }' title='#{h.id}' data-house-id='#{h.id}'>#{h.address}</div>"
+            if h.pallet_number.length > 0 then house_name = h.pallet_number else house_name = h.address
+            
+            html += "<div class='houses #{if h.occupied == "occuped" then " occupied" }' title='#{h.id}' data-house-id='#{h.id}'>#{house_name}</div>"
           html += "</div>"
 
       $('#view-houses').html(html)
