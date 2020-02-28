@@ -16,6 +16,8 @@ namespace :test do
 			puts "Cleaned database, wait..."
 			DatabaseCleaner.clean_with(:truncation)
 
+			puts "  - Create Company"
+			company = FactoryBot.create(:company)
 			puts "  - Config System"
 			ConfigSystem.create_with(config_key: "DRIVER_DEFAULT", config_value: "1", config_description: "Motorista padrão do sistema").find_or_create_by(config_key: "DRIVER_DEFAULT")
 	    ConfigSystem.create_with(config_key: "CARRIER_DEFAULT", config_value: "1", config_description: "Transportadora padrão do sistema").find_or_create_by(config_key: "CARRIER_DEFAULT")
