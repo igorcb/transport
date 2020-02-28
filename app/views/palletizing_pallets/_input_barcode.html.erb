@@ -1,5 +1,5 @@
 <div class="row">
-  <form id="search" action="" method="get">
+  <form id="search" action="<%= @action.present? ? @action : "" %>" method="get">
     <div class="form-group col-md-5 has-feedback <%= @ean.present? && @pallet.nil? ? "has-error" : ""  %>">
       <label for="qtde">Ler codigo de barras</label>
       <div class="input-group">

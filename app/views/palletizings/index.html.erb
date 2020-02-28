@@ -1,6 +1,6 @@
 <h1>Paletização</h1>
 <%= link_to "Nova paletização", select_input_control_palletizings_path,  class: "btn btn-primary" %>
-<%= link_to raw("<i class=\"fas fa-search\"></i> Consultar"), palletizing_pallets_query_pallet_path,  class: "btn btn-info" %>
+<%= link_to raw("<i class=\"fas fa-search\"></i> Consultar"), query_pallet_palletizing_pallets_path,  class: "btn btn-info" %>
 
 <ul id="result_input" class="list-group dashlist">
   <% @palletizings.each do |palletizing| %>

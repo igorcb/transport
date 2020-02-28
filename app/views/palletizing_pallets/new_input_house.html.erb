@@ -1,0 +1,24 @@
+<h1>Armazenagem</h1>
+<p>Escolha uma casa</p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="form_group col-md-6">
+      <%= label_tag :warehouse %>
+      <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name"),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= label_tag :deposit %>
+      <%= select_tag "deposit", [],  {disabled: true, class: "form-control", id: "deposit-select"} %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= link_to 'See', "#", class:"btn-see btn btn-primary", style: "display:none" %>
+    </div>
+  </div>
+
+  <div id="content-house"><span class="close">x</span> <div id="view-houses"></div></div>
+</div>

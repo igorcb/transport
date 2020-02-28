@@ -24,7 +24,18 @@ Rails.application.routes.draw do
         end
       end
   end
-  match "/palletizing_pallets/query_pallet", :controller => "palletizing_pallets", :action => "query_pallet", via: [:get]
+
+  resources :palletizing_pallets do
+    collection do
+      get :query_pallet
+      get :new_output_box
+      get :output_box
+      get :new_input_house
+      get :confirm_input_house
+      get :input_house
+    end
+  end
+  # match "/palletizing_pallets/query_pallet", :controller => "palletizing_pallets", :action => "query_pallet", via: [:get]
 
   # resources :breakdown_nfe_xmls
 

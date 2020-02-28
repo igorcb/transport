@@ -9,6 +9,8 @@ module PalletizingPallets
     def call
       return {success: false, message: "Pallet can't be nil"} if @pallet.nil?
       return {success: false, message: "User can't be nil"} if @current_user.nil?
+      log = PalletizingLog.where(pallet_number: @pallet.number, type_log: :output)
+      return {success: false, message: "Palletizing log already exists", type: "already_exists"} if log.present?
 
 	    begin
         ActiveRecord::Base.transaction do

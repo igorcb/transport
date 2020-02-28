@@ -52,6 +52,27 @@ class PalletizingPalletsController < ApplicationController
     end
   end
 
+  def new_output_box
+    @action = output_box_palletizing_pallets_path
+    @ean = params[:ean]
+    @pallet = PalletizingPallet.where(number: @ean).first    
+  end
+
+  def output_box
+    pallet = PalletizingPallet.where(number: params[:ean]).first
+    result = PalletizingPallets::OutputBoxService.new(pallet, current_user).call
+    flash_message(result)
+    if result[:success]
+      redirect_to new_input_house_palletizing_pallets_path(pallet: params[:ean]) 
+    else
+      return redirect_to new_input_house_palletizing_pallets_path(pallet: params[:ean]) if result[:type] = "already_exists"
+      redirect_to new_output_box_palletizing_pallets_path(pallet: params[:ean]) 
+    end
+  end
+
+  def new_input_house    
+  end
+
 
   def destroy
     @palletizing.palletizing_pallets.where(id: params[:id]).destroy_all
