@@ -4,7 +4,7 @@ namespace :db do
   #task banks: :environment do
   task :banks, [:tenant] => [:environment] do |t, args|
     Apartment::Tenant.switch!(args.tenant)
-    puts "Banks, Fill database with the data from the site of febradan"    
+    puts "Banks, Fill database with the data from the site of febradan"
     Bank.create!(banco:"104", nome: "Caixa Econômica Federal")
     Bank.create!(banco:"107", nome: "Banco BBM S.A.")
     Bank.create!(banco:"119", nome: "Banco Western Union do Brasil S.A.")
@@ -106,7 +106,9 @@ namespace :db do
     Bank.create!(banco:"079", nome: "Banco Original do Agronegócio S.A.")
     Bank.create!(banco:"095", nome: "Banco Confidence de Câmbio S.A.")
     Bank.create!(banco:"096", nome: "Banco BM&FBOVESPA de Serviços de Liquidação e Custódia S.A")
-    Bank.create!(banco:"746", nome: "Banco Modal S.A.") 
+    Bank.create!(banco:"746", nome: "Banco Modal S.A.")
+    puts "  - Count #{Bank.count}"
+
+    puts "End script"
   end
 end
-

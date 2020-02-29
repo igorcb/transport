@@ -9,11 +9,14 @@ namespace :db do
     image  = File.open(File.join(Rails.root,'public/rails_img.jpg'))
 		Apartment::Tenant.switch!(args.tenant)
 
-		puts "Cleaned database #{args.environment}, wait..."
-		DatabaseCleaner.clean_with(:truncation)
+		#puts "Cleaned database #{args.environment}, wait..."
+		#DatabaseCleaner.clean_with(:truncation)
 
 		puts "  - Create Company"
-		company = FactoryBot.create(:company)
+		company = Company.create(razao_social: Faker::Name.name, cnpj: Faker::CNPJ.cnpj, inscricao_estadual: '000000', inscricao_municipal: '000000',
+		                         endereco:Faker::Address.street_name, numero: Faker::Address.building_number, complemento: Faker::Lorem.word,
+                             bairro: Faker::Lorem.word, cidade: Faker::Address.city, estado: Faker::Address.state_abbr, cep: Faker::Address::zip_code,
+														 pais: "BRASIL", phone_first: "(85) 9.9999.9999", phone_second: "(85) 9.9999.9999")
 
 		puts "  - Config System"
 		ConfigSystem.create_with(config_key: "DRIVER_DEFAULT", config_value: "1", config_description: "Motorista padrão do sistema").find_or_create_by(config_key: "DRIVER_DEFAULT")
@@ -35,19 +38,16 @@ namespace :db do
 		ConfigSystem.create_with(config_key: "VALUE_DISCHARGE_OPERATION", config_value: "0.93", config_description: "Configuração para calculo de pagamento de descarga do operacional.").find_or_create_by(config_key: "VALUE_DISCHARGE_OPERATION")
 		puts "   - Count: #{ConfigSystem.count}"
 
-		puts "  - Create User"
-		FactoryBot.create_list(:employee, 2)
-		user_admin = FactoryBot.create(:user, employee: Employee.first)
-		user_admin.add_role(:admin)
-		user_oper = FactoryBot.create(:user, employee: Employee.last)
-		user_oper.add_role(:oper)
-		puts "   - Count: #{User.count}"
+		puts "  - Create Employee"
+		Employee.create( tipo: Employee::TipoEmployee::FIXO, cpf: Faker::CPF.cpf, nome: "MOTORISTA NÃO IDENTIFICADO", apelido: "MOTORISTA NÃO IDENTIFICADO", cep: Faker::Address::zip_code,
+			       	   endereco: Faker::Address.street_name, numero: Faker::Address.building_number, complemento: Faker::Lorem.word, bairro: Faker::Lorem.word,
+	                 cidade: Faker::Address.city, estado: Faker::Address.state_abbr)
 
 		puts "  - Create Driver"
 		Driver.create_with(cpf: "000.000.000-00", nome: "MOTORISTA NÃO IDENTIFICADO", fantasia: "MOTORISTA NÃO IDENTIFICADO", cep: "60.000-000", endereco: "Rua da cidade", numero: "s/n", bairro: "Centro", cidade: "Fortaleza", estado: "CE",
-		                  rg: "000000000", orgao_expeditor: "SSP/CE", data_emissao_rg: "30/12/2099", data_nascimento: "30/12/1989", municipio_nascimento: "FORTALEZA", estado_nascimento: "CE", inss: "000", cnh: "000", registro_cnh: "0000",
-		                  validade_cnh: "30/12/2099", categoria: "1",
-		                  nome_do_pai: "PAI DO MOTORISTA", nome_da_mae: "MAE DO MOTORISTA").find_or_create_by(cpf: "000.000.000-00")
+									rg: "000000000", orgao_expeditor: "SSP/CE", data_emissao_rg: "30/12/2099", data_nascimento: "30/12/1989", municipio_nascimento: "FORTALEZA", estado_nascimento: "CE", inss: "000", cnh: "000", registro_cnh: "0000",
+									validade_cnh: "30/12/2099", categoria: "1", estado_civil: 1, cor_da_pele: 2, tipo_contrato: 0,
+									nome_do_pai: "PAI DO MOTORISTA", nome_da_mae: "MAE DO MOTORISTA").find_or_create_by(cpf: "000.000.000-00")
 		puts "   - Count: #{Driver.count}"
 
 		puts "  - Create Carrier"
@@ -76,20 +76,11 @@ namespace :db do
 
 		puts "  - Create Carrier"
 		Carrier.create_with(cnpj: "00.000.000/0000-00", nome: "TRANSPORTADORA NÃO IDENTIFICADO", fantasia: "TRANSPORTADORA NÃO IDENTIFICADO", cep: "60.000-000", endereco: "Rua da cidade", numero: "s/n", bairro: "Centro", cidade: "Fortaleza", estado: "CE").find_or_create_by(cnpj: "00.000.000/0000-00")
-		FactoryBot.create(:carrier, cnpj: company.cnpj)
-		FactoryBot.create(:carrier)
 		puts "   - Count: #{Carrier.count}"
 
 		puts "  - Group Client"
-		FactoryBot.create(:group_client)
-		puts "  - Group Owner"
-		FactoryBot.create(:owner)
+		GroupClient.create(descricao: "GRUPO DE CLIENTE")
 
-		puts "  - Create Client"
-		FactoryBot.create_list(:client, 3, user_created: User.first, user_updated: User.first)
-		#Client.first.emails.create(FactoryBot.create(:email, sector_id: Sector::TypeSector::CONFIRMACAO_ENTREGA))
-		#Client.second.emails.create(FactoryBot.create(:email))
-		puts "   - Count: #{Client.count}"
 
 	end
 end
