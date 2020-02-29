@@ -1,6 +1,5 @@
 require 'rake'
 require 'database_cleaner'
-require 'faker'
 
 namespace :db do
 	desc "population database"
@@ -13,10 +12,9 @@ namespace :db do
 		#DatabaseCleaner.clean_with(:truncation)
 
 		puts "  - Create Company"
-		company = Company.create(razao_social: Faker::Name.name, cnpj: Faker::CNPJ.cnpj, inscricao_estadual: '000000', inscricao_municipal: '000000',
-		                         endereco:Faker::Address.street_name, numero: Faker::Address.building_number, complemento: Faker::Lorem.word,
-                             bairro: Faker::Lorem.word, cidade: Faker::Address.city, estado: Faker::Address.state_abbr, cep: Faker::Address::zip_code,
-														 pais: "BRASIL", phone_first: "(85) 9.9999.9999", phone_second: "(85) 9.9999.9999")
+		company = Company.create!(razao_social: "COMPANY", cnpj: "00.000.000/0000-00", inscricao_estadual: '000000', inscricao_municipal: '000000',
+		                         endereco: "endereco", numero: "000", complemento: "complemento", bairro: "bairro", cidade: "cidade", estado: "UF",
+														 cep: "00000-000", pais: "BRASIL", phone_first: "(85) 9.9999.9999", phone_second: "(85) 9.9999.9999")
 
 		puts "  - Config System"
 		ConfigSystem.create_with(config_key: "DRIVER_DEFAULT", config_value: "1", config_description: "Motorista padrão do sistema").find_or_create_by(config_key: "DRIVER_DEFAULT")
@@ -39,9 +37,8 @@ namespace :db do
 		puts "   - Count: #{ConfigSystem.count}"
 
 		puts "  - Create Employee"
-		Employee.create( tipo: Employee::TipoEmployee::FIXO, cpf: Faker::CPF.cpf, nome: "MOTORISTA NÃO IDENTIFICADO", apelido: "MOTORISTA NÃO IDENTIFICADO", cep: Faker::Address::zip_code,
-			       	   endereco: Faker::Address.street_name, numero: Faker::Address.building_number, complemento: Faker::Lorem.word, bairro: Faker::Lorem.word,
-	                 cidade: Faker::Address.city, estado: Faker::Address.state_abbr)
+		Employee.create( tipo: Employee::TipoEmployee::FIXO, cpf: "000.000.000-00", nome: "MOTORISTA NÃO IDENTIFICADO", apelido: "MOTORISTA NÃO IDENTIFICADO", cep: "00000-000",
+			       	   endereco: "endereco", numero: "000", complemento: "complemento", bairro: "bairro", cidade: "cidade", estado: "UF")
 
 		puts "  - Create Driver"
 		Driver.create_with(cpf: "000.000.000-00", nome: "MOTORISTA NÃO IDENTIFICADO", fantasia: "MOTORISTA NÃO IDENTIFICADO", cep: "60.000-000", endereco: "Rua da cidade", numero: "s/n", bairro: "Centro", cidade: "Fortaleza", estado: "CE",
