@@ -19,7 +19,9 @@ module InputControls
 
       y_position = cursor - 2
       bounding_box([0, y_position], :width => 240, :height => 50) do
-        image company.image.path, width: 128, height: 40
+        if company.image.path.present?
+          image company.image.path, width: 128, height: 40
+        end
       end
       bounding_box([250, y_position], :width => 290, :height => 50) do
         text company.cnpj, :size => 10, align: :right
