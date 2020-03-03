@@ -70,7 +70,24 @@ class PalletizingPalletsController < ApplicationController
     end
   end
 
-  def new_input_house    
+  def new_input_house
+    @pallet = PalletizingPallet.where(number: params[:pallet]).first 
+    if @pallet.house.present?
+      flash_message({success: false, message: "O palete ja está armazenado."})
+      redirect_to new_output_box_palletizing_pallets_path
+    end
+  end
+
+  def confirm_input_house
+  end
+
+  def input_house
+    house = House.where(id: params[:house_id]).first
+    pallet = PalletizingPallet.where(number: params[:pallet]).first
+    result = PalletizingPallets::InputInHouseService.new(house, pallet, current_user).call
+    flash_message(result)
+
+    redirect_to new_output_box_palletizing_pallets_path
   end
 
 

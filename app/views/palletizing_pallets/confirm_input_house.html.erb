@@ -1,0 +1,12 @@
+<h1>Armazenagem</h1>
+<p>Confirme inserção</p>
+
+
+
+<%= form_tag(input_house_palletizing_pallets_path, method: "get") do %>
+
+    <%= hidden_field_tag "house_id", params[:house_id] %>
+    <%= hidden_field_tag "pallet", params[:pallet] %>
+    <%= submit_tag "Confirmar", class: "btn btn-primary" %>
+
+<% end %>
