@@ -1,21 +1,102 @@
+<style>
+    #content-house .houses{
+      cursor: default;
+    }
+    
+    #content-house .houses.occuped{
+      cursor: pointer;
+    }
+</style>
+
 <div class="container-fluid">
+  <h1>Armazenagem</h1>
+<p>Escolha uma casa</p>
+<div id="app" class="container-fluid">
   <div class="row">
     <div class="form_group col-md-6">
       <%= label_tag :warehouse %>
-      <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name"),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
+      <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name"),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select", "v-on:change": "do_deposit_list()"} %>
     </div>
   </div>
   <div class="row">
     <div class="form-group col-md-6">
       <%= label_tag :deposit %>
-      <%= select_tag "deposit", [],  {disabled: true, class: "form-control", id: "deposit-select"} %>
+      <template v-if="deposit_list.length > 0">
+        <select name="deposit" v-model="deposit_select" class="form-control"  v-for="deposit in deposit_list" v-on:change="show_house()">
+          <option></option>
+          <option :value="deposit.id">{{ deposit.n }}</option>
+        </select>
+      </template>
+      <template v-else>
+        <select name="deposit" class="form-control" disabled="false'">
+        </select>
+      </template>
+      <%#= select_tag "deposit", [],  {disabled: true, class: "form-control", id: "deposit-select"} %>
     </div>
   </div>
-  <div class="row">
-    <div class="form-group col-md-6">
-      <%= link_to 'See', "#", class:"btn-see btn btn-primary", style: "display:none" %>
+<div class="panel panel-default" v-if="houses != null">
+  <div class="panel-heading">Armazem {{ houses.warehouse.name }} - Deposit {{ houses.deposit.name }}</div>
+  <div class="panel-body">
+    <div id="content-house">
+      <template v-for="street in houses.streets" >
+        <h4>{{ street.name }}</h4>
+        <template v-for="floor in street.floors">
+          <div class="floors">
+            <div class="houses">{{ floor.name }}</div>
+              <template v-for="h in floor.houses">
+                <div class="houses" :class="h.occupied" v-on:click="house_click(h.id, h.occupied)">{{ h.name }}</div>
+              </template>
+          </div>          
+        </template>
+      </template>    
     </div>
   </div>
-
-  <div id="content-house"><span class="close">x</span> <div id="view-houses"></div></div>
 </div>
+
+
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script>
+App = new Vue({
+  el: '#app',
+  data: {
+      houses: null,
+      deposit_list: []
+  },
+  methods: {
+    do_deposit_list: function() {
+      warehouse = document.querySelector('#warehouse-select').value
+      axios
+        .get('/deposits/get_deposits_by_warehouse?warehouse='+warehouse)
+        .then(response => (this.deposit_list = response.data))
+    },
+    show_house: function() {
+      var interval = setInterval(function () {
+      deposit = this.deposit_select
+      if (deposit == "") {
+        clearInterval(interval);
+        this.houses = null
+      }
+		  axios
+        .get('/addresses_houses/houses.json?deposit='+deposit)
+        .then(response => (this.houses = response.data))
+		  }.bind(this), 500); 
+    },
+    house_click: function(id, occupied) {
+      if (occupied != "occuped") {
+        alert("Esta casa está desocupada.")
+        return false;
+      }
+      window.location.href = "/addresses_houses/" + id
+
+    }
+
+  }
+
+})
+</script>
