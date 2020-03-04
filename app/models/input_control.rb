@@ -692,6 +692,14 @@ class InputControl < ActiveRecord::Base
     item_input_controls = ItemInputControl.where(nfe_xml_id: nfe_xmls.pluck(:id)).select(:product_id).group(:product_id).sum(:qtde)
   end
 
+  def palletizing_status?
+    if palletizing.present?
+      (palletizing.status == "started") ? false : true
+    else
+      false
+    end
+  end
+
 #  private
     def get_number_nfe_xmls
       nfes = []
