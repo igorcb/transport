@@ -214,6 +214,7 @@ class OrdemServicesController < ApplicationController
   end
 
   def destroy
+    Event.create(user_id: @user.id, controller_name: "OrdemService", action_name: 'destroy' , what: "Deletou a O.S. No: #{@ordem_service.id}")
     @ordem_service.destroy
     respond_with(@ordem_service)
   end
