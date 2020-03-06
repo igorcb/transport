@@ -14,7 +14,7 @@ module PalletizingPallets
         ActiveRecord::Base.transaction do
 
           d = DateTime.now
-          palletizing_log = PalletizingLog.create!(pallet_number: @pallet.number, type_log: :output, user_id: @current_user.id, historic: "Pallet Nº #{@pallet.number} saiu do box #{d.strftime("%d/%m/%Y")} às #{d.strftime("%H:%M:%S")}")
+          palletizing_log = PalletizingLog.create!(pallet_number: @pallet.number, type_log: :input, user_id: @current_user.id, historic: "Pallet Nº #{@pallet.number} entrou no box em #{d.strftime("%d/%m/%Y")} às #{d.strftime("%H:%M:%S")}")
           return {success: true, message: "Sucesso!"}
         end
       rescue => e

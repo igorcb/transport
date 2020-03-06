@@ -68,14 +68,23 @@ class PalletizingPalletsController < ApplicationController
     result = PalletizingPallets::OutputHouseService.new(house, current_user).call
     flash_message(result)
 
-    redirect_to input_box_palletizing_pallet_path(result[:pallet])
+    redirect_to new_input_box_palletizing_pallet_path(result[:pallet])
+  end
+
+  def new_input_box
+    @pallet = PalletizingPallet.where(id: params[:id]).first
   end
 
   def input_box
-    
+    @pallet = PalletizingPallet.where(id: params[:id]).first
+    result = PalletizingPallets::InputBoxService.new(@pallet, current_user).call
+    flash_message(result)
+
+    redirect_to oper_boardings_path
   end
   
-  
+
+
 
   def new_output_box
     @action = output_box_palletizing_pallets_path

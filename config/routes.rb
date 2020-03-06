@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     member do
       get :by_nfe
       get :output_house
+      get :new_input_box
       get :input_box
     end
   end
