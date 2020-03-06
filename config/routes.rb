@@ -33,6 +33,12 @@ Rails.application.routes.draw do
       get :new_input_house
       get :confirm_input_house
       get :input_house
+      get :switch_move_pallet
+    end
+    member do
+      get :by_nfe
+      get :output_house
+      get :input_box
     end
   end
   # match "/palletizing_pallets/query_pallet", :controller => "palletizing_pallets", :action => "query_pallet", via: [:get]

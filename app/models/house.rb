@@ -17,4 +17,9 @@ class House < ApplicationRecord
   def self.occupied_percent
     House.active.count * House.active.occuped.count / 100
   end
+
+  def address
+    ".#{self.floor.street.deposit.warehouse.name}.#{self.floor.street.deposit.name}.#{self.floor.street.name}.#{self.floor.name}.#{self.name}"    
+  end
+  
 end

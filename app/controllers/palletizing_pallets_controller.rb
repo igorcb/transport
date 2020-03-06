@@ -52,6 +52,31 @@ class PalletizingPalletsController < ApplicationController
     end
   end
 
+  def switch_move_pallet
+  end
+
+
+
+  # Outputing pallet of house anda inputing into box 
+  def by_nfe
+    @nfe_xml = NfeXml.where(numero: params[:id]).first
+    @pallets = PalletizingPallets::GetAllPalletsByNfeService.new(@nfe_xml.numero).call
+  end
+
+  def output_house
+    house = House.where(id: params[:id]).first
+    result = PalletizingPallets::OutputHouseService.new(house, current_user).call
+    flash_message(result)
+
+    redirect_to input_box_palletizing_pallet_path(result[:pallet])
+  end
+
+  def input_box
+    
+  end
+  
+  
+
   def new_output_box
     @action = output_box_palletizing_pallets_path
     @ean = params[:ean]
