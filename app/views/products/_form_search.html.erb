@@ -2,17 +2,17 @@
   <%= search_form_for @q, remote: true, url: search_products_path, :method => :get do |f| %>
     <div class="form-group">
       <%= f.label :cod_prod_eq, "Cod.Prod." %>
-      <%= f.search_field :cod_prod_eq, class: "form-control" %>  
+      <%= f.search_field :cod_prod_eq, class: "form-control" %>
     </div>
-    
+
     <div class="form-group">
       <%= f.label :ean_eq, "EAN" %>
-      <%= f.search_field :ean_eq, class: "form-control" %>  
+      <%= f.search_field :ean_eq, class: "form-control" %>
     </div>
 
     <div class="form-group">
       <%= f.label :descricao_cont, "Descricao" %>
-      <%= f.search_field :descricao_cont, class: "form-control", placeholder: "" %>  
+      <%= f.search_field :descricao_cont, class: "form-control", placeholder: "" %>
     </div>
 
     <div class="form-group">

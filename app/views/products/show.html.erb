@@ -13,24 +13,24 @@
 
           <div class="panel panel-default">
 
-            <div class="panel-body"> 
+            <div class="panel-body">
 
             <%= render 'data_product' %>
 
             </div>
           </div>
-        
+
         </div>
       </div>
     </div>
   </div>
 
-<!-- 
+<!--
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingSeven">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-          
+
         </a>
       </h4>
     </div>
@@ -42,11 +42,12 @@
     </div>
   </div> -->
 
-<!-- Fim collapse  --> 
+<!-- Fim collapse  -->
 </div>
 
 
 <div class="form-group">
   <%= link_to 'Editar', edit_product_path(@product), class: "btn btn-blue" %>
   <%= link_to 'Listar Todos',  products_path, class: "btn btn-default" %>
+  <%= link_to 'Pesquisar com EAN', search_ean_products_path, class: "btn btn-default" %>
 </div>

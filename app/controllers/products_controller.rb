@@ -83,6 +83,15 @@ class ProductsController < ApplicationController
     end
   end
 
+  # def form_search_ean
+  #   #code
+  # end
+
+  def search_ean
+    @products = params[:ean].present? ? Product.includes(:category).where(ean: params[:ean]) : Product.where(id: -1)
+    respond_with(@products)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
