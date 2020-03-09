@@ -1,6 +1,7 @@
 class PalletizingPallet < ApplicationRecord
   belongs_to :palletizing
   belongs_to :user
+  has_one :house, required: false
   has_many :palletizing_pallet_products, dependent: :destroy
   enum type_pallet: [:exclusive, :mixed, :leftover]
 
@@ -30,7 +31,5 @@ class PalletizingPallet < ApplicationRecord
 
   def target_client
     result = palletizing_pallet_products.select("DISTINCT nfe_xml_id").map{|p| "#{p.nfe_xml.target_client.fantasia} / #{p.nfe_xml.target_client.cidade}"}
-    #nfe_ids = 
-    #Client.where(id: [NfeXml.Where(id: [result]).pluck(:target_client_id)])
   end
 end

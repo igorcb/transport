@@ -1,0 +1,16 @@
+<h1>Armazenagem</h1>
+
+<%= link_to "voltar", addresses_houses_path,  class:"btn btn-default"%>
+<div class="list">
+    <h3>Casa</h3>
+
+    <%= show_line_build @house.floor.street.deposit.warehouse.name, "Armazém" %>
+    <%= show_line_build @house.floor.deposit.name, "Deposito" %>
+    <%= show_line_build @house.floor.street.name, "Rua" %>
+    <%= show_line_build @house.floor.name, "Andar" %>
+    <%= show_line_build @house.name, "Casa" %>
+
+    <h3>Palete</h3>
+
+    <%= render "palletizing_pallets/show" %>
+</div>

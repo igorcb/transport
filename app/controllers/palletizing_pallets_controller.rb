@@ -52,6 +52,78 @@ class PalletizingPalletsController < ApplicationController
     end
   end
 
+  def switch_move_pallet
+  end
+
+
+
+  # Outputing pallet of house anda inputing into box 
+  def by_nfe
+    @nfe_xml = NfeXml.where(numero: params[:id]).first
+    @pallets = PalletizingPallets::GetAllPalletsByNfeService.new(@nfe_xml.numero).call
+  end
+
+  def output_house
+    house = House.where(id: params[:id]).first
+    result = PalletizingPallets::OutputHouseService.new(house, current_user).call
+    flash_message(result)
+
+    redirect_to new_input_box_palletizing_pallet_path(result[:pallet])
+  end
+
+  def new_input_box
+    @pallet = PalletizingPallet.where(id: params[:id]).first
+  end
+
+  def input_box
+    @pallet = PalletizingPallet.where(id: params[:id]).first
+    result = PalletizingPallets::InputBoxService.new(@pallet, current_user).call
+    flash_message(result)
+
+    redirect_to oper_boardings_path
+  end
+  
+
+
+
+  def new_output_box
+    @action = output_box_palletizing_pallets_path
+    @ean = params[:ean]
+    @pallet = PalletizingPallet.where(number: @ean).first    
+  end
+
+  def output_box
+    pallet = PalletizingPallet.where(number: params[:ean]).first
+    result = PalletizingPallets::OutputBoxService.new(pallet, current_user).call
+    flash_message(result)
+    if result[:success]
+      redirect_to new_input_house_palletizing_pallets_path(pallet: params[:ean]) 
+    else
+      return redirect_to new_input_house_palletizing_pallets_path(pallet: params[:ean]) if result[:type] = "already_exists"
+      redirect_to new_output_box_palletizing_pallets_path(pallet: params[:ean]) 
+    end
+  end
+
+  def new_input_house
+    @pallet = PalletizingPallet.where(number: params[:pallet]).first 
+    if @pallet.house.present?
+      flash_message({success: false, message: "O palete ja está armazenado."})
+      redirect_to new_output_box_palletizing_pallets_path
+    end
+  end
+
+  def confirm_input_house
+  end
+
+  def input_house
+    house = House.where(id: params[:house_id]).first
+    pallet = PalletizingPallet.where(number: params[:pallet]).first
+    result = PalletizingPallets::InputInHouseService.new(house, pallet, current_user).call
+    flash_message(result)
+
+    redirect_to new_output_box_palletizing_pallets_path
+  end
+
 
   def destroy
     @palletizing.palletizing_pallets.where(id: params[:id]).destroy_all

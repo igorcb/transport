@@ -14,9 +14,14 @@
     <p class="menu-text">Paletização</p>
   <% end %>
 
-  <%= link_to palletizing_pallets_query_pallet_path do %>
+  <%= link_to query_pallet_palletizing_pallets_path do %>
     <i class="fas fa-search"></i>
     <p class="menu-text">Consultar Palete</p>
+  <% end %>
+
+  <%= link_to addresses_houses_path do %>
+    <i class="fas fa-table menu-icon"></i>
+    <p class="menu-text">Visualizar Endereços</p>
   <% end %>
 
   <%= link_to sup_boardings_path do %>

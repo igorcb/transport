@@ -5,6 +5,14 @@ class AddressesHousesController < ApplicationController
     # render layout: false
   end
 
+  def show
+    @house = House.where(id: params[:id]).first
+    @pallet = @house.palletizing_pallet
+    @palletizing = @pallet.palletizing
+    @input_control = @palletizing.input_control
+    @products = @pallet.products
+  end
+
   def houses
     if params[:deposit].present?
       @deposit = Deposit.find(params[:deposit])

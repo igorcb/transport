@@ -1,15 +1,4 @@
-<style>
-    #content-house .houses{
-      cursor: default;
-    }
-    
-    #content-house .houses.occuped{
-      cursor: pointer;
-    }
-</style>
-
-<div class="container-fluid">
-  <h1>Armazenagem</h1>
+<h1>Armazenagem</h1>
 <p>Escolha uma casa</p>
 <div id="app" class="container-fluid">
   <div class="row">
@@ -56,9 +45,6 @@
 
 </div>
 
-</div>
-
-
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 <script>
@@ -82,18 +68,19 @@ App = new Vue({
         clearInterval(interval);
         this.houses = null
       }
+
 		  axios
         .get('/addresses_houses/houses.json?deposit='+deposit)
         .then(response => (this.houses = response.data))
 		  }.bind(this), 500); 
     },
     house_click: function(id, occupied) {
-      if (occupied != "occuped") {
-        alert("Esta casa está desocupada.")
+      if (occupied == "occuped") {
+        alert("casa já está ocupada.")
         return false;
       }
-      window.location.href = "/addresses_houses/" + id
-
+      window.location.href = "/palletizing_pallets/confirm_input_house?house_id="+id+"&pallet=<%= @pallet.number %>"
+      
     }
 
   }

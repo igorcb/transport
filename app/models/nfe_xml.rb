@@ -24,7 +24,7 @@ class NfeXml < ActiveRecord::Base
 	belongs_to :carrier, required: false
 
   has_many :item_direct_charges, dependent: :delete_all
-	has_many :item_input_controls, dependent: :delete_all
+  has_many :item_input_controls, dependent: :delete_all
 
   scope :not_create_os, -> { where(create_os: TipoOsCriada::NAO) }
 	scope :is_not_input, -> { where(nfe_type: nil ) }

@@ -1,0 +1,35 @@
+<h1>Paletes da nota <%= @nfe_xml.numero %></h1>
+<p>selecione um palete na nota</p>
+
+
+<table class="table table-bordered table-striped">
+<thead>
+  <tr>
+  <th>Palete</th>
+  <th>Endereço</th>
+  <th>House</th>
+  <th></th>
+  </tr>
+</thead>
+<tbody>
+  <% @pallets.each do |pallet| %>
+    <% house = pallet.house %>
+    <tr>
+      <td>
+        <%= pallet.number %>
+      </td>
+      <td>
+        <%= house.address if house.present? %>
+      </td>
+      <td>
+        <%= house.name if house.present? %>
+      </td>
+      <td>
+        <%= link_to raw('<i class="fas fa-arrow-right"></i>'), output_house_palletizing_pallet_path(house) if house.present? %>
+      </td>
+    </tr>
+    
+  <% end %>
+</tbody>
+
+</table>
