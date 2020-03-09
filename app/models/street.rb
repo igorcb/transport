@@ -1,6 +1,6 @@
 class Street < ApplicationRecord
   belongs_to :deposit
-  has_many :floors
+  has_many :floors, dependent: :destroy
   delegate :warehouse, to: :deposit
 
   validates :deposit, presence: true
