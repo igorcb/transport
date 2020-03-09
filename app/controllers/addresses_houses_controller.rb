@@ -39,9 +39,9 @@ class AddressesHousesController < ApplicationController
 
   def generator
 
-    address = params[:address].to_unsafe_h
+    address = params.to_unsafe_h[:address]
 
-    Addressing::GeneratorService.new(address).call
+    result = Addressing::GeneratorService.new(address).call
     redirect_to "/addresses_houses", notice: 'Your generator was successfully updated.'
     # render inline: address.inspect
   end
