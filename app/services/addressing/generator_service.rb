@@ -10,12 +10,12 @@ module Addressing
       end
 
       # puts params.inspect
-      @deposit = Deposit.where(id: params[:deposit_id]).first
-      @initStreet = params[:initStreet].present? ? params[:initStreet] : 0
-      @endStreet = params[:endStreet].present? ? params[:endStreet] : 0
-      @maxFloor = params[:maxFloor].present? ? params[:maxFloor] : 0
-      @maxHouse = params[:maxHouse].present? ? params[:maxHouse] : 0
-      @spaceHouse = params[:spaceHouse].present? ? params[:spaceHouse] : 0
+      @deposit = Deposit.where(id: params["deposit_id]").first
+      @initStreet = params["initStreet"].present? ? params["initStreet"] : 0
+      @endStreet = params["endStreet"].present? ? params["endStreet"] : 0
+      @maxFloor = params["maxFloor"].present? ? params["maxFloor"] : 0
+      @maxHouse = params["maxHouse"].present? ? params["maxHouse"] : 0
+      @spaceHouse = params["spaceHouse"].present? ? params["spaceHouse"] : 0
     end
 
     def call
