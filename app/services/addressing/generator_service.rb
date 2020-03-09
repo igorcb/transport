@@ -10,7 +10,7 @@ module Addressing
       end
 
       # puts params.inspect
-      @deposit = Deposit.where(id: params["deposit_id]").first
+      @deposit = Deposit.where(id: params["deposit_id"]).first
       @initStreet = params["initStreet"].present? ? params["initStreet"] : 0
       @endStreet = params["endStreet"].present? ? params["endStreet"] : 0
       @maxFloor = params["maxFloor"].present? ? params["maxFloor"] : 0
