@@ -22,9 +22,9 @@
     <div class="form-group col-md-6">
       <%= label_tag :deposit %>
       <template v-if="deposit_list.length > 0">
-        <select name="deposit" v-model="deposit_select" class="form-control"  v-for="deposit in deposit_list" v-on:change="show_house()">
+        <select name="deposit" v-model="deposit_select" class="form-control" v-on:change="show_house()">
           <option></option>
-          <option :value="deposit.id">{{ deposit.n }}</option>
+          <option v-for="deposit in deposit_list" :value="deposit.id">{{ deposit.n }}</option>
         </select>
       </template>
       <template v-else>
