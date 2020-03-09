@@ -25,7 +25,7 @@ module Addressing
       return {success: false, message: "initStreet can not great than endStreet."} if (@initStreet.to_i > @endStreet.to_i )
       return {success: false, message: "maxFloor are zero."} if (@maxFloor.zero?)
       return {success: false, message: "maxHouse are zero."} if (@maxHouse.zero?)
-      return {success: false, message: "spaceHouse are empty."} if (@spaceHouse.zero?)
+      # return {success: false, message: "spaceHouse are empty."} if (@spaceHouse.zero?)
 
       begin
         ActiveRecord::Base.transaction do

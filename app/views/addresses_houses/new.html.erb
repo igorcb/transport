@@ -1,16 +1,26 @@
-<div class="container-fluid">
+<div id="app" class="container-fluid">
   <h1>Generator</h1>
   <%= form_tag("/addresses_houses/generator") do %>
     <div class="row">
       <div class="form_group col-md-6">
         <%= label_tag :warehouse %>
-        <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name"),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
+        <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name"),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select", "v-on:change": "do_deposit_list()"} %>
       </div>
     </div>
     <div class="row">
       <div class="form-group col-md-6">
-        <%= label_tag "Galpão" %>
-        <%= select_tag "address[deposit_id]", [],  {disabled: true, class: "form-control", id: "deposit-select"} %>
+        <%= label_tag :deposit %>
+        <template v-if="deposit_list.length > 0">
+          <select name="address[deposit_id]" v-model="deposit_select" class="form-control">
+            <option></option>
+            <option v-for="deposit in deposit_list" :value="deposit.id">{{ deposit.n }}</option>
+          </select>
+        </template>
+        <template v-else>
+          <select name="deposit" class="form-control" disabled="false'">
+          </select>
+        </template>
+        <%#= select_tag "deposit", [],  {disabled: true, class: "form-control", id: "deposit-select"} %>
       </div>
     </div>
     <div class="row">
@@ -46,3 +56,24 @@
     </div>
   <% end %>
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script>
+App = new Vue({
+  el: '#app',
+  data: {
+      deposit_list: []
+  },
+  methods: {
+    do_deposit_list: function() {
+      warehouse = document.querySelector('#warehouse-select').value
+      axios
+        .get('/deposits/get_deposits_by_warehouse?warehouse='+warehouse)
+        .then(response => (this.deposit_list = response.data))
+    }
+  }
+
+})
+</script>

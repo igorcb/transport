@@ -39,7 +39,7 @@ class AddressesHousesController < ApplicationController
 
   def generator
 
-    address = params[:address].to_unsafe_h
+    address = params.to_unsafe_h[:address]
 
     @result = Addressing::GeneratorService.new(address).call
     if @result[:success]
@@ -47,12 +47,7 @@ class AddressesHousesController < ApplicationController
     else
       redirect_to new_addresses_house_path, flash: { danger: @result[:message] }
     end
-     #redirect_to houses_addresses_houses_path flash_message(@result)
 
-    #redirect_to boarding_url(@boarding_item.boarding), flash: { success: "Status update successfully..." }
-
-    #redirect_to "/addresses_houses", notice: 'Your generator was successfully updated.'
-    # render inline: address.inspect
   end
 
 end
