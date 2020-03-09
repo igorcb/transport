@@ -1,5 +1,5 @@
 class AddressesHousesController < ApplicationController
-
+  respond_to :html
 
   def index
     # render layout: false
@@ -41,8 +41,17 @@ class AddressesHousesController < ApplicationController
 
     address = params[:address].to_unsafe_h
 
-    Addressing::GeneratorService.new(address).call
-    redirect_to "/addresses_houses", notice: 'Your generator was successfully updated.'
+    @result = Addressing::GeneratorService.new(address).call
+    if @result[:success]
+      redirect_to new_addresses_house_path, flash: { success: @result[:message] }
+    else
+      redirect_to new_addresses_house_path, flash: { danger: @result[:message] }
+    end
+     #redirect_to houses_addresses_houses_path flash_message(@result)
+
+    #redirect_to boarding_url(@boarding_item.boarding), flash: { success: "Status update successfully..." }
+
+    #redirect_to "/addresses_houses", notice: 'Your generator was successfully updated.'
     # render inline: address.inspect
   end
 
