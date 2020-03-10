@@ -3,7 +3,7 @@ module Addressing
   class GeneratorService
 
     def initialize(params={})
-      # byebug
+      # byebug 
       # converte Hash
       params.each do |key, value|
         params[key.to_sym] = value.to_i

@@ -41,9 +41,13 @@ class AddressesHousesController < ApplicationController
 
     address = params.to_unsafe_h[:address]
 
-    result = Addressing::GeneratorService.new(address).call
-    redirect_to "/addresses_houses", notice: 'Your generator was successfully updated.'
-    # render inline: address.inspect
+    @result = Addressing::GeneratorService.new(address).call
+    if @result[:success]
+      redirect_to new_addresses_house_path, flash: { success: @result[:message] }
+    else
+      redirect_to new_addresses_house_path, flash: { danger: @result[:message] }
+    end
+
   end
 
 end
