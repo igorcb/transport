@@ -8,6 +8,7 @@ class AddAvariaToInputControl < ActiveRecord::Migration[5.1]
   # end
 
   def self.up
+      add_column :input_controls, :avaria, :boolean
       add_column :input_controls, :date_start_avaria, :date
       add_column :input_controls, :date_finish_avaria, :date
       add_column :input_controls, :time_start_avaria, :time
