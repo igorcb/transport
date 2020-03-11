@@ -159,14 +159,6 @@ class InputControl < ActiveRecord::Base
     end
   end
 
-  def palletized_status
-    case self.palletized
-      when false then "Nao"
-      when true then "Sim"
-      else "Nao Informado"
-    end
-  end
-
   def status_name
     case self.status
       when 0 then "Aberto"
@@ -693,12 +685,20 @@ class InputControl < ActiveRecord::Base
   end
 
   def palletizing_status?
+    false
     if palletizing.present?
       (palletizing.status == "started") ? false : true
-    else
-      false
     end
   end
+
+  def palletized_status
+    case self.palletized
+      when false then "Nao"
+      when true then "Sim"
+      else "Nao Informado"
+    end
+  end
+
 
 #  private
     def get_number_nfe_xmls
