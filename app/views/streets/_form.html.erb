@@ -1,14 +1,13 @@
 <%= form_with(model: street, local: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-
   <div class="row">
     <div class="form_group col-md-6">
       <%= f.label :warehouse %>
       <% if @street.new_record? %>
         <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name"),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
       <% else %>
-        <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name", @floor.warehouse.id),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
+        <%= select_tag "warehouse", options_from_collection_for_select(Warehouse.all, "id", "name", @street.deposit.warehouse.id),  {include_blank: "Escolha seu armazém", class: "form-control", id: "warehouse-select"} %>
       <% end %>
     </div>
   </div>
