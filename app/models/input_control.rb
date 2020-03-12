@@ -3,6 +3,7 @@ class InputControl < ActiveRecord::Base
 
   validates :carrier_id, :driver_id, presence: true
 	validates :place, :place_horse, :place_cart, :date_entry, :time_entry, presence: true
+  validates :driver_id, uniqueness: { scope: :date_entry,  }, allow_blank: true
 
   belongs_to :carrier, required: false
   belongs_to :driver, required: false
@@ -419,6 +420,7 @@ class InputControl < ActiveRecord::Base
 
   def carrier_credentials?
     carrier_default = Carrier.where(cnpj: Company.first.cnpj).first
+    return {success: false, message: "Shold a have Carrier CNPJ equal Company CNPJ"}
     return carrier_default.credentials.where(carrier_credential: self.carrier).present?
   end
 
