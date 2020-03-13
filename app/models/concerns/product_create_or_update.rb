@@ -25,7 +25,7 @@ module ProductCreateOrUpdate
                                       ncm: prod.NCM,
                                      cfop: prod.CFOP,
                               unid_medida: prod.uCom,
-                           valor_unitario: prod.vUnTrib).find_or_create_by(cod_prod: prod.cProd)
+                           valor_unitario: prod.vUnTrib).find_or_create_by(ean: prod.cEAN)
 
         produto.save!
 
